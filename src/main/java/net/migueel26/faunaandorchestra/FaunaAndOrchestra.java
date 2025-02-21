@@ -1,5 +1,7 @@
 package net.migueel26.faunaandorchestra;
 
+import net.migueel26.faunaandorchestra.item.ModCreativeModeTabs;
+import net.migueel26.faunaandorchestra.item.ModItems;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -38,6 +40,9 @@ public class FaunaAndOrchestra {
         modEventBus.addListener(this::addCreative);
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+
+        ModItems.register(modEventBus);
+        ModCreativeModeTabs.register(modEventBus);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
