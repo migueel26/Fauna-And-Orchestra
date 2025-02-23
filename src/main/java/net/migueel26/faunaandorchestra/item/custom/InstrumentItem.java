@@ -8,6 +8,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -29,19 +30,20 @@ public class InstrumentItem extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
-        //TODO: THE SOUND ONLY GETS PLAYED WHEN THE PLAYER DOESNT CLICK A MUSICAL ENTITY
-            if (!level.isClientSide()) {
-                level.playSound(
-                        null,
-                        player.getX(), player.getY(), player.getZ(),
-                        sound, SoundSource.NEUTRAL,
-                        0.5F,
-                        0.4F / (0.5F + level.getRandom().nextFloat())
-                );
-                player.getCooldowns().addCooldown(this, 20);
-            }
+        if (this.calculateHitResult(player).getType() != HitResult.Type.ENTITY) {
+            level.playSound(
+                    null,
+                    player.getX(), player.getY(), player.getZ(),
+                    sound, SoundSource.NEUTRAL,
+                    0.5F,
+                    0.4F / (0.5F + level.getRandom().nextFloat())
+            );
+            player.getCooldowns().addCooldown(this, 20);
 
-        return InteractionResultHolder.success(itemStack);
+            return InteractionResultHolder.consume(itemStack);
+        } else {
+            return InteractionResultHolder.fail(itemStack);
+        }
     }
 
     @Override
@@ -49,7 +51,13 @@ public class InstrumentItem extends Item {
         tooltipComponents.add(Component.translatable("tooltip." + stack.getItem() + ".tooltip"));
         super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
     }
-
+    
+    private HitResult calculateHitResult(Player player) {
+        return ProjectileUtil.getHitResultOnViewVector(
+                player, entity -> !entity.isSpectator() && entity.isPickable(), player.blockInteractionRange()
+        );
+    }
+    
     public SoundEvent getSound() {
         return sound;
     }
