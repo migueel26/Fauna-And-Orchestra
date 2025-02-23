@@ -51,13 +51,13 @@ public class InstrumentItem extends Item {
         tooltipComponents.add(Component.translatable("tooltip." + stack.getItem() + ".tooltip"));
         super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
     }
-
+    
     private HitResult calculateHitResult(Player player) {
         return ProjectileUtil.getHitResultOnViewVector(
                 player, entity -> !entity.isSpectator() && entity.isPickable(), player.blockInteractionRange()
         );
     }
-
+    
     public SoundEvent getSound() {
         return sound;
     }
