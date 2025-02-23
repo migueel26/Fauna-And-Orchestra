@@ -1,7 +1,11 @@
 package net.migueel26.faunaandorchestra;
 
+import net.migueel26.faunaandorchestra.client.entity.MantisRenderer;
+import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.item.ModCreativeModeTabs;
 import net.migueel26.faunaandorchestra.item.ModItems;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -43,6 +47,7 @@ public class FaunaAndOrchestra {
 
         ModItems.register(modEventBus);
         ModCreativeModeTabs.register(modEventBus);
+        ModEntities.register(modEventBus);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
@@ -65,7 +70,7 @@ public class FaunaAndOrchestra {
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
-
+            EntityRenderers.register(ModEntities.MANTIS.get(), MantisRenderer::new);
         }
     }
 }
