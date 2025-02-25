@@ -13,11 +13,11 @@ import software.bernie.geckolib.model.data.EntityModelData;
 public class MantisModel extends GeoModel<MantisEntity> {
     private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/mantis.png");
     private static final ResourceLocation ANIMATIONS = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "animations/entity/mantis.animation.json");
-    private static final ResourceLocation PLAYING_MANTIS = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "geo/entity/playing_mantis.geo.json");
+    private static final ResourceLocation MODEL = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "geo/entity/mantis.geo.json");
 
     @Override
     public ResourceLocation getModelResource(MantisEntity mantis) {
-        return PLAYING_MANTIS;
+        return MODEL;
     }
 
     @Override
