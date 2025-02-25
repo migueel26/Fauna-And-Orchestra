@@ -4,7 +4,7 @@ import net.migueel26.faunaandorchestra.client.entity.MantisRenderer;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.item.ModCreativeModeTabs;
 import net.migueel26.faunaandorchestra.item.ModItems;
-import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import org.slf4j.Logger;
 
@@ -48,6 +48,7 @@ public class FaunaAndOrchestra {
         ModItems.register(modEventBus);
         ModCreativeModeTabs.register(modEventBus);
         ModEntities.register(modEventBus);
+        ModSounds.register(modEventBus);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

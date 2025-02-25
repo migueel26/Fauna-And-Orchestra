@@ -1,6 +1,9 @@
 {
   "creativetab.faunaandorchestra.fauna_and_orchestra": "Fauna & Orchestra",
-  "entity.mccourse.mantis": "Mantis",
 
-  "tooltip.faunaandorchestra:example.tooltip": "Example Text"
+  "item.faunaandorchestra.violin": "Violin",
+
+  "tooltip.faunaandorchestra:violin.tooltip": "This instrument seems to capture the attention of some... §odevout§r insects",
+
+  "entity.mccourse.mantis": "Mantis"
 }

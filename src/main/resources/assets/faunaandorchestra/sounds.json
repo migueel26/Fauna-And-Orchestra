@@ -1,0 +1,26 @@
+{
+  "violin_use": {
+    "subtitles": "sounds.faunaandorchestra.violin_use",
+    "sounds": [
+      "faunaandorchestra:sfx/violin"
+    ]
+  },
+  "double_bass_use": {
+    "subtitles": "sounds.faunaandorchestra.double_bass_use",
+    "sounds": [
+      "faunaandorchestra:sfx/double_bass"
+    ]
+  },
+  "flute_use": {
+    "subtitles": "sounds.faunaandorchestra.flute_use",
+    "sounds": [
+      "faunaandorchestra:sfx/flute"
+    ]
+  },
+  "keyboard_use": {
+    "subtitles": "sounds.faunaandorchestra.keyboard_use",
+    "sounds": [
+      "faunaandorchestra:sfx/keyboard"
+    ]
+  }
+}

@@ -8,7 +8,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import org.checkerframework.checker.units.qual.C;
 
 import java.util.function.Supplier;
 
@@ -20,7 +19,7 @@ public class ModCreativeModeTabs {
             () -> CreativeModeTab.builder().icon(() -> new ItemStack(Items.LILY_PAD))
                     .title(Component.literal("Fauna and Orchestra"))
                     .displayItems((itemDisplayParameters, output) -> {
-                        output.accept(Items.LILY_PAD);
+                        output.accept(ModItems.VIOLIN);
                     }).build());
 
     public static void register(IEventBus eventBus) {
