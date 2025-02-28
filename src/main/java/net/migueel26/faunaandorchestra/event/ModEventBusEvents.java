@@ -2,6 +2,7 @@ package net.migueel26.faunaandorchestra.event;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
+import net.migueel26.faunaandorchestra.entity.custom.ConductorEntity;
 import net.migueel26.faunaandorchestra.entity.custom.MantisEntity;
 import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.animal.Animal;
@@ -17,5 +18,6 @@ public class ModEventBusEvents {
     @SubscribeEvent
     public static void registerAttributes(EntityAttributeCreationEvent event) {
         event.put(ModEntities.MANTIS.get(), MantisEntity.createAttributes().build());
+        event.put(ModEntities.CONDUCTOR.get(), ConductorEntity.createAttributes().build());
     }
 }

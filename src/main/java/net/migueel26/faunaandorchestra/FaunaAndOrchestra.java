@@ -1,5 +1,6 @@
 package net.migueel26.faunaandorchestra;
 
+import net.migueel26.faunaandorchestra.client.entity.ConductorRenderer;
 import net.migueel26.faunaandorchestra.client.entity.MantisRenderer;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.item.ModCreativeModeTabs;
@@ -72,6 +73,7 @@ public class FaunaAndOrchestra {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
             EntityRenderers.register(ModEntities.MANTIS.get(), MantisRenderer::new);
+            EntityRenderers.register(ModEntities.CONDUCTOR.get(), ConductorRenderer::new);
         }
     }
 }

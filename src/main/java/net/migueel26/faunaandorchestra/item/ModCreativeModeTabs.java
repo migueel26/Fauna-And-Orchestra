@@ -20,6 +20,7 @@ public class ModCreativeModeTabs {
                     .title(Component.literal("Fauna and Orchestra"))
                     .displayItems((itemDisplayParameters, output) -> {
                         output.accept(ModItems.VIOLIN);
+                        output.accept(ModItems.MANTIS_SPAWN_EGG);
                     }).build());
 
     public static void register(IEventBus eventBus) {

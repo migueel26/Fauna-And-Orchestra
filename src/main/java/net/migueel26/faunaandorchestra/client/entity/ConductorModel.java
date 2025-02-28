@@ -1,6 +1,7 @@
 package net.migueel26.faunaandorchestra.client.entity;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
+import net.migueel26.faunaandorchestra.entity.custom.ConductorEntity;
 import net.migueel26.faunaandorchestra.entity.custom.MantisEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -10,28 +11,28 @@ import software.bernie.geckolib.constant.DataTickets;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
-public class MantisModel extends GeoModel<MantisEntity> {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/mantis.png");
+public class ConductorModel extends GeoModel<ConductorEntity> {
+    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/placeholder.png");
     private static final ResourceLocation ANIMATIONS = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "animations/entity/mantis.animation.json");
     private static final ResourceLocation MODEL = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "geo/entity/mantis.geo.json");
 
     @Override
-    public ResourceLocation getModelResource(MantisEntity mantis) {
+    public ResourceLocation getModelResource(ConductorEntity conductor) {
         return MODEL;
     }
 
     @Override
-    public ResourceLocation getTextureResource(MantisEntity animatable) {
+    public ResourceLocation getTextureResource(ConductorEntity animatable) {
         return TEXTURE;
     }
 
     @Override
-    public ResourceLocation getAnimationResource(MantisEntity animatable) {
+    public ResourceLocation getAnimationResource(ConductorEntity animatable) {
         return ANIMATIONS;
     }
 
     @Override
-    public void setCustomAnimations(MantisEntity mantis, long instanceId, AnimationState<MantisEntity> animationState) {
+    public void setCustomAnimations(ConductorEntity conductor, long instanceId, AnimationState<ConductorEntity> animationState) {
         GeoBone head = getAnimationProcessor().getBone("head");
 
         if (head != null) {
@@ -46,15 +47,7 @@ public class MantisModel extends GeoModel<MantisEntity> {
         GeoBone violin = getAnimationProcessor().getBone("violin");
         GeoBone bow = getAnimationProcessor().getBone("bow");
 
-        if (mantis.isAngry()) {
-            left_pupil.setHidden(true);
-            right_pupil.setHidden(true);
-        } else {
-            left_pupil.setHidden(false);
-            right_pupil.setHidden(false);
-        }
-
-        if (mantis.isPlayingInstrument()) {
+        if (conductor.isConducting()) {
             violin.setHidden(false);
             bow.setHidden(false);
         } else {
