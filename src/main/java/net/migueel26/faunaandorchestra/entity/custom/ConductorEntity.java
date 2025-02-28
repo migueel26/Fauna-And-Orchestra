@@ -125,6 +125,10 @@ public class ConductorEntity extends Animal implements GeoEntity {
         return isConducting;
     }
 
+    public Set<MantisEntity> getOrchestra() {
+        return orchestra;
+    }
+
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "conductor_controller", 5, this::conductorState));

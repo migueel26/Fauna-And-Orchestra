@@ -1,6 +1,6 @@
 package net.migueel26.faunaandorchestra.item.custom;
 
-import net.migueel26.faunaandorchestra.entity.custom.MantisEntity;
+import net.migueel26.faunaandorchestra.entity.custom.MusicalEntity;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;
@@ -48,8 +48,8 @@ public class InstrumentItem extends Item {
 
             List<Entity> entities = level.getEntities(player, player.getBoundingBox().inflate(10));
             for (Entity entity : entities) {
-                if (entity instanceof MantisEntity mantis && mantis.isMusical() && !mantis.isTame()) {
-                    mantis.tryToTame(player);
+                if (entity instanceof MusicalEntity musicalEntity && musicalEntity.isMusical() && !musicalEntity.isTame()) {
+                    musicalEntity.tryToTame(player);
                 }
             }
 
