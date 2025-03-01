@@ -17,7 +17,7 @@ public class MantisRenderer extends GeoEntityRenderer<MantisEntity> {
     @Override
     public void renderRecursively(PoseStack poseStack, MantisEntity mantis, GeoBone bone, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, int colour) {
         if (bone.getName().equals("bow") || bone.getName().equals("violin")) {
-            if(!mantis.isPlayingInstrument() || mantis.isAngry()) {
+            if(!mantis.isHoldingInstrument() || mantis.isAngry()) {
                 bone.setHidden(true);
             }
         }

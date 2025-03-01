@@ -2,7 +2,6 @@ package net.migueel26.faunaandorchestra.client.entity;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.entity.custom.ConductorEntity;
-import net.migueel26.faunaandorchestra.entity.custom.MantisEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import software.bernie.geckolib.animation.AnimationState;
@@ -47,7 +46,7 @@ public class ConductorModel extends GeoModel<ConductorEntity> {
         GeoBone violin = getAnimationProcessor().getBone("violin");
         GeoBone bow = getAnimationProcessor().getBone("bow");
 
-        if (conductor.isConducting()) {
+        if (conductor.isHoldingBaton()) {
             violin.setHidden(false);
             bow.setHidden(false);
         } else {

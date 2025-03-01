@@ -54,7 +54,7 @@ public class MantisModel extends GeoModel<MantisEntity> {
             right_pupil.setHidden(false);
         }
 
-        if (mantis.isPlayingInstrument()) {
+        if (mantis.isHoldingInstrument()) {
             violin.setHidden(false);
             bow.setHidden(false);
         } else {

@@ -1,5 +1,6 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
+import net.migueel26.faunaandorchestra.entity.goals.MusicalEntityPlayingInstrumentGoal;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
@@ -73,6 +74,7 @@ public class MantisEntity extends MusicalEntity implements GeoEntity, NeutralMob
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(0, new TamableAnimalPanicGoal(1.0, DamageTypeTags.PANIC_ENVIRONMENTAL_CAUSES));
         //TODO: PLAYING INSTRUMENT GOAL WITH PRIORITY 1
+        this.goalSelector.addGoal(1, new MusicalEntityPlayingInstrumentGoal(this));
         this.goalSelector.addGoal(2, new HurtByTargetGoal(this).setAlertOthers());
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, true, this::isAngryAt));
         this.goalSelector.addGoal(4, new MeleeAttackGoal(this, 1.25D, false));
@@ -86,7 +88,7 @@ public class MantisEntity extends MusicalEntity implements GeoEntity, NeutralMob
         if (state.isMoving()) {
             state.getController().transitionLength(5);
             state.getController().setAnimation(WALK);
-        } else if (isPlayingInstrument()) {
+        } else if (conductor != null) {
             state.getController().transitionLength(0);
             state.getController().setAnimation(PLAYING);
         } else {
@@ -127,11 +129,6 @@ public class MantisEntity extends MusicalEntity implements GeoEntity, NeutralMob
         } else {
             return NeutralMob.super.isAngryAt(target);
         }
-    }
-
-    @Override
-    public void tick() {
-        super.tick();
     }
 
     @Override
