@@ -22,5 +22,11 @@
     "sounds": [
       "faunaandorchestra:sfx/keyboard"
     ]
+  },
+  "bach_air_violin": {
+    "subtitles": "sounds.faunaandorchestra.bach_air_violin",
+    "sounds": [
+      "faunaandorchestra:music/bach_air_violin"
+    ]
   }
 }

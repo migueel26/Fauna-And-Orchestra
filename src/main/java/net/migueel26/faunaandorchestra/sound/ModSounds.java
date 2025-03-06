@@ -13,9 +13,11 @@ public class ModSounds {
     public static final DeferredRegister<SoundEvent> SOUND_EVENTS =
             DeferredRegister.create(BuiltInRegistries.SOUND_EVENT, FaunaAndOrchestra.MOD_ID);
 
-    public static final Supplier<SoundEvent> VIOLIN_USE = registerSFX("violin_use");
+    public static final Supplier<SoundEvent> VIOLIN_USE = registerSoundEvent("violin_use");
 
-    private static Supplier<SoundEvent> registerSFX(String name) {
+    public static final Supplier<SoundEvent> BACH_AIR_VIOLIN = registerSoundEvent("bach_air_violin");
+
+    private static Supplier<SoundEvent> registerSoundEvent(String name) {
         ResourceLocation path = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, name);
         return SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(path));
     }
