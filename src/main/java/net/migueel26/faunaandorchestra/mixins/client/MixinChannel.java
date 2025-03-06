@@ -51,7 +51,6 @@ public class MixinChannel implements IChannelMixin {
     public void faunaSetTickOffset(SoundInstance soundInstance, SoundBuffer soundBuffer, Integer offset) {
         OptionalInt bufferID = ((SoundBufferAccessor) soundBuffer).callGetAlBuffer();
         if (bufferID.isEmpty()) return;
-
         AL10.alSourcei(this.source, AL10.AL_BUFFER, bufferID.getAsInt());
 
         // READ THE FREQUENCIES OF THE SOUND
@@ -71,8 +70,8 @@ public class MixinChannel implements IChannelMixin {
 
         // Attach the source id to the sound instance.
         // This is so that other sounds can grab the byte offset from this sound when they start.
-        if (soundInstance instanceof InstrumentSoundInstance ribbitInstrumentSoundInstance) {
-            ribbitInstrumentSoundInstance.setSourceID(source);
+        if (soundInstance instanceof InstrumentSoundInstance instrumentSoundInstance) {
+            instrumentSoundInstance.setSourceID(source);
         }
     }
 

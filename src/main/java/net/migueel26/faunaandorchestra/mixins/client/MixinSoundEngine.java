@@ -47,46 +47,38 @@ public class MixinSoundEngine implements ISoundEngineMixin {
                                             ResourceLocation $$2x, Sound sound, float $$4x, float $$5x, SoundSource soundSource,
                                             float $$7x, float $$8x, SoundInstance.Attenuation attenuation, boolean $$10x,
                                             Vec3 $$11x, boolean $$14, boolean $$15, CompletableFuture $$16, ChannelAccess.ChannelHandle channelaccess$channelhandle) {
-        if (soundInstance instanceof InstrumentSoundInstance) {
-            System.out.println("Gotten here!");
-            this.playInstrument(soundInstance, channelaccess$channelhandle);
+        if (soundInstance instanceof InstrumentSoundInstance instrumentSoundInstance) {
+            this.playInstrument(instrumentSoundInstance, channelaccess$channelhandle);
             ci.cancel();
         }
     }
 
     @Unique
     @SuppressWarnings({"unchecked", "rawtypes"})
-    private void playInstrument(SoundInstance soundInstance, ChannelAccess.ChannelHandle channelAccess) {
+    private void playInstrument(InstrumentSoundInstance soundInstance, ChannelAccess.ChannelHandle channelAccess) {
+        Sound sound = soundInstance.getSound();
         // ATTACH OUR OWN STATIC BUFFER WITH THE BYTE OFFSET
-        if (((InstrumentSoundInstance) soundInstance).getTicksOffset() != null) {
-            Optional<Integer> sourceOffset = tickingSounds.stream().filter(InstrumentSoundInstance.class::isInstance)
-                    .map(sound -> ((InstrumentSoundInstance) sound).getSourceID()).findAny();
-            System.out.println("And here!");
-            if (sourceOffset.isPresent()) {
-                this.soundBuffers.getCompleteBuffer(soundInstance.getSound().getPath())
-                        .thenAccept(soundBuffer -> channelAccess.execute(
-                                channel -> {
-                                    ((IChannelMixin) channel).faunaSetByteOffset(soundInstance, soundBuffer, sourceOffset.get());
-                                    channel.play();
-                                }));
-            } else {
-                // HAS NOT STARTED (it was not found)
-                this.soundBuffers.getCompleteBuffer(soundInstance.getSound().getPath())
-                        .thenAccept(soundBuffer -> channelAccess.execute(
-                                channel -> {
-                                    ((IChannelMixin) channel).faunaSetTickOffset(soundInstance, soundBuffer, 0);
-                                    channel.play();
-                                }));
-            }
-        } else {
-            this.soundBuffers.getCompleteBuffer(soundInstance.getSound().getPath())
-                    .thenAccept(soundBuffer -> channelAccess.execute(
-                            channel -> {
-                                ((IChannelMixin) channel).faunaSetTickOffset(soundInstance, soundBuffer, ((InstrumentSoundInstance) soundInstance).getTicksOffset());
-                                channel.play();
-                            }));
-        }
-        this.tickingSounds.add((TickableSoundInstance) soundInstance);
+        this.soundBuffers.getCompleteBuffer(sound.getPath()).thenAccept((soundBuffer -> {
+            channelAccess.execute(channel -> {
+
+                if (soundInstance.getTicksOffset() == null) {
+                    Optional<Integer> sourceOffset = tickingSounds.stream().filter(InstrumentSoundInstance.class::isInstance)
+                            .map(soundInst -> ((InstrumentSoundInstance) soundInst).getSourceID()).findAny();
+                    System.out.println("And here!");
+
+                    if (sourceOffset.isPresent()) {
+                        ((IChannelMixin) channel).faunaSetByteOffset(soundInstance, soundBuffer, sourceOffset.get());
+                    } else {
+                        ((IChannelMixin) channel).faunaSetTickOffset(soundInstance, soundBuffer, 0);
+                    }
+                } else {
+                        ((IChannelMixin) channel).faunaSetTickOffset(soundInstance, soundBuffer, soundInstance.getTicksOffset());
+                }
+                channel.play();
+            });
+        }));
+
+        this.tickingSounds.add(soundInstance);
     }
 
     @Override

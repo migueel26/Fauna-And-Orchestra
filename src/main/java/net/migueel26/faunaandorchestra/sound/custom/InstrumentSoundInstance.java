@@ -16,6 +16,7 @@ public class InstrumentSoundInstance extends AbstractTickableSoundInstance {
         this.ticksOffset = ticksOffset;
         this.entity = entity;
         this.looping = true;
+        this.attenuation = Attenuation.LINEAR;
         this.delay = 0;
         this.volume = 2.0F;
         this.relative = true;
@@ -23,9 +24,6 @@ public class InstrumentSoundInstance extends AbstractTickableSoundInstance {
 
     @Override
     public void tick() {
-        if (entity.isRemoved() || entity.getConductor() == null || !entity.isHoldingInstrument()) {
-            stop();
-        }
     }
 
     public void stopSound() {
