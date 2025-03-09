@@ -119,7 +119,6 @@ public class ConductorEntity extends Animal implements GeoEntity {
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         setHoldingBaton(!isHoldingBaton());
-        orchestra.clear();
         return InteractionResult.SUCCESS;
     }
 
