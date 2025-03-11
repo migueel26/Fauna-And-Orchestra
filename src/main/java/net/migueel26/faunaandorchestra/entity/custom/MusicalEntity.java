@@ -175,6 +175,11 @@ public abstract class MusicalEntity extends TamableAnimal {
         return conductor;
     }
 
+    @Override
+    public boolean shouldTryTeleportToOwner() {
+        return false;
+    }
+
     public void setConductor(ConductorEntity conductor) {
         if (conductor == null) {
             this.entityData.set(CONDUCTOR_ID, Optional.empty());
