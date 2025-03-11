@@ -34,7 +34,7 @@ public class MantisModel extends GeoModel<MantisEntity> {
     public void setCustomAnimations(MantisEntity mantis, long instanceId, AnimationState<MantisEntity> animationState) {
         GeoBone head = getAnimationProcessor().getBone("head");
 
-        if (head != null) {
+        if (head != null && !mantis.isPlayingInstrument()) {
             EntityModelData entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
 
             head.setRotX(entityData.headPitch() * Mth.DEG_TO_RAD);
