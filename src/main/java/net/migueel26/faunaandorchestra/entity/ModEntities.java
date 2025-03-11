@@ -3,6 +3,7 @@ package net.migueel26.faunaandorchestra.entity;
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.entity.custom.ConductorEntity;
 import net.migueel26.faunaandorchestra.entity.custom.MantisEntity;
+import net.migueel26.faunaandorchestra.entity.custom.PenguinEntity;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.Entity;
@@ -21,6 +22,8 @@ public class ModEntities {
             () -> EntityType.Builder.of(MantisEntity::new, MobCategory.CREATURE).sized(1f, 2f).build("mantis"));
     public  static final Supplier<EntityType<ConductorEntity>> CONDUCTOR = ENTITY_TYPES.register("conductor",
             () -> EntityType.Builder.of(ConductorEntity::new, MobCategory.CREATURE).sized(1f, 2f).build("conductor"));
+    public static final Supplier<EntityType<PenguinEntity>> PENGUIN = ENTITY_TYPES.register("penguin",
+            () -> EntityType.Builder.of(PenguinEntity::new, MobCategory.CREATURE).sized(1f, 1f).build("penguin"));
 
     public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);
