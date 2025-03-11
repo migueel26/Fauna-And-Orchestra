@@ -16,6 +16,9 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -42,6 +45,8 @@ public abstract class MusicalEntity extends TamableAnimal {
         super(entityType, level);
         this.instrument = getInstrument();
         this.conductor = null;
+
+        updateGoals();
     }
 
     protected abstract DeferredItem<Item> getInstrument();
@@ -87,6 +92,7 @@ public abstract class MusicalEntity extends TamableAnimal {
         if (!this.level().isClientSide) {
             if (isHoldingInstrument() && isTame()) {
                 setHoldingInstrument(false);
+                setInSittingPose(false);
                 this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(),
                         new ItemStack((Holder<Item>) instrument, 1)));
             }
@@ -103,12 +109,14 @@ public abstract class MusicalEntity extends TamableAnimal {
                 setHoldingInstrument(true);
                 player.setItemInHand(hand, ItemStack.EMPTY);
                 level().addParticle(ParticleTypes.NOTE, this.getX(), this.getY() + 2.5, this.getZ(), 0F, 0.5F, 0F);
+                setOrderedToSit(true);
                 return InteractionResult.CONSUME;
 
             } else if (itemStack.isEmpty()) {
 
                 setHoldingInstrument(false);
                 player.setItemInHand(hand, new ItemStack(instrument.get(), 1));
+                setOrderedToSit(false);
                 return InteractionResult.SUCCESS;
 
             }
@@ -172,6 +180,22 @@ public abstract class MusicalEntity extends TamableAnimal {
             this.entityData.set(CONDUCTOR_ID, Optional.empty());
         } else {
             this.entityData.set(CONDUCTOR_ID, Optional.of(conductor.getUUID()));
+        }
+    }
+
+    public void updateGoals() {
+        if (!level().isClientSide()) {
+            Goal randomLookAround = new RandomLookAroundGoal(this);
+            Goal lookAtPlayer = new LookAtPlayerGoal(this, Player.class, 6.0F);
+            if (this instanceof MantisEntity) {
+                if (this.isPlayingInstrument()) {
+                    this.goalSelector.removeGoal(randomLookAround);
+                    this.goalSelector.removeGoal(lookAtPlayer);
+                } else {
+                    this.goalSelector.addGoal(7, randomLookAround);
+                    this.goalSelector.addGoal(6, lookAtPlayer);
+                }
+            }
         }
     }
 }
