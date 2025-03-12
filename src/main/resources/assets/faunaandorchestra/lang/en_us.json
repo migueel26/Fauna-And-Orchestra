@@ -2,10 +2,14 @@
   "creativetab.faunaandorchestra.fauna_and_orchestra": "Fauna & Orchestra",
 
   "item.faunaandorchestra.violin": "Violin",
+  "item.faunaandorchestra.flute": "Flute",
   "item.faunaandorchestra.mantis_spawn_egg": "Mantis Spawn Egg",
+  "item.faunaandorchestra.penguin_spawn_egg": "Baby Penguin Spawn Egg",
 
   "tooltip.faunaandorchestra:violin": "§8This instrument seems to capture the attention of some... §odevout§r§7 insects",
+  "tooltip.faunaandorchestra:flute": "§8This instrument seems to capture the attention of some... §cool§r§7 fellas",
   "tooltip.faunaandorchestra.shift": "Press §eShift§r for more Information",
 
-  "entity.faunaandorchestra.mantis": "Mantis"
+  "entity.faunaandorchestra.mantis": "Mantis",
+  "entity.faunaandorchestra.penguin": "Baby Penguin"
 }

@@ -36,7 +36,7 @@
 				{
 					"name": "right_wing",
 					"parent": "chest",
-					"pivot": [4.3, 10, 0.4],
+					"pivot": [4, 9.6, 0.5],
 					"rotation": [0, 0, -30],
 					"cubes": [
 						{"origin": [3.84019, 1.80359, -2], "size": [1, 8, 5], "uv": [0, 29]}
@@ -62,7 +62,7 @@
 				{
 					"name": "left_pupil",
 					"parent": "head",
-					"pivot": [-2.4, 12.7, -2.3],
+					"pivot": [-2.5, 14.5, -2.3],
 					"cubes": [
 						{
 							"origin": [-3.1, 12.9, -2.51],
@@ -82,7 +82,7 @@
 				{
 					"name": "right_pupil",
 					"parent": "head",
-					"pivot": [2.5, 12.6, -2.3],
+					"pivot": [2.5, 14.5, -2.3],
 					"cubes": [
 						{
 							"origin": [2, 12.9, -2.51],
@@ -97,6 +97,14 @@
 								"down": {"uv": [3, 5], "uv_size": [1, 0]}
 							}
 						}
+					]
+				},
+				{
+					"name": "long_flute",
+					"parent": "chest",
+					"pivot": [-1, 1, 0],
+					"cubes": [
+						{"origin": [-5, 0, -1], "size": [10, 2, 2], "uv": [13, 56]}
 					]
 				},
 				{

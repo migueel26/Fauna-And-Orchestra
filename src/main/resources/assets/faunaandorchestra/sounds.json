@@ -28,5 +28,11 @@
     "sounds": [
       "faunaandorchestra:music/bach_air_violin"
     ]
+  },
+  "bach_air_flute": {
+    "subtitles": "sounds.faunaandorchestra.bach_air_flute",
+    "sounds": [
+      "faunaandorchestra:music/bach_air_flute"
+    ]
   }
 }
