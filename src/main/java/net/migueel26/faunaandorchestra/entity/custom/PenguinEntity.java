@@ -1,13 +1,14 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
+import net.migueel26.faunaandorchestra.entity.goals.MusicalEntityPlayingInstrumentGoal;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -30,6 +31,8 @@ public class PenguinEntity extends MusicalEntity implements GeoEntity {
     protected static final RawAnimation WADDLE = RawAnimation.begin().thenPlay("waddle");
     protected static final RawAnimation WAVE = RawAnimation.begin().thenPlay("wave");
     protected static final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
+    protected static final RawAnimation IDLE_FLUTE = RawAnimation.begin().thenPlay("idle_flute");
+    protected static final RawAnimation PLAYING = RawAnimation.begin().thenPlay("playing");
     private static final EntityDataAccessor<Boolean> IS_WAVING = SynchedEntityData.defineId(PenguinEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> IS_RUNNING = SynchedEntityData.defineId(PenguinEntity.class, EntityDataSerializers.BOOLEAN);
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
@@ -39,14 +42,17 @@ public class PenguinEntity extends MusicalEntity implements GeoEntity {
 
     @Override
     protected DeferredItem<Item> getInstrument() {
-        // TODO: FLUTE
-        return ModItems.VIOLIN;
+        return ModItems.FLUTE;
     }
 
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new PanicGoal(this, 2D) {
+        this.goalSelector.addGoal(1, new MusicalEntityPlayingInstrumentGoal(this));
+        this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
+        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
+        // PANIC GOAL
+        this.goalSelector.addGoal(1, new TamableAnimalPanicGoal(2.0D, DamageTypeTags.PANIC_ENVIRONMENTAL_CAUSES) {
             final PenguinEntity penguin = (PenguinEntity) super.mob;
             @Override
             public void start() {
@@ -60,23 +66,41 @@ public class PenguinEntity extends MusicalEntity implements GeoEntity {
                 super.stop();
             }
         });
-        this.goalSelector.addGoal(4, new RandomStrollGoal(this, 1.0));
-        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F) {
+        // LOOK AT PLAYER GOAL
+        this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 6.0F) {
+            final PenguinEntity penguin = (PenguinEntity) super.mob;
             @Override
             public void start() {
-                PenguinEntity penguin = (PenguinEntity) super.mob;
+                penguin.getNavigation().moveTo(penguin.getX(), penguin.getY(), penguin.getZ(), 1.0D);
+                this.mob.getLookControl().setLookAt(this.lookAt.getX(), this.lookAt.getEyeY(), this.lookAt.getZ());
                 penguin.wave();
                 super.start();
             }
+
+            @Override
+            public boolean canUse() {
+                return super.canUse() && penguin.getNavigation().isDone();
+            }
         });
-        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
+        // RANDOM STROLL GOAL
+        this.goalSelector.addGoal(5, new RandomStrollGoal(this, 1.0) {
+            final PenguinEntity penguin = (PenguinEntity) super.mob;
+
+            @Override
+            public boolean canUse() {
+                return super.canUse() && !penguin.isWaving();
+            }
+        });
     }
 
     private <E extends GeoAnimatable> PlayState penguinState(AnimationState<E> state) {
-        if (isWaving()) {
-            this.navigation.stop();
+        if (isPlayingInstrument()) {
+            state.getController().setAnimation(PLAYING);
+        } else if (isWaving()) {
             state.getController().setAnimation(WAVE);
             if (state.getController().hasAnimationFinished()) stopWaving();
+        } else if (isHoldingInstrument()) {
+            state.getController().setAnimation(IDLE_FLUTE);
         } else if (state.isMoving() && isRunning()) {
             state.getController().setAnimation(RUN);
         } else if (state.isMoving()) {
@@ -110,7 +134,7 @@ public class PenguinEntity extends MusicalEntity implements GeoEntity {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
-        //TODO: ADD OFFSPRING
+        //TODO: ADD OFFSPRING AND ADULT
         return null;
     }
 

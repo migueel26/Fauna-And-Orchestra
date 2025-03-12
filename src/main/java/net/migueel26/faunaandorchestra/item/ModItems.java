@@ -16,6 +16,9 @@ public class ModItems {
     public static final DeferredItem<Item> VIOLIN = ITEMS.register("violin",
             () -> new InstrumentItem(new Item.Properties().stacksTo(1), ModSounds.VIOLIN_USE.get(), ModEntities.MANTIS.get()));
 
+    public static final DeferredItem<Item> FLUTE = ITEMS.register("flute",
+            () -> new InstrumentItem(new Item.Properties().stacksTo(1), ModSounds.FLUTE_USE.get(), ModEntities.PENGUIN.get()));
+
     public static final DeferredItem<Item> MANTIS_SPAWN_EGG = ITEMS.register("mantis_spawn_egg",
             () -> new DeferredSpawnEggItem(ModEntities.MANTIS, 0x46eb4c, 0x23a628,
                     new Item.Properties()));
