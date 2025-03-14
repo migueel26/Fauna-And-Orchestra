@@ -23,6 +23,9 @@ public class ModItems {
     public static final DeferredItem<Item> BACH_AIR_SHEET_MUSIC = ITEMS.register("bach_air_sheet_music",
             () -> new Item(new Item.Properties().rarity(Rarity.RARE)));
 
+    public static final DeferredItem<Item> FLUTE = ITEMS.register("flute",
+            () -> new InstrumentItem(new Item.Properties().stacksTo(1), ModSounds.FLUTE_USE.get(), ModEntities.PENGUIN.get()));
+
     public static final DeferredItem<Item> MANTIS_SPAWN_EGG = ITEMS.register("mantis_spawn_egg",
             () -> new DeferredSpawnEggItem(ModEntities.MANTIS, 0x46eb4c, 0x23a628,
                     new Item.Properties()));
