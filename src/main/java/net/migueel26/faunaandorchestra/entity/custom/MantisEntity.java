@@ -49,7 +49,7 @@ public class MantisEntity extends MusicalEntity implements GeoEntity, NeutralMob
     }
 
     @Override
-    protected DeferredItem<Item> getInstrument() {
+    public DeferredItem<Item> getInstrument() {
         return ModItems.VIOLIN;
     }
 

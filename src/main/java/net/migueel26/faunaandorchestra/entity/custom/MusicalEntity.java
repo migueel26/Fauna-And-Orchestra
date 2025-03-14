@@ -4,6 +4,7 @@ import net.migueel26.faunaandorchestra.mixins.client.accessors.ClientLevelAccess
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -37,19 +38,19 @@ public abstract class MusicalEntity extends TamableAnimal {
     protected static final EntityDataAccessor<Optional<UUID>> CONDUCTOR_ID = SynchedEntityData.defineId(MusicalEntity.class, EntityDataSerializers.OPTIONAL_UUID);
     protected static final EntityDataAccessor<Boolean> IS_MUSICAL = SynchedEntityData.defineId(MusicalEntity.class, EntityDataSerializers.BOOLEAN);
     protected boolean isHoldingInstrument;
-    protected ConductorEntity conductor;
+    protected UUID conductorUUID;
     //private Integer count = null;
     //private Player lastAttempt;
 
     protected MusicalEntity(EntityType<? extends TamableAnimal> entityType, Level level) {
         super(entityType, level);
         this.instrument = getInstrument();
-        this.conductor = null;
+        this.conductorUUID = null;
 
         updateGoals();
     }
 
-    protected abstract DeferredItem<Item> getInstrument();
+    public abstract DeferredItem<Item> getInstrument();
 
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
@@ -66,17 +67,26 @@ public abstract class MusicalEntity extends TamableAnimal {
         }
 
         if (CONDUCTOR_ID.equals(key)) {
-            UUID conductorUUID = this.entityData.get(CONDUCTOR_ID).orElse(null);
-            if (this.level().isClientSide()) {
-                this.conductor = conductorUUID == null ? null : (ConductorEntity) ((ClientLevelAccessor) level()).callGetEntities().get(conductorUUID);
-            } else {
-                this.conductor = conductorUUID == null ? null : (ConductorEntity) ((ServerLevel) level()).getEntity(conductorUUID);
-            }
-
-
+            this.conductorUUID = this.entityData.get(CONDUCTOR_ID).orElse(null);
         }
 
         super.onSyncedDataUpdated(key);
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+
+        compound.putBoolean("HoldingInstrument", this.isHoldingInstrument());
+        compound.putBoolean("IsMusical", this.isMusical());
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+
+        this.entityData.set(HOLDING_INSTRUMENT, compound.getBoolean("HoldingInstrument"));
+        this.entityData.set(IS_MUSICAL, compound.getBoolean("IsMusical"));
     }
 
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
@@ -104,7 +114,7 @@ public abstract class MusicalEntity extends TamableAnimal {
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
         if (isOwnedBy(player)) {
-            if (itemStack.is(instrument)) {
+            if (itemStack.is(instrument) && !isHoldingInstrument()) {
 
                 setHoldingInstrument(true);
                 player.setItemInHand(hand, ItemStack.EMPTY);
@@ -112,7 +122,7 @@ public abstract class MusicalEntity extends TamableAnimal {
                 setOrderedToSit(true);
                 return InteractionResult.CONSUME;
 
-            } else if (itemStack.isEmpty()) {
+            } else if (itemStack.isEmpty() && isHoldingInstrument()) {
 
                 setHoldingInstrument(false);
                 player.setItemInHand(hand, new ItemStack(instrument.get(), 1));
@@ -164,7 +174,7 @@ public abstract class MusicalEntity extends TamableAnimal {
     }
 
     public boolean isPlayingInstrument() {
-        return conductor != null;
+        return conductorUUID != null;
     }
 
     public boolean isMusical() {
@@ -172,7 +182,11 @@ public abstract class MusicalEntity extends TamableAnimal {
     }
 
     public @Nullable ConductorEntity getConductor() {
-        return conductor;
+        if (this.level().isClientSide()) {
+            return conductorUUID == null ? null : (ConductorEntity) ((ClientLevelAccessor) level()).callGetEntities().get(conductorUUID);
+        } else {
+            return conductorUUID == null ? null : (ConductorEntity) ((ServerLevel) level()).getEntity(conductorUUID);
+        }
     }
 
     @Override
@@ -181,11 +195,9 @@ public abstract class MusicalEntity extends TamableAnimal {
     }
 
     public void setConductor(ConductorEntity conductor) {
-        if (conductor == null) {
-            this.entityData.set(CONDUCTOR_ID, Optional.empty());
-        } else {
-            this.entityData.set(CONDUCTOR_ID, Optional.of(conductor.getUUID()));
-        }
+        UUID conductorUUID = conductor == null ? null : conductor.getUUID();
+
+        this.entityData.set(CONDUCTOR_ID, Optional.ofNullable(conductorUUID));
     }
 
     public void updateGoals() {

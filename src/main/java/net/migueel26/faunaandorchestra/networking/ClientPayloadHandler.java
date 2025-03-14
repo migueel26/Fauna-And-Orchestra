@@ -6,7 +6,9 @@ import net.migueel26.faunaandorchestra.mixins.client.accessors.ClientLevelAccess
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.migueel26.faunaandorchestra.sound.custom.InstrumentSoundInstance;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.util.UUID;
@@ -15,7 +17,7 @@ public class ClientPayloadHandler {
     public static void handleDataOnNetwork(StartOrchestraMusicPayload payload, IPayloadContext iPayloadContext) {
         ClientLevelAccessor level = (ClientLevelAccessor) Minecraft.getInstance().level;
         UUID uuid = payload.entityID();
-        ResourceLocation soundPath = payload.soundPath();
+        SoundEvent soundEvent = BuiltInRegistries.SOUND_EVENT.get(payload.soundPath());;
         int ticksOffset = payload.tickOffset();
 
         if (level != null) {
@@ -25,7 +27,7 @@ public class ClientPayloadHandler {
             }
 
             System.out.println("Packet received!");
-            Minecraft.getInstance().getSoundManager().play(new InstrumentSoundInstance(entity, ModSounds.BACH_AIR_VIOLIN.get(), 0));
+            Minecraft.getInstance().getSoundManager().play(new InstrumentSoundInstance(entity, soundEvent, ticksOffset));
         }
     }
 }

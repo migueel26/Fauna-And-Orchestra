@@ -1,5 +1,6 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
+import net.migueel26.faunaandorchestra.item.ModItems;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -19,6 +20,7 @@ import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -40,12 +42,13 @@ public class ConductorEntity extends Animal implements GeoEntity {
     private static final EntityDataAccessor<Boolean> IS_MUSICAL = SynchedEntityData.defineId(ConductorEntity.class, EntityDataSerializers.BOOLEAN);
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
     private boolean holdingBaton = false;
-    private Set<Player> playersHearing = new HashSet<>();
     private Set<MusicalEntity> orchestra = new HashSet<>();
+    private Item sheetMusic = ModItems.BACH_AIR_SHEET_MUSIC.asItem();
+    private int ticksPlaying = 0;
+
     public ConductorEntity(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
     }
-
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
@@ -81,6 +84,12 @@ public class ConductorEntity extends Animal implements GeoEntity {
     public void tick() {
         if (holdingBaton) {
             this.getNavigation().stop();
+        }
+
+        if (!isOrchestraEmpty()) {
+            ticksPlaying++;
+        } else {
+            ticksPlaying = 0;
         }
 
         super.tick();
@@ -134,12 +143,28 @@ public class ConductorEntity extends Animal implements GeoEntity {
         return orchestra;
     }
 
+    public Item getSheetMusic() {
+        return sheetMusic;
+    }
+
+    public int getTicksPlaying() {
+        return ticksPlaying;
+    }
+
+    public void setTicksPlaying(int ticksPlaying) {
+        this.ticksPlaying = ticksPlaying;
+    }
+
     public void addMusician(MusicalEntity musicalEntity) {
         orchestra.add(musicalEntity);
     }
 
     public void removeMusician(MusicalEntity musicalEntity) {
         orchestra.remove(musicalEntity);
+    }
+
+    public boolean isOrchestraEmpty() {
+        return orchestra == null || orchestra.isEmpty();
     }
 
     public boolean isOrchestraFull() {

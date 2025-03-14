@@ -64,7 +64,6 @@ public class MixinSoundEngine implements ISoundEngineMixin {
                 if (soundInstance.getTicksOffset() == null) {
                     Optional<Integer> sourceOffset = tickingSounds.stream().filter(InstrumentSoundInstance.class::isInstance)
                             .map(soundInst -> ((InstrumentSoundInstance) soundInst).getSourceID()).findAny();
-                    System.out.println("And here!");
 
                     if (sourceOffset.isPresent()) {
                         ((IChannelMixin) channel).faunaSetByteOffset(soundInstance, soundBuffer, sourceOffset.get());

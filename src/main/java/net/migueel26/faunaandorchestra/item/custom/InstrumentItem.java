@@ -25,11 +25,10 @@ import java.util.List;
 
 public class InstrumentItem extends Item {
     private final SoundEvent SOUND;
-    private final EntityType MUSICAL_ANIMAL;
-    public InstrumentItem(Properties properties, SoundEvent sound, EntityType mantis) {
+
+    public InstrumentItem(Properties properties, SoundEvent sound) {
         super(properties);
         this.SOUND = sound;
-        this.MUSICAL_ANIMAL = mantis;
     }
 
     @Override

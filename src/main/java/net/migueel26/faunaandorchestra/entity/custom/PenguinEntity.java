@@ -41,7 +41,7 @@ public class PenguinEntity extends MusicalEntity implements GeoEntity {
     }
 
     @Override
-    protected DeferredItem<Item> getInstrument() {
+    public DeferredItem<Item> getInstrument() {
         return ModItems.FLUTE;
     }
 

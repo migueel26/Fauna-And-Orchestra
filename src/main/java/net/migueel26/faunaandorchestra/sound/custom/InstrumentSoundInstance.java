@@ -1,16 +1,21 @@
 package net.migueel26.faunaandorchestra.sound.custom;
 
 import net.migueel26.faunaandorchestra.entity.custom.MusicalEntity;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.particle.SuspendedParticle;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 
+import javax.swing.text.html.parser.Entity;
+
 public class InstrumentSoundInstance extends AbstractTickableSoundInstance {
     private MusicalEntity entity;
     private int sourceID;
     private Integer ticksOffset;
+    private int stopDelay = 5;
     public InstrumentSoundInstance(MusicalEntity entity, SoundEvent soundEvent, int ticksOffset) {
         super(soundEvent, SoundSource.NEUTRAL, SoundInstance.createUnseededRandom());
         this.ticksOffset = ticksOffset;
@@ -18,12 +23,33 @@ public class InstrumentSoundInstance extends AbstractTickableSoundInstance {
         this.looping = true;
         this.attenuation = Attenuation.LINEAR;
         this.delay = 0;
-        this.volume = 2.0F;
-        this.relative = true;
+        this.volume = 1.5F;
+        this.x = entity.getX();
+        this.y = entity.getY();
+        this.z = entity.getZ();
     }
 
     @Override
     public void tick() {
+        if (!entity.isPlayingInstrument() || entity.isRemoved()) {
+            // There needs to be a little delay for the server and client to be synchronised
+            if (stopDelay > 0) {
+                stopDelay--;
+            } else {
+                super.stop();
+            }
+        } else {
+            stopDelay = 5;
+
+            // Didn't work as intended?
+            this.x = this.entity.getX();
+            this.y = this.entity.getY();
+            this.z = this.entity.getZ();
+
+            double distance = Minecraft.getInstance().player.distanceTo(entity);
+
+            this.volume = (float) Math.max(0, 1.5F - (distance * 0.05F));
+        }
     }
 
     public void stopSound() {
@@ -46,7 +72,4 @@ public class InstrumentSoundInstance extends AbstractTickableSoundInstance {
         return ticksOffset;
     }
 
-    public void setTicksOffset(Integer ticksOffset) {
-        this.ticksOffset = ticksOffset;
-    }
 }
