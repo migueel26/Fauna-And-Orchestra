@@ -201,6 +201,7 @@ public abstract class MusicalEntity extends TamableAnimal {
     }
 
     public void updateGoals() {
+        // TODO: THIS DOES NOT WORK
         if (!level().isClientSide()) {
             Goal randomLookAround = new RandomLookAroundGoal(this);
             Goal lookAtPlayer = new LookAtPlayerGoal(this, Player.class, 6.0F);

@@ -20,6 +20,9 @@ public class ModItems {
     public static final DeferredItem<Item> FLUTE = ITEMS.register("flute",
             () -> new InstrumentItem(new Item.Properties().stacksTo(1), ModSounds.FLUTE_USE.get()));
 
+    public static final DeferredItem<Item> KEYTAR = ITEMS.register("keytar",
+            () -> new InstrumentItem(new Item.Properties().stacksTo(1), ModSounds.KEYTAR_USE.get()));
+
     public static final DeferredItem<Item> BACH_AIR_SHEET_MUSIC = ITEMS.register("bach_air_sheet_music",
             () -> new Item(new Item.Properties().rarity(Rarity.RARE)));
 

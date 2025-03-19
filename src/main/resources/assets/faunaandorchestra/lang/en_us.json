@@ -3,12 +3,14 @@
 
   "item.faunaandorchestra.violin": "Violin",
   "item.faunaandorchestra.flute": "Flute",
+  "item.faunaandorchestra.keytar": "Keytar",
   "item.faunaandorchestra.bach_air_sheet_music": "Bach's Air Sheet",
   "item.faunaandorchestra.mantis_spawn_egg": "Mantis Spawn Egg",
   "item.faunaandorchestra.penguin_spawn_egg": "Baby Penguin Spawn Egg",
 
   "tooltip.faunaandorchestra:violin": "§7This instrument seems to capture the attention of some... §odevout§r§7 insects",
   "tooltip.faunaandorchestra:flute": "§7This instrument seems to capture the attention of some... §ocool§r§7 fellas",
+  "tooltip.faunaandorchestra:keytar": "§7This instrument seems to capture the attention of some... §ored§r§7 mammals",
   "tooltip.faunaandorchestra.shift": "Press §eShift§r for more Information",
 
   "entity.faunaandorchestra.mantis": "Mantis",

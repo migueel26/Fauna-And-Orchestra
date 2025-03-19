@@ -17,10 +17,10 @@
       "faunaandorchestra:sfx/flute"
     ]
   },
-  "keyboard_use": {
-    "subtitles": "sounds.faunaandorchestra.keyboard_use",
+  "keytar_use": {
+    "subtitles": "sounds.faunaandorchestra.keytar_use",
     "sounds": [
-      "faunaandorchestra:sfx/keyboard"
+      "faunaandorchestra:sfx/keytar"
     ]
   },
   "bach_air_violin": {

@@ -14,8 +14,8 @@ public class ModSounds {
             DeferredRegister.create(BuiltInRegistries.SOUND_EVENT, FaunaAndOrchestra.MOD_ID);
 
     public static final Supplier<SoundEvent> VIOLIN_USE = registerSoundEvent("violin_use");
-
     public static final Supplier<SoundEvent> FLUTE_USE = registerSoundEvent("flute_use");
+    public static final Supplier<SoundEvent> KEYTAR_USE = registerSoundEvent("keytar_use");
 
     public static final Supplier<SoundEvent> BACH_AIR_VIOLIN = registerSoundEvent("bach_air_violin");
     public static final Supplier<SoundEvent> BACH_AIR_FLUTE = registerSoundEvent("bach_air_flute");
