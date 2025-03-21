@@ -11,7 +11,8 @@ import java.util.Map;
 public class MusicUtil {
     private static final Map<Item, ResourceLocation> BACH_AIR = Map.of(
             ModItems.VIOLIN.get(), ModSounds.BACH_AIR_VIOLIN.get().getLocation(),
-            ModItems.FLUTE.get(), ModSounds.BACH_AIR_FLUTE.get().getLocation()
+            ModItems.FLUTE.get(), ModSounds.BACH_AIR_FLUTE.get().getLocation(),
+            ModItems.KEYTAR.get(), ModSounds.BACH_AIR_KEYTAR.get().getLocation()
     );
 
     public static String getLocation(Item sheet, Item instrument) {

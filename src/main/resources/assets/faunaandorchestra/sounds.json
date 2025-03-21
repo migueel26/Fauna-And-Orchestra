@@ -34,5 +34,11 @@
     "sounds": [
       "faunaandorchestra:music/bach_air_flute"
     ]
+  },
+  "bach_air_keytar": {
+    "subtitles": "sounds.faunaandorchestra.bach_air_keytar",
+    "sounds": [
+      "faunaandorchestra:music/bach_air_keytar"
+    ]
   }
 }

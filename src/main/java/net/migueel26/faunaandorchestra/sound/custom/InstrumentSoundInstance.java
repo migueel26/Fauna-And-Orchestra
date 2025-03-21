@@ -30,6 +30,11 @@ public class InstrumentSoundInstance extends AbstractTickableSoundInstance {
     }
 
     @Override
+    public boolean canStartSilent() {
+        return true;
+    }
+
+    @Override
     public void tick() {
         if (!entity.isPlayingInstrument() || entity.isRemoved()) {
             // There needs to be a little delay for the server and client to be synchronised

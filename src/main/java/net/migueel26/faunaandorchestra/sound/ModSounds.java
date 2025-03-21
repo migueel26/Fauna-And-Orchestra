@@ -19,6 +19,7 @@ public class ModSounds {
 
     public static final Supplier<SoundEvent> BACH_AIR_VIOLIN = registerSoundEvent("bach_air_violin");
     public static final Supplier<SoundEvent> BACH_AIR_FLUTE = registerSoundEvent("bach_air_flute");
+    public static final Supplier<SoundEvent> BACH_AIR_KEYTAR = registerSoundEvent("bach_air_keytar");
 
     private static Supplier<SoundEvent> registerSoundEvent(String name) {
         ResourceLocation path = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, name);

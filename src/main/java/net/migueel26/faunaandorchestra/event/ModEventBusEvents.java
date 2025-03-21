@@ -5,6 +5,7 @@ import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.entity.custom.ConductorEntity;
 import net.migueel26.faunaandorchestra.entity.custom.MantisEntity;
 import net.migueel26.faunaandorchestra.entity.custom.PenguinEntity;
+import net.migueel26.faunaandorchestra.entity.custom.RedPandaEntity;
 import net.migueel26.faunaandorchestra.networking.ClientPayloadHandler;
 import net.migueel26.faunaandorchestra.networking.ServerPayloadHandler;
 import net.migueel26.faunaandorchestra.networking.StartOrchestraMusicPayload;
@@ -27,6 +28,7 @@ public class ModEventBusEvents {
         event.put(ModEntities.MANTIS.get(), MantisEntity.createAttributes().build());
         event.put(ModEntities.CONDUCTOR.get(), ConductorEntity.createAttributes().build());
         event.put(ModEntities.PENGUIN.get(), PenguinEntity.createAttributes().build());
+        event.put(ModEntities.RED_PANDA.get(), RedPandaEntity.createAttributes().build());
     }
 
     @SubscribeEvent

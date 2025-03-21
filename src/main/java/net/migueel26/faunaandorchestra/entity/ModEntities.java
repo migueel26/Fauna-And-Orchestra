@@ -4,6 +4,7 @@ import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.entity.custom.ConductorEntity;
 import net.migueel26.faunaandorchestra.entity.custom.MantisEntity;
 import net.migueel26.faunaandorchestra.entity.custom.PenguinEntity;
+import net.migueel26.faunaandorchestra.entity.custom.RedPandaEntity;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.Entity;
@@ -23,7 +24,10 @@ public class ModEntities {
     public  static final Supplier<EntityType<ConductorEntity>> CONDUCTOR = ENTITY_TYPES.register("conductor",
             () -> EntityType.Builder.of(ConductorEntity::new, MobCategory.CREATURE).sized(1f, 2f).build("conductor"));
     public static final Supplier<EntityType<PenguinEntity>> PENGUIN = ENTITY_TYPES.register("penguin",
-            () -> EntityType.Builder.of(PenguinEntity::new, MobCategory.CREATURE).sized(1f, 1f).build("penguin"));
+            () -> EntityType.Builder.of(PenguinEntity::new, MobCategory.CREATURE).sized(0.75f, 0.75f).build("penguin"));
+
+    public static final Supplier<EntityType<RedPandaEntity>> RED_PANDA = ENTITY_TYPES.register("red_panda",
+            () -> EntityType.Builder.of(RedPandaEntity::new, MobCategory.CREATURE).sized(0.75f, 1f).build("red_panda"));
 
     public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);

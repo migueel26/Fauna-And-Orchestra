@@ -52,7 +52,7 @@ public class PenguinEntity extends MusicalEntity implements GeoEntity {
         this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
         // PANIC GOAL
-        this.goalSelector.addGoal(1, new TamableAnimalPanicGoal(2.0D, DamageTypeTags.PANIC_ENVIRONMENTAL_CAUSES) {
+        this.goalSelector.addGoal(0, new TamableAnimalPanicGoal(2.0D, DamageTypeTags.PANIC_CAUSES) {
             final PenguinEntity penguin = (PenguinEntity) super.mob;
             @Override
             public void start() {

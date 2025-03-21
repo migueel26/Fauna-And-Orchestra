@@ -24,6 +24,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.KEYTAR);
                         output.accept(ModItems.MANTIS_SPAWN_EGG);
                         output.accept(ModItems.PENGUIN_SPAWN_EGG);
+                        output.accept(ModItems.RED_PANDA_SPAWN_EGG);
                     }).build());
 
     public static void register(IEventBus eventBus) {

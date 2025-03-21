@@ -3,6 +3,7 @@ package net.migueel26.faunaandorchestra;
 import net.migueel26.faunaandorchestra.client.entity.ConductorRenderer;
 import net.migueel26.faunaandorchestra.client.entity.MantisRenderer;
 import net.migueel26.faunaandorchestra.client.entity.PenguinRenderer;
+import net.migueel26.faunaandorchestra.client.entity.RedPandaRenderer;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.item.ModCreativeModeTabs;
 import net.migueel26.faunaandorchestra.item.ModItems;
@@ -76,6 +77,7 @@ public class FaunaAndOrchestra {
             EntityRenderers.register(ModEntities.MANTIS.get(), MantisRenderer::new);
             EntityRenderers.register(ModEntities.CONDUCTOR.get(), ConductorRenderer::new);
             EntityRenderers.register(ModEntities.PENGUIN.get(), PenguinRenderer::new);
+            EntityRenderers.register(ModEntities.RED_PANDA.get(), RedPandaRenderer::new);
         }
     }
 }

@@ -56,7 +56,8 @@ public class MusicalEntityPlayingInstrumentGoal extends Goal {
 
     @Override
     public boolean canContinueToUse() {
-        return musician.isHoldingInstrument() && !conductor.isDeadOrDying() && conductor.isHoldingBaton();
+        return musician.isHoldingInstrument() && conductor != null && !conductor.isDeadOrDying() && conductor.isHoldingBaton()
+                && musician.distanceTo(conductor) <= 10;
     }
 
     @Override

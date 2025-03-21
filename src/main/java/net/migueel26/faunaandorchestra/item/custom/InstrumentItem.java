@@ -46,7 +46,8 @@ public class InstrumentItem extends Item {
 
             List<Entity> entities = level.getEntities(player, player.getBoundingBox().inflate(10));
             for (Entity entity : entities) {
-                if (entity instanceof MusicalEntity musicalEntity && musicalEntity.isMusical() && !musicalEntity.isTame()) {
+                if (entity instanceof MusicalEntity musicalEntity && musicalEntity.isMusical() && !musicalEntity.isTame()
+                && musicalEntity.getInstrument().asItem().equals(this)) {
                     musicalEntity.tryToTame(player);
                 }
             }
