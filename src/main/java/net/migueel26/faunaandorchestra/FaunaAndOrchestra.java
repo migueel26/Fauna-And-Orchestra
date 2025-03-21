@@ -1,6 +1,6 @@
 package net.migueel26.faunaandorchestra;
 
-import net.migueel26.faunaandorchestra.client.entity.ConductorRenderer;
+import net.migueel26.faunaandorchestra.client.entity.ToadRenderer;
 import net.migueel26.faunaandorchestra.client.entity.MantisRenderer;
 import net.migueel26.faunaandorchestra.client.entity.PenguinRenderer;
 import net.migueel26.faunaandorchestra.client.entity.RedPandaRenderer;
@@ -75,7 +75,7 @@ public class FaunaAndOrchestra {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
             EntityRenderers.register(ModEntities.MANTIS.get(), MantisRenderer::new);
-            EntityRenderers.register(ModEntities.CONDUCTOR.get(), ConductorRenderer::new);
+            EntityRenderers.register(ModEntities.TOAD.get(), ToadRenderer::new);
             EntityRenderers.register(ModEntities.PENGUIN.get(), PenguinRenderer::new);
             EntityRenderers.register(ModEntities.RED_PANDA.get(), RedPandaRenderer::new);
         }

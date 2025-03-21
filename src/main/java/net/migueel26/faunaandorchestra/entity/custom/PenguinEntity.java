@@ -38,6 +38,8 @@ public class PenguinEntity extends MusicalEntity implements GeoEntity {
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
     public PenguinEntity(EntityType<? extends TamableAnimal> entityType, Level level) {
         super(entityType, level);
+
+        addCustomGoals();
     }
 
     @Override
@@ -48,49 +50,12 @@ public class PenguinEntity extends MusicalEntity implements GeoEntity {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
+        // TamableAnimalPanicGoal(0)
         this.goalSelector.addGoal(1, new MusicalEntityPlayingInstrumentGoal(this));
         this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
+        // LookAtPlayerGoal(4)
+        // RandomStrollGoal(5)
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
-        // PANIC GOAL
-        this.goalSelector.addGoal(0, new TamableAnimalPanicGoal(2.0D, DamageTypeTags.PANIC_CAUSES) {
-            final PenguinEntity penguin = (PenguinEntity) super.mob;
-            @Override
-            public void start() {
-                penguin.setRunning(true);
-                super.start();
-            }
-
-            @Override
-            public void stop() {
-                penguin.setRunning(false);
-                super.stop();
-            }
-        });
-        // LOOK AT PLAYER GOAL
-        this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 6.0F) {
-            final PenguinEntity penguin = (PenguinEntity) super.mob;
-            @Override
-            public void start() {
-                penguin.getNavigation().moveTo(penguin.getX(), penguin.getY(), penguin.getZ(), 1.0D);
-                this.mob.getLookControl().setLookAt(this.lookAt.getX(), this.lookAt.getEyeY(), this.lookAt.getZ());
-                penguin.wave();
-                super.start();
-            }
-
-            @Override
-            public boolean canUse() {
-                return super.canUse() && penguin.getNavigation().isDone();
-            }
-        });
-        // RANDOM STROLL GOAL
-        this.goalSelector.addGoal(5, new RandomStrollGoal(this, 1.0) {
-            final PenguinEntity penguin = (PenguinEntity) super.mob;
-
-            @Override
-            public boolean canUse() {
-                return super.canUse() && !penguin.isWaving();
-            }
-        });
     }
 
     private <E extends GeoAnimatable> PlayState penguinState(AnimationState<E> state) {
@@ -109,6 +74,47 @@ public class PenguinEntity extends MusicalEntity implements GeoEntity {
             state.getController().setAnimation(IDLE);
         }
         return PlayState.CONTINUE;
+    }
+    private void addCustomGoals() {
+        this.goalSelector.addGoal(0, new TamableAnimalPanicGoal(2.0D, DamageTypeTags.PANIC_CAUSES) {
+            final PenguinEntity penguin = (PenguinEntity) super.mob;
+            @Override
+            public void start() {
+                penguin.setRunning(true);
+                super.start();
+            }
+
+            @Override
+            public void stop() {
+                penguin.setRunning(false);
+                super.stop();
+            }
+        });
+
+        this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 6.0F) {
+            final PenguinEntity penguin = (PenguinEntity) super.mob;
+            @Override
+            public void start() {
+                penguin.getNavigation().moveTo(penguin.getX(), penguin.getY(), penguin.getZ(), 1.0D);
+                this.mob.getLookControl().setLookAt(this.lookAt.getX(), this.lookAt.getEyeY(), this.lookAt.getZ());
+                penguin.wave();
+                super.start();
+            }
+
+            @Override
+            public boolean canUse() {
+                return super.canUse() && penguin.getNavigation().isDone();
+            }
+        });
+
+        this.goalSelector.addGoal(5, new RandomStrollGoal(this, 1.0) {
+            final PenguinEntity penguin = (PenguinEntity) super.mob;
+
+            @Override
+            public boolean canUse() {
+                return super.canUse() && !penguin.isWaving();
+            }
+        });
     }
 
     public static AttributeSupplier.Builder createAttributes() {

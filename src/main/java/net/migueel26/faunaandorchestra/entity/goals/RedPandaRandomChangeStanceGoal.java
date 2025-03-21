@@ -41,7 +41,7 @@ public class RedPandaRandomChangeStanceGoal extends Goal {
     @Override
     public void stop() {
         redPanda.getNavigation().stop();
-        redPanda.sitDownAnimated();
+        if (!redPanda.isHoldingInstrument()) redPanda.sitDownAnimated();
         timeSpentInCurrentStance = 0;
     }
 
