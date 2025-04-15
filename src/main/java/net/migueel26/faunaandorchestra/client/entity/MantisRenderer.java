@@ -6,12 +6,18 @@ import net.migueel26.faunaandorchestra.entity.custom.MantisEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.world.entity.Pose;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class MantisRenderer extends GeoEntityRenderer<MantisEntity> {
     public MantisRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new MantisModel());
+    }
+
+    @Override
+    protected float getShadowRadius(MantisEntity entity) {
+        return entity.getDimensions(Pose.STANDING).width() * 0.65F;
     }
 
     @Override

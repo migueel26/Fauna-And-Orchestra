@@ -23,6 +23,9 @@ public class ModItems {
     public static final DeferredItem<Item> KEYTAR = ITEMS.register("keytar",
             () -> new InstrumentItem(new Item.Properties().stacksTo(1), ModSounds.KEYTAR_USE.get()));
 
+    public static final DeferredItem<Item> DOUBLE_BASS = ITEMS.register("double_bass",
+            () -> new InstrumentItem(new Item.Properties().stacksTo(1), ModSounds.DOUBLE_BASS_USE.get()));
+
     public static final DeferredItem<Item> BACH_AIR_SHEET_MUSIC = ITEMS.register("bach_air_sheet_music",
             () -> new Item(new Item.Properties().rarity(Rarity.RARE)));
 
@@ -37,7 +40,10 @@ public class ModItems {
     public static final DeferredItem<Item> RED_PANDA_SPAWN_EGG = ITEMS.register("red_panda_spawn_egg",
             () -> new DeferredSpawnEggItem(ModEntities.RED_PANDA, 0xd63200, 0xd1d0cf,
                     new Item.Properties()));
-    
+
+    public static final DeferredItem<Item> MACAW_SPAWN_EGG = ITEMS.register("macaw_spawn_egg",
+            () -> new DeferredSpawnEggItem(ModEntities.MACAW, 0x002196, 0xffea00,
+                    new Item.Properties()));
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }

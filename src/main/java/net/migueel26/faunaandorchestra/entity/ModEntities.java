@@ -22,6 +22,8 @@ public class ModEntities {
             () -> EntityType.Builder.of(PenguinEntity::new, MobCategory.CREATURE).sized(0.75f, 0.75f).build("penguin"));
     public static final Supplier<EntityType<RedPandaEntity>> RED_PANDA = ENTITY_TYPES.register("red_panda",
             () -> EntityType.Builder.of(RedPandaEntity::new, MobCategory.CREATURE).sized(0.75f, 1f).build("red_panda"));
+    public static final Supplier<EntityType<MacawEntity>> MACAW = ENTITY_TYPES.register("macaw",
+            () -> EntityType.Builder.of(MacawEntity::new, MobCategory.CREATURE).sized(0.5f, 0.75f).build("macaw"));
 
     public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);

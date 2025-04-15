@@ -21,6 +21,7 @@ public class ModEventBusEvents {
         event.put(ModEntities.TOAD.get(), ToadEntity.createAttributes().build());
         event.put(ModEntities.PENGUIN.get(), PenguinEntity.createAttributes().build());
         event.put(ModEntities.RED_PANDA.get(), RedPandaEntity.createAttributes().build());
+        event.put(ModEntities.MACAW.get(), MacawEntity.createAttributes().build());
     }
 
     @SubscribeEvent
@@ -30,7 +31,7 @@ public class ModEventBusEvents {
                 StartOrchestraMusicPayload.TYPE,
                 StartOrchestraMusicPayload.STREAM_CODEC,
                 new DirectionalPayloadHandler<>(
-                        ClientPayloadHandler::handleDataOnNetwork,
+                        ClientPayloadHandler::handleStartOrchestraOnNetwork,
                         ServerPayloadHandler::handleDataOnNetwork
                 )
         );

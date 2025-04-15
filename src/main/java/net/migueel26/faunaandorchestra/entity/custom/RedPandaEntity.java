@@ -3,12 +3,16 @@ package net.migueel26.faunaandorchestra.entity.custom;
 import net.migueel26.faunaandorchestra.entity.goals.MusicalEntityPlayingInstrumentGoal;
 import net.migueel26.faunaandorchestra.entity.goals.RedPandaRandomChangeStanceGoal;
 import net.migueel26.faunaandorchestra.item.ModItems;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -19,6 +23,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoAnimatable;
@@ -46,7 +51,7 @@ public class RedPandaEntity extends MusicalEntity implements GeoEntity {
     public RedPandaEntity(EntityType<? extends TamableAnimal> entityType, Level level) {
         super(entityType, level);
 
-        addCustomGoals();
+        addOverriddenGoals();
     }
 
     @Override
@@ -82,7 +87,7 @@ public class RedPandaEntity extends MusicalEntity implements GeoEntity {
         return PlayState.CONTINUE;
     }
 
-    private void addCustomGoals() {
+    private void addOverriddenGoals() {
         this.goalSelector.addGoal(0, new TamableAnimalPanicGoal(2.0D, DamageTypeTags.PANIC_CAUSES) {
             final RedPandaEntity redPanda = (RedPandaEntity) this.mob;
 
@@ -171,6 +176,29 @@ public class RedPandaEntity extends MusicalEntity implements GeoEntity {
     public void setHoldingInstrument(boolean holdingInstrument) {
         standUp(true);
         super.setHoldingInstrument(holdingInstrument);
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return SoundEvents.PANDA_HURT;
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getDeathSound() {
+        return SoundEvents.PANDA_DEATH;
+    }
+
+    @Override
+    protected void playStepSound(BlockPos pos, BlockState state) {
+        this.playSound(SoundEvents.PANDA_STEP, 0.15F, 1.25F);
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return SoundEvents.PANDA_AMBIENT;
     }
 
     @Override

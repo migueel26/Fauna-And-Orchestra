@@ -40,5 +40,11 @@
     "sounds": [
       "faunaandorchestra:music/bach_air_keytar"
     ]
+  },
+  "bach_air_double_bass": {
+    "subtitles": "sounds.faunaandorchestra.bach_air_double_bass",
+    "sounds": [
+      "faunaandorchestra:music/bach_air_double_bass"
+    ]
   }
 }

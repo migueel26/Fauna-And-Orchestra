@@ -39,7 +39,7 @@ public class PenguinEntity extends MusicalEntity implements GeoEntity {
     public PenguinEntity(EntityType<? extends TamableAnimal> entityType, Level level) {
         super(entityType, level);
 
-        addCustomGoals();
+        addOverriddenGoals();
     }
 
     @Override
@@ -75,7 +75,7 @@ public class PenguinEntity extends MusicalEntity implements GeoEntity {
         }
         return PlayState.CONTINUE;
     }
-    private void addCustomGoals() {
+    private void addOverriddenGoals() {
         this.goalSelector.addGoal(0, new TamableAnimalPanicGoal(2.0D, DamageTypeTags.PANIC_CAUSES) {
             final PenguinEntity penguin = (PenguinEntity) super.mob;
             @Override
