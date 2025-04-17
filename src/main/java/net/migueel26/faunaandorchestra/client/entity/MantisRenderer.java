@@ -9,10 +9,13 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.world.entity.Pose;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
+import software.bernie.geckolib.renderer.layer.AutoGlowingGeoLayer;
 
 public class MantisRenderer extends GeoEntityRenderer<MantisEntity> {
     public MantisRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new MantisModel());
+
+        addRenderLayer(new AutoGlowingGeoLayer<>(this));
     }
 
     @Override

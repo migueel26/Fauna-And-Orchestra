@@ -9,6 +9,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -35,17 +36,22 @@ import java.util.UUID;
 public class MantisEntity extends MusicalEntity implements GeoEntity, NeutralMob {
     protected static final RawAnimation WALK = RawAnimation.begin().thenPlay("walk");
     protected static final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
+    protected static final RawAnimation ATTACK = RawAnimation.begin().thenPlay("attack");
     protected static final RawAnimation PLAYING = RawAnimation.begin().thenPlay("playing");
     protected static final RawAnimation IDLE_VIOLIN = RawAnimation.begin().thenPlay("idle_violin");
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
-
     private static final EntityDataAccessor<Integer> REMAINING_ANGER_TIME = SynchedEntityData.defineId(MantisEntity.class, EntityDataSerializers.INT);
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
+    private final AnimationController MANTIS_CONTROLLER =
+            new AnimationController<>(this, "mantis_controller", 5, this::mantisState)
+                    .triggerableAnim("attack", ATTACK);
     @Nullable
     private UUID persistentAngerTarget;
 
     public MantisEntity(EntityType<? extends TamableAnimal> entityType, Level level) {
         super(entityType, level);
+
+        addOverridenGoals();
     }
 
     @Override
@@ -61,14 +67,29 @@ public class MantisEntity extends MusicalEntity implements GeoEntity, NeutralMob
         this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(3, new HurtByTargetGoal(this).setAlertOthers());
         this.goalSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, true, this::isAngryAt));
-        this.goalSelector.addGoal(5, new MeleeAttackGoal(this, 1.25D, false));
+        // MeleeAttackGoal (5)
         this.goalSelector.addGoal(5, new RandomStrollGoal(this, 1.0));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(8, new ResetUniversalAngerTargetGoal<>(this, true));
     }
 
+    private void addOverridenGoals() {
+        this.goalSelector.addGoal(5, new MeleeAttackGoal(this, 1.25D, false) {
+            @Override
+            protected void checkAndPerformAttack(LivingEntity target) {
+                if (this.canPerformAttack(target)) {
+                    ((MantisEntity) this.mob).attack();
+                    this.resetAttackCooldown();
+                    this.mob.doHurtTarget(target);
+
+                }
+            }
+        });
+    }
+
     protected <E extends GeoAnimatable> PlayState mantisState(AnimationState<E> state) {
+
         if (state.isMoving()) {
             state.getController().transitionLength(5);
             state.getController().setAnimation(WALK);
@@ -116,6 +137,10 @@ public class MantisEntity extends MusicalEntity implements GeoEntity, NeutralMob
         } else {
             return NeutralMob.super.isAngryAt(target);
         }
+    }
+
+    public void attack() {
+        triggerAnim("mantis_controller", "attack");
     }
 
     @Override
@@ -166,7 +191,7 @@ public class MantisEntity extends MusicalEntity implements GeoEntity, NeutralMob
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "mantis_controller", 5, this::mantisState));
+        controllers.add(MANTIS_CONTROLLER);
     }
 
     @Override
