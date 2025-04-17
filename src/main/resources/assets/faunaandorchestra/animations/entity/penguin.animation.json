@@ -1172,7 +1172,7 @@
 				}
 			}
 		},
-		"idle_flute": {
+		"holding_flute": {
 			"loop": true,
 			"animation_length": 3,
 			"bones": {

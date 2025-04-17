@@ -29,9 +29,10 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 public class PenguinEntity extends MusicalEntity implements GeoEntity {
     protected static final RawAnimation RUN = RawAnimation.begin().thenPlay("run");
     protected static final RawAnimation WADDLE = RawAnimation.begin().thenPlay("waddle");
+    protected static final RawAnimation WADDLE_FLUTE = RawAnimation.begin().thenPlay("waddle_flute");
     protected static final RawAnimation WAVE = RawAnimation.begin().thenPlay("wave");
     protected static final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
-    protected static final RawAnimation IDLE_FLUTE = RawAnimation.begin().thenPlay("idle_flute");
+    protected static final RawAnimation IDLE_FLUTE = RawAnimation.begin().thenPlay("holding_flute");
     protected static final RawAnimation PLAYING = RawAnimation.begin().thenPlay("playing");
     private static final EntityDataAccessor<Boolean> IS_WAVING = SynchedEntityData.defineId(PenguinEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> IS_RUNNING = SynchedEntityData.defineId(PenguinEntity.class, EntityDataSerializers.BOOLEAN);
@@ -69,7 +70,7 @@ public class PenguinEntity extends MusicalEntity implements GeoEntity {
         } else if (state.isMoving() && isRunning()) {
             state.getController().setAnimation(RUN);
         } else if (state.isMoving()) {
-            state.getController().setAnimation(WADDLE);
+            state.getController().setAnimation(isHoldingInstrument() ? WADDLE_FLUTE : WADDLE);
         } else {
             state.getController().setAnimation(IDLE);
         }

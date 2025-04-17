@@ -46,8 +46,6 @@ public abstract class MusicalEntity extends TamableAnimal {
         super(entityType, level);
         this.instrument = getInstrument();
         this.conductorUUID = null;
-
-        updateGoals();
     }
 
     public abstract DeferredItem<Item> getInstrument();
@@ -198,22 +196,5 @@ public abstract class MusicalEntity extends TamableAnimal {
         UUID conductorUUID = conductor == null ? null : conductor.getUUID();
 
         this.entityData.set(CONDUCTOR_ID, Optional.ofNullable(conductorUUID));
-    }
-
-    public void updateGoals() {
-        // TODO: THIS DOES NOT WORK
-        if (!level().isClientSide()) {
-            Goal randomLookAround = new RandomLookAroundGoal(this);
-            Goal lookAtPlayer = new LookAtPlayerGoal(this, Player.class, 6.0F);
-            if (this instanceof MantisEntity) {
-                if (this.isPlayingInstrument()) {
-                    this.goalSelector.removeGoal(randomLookAround);
-                    this.goalSelector.removeGoal(lookAtPlayer);
-                } else {
-                    this.goalSelector.addGoal(7, randomLookAround);
-                    this.goalSelector.addGoal(6, lookAtPlayer);
-                }
-            }
-        }
     }
 }

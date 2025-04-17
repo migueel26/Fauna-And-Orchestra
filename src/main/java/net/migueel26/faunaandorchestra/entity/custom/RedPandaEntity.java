@@ -37,6 +37,7 @@ public class RedPandaEntity extends MusicalEntity implements GeoEntity {
     // Gotta change the names to match de other entities
     protected static final RawAnimation WALK = RawAnimation.begin().thenPlay("walking");
     protected static final RawAnimation WALK_STANDING = RawAnimation.begin().thenPlay("walking_standing");
+    protected static final RawAnimation WALK_KEYTAR = RawAnimation.begin().thenPlay("walking_keytar");
     protected static final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
     protected static final RawAnimation IDLE_STANDING = RawAnimation.begin().thenPlay("idle_standing");
     protected static final RawAnimation STAND_UP = RawAnimation.begin().thenPlay("stand_up");
@@ -74,6 +75,7 @@ public class RedPandaEntity extends MusicalEntity implements GeoEntity {
 
     private <E extends GeoAnimatable> PlayState redPandaState(AnimationState<E> state) {
         if (state.isMoving()) {
+            if (isHoldingInstrument()) state.getController().setAnimation(WALK_KEYTAR);
             state.getController().setAnimation(
                     isStanding() ? WALK_STANDING : WALK);
         } else if (isPlayingInstrument()) {

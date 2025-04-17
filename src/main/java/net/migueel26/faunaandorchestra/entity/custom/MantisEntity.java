@@ -35,6 +35,7 @@ import java.util.UUID;
 
 public class MantisEntity extends MusicalEntity implements GeoEntity, NeutralMob {
     protected static final RawAnimation WALK = RawAnimation.begin().thenPlay("walk");
+    protected static final RawAnimation WALK_VIOLIN = RawAnimation.begin().thenPlay("walk_violin");
     protected static final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
     protected static final RawAnimation ATTACK = RawAnimation.begin().thenPlay("attack");
     protected static final RawAnimation PLAYING = RawAnimation.begin().thenPlay("playing");
@@ -69,7 +70,7 @@ public class MantisEntity extends MusicalEntity implements GeoEntity, NeutralMob
         this.goalSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, true, this::isAngryAt));
         // MeleeAttackGoal (5)
         this.goalSelector.addGoal(5, new RandomStrollGoal(this, 1.0));
-        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        // LookAtPlayerGoal (6)
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(8, new ResetUniversalAngerTargetGoal<>(this, true));
     }
@@ -86,13 +87,19 @@ public class MantisEntity extends MusicalEntity implements GeoEntity, NeutralMob
                 }
             }
         });
+
+        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F) {
+            @Override
+            public boolean canUse() {
+                return super.canUse() && !((MantisEntity) mob).isPlayingInstrument();
+            }
+        });
     }
 
     protected <E extends GeoAnimatable> PlayState mantisState(AnimationState<E> state) {
-
         if (state.isMoving()) {
             state.getController().transitionLength(5);
-            state.getController().setAnimation(WALK);
+            state.getController().setAnimation(isHoldingInstrument() ? WALK_VIOLIN : WALK);
         } else if (isPlayingInstrument()) {
             state.getController().transitionLength(5);
             state.getController().setAnimation(PLAYING);
