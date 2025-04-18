@@ -6,6 +6,7 @@
     "MixinChannel",
     "MixinSoundEngine",
     "MixinSoundManager",
+    "MixinMusicManager",
     "accessors.SoundBufferAccessor",
     "accessors.ClientLevelAccessor"
   ],

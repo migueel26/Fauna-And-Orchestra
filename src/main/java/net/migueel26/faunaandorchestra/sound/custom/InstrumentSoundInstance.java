@@ -76,5 +76,4 @@ public class InstrumentSoundInstance extends AbstractTickableSoundInstance {
     public Integer getTicksOffset() {
         return ticksOffset;
     }
-
 }

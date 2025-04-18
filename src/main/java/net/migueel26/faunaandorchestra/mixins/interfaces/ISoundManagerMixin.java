@@ -4,4 +4,6 @@ import java.util.UUID;
 
 public interface ISoundManagerMixin {
     void faunaStopMusic(UUID entityID);
+
+    boolean faunaIsThereAnOrchestra();
 }

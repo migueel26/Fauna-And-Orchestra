@@ -87,4 +87,9 @@ public class MixinSoundEngine implements ISoundEngineMixin {
                 .filter(sound -> sound.getEntity().getUUID().equals(entityUUID))
                 .forEach(InstrumentSoundInstance::stopSound);
     }
+
+    @Override
+    public boolean faunaIsThereAnOrchestra() {
+        return tickingSounds.stream().anyMatch(InstrumentSoundInstance.class::isInstance);
+    }
 }

@@ -15,7 +15,7 @@ public class ModEntities {
             DeferredRegister.create(BuiltInRegistries.ENTITY_TYPE, FaunaAndOrchestra.MOD_ID);
 
     public  static final Supplier<EntityType<MantisEntity>> MANTIS = ENTITY_TYPES.register("mantis",
-            () -> EntityType.Builder.of(MantisEntity::new, MobCategory.CREATURE).sized(1f, 2f).build("mantis"));
+            () -> EntityType.Builder.of(MantisEntity::new, MobCategory.CREATURE).sized(1f, 2.25f).build("mantis"));
     public  static final Supplier<EntityType<ToadEntity>> TOAD = ENTITY_TYPES.register("toad",
             () -> EntityType.Builder.of(ToadEntity::new, MobCategory.CREATURE).sized(1f, 2f).build("toad"));
     public static final Supplier<EntityType<PenguinEntity>> PENGUIN = ENTITY_TYPES.register("penguin",
