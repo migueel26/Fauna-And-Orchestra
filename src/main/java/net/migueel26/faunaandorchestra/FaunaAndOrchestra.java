@@ -1,6 +1,7 @@
 package net.migueel26.faunaandorchestra;
 
 import net.migueel26.faunaandorchestra.client.entity.*;
+import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.item.ModCreativeModeTabs;
 import net.migueel26.faunaandorchestra.item.ModItems;
@@ -49,6 +50,7 @@ public class FaunaAndOrchestra {
         ModCreativeModeTabs.register(modEventBus);
         ModEntities.register(modEventBus);
         ModSounds.register(modEventBus);
+        ModDataComponents.register(modEventBus);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

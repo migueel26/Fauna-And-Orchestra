@@ -23,6 +23,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.FLUTE);
                         output.accept(ModItems.KEYTAR);
                         output.accept(ModItems.DOUBLE_BASS);
+                        output.accept(ModItems.BATON);
                         output.accept(ModItems.MANTIS_SPAWN_EGG);
                         output.accept(ModItems.PENGUIN_SPAWN_EGG);
                         output.accept(ModItems.RED_PANDA_SPAWN_EGG);

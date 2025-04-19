@@ -185,6 +185,208 @@
 				}
 			}
 		},
+		"waddle_flute": {
+			"loop": true,
+			"animation_length": 0.75,
+			"bones": {
+				"chest": {
+					"rotation": {
+						"0.0": {
+							"vector": [1.75, 0, 0]
+						},
+						"0.2083": {
+							"vector": [1.76313, -6.99672, 4.78516],
+							"easing": "easeInOutSine"
+						},
+						"0.375": {
+							"vector": [1.75, 0, 0],
+							"easing": "easeInOutSine"
+						},
+						"0.5833": {
+							"vector": [1.76313, 6.99672, -4.78516],
+							"easing": "easeInOutSine"
+						},
+						"0.75": {
+							"vector": [1.75, 0, 0]
+						}
+					},
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.2083": {
+							"vector": [0.8, 0.75, 0],
+							"easing": "easeInOutSine"
+						},
+						"0.375": {
+							"vector": [0, 0, 0],
+							"easing": "easeInOutSine"
+						},
+						"0.5833": {
+							"vector": [-0.8, 0.75, 0],
+							"easing": "easeInOutSine"
+						},
+						"0.75": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"left_wing": {
+					"rotation": {
+						"vector": [-71.72387, 3.00189, -14.54859]
+					}
+				},
+				"right_wing": {
+					"rotation": {
+						"vector": [-71.71047, -4.4201, 15.62836]
+					}
+				},
+				"tail": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.2083": {
+							"vector": [-15.5, 0, 0]
+						},
+						"0.375": {
+							"vector": [0, 0, 0]
+						},
+						"0.5833": {
+							"vector": [-15.5, 0, 0]
+						},
+						"0.75": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"head": {
+					"rotation": {
+						"0.0": {
+							"vector": [-1.3, 0, 0]
+						},
+						"0.2083": {
+							"vector": [2.65565, 1.0383, -4.89127]
+						},
+						"0.375": {
+							"vector": [-1.3, 0, 0]
+						},
+						"0.5833": {
+							"vector": [2.65565, 0.2079, 4.89127]
+						},
+						"0.75": {
+							"vector": [-1.3, 0, 0]
+						}
+					}
+				},
+				"long_flute": {
+					"rotation": {
+						"0.0": {
+							"vector": [-15, 0, 0]
+						},
+						"0.2083": {
+							"vector": [-10, 0, 0]
+						},
+						"0.375": {
+							"vector": [-15, 0, 0]
+						},
+						"0.5833": {
+							"vector": [-10, 0, 0]
+						},
+						"0.75": {
+							"vector": [-15, 0, 0]
+						}
+					},
+					"position": {
+						"vector": [-0.1, 7, -6]
+					}
+				},
+				"left_leg": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.2083": {
+							"vector": [-7, 0, 0],
+							"easing": "easeInOutSine"
+						},
+						"0.375": {
+							"vector": [0, 0, 0],
+							"easing": "easeInOutSine"
+						},
+						"0.5833": {
+							"vector": [4, 0, 0],
+							"easing": "easeInOutSine"
+						},
+						"0.75": {
+							"vector": [0, 0, 0]
+						}
+					},
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.2083": {
+							"vector": [0.5, 0.8, 0],
+							"easing": "easeInOutSine"
+						},
+						"0.375": {
+							"vector": [0, 0, 0],
+							"easing": "easeInOutSine"
+						},
+						"0.5833": {
+							"vector": [0, 0.2, 0],
+							"easing": "easeInOutSine"
+						},
+						"0.75": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"right_leg": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.2083": {
+							"vector": [4, 0, 0],
+							"easing": "easeInOutSine"
+						},
+						"0.375": {
+							"vector": [0, 0, 0],
+							"easing": "easeInOutSine"
+						},
+						"0.5833": {
+							"vector": [-7, 0, 0],
+							"easing": "easeInOutSine"
+						},
+						"0.75": {
+							"vector": [0, 0, 0]
+						}
+					},
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.2083": {
+							"vector": [0, 0.2, 0],
+							"easing": "easeInOutSine"
+						},
+						"0.375": {
+							"vector": [0, 0, 0],
+							"easing": "easeInOutSine"
+						},
+						"0.5833": {
+							"vector": [-0.5, 0.8, 0],
+							"easing": "easeInOutSine"
+						},
+						"0.75": {
+							"vector": [0, 0, 0]
+						}
+					}
+				}
+			}
+		},
 		"waddle": {
 			"loop": true,
 			"animation_length": 0.75,

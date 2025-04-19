@@ -75,9 +75,11 @@ public class RedPandaEntity extends MusicalEntity implements GeoEntity {
 
     private <E extends GeoAnimatable> PlayState redPandaState(AnimationState<E> state) {
         if (state.isMoving()) {
-            if (isHoldingInstrument()) state.getController().setAnimation(WALK_KEYTAR);
-            state.getController().setAnimation(
-                    isStanding() ? WALK_STANDING : WALK);
+            if (isHoldingInstrument())  {
+                state.getController().setAnimation(WALK_KEYTAR);
+            } else {
+                state.getController().setAnimation(isStanding() ? WALK_STANDING : WALK);
+            };
         } else if (isPlayingInstrument()) {
             state.getController().setAnimation(PLAYING);
         } else if (isHoldingInstrument()) {

@@ -2,6 +2,7 @@ package net.migueel26.faunaandorchestra.item;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
+import net.migueel26.faunaandorchestra.item.custom.BatonItem;
 import net.migueel26.faunaandorchestra.item.custom.InstrumentItem;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.minecraft.world.item.Item;
@@ -25,6 +26,9 @@ public class ModItems {
 
     public static final DeferredItem<Item> DOUBLE_BASS = ITEMS.register("double_bass",
             () -> new InstrumentItem(new Item.Properties().stacksTo(1), ModSounds.DOUBLE_BASS_USE.get()));
+
+    public static final DeferredItem<Item> BATON = ITEMS.register("baton",
+            () -> new BatonItem(new Item.Properties().stacksTo(1)));
 
     public static final DeferredItem<Item> BACH_AIR_SHEET_MUSIC = ITEMS.register("bach_air_sheet_music",
             () -> new Item(new Item.Properties().rarity(Rarity.RARE)));

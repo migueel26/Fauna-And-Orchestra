@@ -65,12 +65,12 @@ public class PenguinEntity extends MusicalEntity implements GeoEntity {
         } else if (isWaving()) {
             state.getController().setAnimation(WAVE);
             if (state.getController().hasAnimationFinished()) stopWaving();
+        } else if (state.isMoving()) {
+            state.getController().setAnimation(isHoldingInstrument() ? WADDLE_FLUTE : WADDLE);
         } else if (isHoldingInstrument()) {
             state.getController().setAnimation(IDLE_FLUTE);
         } else if (state.isMoving() && isRunning()) {
             state.getController().setAnimation(RUN);
-        } else if (state.isMoving()) {
-            state.getController().setAnimation(isHoldingInstrument() ? WADDLE_FLUTE : WADDLE);
         } else {
             state.getController().setAnimation(IDLE);
         }

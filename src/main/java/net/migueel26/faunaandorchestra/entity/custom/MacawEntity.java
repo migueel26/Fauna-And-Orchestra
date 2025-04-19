@@ -84,7 +84,7 @@ public class MacawEntity extends MusicalEntity implements GeoEntity, FlyingAnima
             public void tick() {
                 super.tick();
                 if (this.lookAt.isAlive() && ((MusicalEntity) this.mob).isHoldingInstrument()) {
-                    this.mob.getLookControl().setLookAt(this.lookAt.getX(), this.lookAt.getEyeY()-25, this.lookAt.getZ());
+                    this.mob.getLookControl().setLookAt(this.lookAt.getX(), this.lookAt.getEyeY()-5, this.lookAt.getZ());
                 }
             }
         });

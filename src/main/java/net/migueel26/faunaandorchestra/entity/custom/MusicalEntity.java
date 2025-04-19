@@ -1,5 +1,8 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
+import com.mojang.serialization.Codec;
+import net.migueel26.faunaandorchestra.component.ModDataComponents;
+import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.mixins.client.accessors.ClientLevelAccessor;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.Holder;
@@ -127,6 +130,9 @@ public abstract class MusicalEntity extends TamableAnimal {
                 setOrderedToSit(false);
                 return InteractionResult.SUCCESS;
 
+            } else if (itemStack.is(ModItems.BATON) && !isPlayingInstrument() && itemStack.get(ModDataComponents.MUSICIAN_UUID) == null) {
+                itemStack.set(ModDataComponents.MUSICIAN_UUID, this.uuid);
+                return InteractionResult.SUCCESS;
             }
         }
         return InteractionResult.FAIL;
