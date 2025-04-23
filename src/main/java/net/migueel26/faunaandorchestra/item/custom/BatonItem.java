@@ -33,7 +33,7 @@ public class BatonItem extends Item {
             BlockPos block = context.getClickedPos();
             Mob mob = (Mob) level.getEntity(uuid);
             context.getItemInHand().set(ModDataComponents.MUSICIAN_UUID, null);
-            if (mob != null && mob.distanceToSqr(block.getCenter()) < 50) {
+            if (mob != null && mob.distanceToSqr(block.getCenter()) < 100) {
                 mob.getNavigation().moveTo(block.getX(), block.getY(), block.getZ(), 1F);
                 level.addParticle(ParticleTypes.NOTE, block.getX(), block.getY() + 2.5, block.getZ(), 0F, 0.5F, 0F);
                 return InteractionResult.SUCCESS;

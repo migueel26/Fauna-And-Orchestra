@@ -115,7 +115,12 @@ public abstract class MusicalEntity extends TamableAnimal {
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
         if (isOwnedBy(player)) {
-            if (itemStack.is(instrument) && !isHoldingInstrument()) {
+            if (itemStack.is(ModItems.BATON) && !isPlayingInstrument() && itemStack.get(ModDataComponents.MUSICIAN_UUID) == null) {
+
+                itemStack.set(ModDataComponents.MUSICIAN_UUID, this.uuid);
+                return InteractionResult.SUCCESS;
+
+            } else if (itemStack.is(instrument) && !isHoldingInstrument()) {
 
                 setHoldingInstrument(true);
                 player.setItemInHand(hand, ItemStack.EMPTY);
@@ -130,9 +135,6 @@ public abstract class MusicalEntity extends TamableAnimal {
                 setOrderedToSit(false);
                 return InteractionResult.SUCCESS;
 
-            } else if (itemStack.is(ModItems.BATON) && !isPlayingInstrument() && itemStack.get(ModDataComponents.MUSICIAN_UUID) == null) {
-                itemStack.set(ModDataComponents.MUSICIAN_UUID, this.uuid);
-                return InteractionResult.SUCCESS;
             }
         }
         return InteractionResult.FAIL;
