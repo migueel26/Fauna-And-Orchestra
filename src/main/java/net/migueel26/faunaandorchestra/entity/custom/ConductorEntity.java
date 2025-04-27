@@ -20,6 +20,7 @@ import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.items.ItemStackHandler;
@@ -71,6 +72,13 @@ public abstract class ConductorEntity extends TamableAnimal {
         super.readAdditionalSaveData(compound);
 
         this.entityData.set(HOLDING_BATON, compound.getBoolean("HoldingBaton"));
+
+        if (compound.contains("SheetMusic")) {
+            ItemStack itemstack = ItemStack.parse(this.registryAccess(), compound.getCompound("SheetMusic")).orElse(ItemStack.EMPTY);
+            if (itemstack.is(ModTags.Items.SHEET_MUSIC)) {
+                this.inventory.setStackInSlot(0, itemstack);
+            }
+        }
     }
 
     @Override
@@ -78,11 +86,15 @@ public abstract class ConductorEntity extends TamableAnimal {
         super.addAdditionalSaveData(compound);
 
         compound.putBoolean("HoldingBaton", this.isHoldingBaton());
+
+        if (!this.inventory.getStackInSlot(0).isEmpty()) {
+            compound.put("SheetMusic", this.inventory.getStackInSlot(0).save(this.registryAccess()));
+        }
     }
 
     @Override
     public void tick() {
-        if (holdingBaton) {
+        if (holdingBaton && !isOrchestraEmpty()) {
             double n = orchestra.size();
             this.getNavigation().stop();
             this.lookAt(EntityAnchorArgument.Anchor.EYES,  new Vec3(
