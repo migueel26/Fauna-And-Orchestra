@@ -18,7 +18,7 @@ public class ModEventBusEvents {
     @SubscribeEvent
     public static void registerAttributes(EntityAttributeCreationEvent event) {
         event.put(ModEntities.MANTIS.get(), MantisEntity.createAttributes().build());
-        event.put(ModEntities.TOAD.get(), ToadEntity.createAttributes().build());
+        event.put(ModEntities.TOAD.get(), QuirkyFrogEntity.createAttributes().build());
         event.put(ModEntities.PENGUIN.get(), PenguinEntity.createAttributes().build());
         event.put(ModEntities.RED_PANDA.get(), RedPandaEntity.createAttributes().build());
         event.put(ModEntities.MACAW.get(), MacawEntity.createAttributes().build());

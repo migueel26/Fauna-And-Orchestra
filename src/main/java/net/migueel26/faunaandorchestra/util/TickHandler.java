@@ -1,4 +1,4 @@
-package net.migueel26.faunaandorchestra;
+package net.migueel26.faunaandorchestra.util;
 
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;

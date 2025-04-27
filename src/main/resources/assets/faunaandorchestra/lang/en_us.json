@@ -12,6 +12,7 @@
   "item.faunaandorchestra.penguin_spawn_egg": "Baby Penguin Spawn Egg",
   "item.faunaandorchestra.red_panda_spawn_egg": "Red Panda Spawn Egg",
   "item.faunaandorchestra.macaw_spawn_egg": "Macaw Spawn Egg",
+  "item.faunaandorchestra.quirky_frog_spawn_egg": "Quirky Frog Spawn Egg",
 
   "tooltip.faunaandorchestra:violin": "§7This instrument seems to capture the attention of some... §odevout§r§7 insects",
   "tooltip.faunaandorchestra:flute": "§7This instrument seems to capture the attention of some... §ocool§r§7 fellas",
@@ -24,5 +25,6 @@
   "entity.faunaandorchestra.mantis": "Mantis",
   "entity.faunaandorchestra.penguin": "Baby Penguin",
   "entity.faunaandorchestra.red_panda": "Red Panda",
-  "entity.faunaandorchestra.macaw": "Macaw"
+  "entity.faunaandorchestra.macaw": "Macaw",
+  "entity.faunaandorchestra.quirky_frog": "Quirky Frog"
 }

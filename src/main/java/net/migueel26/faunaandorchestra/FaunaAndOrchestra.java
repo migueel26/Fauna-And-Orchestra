@@ -5,8 +5,11 @@ import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.item.ModCreativeModeTabs;
 import net.migueel26.faunaandorchestra.item.ModItems;
+import net.migueel26.faunaandorchestra.screen.ModMenuTypes;
+import net.migueel26.faunaandorchestra.screen.custom.ConductorScreen;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -51,6 +54,7 @@ public class FaunaAndOrchestra {
         ModEntities.register(modEventBus);
         ModSounds.register(modEventBus);
         ModDataComponents.register(modEventBus);
+        ModMenuTypes.register(modEventBus);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
@@ -74,10 +78,15 @@ public class FaunaAndOrchestra {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
             EntityRenderers.register(ModEntities.MANTIS.get(), MantisRenderer::new);
-            EntityRenderers.register(ModEntities.TOAD.get(), ToadRenderer::new);
+            EntityRenderers.register(ModEntities.TOAD.get(), QuirkyFrogRenderer::new);
             EntityRenderers.register(ModEntities.PENGUIN.get(), PenguinRenderer::new);
             EntityRenderers.register(ModEntities.RED_PANDA.get(), RedPandaRenderer::new);
             EntityRenderers.register(ModEntities.MACAW.get(), MacawRenderer::new);
+        }
+
+        @SubscribeEvent
+        public static void registerScreens(RegisterMenuScreensEvent event) {
+            event.register(ModMenuTypes.CONDUCTOR_MENU.get(), ConductorScreen::new);
         }
     }
 }

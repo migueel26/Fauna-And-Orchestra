@@ -1,8 +1,11 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
@@ -20,13 +23,13 @@ import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class ToadEntity extends ConductorEntity implements GeoEntity {
+public class QuirkyFrogEntity extends ConductorEntity implements GeoEntity {
     protected static final RawAnimation WALK = RawAnimation.begin().thenPlay("walk");
     protected static final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
-    protected static final RawAnimation PLAYING = RawAnimation.begin().thenPlay("playing");
+    protected static final RawAnimation CONDUCTING = RawAnimation.begin().thenPlay("conducting");
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
 
-    public ToadEntity(EntityType<? extends Animal> entityType, Level level) {
+    public QuirkyFrogEntity(EntityType<? extends TamableAnimal> entityType, Level level) {
         super(entityType, level);
     }
 
@@ -51,17 +54,25 @@ public class ToadEntity extends ConductorEntity implements GeoEntity {
         return null;
     }
 
-    protected <E extends GeoAnimatable> PlayState conductorState(AnimationState<E> state) {
+    protected <E extends GeoAnimatable> PlayState quirkyFrogState(AnimationState<E> state) {
         if (state.isMoving()) {
             state.getController().transitionLength(3);
             state.getController().setAnimation(WALK);
         } else if (isHoldingBaton()) {
             state.getController().transitionLength(0);
-            state.getController().setAnimation(PLAYING);
+            state.getController().setAnimation(CONDUCTING);
         } else {
             state.getController().setAnimation(IDLE);
         }
         return PlayState.CONTINUE;
+    }
+
+    @Override
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+        if (!isTame()) {
+            this.tame(player);
+        }
+        return super.mobInteract(player, hand);
     }
 
     @Override
@@ -71,7 +82,7 @@ public class ToadEntity extends ConductorEntity implements GeoEntity {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "conductor_controller", 5, this::conductorState));
+        controllers.add(new AnimationController<>(this, "conductor_controller", 5, this::quirkyFrogState));
     }
 
     @Override

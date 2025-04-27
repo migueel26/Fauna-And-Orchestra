@@ -30,9 +30,6 @@ public class ModItems {
     public static final DeferredItem<Item> BATON = ITEMS.register("baton",
             () -> new BatonItem(new Item.Properties().stacksTo(1)));
 
-    public static final DeferredItem<Item> BACH_AIR_SHEET_MUSIC = ITEMS.register("bach_air_sheet_music",
-            () -> new Item(new Item.Properties().rarity(Rarity.RARE)));
-
     public static final DeferredItem<Item> MANTIS_SPAWN_EGG = ITEMS.register("mantis_spawn_egg",
             () -> new DeferredSpawnEggItem(ModEntities.MANTIS, 0x46eb4c, 0x23a628,
                     new Item.Properties()));
@@ -47,6 +44,10 @@ public class ModItems {
 
     public static final DeferredItem<Item> MACAW_SPAWN_EGG = ITEMS.register("macaw_spawn_egg",
             () -> new DeferredSpawnEggItem(ModEntities.MACAW, 0x002196, 0xffea00,
+                    new Item.Properties()));
+
+    public static final DeferredItem<Item> QUIRKY_FROG_SPAWN_EGG = ITEMS.register("quirky_frog_spawn_egg",
+            () -> new DeferredSpawnEggItem(ModEntities.TOAD, 0x245715, 0xbfbd82,
                     new Item.Properties()));
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
