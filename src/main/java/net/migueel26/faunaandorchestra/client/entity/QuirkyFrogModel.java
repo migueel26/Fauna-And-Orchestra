@@ -32,21 +32,22 @@ public class QuirkyFrogModel extends GeoModel<QuirkyFrogEntity> {
 
     @Override
     public void setCustomAnimations(QuirkyFrogEntity entity, long instanceId, AnimationState<QuirkyFrogEntity> animationState) {
-        GeoBone head = getAnimationProcessor().getBone("head");
+        GeoBone head = getAnimationProcessor().getBone("frog_head");
 
-        if (head != null) {
+        if (head != null && !entity.isConducting()) {
             EntityModelData entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
 
-            head.setRotX(entityData.headPitch() * Mth.DEG_TO_RAD);
-            head.setRotY(entityData.netHeadYaw() * Mth.DEG_TO_RAD);
+            if (entity.isHoldingBaton()) {
+                head.setRotX((entityData.headPitch()+45) * Mth.DEG_TO_RAD);
+                head.setRotZ(entityData.netHeadYaw() * Mth.DEG_TO_RAD);
+            } else {
+                head.setRotX(entityData.headPitch() * Mth.DEG_TO_RAD);
+                head.setRotY(entityData.netHeadYaw() * Mth.DEG_TO_RAD);
+            }
         }
 
         GeoBone baton = getAnimationProcessor().getBone("baton");
 
-        if (entity.isHoldingBaton()) {
-            baton.setHidden(false);
-        } else {
-            baton.setHidden(true);
-        }
+        baton.setHidden(!entity.isHoldingBaton());
     }
 }

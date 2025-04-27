@@ -39,6 +39,7 @@ public class MusicalEntityPlayingInstrumentGoal extends Goal {
                 .stream()
                 .filter(cond -> cond.getOrchestra().stream().noneMatch(musician.getClass()::isInstance))
                 .filter(ConductorEntity::isHoldingBaton)
+                .filter(ConductorEntity::isHoldingASheetMusic)
                 .findAny();
 
         if (!musician.isHoldingInstrument()) return false;
@@ -57,7 +58,7 @@ public class MusicalEntityPlayingInstrumentGoal extends Goal {
     @Override
     public boolean canContinueToUse() {
         return musician.isHoldingInstrument() && conductor != null && !conductor.isDeadOrDying() && conductor.isHoldingBaton()
-                && musician.distanceTo(conductor) <= 10;
+                && musician.distanceTo(conductor) <= 10 && conductor.isHoldingASheetMusic();
     }
 
     @Override
@@ -75,8 +76,7 @@ public class MusicalEntityPlayingInstrumentGoal extends Goal {
         // Start the musician's part
         PacketDistributor.sendToAllPlayers(new StartOrchestraMusicPayload(musician.getUUID(),
                 ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID,
-                        // TODO: REPLACE WITH GENERIC SHEET
-                        MusicUtil.getLocation(ModItems.BACH_AIR_SHEET_MUSIC.get(), musician.getInstrument().get())),
+                        MusicUtil.getLocation(conductor.getSheetMusic(), musician.getInstrument().get())),
                 ticksOffset));
     }
 

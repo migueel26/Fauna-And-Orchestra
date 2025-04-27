@@ -16,18 +16,21 @@ public class MusicUtil {
             ModItems.DOUBLE_BASS.get(), ModSounds.BACH_AIR_DOUBLE_BASS.get().getLocation()
     );
 
+    private static final Map<Item, Map<Item, ResourceLocation>> SONG = Map.of(
+            ModItems.BACH_AIR_SHEET_MUSIC.get(), BACH_AIR
+    );
+
     public static String getLocation(Item sheet, Item instrument) {
-        //if (sheet.getDefaultInstance().is(ModTags.Items.SHEET_MUSIC)) {
+        if (sheet.getDefaultInstance().is(ModTags.Items.SHEET_MUSIC)) {
             if (instrument instanceof InstrumentItem) {
 
-                return BACH_AIR.get(instrument).getPath();
+                return SONG.get(sheet).get(instrument).getPath();
 
             } else {
                 throw new IllegalArgumentException("Tried to get the music sound of a non-instrument item!");
             }
-        //} else {
-        //    throw new IllegalArgumentException("Tried to get the music sound of a non-sheet item!");
-        //}
+        } else {
+            throw new IllegalArgumentException("Tried to get the music sound of a non-sheet item!");
+        }
     }
-
 }

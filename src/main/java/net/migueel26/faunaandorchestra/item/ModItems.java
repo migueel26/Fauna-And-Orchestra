@@ -47,7 +47,7 @@ public class ModItems {
                     new Item.Properties()));
 
     public static final DeferredItem<Item> QUIRKY_FROG_SPAWN_EGG = ITEMS.register("quirky_frog_spawn_egg",
-            () -> new DeferredSpawnEggItem(ModEntities.TOAD, 0x245715, 0xbfbd82,
+            () -> new DeferredSpawnEggItem(ModEntities.QUIRKY_FROG, 0x245715, 0xbfbd82,
                     new Item.Properties()));
 
     public static final DeferredItem<Item> BACH_AIR_SHEET_MUSIC = ITEMS.register("bach_air_sheet_music",

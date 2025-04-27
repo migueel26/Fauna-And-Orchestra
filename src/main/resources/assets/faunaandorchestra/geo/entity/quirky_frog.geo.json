@@ -12,9 +12,14 @@
 			},
 			"bones": [
 				{
-					"name": "body",
+					"name": "north_bone",
 					"pivot": [0, 0, 1.62976],
 					"rotation": [0, 180, 0]
+				},
+				{
+					"name": "body",
+					"parent": "north_bone",
+					"pivot": [0, 0, 1.62976]
 				},
 				{
 					"name": "frog_right_upper_leg",
