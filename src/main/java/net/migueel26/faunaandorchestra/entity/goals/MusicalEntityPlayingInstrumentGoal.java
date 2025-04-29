@@ -3,21 +3,10 @@ package net.migueel26.faunaandorchestra.entity.goals;
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.entity.custom.ConductorEntity;
 import net.migueel26.faunaandorchestra.entity.custom.MusicalEntity;
-import net.migueel26.faunaandorchestra.item.ModItems;
-import net.migueel26.faunaandorchestra.item.custom.InstrumentItem;
-import net.migueel26.faunaandorchestra.networking.StartOrchestraMusicPayload;
-import net.migueel26.faunaandorchestra.sound.ModSounds;
-import net.migueel26.faunaandorchestra.sound.custom.InstrumentSoundInstance;
+import net.migueel26.faunaandorchestra.networking.StartOrchestraMusicS2CPayload;
 import net.migueel26.faunaandorchestra.util.MusicUtil;
-import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.EnumSet;
@@ -67,6 +56,7 @@ public class MusicalEntityPlayingInstrumentGoal extends Goal {
         conductor = musician.getConductor();
 
         // The musician joins the conductor's orchestra and we disable any possible inconsistent goal
+        if (conductor.isOrchestraEmpty()) conductor.setTicksPlaying(0);
         conductor.addMusician(musician);
         //musician.updateGoals();
 
@@ -74,7 +64,7 @@ public class MusicalEntityPlayingInstrumentGoal extends Goal {
         int ticksOffset = conductor.getTicksPlaying();
 
         // Start the musician's part
-        PacketDistributor.sendToAllPlayers(new StartOrchestraMusicPayload(musician.getUUID(),
+        PacketDistributor.sendToAllPlayers(new StartOrchestraMusicS2CPayload(musician.getUUID(),
                 ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID,
                         MusicUtil.getLocation(conductor.getSheetMusic(), musician.getInstrument().get())),
                 ticksOffset));

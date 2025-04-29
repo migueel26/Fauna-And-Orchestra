@@ -6,7 +6,9 @@ import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 
+import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class MusicUtil {
     private static final Map<Item, ResourceLocation> BACH_AIR = Map.of(
@@ -20,6 +22,8 @@ public class MusicUtil {
             ModItems.BACH_AIR_SHEET_MUSIC.get(), BACH_AIR
     );
 
+    private static Map<UUID, Item> CURRENT_ORCHESTRAS = new HashMap<>();
+
     public static String getLocation(Item sheet, Item instrument) {
         if (sheet.getDefaultInstance().is(ModTags.Items.SHEET_MUSIC)) {
             if (instrument instanceof InstrumentItem) {
@@ -32,5 +36,27 @@ public class MusicUtil {
         } else {
             throw new IllegalArgumentException("Tried to get the music sound of a non-sheet item!");
         }
+    }
+
+    public static void addNewOrchestra(UUID conductorUUID, Item sheetMusic) {
+        CURRENT_ORCHESTRAS.put(conductorUUID, sheetMusic);
+    }
+
+    public static void deleteOrchestra(UUID conductorUUID) {
+        CURRENT_ORCHESTRAS.remove(conductorUUID);
+    }
+
+    public static boolean updateNewSheet(UUID conductorUUID, Item sheetMusic) {
+        Item currentSheet = CURRENT_ORCHESTRAS.get(conductorUUID);
+        if (currentSheet == sheetMusic) {
+            return false;
+        } else {
+            CURRENT_ORCHESTRAS.put(conductorUUID, sheetMusic);
+            return true;
+        }
+    }
+
+    public static Item getSheet(UUID conductorUUID) {
+        return CURRENT_ORCHESTRAS.get(conductorUUID);
     }
 }

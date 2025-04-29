@@ -2,6 +2,7 @@ package net.migueel26.faunaandorchestra.entity.goals;
 
 import net.migueel26.faunaandorchestra.entity.custom.ConductorEntity;
 import net.migueel26.faunaandorchestra.entity.custom.MusicalEntity;
+import net.migueel26.faunaandorchestra.util.MusicUtil;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.phys.Vec3;
@@ -22,6 +23,20 @@ public class ConductorEntityConductingOrchestra extends Goal {
     @Override
     public boolean canContinueToUse() {
         return !conductor.isOrchestraEmpty() && !conductor.isDeadOrDying() && conductor.isHoldingBaton();
+    }
+
+    @Override
+    public void start() {
+        System.out.println("Conductor IN!");
+        MusicUtil.addNewOrchestra(conductor.getUUID(), conductor.getSheetMusic());
+        super.start();
+    }
+
+    @Override
+    public void stop() {
+        System.out.println("Conductor OUT!");
+        MusicUtil.deleteOrchestra(conductor.getUUID());
+        super.stop();
     }
 
     @Override

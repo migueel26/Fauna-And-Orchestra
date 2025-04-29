@@ -3,23 +3,83 @@ package net.migueel26.faunaandorchestra.screen.custom;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.entity.custom.ConductorEntity;
+import net.migueel26.faunaandorchestra.entity.custom.MusicalEntity;
+import net.migueel26.faunaandorchestra.mixins.interfaces.ISoundManagerMixin;
+import net.migueel26.faunaandorchestra.networking.RestartOrchestraMusicC2SPayload;
+import net.migueel26.faunaandorchestra.sound.custom.InstrumentSoundInstance;
+import net.migueel26.faunaandorchestra.util.MusicUtil;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.Item;
+import net.neoforged.neoforge.client.gui.widget.ExtendedSlider;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 public class ConductorScreen extends AbstractContainerScreen<ConductorMenu> {
     public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/gui/conductor/conductor_gui.png");
     private final ConductorEntity conductor;
     private float xMouse;
     private float yMouse;
+    private ExtendedSlider volumeSlider;
+    private float volume;
     public ConductorScreen(ConductorMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
 
         this.conductor = menu.conductor;
+        this.volume = 1.0F;
+    }
+
+    @Override
+    protected void init() {
+        super.init();
+
+        int x = (width - imageWidth) / 2;
+        int y = (height - imageHeight) / 2;
+
+        this.volumeSlider = new ExtendedSlider(x + 86, y + 57, 80, 13, Component.literal("Volumen: "), Component.empty(), 0, 100, 100, true);
+
+        this.addRenderableWidget(volumeSlider);
+    }
+
+    @Override
+    public void afterMouseAction() {
+        super.afterMouseAction();
+        float currentVolume = (float) volumeSlider.getValue() / 100.0F;
+        Item newSheetMusic = conductor.getSheetMusic();
+        Item currentSheetMusic = MusicUtil.getSheet(conductor.getUUID());
+
+        if (newSheetMusic != currentSheetMusic || currentVolume != volume) {
+            volume = currentVolume;
+            System.out.println("Sending!");
+            PacketDistributor.sendToServer(new RestartOrchestraMusicC2SPayload(conductor.getUUID(), volume));
+        }
+        /*if (!conductor.isOrchestraEmpty() && volume != currentVolume) {
+            volume = currentVolume;
+            int ticksPlaying = conductor.getTicksPlaying();
+            System.out.println(ticksPlaying);
+
+            for (MusicalEntity entity : conductor.getOrchestra()) {
+                ResourceLocation musician_song = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID,
+                        MusicUtil.getLocation(conductor.getSheetMusic(), entity.getInstrument().get()));
+
+                // We stop all current instrument sounds
+                ((ISoundManagerMixin) Minecraft.getInstance().getSoundManager()).faunaStopMusic(entity.getUUID());
+
+                // We play them with the new volume / sheet music
+                Minecraft.getInstance().getSoundManager().play(
+                        new InstrumentSoundInstance(
+                                entity,
+                                BuiltInRegistries.SOUND_EVENT.get(musician_song),
+                                volume, ticksPlaying));
+            }
+        }*/
     }
 
     @Override

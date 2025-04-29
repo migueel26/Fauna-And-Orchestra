@@ -15,15 +15,17 @@ public class InstrumentSoundInstance extends AbstractTickableSoundInstance {
     private MusicalEntity entity;
     private int sourceID;
     private Integer ticksOffset;
+    private float oVolume;
     private int stopDelay = 5;
-    public InstrumentSoundInstance(MusicalEntity entity, SoundEvent soundEvent, int ticksOffset) {
+    public InstrumentSoundInstance(MusicalEntity entity, SoundEvent soundEvent, float volume, int ticksOffset) {
         super(soundEvent, SoundSource.NEUTRAL, SoundInstance.createUnseededRandom());
         this.ticksOffset = ticksOffset;
         this.entity = entity;
         this.looping = true;
         this.attenuation = Attenuation.LINEAR;
         this.delay = 0;
-        this.volume = 1.5F;
+        this.oVolume = 1.5F * volume;
+        this.volume = oVolume;
         this.x = entity.getX();
         this.y = entity.getY();
         this.z = entity.getZ();
@@ -41,7 +43,7 @@ public class InstrumentSoundInstance extends AbstractTickableSoundInstance {
             if (stopDelay > 0) {
                 stopDelay--;
             } else {
-                super.stop();
+                stopSound();
             }
         } else {
             stopDelay = 5;
@@ -53,7 +55,7 @@ public class InstrumentSoundInstance extends AbstractTickableSoundInstance {
 
             double distance = Minecraft.getInstance().player.distanceTo(entity);
 
-            this.volume = (float) Math.max(0, 1.5F - (distance * 0.05F));
+            this.volume = (float) Math.max(0, oVolume - (distance * 0.05F));
         }
     }
 
