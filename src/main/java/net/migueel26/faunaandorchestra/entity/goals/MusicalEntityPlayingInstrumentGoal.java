@@ -55,8 +55,7 @@ public class MusicalEntityPlayingInstrumentGoal extends Goal {
         System.out.println("In!");
         conductor = musician.getConductor();
 
-        // The musician joins the conductor's orchestra and we disable any possible inconsistent goal
-        if (conductor.isOrchestraEmpty()) conductor.setTicksPlaying(0);
+        // The musician joins the conductor's orchestra
         conductor.addMusician(musician);
         //musician.updateGoals();
 

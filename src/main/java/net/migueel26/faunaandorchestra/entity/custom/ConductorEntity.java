@@ -1,6 +1,7 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
 import net.migueel26.faunaandorchestra.item.ModItems;
+import net.migueel26.faunaandorchestra.networking.RestartOrchestraMusicS2CPayload;
 import net.migueel26.faunaandorchestra.screen.custom.ConductorMenu;
 import net.migueel26.faunaandorchestra.util.ModTags;
 import net.minecraft.core.Holder;
@@ -14,6 +15,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -22,6 +24,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.HashSet;
 import java.util.List;
