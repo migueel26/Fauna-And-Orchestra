@@ -43,14 +43,20 @@ public class ConductorScreen extends AbstractContainerScreen<ConductorMenu> {
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
-        this.volumeSlider = new ExtendedSlider(x + 86, y + 57, 80, 13, Component.literal("Volumen: "), Component.empty(), 0, 100, 100, true);
+        this.volumeSlider = new ExtendedSlider(x + 86, y + 57, 80, 13, Component.translatable("screen.faunaandorchestra.conductor_screen"), Component.empty(), 0, 100, 100, true);
 
         this.addRenderableWidget(volumeSlider);
     }
 
     @Override
-    public void afterMouseAction() {
-        super.afterMouseAction();
+    public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
+        if (mouseX > volumeSlider.getX() && mouseX < volumeSlider.getX()+80
+        && mouseY > volumeSlider.getY() && mouseY < volumeSlider.getY()+13) volumeSlider.mouseDragged(mouseX, mouseY, button, dragX, dragY);
+        return super.mouseDragged(mouseX, mouseY, button, dragX, dragY);
+    }
+
+    @Override
+    public boolean mouseReleased(double mouseX, double mouseY, int button) {
         float currentVolume = (float) volumeSlider.getValue() / 100.0F;
         Item newSheetMusic = conductor.getSheetMusic();
         Item currentSheetMusic = MusicUtil.getSheet(conductor.getUUID());
@@ -60,7 +66,23 @@ public class ConductorScreen extends AbstractContainerScreen<ConductorMenu> {
             System.out.println("Sending!");
             PacketDistributor.sendToServer(new RestartOrchestraMusicC2SPayload(conductor.getUUID(), volume));
         }
-        /*if (!conductor.isOrchestraEmpty() && volume != currentVolume) {
+        return super.mouseReleased(mouseX, mouseY, button);
+    }
+
+    @Override
+    public void afterMouseAction() {
+        // Mouse released? Mouse dragged?
+        super.afterMouseAction();
+        /*float currentVolume = (float) volumeSlider.getValue() / 100.0F;
+        Item newSheetMusic = conductor.getSheetMusic();
+        Item currentSheetMusic = MusicUtil.getSheet(conductor.getUUID());
+
+        if (newSheetMusic != currentSheetMusic || currentVolume != volume) {
+            volume = currentVolume;
+            System.out.println("Sending!");
+            PacketDistributor.sendToServer(new RestartOrchestraMusicC2SPayload(conductor.getUUID(), volume));
+        }
+        if (!conductor.isOrchestraEmpty() && volume != currentVolume) {
             volume = currentVolume;
             int ticksPlaying = conductor.getTicksPlaying();
             System.out.println(ticksPlaying);

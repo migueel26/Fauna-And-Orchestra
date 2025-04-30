@@ -24,7 +24,7 @@ public class InstrumentSoundInstance extends AbstractTickableSoundInstance {
         this.looping = true;
         this.attenuation = Attenuation.LINEAR;
         this.delay = 0;
-        this.oVolume = 1.5F * volume;
+        this.oVolume = volume;
         this.volume = oVolume;
         this.x = entity.getX();
         this.y = entity.getY();
