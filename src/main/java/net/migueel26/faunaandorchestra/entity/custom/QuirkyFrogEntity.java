@@ -1,21 +1,18 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
 import net.migueel26.faunaandorchestra.entity.goals.ConductorEntityConductingOrchestra;
+import net.migueel26.faunaandorchestra.entity.goals.QuirkyFrogConductingChoirGoal;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.JumpControl;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Rabbit;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -26,26 +23,35 @@ import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.*;
+import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.util.GeckoLibUtil;
+
+import java.util.*;
 
 public class QuirkyFrogEntity extends ConductorEntity implements GeoEntity {
     protected static final RawAnimation WALK = RawAnimation.begin().thenPlay("walk");
     protected static final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
+    protected static final RawAnimation CROAC = RawAnimation.begin().thenPlay("croac");
     protected static final RawAnimation CONDUCTING = RawAnimation.begin().thenPlay("conducting");
     protected static final RawAnimation HOLDING_BATON = RawAnimation.begin().thenPlay("holding_baton");
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
+    // Server Variables
+    private List<QuirkyFrogEntity> frogChoir = new ArrayList<>(4);
+    private boolean isSinging;
     private int jumpTicks;
     private int jumpDuration;
     private boolean wasOnGround;
     private int jumpDelayTicks;
     private int animDelayTicks;
     private final AnimationController<QuirkyFrogEntity> quirkyFrogController = new AnimationController<>(this, "quirky_frog_controller", 5, this::quirkyFrogState)
-            .triggerableAnim("jump", WALK);
+            .triggerableAnim("jump", WALK)
+            .triggerableAnim("croac", CROAC);
 
     public QuirkyFrogEntity(EntityType<? extends TamableAnimal> entityType, Level level) {
         super(entityType, level);
         this.jumpControl = new QuirkyFrogJumpControl(this);
         this.moveControl = new QuirkyFrogMoveControl(this);
+        this.isSinging = false;
 
         addOverridenGoals();
     }
@@ -59,9 +65,10 @@ public class QuirkyFrogEntity extends ConductorEntity implements GeoEntity {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new TamableAnimalPanicGoal(1.25D));
+        this.goalSelector.addGoal(0, new TamableAnimalPanicGoal(2.0D));
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new ConductorEntityConductingOrchestra(this));
+        this.goalSelector.addGoal(1, new QuirkyFrogConductingChoirGoal(this));
         // LookAtPlayerGoal(2);
         this.goalSelector.addGoal(3, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(4, new RandomStrollGoal(this, 1.0));
@@ -71,9 +78,15 @@ public class QuirkyFrogEntity extends ConductorEntity implements GeoEntity {
     private void addOverridenGoals() {
         this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 6.0F) {
             private int lookTime;
+
+            @Override
+            public boolean canUse() {
+                return super.canUse() && !((ConductorEntity) this.mob).isConducting();
+            }
+
             @Override
             public boolean canContinueToUse() {
-                if (!this.lookAt.isAlive()) {
+                if (!this.lookAt.isAlive() || ((ConductorEntity) this.mob).isConducting()) {
                     return false;
                 } else {
                     return this.mob.distanceToSqr(this.lookAt) > (double)(this.lookDistance * this.lookDistance) ? false : this.lookTime > 0;
@@ -170,7 +183,7 @@ public class QuirkyFrogEntity extends ConductorEntity implements GeoEntity {
         this.setJumping(true);
         this.jumpDuration = 15;
         this.jumpTicks = 0;
-        this.animDelayTicks = 5;
+        this.animDelayTicks = 10;
     }
 
     @Override
@@ -225,7 +238,7 @@ public class QuirkyFrogEntity extends ConductorEntity implements GeoEntity {
 
     private void setLandingDelay() {
         if (this.moveControl.getSpeedModifier() < 2.2) {
-            this.jumpDelayTicks = 10;
+            this.jumpDelayTicks = 5;
         } else {
             this.jumpDelayTicks = 1;
         }
@@ -333,6 +346,31 @@ public class QuirkyFrogEntity extends ConductorEntity implements GeoEntity {
                 this.nextJumpSpeed = speed;
             }
         }
+    }
+
+    public List<QuirkyFrogEntity> getFrogChoir() {
+        return frogChoir;
+    }
+
+    public void setFrogChoir(List<QuirkyFrogEntity> frogChoir) {
+        this.frogChoir = frogChoir;
+        setReady(true);
+    }
+
+    public boolean isFrogChoirEmpty() {
+        return frogChoir.isEmpty();
+    }
+
+    public boolean isAptForChoir() {
+        return !isTame() && isFrogChoirEmpty() && !isSinging();
+    }
+
+    public boolean isSinging() {
+        return isSinging;
+    }
+
+    public void setSinging(boolean singing) {
+        isSinging = singing;
     }
 
     @Override

@@ -42,6 +42,7 @@ public abstract class MusicalEntity extends TamableAnimal {
     protected static final EntityDataAccessor<Boolean> IS_MUSICAL = SynchedEntityData.defineId(MusicalEntity.class, EntityDataSerializers.BOOLEAN);
     protected boolean isHoldingInstrument;
     protected UUID conductorUUID;
+    private int ticksSinceLoaded;
     //private Integer count = null;
     //private Player lastAttempt;
 
@@ -49,6 +50,7 @@ public abstract class MusicalEntity extends TamableAnimal {
         super(entityType, level);
         this.instrument = getInstrument();
         this.conductorUUID = null;
+        this.ticksSinceLoaded = 0;
     }
 
     public abstract DeferredItem<Item> getInstrument();
@@ -160,6 +162,14 @@ public abstract class MusicalEntity extends TamableAnimal {
     }
     */
 
+    @Override
+    public void tick() {
+        if (ticksSinceLoaded < 40) {
+            ticksSinceLoaded++;
+        }
+        super.tick();
+    }
+
     public void tryToTame(Player player) {
         if (level().getRandom().nextInt(3) == 0 && !net.neoforged.neoforge.event.EventHooks.onAnimalTame(this, player)) {
             this.tame(player);
@@ -204,5 +214,9 @@ public abstract class MusicalEntity extends TamableAnimal {
         UUID conductorUUID = conductor == null ? null : conductor.getUUID();
 
         this.entityData.set(CONDUCTOR_ID, Optional.ofNullable(conductorUUID));
+    }
+
+    public int getTicksSinceLoaded() {
+        return ticksSinceLoaded;
     }
 }

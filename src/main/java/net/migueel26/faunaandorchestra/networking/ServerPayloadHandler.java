@@ -29,6 +29,7 @@ public class ServerPayloadHandler {
         if (level != null) {
             ConductorEntity conductor = (ConductorEntity) ((ServerLevel) level).getEntity(conductorUUID);
             if (conductor != null && !conductor.isOrchestraEmpty()) {
+                conductor.setCurrentVolume(payload.volume());
                 List<UUID> orchestra = conductor.getOrchestra().stream().map(Entity::getUUID).toList();
                 int tickOffset = conductor.getTicksPlaying();
                 PacketDistributor.sendToAllPlayers(new RestartOrchestraMusicS2CPayload(

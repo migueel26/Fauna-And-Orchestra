@@ -15,6 +15,7 @@ import java.util.Optional;
 public class MusicalEntityPlayingInstrumentGoal extends Goal {
     private final MusicalEntity musician;
     private ConductorEntity conductor;
+    private int wait;
 
     public MusicalEntityPlayingInstrumentGoal(MusicalEntity musician) {
         this.musician = musician;
@@ -23,12 +24,14 @@ public class MusicalEntityPlayingInstrumentGoal extends Goal {
 
     @Override
     public boolean canUse() {
+        if (musician.getTicksSinceLoaded() <= 20) return false;
         Optional<ConductorEntity> conductor = this.musician.level()
                 .getEntitiesOfClass(ConductorEntity.class, this.musician.getBoundingBox().inflate(7))
                 .stream()
                 .filter(cond -> cond.getOrchestra().stream().noneMatch(musician.getClass()::isInstance))
                 .filter(ConductorEntity::isHoldingBaton)
                 .filter(ConductorEntity::isHoldingASheetMusic)
+                .filter(ConductorEntity::isReady)
                 .findAny();
 
         if (!musician.isHoldingInstrument()) return false;

@@ -35,9 +35,14 @@ public abstract class ConductorEntity extends TamableAnimal {
     protected static final EntityDataAccessor<Boolean> HOLDING_BATON = SynchedEntityData.defineId(ConductorEntity.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Boolean> IS_MUSICAL = SynchedEntityData.defineId(ConductorEntity.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Boolean> IS_CONDUCTING = SynchedEntityData.defineId(ConductorEntity.class, EntityDataSerializers.BOOLEAN);
+    protected static final EntityDataAccessor<Boolean> IS_READY = SynchedEntityData.defineId(ConductorEntity.class, EntityDataSerializers.BOOLEAN);
     protected boolean holdingBaton = false;
     protected boolean isConducting = false;
+    protected boolean isReady = false;
+    // Server
     protected Set<MusicalEntity> orchestra = new HashSet<>();
+    private float currentVolume = 1.0F;
+    //
     public ItemStackHandler inventory = new ItemStackHandler(1) {
         @Override
         public boolean isItemValid(int slot, ItemStack stack) {
@@ -60,6 +65,7 @@ public abstract class ConductorEntity extends TamableAnimal {
         super.defineSynchedData(builder);
         builder.define(HOLDING_BATON, false);
         builder.define(IS_CONDUCTING, false);
+        builder.define(IS_READY, false);
         // PROVISIONAL
         builder.define(IS_MUSICAL, true);
     }
@@ -75,6 +81,10 @@ public abstract class ConductorEntity extends TamableAnimal {
         if (IS_CONDUCTING.equals(key)) {
             this.isConducting = this.entityData.get(IS_CONDUCTING);
         }
+
+        if (IS_READY.equals(key)) {
+            this.isReady = this.entityData.get(IS_READY);
+        }
     }
 
     @Override
@@ -82,6 +92,7 @@ public abstract class ConductorEntity extends TamableAnimal {
         super.readAdditionalSaveData(compound);
 
         this.entityData.set(HOLDING_BATON, compound.getBoolean("HoldingBaton"));
+        //this.entityData.set(IS_CONDUCTING, compound.getBoolean("IsConducting"));
 
         if (compound.contains("SheetMusic")) {
             ItemStack itemstack = ItemStack.parse(this.registryAccess(), compound.getCompound("SheetMusic")).orElse(ItemStack.EMPTY);
@@ -96,6 +107,7 @@ public abstract class ConductorEntity extends TamableAnimal {
         super.addAdditionalSaveData(compound);
 
         compound.putBoolean("HoldingBaton", this.isHoldingBaton());
+        //compound.putBoolean("IsConducting", this.isConducting());
 
         if (!this.inventory.getStackInSlot(0).isEmpty()) {
             compound.put("SheetMusic", this.inventory.getStackInSlot(0).save(this.registryAccess()));
@@ -104,10 +116,12 @@ public abstract class ConductorEntity extends TamableAnimal {
 
     @Override
     public void tick() {
-        if (!isOrchestraEmpty()) {
-            ticksPlaying++;
-        } else {
-            ticksPlaying = 0;
+        if (!level().isClientSide()) {
+            if (!isOrchestraEmpty()) {
+                ticksPlaying++;
+            } else {
+                ticksPlaying = 0;
+            }
         }
 
         super.tick();
@@ -120,6 +134,7 @@ public abstract class ConductorEntity extends TamableAnimal {
             if (hand == InteractionHand.MAIN_HAND && isHoldingBaton() && !player.isSecondaryUseActive()
                 && !this.level().isClientSide()) {
 
+                setReady(true);
                 this.openCustomMenu(player);
                 return InteractionResult.SUCCESS;
 
@@ -174,12 +189,20 @@ public abstract class ConductorEntity extends TamableAnimal {
         this.entityData.set(HOLDING_BATON, holdingBaton);
     }
 
+    public void setReady(boolean ready) {
+        this.entityData.set(IS_READY, ready);
+    }
+
     public boolean isHoldingBaton() {
         return holdingBaton;
     }
 
     public boolean isConducting() {
         return isConducting;
+    }
+
+    public boolean isReady() {
+        return isReady;
     }
 
     public Set<MusicalEntity> getOrchestra() {
@@ -220,4 +243,11 @@ public abstract class ConductorEntity extends TamableAnimal {
         return orchestra.size() == 4;
     }
 
+    public float getCurrentVolume() {
+        return currentVolume;
+    }
+
+    public void setCurrentVolume(float currentVolume) {
+        this.currentVolume = currentVolume;
+    }
 }

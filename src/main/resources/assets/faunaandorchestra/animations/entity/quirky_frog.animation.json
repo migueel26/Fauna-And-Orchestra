@@ -1442,6 +1442,26 @@
 					}
 				}
 			}
+		},
+		"croac": {
+			"animation_length": 0.5,
+			"bones": {
+				"mouth": {
+					"scale": {
+						"0.0": {
+							"vector": [1, 1, 1]
+						},
+						"0.25": {
+							"vector": [1.1, 1.1, 1.1],
+							"easing": "linear"
+						},
+						"0.5": {
+							"vector": [1, 1, 1],
+							"easing": "easeInBack"
+						}
+					}
+				}
+			}
 		}
 	},
 	"geckolib_format_version": 2

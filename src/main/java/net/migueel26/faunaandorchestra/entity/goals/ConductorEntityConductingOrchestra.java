@@ -2,22 +2,27 @@ package net.migueel26.faunaandorchestra.entity.goals;
 
 import net.migueel26.faunaandorchestra.entity.custom.ConductorEntity;
 import net.migueel26.faunaandorchestra.entity.custom.MusicalEntity;
+import net.migueel26.faunaandorchestra.networking.RestartOrchestraMusicS2CPayload;
 import net.migueel26.faunaandorchestra.util.MusicUtil;
+import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.Set;
 
 public class ConductorEntityConductingOrchestra extends Goal {
     private final ConductorEntity conductor;
+    private int lookCooldown;
     public ConductorEntityConductingOrchestra(ConductorEntity conductor) {
         this.conductor = conductor;
     }
 
     @Override
     public boolean canUse() {
-        return !conductor.isOrchestraEmpty() && !conductor.isDeadOrDying() && conductor.isHoldingBaton();
+        return !conductor.isOrchestraEmpty() && !conductor.isDeadOrDying() && conductor.isHoldingBaton()
+                && conductor.isReady();
     }
 
     @Override
@@ -29,6 +34,7 @@ public class ConductorEntityConductingOrchestra extends Goal {
     public void start() {
         System.out.println("Conductor IN!");
         MusicUtil.addNewOrchestra(conductor.getUUID(), conductor.getSheetMusic());
+        this.lookCooldown = 0;
         super.start();
     }
 
@@ -47,7 +53,13 @@ public class ConductorEntityConductingOrchestra extends Goal {
     @Override
     public void tick() {
         conductor.getNavigation().stop();
-        conductor.getLookControl().setLookAt(getCentroid());
+
+        if (lookCooldown <= 0) {
+            conductor.getLookControl().setLookAt(getCentroid());
+            lookCooldown = 20;
+        } else {
+            lookCooldown--;
+        }
     }
 
     private Vec3 getCentroid() {
