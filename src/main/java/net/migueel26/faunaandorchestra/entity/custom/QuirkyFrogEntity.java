@@ -1,7 +1,9 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
 import net.migueel26.faunaandorchestra.entity.goals.ConductorEntityConductingOrchestra;
+import net.migueel26.faunaandorchestra.entity.goals.FaunaRandomLookAroundGoal;
 import net.migueel26.faunaandorchestra.entity.goals.QuirkyFrogConductingChoirGoal;
+import net.migueel26.faunaandorchestra.entity.goals.QuirkyFrogSingGoal;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -36,8 +38,9 @@ public class QuirkyFrogEntity extends ConductorEntity implements GeoEntity {
     protected static final RawAnimation HOLDING_BATON = RawAnimation.begin().thenPlay("holding_baton");
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
     // Server Variables
-    private List<QuirkyFrogEntity> frogChoir = new ArrayList<>(4);
+    private List<QuirkyFrogEntity> frogChoir = new ArrayList<>();
     private boolean isSinging;
+    private QuirkyFrogEntity frogConductor;
     private int jumpTicks;
     private int jumpDuration;
     private boolean wasOnGround;
@@ -52,6 +55,7 @@ public class QuirkyFrogEntity extends ConductorEntity implements GeoEntity {
         this.jumpControl = new QuirkyFrogJumpControl(this);
         this.moveControl = new QuirkyFrogMoveControl(this);
         this.isSinging = false;
+        this.frogConductor = null;
 
         addOverridenGoals();
     }
@@ -68,11 +72,12 @@ public class QuirkyFrogEntity extends ConductorEntity implements GeoEntity {
         this.goalSelector.addGoal(0, new TamableAnimalPanicGoal(2.0D));
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new ConductorEntityConductingOrchestra(this));
+        this.goalSelector.addGoal(1, new QuirkyFrogSingGoal(this));
         this.goalSelector.addGoal(1, new QuirkyFrogConductingChoirGoal(this));
         // LookAtPlayerGoal(2);
         this.goalSelector.addGoal(3, new SitWhenOrderedToGoal(this));
-        this.goalSelector.addGoal(4, new RandomStrollGoal(this, 1.0));
-        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
+        // RandomStrollGoal(4)
+        this.goalSelector.addGoal(5, new FaunaRandomLookAroundGoal(this));
     }
 
     private void addOverridenGoals() {
@@ -81,7 +86,8 @@ public class QuirkyFrogEntity extends ConductorEntity implements GeoEntity {
 
             @Override
             public boolean canUse() {
-                return super.canUse() && !((ConductorEntity) this.mob).isConducting();
+                return super.canUse() && !((ConductorEntity) this.mob).isConducting()
+                        && !((QuirkyFrogEntity) this.mob).isSinging();
             }
 
             @Override
@@ -106,6 +112,19 @@ public class QuirkyFrogEntity extends ConductorEntity implements GeoEntity {
                     this.mob.getLookControl().setLookAt(this.lookAt.getX(), d0, this.lookAt.getZ());
                     this.lookTime--;
                 }
+            }
+        });
+
+        this.goalSelector.addGoal(4, new RandomStrollGoal(this, 1.0) {
+            @Override
+            public boolean canUse() {
+                return super.canUse() && !((QuirkyFrogEntity) this.mob).isSinging() && !((QuirkyFrogEntity) this.mob).isConducting()
+                        && ((QuirkyFrogEntity) this.mob).getFrogConductor() == null;
+            }
+
+            @Override
+            public boolean canContinueToUse() {
+                return super.canContinueToUse() && !((QuirkyFrogEntity) this.mob).isSinging() && !((QuirkyFrogEntity) this.mob).isConducting();
             }
         });
     }
@@ -371,6 +390,14 @@ public class QuirkyFrogEntity extends ConductorEntity implements GeoEntity {
 
     public void setSinging(boolean singing) {
         isSinging = singing;
+    }
+
+    public QuirkyFrogEntity getFrogConductor() {
+        return frogConductor;
+    }
+
+    public void setFrogConductor(QuirkyFrogEntity frogConductor) {
+        this.frogConductor = frogConductor;
     }
 
     @Override

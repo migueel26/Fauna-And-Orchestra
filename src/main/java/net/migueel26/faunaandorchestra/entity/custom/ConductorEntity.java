@@ -58,6 +58,8 @@ public abstract class ConductorEntity extends TamableAnimal {
 
     public ConductorEntity(EntityType<? extends TamableAnimal> entityType, Level level) {
         super(entityType, level);
+
+        this.isReady = false;
     }
 
     @Override
@@ -233,6 +235,11 @@ public abstract class ConductorEntity extends TamableAnimal {
     public void removeMusician(MusicalEntity musicalEntity) {
         orchestra.remove(musicalEntity);
         if (orchestra.isEmpty()) this.entityData.set(IS_CONDUCTING, false); isConducting = false;
+    }
+
+    public void setConducting(boolean setConducting) {
+        this.entityData.set(IS_CONDUCTING, setConducting);
+        this.isConducting = setConducting;
     }
 
     public boolean isOrchestraEmpty() {

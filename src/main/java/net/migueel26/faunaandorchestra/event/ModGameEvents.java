@@ -28,6 +28,10 @@ public class ModGameEvents {
                 List<QuirkyFrogEntity> frogChoir = nearbyFrogs.stream().limit(5).toList();
                 QuirkyFrogEntity choirConductor = frogChoir.getFirst();
                 choirConductor.setFrogChoir(frogChoir.subList(1, frogChoir.size()));
+                for (QuirkyFrogEntity chorister : choirConductor.getFrogChoir()) {
+                    chorister.setSinging(true);
+                    chorister.setReady(false);
+                }
             }
         }
     }
