@@ -1,8 +1,10 @@
 package net.migueel26.faunaandorchestra.item.custom;
 
 import net.migueel26.faunaandorchestra.entity.custom.MusicalEntity;
+import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;

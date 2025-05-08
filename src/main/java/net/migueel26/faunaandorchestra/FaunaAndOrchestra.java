@@ -5,11 +5,14 @@ import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.item.ModCreativeModeTabs;
 import net.migueel26.faunaandorchestra.item.ModItems;
+import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
+import net.migueel26.faunaandorchestra.particles.custom.FaunaNoteParticle;
 import net.migueel26.faunaandorchestra.screen.ModMenuTypes;
 import net.migueel26.faunaandorchestra.screen.custom.ConductorScreen;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -55,6 +58,7 @@ public class FaunaAndOrchestra {
         ModSounds.register(modEventBus);
         ModDataComponents.register(modEventBus);
         ModMenuTypes.register(modEventBus);
+        ModParticleTypes.register(modEventBus);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
@@ -87,6 +91,12 @@ public class FaunaAndOrchestra {
         @SubscribeEvent
         public static void registerScreens(RegisterMenuScreensEvent event) {
             event.register(ModMenuTypes.CONDUCTOR_MENU.get(), ConductorScreen::new);
+        }
+
+        @SubscribeEvent
+        public static void registerParticleFactories(RegisterParticleProvidersEvent event) {
+            event.registerSpriteSet(ModParticleTypes.FAUNA_NOTES.get(), FaunaNoteParticle.NoteProvider::new);
+            event.registerSpriteSet(ModParticleTypes.TREBLE_CLEF.get(), FaunaNoteParticle.TrebleProvider::new);
         }
     }
 }

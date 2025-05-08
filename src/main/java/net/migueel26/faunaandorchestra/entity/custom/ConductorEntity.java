@@ -2,6 +2,7 @@ package net.migueel26.faunaandorchestra.entity.custom;
 
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.networking.RestartOrchestraMusicS2CPayload;
+import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
 import net.migueel26.faunaandorchestra.screen.custom.ConductorMenu;
 import net.migueel26.faunaandorchestra.util.ModTags;
 import net.minecraft.core.Holder;
@@ -11,6 +12,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
@@ -126,6 +128,21 @@ public abstract class ConductorEntity extends TamableAnimal {
             }
         }
 
+        if (isConducting() && level().isClientSide()) {
+            if (ticksPlaying == 0) {
+                level().addParticle(ModParticleTypes.TREBLE_CLEF.get(),
+                        this.getX(), this.getY() + 2.5, this.getZ(),
+                        0, 0.025F, 0);
+            } else if (ticksPlaying % 20 == 0) {
+                level().addParticle(ModParticleTypes.FAUNA_NOTES.get(),
+                        this.getX(), this.getY() + 2.5, this.getZ(),
+                        0,0.025F,0);
+            }
+            ticksPlaying++;
+        } else {
+            ticksPlaying = 0;
+        }
+
         super.tick();
     }
 
@@ -185,6 +202,17 @@ public abstract class ConductorEntity extends TamableAnimal {
     @Override
     public boolean shouldTryTeleportToOwner() {
         return false;
+    }
+
+    public boolean isFacingZAxis() {
+        float yaw = Mth.wrapDegrees(this.getYRot());
+
+        // Convert yaw to a vector (unit direction)
+        float x = -Mth.sin(yaw * ((float)Math.PI / 180F));
+        float z =  Mth.cos(yaw * ((float)Math.PI / 180F));
+
+        // Compare the magnitude of Z vs X
+        return Math.abs(z) > Math.abs(x); // More Z than X = north/south
     }
 
     public void setHoldingBaton(boolean holdingBaton) {

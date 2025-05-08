@@ -13,6 +13,7 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.util.List;
@@ -50,6 +51,13 @@ public class ClientPayloadHandler {
             ConductorEntity conductor = (ConductorEntity) level.callGetEntities().get(conductorUUID);
             if (conductor != null) {
                 Item newSheetMusic = conductor.getSheetMusic();
+                // If the newSheet is empty we return
+                if (newSheetMusic == Items.AIR) {
+                    MusicUtil.deleteOrchestra(conductorUUID);
+                    return;
+                }
+
+                // If not, we update it in MusicUtil
                 boolean newSong = MusicUtil.updateNewSheet(conductorUUID, newSheetMusic);
 
                 // If it's a new song, we start it from the beginning
