@@ -2,10 +2,19 @@ package net.migueel26.faunaandorchestra.entity.goals;
 
 import net.migueel26.faunaandorchestra.entity.custom.MusicalEntity;
 import net.migueel26.faunaandorchestra.entity.custom.QuirkyFrogEntity;
+import net.migueel26.faunaandorchestra.networking.StartFrogChoirMusicS2CPayload;
+import net.migueel26.faunaandorchestra.networking.StopMusicS2CPayload;
+import net.migueel26.faunaandorchestra.sound.ModSounds;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.*;
 
@@ -13,7 +22,7 @@ public class QuirkyFrogConductingChoirGoal extends Goal {
     private QuirkyFrogEntity conductor;
     private boolean startSinging;
     private int tick;
-    private int lookCooldown;
+    private int times;
     private LinkedList<QuirkyFrogEntity> choir;
     public QuirkyFrogConductingChoirGoal(QuirkyFrogEntity quirkyFrog) {
         this.conductor = quirkyFrog;
@@ -34,13 +43,10 @@ public class QuirkyFrogConductingChoirGoal extends Goal {
     public void start() {
         this.startSinging = false;
         this.tick = 50;
-        this.lookCooldown = 0;
         for (QuirkyFrogEntity chorister : conductor.getFrogChoir()) {
             chorister.setFrogConductor(conductor);
-
-            System.out.println("IN!");
         }
-
+        this.times = 0;
         this.choir = new LinkedList<>(conductor.getFrogChoir());
     }
 
@@ -51,6 +57,9 @@ public class QuirkyFrogConductingChoirGoal extends Goal {
             chorister.setFrogConductor(null);
         }
 
+        PacketDistributor.sendToAllPlayers(new StopMusicS2CPayload(conductor.getUUID()));
+
+        conductor.setMusical(false);
         conductor.setReady(false);
         conductor.setConducting(false);
         conductor.setFrogChoir(Collections.emptyList());
@@ -88,47 +97,55 @@ public class QuirkyFrogConductingChoirGoal extends Goal {
         } else {
             if (!conductor.isConducting()) {
                 conductor.setConducting(true);
-                /*conductor.level().playSound(null,
-                        conductor.getX(), conductor.getY(), conductor.getZ(),
-
-                        );*/
+                PacketDistributor.sendToAllPlayers(new StartFrogChoirMusicS2CPayload(conductor.getUUID()));
+                conductor.setMusical(true);
             } else {
-                if (tick % 30 == 0) {
-                    QuirkyFrogEntity chorister = choir.pollFirst();
-                    croac(chorister);
-                    choir.addLast(chorister);
-                }
+                croacIfRightTick(tick);
+            }
+
+            if (tick >= 99) {
+                times++;
+                tick = 20;
             }
 
             tick++;
         }
 
-        if (lookCooldown <= 0) {
-            conductor.getLookControl().setLookAt(getCentroid());
-            lookCooldown = 20;
-        } else {
-            lookCooldown--;
+        if (times == 8 ||
+                conductor.isTame() ||
+                this.conductor.level().getEntitiesOfClass(
+                Player.class, this.conductor.getBoundingBox().inflate(45.0, 45.0, 45.0), EntitySelector.LIVING_ENTITY_STILL_ALIVE).isEmpty()) {
+            this.stop();
         }
 
         super.tick();
     }
 
-    private void croac(QuirkyFrogEntity chorister) {
-        if (chorister == null) this.stop();
-        else chorister.triggerAnim("quirky_frog_controller", "croac");
+    private void croacIfRightTick(int tick) {
+        System.out.println(tick);
+        // CRO - CRO - CRO () CRO - CRO - CRO
+        if (tick == 22 || tick == 24 || tick == 26 || tick == 32 || tick == 34 || tick == 36 ||
+        // CRO - CRO - CRO - CRO - CRÓ
+            tick == 42 || tick == 44 || tick == 47 || tick == 49 || tick == 52 ||
+        // CRO - CRO - CRO - cro - crooo
+            tick == 59 || tick == 62 || tick == 65 || tick == 68 || tick == 71 ||
+        // CRO - CRO - CRO - croooo
+            tick == 82 || tick == 85 || tick ==  88 || tick == 91) {
+            QuirkyFrogEntity chorister = choir.pollFirst();
+            if (chorister == null) {
+                this.stop();
+            } else {
+                croac(chorister);
+                choir.addLast(chorister);
+                conductor.getLookControl().setLookAt(chorister);
+            }
+        }
     }
 
-    private Vec3 getCentroid() {
-        if (!conductor.getFrogChoir().isEmpty()) {
-            List<QuirkyFrogEntity> orchestra = conductor.getFrogChoir();
-            double n = orchestra.size();
-
-            return new Vec3(
-                    orchestra.stream().map(Entity::getX).reduce(0.0, Double::sum)/n,
-                    conductor.getY(),
-                    orchestra.stream().map(Entity::getZ).reduce(0.0, Double::sum)/n);
-        } else {
-            return new Vec3(0.0,0.0,0.0);
-        }
+    private void croac(QuirkyFrogEntity chorister) {
+        chorister.triggerAnim("quirky_frog_croac_controller", "croac");
+        ((ServerLevel) chorister.level()).sendParticles(ParticleTypes.NOTE,
+                chorister.getX(), chorister.getY() + 1.5F, chorister.getZ(),
+                1, 0, 0, 0, 1);
     }
 }

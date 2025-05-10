@@ -16,13 +16,14 @@ public class ModSounds {
     public static final Supplier<SoundEvent> VIOLIN_USE = registerSoundEvent("violin_use");
     public static final Supplier<SoundEvent> FLUTE_USE = registerSoundEvent("flute_use");
     public static final Supplier<SoundEvent> KEYTAR_USE = registerSoundEvent("keytar_use");
-
     public static final Supplier<SoundEvent> DOUBLE_BASS_USE = registerSoundEvent("double_bass_use");
 
     public static final Supplier<SoundEvent> BACH_AIR_VIOLIN = registerSoundEvent("bach_air_violin");
     public static final Supplier<SoundEvent> BACH_AIR_FLUTE = registerSoundEvent("bach_air_flute");
     public static final Supplier<SoundEvent> BACH_AIR_KEYTAR = registerSoundEvent("bach_air_keytar");
     public static final Supplier<SoundEvent> BACH_AIR_DOUBLE_BASS = registerSoundEvent("bach_air_double_bass");
+
+    public static final Supplier<SoundEvent> FROG_SONG = registerSoundEvent("frog_song");
 
     private static Supplier<SoundEvent> registerSoundEvent(String name) {
         ResourceLocation path = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, name);

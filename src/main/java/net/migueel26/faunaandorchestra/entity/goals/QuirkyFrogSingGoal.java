@@ -26,7 +26,13 @@ public class QuirkyFrogSingGoal extends Goal {
     public void start() {
         this.conductor = chorister.getFrogConductor();
         this.ticksUntilNextPath = 20;
-        System.out.println("CHORISTER IN!");
+    }
+
+    @Override
+    public void stop() {
+        this.chorister.setSinging(false);
+        this.chorister.setReady(false);
+        super.stop();
     }
 
     @Override
@@ -37,7 +43,7 @@ public class QuirkyFrogSingGoal extends Goal {
                 Path path = chorister.getNavigation().createPath(conductor, 0);
                 chorister.getNavigation().moveTo(path, 1.0D);
                 chorister.setReady(false);
-            } else {
+            } else if (chorister.getNavigation().isDone()) {
                 chorister.setReady(true);
             }
             ticksUntilNextPath = 20;

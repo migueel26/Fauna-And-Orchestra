@@ -46,5 +46,11 @@
     "sounds": [
       "faunaandorchestra:music/bach_air_double_bass"
     ]
+  },
+  "frog_song": {
+    "subtitles": "sounds.faunaandorchestra.frog_song",
+    "sounds": [
+      "faunaandorchestra:music/frog_song"
+    ]
   }
 }

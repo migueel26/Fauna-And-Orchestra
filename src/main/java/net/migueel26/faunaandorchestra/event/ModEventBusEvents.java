@@ -40,5 +40,15 @@ public class ModEventBusEvents {
                 RestartOrchestraMusicS2CPayload.STREAM_CODEC,
                 ClientPayloadHandler::handleRestartOrchestraOnNetwork
         );
+        registrar.playToClient(
+                StopMusicS2CPayload.TYPE,
+                StopMusicS2CPayload.STREAM_CODEC,
+                ClientPayloadHandler::handleStopMusicOnNetwork
+        );
+        registrar.playToClient(
+                StartFrogChoirMusicS2CPayload.TYPE,
+                StartFrogChoirMusicS2CPayload.STREAM_CODEC,
+                ClientPayloadHandler::handleStartFrogChoirOnNetwork
+        );
     }
 }

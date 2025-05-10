@@ -1,7 +1,9 @@
 package net.migueel26.faunaandorchestra.mixins.client;
 
+import net.migueel26.faunaandorchestra.entity.custom.QuirkyFrogEntity;
 import net.migueel26.faunaandorchestra.mixins.interfaces.IChannelMixin;
 import net.migueel26.faunaandorchestra.mixins.interfaces.ISoundEngineMixin;
+import net.migueel26.faunaandorchestra.sound.custom.FrogSongSoundInstance;
 import net.migueel26.faunaandorchestra.sound.custom.InstrumentSoundInstance;
 import net.minecraft.client.resources.sounds.Sound;
 import net.minecraft.client.resources.sounds.SoundInstance;
@@ -86,6 +88,14 @@ public class MixinSoundEngine implements ISoundEngineMixin {
                 .map(InstrumentSoundInstance.class::cast)
                 .filter(sound -> sound.getEntity().getUUID().equals(entityUUID))
                 .forEach(InstrumentSoundInstance::stopSound);
+    }
+
+    @Override
+    public void faunaStopFrogMusic(UUID entityUUID) {
+        tickingSounds.stream().filter(FrogSongSoundInstance.class::isInstance)
+                .map(FrogSongSoundInstance.class::cast)
+                .filter(sound -> sound.getFrogUUID().equals(entityUUID))
+                .forEach(FrogSongSoundInstance::stopSound);
     }
 
     @Override

@@ -16,7 +16,8 @@ import java.util.stream.Stream;
 public class ModGameEvents {
     @SubscribeEvent
     public static void quirkyFrogChoir(EntityTickEvent.Post event) {
-        if (event.getEntity().tickCount % 20 == 0 &&
+        if (!event.getEntity().level().isClientSide() &&
+                event.getEntity().tickCount % 100 == 0 &&
                 event.getEntity().level().getRandom().nextFloat() <= 0.01F &&
                 event.getEntity() instanceof QuirkyFrogEntity quirkyFrog
                 && quirkyFrog.isAptForChoir()) {

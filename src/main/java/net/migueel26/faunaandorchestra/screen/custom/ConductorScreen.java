@@ -42,7 +42,7 @@ public class ConductorScreen extends AbstractContainerScreen<ConductorMenu> {
         int y = (height - imageHeight) / 2;
 
         this.volumeSlider = new ExtendedSlider(x + 86, y + 57, 80, 13, Component.translatable("screen.faunaandorchestra.conductor_screen"), Component.empty(), 0, 100, 100, true);
-        this.button = new ParticleButton(x + 159, y + 5, Component.literal("Particle"), button -> {
+        this.button = new ParticleButton(x + 159, y + 5, Component.empty(), button -> {
             conductor.activateParticles(!((ParticleButton) button).isPressed());
         });
         this.button.press(!conductor.areParticlesActivated());

@@ -2,14 +2,10 @@ package net.migueel26.faunaandorchestra.sound.custom;
 
 import net.migueel26.faunaandorchestra.entity.custom.MusicalEntity;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.SuspendedParticle;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.RandomSource;
-
-import javax.swing.text.html.parser.Entity;
 
 public class InstrumentSoundInstance extends AbstractTickableSoundInstance {
     private MusicalEntity entity;
@@ -25,7 +21,7 @@ public class InstrumentSoundInstance extends AbstractTickableSoundInstance {
         this.attenuation = Attenuation.LINEAR;
         this.delay = 0;
         this.oVolume = volume;
-        this.volume = oVolume;
+        this.volume = calculateVolume();
         this.x = entity.getX();
         this.y = entity.getY();
         this.z = entity.getZ();
@@ -48,15 +44,19 @@ public class InstrumentSoundInstance extends AbstractTickableSoundInstance {
         } else {
             stopDelay = 5;
 
-            // Didn't work as intended?
+            // Didn't work as intended: Perhaps attenuation is deactivated for these SoundInstances?
             this.x = this.entity.getX();
             this.y = this.entity.getY();
             this.z = this.entity.getZ();
 
-            double distance = Minecraft.getInstance().player.distanceTo(entity);
-
-            this.volume = (float) Math.max(0, oVolume - (distance * 0.05F));
+            this.volume = calculateVolume();
         }
+    }
+
+    private float calculateVolume() {
+        double distance = Minecraft.getInstance().player.distanceTo(entity);
+
+        return (float) Math.max(0, oVolume - (distance * 0.025F));
     }
 
     public void stopSound() {

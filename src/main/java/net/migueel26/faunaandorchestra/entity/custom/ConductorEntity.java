@@ -68,8 +68,7 @@ public abstract class ConductorEntity extends TamableAnimal {
         builder.define(HOLDING_BATON, false);
         builder.define(IS_CONDUCTING, false);
         builder.define(IS_READY, false);
-        // PROVISIONAL
-        builder.define(IS_MUSICAL, true);
+        builder.define(IS_MUSICAL, false);
     }
 
     @Override
@@ -219,6 +218,15 @@ public abstract class ConductorEntity extends TamableAnimal {
     public void setReady(boolean ready) {
         this.entityData.set(IS_READY, ready);
     }
+
+    public void setMusical(boolean isMusical) {
+        this.entityData.set(IS_MUSICAL, isMusical);
+    }
+
+    public boolean isMusical() {
+        return this.entityData.get(IS_MUSICAL);
+    }
+
 
     public boolean isHoldingBaton() {
         return holdingBaton;

@@ -4,6 +4,7 @@ import net.migueel26.faunaandorchestra.entity.goals.ConductorEntityConductingOrc
 import net.migueel26.faunaandorchestra.entity.goals.FaunaRandomLookAroundGoal;
 import net.migueel26.faunaandorchestra.entity.goals.QuirkyFrogConductingChoirGoal;
 import net.migueel26.faunaandorchestra.entity.goals.QuirkyFrogSingGoal;
+import net.migueel26.faunaandorchestra.item.ModItems;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -47,7 +48,8 @@ public class QuirkyFrogEntity extends ConductorEntity implements GeoEntity {
     private int jumpDelayTicks;
     private int animDelayTicks;
     private final AnimationController<QuirkyFrogEntity> quirkyFrogController = new AnimationController<>(this, "quirky_frog_controller", 5, this::quirkyFrogState)
-            .triggerableAnim("jump", WALK)
+            .triggerableAnim("jump", WALK);
+    private final AnimationController<QuirkyFrogEntity> quirkyFrogCroacController = new AnimationController<>(this, "quirky_frog_croac_controller", 3, this::quirkyFrogCroacState)
             .triggerableAnim("croac", CROAC);
 
     public QuirkyFrogEntity(EntityType<? extends TamableAnimal> entityType, Level level) {
@@ -118,7 +120,7 @@ public class QuirkyFrogEntity extends ConductorEntity implements GeoEntity {
         this.goalSelector.addGoal(4, new RandomStrollGoal(this, 1.0) {
             @Override
             public boolean canUse() {
-                return super.canUse() && !((QuirkyFrogEntity) this.mob).isSinging() && !((QuirkyFrogEntity) this.mob).isConducting()
+                return super.canUse() && !((QuirkyFrogEntity) this.mob).isReady() && !((QuirkyFrogEntity) this.mob).isConducting()
                         && ((QuirkyFrogEntity) this.mob).getFrogConductor() == null;
             }
 
@@ -128,7 +130,9 @@ public class QuirkyFrogEntity extends ConductorEntity implements GeoEntity {
             }
         });
     }
-
+    protected <E extends GeoAnimatable> PlayState quirkyFrogCroacState(AnimationState<E> state) {
+        return PlayState.STOP;
+    }
     protected <E extends GeoAnimatable> PlayState quirkyFrogState(AnimationState<E> state) {
         if (isConducting()) {
             state.getController().setAnimation(CONDUCTING);
@@ -290,8 +294,9 @@ public class QuirkyFrogEntity extends ConductorEntity implements GeoEntity {
 
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
-        if (!isTame()) {
+        if (isMusical() && player.getMainHandItem().is(ModItems.BATON) && !isTame()) {
             this.tame(player);
+            this.level().broadcastEntityEvent(this, (byte) 7);
         }
         return super.mobInteract(player, hand);
     }
@@ -403,6 +408,7 @@ public class QuirkyFrogEntity extends ConductorEntity implements GeoEntity {
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(quirkyFrogController);
+        controllers.add(quirkyFrogCroacController);
     }
 
     @Override
