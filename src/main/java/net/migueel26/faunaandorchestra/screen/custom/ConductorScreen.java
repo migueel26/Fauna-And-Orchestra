@@ -3,18 +3,13 @@ package net.migueel26.faunaandorchestra.screen.custom;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.entity.custom.ConductorEntity;
-import net.migueel26.faunaandorchestra.entity.custom.MusicalEntity;
-import net.migueel26.faunaandorchestra.mixins.interfaces.ISoundManagerMixin;
 import net.migueel26.faunaandorchestra.networking.RestartOrchestraMusicC2SPayload;
-import net.migueel26.faunaandorchestra.sound.custom.InstrumentSoundInstance;
+import net.migueel26.faunaandorchestra.screen.ParticleButton;
 import net.migueel26.faunaandorchestra.util.MusicUtil;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -28,12 +23,15 @@ public class ConductorScreen extends AbstractContainerScreen<ConductorMenu> {
     private float xMouse;
     private float yMouse;
     private ExtendedSlider volumeSlider;
+    private ParticleButton button;
+    private boolean particlesActivated;
     private float volume;
     public ConductorScreen(ConductorMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
 
         this.conductor = menu.conductor;
         this.volume = 1.0F;
+        this.particlesActivated = true;
     }
 
     @Override
@@ -44,8 +42,13 @@ public class ConductorScreen extends AbstractContainerScreen<ConductorMenu> {
         int y = (height - imageHeight) / 2;
 
         this.volumeSlider = new ExtendedSlider(x + 86, y + 57, 80, 13, Component.translatable("screen.faunaandorchestra.conductor_screen"), Component.empty(), 0, 100, 100, true);
+        this.button = new ParticleButton(x + 159, y + 5, Component.literal("Particle"), button -> {
+            conductor.activateParticles(!((ParticleButton) button).isPressed());
+        });
+        this.button.press(!conductor.areParticlesActivated());
 
         this.addRenderableWidget(volumeSlider);
+        this.addRenderableWidget(button);
     }
 
     @Override

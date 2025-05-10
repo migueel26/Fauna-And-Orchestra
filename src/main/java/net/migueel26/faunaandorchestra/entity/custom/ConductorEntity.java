@@ -1,7 +1,6 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
 import net.migueel26.faunaandorchestra.item.ModItems;
-import net.migueel26.faunaandorchestra.networking.RestartOrchestraMusicS2CPayload;
 import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
 import net.migueel26.faunaandorchestra.screen.custom.ConductorMenu;
 import net.migueel26.faunaandorchestra.util.ModTags;
@@ -17,7 +16,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -26,12 +24,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.items.ItemStackHandler;
-import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 
 public abstract class ConductorEntity extends TamableAnimal {
     protected static final EntityDataAccessor<Boolean> HOLDING_BATON = SynchedEntityData.defineId(ConductorEntity.class, EntityDataSerializers.BOOLEAN);
@@ -44,7 +39,9 @@ public abstract class ConductorEntity extends TamableAnimal {
     // Server
     protected Set<MusicalEntity> orchestra = new HashSet<>();
     private float currentVolume = 1.0F;
-    //
+
+    // Client
+    private boolean particlesActivated;
     public ItemStackHandler inventory = new ItemStackHandler(1) {
         @Override
         public boolean isItemValid(int slot, ItemStack stack) {
@@ -61,6 +58,7 @@ public abstract class ConductorEntity extends TamableAnimal {
     public ConductorEntity(EntityType<? extends TamableAnimal> entityType, Level level) {
         super(entityType, level);
 
+        this.particlesActivated = true;
         this.isReady = false;
     }
 
@@ -129,14 +127,16 @@ public abstract class ConductorEntity extends TamableAnimal {
         }
 
         if (isConducting() && level().isClientSide()) {
-            if (ticksPlaying == 0) {
-                level().addParticle(ModParticleTypes.TREBLE_CLEF.get(),
-                        this.getX(), this.getY() + 2.5, this.getZ(),
-                        0, 0.025F, 0);
-            } else if (ticksPlaying % 20 == 0) {
-                level().addParticle(ModParticleTypes.FAUNA_NOTES.get(),
-                        this.getX(), this.getY() + 2.5, this.getZ(),
-                        0,0.025F,0);
+            if (particlesActivated) {
+                if (ticksPlaying == 0) {
+                    level().addParticle(ModParticleTypes.TREBLE_CLEF.get(),
+                            this.getX(), this.getY() + 2.5, this.getZ(),
+                            0, 0.025F, 0);
+                } else if (ticksPlaying % 20 == 0) {
+                    level().addParticle(ModParticleTypes.FAUNA_NOTES.get(),
+                            this.getX(), this.getY() + 2.5, this.getZ(),
+                            0,0.025F,0);
+                }
             }
             ticksPlaying++;
         } else {
@@ -204,15 +204,12 @@ public abstract class ConductorEntity extends TamableAnimal {
         return false;
     }
 
-    public boolean isFacingZAxis() {
-        float yaw = Mth.wrapDegrees(this.getYRot());
+    public void activateParticles(boolean particlesActivated) {
+        this.particlesActivated = particlesActivated;
+    }
 
-        // Convert yaw to a vector (unit direction)
-        float x = -Mth.sin(yaw * ((float)Math.PI / 180F));
-        float z =  Mth.cos(yaw * ((float)Math.PI / 180F));
-
-        // Compare the magnitude of Z vs X
-        return Math.abs(z) > Math.abs(x); // More Z than X = north/south
+    public boolean areParticlesActivated() {
+        return this.particlesActivated;
     }
 
     public void setHoldingBaton(boolean holdingBaton) {
