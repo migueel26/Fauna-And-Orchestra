@@ -112,4 +112,16 @@ public class ClientPayloadHandler {
             }
         }
     }
+
+    public static void handleStopOrchestraOnNetwork(StopOrchestraMusicS2CPayload payload, IPayloadContext iPayloadContext) {
+        List<UUID> orchestraUUID = payload.orchestra();
+        ClientLevelAccessor level = (ClientLevelAccessor) Minecraft.getInstance().level;
+
+        if (level != null) {
+            ISoundManagerMixin soundManager = (ISoundManagerMixin) Minecraft.getInstance().getSoundManager();
+            for (UUID musicianUUID : orchestraUUID) {
+                soundManager.faunaStopMusic(musicianUUID);
+            }
+        }
+    }
 }

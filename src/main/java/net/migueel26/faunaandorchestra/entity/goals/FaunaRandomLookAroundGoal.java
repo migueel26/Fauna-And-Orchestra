@@ -41,7 +41,7 @@ public class FaunaRandomLookAroundGoal extends Goal {
 
     @Override
     public boolean canContinueToUse() {
-        return this.lookTime >= 0;
+        return this.lookTime >= 0 && canUse();
     }
 
     @Override

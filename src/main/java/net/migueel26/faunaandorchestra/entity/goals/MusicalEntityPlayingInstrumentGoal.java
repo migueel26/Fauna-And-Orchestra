@@ -55,12 +55,11 @@ public class MusicalEntityPlayingInstrumentGoal extends Goal {
 
     @Override
     public void start() {
-        System.out.println("In!");
-        conductor = musician.getConductor();
+        System.out.println("Musician IN!");
+        //conductor = musician.getConductor();
 
         // The musician joins the conductor's orchestra
         conductor.addMusician(musician);
-        //musician.updateGoals();
 
         // We get how many ticks the conductor has been conducting
         int ticksOffset = conductor.getTicksPlaying();
@@ -85,8 +84,7 @@ public class MusicalEntityPlayingInstrumentGoal extends Goal {
         musician.setConductor(null);
         conductor = null;
 
-        System.out.println("Out!");
-        //musician.updateGoals();
+        //System.out.println("Musician OUT!");
     }
 
     @Override

@@ -56,7 +56,7 @@ public class InstrumentSoundInstance extends AbstractTickableSoundInstance {
     private float calculateVolume() {
         double distance = Minecraft.getInstance().player.distanceTo(entity);
 
-        return (float) Math.max(0, oVolume - (distance * 0.025F));
+        return (float) Math.max(0, oVolume - (distance * 0.03125F));
     }
 
     public void stopSound() {

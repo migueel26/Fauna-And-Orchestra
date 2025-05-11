@@ -50,5 +50,10 @@ public class ModEventBusEvents {
                 StartFrogChoirMusicS2CPayload.STREAM_CODEC,
                 ClientPayloadHandler::handleStartFrogChoirOnNetwork
         );
+        registrar.playToClient(
+                StopOrchestraMusicS2CPayload.TYPE,
+                StopOrchestraMusicS2CPayload.STREAM_CODEC,
+                ClientPayloadHandler::handleStopOrchestraOnNetwork
+        );
     }
 }

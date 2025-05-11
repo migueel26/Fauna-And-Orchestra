@@ -66,7 +66,6 @@ public class ConductorScreen extends AbstractContainerScreen<ConductorMenu> {
 
         if (newSheetMusic != currentSheetMusic || currentVolume != volume) {
             volume = currentVolume;
-            System.out.println("Sending!");
             PacketDistributor.sendToServer(new RestartOrchestraMusicC2SPayload(conductor.getUUID(), volume));
         }
         return super.mouseReleased(mouseX, mouseY, button);

@@ -26,12 +26,14 @@ public class QuirkyFrogSingGoal extends Goal {
     public void start() {
         this.conductor = chorister.getFrogConductor();
         this.ticksUntilNextPath = 20;
+        super.start();
     }
 
     @Override
     public void stop() {
         this.chorister.setSinging(false);
         this.chorister.setReady(false);
+        this.chorister.setFrogConductor(null);
         super.stop();
     }
 

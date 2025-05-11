@@ -31,7 +31,7 @@ public class QuirkyFrogConductingChoirGoal extends Goal {
     @Override
     public boolean canUse() {
         return !conductor.isTame() && conductor.isReady() && !conductor.isSinging() && conductor.getFrogConductor() == null
-                && !conductor.isDeadOrDying();
+                && !conductor.isDeadOrDying() && !conductor.getFrogChoir().isEmpty();
     }
 
     @Override
@@ -55,14 +55,17 @@ public class QuirkyFrogConductingChoirGoal extends Goal {
         for (QuirkyFrogEntity chorister : conductor.getFrogChoir()) {
             chorister.setSinging(false);
             chorister.setFrogConductor(null);
+            chorister.setReady(false);
         }
 
         PacketDistributor.sendToAllPlayers(new StopMusicS2CPayload(conductor.getUUID()));
 
+        this.startSinging = false;
         conductor.setMusical(false);
         conductor.setReady(false);
         conductor.setConducting(false);
         conductor.setFrogChoir(Collections.emptyList());
+        super.stop();
     }
 
     @Override
@@ -122,7 +125,6 @@ public class QuirkyFrogConductingChoirGoal extends Goal {
     }
 
     private void croacIfRightTick(int tick) {
-        System.out.println(tick);
         // CRO - CRO - CRO () CRO - CRO - CRO
         if (tick == 22 || tick == 24 || tick == 26 || tick == 32 || tick == 34 || tick == 36 ||
         // CRO - CRO - CRO - CRO - CRÓ

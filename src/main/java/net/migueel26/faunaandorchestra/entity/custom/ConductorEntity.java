@@ -118,15 +118,15 @@ public abstract class ConductorEntity extends TamableAnimal {
     @Override
     public void tick() {
         if (!level().isClientSide()) {
+            // Server
             if (!isOrchestraEmpty()) {
                 ticksPlaying++;
             } else {
                 ticksPlaying = 0;
             }
-        }
-
-        if (isConducting() && level().isClientSide()) {
-            if (particlesActivated) {
+        } else {
+            // Client
+            if (particlesActivated && isConducting()) {
                 if (ticksPlaying == 0) {
                     level().addParticle(ModParticleTypes.TREBLE_CLEF.get(),
                             this.getX(), this.getY() + 2.5, this.getZ(),
@@ -136,10 +136,10 @@ public abstract class ConductorEntity extends TamableAnimal {
                             this.getX(), this.getY() + 2.5, this.getZ(),
                             0,0.025F,0);
                 }
+                ticksPlaying++;
+            } else {
+                ticksPlaying = 0;
             }
-            ticksPlaying++;
-        } else {
-            ticksPlaying = 0;
         }
 
         super.tick();
