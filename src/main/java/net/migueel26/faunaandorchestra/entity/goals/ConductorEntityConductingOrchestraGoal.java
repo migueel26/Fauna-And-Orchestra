@@ -13,9 +13,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.network.PacketDistributor;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class ConductorEntityConductingOrchestraGoal extends Goal {
     private final ConductorEntity conductor;
@@ -29,8 +27,7 @@ public class ConductorEntityConductingOrchestraGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return !conductor.isOrchestraEmpty() && !conductor.isDeadOrDying() && conductor.isHoldingBaton()
-                && conductor.isReady();
+        return !conductor.isOrchestraEmpty() && !conductor.isDeadOrDying() && conductor.isHoldingBaton();
     }
 
     @Override
@@ -45,10 +42,10 @@ public class ConductorEntityConductingOrchestraGoal extends Goal {
         this.lookCooldown = 0;
         this.playersListening = this.conductor.level().getEntitiesOfClass(
                 Player.class, this.conductor.getBoundingBox().inflate(50.0, 50.0, 50.0), EntitySelector.LIVING_ENTITY_STILL_ALIVE);
-        super.start();
 
         this.currentOrchestraSize = this.conductor.getOrchestra().size();
-        this.waitForMoreMusicians = 20;
+        this.waitForMoreMusicians = conductor.isReady() ? 140 : -1;
+        super.start();
 
     }
 
@@ -77,7 +74,7 @@ public class ConductorEntityConductingOrchestraGoal extends Goal {
 
         if (waitForMoreMusicians > 0) {
             if (currentOrchestraSize != this.conductor.getOrchestra().size()) {
-                waitForMoreMusicians = 20;
+                waitForMoreMusicians = 140;
                 this.currentOrchestraSize = this.conductor.getOrchestra().size();
             } else {
                 waitForMoreMusicians--;
@@ -86,12 +83,14 @@ public class ConductorEntityConductingOrchestraGoal extends Goal {
 
         if (waitForMoreMusicians == 0) {
             waitForMoreMusicians = -1;
+            conductor.setTicksPlaying(0);
+
             PacketDistributor.sendToAllPlayers(new RestartOrchestraMusicS2CPayload(
                     conductor.getUUID(),
                     conductor.getOrchestra().stream().map(Entity::getUUID).toList(),
                     conductor.getTicksPlaying(),
-                    conductor.getCurrentVolume()));
-
+                    conductor.getCurrentVolume(),
+                    conductor.getSheetMusic().toString()));
         }
 
         List<Player> nearbyPlayers = this.conductor.level().getEntitiesOfClass(
@@ -107,7 +106,8 @@ public class ConductorEntityConductingOrchestraGoal extends Goal {
                     conductor.getUUID(),
                     conductor.getOrchestra().stream().map(Entity::getUUID).toList(),
                     conductor.getTicksPlaying(),
-                    conductor.getCurrentVolume()));
+                    conductor.getCurrentVolume(),
+                    conductor.getSheetMusic().toString()));
         }
 
         for (Player player : exitPlayers) {

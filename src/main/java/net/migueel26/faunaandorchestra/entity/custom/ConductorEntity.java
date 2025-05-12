@@ -4,6 +4,7 @@ import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
 import net.migueel26.faunaandorchestra.screen.custom.ConductorMenu;
 import net.migueel26.faunaandorchestra.util.ModTags;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -35,7 +36,8 @@ public abstract class ConductorEntity extends TamableAnimal {
     protected static final EntityDataAccessor<Boolean> IS_READY = SynchedEntityData.defineId(ConductorEntity.class, EntityDataSerializers.BOOLEAN);
     protected boolean holdingBaton = false;
     protected boolean isConducting = false;
-    protected boolean isReady = false;
+    // isReady -> It becomes true when a tamed ConductorEntity is clicked for the first time
+    protected boolean isReady;
     // Server
     protected Set<MusicalEntity> orchestra = new HashSet<>();
     private float currentVolume = 1.0F;
@@ -93,7 +95,7 @@ public abstract class ConductorEntity extends TamableAnimal {
         super.readAdditionalSaveData(compound);
 
         this.entityData.set(HOLDING_BATON, compound.getBoolean("HoldingBaton"));
-        //this.entityData.set(IS_CONDUCTING, compound.getBoolean("IsConducting"));
+        this.entityData.set(IS_READY, compound.getBoolean("IsReady"));
 
         if (compound.contains("SheetMusic")) {
             ItemStack itemstack = ItemStack.parse(this.registryAccess(), compound.getCompound("SheetMusic")).orElse(ItemStack.EMPTY);
@@ -108,7 +110,7 @@ public abstract class ConductorEntity extends TamableAnimal {
         super.addAdditionalSaveData(compound);
 
         compound.putBoolean("HoldingBaton", this.isHoldingBaton());
-        //compound.putBoolean("IsConducting", this.isConducting());
+        compound.putBoolean("IsReady", isConducting());
 
         if (!this.inventory.getStackInSlot(0).isEmpty()) {
             compound.put("SheetMusic", this.inventory.getStackInSlot(0).save(this.registryAccess()));
@@ -152,7 +154,6 @@ public abstract class ConductorEntity extends TamableAnimal {
             if (hand == InteractionHand.MAIN_HAND && isHoldingBaton() && !player.isSecondaryUseActive()
                 && !this.level().isClientSide()) {
 
-                setReady(true);
                 this.openCustomMenu(player);
                 return InteractionResult.SUCCESS;
 

@@ -36,7 +36,8 @@ public class ServerPayloadHandler {
                         conductorUUID,
                         orchestra,
                         tickOffset,
-                        payload.volume()
+                        payload.volume(),
+                        conductor.getSheetMusic().toString()
                         ));
             }
         }

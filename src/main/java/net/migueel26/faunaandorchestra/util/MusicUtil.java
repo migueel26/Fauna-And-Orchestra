@@ -22,6 +22,10 @@ public class MusicUtil {
             ModItems.BACH_AIR_SHEET_MUSIC.get(), BACH_AIR
     );
 
+    private static final Map<String, Item> STRING_TO_SHEET = Map.of(
+            "faunaandorchestra:bach_air_sheet_music", ModItems.BACH_AIR_SHEET_MUSIC.get()
+    );
+
     private static Map<UUID, Item> CURRENT_ORCHESTRAS = new HashMap<>();
 
     public static String getLocation(Item sheet, Item instrument) {
@@ -58,5 +62,9 @@ public class MusicUtil {
 
     public static Item getSheet(UUID conductorUUID) {
         return CURRENT_ORCHESTRAS.get(conductorUUID);
+    }
+
+    public static Item getSheet(String name) {
+        return STRING_TO_SHEET.get(name);
     }
 }

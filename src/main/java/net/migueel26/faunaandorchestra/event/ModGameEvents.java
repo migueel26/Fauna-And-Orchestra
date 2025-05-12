@@ -14,6 +14,7 @@ import java.util.stream.Stream;
 
 @EventBusSubscriber(modid = FaunaAndOrchestra.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public class ModGameEvents {
+
     @SubscribeEvent
     public static void quirkyFrogChoir(EntityTickEvent.Post event) {
         if (!event.getEntity().level().isClientSide() &&

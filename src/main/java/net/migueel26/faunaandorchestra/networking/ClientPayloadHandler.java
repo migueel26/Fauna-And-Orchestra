@@ -53,20 +53,22 @@ public class ClientPayloadHandler {
 
         if (level != null) {
             ConductorEntity conductor = (ConductorEntity) level.callGetEntities().get(conductorUUID);
+
             if (conductor != null) {
-                Item newSheetMusic = conductor.getSheetMusic();
+                Item newSheetMusic = MusicUtil.getSheet(payload.sheetName());
                 // If the newSheet is empty we return
                 if (newSheetMusic == Items.AIR) {
                     MusicUtil.deleteOrchestra(conductorUUID);
                     return;
                 }
+                // We save the current volume
+                conductor.setCurrentVolume(volume);
 
-                // If not, we update it in MusicUtil
+                // If it's a new song, we update it in MusicUtil
                 boolean newSong = MusicUtil.updateNewSheet(conductorUUID, newSheetMusic);
 
                 // If it's a new song, we start it from the beginning
                 if (newSong) tickOffset = 0;
-                else newSheetMusic = conductor.getSheetMusic();
 
                 List<MusicalEntity> orchestra = UUIDorchestra.stream().map(uuid -> (MusicalEntity) level.callGetEntities().get(uuid)).toList();
                 for (MusicalEntity musician : orchestra) {

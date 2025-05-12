@@ -10,9 +10,9 @@ import net.minecraft.resources.ResourceLocation;
 import java.util.List;
 import java.util.UUID;
 
-public record RestartOrchestraMusicS2CPayload(UUID conductor, List<UUID> orchestra, int tickOffset, float volume) implements CustomPacketPayload {
+public record RestartOrchestraMusicS2CPayload(UUID conductor, List<UUID> orchestra, int tickOffset, float volume, String sheetName) implements CustomPacketPayload {
     private RestartOrchestraMusicS2CPayload(FriendlyByteBuf buf) {
-        this(buf.readUUID(), BufferUtil.readUUIDList(buf), buf.readInt(), buf.readFloat());
+        this(buf.readUUID(), BufferUtil.readUUIDList(buf), buf.readInt(), buf.readFloat(), buf.readUtf());
     }
 
     public static final CustomPacketPayload.Type<RestartOrchestraMusicS2CPayload> TYPE =
@@ -27,6 +27,7 @@ public record RestartOrchestraMusicS2CPayload(UUID conductor, List<UUID> orchest
         BufferUtil.writeUUIDList(buf, orchestra);
         buf.writeInt(tickOffset);
         buf.writeFloat(volume);
+        buf.writeUtf(sheetName);
     }
 
     @Override

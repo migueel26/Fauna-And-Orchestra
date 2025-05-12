@@ -42,6 +42,7 @@ public class ConductorScreen extends AbstractContainerScreen<ConductorMenu> {
         int y = (height - imageHeight) / 2;
 
         this.volumeSlider = new ExtendedSlider(x + 86, y + 57, 80, 13, Component.translatable("screen.faunaandorchestra.conductor_screen"), Component.empty(), 0, 100, 100, true);
+        this.volumeSlider.setValue(conductor.getCurrentVolume() * 100);
         this.button = new ParticleButton(x + 159, y + 5, Component.empty(), button -> {
             conductor.activateParticles(!((ParticleButton) button).isPressed());
         });
@@ -63,7 +64,6 @@ public class ConductorScreen extends AbstractContainerScreen<ConductorMenu> {
         float currentVolume = (float) volumeSlider.getValue() / 100.0F;
         Item newSheetMusic = conductor.getSheetMusic();
         Item currentSheetMusic = MusicUtil.getSheet(conductor.getUUID());
-
         if (newSheetMusic != currentSheetMusic || currentVolume != volume) {
             volume = currentVolume;
             PacketDistributor.sendToServer(new RestartOrchestraMusicC2SPayload(conductor.getUUID(), volume));

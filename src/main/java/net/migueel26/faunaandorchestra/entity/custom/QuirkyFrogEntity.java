@@ -1,6 +1,6 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
-import net.migueel26.faunaandorchestra.entity.goals.ConductorEntityConductingOrchestra;
+import net.migueel26.faunaandorchestra.entity.goals.ConductorEntityConductingOrchestraGoal;
 import net.migueel26.faunaandorchestra.entity.goals.FaunaRandomLookAroundGoal;
 import net.migueel26.faunaandorchestra.entity.goals.QuirkyFrogConductingChoirGoal;
 import net.migueel26.faunaandorchestra.entity.goals.QuirkyFrogSingGoal;
@@ -73,7 +73,7 @@ public class QuirkyFrogEntity extends ConductorEntity implements GeoEntity {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TamableAnimalPanicGoal(2.0D));
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new ConductorEntityConductingOrchestra(this));
+        this.goalSelector.addGoal(1, new ConductorEntityConductingOrchestraGoal(this));
         this.goalSelector.addGoal(1, new QuirkyFrogSingGoal(this));
         this.goalSelector.addGoal(1, new QuirkyFrogConductingChoirGoal(this));
         // LookAtPlayerGoal(2);
