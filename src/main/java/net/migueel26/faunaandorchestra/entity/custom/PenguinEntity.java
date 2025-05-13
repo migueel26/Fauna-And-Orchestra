@@ -34,9 +34,10 @@ public class PenguinEntity extends MusicalEntity implements GeoEntity {
     protected static final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
     protected static final RawAnimation IDLE_FLUTE = RawAnimation.begin().thenPlay("holding_flute");
     protected static final RawAnimation PLAYING = RawAnimation.begin().thenPlay("playing");
-    private static final EntityDataAccessor<Boolean> IS_WAVING = SynchedEntityData.defineId(PenguinEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> IS_RUNNING = SynchedEntityData.defineId(PenguinEntity.class, EntityDataSerializers.BOOLEAN);
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
+    private final AnimationController<PenguinEntity> penguinController = new AnimationController<>(this, "penguin_controller", 5, this::penguinState)
+            .triggerableAnim("wave", WAVE);
     public PenguinEntity(EntityType<? extends TamableAnimal> entityType, Level level) {
         super(entityType, level);
 
@@ -62,9 +63,6 @@ public class PenguinEntity extends MusicalEntity implements GeoEntity {
     private <E extends GeoAnimatable> PlayState penguinState(AnimationState<E> state) {
         if (isPlayingInstrument()) {
             state.getController().setAnimation(PLAYING);
-        } else if (isWaving()) {
-            state.getController().setAnimation(WAVE);
-            if (state.getController().hasAnimationFinished()) stopWaving();
         } else if (state.isMoving()) {
             state.getController().setAnimation(isHoldingInstrument() ? WADDLE_FLUTE : WADDLE);
         } else if (isHoldingInstrument()) {
@@ -94,11 +92,15 @@ public class PenguinEntity extends MusicalEntity implements GeoEntity {
 
         this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 6.0F) {
             final PenguinEntity penguin = (PenguinEntity) super.mob;
+            private boolean hasWaved = false;
             @Override
             public void start() {
                 penguin.getNavigation().moveTo(penguin.getX(), penguin.getY(), penguin.getZ(), 1.0D);
                 this.mob.getLookControl().setLookAt(this.lookAt.getX(), this.lookAt.getEyeY(), this.lookAt.getZ());
-                penguin.wave();
+                if (!hasWaved) {
+                    penguin.wave();
+                    this.hasWaved = true;
+                }
                 super.start();
             }
 
@@ -106,11 +108,15 @@ public class PenguinEntity extends MusicalEntity implements GeoEntity {
             public boolean canUse() {
                 return super.canUse() && penguin.getNavigation().isDone();
             }
+
+            @Override
+            public void tick() {
+                super.tick();
+            }
         });
 
         this.goalSelector.addGoal(5, new RandomStrollGoal(this, 1.0) {
             final PenguinEntity penguin = (PenguinEntity) super.mob;
-
             @Override
             public boolean canUse() {
                 return super.canUse() && !penguin.isWaving();
@@ -128,7 +134,6 @@ public class PenguinEntity extends MusicalEntity implements GeoEntity {
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
-        builder.define(IS_WAVING, false);
         builder.define(IS_RUNNING, false);
     }
 
@@ -146,15 +151,11 @@ public class PenguinEntity extends MusicalEntity implements GeoEntity {
     }
 
     public void wave() {
-        entityData.set(IS_WAVING, true);
-    }
-
-    public void stopWaving() {
-        entityData.set(IS_WAVING, false);
+        triggerAnim("penguin_controller", "wave");
     }
 
     public boolean isWaving() {
-        return entityData.get(IS_WAVING);
+        return penguinController.isPlayingTriggeredAnimation();
     }
 
     public void setRunning(boolean flag) {
@@ -167,7 +168,7 @@ public class PenguinEntity extends MusicalEntity implements GeoEntity {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "penguin_controller", 5, this::penguinState));
+        controllers.add(penguinController);
     }
 
     @Override
