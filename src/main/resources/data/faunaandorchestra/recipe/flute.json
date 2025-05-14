@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " #O",
+    "#O ",
+    "O  "
+  ],
+  "key": {
+    "#": {
+      "tag": "minecraft:trapdoors"
+    },
+    "O": {
+      "tag": "minecraft:planks"
+    }
+  },
+  "result": {
+    "id": "faunaandorchestra:flute",
+    "count": 1
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "  #",
+    " # ",
+    "/  "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:white_stained_glass"
+    },
+    "/": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "id": "faunaandorchestra:baton",
+    "count": 1
+  }
+}

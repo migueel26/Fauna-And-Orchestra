@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " / ",
+    "OSO",
+    "_OO"
+  ],
+  "key": {
+    "/": {
+      "item": "minecraft:stick"
+    },
+    "O": {
+      "tag": "minecraft:planks"
+    },
+    "S": {
+      "item": "minecraft:string"
+    },
+    "_": {
+      "item": "minecraft:stone_slab"
+    }
+  },
+  "result": {
+    "id": "faunaandorchestra:violin",
+    "count": 1
+  }
+}

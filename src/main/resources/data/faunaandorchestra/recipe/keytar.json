@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "## ",
+    "__/"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:stone_button"
+    },
+    "_": {
+      "tag": "minecraft:logs"
+    },
+    "/": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "id": "faunaandorchestra:keytar",
+    "count": 1
+  }
+}
