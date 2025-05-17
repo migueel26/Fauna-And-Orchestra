@@ -19,7 +19,7 @@ public class QuirkyFrogSingGoal extends Goal {
 
     @Override
     public boolean canContinueToUse() {
-        return !chorister.isDeadOrDying() && canUse();
+        return !chorister.isDeadOrDying() && conductor.isAlive() && canUse();
     }
 
     @Override

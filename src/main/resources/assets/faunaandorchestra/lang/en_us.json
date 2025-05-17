@@ -6,6 +6,7 @@
   "item.faunaandorchestra.keytar": "Keytar",
   "item.faunaandorchestra.double_bass": "Double Bass",
   "item.faunaandorchestra.baton": "Baton",
+  "item.faunaandorchestra.briefcase": "Briefcase",
 
   "item.faunaandorchestra.bach_air_sheet_music": "Bach's Air Sheet",
   "item.faunaandorchestra.mantis_spawn_egg": "Mantis Spawn Egg",
@@ -19,6 +20,8 @@
   "tooltip.faunaandorchestra:keytar": "§7This instrument seems to capture the attention of some... §orusty§r§7 ringtails",
   "tooltip.faunaandorchestra:double_bass": "§7This instrument seems to capture the attention of some... §ovibrant§r§7 squawkers",
   "tooltip.faunaandorchestra:baton": "§eClick §ra musician and then §eclick §ra block to lead it there\n§7This item also seems to capture the attention of some... §oleapy§r§7 lads",
+  "tooltip.faunaandorchestra:briefcase_empty": "§eClick §ra musician or conductor while it's §eopened §rto take it with you",
+  "tooltip.faunaandorchestra:briefcase_full": "§eClick §ra a block to release the §eanimal §rthere",
 
   "tooltip.faunaandorchestra.shift": "Press §eShift§r for more Information",
 

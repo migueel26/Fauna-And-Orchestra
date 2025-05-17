@@ -1,13 +1,20 @@
 package net.migueel26.faunaandorchestra.util;
 
+import net.migueel26.faunaandorchestra.entity.custom.ConductorEntity;
+import net.migueel26.faunaandorchestra.entity.custom.MusicalEntity;
+import net.migueel26.faunaandorchestra.entity.custom.QuirkyFrogEntity;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.item.custom.InstrumentItem;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.StringJoiner;
 import java.util.UUID;
 
 public class MusicUtil {
@@ -60,11 +67,29 @@ public class MusicUtil {
         }
     }
 
+    public static String musicalAnimalToString(Entity entity) {
+        StringJoiner out = new StringJoiner(";");
+        String animal = entity.getClass().getSimpleName();
+        out.add(animal);
+        if (animal.equals("QuirkyFrogEntity")) {
+            out.add(((ConductorEntity) entity).isHoldingBaton() ? "t" : "f");
+            out.add(((ConductorEntity) entity).getSheetMusic().toString());
+        } else {
+            out.add(((MusicalEntity) entity).isHoldingInstrument() ? "t" : "f");
+            out.add("f");
+        }
+        out.add(entity.getCustomName() != null ? entity.getCustomName().getString() : "f");
+        return out.toString();
+    }
+
+
+
     public static Item getSheet(UUID conductorUUID) {
         return CURRENT_ORCHESTRAS.get(conductorUUID);
     }
 
     public static Item getSheet(String name) {
-        return STRING_TO_SHEET.get(name);
+        return STRING_TO_SHEET.getOrDefault(name, Items.AIR);
     }
+
 }

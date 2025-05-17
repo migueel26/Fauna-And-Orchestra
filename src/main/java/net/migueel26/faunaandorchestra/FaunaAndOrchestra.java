@@ -10,6 +10,7 @@ import net.migueel26.faunaandorchestra.particles.custom.FaunaNoteParticle;
 import net.migueel26.faunaandorchestra.screen.ModMenuTypes;
 import net.migueel26.faunaandorchestra.screen.custom.ConductorScreen;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
+import net.migueel26.faunaandorchestra.util.ModItemProperties;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
@@ -81,6 +82,8 @@ public class FaunaAndOrchestra {
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
+            ModItemProperties.addCustomItemProperties();
+
             EntityRenderers.register(ModEntities.MANTIS.get(), MantisRenderer::new);
             EntityRenderers.register(ModEntities.QUIRKY_FROG.get(), QuirkyFrogRenderer::new);
             EntityRenderers.register(ModEntities.PENGUIN.get(), PenguinRenderer::new);

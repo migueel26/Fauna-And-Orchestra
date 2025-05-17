@@ -1,0 +1,11 @@
+{
+  "parent": "faunaandorchestra:item/briefcase_closed",
+  "overrides": [
+    {
+      "predicate": {
+        "faunaandorchestra:opened": 1
+      },
+      "model": "faunaandorchestra:item/briefcase_opened"
+    }
+  ]
+}

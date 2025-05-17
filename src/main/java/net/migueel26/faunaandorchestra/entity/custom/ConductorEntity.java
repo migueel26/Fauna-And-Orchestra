@@ -1,9 +1,11 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
+import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
 import net.migueel26.faunaandorchestra.screen.custom.ConductorMenu;
 import net.migueel26.faunaandorchestra.util.ModTags;
+import net.migueel26.faunaandorchestra.util.MusicUtil;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
@@ -11,7 +13,10 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -172,6 +177,21 @@ public abstract class ConductorEntity extends TamableAnimal {
                 setOrderedToSit(true);
                 return InteractionResult.CONSUME;
                 
+            } else if (itemStack.is(ModItems.BRIEFCASE) && itemStack.getOrDefault(ModDataComponents.OPENED, false)
+                    && getOwnerUUID().equals(player.getUUID())) {
+
+                if (!level().isClientSide()) {
+                    itemStack.set(ModDataComponents.BRIEFCASE_ANIMAL, MusicUtil.musicalAnimalToString(this));
+                    itemStack.set(ModDataComponents.OPENED, false);
+                    ((ServerLevel) level()).sendParticles(ParticleTypes.WAX_OFF,
+                            this.getX(), this.getY(), this.getZ(),
+                            20, 0.2, 0.5, 0.2, 1F);
+                    this.discard();
+                } else {
+                    level().playSound(player, this.blockPosition(), SoundEvents.PLAYER_TELEPORT, SoundSource.BLOCKS);
+                }
+                return InteractionResult.SUCCESS;
+
             }
         }
         return InteractionResult.PASS;

@@ -3,6 +3,7 @@ package net.migueel26.faunaandorchestra.item;
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.item.custom.BatonItem;
+import net.migueel26.faunaandorchestra.item.custom.BriefcaseItem;
 import net.migueel26.faunaandorchestra.item.custom.InstrumentItem;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.minecraft.world.item.Item;
@@ -29,6 +30,9 @@ public class ModItems {
 
     public static final DeferredItem<Item> BATON = ITEMS.register("baton",
             () -> new BatonItem(new Item.Properties().stacksTo(1)));
+
+    public static final DeferredItem<Item> BRIEFCASE = ITEMS.register("briefcase",
+            () -> new BriefcaseItem(new Item.Properties().stacksTo(1)));
 
     public static final DeferredItem<Item> MANTIS_SPAWN_EGG = ITEMS.register("mantis_spawn_egg",
             () -> new DeferredSpawnEggItem(ModEntities.MANTIS, 0x46eb4c, 0x23a628,
