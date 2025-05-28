@@ -183,9 +183,9 @@ public abstract class ConductorEntity extends TamableAnimal {
                 if (!level().isClientSide()) {
                     itemStack.set(ModDataComponents.BRIEFCASE_ANIMAL, MusicUtil.musicalAnimalToString(this));
                     itemStack.set(ModDataComponents.OPENED, false);
-                    ((ServerLevel) level()).sendParticles(ParticleTypes.WAX_OFF,
+                    ((ServerLevel) level()).sendParticles(ParticleTypes.PORTAL,
                             this.getX(), this.getY(), this.getZ(),
-                            20, 0.2, 0.5, 0.2, 1F);
+                            60, 0.5, 0.5, 0.5, 0F);
                     this.discard();
                 } else {
                     level().playSound(player, this.blockPosition(), SoundEvents.PLAYER_TELEPORT, SoundSource.BLOCKS);

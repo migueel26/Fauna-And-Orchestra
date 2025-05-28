@@ -36,7 +36,9 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.Optional;
+import java.util.Queue;
 import java.util.UUID;
 
 public abstract class MusicalEntity extends TamableAnimal {
@@ -96,14 +98,6 @@ public abstract class MusicalEntity extends TamableAnimal {
         this.entityData.set(IS_MUSICAL, compound.getBoolean("IsMusical"));
     }
 
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
-        float random = this.random.nextFloat();
-        if (random <= 0.2F) {
-            entityData.set(IS_MUSICAL, true);
-        }
-        return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
-    }
-
     @Override
     public boolean hurt(DamageSource source, float amount) {
         if (!this.level().isClientSide) {
@@ -147,9 +141,9 @@ public abstract class MusicalEntity extends TamableAnimal {
                 if (!level().isClientSide()) {
                     itemStack.set(ModDataComponents.BRIEFCASE_ANIMAL, MusicUtil.musicalAnimalToString(this));
                     itemStack.set(ModDataComponents.OPENED, false);
-                    ((ServerLevel) level()).sendParticles(ParticleTypes.WAX_OFF,
+                    ((ServerLevel) level()).sendParticles(ParticleTypes.PORTAL,
                             this.getX(), this.getY(), this.getZ(),
-                            20, 0.2, 0.5, 0.2, 1.5F);
+                            60, 0.5, 0.5, 0.5, 0F);
                     this.discard();
                 } else {
                     level().playSound(player, this.blockPosition(), SoundEvents.PLAYER_TELEPORT, SoundSource.BLOCKS);
@@ -210,6 +204,10 @@ public abstract class MusicalEntity extends TamableAnimal {
 
     public boolean isPlayingInstrument() {
         return conductorUUID != null;
+    }
+
+    public void setMusical() {
+        this.entityData.set(IS_MUSICAL, true);
     }
 
     public boolean isMusical() {

@@ -72,9 +72,9 @@ public class BriefcaseItem extends Item {
                     briefcase.set(ModDataComponents.BRIEFCASE_ANIMAL, null);
                     briefcase.set(ModDataComponents.OPENED, true);
                     spawnMusicalEntity(animalString, level, block, context.getPlayer());
-                    level.sendParticles(ParticleTypes.HAPPY_VILLAGER,
+                    level.sendParticles(ParticleTypes.PORTAL,
                             block.getX(), block.getY(), block.getZ(),
-                            20, 0.2, 0.5, 0.2, 1.5F);
+                            40, 0.5, 0.5, 0.5, 0F);
                     return InteractionResult.SUCCESS;
                 } else {
                     context.getLevel().playSound(context.getPlayer(), context.getClickedPos(), SoundEvents.PLAYER_TELEPORT, SoundSource.BLOCKS);

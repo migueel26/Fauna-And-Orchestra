@@ -11,11 +11,13 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.network.PacketDistributor;
 
+import javax.annotation.Nullable;
 import java.util.*;
 
 public class QuirkyFrogConductingChoirGoal extends Goal {
@@ -56,6 +58,9 @@ public class QuirkyFrogConductingChoirGoal extends Goal {
             chorister.setSinging(false);
             chorister.setFrogConductor(null);
             chorister.setReady(false);
+
+            Vec3 vec3 = this.getPosition();
+            if (vec3 != null) chorister.getNavigation().moveTo(vec3.x, vec3.y, vec3.z, this.conductor.getSpeed());
         }
 
         PacketDistributor.sendToAllPlayers(new StopMusicS2CPayload(conductor.getUUID()));
@@ -65,6 +70,9 @@ public class QuirkyFrogConductingChoirGoal extends Goal {
         conductor.setReady(false);
         conductor.setConducting(false);
         conductor.setFrogChoir(Collections.emptyList());
+
+        Vec3 vec3 = this.getPosition();
+        if (vec3 != null) this.conductor.getNavigation().moveTo(vec3.x, vec3.y, vec3.z, this.conductor.getSpeed());
         super.stop();
     }
 
@@ -149,5 +157,10 @@ public class QuirkyFrogConductingChoirGoal extends Goal {
         ((ServerLevel) chorister.level()).sendParticles(ParticleTypes.NOTE,
                 chorister.getX(), chorister.getY() + 1.5F, chorister.getZ(),
                 1, 0, 0, 0, 1);
+    }
+
+    @Nullable
+    protected Vec3 getPosition() {
+        return DefaultRandomPos.getPos(this.conductor, 10, 7);
     }
 }

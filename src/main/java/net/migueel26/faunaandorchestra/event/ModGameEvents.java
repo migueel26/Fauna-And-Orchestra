@@ -1,9 +1,14 @@
 package net.migueel26.faunaandorchestra.event;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
+import net.migueel26.faunaandorchestra.entity.custom.MusicalEntity;
+import net.migueel26.faunaandorchestra.entity.custom.PenguinEntity;
 import net.migueel26.faunaandorchestra.entity.custom.QuirkyFrogEntity;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.living.FinalizeSpawnEvent;
+import net.neoforged.neoforge.event.entity.living.MobSpawnEvent;
+import net.neoforged.neoforge.event.entity.living.SpawnClusterSizeEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 
 import java.util.HashSet;
@@ -14,6 +19,7 @@ import java.util.stream.Stream;
 
 @EventBusSubscriber(modid = FaunaAndOrchestra.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public class ModGameEvents {
+    private static int musicalityIndex;
 
     @SubscribeEvent
     public static void quirkyFrogChoir(EntityTickEvent.Post event) {
@@ -34,6 +40,17 @@ public class ModGameEvents {
                     chorister.setSinging(true);
                     chorister.setReady(false);
                 }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void assignMusicality(FinalizeSpawnEvent event) {
+        if (event.getEntity() instanceof MusicalEntity musicalEntity) {
+            musicalityIndex++;
+            if (musicalityIndex == 3) {
+                musicalityIndex = 0;
+                musicalEntity.setMusical();
             }
         }
     }

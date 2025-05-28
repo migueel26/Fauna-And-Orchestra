@@ -2,11 +2,14 @@ package net.migueel26.faunaandorchestra.entity.custom;
 
 import net.migueel26.faunaandorchestra.entity.goals.MusicalEntityPlayingInstrumentGoal;
 import net.migueel26.faunaandorchestra.item.ModItems;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.InteractionHand;
@@ -22,6 +25,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoAnimatable;
@@ -150,11 +154,6 @@ public class MantisEntity extends MusicalEntity implements GeoEntity, NeutralMob
         triggerAnim("mantis_controller", "attack");
     }
 
-    @Override
-    public int getMaxSpawnClusterSize() {
-        return 7;
-    }
-
     //////////////////// NEUTRAL MOB METHODS -> ANGER ////////////////////////////////////
 
     @Override
@@ -184,6 +183,13 @@ public class MantisEntity extends MusicalEntity implements GeoEntity, NeutralMob
     }
 
     ///////////////////////////////////////////////////////////////
+
+
+    public static boolean checkMantisSpawnRules(
+            EntityType<? extends Animal> animal, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random
+    ) {
+        return level.getBlockState(pos.below()).is(BlockTags.FROGS_SPAWNABLE_ON);
+    }
 
     @Nullable
     @Override

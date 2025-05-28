@@ -5,8 +5,11 @@ import net.migueel26.faunaandorchestra.entity.goals.FaunaRandomLookAroundGoal;
 import net.migueel26.faunaandorchestra.entity.goals.QuirkyFrogConductingChoirGoal;
 import net.migueel26.faunaandorchestra.entity.goals.QuirkyFrogSingGoal;
 import net.migueel26.faunaandorchestra.item.ModItems;
+import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.*;
@@ -19,6 +22,7 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
@@ -118,6 +122,7 @@ public class QuirkyFrogEntity extends ConductorEntity implements GeoEntity {
         });
 
         this.goalSelector.addGoal(4, new RandomStrollGoal(this, 1.0) {
+            private int countdown;
             @Override
             public boolean canUse() {
                 return super.canUse() && !((QuirkyFrogEntity) this.mob).isReady() && !((QuirkyFrogEntity) this.mob).isConducting()
@@ -127,6 +132,20 @@ public class QuirkyFrogEntity extends ConductorEntity implements GeoEntity {
             @Override
             public boolean canContinueToUse() {
                 return super.canContinueToUse() && !((QuirkyFrogEntity) this.mob).isSinging() && !((QuirkyFrogEntity) this.mob).isConducting();
+            }
+
+            @Override
+            public void start() {
+                countdown = 0;
+                super.start();
+            }
+
+            @Override
+            public void tick() {
+                countdown++;
+                if (countdown == 140) {
+                    this.mob.getNavigation().stop();
+                }
             }
         });
     }
@@ -285,6 +304,12 @@ public class QuirkyFrogEntity extends ConductorEntity implements GeoEntity {
     }
 
     /////// JUMPING (from Rabbit Class)
+
+    public static boolean checkFrogSpawnRules(
+            EntityType<? extends Animal> animal, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random
+    ) {
+        return level.getBlockState(pos.below()).is(BlockTags.FROGS_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
+    }
 
     @Nullable
     @Override

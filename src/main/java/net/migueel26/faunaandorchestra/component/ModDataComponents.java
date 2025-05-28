@@ -10,6 +10,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+import java.util.List;
 import java.util.UUID;
 import java.util.function.UnaryOperator;
 
@@ -25,6 +26,9 @@ public class ModDataComponents {
 
         public static final DeferredHolder<DataComponentType<?>, DataComponentType<String>> BRIEFCASE_ANIMAL = register("briefcase_animal",
                 builder -> builder.persistent(Codec.STRING));
+
+        public static final DeferredHolder<DataComponentType<?>, DataComponentType<List<String>>> BRIEFCASE_ANIMAL_1 = register("aa",
+                builder -> builder.persistent(Codec.list(Codec.STRING, 0, 4)));
 
     private static <T> DeferredHolder<DataComponentType<?>, DataComponentType<T>> register(String name, UnaryOperator<DataComponentType.Builder<T>> builderOperator) {
         return DATA_COMPONENT_TYPES.register(name, () -> builderOperator.apply(DataComponentType.builder()).build());
