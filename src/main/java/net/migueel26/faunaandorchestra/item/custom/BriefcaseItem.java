@@ -32,6 +32,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -44,7 +45,8 @@ public class BriefcaseItem extends Item {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
         ItemStack briefcase = player.getItemInHand(usedHand);
         if (this.calculateHitResult(player).getType() != HitResult.Type.ENTITY
-                && briefcase.get(ModDataComponents.BRIEFCASE_ANIMAL) == null) {
+                  && (briefcase.get(ModDataComponents.BRIEFCASE_ANIMAL_LIST) == null
+                  || briefcase.get(ModDataComponents.BRIEFCASE_ANIMAL_LIST).size() < 5)) {
 
             if (!level.isClientSide()) {
                 if (briefcase.getOrDefault(ModDataComponents.OPENED, false)) {
@@ -54,7 +56,7 @@ public class BriefcaseItem extends Item {
                 }
             }
 
-            return InteractionResultHolder.consume(briefcase);
+            return InteractionResultHolder.pass(briefcase);
         } else {
             return InteractionResultHolder.fail(briefcase);
         }
@@ -64,22 +66,26 @@ public class BriefcaseItem extends Item {
     public InteractionResult useOn(UseOnContext context) {
         // TODO: SHINING SQUARE? CUSTOM PARTICLE AND SOUND
             ItemStack briefcase = context.getItemInHand();
-            String animalString = briefcase.get(ModDataComponents.BRIEFCASE_ANIMAL);
-            if (animalString != null) {
+            List<String> animals = briefcase.get(ModDataComponents.BRIEFCASE_ANIMAL_LIST);
+            if (animals != null && !animals.isEmpty() && !briefcase.getOrDefault(ModDataComponents.OPENED, false)) {
                 if (!context.getLevel().isClientSide()) {
+                    String animalString = animals.getFirst();
+                    List<String> newAnimals = new ArrayList<>(animals);
+                    newAnimals.removeFirst();
                     ServerLevel level = (ServerLevel) context.getLevel();
                     BlockPos block = context.getClickedPos().above();
-                    briefcase.set(ModDataComponents.BRIEFCASE_ANIMAL, null);
-                    briefcase.set(ModDataComponents.OPENED, true);
+                    briefcase.set(ModDataComponents.BRIEFCASE_ANIMAL_LIST, newAnimals);
+                    if (newAnimals.isEmpty()) {
+                        briefcase.set(ModDataComponents.OPENED, true);
+                    }
                     spawnMusicalEntity(animalString, level, block, context.getPlayer());
                     level.sendParticles(ParticleTypes.PORTAL,
                             block.getX(), block.getY(), block.getZ(),
                             40, 0.5, 0.5, 0.5, 0F);
-                    return InteractionResult.SUCCESS;
                 } else {
                     context.getLevel().playSound(context.getPlayer(), context.getClickedPos(), SoundEvents.PLAYER_TELEPORT, SoundSource.BLOCKS);
-                    return InteractionResult.SUCCESS;
                 }
+                return InteractionResult.SUCCESS;
             } else {
                 return  InteractionResult.PASS;
             }
@@ -132,9 +138,9 @@ public class BriefcaseItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        String animalString = stack.get(ModDataComponents.BRIEFCASE_ANIMAL);
+        List<String> animals = stack.get(ModDataComponents.BRIEFCASE_ANIMAL_LIST);
         if (Screen.hasShiftDown()) {
-            if (animalString == null) {
+            if (animals == null || animals.isEmpty()) {
                 tooltipComponents.add(Component.translatable("tooltip.faunaandorchestra:briefcase_empty"));
             } else {
                 tooltipComponents.add(Component.translatable("tooltip.faunaandorchestra:briefcase_full"));
@@ -142,7 +148,11 @@ public class BriefcaseItem extends Item {
         } else {
             tooltipComponents.add(Component.translatable("tooltip.faunaandorchestra.shift"));
         }
-        addStoredAnimal(tooltipComponents, animalString);
+        if (animals != null) {
+            for (String animalString : animals) {
+                addStoredAnimal(tooltipComponents, animalString);
+            }
+        }
         super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
     }
 

@@ -20,7 +20,7 @@ public class MantisRenderer extends GeoEntityRenderer<MantisEntity> {
 
     @Override
     protected float getShadowRadius(MantisEntity entity) {
-        return entity.getDimensions(Pose.STANDING).width() * 0.65F;
+        return entity.getDimensions(Pose.STANDING).width() * 0.85F;
     }
 
     @Override

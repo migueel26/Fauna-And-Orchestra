@@ -36,10 +36,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.Optional;
-import java.util.Queue;
-import java.util.UUID;
+import java.util.*;
 
 public abstract class MusicalEntity extends TamableAnimal {
     protected DeferredItem<Item> instrument;
@@ -137,18 +134,36 @@ public abstract class MusicalEntity extends TamableAnimal {
 
             } else if (itemStack.is(ModItems.BRIEFCASE) && itemStack.getOrDefault(ModDataComponents.OPENED, false)
                         && getOwnerUUID().equals(player.getUUID())) {
+                List<String> animals = itemStack.get(ModDataComponents.BRIEFCASE_ANIMAL_LIST);
 
-                if (!level().isClientSide()) {
-                    itemStack.set(ModDataComponents.BRIEFCASE_ANIMAL, MusicUtil.musicalAnimalToString(this));
-                    itemStack.set(ModDataComponents.OPENED, false);
-                    ((ServerLevel) level()).sendParticles(ParticleTypes.PORTAL,
-                            this.getX(), this.getY(), this.getZ(),
-                            60, 0.5, 0.5, 0.5, 0F);
-                    this.discard();
-                } else {
-                    level().playSound(player, this.blockPosition(), SoundEvents.PLAYER_TELEPORT, SoundSource.BLOCKS);
+                if (animals == null) {
+                    // If it's not initialized, we store it
+                    animals = new ArrayList<>(5);
+                    itemStack.set(ModDataComponents.BRIEFCASE_ANIMAL_LIST, animals);
                 }
-                return InteractionResult.SUCCESS;
+
+                if (animals.size() < 5) {
+                    if (!level().isClientSide()) {
+                        List<String> newAnimals = new ArrayList<>(animals);
+                        newAnimals.add(MusicUtil.musicalAnimalToString(this));
+                        itemStack.set(ModDataComponents.BRIEFCASE_ANIMAL_LIST, newAnimals);
+
+                        if (newAnimals.size() == 5) {
+                            itemStack.set(ModDataComponents.OPENED, false);
+                        }
+
+                        ((ServerLevel) level()).sendParticles(ParticleTypes.PORTAL,
+                                this.getX(), this.getY(), this.getZ(),
+                                60, 0.5, 0.5, 0.5, 0F);
+                        this.discard();
+                    } else {
+                        level().playSound(player, this.blockPosition(), SoundEvents.PLAYER_TELEPORT, SoundSource.BLOCKS);
+                    }
+                    return InteractionResult.SUCCESS;
+                } else {
+                    return InteractionResult.FAIL;
+                }
+
 
             }
         }
