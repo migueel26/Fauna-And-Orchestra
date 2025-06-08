@@ -2,11 +2,13 @@ package net.migueel26.faunaandorchestra.entity.custom;
 
 import net.migueel26.faunaandorchestra.entity.goals.MusicalEntityPlayingInstrumentGoal;
 import net.migueel26.faunaandorchestra.item.ModItems;
+import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.DamageTypeTags;
@@ -14,6 +16,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -73,7 +76,7 @@ public class MantisEntity extends MusicalEntity implements GeoEntity, NeutralMob
         this.goalSelector.addGoal(1, new MusicalEntityPlayingInstrumentGoal(this));
         this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(3, new HurtByTargetGoal(this).setAlertOthers());
-        this.goalSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, true, this::isAngryAt));
+        // NearestAttackableTargetGoal (4)
         // MeleeAttackGoal (5)
         this.goalSelector.addGoal(5, new RandomStrollGoal(this, 1.0));
         // LookAtPlayerGoal (6)
@@ -98,6 +101,14 @@ public class MantisEntity extends MusicalEntity implements GeoEntity, NeutralMob
             @Override
             public boolean canUse() {
                 return super.canUse() && !((MantisEntity) mob).isPlayingInstrument();
+            }
+        });
+
+        this.goalSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Player.class, 10, false, true, this::isAngryAt) {
+            @Override
+            public void start() {
+                super.start();
+                this.mob.makeSound(ModSounds.MANTIS_ANGRY.get());
             }
         });
     }
@@ -191,6 +202,23 @@ public class MantisEntity extends MusicalEntity implements GeoEntity, NeutralMob
         this.playSound(SoundEvents.SPIDER_STEP, 0.15F, 1.0F);
     }
 
+    @Nullable
+    @Override
+    protected SoundEvent getDeathSound() {
+        return SoundEvents.CREEPER_DEATH;
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return isPlayingInstrument() ? null : ModSounds.MANTIS_AMBIENT.get();
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return SoundEvents.PHANTOM_HURT;
+    }
 
     public static boolean checkMantisSpawnRules(
             EntityType<? extends Animal> animal, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random

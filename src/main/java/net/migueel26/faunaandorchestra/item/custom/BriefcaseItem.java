@@ -140,9 +140,10 @@ public class BriefcaseItem extends Item {
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         List<String> animals = stack.get(ModDataComponents.BRIEFCASE_ANIMAL_LIST);
         if (Screen.hasShiftDown()) {
-            if (animals == null || animals.isEmpty()) {
+            if (animals == null || animals.size() < 5) {
                 tooltipComponents.add(Component.translatable("tooltip.faunaandorchestra:briefcase_empty"));
-            } else {
+            }
+            if (animals != null && !animals.isEmpty()){
                 tooltipComponents.add(Component.translatable("tooltip.faunaandorchestra:briefcase_full"));
             }
         } else {

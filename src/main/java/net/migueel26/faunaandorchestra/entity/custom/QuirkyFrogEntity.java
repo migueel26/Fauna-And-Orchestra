@@ -7,11 +7,14 @@ import net.migueel26.faunaandorchestra.entity.goals.QuirkyFrogSingGoal;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -217,7 +220,7 @@ public class QuirkyFrogEntity extends ConductorEntity implements GeoEntity {
     public void setJumping(boolean jumping) {
         super.setJumping(jumping);
         if (jumping) {
-            //this.playSound(this.getJumpSound(), this.getSoundVolume(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F);
+            this.playSound(this.getJumpSound(), this.getSoundVolume(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F);
         }
     }
 
@@ -304,6 +307,29 @@ public class QuirkyFrogEntity extends ConductorEntity implements GeoEntity {
     }
 
     /////// JUMPING (from Rabbit Class)
+
+    @Nullable
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return isConducting() ? null : SoundEvents.FROG_AMBIENT;
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return SoundEvents.FROG_HURT;
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getDeathSound() {
+        return SoundEvents.FROG_DEATH;
+    }
+
+    @Nullable
+    protected SoundEvent getJumpSound() {
+        return SoundEvents.FROG_LONG_JUMP;
+    }
 
     public static boolean checkFrogSpawnRules(
             EntityType<? extends Animal> animal, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random

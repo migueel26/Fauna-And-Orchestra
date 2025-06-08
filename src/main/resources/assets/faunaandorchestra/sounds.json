@@ -52,5 +52,26 @@
     "sounds": [
       "faunaandorchestra:music/frog_song"
     ]
+  },
+  "mantis_ambient": {
+    "subtitles": "sounds.faunaandorchestra.mantis_ambient",
+    "sounds": [
+      "faunaandorchestra:sfx/mantis_ambient1",
+      "faunaandorchestra:sfx/mantis_ambient2"
+    ]
+  },
+  "mantis_angry": {
+    "subtitles": "sounds.faunaandorchestra.mantis_angry",
+    "sounds": [
+      "faunaandorchestra:sfx/mantis_angry"
+    ]
+  },
+  "baby_penguin_ambient": {
+    "subtitles": "sounds.faunaandorchestra.baby_penguin_ambient",
+    "sounds": [
+      "faunaandorchestra:sfx/baby_penguin_ambient1",
+      "faunaandorchestra:sfx/baby_penguin_ambient2",
+      "faunaandorchestra:sfx/baby_penguin_ambient3"
+    ]
   }
 }

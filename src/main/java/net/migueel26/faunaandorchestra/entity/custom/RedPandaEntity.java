@@ -202,7 +202,7 @@ public class RedPandaEntity extends MusicalEntity implements GeoEntity {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.PANDA_AMBIENT;
+        return isPlayingInstrument() ? null : SoundEvents.PANDA_AMBIENT;
     }
 
     @Override

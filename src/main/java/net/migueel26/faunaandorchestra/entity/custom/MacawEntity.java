@@ -193,7 +193,7 @@ public class MacawEntity extends MusicalEntity implements GeoEntity, FlyingAnima
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.PARROT_AMBIENT;
+        return isPlayingInstrument() ? null : SoundEvents.PARROT_AMBIENT;
     }
 
     @Override
@@ -209,6 +209,12 @@ public class MacawEntity extends MusicalEntity implements GeoEntity, FlyingAnima
     @Override
     protected void playStepSound(BlockPos pos, BlockState block) {
         this.playSound(SoundEvents.PARROT_STEP, 0.15F, 1.0F);
+    }
+
+    @Override
+    protected void onFlap() {
+        this.playSound(SoundEvents.PARROT_FLY, 0.15F, 1.0F);
+        this.nextFlap = this.flyDist + this.flapSpeed / 2.0F;
     }
 
     public boolean isRotating() {
