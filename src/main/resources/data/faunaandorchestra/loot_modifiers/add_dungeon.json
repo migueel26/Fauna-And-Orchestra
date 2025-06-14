@@ -1,0 +1,28 @@
+{
+  "type": "faunaandorchestra:add_dungeon",
+  "conditions": [
+    {
+      "condition": "any_of",
+      "terms": [
+        {
+          "condition": "neoforge:loot_table_id",
+          "loot_table_id": "minecraft:chests/abandoned_mineshaft"
+        },
+        {
+          "condition": "neoforge:loot_table_id",
+          "loot_table_id": "minecraft:chests/buried_treasure"
+        },
+        {
+          "condition": "neoforge:loot_table_id",
+          "loot_table_id": "minecraft:chests/simple_dungeon"
+        },
+        {
+          "condition": "neoforge:loot_table_id",
+          "loot_table_id": "minecraft:chests/village/village_cartographer"
+        }
+      ]
+    }
+  ],
+  "item": "faunaandorchestra:bach_air_sheet_music",
+  "chance": 0.2
+}

@@ -5,6 +5,7 @@ import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.item.ModCreativeModeTabs;
 import net.migueel26.faunaandorchestra.item.ModItems;
+import net.migueel26.faunaandorchestra.loot_tables.ModLootTables;
 import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
 import net.migueel26.faunaandorchestra.particles.custom.FaunaNoteParticle;
 import net.migueel26.faunaandorchestra.screen.ModMenuTypes;
@@ -60,6 +61,7 @@ public class FaunaAndOrchestra {
         ModDataComponents.register(modEventBus);
         ModMenuTypes.register(modEventBus);
         ModParticleTypes.register(modEventBus);
+        ModLootTables.register(modEventBus);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
