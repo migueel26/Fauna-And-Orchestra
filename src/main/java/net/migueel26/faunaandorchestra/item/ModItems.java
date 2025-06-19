@@ -57,6 +57,9 @@ public class ModItems {
     public static final DeferredItem<Item> BACH_AIR_SHEET_MUSIC = ITEMS.register("bach_air_sheet_music",
             () -> new Item(new Item.Properties().rarity(Rarity.RARE)));
 
+    public static final DeferredItem<Item> ICON = ITEMS.register("icon",
+            () -> new Item(new Item.Properties().stacksTo(1)));
+
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }

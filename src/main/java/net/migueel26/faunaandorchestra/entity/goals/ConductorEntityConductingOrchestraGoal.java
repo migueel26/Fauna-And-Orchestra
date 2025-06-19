@@ -81,7 +81,7 @@ public class ConductorEntityConductingOrchestraGoal extends Goal {
             }
         }
 
-        if (waitForMoreMusicians == 0) {
+        if (waitForMoreMusicians == 0 || conductor.getTicksPlaying() == 2550) {
             waitForMoreMusicians = -1;
             conductor.setTicksPlaying(0);
 

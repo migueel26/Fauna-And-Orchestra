@@ -16,7 +16,7 @@ public class ModCreativeModeTabs {
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, FaunaAndOrchestra.MOD_ID);
 
     public static final Supplier<CreativeModeTab> FAUNA_AND_ORCHESTRA = CREATIVE_MODE_TAB.register("fauna_and_orchestra",
-            () -> CreativeModeTab.builder().icon(() -> new ItemStack(Items.LILY_PAD))
+            () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.ICON.get()))
                     .title(Component.literal("Fauna and Orchestra"))
                     .displayItems((itemDisplayParameters, output) -> {
                         output.accept(ModItems.VIOLIN);

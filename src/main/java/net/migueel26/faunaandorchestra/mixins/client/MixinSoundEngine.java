@@ -55,6 +55,11 @@ public class MixinSoundEngine implements ISoundEngineMixin {
         }
     }
 
+    /*
+    Thanks to Nick Young from which I learnt how to play sound instances with an offset
+    Under GNU LESSER GENERAL PUBLIC LICENSE
+     */
+
     @Unique
     @SuppressWarnings({"unchecked", "rawtypes"})
     private void playInstrument(InstrumentSoundInstance soundInstance, ChannelAccess.ChannelHandle channelAccess) {

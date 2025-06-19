@@ -5,6 +5,7 @@ import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.item.custom.BriefcaseItem;
 import net.migueel26.faunaandorchestra.mixins.client.accessors.ClientLevelAccessor;
+import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.migueel26.faunaandorchestra.util.MusicUtil;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.Holder;
@@ -203,6 +204,7 @@ public abstract class MusicalEntity extends TamableAnimal {
             this.tame(player);
             this.navigation.stop();
             this.setTarget(null);
+            this.playSound(ModSounds.SUCCESSFUL_TAME.get());
             this.level().broadcastEntityEvent(this, (byte) 7);
         } else {
             this.level().broadcastEntityEvent(this, (byte) 6);

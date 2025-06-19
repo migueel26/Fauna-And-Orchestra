@@ -73,5 +73,11 @@
       "faunaandorchestra:sfx/baby_penguin_ambient2",
       "faunaandorchestra:sfx/baby_penguin_ambient3"
     ]
+  },
+  "successful_tame": {
+    "subtitles": "sounds.faunaandorchestra.successful_tame",
+    "sounds": [
+      "faunaandorchestra:sfx/successful_tame"
+    ]
   }
 }

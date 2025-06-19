@@ -29,6 +29,7 @@ public class ModSounds {
     public static final Supplier<SoundEvent> MANTIS_ANGRY = registerSoundEvent("mantis_angry");
 
     public static final Supplier<SoundEvent> BABY_PENGUIN_AMBIENT = registerSoundEvent("baby_penguin_ambient");
+    public static final Supplier<SoundEvent> SUCCESSFUL_TAME = registerSoundEvent("successful_tame");
 
     private static Supplier<SoundEvent> registerSoundEvent(String name) {
         ResourceLocation path = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, name);
