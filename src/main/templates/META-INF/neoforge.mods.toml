@@ -60,7 +60,7 @@ config="mixins.faunaandorchestra.json"
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 [[dependencies.${mod_id}]] #optional
     # the modid of the dependency
-    modId="neoforge" #mandatory
+    modId="geckolib" #mandatory
     # The type of the dependency. Can be one of "required", "optional", "incompatible" or "discouraged" (case insensitive).
     # 'required' requires the mod to exist, 'optional' does not
     # 'incompatible' will prevent the game from loading when the mod exists, and 'discouraged' will show a warning
@@ -68,13 +68,14 @@ config="mixins.faunaandorchestra.json"
     # Optional field describing why the dependency is required or why it is incompatible
     # reason="..."
     # The version range of the dependency
-    versionRange="${neo_version_range}" #mandatory
+    versionRange="[4.7,]" #mandatory
     # An ordering relationship for the dependency.
     # BEFORE - This mod is loaded BEFORE the dependency
     # AFTER - This mod is loaded AFTER the dependency
     ordering="NONE"
     # Side this dependency is applied on - BOTH, CLIENT, or SERVER
     side="BOTH"
+    reason="This mod requires GeckoLib 4.7 or a newer version for animations – please install it."
 
 # Here's another dependency
 [[dependencies.${mod_id}]]

@@ -33,6 +33,7 @@ public class QuirkyFrogSingGoal extends Goal {
     public void stop() {
         this.chorister.setSinging(false);
         this.chorister.setReady(false);
+        this.chorister.getFrogChoir().remove(chorister);
         this.chorister.setFrogConductor(null);
         super.stop();
     }

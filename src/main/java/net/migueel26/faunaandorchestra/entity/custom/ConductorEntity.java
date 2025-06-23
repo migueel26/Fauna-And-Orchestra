@@ -222,10 +222,10 @@ public abstract class ConductorEntity extends TamableAnimal {
         if (!this.level().isClientSide) {
             if (isHoldingBaton() && isTame()) {
                 setHoldingBaton(false);
-                setInSittingPose(false);
                 this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(),
                         new ItemStack((Holder<Item>) ModItems.BATON, 1)));
             }
+            setInSittingPose(false);
         }
         return super.hurt(source, amount);
     }

@@ -120,6 +120,7 @@ public class MantisEntity extends MusicalEntity implements GeoEntity, NeutralMob
         } else if (isPlayingInstrument()) {
             state.getController().transitionLength(5);
             state.getController().setAnimation(PLAYING);
+            state.getController().transitionLength(0);
         } else if (isHoldingInstrument()) {
             state.getController().transitionLength(0);
             state.getController().setAnimation(IDLE_VIOLIN);

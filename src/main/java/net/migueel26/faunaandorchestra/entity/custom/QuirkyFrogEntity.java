@@ -148,7 +148,15 @@ public class QuirkyFrogEntity extends ConductorEntity implements GeoEntity {
             public void tick() {
                 countdown++;
                 if (countdown == 140) {
-                    this.mob.getNavigation().stop();
+                    Vec3 pos = this.mob.position();
+                    double xdif = pos.x - this.mob.getBlockX();
+                    double zdif = pos.z - this.mob.getBlockZ();
+                    if (Math.abs(xdif) > Math.abs(zdif)) {
+                        this.mob.moveTo(this.mob.getX() + xdif, this.mob.getY() + 1.0F, this.mob.getZ());
+                    } else {
+                        this.mob.moveTo(this.mob.getX(), this.mob.getY() + 1.0F, this.mob.getZ() + zdif);
+                    }
+                    countdown = 0;
                 }
             }
         });

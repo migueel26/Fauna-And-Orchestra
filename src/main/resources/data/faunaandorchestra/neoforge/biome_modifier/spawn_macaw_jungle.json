@@ -6,8 +6,8 @@
   ],
   "spawners": {
       "type": "faunaandorchestra:macaw",
-      "maxCount": 3,
-      "minCount": 1,
+      "maxCount": 6,
+      "minCount": 4,
       "weight": 15
   }
 }

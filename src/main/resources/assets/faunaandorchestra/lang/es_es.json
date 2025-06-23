@@ -1,0 +1,35 @@
+{
+  "creativetab.faunaandorchestra.fauna_and_orchestra": "Fauna & Orchestra",
+
+  "item.faunaandorchestra.violin": "Violín",
+  "item.faunaandorchestra.flute": "Flauta",
+  "item.faunaandorchestra.keytar": "Teclado",
+  "item.faunaandorchestra.double_bass": "Contrabajo",
+  "item.faunaandorchestra.baton": "Batuta",
+  "item.faunaandorchestra.briefcase": "Maletín",
+
+  "item.faunaandorchestra.bach_air_sheet_music": "Partitura del Air de Bach",
+  "item.faunaandorchestra.mantis_spawn_egg": "Generar Mantis",
+  "item.faunaandorchestra.penguin_spawn_egg": "Generar Bebé Pingüino",
+  "item.faunaandorchestra.red_panda_spawn_egg": "Generar Panda Rojo",
+  "item.faunaandorchestra.macaw_spawn_egg": "Generar Guacamayo",
+  "item.faunaandorchestra.quirky_frog_spawn_egg": "Generar Rana Talentosa",
+
+  "tooltip.faunaandorchestra:violin": "§7Este instrumento parece capturar la atención de algunos... §odevotos§r§7 insectos",
+  "tooltip.faunaandorchestra:flute": "§7Este instrumento parece capturar la atención de algunos... §ofrescos§r§7 amiguitos",
+  "tooltip.faunaandorchestra:keytar": "§7Este instrumento parece capturar la atención de algunos... §orojos§r§7 osos",
+  "tooltip.faunaandorchestra:double_bass": "§7Este instrumento parece capturar la atención de algunos... §ocoloridos§r§7 parlanchines",
+  "tooltip.faunaandorchestra:baton": "Haz §eclick §ra a un músico y después haz §eclick §ra un block para mandarlo allí\n§7Este instrumento parece capturar la atención de algunos... §osimpáticos§r§7 saltarines",
+  "tooltip.faunaandorchestra:briefcase_empty": "Haz §eclick §ren un músico o director mientras esté §eabierto §rpara llevártelo (máximo 5)",
+  "tooltip.faunaandorchestra:briefcase_full": "Haz §eclick §ren un bloque mientras esté §ecerrado §rpara liberar al §eanimal §rahí",
+
+  "tooltip.faunaandorchestra.shift": "Presiona §eShift§r para más información",
+
+  "screen.faunaandorchestra.conductor_screen": "Volumen: ",
+
+  "entity.faunaandorchestra.mantis": "Mantis",
+  "entity.faunaandorchestra.penguin": "Bebé Pingüino",
+  "entity.faunaandorchestra.red_panda": "Panda Rojo",
+  "entity.faunaandorchestra.macaw": "Guacamayo",
+  "entity.faunaandorchestra.quirky_frog": "Rana Talentosa"
+}

@@ -38,12 +38,14 @@ public class QuirkyFrogConductingChoirGoal extends Goal {
 
     @Override
     public boolean canContinueToUse() {
-        return !conductor.isDeadOrDying() && !conductor.isTame() && conductor.getFrogChoir().size() == 4;
+        return !conductor.isDeadOrDying() && !conductor.isTame() && conductor.getFrogChoir().size() == 4
+                && conductor.isInSittingPose();
     }
 
     @Override
     public void start() {
         this.startSinging = false;
+        this.conductor.setInSittingPose(true);
         this.tick = 50;
         for (QuirkyFrogEntity chorister : conductor.getFrogChoir()) {
             chorister.setFrogConductor(conductor);
@@ -66,6 +68,7 @@ public class QuirkyFrogConductingChoirGoal extends Goal {
         PacketDistributor.sendToAllPlayers(new StopMusicS2CPayload(conductor.getUUID()));
 
         this.startSinging = false;
+        this.conductor.setInSittingPose(false);
         conductor.setMusical(false);
         conductor.setReady(false);
         conductor.setConducting(false);

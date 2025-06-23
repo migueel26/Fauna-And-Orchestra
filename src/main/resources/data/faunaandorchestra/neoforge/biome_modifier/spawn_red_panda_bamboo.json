@@ -5,8 +5,8 @@
   ],
   "spawners": {
       "type": "faunaandorchestra:red_panda",
-      "maxCount": 3,
-      "minCount": 1,
+      "maxCount": 4,
+      "minCount": 3,
       "weight": 14
   }
 }
