@@ -44,35 +44,35 @@ public class ModEventBusEvents {
     @SubscribeEvent
     public static void register(final RegisterPayloadHandlersEvent event) {
         final PayloadRegistrar registrar = event.registrar("1");
-        registrar.playToClient(
-                StartOrchestraMusicS2CPayload.TYPE,
-                StartOrchestraMusicS2CPayload.STREAM_CODEC,
-                ClientPayloadHandler::handleStartOrchestraOnNetwork
-        );
         registrar.playToServer(
                 RestartOrchestraMusicC2SPayload.TYPE,
                 RestartOrchestraMusicC2SPayload.STREAM_CODEC,
                 ServerPayloadHandler::handleRestartOrchestraOnNetwork
         );
         registrar.playToClient(
+                StartOrchestraMusicS2CPayload.TYPE,
+                StartOrchestraMusicS2CPayload.STREAM_CODEC,
+                (payload, context) -> ClientPayloadHandler.handleStartOrchestraOnNetwork(payload, context)
+        );
+        registrar.playToClient(
                 RestartOrchestraMusicS2CPayload.TYPE,
                 RestartOrchestraMusicS2CPayload.STREAM_CODEC,
-                ClientPayloadHandler::handleRestartOrchestraOnNetwork
+                (payload, context) -> ClientPayloadHandler.handleRestartOrchestraOnNetwork(payload, context)
         );
         registrar.playToClient(
                 StopMusicS2CPayload.TYPE,
                 StopMusicS2CPayload.STREAM_CODEC,
-                ClientPayloadHandler::handleStopMusicOnNetwork
+                (payload, context) -> ClientPayloadHandler.handleStopMusicOnNetwork(payload, context)
         );
         registrar.playToClient(
                 StartFrogChoirMusicS2CPayload.TYPE,
                 StartFrogChoirMusicS2CPayload.STREAM_CODEC,
-                ClientPayloadHandler::handleStartFrogChoirOnNetwork
+                (payload, context) -> ClientPayloadHandler.handleStartFrogChoirOnNetwork(payload, context)
         );
         registrar.playToClient(
                 StopOrchestraMusicS2CPayload.TYPE,
                 StopOrchestraMusicS2CPayload.STREAM_CODEC,
-                ClientPayloadHandler::handleStopOrchestraOnNetwork
+                (payload, context) -> ClientPayloadHandler.handleStopOrchestraOnNetwork(payload, context)
         );
     }
 }

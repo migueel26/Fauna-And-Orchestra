@@ -85,12 +85,17 @@ public class ConductorEntityConductingOrchestraGoal extends Goal {
             waitForMoreMusicians = -1;
             conductor.setTicksPlaying(0);
 
-            PacketDistributor.sendToAllPlayers(new RestartOrchestraMusicS2CPayload(
-                    conductor.getUUID(),
-                    conductor.getOrchestra().stream().map(Entity::getUUID).toList(),
-                    conductor.getTicksPlaying(),
-                    conductor.getCurrentVolume(),
-                    conductor.getSheetMusic().toString()));
+            List<Player> nearbyPlayers = this.conductor.level().getEntitiesOfClass(
+                    Player.class, this.conductor.getBoundingBox().inflate(32.0, 32.0, 32.0), EntitySelector.LIVING_ENTITY_STILL_ALIVE);
+
+            for (Player player : nearbyPlayers) {
+                PacketDistributor.sendToPlayer((ServerPlayer) player, new RestartOrchestraMusicS2CPayload(
+                        conductor.getUUID(),
+                        conductor.getOrchestra().stream().map(Entity::getUUID).toList(),
+                        conductor.getTicksPlaying(),
+                        conductor.getCurrentVolume(),
+                        conductor.getSheetMusic().toString()));
+            }
         }
 
         List<Player> nearbyPlayers = this.conductor.level().getEntitiesOfClass(

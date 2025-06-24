@@ -32,7 +32,7 @@ public class ServerPayloadHandler {
                 conductor.setCurrentVolume(payload.volume());
                 List<UUID> orchestra = conductor.getOrchestra().stream().map(Entity::getUUID).toList();
                 int tickOffset = conductor.getTicksPlaying();
-                PacketDistributor.sendToAllPlayers(new RestartOrchestraMusicS2CPayload(
+                PacketDistributor.sendToPlayer((ServerPlayer) player, new RestartOrchestraMusicS2CPayload(
                         conductorUUID,
                         orchestra,
                         tickOffset,

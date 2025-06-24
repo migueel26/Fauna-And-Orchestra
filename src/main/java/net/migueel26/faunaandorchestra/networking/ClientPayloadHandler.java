@@ -28,66 +28,70 @@ public class ClientPayloadHandler {
 
     }
     public static void handleStartOrchestraOnNetwork(StartOrchestraMusicS2CPayload payload, IPayloadContext iPayloadContext) {
-        ClientLevelAccessor level = (ClientLevelAccessor) Minecraft.getInstance().level;
-        UUID uuid = payload.entityID();
-        SoundEvent soundEvent = BuiltInRegistries.SOUND_EVENT.get(payload.soundPath());;
-        int ticksOffset = payload.tickOffset();
+        iPayloadContext.enqueueWork(() -> {
+            ClientLevelAccessor level = (ClientLevelAccessor) Minecraft.getInstance().level;
+            UUID uuid = payload.entityID();
+            SoundEvent soundEvent = BuiltInRegistries.SOUND_EVENT.get(payload.soundPath());;
+            int ticksOffset = payload.tickOffset();
 
-        if (level != null) {
-            MusicalEntity entity = (MusicalEntity) level.callGetEntities().get(uuid);
-            if (entity == null) {
-                System.err.println("The UUID in the StartOrchestraMusicPayload is for an entity that does not exist");
+            if (level != null) {
+                MusicalEntity entity = (MusicalEntity) level.callGetEntities().get(uuid);
+                if (entity == null) {
+                    System.err.println("The UUID in the StartOrchestraMusicPayload is for an entity that does not exist");
+                }
+
+                //System.out.println("Packet received!");
+                Minecraft.getInstance().getSoundManager().play(new InstrumentSoundInstance(entity, soundEvent, 1.0F, ticksOffset));
             }
-
-            //System.out.println("Packet received!");
-            Minecraft.getInstance().getSoundManager().play(new InstrumentSoundInstance(entity, soundEvent, 1.0F, ticksOffset));
-        }
+        });
     }
 
     public static void handleRestartOrchestraOnNetwork(RestartOrchestraMusicS2CPayload payload, IPayloadContext context) {
-        List<UUID> UUIDorchestra = payload.orchestra();
-        UUID conductorUUID = payload.conductor();
-        float volume = payload.volume();
-        int tickOffset = payload.tickOffset();
-        ClientLevelAccessor level = (ClientLevelAccessor) Minecraft.getInstance().level;
+        context.enqueueWork(() -> {
+            List<UUID> UUIDorchestra = payload.orchestra();
+            UUID conductorUUID = payload.conductor();
+            float volume = payload.volume();
+            int tickOffset = payload.tickOffset();
+            ClientLevelAccessor level = (ClientLevelAccessor) Minecraft.getInstance().level;
 
-        if (level != null) {
-            ConductorEntity conductor = (ConductorEntity) level.callGetEntities().get(conductorUUID);
+            if (level != null) {
+                ConductorEntity conductor = (ConductorEntity) level.callGetEntities().get(conductorUUID);
 
-            if (conductor != null) {
-                Item newSheetMusic = MusicUtil.getSheet(payload.sheetName());
-                // If the newSheet is empty we return
-                if (newSheetMusic == Items.AIR) {
-                    MusicUtil.deleteOrchestra(conductorUUID);
-                    return;
-                }
-                // We save the current volume
-                conductor.setCurrentVolume(volume);
+                if (conductor != null) {
+                    Item newSheetMusic = MusicUtil.getSheet(payload.sheetName());
+                    // If the newSheet is empty we return
+                    if (newSheetMusic == Items.AIR) {
+                        MusicUtil.deleteOrchestra(conductorUUID);
+                        return;
+                    }
+                    // We save the current volume
+                    conductor.setCurrentVolume(volume);
 
-                // If it's a new song, we update it in MusicUtil
-                boolean newSong = MusicUtil.updateNewSheet(conductorUUID, newSheetMusic);
+                    // If it's a new song, we update it in MusicUtil
+                    boolean newSong = MusicUtil.updateNewSheet(conductorUUID, newSheetMusic);
 
-                // If it's a new song, we start it from the beginning
-                if (newSong) tickOffset = 0;
+                    // If it's a new song, we start it from the beginning
+                    if (newSong) tickOffset = 0;
 
-                List<MusicalEntity> orchestra = UUIDorchestra.stream().map(uuid -> (MusicalEntity) level.callGetEntities().get(uuid)).toList();
-                for (MusicalEntity musician : orchestra) {
-                    // For each musician, we get the location of its song
-                    ResourceLocation musician_song = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID,
-                            MusicUtil.getLocation(newSheetMusic, musician.getInstrument().get()));
+                    List<MusicalEntity> orchestra = UUIDorchestra.stream().map(uuid -> (MusicalEntity) level.callGetEntities().get(uuid)).toList();
+                    for (MusicalEntity musician : orchestra) {
+                        // For each musician, we get the location of its song
+                        ResourceLocation musician_song = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID,
+                                MusicUtil.getLocation(newSheetMusic, musician.getInstrument().get()));
 
-                    // We stop all current instrument sounds
-                    ((ISoundManagerMixin) Minecraft.getInstance().getSoundManager()).faunaStopMusic(musician.getUUID());
+                        // We stop all current instrument sounds
+                        ((ISoundManagerMixin) Minecraft.getInstance().getSoundManager()).faunaStopMusic(musician.getUUID());
 
-                    // We play them with the new volume / sheet music
-                    Minecraft.getInstance().getSoundManager().play(
-                            new InstrumentSoundInstance(
-                                    musician,
-                                    BuiltInRegistries.SOUND_EVENT.get(musician_song),
-                                    volume, tickOffset));
+                        // We play them with the new volume / sheet music
+                        Minecraft.getInstance().getSoundManager().play(
+                                new InstrumentSoundInstance(
+                                        musician,
+                                        BuiltInRegistries.SOUND_EVENT.get(musician_song),
+                                        volume, tickOffset));
+                    }
                 }
             }
-        }
+        });
     }
 
     public static void handleStopMusicOnNetwork(StopMusicS2CPayload payload, IPayloadContext iPayloadContext) {

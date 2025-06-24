@@ -41,6 +41,7 @@ public abstract class ConductorEntity extends TamableAnimal {
     protected static final EntityDataAccessor<Boolean> IS_MUSICAL = SynchedEntityData.defineId(ConductorEntity.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Boolean> IS_CONDUCTING = SynchedEntityData.defineId(ConductorEntity.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Boolean> IS_READY = SynchedEntityData.defineId(ConductorEntity.class, EntityDataSerializers.BOOLEAN);
+    protected static final EntityDataAccessor<Float> VOLUME = SynchedEntityData.defineId(ConductorEntity.class, EntityDataSerializers.FLOAT);
     protected boolean holdingBaton = false;
     protected boolean isConducting = false;
     // isReady -> It becomes true when a tamed ConductorEntity is clicked for the first time
@@ -78,6 +79,7 @@ public abstract class ConductorEntity extends TamableAnimal {
         builder.define(IS_CONDUCTING, false);
         builder.define(IS_READY, false);
         builder.define(IS_MUSICAL, false);
+        builder.define(VOLUME, 1.0F);
     }
 
     @Override
@@ -95,6 +97,10 @@ public abstract class ConductorEntity extends TamableAnimal {
         if (IS_READY.equals(key)) {
             this.isReady = this.entityData.get(IS_READY);
         }
+
+        if (VOLUME.equals(key)) {
+            this.currentVolume = this.entityData.get(VOLUME);
+        }
     }
 
     @Override
@@ -103,6 +109,7 @@ public abstract class ConductorEntity extends TamableAnimal {
 
         this.entityData.set(HOLDING_BATON, compound.getBoolean("HoldingBaton"));
         this.entityData.set(IS_READY, compound.getBoolean("IsReady"));
+        this.entityData.set(VOLUME, compound.getFloat("Volume"));
 
         if (compound.contains("SheetMusic")) {
             ItemStack itemstack = ItemStack.parse(this.registryAccess(), compound.getCompound("SheetMusic")).orElse(ItemStack.EMPTY);
@@ -118,6 +125,7 @@ public abstract class ConductorEntity extends TamableAnimal {
 
         compound.putBoolean("HoldingBaton", this.isHoldingBaton());
         compound.putBoolean("IsReady", isConducting());
+        compound.putFloat("Volume", currentVolume);
 
         if (!this.inventory.getStackInSlot(0).isEmpty()) {
             compound.put("SheetMusic", this.inventory.getStackInSlot(0).save(this.registryAccess()));
@@ -325,10 +333,10 @@ public abstract class ConductorEntity extends TamableAnimal {
     }
 
     public float getCurrentVolume() {
-        return currentVolume;
+        return this.entityData.get(VOLUME);
     }
 
     public void setCurrentVolume(float currentVolume) {
-        this.currentVolume = currentVolume;
+        this.entityData.set(VOLUME, currentVolume);
     }
 }
