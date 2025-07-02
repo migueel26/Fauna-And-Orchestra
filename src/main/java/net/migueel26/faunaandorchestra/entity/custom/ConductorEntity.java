@@ -6,7 +6,6 @@ import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
 import net.migueel26.faunaandorchestra.screen.custom.ConductorMenu;
 import net.migueel26.faunaandorchestra.util.ModTags;
 import net.migueel26.faunaandorchestra.util.MusicUtil;
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -17,7 +16,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
@@ -329,7 +327,7 @@ public abstract class ConductorEntity extends TamableAnimal {
     }
 
     public boolean isOrchestraFull() {
-        return orchestra.size() == 4;
+        return orchestra.size() == MusicUtil.getMaxSize(this.getSheetMusic());
     }
 
     public float getCurrentVolume() {
@@ -338,5 +336,9 @@ public abstract class ConductorEntity extends TamableAnimal {
 
     public void setCurrentVolume(float currentVolume) {
         this.entityData.set(VOLUME, currentVolume);
+    }
+
+    public boolean isMusicianApt(MusicalEntity musician) {
+        return MusicUtil.getInstruments(getSheetMusic()).contains(musician.getInstrument().get());
     }
 }

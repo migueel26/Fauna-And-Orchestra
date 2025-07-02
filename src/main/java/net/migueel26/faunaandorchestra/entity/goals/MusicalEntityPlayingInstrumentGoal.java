@@ -27,9 +27,10 @@ public class MusicalEntityPlayingInstrumentGoal extends Goal {
         Optional<ConductorEntity> potentialConductor = this.musician.level()
                 .getEntitiesOfClass(ConductorEntity.class, this.musician.getBoundingBox().inflate(7))
                 .stream()
-                .filter(cond -> cond.getOrchestra().stream().noneMatch(musician.getClass()::isInstance))
                 .filter(ConductorEntity::isHoldingBaton)
                 .filter(ConductorEntity::isHoldingASheetMusic)
+                .filter(cond -> cond.isMusicianApt(musician))
+                .filter(cond -> cond.getOrchestra().stream().noneMatch(musician.getClass()::isInstance))
                 .findAny();
 
         if (!musician.isHoldingInstrument()) return false;

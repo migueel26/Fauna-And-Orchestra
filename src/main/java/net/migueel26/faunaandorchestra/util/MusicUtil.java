@@ -2,13 +2,11 @@ package net.migueel26.faunaandorchestra.util;
 
 import net.migueel26.faunaandorchestra.entity.custom.ConductorEntity;
 import net.migueel26.faunaandorchestra.entity.custom.MusicalEntity;
-import net.migueel26.faunaandorchestra.entity.custom.QuirkyFrogEntity;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.item.custom.InstrumentItem;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
@@ -25,7 +23,7 @@ public class MusicUtil {
     public static final Map<Item, ResourceLocation> GREENSLEEVES = Map.of(
             ModItems.VIOLIN.get(), ModSounds.GREENSLEEVES_VIOLIN.get().getLocation(),
             ModItems.FLUTE.get(), ModSounds.GREENSLEEVES_FLUTE.get().getLocation(),
-            ModItems.KEYTAR.get(), ModSounds.BACH_AIR_KEYTAR.get().getLocation()
+            ModItems.KEYTAR.get(), ModSounds.GREENSLEEVES_KEYTAR.get().getLocation()
     );
 
     private static final Map<Item, Map<Item, ResourceLocation>> SONG = Map.of(
@@ -36,6 +34,11 @@ public class MusicUtil {
     private static final Map<String, Item> STRING_TO_SHEET = Map.of(
             "faunaandorchestra:bach_air_sheet_music", ModItems.BACH_AIR_SHEET_MUSIC.get(),
             "faunaandorchestra:greensleeves_sheet_music", ModItems.GREENSLEEVES_SHEET_MUSIC.get()
+    );
+
+    private static final Map<Item, Integer> DURATION = Map.of(
+            ModItems.BACH_AIR_SHEET_MUSIC.get(), 2550,
+            ModItems.GREENSLEEVES_SHEET_MUSIC.get(), 1315
     );
 
     private static Map<UUID, Item> CURRENT_ORCHESTRAS = new HashMap<>();
@@ -88,11 +91,15 @@ public class MusicUtil {
     }
 
     public static int getMaxSize(Item sheet) {
-        return SONG.get(sheet).size();
+        return SONG.getOrDefault(sheet, Map.of()).size();
     }
 
-    public static Set<Item> getItems(Item sheet) {
+    public static Set<Item> getInstruments(Item sheet) {
         return SONG.get(sheet).keySet();
+    }
+
+    public static int getDuration(Item sheet) {
+        return DURATION.getOrDefault(sheet, -1);
     }
 
     public static Item getSheet(UUID conductorUUID) {

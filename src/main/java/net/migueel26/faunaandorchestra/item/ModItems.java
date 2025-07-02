@@ -80,7 +80,7 @@ public class ModItems {
             @Override
             public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
                 MutableComponent instruments = Component.empty();
-                Iterator<Item> iterator = MusicUtil.getItems(this.asItem()).iterator();
+                Iterator<Item> iterator = MusicUtil.getInstruments(this.asItem()).iterator();
                 while (iterator.hasNext()) {
                     instruments.append(Component.translatable(iterator.next().getDescriptionId()));
                     if (iterator.hasNext()) {
