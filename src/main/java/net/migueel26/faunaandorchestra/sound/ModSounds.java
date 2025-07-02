@@ -1,6 +1,7 @@
 package net.migueel26.faunaandorchestra.sound;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
+import net.minecraft.client.resources.sounds.Sound;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -22,6 +23,10 @@ public class ModSounds {
     public static final Supplier<SoundEvent> BACH_AIR_FLUTE = registerSoundEvent("bach_air_flute");
     public static final Supplier<SoundEvent> BACH_AIR_KEYTAR = registerSoundEvent("bach_air_keytar");
     public static final Supplier<SoundEvent> BACH_AIR_DOUBLE_BASS = registerSoundEvent("bach_air_double_bass");
+
+    public static final Supplier<SoundEvent> GREENSLEEVES_VIOLIN = registerSoundEvent("greensleeves_violin");
+    public static final Supplier<SoundEvent> GREENSLEEVES_FLUTE = registerSoundEvent("greensleeves_flute");
+    public static final Supplier<SoundEvent> GREENSLEEVES_KEYTAR = registerSoundEvent("greensleeves_keytar");
 
     public static final Supplier<SoundEvent> FROG_SONG = registerSoundEvent("frog_song");
 

@@ -6,12 +6,23 @@ import net.migueel26.faunaandorchestra.item.custom.BatonItem;
 import net.migueel26.faunaandorchestra.item.custom.BriefcaseItem;
 import net.migueel26.faunaandorchestra.item.custom.InstrumentItem;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
+import net.migueel26.faunaandorchestra.util.MusicUtil;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.TooltipFlag;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Iterator;
+import java.util.List;
+import java.util.function.Supplier;
 
 public class ModItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(FaunaAndOrchestra.MOD_ID);
@@ -55,10 +66,32 @@ public class ModItems {
                     new Item.Properties()));
 
     public static final DeferredItem<Item> BACH_AIR_SHEET_MUSIC = ITEMS.register("bach_air_sheet_music",
-            () -> new Item(new Item.Properties().rarity(Rarity.RARE)));
+            createSheetMusic());
+
+    public static final DeferredItem<Item> GREENSLEEVES_SHEET_MUSIC = ITEMS.register("greensleeves_sheet_music",
+            createSheetMusic());
 
     public static final DeferredItem<Item> ICON = ITEMS.register("icon",
             () -> new Item(new Item.Properties().stacksTo(1)));
+
+    @NotNull
+    private static Supplier<Item> createSheetMusic() {
+        return () -> new Item(new Item.Properties().rarity(Rarity.RARE)) {
+            @Override
+            public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+                MutableComponent instruments = Component.empty();
+                Iterator<Item> iterator = MusicUtil.getItems(this.asItem()).iterator();
+                while (iterator.hasNext()) {
+                    instruments.append(Component.translatable(iterator.next().getDescriptionId()));
+                    if (iterator.hasNext()) {
+                        instruments.append(Component.literal(", "));
+                    }
+                }
+                tooltipComponents.add(instruments.withStyle(ChatFormatting.GRAY));
+                super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+            }
+        };
+    }
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

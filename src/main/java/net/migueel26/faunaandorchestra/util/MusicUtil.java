@@ -12,10 +12,7 @@ import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.StringJoiner;
-import java.util.UUID;
+import java.util.*;
 
 public class MusicUtil {
     private static final Map<Item, ResourceLocation> BACH_AIR = Map.of(
@@ -25,12 +22,20 @@ public class MusicUtil {
             ModItems.DOUBLE_BASS.get(), ModSounds.BACH_AIR_DOUBLE_BASS.get().getLocation()
     );
 
+    public static final Map<Item, ResourceLocation> GREENSLEEVES = Map.of(
+            ModItems.VIOLIN.get(), ModSounds.GREENSLEEVES_VIOLIN.get().getLocation(),
+            ModItems.FLUTE.get(), ModSounds.GREENSLEEVES_FLUTE.get().getLocation(),
+            ModItems.KEYTAR.get(), ModSounds.BACH_AIR_KEYTAR.get().getLocation()
+    );
+
     private static final Map<Item, Map<Item, ResourceLocation>> SONG = Map.of(
-            ModItems.BACH_AIR_SHEET_MUSIC.get(), BACH_AIR
+            ModItems.BACH_AIR_SHEET_MUSIC.get(), BACH_AIR,
+            ModItems.GREENSLEEVES_SHEET_MUSIC.get(), GREENSLEEVES
     );
 
     private static final Map<String, Item> STRING_TO_SHEET = Map.of(
-            "faunaandorchestra:bach_air_sheet_music", ModItems.BACH_AIR_SHEET_MUSIC.get()
+            "faunaandorchestra:bach_air_sheet_music", ModItems.BACH_AIR_SHEET_MUSIC.get(),
+            "faunaandorchestra:greensleeves_sheet_music", ModItems.GREENSLEEVES_SHEET_MUSIC.get()
     );
 
     private static Map<UUID, Item> CURRENT_ORCHESTRAS = new HashMap<>();
@@ -82,7 +87,13 @@ public class MusicUtil {
         return out.toString();
     }
 
+    public static int getMaxSize(Item sheet) {
+        return SONG.get(sheet).size();
+    }
 
+    public static Set<Item> getItems(Item sheet) {
+        return SONG.get(sheet).keySet();
+    }
 
     public static Item getSheet(UUID conductorUUID) {
         return CURRENT_ORCHESTRAS.get(conductorUUID);

@@ -47,6 +47,24 @@
       "faunaandorchestra:music/bach_air_double_bass"
     ]
   },
+  "greensleeves_violin": {
+    "subtitles": "sounds.faunaandorchestra.greensleeves_violin",
+    "sounds": [
+      "faunaandorchestra:music/greensleeves_violin"
+    ]
+  },
+  "greensleeves_flute": {
+    "subtitles": "sounds.faunaandorchestra.greensleeves_flute",
+    "sounds": [
+      "faunaandorchestra:music/greensleeves_flute"
+    ]
+  },
+  "greensleeves_keytar": {
+    "subtitles": "sounds.faunaandorchestra.greensleeves_keytar",
+    "sounds": [
+      "faunaandorchestra:music/greensleeves_keytar"
+    ]
+  },
   "frog_song": {
     "subtitles": "sounds.faunaandorchestra.frog_song",
     "sounds": [
