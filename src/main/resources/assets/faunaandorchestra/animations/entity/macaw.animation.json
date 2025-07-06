@@ -856,6 +856,116 @@
 					}
 				}
 			}
+		},
+		"flying_double_bass": {
+			"loop": true,
+			"animation_length": 0.3333,
+			"bones": {
+				"body": {
+					"rotation": {
+						"vector": [0, 0, -8]
+					},
+					"position": {
+						"vector": [-3.45, 22.6, -3.5]
+					}
+				},
+				"chest": {
+					"rotation": {
+						"vector": [15, 0, 0]
+					},
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.1667": {
+							"vector": [0, 0.5, 0]
+						},
+						"0.3333": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"head": {
+					"rotation": {
+						"0.0": {
+							"vector": [-14, 0, 0]
+						},
+						"0.0417": {
+							"vector": [-11, 0, 0]
+						},
+						"0.1667": {
+							"vector": [-17, 0, 0]
+						},
+						"0.2083": {
+							"vector": [-19.5, 0, 0]
+						},
+						"0.3333": {
+							"vector": [-14, 0, 0]
+						}
+					}
+				},
+				"lower_cape": {
+					"rotation": {
+						"vector": [1.4, 0, 0]
+					}
+				},
+				"right_wing": {
+					"rotation": {
+						"0.0": {
+							"vector": [20.80696, 9.30727, -113.07639]
+						},
+						"0.1667": {
+							"vector": [16.35299, -18.97153, -34.17574],
+							"easing": "linear"
+						},
+						"0.3333": {
+							"vector": [20.80696, 9.30727, -113.07639],
+							"easing": "linear"
+						}
+					}
+				},
+				"left_wing": {
+					"rotation": {
+						"0.0": {
+							"vector": [20.80696, -9.30727, 113.07639]
+						},
+						"0.1667": {
+							"vector": [16.35299, 18.97153, 34.17574],
+							"easing": "linear"
+						},
+						"0.3333": {
+							"vector": [20.80696, -9.30727, 113.07639],
+							"easing": "linear"
+						}
+					}
+				},
+				"left_leg": {
+					"rotation": {
+						"vector": [0, 0, 11]
+					},
+					"position": {
+						"vector": [0.89903, -0.01392, 0]
+					}
+				},
+				"left_innerclaw": {
+					"rotation": {
+						"vector": [90, 0, 0]
+					}
+				},
+				"right_leg": {
+					"rotation": {
+						"vector": [-22.92154, -1.95155, -4.60431]
+					},
+					"position": {
+						"vector": [-0.29708, 0.04175, 0]
+					}
+				},
+				"right_innerclaw": {
+					"rotation": {
+						"vector": [90, 0, 0]
+					}
+				}
+			}
 		}
 	},
 	"geckolib_format_version": 2

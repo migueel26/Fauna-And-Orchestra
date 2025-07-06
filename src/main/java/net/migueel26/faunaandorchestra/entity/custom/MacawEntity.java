@@ -46,6 +46,7 @@ public class MacawEntity extends MusicalEntity implements GeoEntity, FlyingAnima
     protected static final RawAnimation FLYING = RawAnimation.begin().thenPlay("flying");
     protected static final RawAnimation PLAYING = RawAnimation.begin().thenPlay("playing");
     protected static final RawAnimation IDLE_DOUBLE_BASS = RawAnimation.begin().thenPlay("idle_double_bass");
+    protected static final RawAnimation FLYING_DOUBLE_BASS = RawAnimation.begin().thenPlay("flying_double_bass");
     public float flap;
     public float flapSpeed;
     public float oFlapSpeed;
@@ -93,8 +94,10 @@ public class MacawEntity extends MusicalEntity implements GeoEntity, FlyingAnima
     }
 
     private <E extends GeoAnimatable> PlayState macawState(AnimationState<E> state) {
-        if (isRotating() && isHoldingInstrument()) {
+        if (isRotating() && isHoldingInstrument() && !isFlying()) {
             state.getController().setAnimation(ROTATING);
+        } else if (isFlying() && isHoldingInstrument()) {
+            state.getController().setAnimation(FLYING_DOUBLE_BASS);
         } else if (isPlayingInstrument()) {
             state.getController().setAnimation(PLAYING);
         } else if (isHoldingInstrument()) {

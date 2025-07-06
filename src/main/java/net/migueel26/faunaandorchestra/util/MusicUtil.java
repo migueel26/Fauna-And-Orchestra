@@ -99,7 +99,7 @@ public class MusicUtil {
     }
 
     public static int getDuration(Item sheet) {
-        return DURATION.getOrDefault(sheet, -1);
+        return DURATION.getOrDefault(sheet, -2);
     }
 
     public static Item getSheet(UUID conductorUUID) {
