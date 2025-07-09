@@ -23,6 +23,12 @@
       "faunaandorchestra:sfx/keytar"
     ]
   },
+  "saxophone_use": {
+    "subtitles": "sounds.faunaandorchestra.saxophone_use",
+    "sounds": [
+      "faunaandorchestra:sfx/saxophone"
+    ]
+  },
   "bach_air_violin": {
     "subtitles": "sounds.faunaandorchestra.bach_air_violin",
     "sounds": [

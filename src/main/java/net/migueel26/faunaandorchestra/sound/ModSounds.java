@@ -18,6 +18,7 @@ public class ModSounds {
     public static final Supplier<SoundEvent> FLUTE_USE = registerSoundEvent("flute_use");
     public static final Supplier<SoundEvent> KEYTAR_USE = registerSoundEvent("keytar_use");
     public static final Supplier<SoundEvent> DOUBLE_BASS_USE = registerSoundEvent("double_bass_use");
+    public static final Supplier<SoundEvent> SAXOPHONE_USE = registerSoundEvent("saxophone_use");
 
     public static final Supplier<SoundEvent> BACH_AIR_VIOLIN = registerSoundEvent("bach_air_violin");
     public static final Supplier<SoundEvent> BACH_AIR_FLUTE = registerSoundEvent("bach_air_flute");
