@@ -25,6 +25,7 @@ public class ModEventBusEvents {
         event.put(ModEntities.PENGUIN.get(), PenguinEntity.createAttributes().build());
         event.put(ModEntities.RED_PANDA.get(), RedPandaEntity.createAttributes().build());
         event.put(ModEntities.MACAW.get(), MacawEntity.createAttributes().build());
+        event.put(ModEntities.BEAVER.get(), BeaverEntity.createAttributes().build());
     }
 
     @SubscribeEvent

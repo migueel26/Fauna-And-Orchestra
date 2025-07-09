@@ -100,7 +100,7 @@ public class MantisEntity extends MusicalEntity implements GeoEntity, NeutralMob
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F) {
             @Override
             public boolean canUse() {
-                return super.canUse() && !((MantisEntity) mob).isPlayingInstrument();
+                return super.canUse() && !((MusicalEntity) mob).isPlayingInstrument();
             }
         });
 

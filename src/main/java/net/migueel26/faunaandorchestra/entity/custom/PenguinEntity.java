@@ -41,6 +41,8 @@ public class PenguinEntity extends MusicalEntity implements GeoEntity {
     protected static final RawAnimation IDLE_FLUTE = RawAnimation.begin().thenPlay("holding_flute");
     protected static final RawAnimation PLAYING = RawAnimation.begin().thenPlay("playing");
     private static final EntityDataAccessor<Boolean> IS_RUNNING = SynchedEntityData.defineId(PenguinEntity.class, EntityDataSerializers.BOOLEAN);
+    private boolean isRunning = false;
+
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
     private final AnimationController<PenguinEntity> penguinController = new AnimationController<>(this, "penguin_controller", 5, this::penguinState)
             .triggerableAnim("wave", WAVE);
@@ -143,6 +145,14 @@ public class PenguinEntity extends MusicalEntity implements GeoEntity {
         builder.define(IS_RUNNING, false);
     }
 
+    @Override
+    public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
+        if (key.equals(IS_RUNNING)) {
+            this.isRunning = entityData.get(IS_RUNNING);
+        }
+        super.onSyncedDataUpdated(key);
+    }
+
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
@@ -193,7 +203,7 @@ public class PenguinEntity extends MusicalEntity implements GeoEntity {
     }
 
     public boolean isRunning() {
-        return entityData.get(IS_RUNNING);
+        return isRunning;
     }
 
     @Override

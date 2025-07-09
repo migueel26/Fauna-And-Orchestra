@@ -29,6 +29,6 @@ public class PenguinRenderer extends GeoEntityRenderer<PenguinEntity> {
             }
         }
 
-        super.renderRecursively(poseStack, animatable, bone, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, colour);
+        super.renderRecursively(poseStack, penguin, bone, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, colour);
     }
 }

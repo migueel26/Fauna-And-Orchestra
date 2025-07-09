@@ -5,6 +5,7 @@
   "item.faunaandorchestra.flute": "Flauta",
   "item.faunaandorchestra.keytar": "Teclado",
   "item.faunaandorchestra.double_bass": "Contrabajo",
+  "item.faunaandorchestra.saxophone": "Saxofón",
   "item.faunaandorchestra.baton": "Batuta",
   "item.faunaandorchestra.briefcase": "Maletín",
 
@@ -17,11 +18,13 @@
   "item.faunaandorchestra.red_panda_spawn_egg": "Generar Panda Rojo",
   "item.faunaandorchestra.macaw_spawn_egg": "Generar Guacamayo",
   "item.faunaandorchestra.quirky_frog_spawn_egg": "Generar Rana Talentosa",
+  "item.faunaandorchestra.beaver_spawn_egg": "Generar Castor",
 
   "tooltip.faunaandorchestra:violin": "§7Este instrumento parece capturar la atención de algunos... §odevotos§r§7 insectos",
   "tooltip.faunaandorchestra:flute": "§7Este instrumento parece capturar la atención de algunos... §ofrescos§r§7 amiguitos",
   "tooltip.faunaandorchestra:keytar": "§7Este instrumento parece capturar la atención de algunos... §orojos§r§7 osos",
   "tooltip.faunaandorchestra:double_bass": "§7Este instrumento parece capturar la atención de algunos... §ocoloridos§r§7 parlanchines",
+  "tooltip.faunaandorchestra:saxophone": "§7Este instrumento parece capturar la atención de algunos... §oacuáticos§r§7 trabajadores",
   "tooltip.faunaandorchestra:baton": "Haz §eclick §ra a un músico y después haz §eclick §ra un block para mandarlo allí\n§7Este instrumento parece capturar la atención de algunos... §osimpáticos§r§7 saltarines",
   "tooltip.faunaandorchestra:briefcase_empty": "Haz §eclick §ren un músico o director mientras esté §eabierto §rpara llevártelo (máximo 5)",
   "tooltip.faunaandorchestra:briefcase_full": "Haz §eclick §ren un bloque mientras esté §ecerrado §rpara liberar al §eanimal §rahí",
@@ -34,5 +37,6 @@
   "entity.faunaandorchestra.penguin": "Bebé Pingüino",
   "entity.faunaandorchestra.red_panda": "Panda Rojo",
   "entity.faunaandorchestra.macaw": "Guacamayo",
-  "entity.faunaandorchestra.quirky_frog": "Rana Talentosa"
+  "entity.faunaandorchestra.quirky_frog": "Rana Talentosa",
+  "entity.faunaandorchestra.beaver": "Castor"
 }
