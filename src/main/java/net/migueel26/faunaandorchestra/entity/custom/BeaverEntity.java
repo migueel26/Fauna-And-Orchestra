@@ -1,8 +1,13 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
+import net.migueel26.faunaandorchestra.entity.goals.BeaverBuildsDamGoal;
 import net.migueel26.faunaandorchestra.entity.goals.FaunaRandomLookAroundGoal;
 import net.migueel26.faunaandorchestra.entity.goals.MusicalEntityPlayingInstrumentGoal;
 import net.migueel26.faunaandorchestra.item.ModItems;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
@@ -18,6 +23,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoAnimatable;
@@ -33,12 +39,23 @@ public class BeaverEntity extends MusicalEntity implements GeoEntity {
     protected static final RawAnimation SWIMMING = RawAnimation.begin().thenPlay("swim");
     protected static final RawAnimation WALKING_SAXOPHONE = RawAnimation.begin().thenPlay("walk_sax");
     protected static final RawAnimation PLAYING = RawAnimation.begin().thenPlay("playing");
-    private final AnimationController<BeaverEntity> beaverController = new AnimationController<>(this, "beaver_controller", 5, this::beaverState);
+    protected static final RawAnimation BUILD = RawAnimation.begin().thenPlay("build");
+    protected static final EntityDataAccessor<Boolean> BUILDING = SynchedEntityData.defineId(BeaverEntity.class, EntityDataSerializers.BOOLEAN);
+    private final AnimationController<BeaverEntity> beaverController = new AnimationController<>(this, "beaver_controller", 5, this::beaverState)
+            .triggerableAnim("build_trigger", BUILD);
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
+    int bubbleTick = 0;
+    Vec3 lastPosition = position();
     public BeaverEntity(EntityType<? extends TamableAnimal> entityType, Level level) {
         super(entityType, level);
 
         this.addOverridenGoals();
+    }
+
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(BUILDING, false);
     }
 
     @Override
@@ -55,6 +72,7 @@ public class BeaverEntity extends MusicalEntity implements GeoEntity {
         // LookAtPlayerGoal (3)
         this.goalSelector.addGoal(4, new RandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(5, new FaunaRandomLookAroundGoal(this));
+        this.goalSelector.addGoal(8, new BeaverBuildsDamGoal(this, 1.0D));
 
     }
 
@@ -62,7 +80,14 @@ public class BeaverEntity extends MusicalEntity implements GeoEntity {
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F) {
             @Override
             public boolean canUse() {
-                return super.canUse() && !((MusicalEntity) mob).isPlayingInstrument();
+                return super.canUse() && !((MusicalEntity) mob).isPlayingInstrument()
+                        && !((BeaverEntity) mob).isBuilding();
+            }
+
+            @Override
+            public boolean canContinueToUse() {
+                return super.canContinueToUse() && !((MusicalEntity) mob).isPlayingInstrument()
+                        && !((BeaverEntity) mob).isBuilding();
             }
         });
     }
@@ -92,8 +117,28 @@ public class BeaverEntity extends MusicalEntity implements GeoEntity {
 
     @Override
     public void aiStep() {
-        //TODO: PARTICULAS BURBUJA CUANDO NADA
+        if (level().isClientSide() && isInWater() && bubbleTick >= 10
+                && (lastPosition.x != getX() || lastPosition.z != getZ())) {
+            doWaterSplashEffect();
+            bubbleTick = 0;
+        } else {
+            bubbleTick++;
+        }
+        lastPosition = position();
         super.aiStep();
+    }
+
+    public void build() {
+        setBuilding(true);
+        triggerAnim("beaver_controller", "build_trigger");
+    }
+
+    public boolean isBuilding() {
+        return entityData.get(BUILDING);
+    }
+
+    public void setBuilding(boolean building) {
+        entityData.set(BUILDING, building);
     }
 
     @Override

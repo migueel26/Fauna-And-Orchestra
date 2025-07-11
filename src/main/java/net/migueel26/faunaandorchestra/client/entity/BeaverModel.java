@@ -38,8 +38,13 @@ public class BeaverModel extends GeoModel<BeaverEntity> {
         if (head != null && !beaver.isPlayingInstrument() && !animationState.isMoving()) {
             EntityModelData entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
 
-            head.setRotX(entityData.headPitch() * Mth.DEG_TO_RAD);
-            head.setRotY(entityData.netHeadYaw() * Mth.DEG_TO_RAD);
+            if (beaver.isHoldingInstrument() || beaver.isBuilding()) {
+                head.setRotX((entityData.headPitch()-90) * Mth.DEG_TO_RAD);
+                head.setRotZ(-entityData.netHeadYaw() * Mth.DEG_TO_RAD);
+            } else {
+                head.setRotX(entityData.headPitch() * Mth.DEG_TO_RAD);
+                head.setRotY(entityData.netHeadYaw() * Mth.DEG_TO_RAD);
+            }
 
         }
 
