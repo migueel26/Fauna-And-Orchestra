@@ -1,8 +1,7 @@
 {
   "type": "neoforge:add_spawns",
   "biomes": [
-    "minecraft:swamp",
-    "minecraft:river"
+    "minecraft:swamp"
   ],
   "spawners": {
     "type": "faunaandorchestra:quirky_frog",
