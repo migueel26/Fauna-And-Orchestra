@@ -34,6 +34,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.QUIRKY_FROG_SPAWN_EGG);
                         output.accept(ModItems.BACH_AIR_SHEET_MUSIC);
                         output.accept(ModItems.GREENSLEEVES_SHEET_MUSIC);
+                        output.accept(ModItems.BLUES_SHEET_MUSIC);
                     }).build());
 
     public static void register(IEventBus eventBus) {

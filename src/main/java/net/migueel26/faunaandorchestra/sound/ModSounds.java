@@ -29,6 +29,10 @@ public class ModSounds {
     public static final Supplier<SoundEvent> GREENSLEEVES_FLUTE = registerSoundEvent("greensleeves_flute");
     public static final Supplier<SoundEvent> GREENSLEEVES_KEYTAR = registerSoundEvent("greensleeves_keytar");
 
+    public static final Supplier<SoundEvent> BLUES_SAXOPHONE = registerSoundEvent("blues_saxophone");
+    public static final Supplier<SoundEvent> BLUES_DOUBLE_BASS = registerSoundEvent("blues_double_bass");
+    public static final Supplier<SoundEvent> BLUES_KEYTAR = registerSoundEvent("blues_keytar");
+
     public static final Supplier<SoundEvent> FROG_SONG = registerSoundEvent("frog_song");
 
     public static final Supplier<SoundEvent> MANTIS_AMBIENT = registerSoundEvent("mantis_ambient");

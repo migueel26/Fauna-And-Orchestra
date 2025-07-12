@@ -71,6 +71,24 @@
       "faunaandorchestra:music/greensleeves_keytar"
     ]
   },
+  "blues_saxophone": {
+    "subtitles": "sounds.faunaandorchestra.blues_saxophone",
+    "sounds": [
+      "faunaandorchestra:music/blues_saxophone"
+    ]
+  },
+  "blues_keytar": {
+    "subtitles": "sounds.faunaandorchestra.blues_keytar",
+    "sounds": [
+      "faunaandorchestra:music/blues_keytar"
+    ]
+  },
+  "blues_double_bass": {
+    "subtitles": "sounds.faunaandorchestra.blues_double_bass",
+    "sounds": [
+      "faunaandorchestra:music/blues_double_bass"
+    ]
+  },
   "frog_song": {
     "subtitles": "sounds.faunaandorchestra.frog_song",
     "sounds": [

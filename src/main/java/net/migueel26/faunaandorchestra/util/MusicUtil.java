@@ -26,19 +26,28 @@ public class MusicUtil {
             ModItems.KEYTAR.get(), ModSounds.GREENSLEEVES_KEYTAR.get().getLocation()
     );
 
+    public static final Map<Item, ResourceLocation> BLUES_SONG = Map.of(
+            ModItems.SAXOPHONE.get(), ModSounds.BLUES_SAXOPHONE.get().getLocation(),
+            ModItems.DOUBLE_BASS.get(), ModSounds.BLUES_DOUBLE_BASS.get().getLocation(),
+            ModItems.KEYTAR.get(), ModSounds.BLUES_KEYTAR.get().getLocation()
+    );
+
     private static final Map<Item, Map<Item, ResourceLocation>> SONG = Map.of(
             ModItems.BACH_AIR_SHEET_MUSIC.get(), BACH_AIR,
-            ModItems.GREENSLEEVES_SHEET_MUSIC.get(), GREENSLEEVES
+            ModItems.GREENSLEEVES_SHEET_MUSIC.get(), GREENSLEEVES,
+            ModItems.BLUES_SHEET_MUSIC.get(), BLUES_SONG
     );
 
     private static final Map<String, Item> STRING_TO_SHEET = Map.of(
             "faunaandorchestra:bach_air_sheet_music", ModItems.BACH_AIR_SHEET_MUSIC.get(),
-            "faunaandorchestra:greensleeves_sheet_music", ModItems.GREENSLEEVES_SHEET_MUSIC.get()
+            "faunaandorchestra:greensleeves_sheet_music", ModItems.GREENSLEEVES_SHEET_MUSIC.get(),
+            "faunaandrchestra:blues_sheet_music", ModItems.BLUES_SHEET_MUSIC.asItem()
     );
 
     private static final Map<Item, Integer> DURATION = Map.of(
             ModItems.BACH_AIR_SHEET_MUSIC.get(), 2550,
-            ModItems.GREENSLEEVES_SHEET_MUSIC.get(), 1315
+            ModItems.GREENSLEEVES_SHEET_MUSIC.get(), 1315,
+            ModItems.BLUES_SHEET_MUSIC.get(), 1740
     );
 
     private static Map<UUID, Item> CURRENT_ORCHESTRAS = new HashMap<>();
