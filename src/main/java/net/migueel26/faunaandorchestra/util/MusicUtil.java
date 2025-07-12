@@ -41,13 +41,13 @@ public class MusicUtil {
     private static final Map<String, Item> STRING_TO_SHEET = Map.of(
             "faunaandorchestra:bach_air_sheet_music", ModItems.BACH_AIR_SHEET_MUSIC.get(),
             "faunaandorchestra:greensleeves_sheet_music", ModItems.GREENSLEEVES_SHEET_MUSIC.get(),
-            "faunaandrchestra:blues_sheet_music", ModItems.BLUES_SHEET_MUSIC.asItem()
+            "faunaandorchestra:blues_sheet_music", ModItems.BLUES_SHEET_MUSIC.asItem()
     );
 
     private static final Map<Item, Integer> DURATION = Map.of(
             ModItems.BACH_AIR_SHEET_MUSIC.get(), 2550,
             ModItems.GREENSLEEVES_SHEET_MUSIC.get(), 1315,
-            ModItems.BLUES_SHEET_MUSIC.get(), 1740
+            ModItems.BLUES_SHEET_MUSIC.get(), 1750
     );
 
     private static Map<UUID, Item> CURRENT_ORCHESTRAS = new HashMap<>();

@@ -146,7 +146,7 @@ public abstract class ConductorEntity extends TamableAnimal {
                     level().addParticle(ModParticleTypes.TREBLE_CLEF.get(),
                             this.getX(), this.getY() + 2.5, this.getZ(),
                             0, 0.025F, 0);
-                } else if (ticksPlaying % 20 == 0) {
+                } else if (ticksPlaying % 15 == 0) {
                     level().addParticle(ModParticleTypes.FAUNA_NOTES.get(),
                             this.getX(), this.getY() + 2.5, this.getZ(),
                             0,0.025F,0);
