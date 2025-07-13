@@ -72,7 +72,7 @@ public class BeaverEntity extends MusicalEntity implements GeoEntity {
         // LookAtPlayerGoal (3)
         this.goalSelector.addGoal(4, new RandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(5, new FaunaRandomLookAroundGoal(this));
-        this.goalSelector.addGoal(8, new BeaverBuildsDamGoal(this, 1.0D));
+        this.goalSelector.addGoal(5, new BeaverBuildsDamGoal(this, 1.0D));
 
     }
 

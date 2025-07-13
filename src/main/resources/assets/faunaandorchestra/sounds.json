@@ -89,6 +89,24 @@
       "faunaandorchestra:music/blues_double_bass"
     ]
   },
+  "fur_elise_flute": {
+    "subtitles": "sounds.faunaandorchestra.fur_elise_flute",
+    "sounds": [
+      "faunaandorchestra:music/fur_elise_flute"
+    ]
+  },
+  "fur_elise_keytar": {
+    "subtitles": "sounds.faunaandorchestra.fur_elise_keytar",
+    "sounds": [
+      "faunaandorchestra:music/fur_elise_keytar"
+    ]
+  },
+  "fur_elise_saxophone": {
+    "subtitles": "sounds.faunaandorchestra.fur_elise_saxophone",
+    "sounds": [
+      "faunaandorchestra:music/fur_elise_saxophone"
+    ]
+  },
   "frog_song": {
     "subtitles": "sounds.faunaandorchestra.frog_song",
     "sounds": [

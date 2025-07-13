@@ -32,22 +32,31 @@ public class MusicUtil {
             ModItems.KEYTAR.get(), ModSounds.BLUES_KEYTAR.get().getLocation()
     );
 
+    public static final Map<Item, ResourceLocation> JAZZY_FUR_ELISE = Map.of(
+            ModItems.SAXOPHONE.get(), ModSounds.FUR_ELISE_SAXOPHONE.get().getLocation(),
+            ModItems.FLUTE.get(), ModSounds.FUR_ELISE_FLUTE.get().getLocation(),
+            ModItems.KEYTAR.get(), ModSounds.FUR_ELISE_KEYTAR.get().getLocation()
+    );
+
     private static final Map<Item, Map<Item, ResourceLocation>> SONG = Map.of(
             ModItems.BACH_AIR_SHEET_MUSIC.get(), BACH_AIR,
             ModItems.GREENSLEEVES_SHEET_MUSIC.get(), GREENSLEEVES,
-            ModItems.BLUES_SHEET_MUSIC.get(), BLUES_SONG
+            ModItems.BLUES_SHEET_MUSIC.get(), BLUES_SONG,
+            ModItems.JAZZY_FUR_ELISE_SHEET_MUSIC.get(), JAZZY_FUR_ELISE
     );
 
     private static final Map<String, Item> STRING_TO_SHEET = Map.of(
             "faunaandorchestra:bach_air_sheet_music", ModItems.BACH_AIR_SHEET_MUSIC.get(),
             "faunaandorchestra:greensleeves_sheet_music", ModItems.GREENSLEEVES_SHEET_MUSIC.get(),
-            "faunaandorchestra:blues_sheet_music", ModItems.BLUES_SHEET_MUSIC.asItem()
+            "faunaandorchestra:blues_sheet_music", ModItems.BLUES_SHEET_MUSIC.get(),
+            "faunaandorchestra:jazzy_fur_elise_sheet_music", ModItems.JAZZY_FUR_ELISE_SHEET_MUSIC.get()
     );
 
     private static final Map<Item, Integer> DURATION = Map.of(
             ModItems.BACH_AIR_SHEET_MUSIC.get(), 2550,
             ModItems.GREENSLEEVES_SHEET_MUSIC.get(), 1315,
-            ModItems.BLUES_SHEET_MUSIC.get(), 1750
+            ModItems.BLUES_SHEET_MUSIC.get(), 1750,
+            ModItems.JAZZY_FUR_ELISE_SHEET_MUSIC.get(), 1775
     );
 
     private static Map<UUID, Item> CURRENT_ORCHESTRAS = new HashMap<>();

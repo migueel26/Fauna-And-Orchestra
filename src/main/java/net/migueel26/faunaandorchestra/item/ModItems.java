@@ -81,6 +81,9 @@ public class ModItems {
     public static final DeferredItem<Item> BLUES_SHEET_MUSIC = ITEMS.register("blues_sheet_music",
             createSheetMusic());
 
+    public static final DeferredItem<Item> JAZZY_FUR_ELISE_SHEET_MUSIC = ITEMS.register("jazzy_fur_elise_sheet_music",
+            createSheetMusic());
+
     public static final DeferredItem<Item> ICON = ITEMS.register("icon",
             () -> new Item(new Item.Properties().stacksTo(1)));
 

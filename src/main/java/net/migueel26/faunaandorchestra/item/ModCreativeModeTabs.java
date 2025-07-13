@@ -35,6 +35,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.BACH_AIR_SHEET_MUSIC);
                         output.accept(ModItems.GREENSLEEVES_SHEET_MUSIC);
                         output.accept(ModItems.BLUES_SHEET_MUSIC);
+                        output.accept(ModItems.JAZZY_FUR_ELISE_SHEET_MUSIC);
                     }).build());
 
     public static void register(IEventBus eventBus) {
