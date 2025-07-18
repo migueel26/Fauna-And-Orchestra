@@ -1,5 +1,8 @@
 package net.migueel26.faunaandorchestra;
 
+import net.migueel26.faunaandorchestra.block.ModBlockEntities;
+import net.migueel26.faunaandorchestra.block.ModBlocks;
+import net.migueel26.faunaandorchestra.client.block.ComposerGravestoneBlockEntityRenderer;
 import net.migueel26.faunaandorchestra.client.entity.*;
 import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
@@ -13,6 +16,7 @@ import net.migueel26.faunaandorchestra.screen.custom.ConductorScreen;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.migueel26.faunaandorchestra.util.ModItemProperties;
 import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import org.slf4j.Logger;
@@ -62,6 +66,8 @@ public class FaunaAndOrchestra {
         ModMenuTypes.register(modEventBus);
         ModParticleTypes.register(modEventBus);
         ModLootTables.register(modEventBus);
+        ModBlocks.register(modEventBus);
+        ModBlockEntities.register(modEventBus);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
@@ -92,6 +98,11 @@ public class FaunaAndOrchestra {
             EntityRenderers.register(ModEntities.RED_PANDA.get(), RedPandaRenderer::new);
             EntityRenderers.register(ModEntities.MACAW.get(), MacawRenderer::new);
             EntityRenderers.register(ModEntities.BEAVER.get(), BeaverRenderer::new);
+        }
+
+        @SubscribeEvent
+        public static void registerRenderers(final EntityRenderersEvent.RegisterRenderers event) {
+            event.registerBlockEntityRenderer(ModBlockEntities.COMPOSER_GRAVESTONE_BE.get(), ComposerGravestoneBlockEntityRenderer::new);
         }
 
         @SubscribeEvent

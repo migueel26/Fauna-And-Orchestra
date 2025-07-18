@@ -9,6 +9,8 @@
   "item.faunaandorchestra.baton": "Batuta",
   "item.faunaandorchestra.briefcase": "Maletín",
 
+  "block.faunaandorchestra.composer_gravestone": "Tumba del Gran Compositor",
+
   "item.faunaandorchestra.bach_air_sheet_music": "Partitura del Air de Bach",
   "item.faunaandorchestra.greensleeves_sheet_music": "Partitura de Greensleeves",
   "item.faunaandorchestra.blues_sheet_music": "Partitura de Blues Song de Mindlin",
@@ -34,6 +36,8 @@
   "tooltip.faunaandorchestra.shift": "Presiona §eShift§r para más información",
 
   "screen.faunaandorchestra.conductor_screen": "Volumen: ",
+
+  "text.faunaandorchestra.locked_tomb": "¡Esta tumba está cerrada!",
 
   "entity.faunaandorchestra.mantis": "Mantis",
   "entity.faunaandorchestra.penguin": "Bebé Pingüino",

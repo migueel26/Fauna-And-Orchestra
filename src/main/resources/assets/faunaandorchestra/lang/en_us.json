@@ -9,6 +9,8 @@
   "item.faunaandorchestra.baton": "Baton",
   "item.faunaandorchestra.briefcase": "Briefcase",
 
+  "block.faunaandorchestra.composer_gravestone": "The Great Composer's Gravestone",
+
   "item.faunaandorchestra.bach_air_sheet_music": "Bach's Air Sheet",
   "item.faunaandorchestra.greensleeves_sheet_music": "Greensleeves Sheet",
   "item.faunaandorchestra.blues_sheet_music": "Mindlin's Blues Song Sheet",
@@ -33,6 +35,8 @@
   "tooltip.faunaandorchestra.shift": "Press §eShift§r for more Information",
 
   "screen.faunaandorchestra.conductor_screen": "Volume: ",
+
+  "text.faunaandorchestra.locked_tomb": "This tomb is locked!",
 
   "entity.faunaandorchestra.mantis": "Mantis",
   "entity.faunaandorchestra.penguin": "Baby Penguin",

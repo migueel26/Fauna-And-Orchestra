@@ -1,6 +1,7 @@
 package net.migueel26.faunaandorchestra.item;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
+import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -36,6 +37,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.GREENSLEEVES_SHEET_MUSIC);
                         output.accept(ModItems.BLUES_SHEET_MUSIC);
                         output.accept(ModItems.JAZZY_FUR_ELISE_SHEET_MUSIC);
+                        output.accept(ModBlocks.GRAVESTONE);
                     }).build());
 
     public static void register(IEventBus eventBus) {
