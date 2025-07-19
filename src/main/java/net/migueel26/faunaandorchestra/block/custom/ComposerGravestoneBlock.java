@@ -10,13 +10,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -35,16 +32,15 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.animatable.GeoBlockEntity;
-
-import java.util.List;
 
 public class ComposerGravestoneBlock extends HorizontalDirectionalBlock implements EntityBlock {
     public static final MapCodec<ComposerGravestoneBlock> CODEC = simpleCodec(ComposerGravestoneBlock::new);
     public static final EnumProperty<BedPart> PART = BlockStateProperties.BED_PART;
     public static final BooleanProperty OPENED = BlockStateProperties.OPEN;
-    private static final VoxelShape FOOT = Block.box(1, 0, 1, 15, 7, 15);
-    private static final VoxelShape HEAD = Block.box(1, 0, 0, 14, 7, 14);
+    private static final VoxelShape SOUTH_SHAPE = Block.box(1, 0, 1, 15, 8, 16);
+    private static final VoxelShape NORTH_SHAPE = Block.box(1, 0, 0, 15, 8, 15);
+    private static final VoxelShape WEST_SHAPE = Block.box(0, 0, 1, 15, 8, 15);
+    private static final VoxelShape EAST_SHAPE = Block.box(1, 0, 1, 16, 8, 15);
 
 
     public ComposerGravestoneBlock(Properties properties) {
@@ -54,8 +50,12 @@ public class ComposerGravestoneBlock extends HorizontalDirectionalBlock implemen
 
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        if (state.getValue(PART) == BedPart.HEAD) return HEAD;
-        else return FOOT;
+        return switch (getConnectedDirection(state)) {
+            case NORTH -> NORTH_SHAPE;
+            case SOUTH -> SOUTH_SHAPE;
+            case WEST -> WEST_SHAPE;
+            default -> EAST_SHAPE;
+        };
     }
 
     @Override
