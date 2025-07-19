@@ -70,9 +70,9 @@ public class BeaverEntity extends MusicalEntity implements GeoEntity {
         this.goalSelector.addGoal(1, new MusicalEntityPlayingInstrumentGoal(this));
         this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
         // LookAtPlayerGoal (3)
-        this.goalSelector.addGoal(4, new RandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(3, new BeaverBuildsDamGoal(this, 1.0D));
+        // RandomStrollGoal (4)
         this.goalSelector.addGoal(5, new FaunaRandomLookAroundGoal(this));
-        this.goalSelector.addGoal(5, new BeaverBuildsDamGoal(this, 1.0D));
 
     }
 
@@ -88,6 +88,13 @@ public class BeaverEntity extends MusicalEntity implements GeoEntity {
             public boolean canContinueToUse() {
                 return super.canContinueToUse() && !((MusicalEntity) mob).isPlayingInstrument()
                         && !((BeaverEntity) mob).isBuilding();
+            }
+        });
+
+        this.goalSelector.addGoal(4, new RandomStrollGoal(this, 1.0D) {
+            @Override
+            public boolean canUse() {
+                return super.canUse() && !((BeaverEntity) mob).isBuilding();
             }
         });
     }

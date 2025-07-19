@@ -36,8 +36,7 @@ public class BeaverBuildsDamGoal extends Goal {
     @Override
     public boolean canUse() {
         cooldown--;
-        if (beaver.level().getBiome(beaver.blockPosition()).getKey().equals(Biomes.RIVER)
-        && !beaver.isHoldingInstrument() && cooldown <= 0) {
+        if (!beaver.isHoldingInstrument() && cooldown <= 0) {
             Pair<Vec3, BlockPos> pair = getDamPosition();
             if (pair != null) {
                 wantedPathBlock = pair.getA();
@@ -77,10 +76,10 @@ public class BeaverBuildsDamGoal extends Goal {
 
     private Pair<Vec3, BlockPos> getDamPosition() {
         BlockPos pathBlock = null;
-        Optional<BlockPos> water = BlockPos.findClosestMatch(beaver.blockPosition(), 20, 1, pred -> level.getFluidState(pred).is(FluidTags.WATER));
-        Optional<BlockPos> dam = BlockPos.findClosestMatch(beaver.blockPosition(), 20, 1, pred -> level.getBlockState(pred).getBlock() == Blocks.BAMBOO_PLANKS);
+        Optional<BlockPos> water = BlockPos.findClosestMatch(beaver.blockPosition(), 20, 3, pred -> level.getFluidState(pred).is(FluidTags.WATER));
+        Optional<BlockPos> dam = BlockPos.findClosestMatch(beaver.blockPosition(), 20, 3, pred -> level.getBlockState(pred).getBlock() == Blocks.BAMBOO_PLANKS);
         BlockPos waterPos = null;
-        if (water.isPresent()) {
+    if (water.isPresent() && level.getBiome(water.get()).getKey() == Biomes.RIVER) {
             int x, y, z;
 
             // Default to water
@@ -90,8 +89,8 @@ public class BeaverBuildsDamGoal extends Goal {
             z = waterPos.getZ();
             isDam = false;
 
-            if (dam.isPresent()) {
-                isDam = level.getRandom().nextFloat() <= 0.25;
+            if (dam.isPresent() && level.getBiome(dam.get()).getKey() == Biomes.RIVER) {
+                //isDam = level.getRandom().nextFloat() <= 0.25;
                 if (isDam) {
                     // WE (TRY TO) PLACE ON TOP OF DAM
                     waterPos = dam.get().immutable();
