@@ -1,7 +1,6 @@
 package net.migueel26.faunaandorchestra.block;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
-import net.migueel26.faunaandorchestra.block.custom.ComposerGravestoneBlock;
 import net.migueel26.faunaandorchestra.block.entity.ComposerGravestoneBlockEntity;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -16,7 +15,10 @@ public class ModBlockEntities {
 
     public static final Supplier<BlockEntityType<ComposerGravestoneBlockEntity>> COMPOSER_GRAVESTONE_BE =
             BLOCK_ENTITES.register("composer_gravestone_be", () -> BlockEntityType.Builder.of(
-                    ComposerGravestoneBlockEntity::new, ModBlocks.GRAVESTONE.get()).build(null)
+                    ComposerGravestoneBlockEntity::new,
+                    ModBlocks.COMPOSER_GRAVESTONE.get(),
+                    ModBlocks.GRAVESTONE.get())
+                    .build(null)
             );
 
     public static void register(IEventBus eventBus) {

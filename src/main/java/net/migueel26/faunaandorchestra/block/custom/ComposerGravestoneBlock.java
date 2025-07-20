@@ -72,9 +72,11 @@ public class ComposerGravestoneBlock extends HorizontalDirectionalBlock implemen
     @Override
     protected @NotNull BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
         if (direction == getNeighbourDirection(state.getValue(PART), state.getValue(FACING))) {
-            return neighborState.is(this) && neighborState.getValue(PART) != state.getValue(PART)
-                    ? state
-                    : Blocks.AIR.defaultBlockState();
+            if (neighborState.is(this) && neighborState.getValue(PART) != state.getValue(PART)) {
+                return state.setValue(OPENED, neighborState.getValue(OPENED));
+            } else {
+                return Blocks.AIR.defaultBlockState();
+            }
         }
         return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
     }

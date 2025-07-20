@@ -1,0 +1,85 @@
+package net.migueel26.faunaandorchestra.block.custom;
+
+import net.migueel26.faunaandorchestra.block.entity.ComposerGravestoneBlockEntity;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BedPart;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
+
+public class RegularGravestoneBlock extends ComposerGravestoneBlock {
+    // Server-only
+    int cooldown = 0;
+
+    public RegularGravestoneBlock(Properties properties) {
+        super(properties);
+    }
+
+    @Override
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        if (level.getBlockEntity(pos) instanceof ComposerGravestoneBlockEntity composerGravestoneBlockEntity
+        && !level.isClientSide()) {
+            Vec3 vecPos;
+            BlockPos neighbourPos = pos.relative(state.getValue(FACING));
+
+            if (state.getValue(PART) == BedPart.HEAD) {
+                // We get the foot, which renders and plays the animation
+                vecPos = neighbourPos.getBottomCenter();
+                composerGravestoneBlockEntity = (ComposerGravestoneBlockEntity) level.getBlockEntity(neighbourPos);
+            } else {
+                vecPos = pos.getBottomCenter();
+            }
+
+            Vec3 center;
+            int diffX = neighbourPos.getX() - pos.getX();
+            int diffZ = neighbourPos.getZ() - pos.getZ();
+            double xOffset = 0.25;
+            double zOffset = 0.25;
+
+            if (diffX > 0) {
+                center = vecPos.subtract(0.5, 0, 0);
+                xOffset = 0.4;
+            } else if (diffX < 0) {
+                center = vecPos.add(0.5, 0, 0);
+                xOffset = 0.4;
+            } else if (diffZ > 0) {
+                center = vecPos.subtract(0, 0, 0.5);
+                zOffset = 0.4;
+            } else {
+                center = vecPos.add(0, 0, 0.5);
+                zOffset = 0.4;
+            }
+
+            boolean isOpened = state.getValue(OPENED);
+
+            // Transition animation
+            if (isOpened) composerGravestoneBlockEntity.close();
+            else composerGravestoneBlockEntity.open();
+
+            // Update block OPENED value
+            level.setBlock(pos, state.setValue(OPENED, !isOpened), 3);
+
+            // Sound and particles
+            player.playSound(SoundEvents.GRINDSTONE_USE, 1.0F, 0.5F);
+            ((ServerLevel) level).sendParticles(new BlockParticleOption(ParticleTypes.FALLING_DUST, Blocks.STONE.defaultBlockState()),
+                    center.x, center.y + 0.5F, center.z, 20,
+                    xOffset, 0, zOffset, 1.0F);
+        }
+        return ItemInteractionResult.SUCCESS;
+    }
+}

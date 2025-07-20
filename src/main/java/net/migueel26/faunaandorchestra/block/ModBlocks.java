@@ -2,6 +2,7 @@ package net.migueel26.faunaandorchestra.block;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.block.custom.ComposerGravestoneBlock;
+import net.migueel26.faunaandorchestra.block.custom.RegularGravestoneBlock;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -16,11 +17,16 @@ import java.util.function.Supplier;
 public class ModBlocks {
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(FaunaAndOrchestra.MOD_ID);
 
-    public static final DeferredBlock<Block> GRAVESTONE = registerBlock("composer_gravestone",
+    public static final DeferredBlock<Block> COMPOSER_GRAVESTONE = registerBlock("composer_gravestone",
             () -> new ComposerGravestoneBlock(BlockBehaviour.Properties.of()
                     .noOcclusion()
                     .strength(-1.0F, 3600000.0F)
                     .noLootTable()));
+
+    public static final DeferredBlock<Block> GRAVESTONE = registerBlock("gravestone",
+            () -> new RegularGravestoneBlock(BlockBehaviour.Properties.of()
+                    .noOcclusion()
+                    .strength(2.0F, 6.0F)));
 
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block) {
         DeferredBlock<T> toReturn = BLOCKS.register(name, block);
