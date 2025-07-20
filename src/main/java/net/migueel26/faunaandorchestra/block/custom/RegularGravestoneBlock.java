@@ -1,16 +1,25 @@
 package net.migueel26.faunaandorchestra.block.custom;
 
 import net.migueel26.faunaandorchestra.block.entity.ComposerGravestoneBlockEntity;
+import net.migueel26.faunaandorchestra.item.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.EquipmentTable;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.monster.Skeleton;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.InstrumentItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -22,9 +31,12 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 public class RegularGravestoneBlock extends ComposerGravestoneBlock {
     // Server-only
-    int cooldown = 0;
 
     public RegularGravestoneBlock(Properties properties) {
         super(properties);
@@ -32,8 +44,7 @@ public class RegularGravestoneBlock extends ComposerGravestoneBlock {
 
     @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        if (level.getBlockEntity(pos) instanceof ComposerGravestoneBlockEntity composerGravestoneBlockEntity
-        && !level.isClientSide()) {
+        if (level.getBlockEntity(pos) instanceof ComposerGravestoneBlockEntity composerGravestoneBlockEntity) {
             Vec3 vecPos;
             BlockPos neighbourPos = pos.relative(state.getValue(FACING));
 
@@ -75,11 +86,41 @@ public class RegularGravestoneBlock extends ComposerGravestoneBlock {
             level.setBlock(pos, state.setValue(OPENED, !isOpened), 3);
 
             // Sound and particles
-            player.playSound(SoundEvents.GRINDSTONE_USE, 1.0F, 0.5F);
-            ((ServerLevel) level).sendParticles(new BlockParticleOption(ParticleTypes.FALLING_DUST, Blocks.STONE.defaultBlockState()),
-                    center.x, center.y + 0.5F, center.z, 20,
-                    xOffset, 0, zOffset, 1.0F);
+            level.playLocalSound(pos, SoundEvents.GRINDSTONE_USE, SoundSource.BLOCKS, 1.0F, 0.5F, false);
+            if (!level.isClientSide()) {
+
+                ((ServerLevel) level).sendParticles(new BlockParticleOption(ParticleTypes.FALLING_DUST, Blocks.STONE.defaultBlockState()),
+                        center.x, center.y + 0.5F, center.z, 20,
+                        xOffset, 0, zOffset, 1.0F);
+
+                spawnRandomLoot(level, pos);
+            }
         }
         return ItemInteractionResult.SUCCESS;
+    }
+
+    /***
+     *
+     * 30% NOTHING
+     * 10% SKELETON
+     * 60% ITEM
+     */
+
+    private void spawnRandomLoot(Level level, BlockPos pos) {
+        float probability = level.getRandom().nextFloat();
+        if (probability >= 0 && probability <= 0.2) {
+            // Skeleton
+            List<Item> list = List.of(ModItems.FLUTE.get(), ModItems.SAXOPHONE.get(), ModItems.KEYTAR.get(), ModItems.BATON.get());
+            Item instrument = list.get(new Random().nextInt(list.size()));
+
+            Skeleton skeleton = EntityType.SKELETON.spawn((ServerLevel) level, pos, MobSpawnType.MOB_SUMMONED);
+
+            ItemStack item = new ItemStack(instrument);
+            item.setDamageValue(10);
+            skeleton.setItemSlot(EquipmentSlot.MAINHAND, item);
+        } else if (probability > 0.1 && probability <= 0.7) {
+            // Item
+
+        }
     }
 }
