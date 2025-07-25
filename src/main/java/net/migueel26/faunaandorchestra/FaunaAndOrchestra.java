@@ -98,6 +98,7 @@ public class FaunaAndOrchestra {
             EntityRenderers.register(ModEntities.RED_PANDA.get(), RedPandaRenderer::new);
             EntityRenderers.register(ModEntities.MACAW.get(), MacawRenderer::new);
             EntityRenderers.register(ModEntities.BEAVER.get(), BeaverRenderer::new);
+            EntityRenderers.register(ModEntities.WANDERING_KOALA.get(), KoalaRenderer::new);
         }
 
         @SubscribeEvent

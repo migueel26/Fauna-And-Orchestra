@@ -23,6 +23,7 @@
   "item.faunaandorchestra.macaw_spawn_egg": "Macaw Spawn Egg",
   "item.faunaandorchestra.quirky_frog_spawn_egg": "Quirky Frog Spawn Egg",
   "item.faunaandorchestra.beaver_spawn_egg": "Beaver Spawn Egg",
+  "item.faunaandorchestra.wandering_koala_spawn_egg": "Wandering Koala Spawn Egg",
 
   "tooltip.faunaandorchestra:violin": "§7This instrument seems to capture the attention of some... §odevout§r§7 insects",
   "tooltip.faunaandorchestra:flute": "§7This instrument seems to capture the attention of some... §ocool§r§7 fellas",
@@ -44,5 +45,6 @@
   "entity.faunaandorchestra.red_panda": "Red Panda",
   "entity.faunaandorchestra.macaw": "Macaw",
   "entity.faunaandorchestra.quirky_frog": "Quirky Frog",
-  "entity.faunaandorchestra.beaver": "Beaver"
+  "entity.faunaandorchestra.beaver": "Beaver",
+  "entity.faunaandorchestra.wandering_koala": "Wandering Koala"
 }

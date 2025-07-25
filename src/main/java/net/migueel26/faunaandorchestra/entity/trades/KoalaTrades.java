@@ -1,0 +1,122 @@
+package net.migueel26.faunaandorchestra.entity.trades;
+
+import com.google.common.collect.ImmutableMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import net.migueel26.faunaandorchestra.item.ModItems;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.npc.VillagerTrades;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.providers.EnchantmentProvider;
+import net.minecraft.world.item.trading.ItemCost;
+import net.minecraft.world.item.trading.MerchantOffer;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+
+import java.util.Optional;
+
+public class KoalaTrades {
+    public static final Int2ObjectMap<VillagerTrades.ItemListing[]> WANDERING_KOALA_TRADES = toIntMap(
+            ImmutableMap.of(
+                    1,
+                    new VillagerTrades.ItemListing[]{
+                        new ItemsForEmeralds(ModItems.BACH_AIR_SHEET_MUSIC.get(), 5, 1, 1, 1),
+                        new ItemsForEmeralds(ModItems.BLUES_SHEET_MUSIC.get(), 5, 1, 1, 1),
+                        new ItemsForEmeralds(ModItems.GREENSLEEVES_SHEET_MUSIC.get(), 5, 1, 1,1),
+                        new ItemsForEmeralds(ModItems.JAZZY_FUR_ELISE_SHEET_MUSIC.get(), 5, 1, 1, 1)
+                    },
+                    2,
+                    new VillagerTrades.ItemListing[]{
+                        new ItemsForEmeralds(ModItems.BATON.get(), 3, 1, 3, 1),
+                        new ItemsForEmeralds(ModItems.FLUTE.get(), 3, 1, 3, 1),
+                        new ItemsForEmeralds(ModItems.DOUBLE_BASS.get(), 3, 1, 3, 1),
+                        new ItemsForEmeralds(ModItems.SAXOPHONE.get(), 3, 1, 3, 1),
+                        new ItemsForEmeralds(ModItems.VIOLIN.get(), 3, 1, 3, 1),
+                        new ItemsForEmeralds(ModItems.KEYTAR.get(), 3, 1, 3, 1)
+                    }
+            )
+    );
+
+    private static Int2ObjectMap<VillagerTrades.ItemListing[]> toIntMap(ImmutableMap<Integer, VillagerTrades.ItemListing[]> map) {
+        return new Int2ObjectOpenHashMap<>(map);
+    }
+
+    static class ItemsForEmeralds implements VillagerTrades.ItemListing {
+        private final ItemStack itemStack;
+        private final int emeraldCost;
+        private final int maxUses;
+        private final int villagerXp;
+        private final float priceMultiplier;
+        private final Optional<ResourceKey<EnchantmentProvider>> enchantmentProvider;
+
+        public ItemsForEmeralds(Block block, int emeraldCost, int numberOfItems, int maxUses, int villagerXp) {
+            this(new ItemStack(block), emeraldCost, numberOfItems, maxUses, villagerXp);
+        }
+
+        public ItemsForEmeralds(Item item, int emeraldCost, int numberOfItems, int villagerXp) {
+            this(new ItemStack(item), emeraldCost, numberOfItems, 12, villagerXp);
+        }
+
+        public ItemsForEmeralds(Item item, int emeraldCost, int numberOfItems, int maxUses, int villagerXp) {
+            this(new ItemStack(item), emeraldCost, numberOfItems, maxUses, villagerXp);
+        }
+
+        public ItemsForEmeralds(ItemStack itemStack, int emeraldCost, int numberOfItems, int maxUses, int villagerXp) {
+            this(itemStack, emeraldCost, numberOfItems, maxUses, villagerXp, 0.05F);
+        }
+
+        public ItemsForEmeralds(Item item, int emeraldCost, int numberOfItems, int maxUses, int villagerXp, float priceMultiplier) {
+            this(new ItemStack(item), emeraldCost, numberOfItems, maxUses, villagerXp, priceMultiplier);
+        }
+
+        public ItemsForEmeralds(
+                Item item, int emeraldCost, int numberOfItems, int maxUses, int villagerXp, float priceMultiplier, ResourceKey<EnchantmentProvider> enchantmentProvider
+        ) {
+            this(new ItemStack(item), emeraldCost, numberOfItems, maxUses, villagerXp, priceMultiplier, Optional.of(enchantmentProvider));
+        }
+
+        public ItemsForEmeralds(ItemStack itemStack, int emeraldCost, int numberOfItems, int maxUses, int villagerXp, float priceMultiplier) {
+            this(itemStack, emeraldCost, numberOfItems, maxUses, villagerXp, priceMultiplier, Optional.empty());
+        }
+
+        public ItemsForEmeralds(
+                ItemStack itemStack,
+                int emeraldCost,
+                int numberOfItems,
+                int maxUses,
+                int villagerXp,
+                float priceMultiplier,
+                Optional<ResourceKey<EnchantmentProvider>> enchantmentProvider
+        ) {
+            this.itemStack = itemStack;
+            this.emeraldCost = emeraldCost;
+            this.itemStack.setCount(numberOfItems);
+            this.maxUses = maxUses;
+            this.villagerXp = villagerXp;
+            this.priceMultiplier = priceMultiplier;
+            this.enchantmentProvider = enchantmentProvider;
+        }
+
+        @Override
+        public MerchantOffer getOffer(Entity trader, RandomSource random) {
+            ItemStack itemstack = this.itemStack.copy();
+            Level level = trader.level();
+            this.enchantmentProvider
+                    .ifPresent(
+                            p_348340_ -> EnchantmentHelper.enchantItemFromProvider(
+                                    itemstack,
+                                    level.registryAccess(),
+                                    (ResourceKey<EnchantmentProvider>)p_348340_,
+                                    level.getCurrentDifficultyAt(trader.blockPosition()),
+                                    random
+                            )
+                    );
+            return new MerchantOffer(new ItemCost(Items.EMERALD, this.emeraldCost), itemstack, this.maxUses, this.villagerXp, this.priceMultiplier);
+        }
+    }
+}
