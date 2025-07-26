@@ -16,8 +16,9 @@ public class RedPandaRandomChangeStanceGoal extends Goal {
     @Override
     public boolean canUse() {
         timeSpentInCurrentStance++;
-        boolean flag = this.redPanda.getRandom().nextFloat() < probability && !redPanda.isInWater()
+        boolean flag = this.redPanda.getRandom().nextFloat() < probability * timeSpentInCurrentStance/200 && !redPanda.isInWater()
                 && !redPanda.isHoldingInstrument()
+                && redPanda.getNavigation().isDone()
                 && timeSpentInCurrentStance > threshold;
         return redPanda.isStanding() || flag;
     }
