@@ -3,11 +3,13 @@ package net.migueel26.faunaandorchestra.entity.custom;
 import com.google.common.collect.Lists;
 import com.mojang.logging.LogUtils;
 import net.migueel26.faunaandorchestra.entity.goals.FaunaRandomLookAroundGoal;
+import net.migueel26.faunaandorchestra.entity.goals.KoalaRandomChangeStanceGoal;
 import net.migueel26.faunaandorchestra.entity.trades.KoalaTrades;
 import net.minecraft.Util;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -15,16 +17,14 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.ExperienceOrb;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.npc.Npc;
 import net.minecraft.world.entity.npc.VillagerTrades;
@@ -34,12 +34,14 @@ import net.minecraft.world.item.trading.Merchant;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.item.trading.MerchantOffers;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.*;
+import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.ArrayList;
@@ -61,6 +63,8 @@ public class KoalaEntity extends AgeableMob implements Merchant, Npc, GeoEntity 
     private static final Logger LOGGER = LogUtils.getLogger();
     protected boolean isSleeping;
     protected boolean isSitting;
+    // SERVER ANIMATION CONTROL
+    private int wakeUpTick = -1;
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
 
     public KoalaEntity(EntityType<? extends AgeableMob> entityType, Level level) {
@@ -82,24 +86,28 @@ public class KoalaEntity extends AgeableMob implements Merchant, Npc, GeoEntity 
     @Override
     protected void registerGoals() {
         goalSelector.addGoal(0, new FloatGoal(this));
+        goalSelector.addGoal(1, new TradeWithPlayerGoal(this));
+        // PanicGoal (1)
         // LookAtPlayerGoal (2)
+        goalSelector.addGoal(4, new KoalaRandomChangeStanceGoal(this, 0.05F));
         // RandomStrollGoal (4)
         goalSelector.addGoal(5, new FaunaRandomLookAroundGoal(this));
+        goalSelector.addGoal(6, new InteractGoal(this, Player.class, 3.0F, 1.0F));
     }
 
     private void addOverridenGoals() {
         goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 8.0F) {
             @Override
             public boolean canUse() {
-                return super.canUse() && !((KoalaEntity) mob).isSitting();
+                return super.canUse() && !((KoalaEntity) mob).isKoalaSleeping();
             }
 
             @Override
             public boolean canContinueToUse() {
-                return super.canContinueToUse() && !((KoalaEntity) mob).isSitting();
+                return super.canContinueToUse() && !((KoalaEntity) mob).isKoalaSleeping();
             }
         });
-        goalSelector.addGoal(4, new RandomStrollGoal(this, 0.75D) {
+        goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 0.75D) {
             @Override
             public boolean canUse() {
                 return super.canUse() && !((KoalaEntity) mob).isSitting();
@@ -110,6 +118,28 @@ public class KoalaEntity extends AgeableMob implements Merchant, Npc, GeoEntity 
                 return super.canContinueToUse() && !((KoalaEntity) mob).isSitting();
             }
         });
+
+        goalSelector.addGoal(1, new PanicGoal(this, 1.5) {
+            @Override
+            public boolean canUse() {
+                return super.canUse() && !((KoalaEntity) mob).isKoalaSleeping();
+            }
+
+            @Override
+            public void start() {
+                if (mob instanceof KoalaEntity koala && !koala.isKoalaSleeping()) koala.setSitting(false);
+                super.start();
+            }
+        });
+    }
+
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+        float prob = level.getRandom().nextFloat();
+        if (prob > 0.5) {
+            setSleeping(true);
+        }
+        return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
     }
 
     private <E extends GeoAnimatable> PlayState koalaState(AnimationState<E> state) {
@@ -123,6 +153,24 @@ public class KoalaEntity extends AgeableMob implements Merchant, Npc, GeoEntity 
             state.getController().setAnimation(IDLE);
         }
         return PlayState.CONTINUE;
+    }
+
+    @Override
+    public void tick() {
+        if (wakeUpTick > 0) {
+            wakeUpTick--;
+        } else if (wakeUpTick == 0) {
+            setSleeping(false);
+            wakeUpTick = -1;
+        }
+
+        if (!level().isClientSide()) {
+            if (this.isSitting() && !this.isKoalaSleeping() && this.getRandom().nextInt(5000) == 1) {
+                setSleeping(true);
+            }
+        }
+
+        super.tick();
     }
 
     @Override
@@ -192,7 +240,7 @@ public class KoalaEntity extends AgeableMob implements Merchant, Npc, GeoEntity 
 
     @Override
     protected InteractionResult mobInteract(Player player, InteractionHand hand) {
-        if (this.isAlive() && !this.isTrading() && !this.isBaby()) {
+        if (this.isAlive() && !this.isTrading() && !this.isBaby() && !this.isKoalaSleeping()) {
             if (!this.level().isClientSide) {
                 if (this.getOffers().isEmpty()) {
                     return InteractionResult.CONSUME;
@@ -202,10 +250,24 @@ public class KoalaEntity extends AgeableMob implements Merchant, Npc, GeoEntity 
                 this.openTradingScreen(player, this.getDisplayName(), 1);
             }
 
-            return InteractionResult.sidedSuccess(this.level().isClientSide);
+            return InteractionResult.sidedSuccess(this.level().isClientSide());
+        } else if (this.isKoalaSleeping()){
+            if (this.level().isClientSide()) {
+                player.displayClientMessage(Component.translatable("text.faunaandorchestra.sleeping_wandering_koala"), true);
+            }
+
+            return InteractionResult.sidedSuccess(this.level().isClientSide());
         } else {
             return super.mobInteract(player, hand);
         }
+    }
+
+    @Override
+    public boolean hurt(DamageSource source, float amount) {
+        if (source.getEntity() instanceof Player player && this.isKoalaSleeping()) {
+            player.displayClientMessage(Component.translatable("text.faunaandorchestra.dont_hurt_koala"), true);
+        }
+        return super.hurt(source, amount);
     }
 
     @Override
@@ -217,6 +279,9 @@ public class KoalaEntity extends AgeableMob implements Merchant, Npc, GeoEntity 
                     .resultOrPartial(Util.prefix("Failed to load offers: ", LOGGER::warn))
                     .ifPresent(p_323775_ -> this.offers = p_323775_);
         }
+
+        this.entityData.set(SITTING, compound.getBoolean("IsSitting"));
+        this.entityData.set(SLEEPING, compound.getBoolean("IsSleeping"));
     }
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
@@ -229,6 +294,9 @@ public class KoalaEntity extends AgeableMob implements Merchant, Npc, GeoEntity 
                 );
             }
         }
+
+        compound.putBoolean("IsSitting", this.isSitting());
+        compound.putBoolean("IsSleeping", this.isKoalaSleeping());
     }
     @Nullable
     @Override
@@ -311,18 +379,35 @@ public class KoalaEntity extends AgeableMob implements Merchant, Npc, GeoEntity 
     }
 
     public boolean isKoalaSleeping() {
-        return entityData.get(SLEEPING);
+        return isSleeping;
     }
 
     public void setSleeping(boolean sleeping) {
+        if (!isSitting()) setSitting(true);
         entityData.set(SLEEPING, sleeping);
     }
 
+    public void wakeUp() {
+        triggerAnim("koala_controller","wake_up");
+        wakeUpTick = 200;
+    }
+
+    public void sitDown() {
+        triggerAnim("koala_controller", "sit_down");
+        setSitting(true);
+    }
+
+    public void standUp() {
+        triggerAnim("koala_controller", "stand_up");
+        setSitting(false);
+    }
+
     public boolean isSitting() {
-        return entityData.get(SITTING);
+        return isSitting;
     }
 
     public void setSitting(boolean sitting) {
+        if (isKoalaSleeping() && !sitting) LOGGER.error("Koala tried to stand up while sleeping");
         entityData.set(SITTING, sitting);
     }
 

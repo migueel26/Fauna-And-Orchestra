@@ -1,5 +1,6 @@
 package net.migueel26.faunaandorchestra.item.custom;
 
+import net.migueel26.faunaandorchestra.entity.custom.KoalaEntity;
 import net.migueel26.faunaandorchestra.entity.custom.MusicalEntity;
 import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
 import net.minecraft.client.gui.screens.Screen;
@@ -46,11 +47,14 @@ public class InstrumentItem extends Item {
             );
             player.getCooldowns().addCooldown(this, 35);
 
+            // Try to Tame OR Wake Up
             List<Entity> entities = level.getEntities(player, player.getBoundingBox().inflate(10));
             for (Entity entity : entities) {
                 if (entity instanceof MusicalEntity musicalEntity && musicalEntity.isMusical() && !musicalEntity.isTame()
                 && musicalEntity.getInstrument().asItem().equals(this)) {
                     musicalEntity.tryToTame(player);
+                } else if (entity instanceof KoalaEntity koala && koala.isKoalaSleeping()) {
+                    koala.wakeUp();
                 }
             }
 

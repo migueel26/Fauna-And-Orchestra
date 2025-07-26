@@ -39,6 +39,8 @@
   "screen.faunaandorchestra.conductor_screen": "Volume: ",
 
   "text.faunaandorchestra.locked_tomb": "This tomb is locked!",
+  "text.faunaandorchestra.sleeping_wandering_koala": "This koala is sleeping! Try to wake him up first...",
+  "text.faunaandorchestra.dont_hurt_koala": "This won't wake it up! Try some noise...",
 
   "entity.faunaandorchestra.mantis": "Mantis",
   "entity.faunaandorchestra.penguin": "Baby Penguin",
