@@ -156,6 +156,11 @@ public abstract class MusicalEntity extends TamableAnimal {
                         ((ServerLevel) level()).sendParticles(ParticleTypes.PORTAL,
                                 this.getX(), this.getY(), this.getZ(),
                                 60, 0.5, 0.5, 0.5, 0F);
+
+                        if (isPlayingInstrument() && this.getConductor() != null) {
+                            this.getConductor().removeMusician(this);
+                        }
+
                         this.discard();
                     } else {
                         level().playSound(player, this.blockPosition(), SoundEvents.PLAYER_TELEPORT, SoundSource.BLOCKS);
