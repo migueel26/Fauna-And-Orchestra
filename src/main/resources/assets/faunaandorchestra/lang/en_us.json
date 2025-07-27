@@ -48,5 +48,11 @@
   "entity.faunaandorchestra.macaw": "Macaw",
   "entity.faunaandorchestra.quirky_frog": "Quirky Frog",
   "entity.faunaandorchestra.beaver": "Beaver",
-  "entity.faunaandorchestra.wandering_koala": "Wandering Koala"
+  "entity.faunaandorchestra.wandering_koala": "Wandering Koala",
+
+  "advancements.faunaandorchestra.root": "Fauna & Orchestra",
+  "advancements.faunaandorchestra.root.desc": "The beginning of a musical and mystical adventure",
+
+  "advancements.faunaandorchestra.full_orchestra": "Pet Sounds",
+  "advancements.faunaandorchestra.full_orchestra.desc": "Arrange your very own Orchestra for the first time!"
 }

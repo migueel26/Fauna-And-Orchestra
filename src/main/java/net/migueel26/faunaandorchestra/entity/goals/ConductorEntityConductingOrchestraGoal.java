@@ -1,5 +1,6 @@
 package net.migueel26.faunaandorchestra.entity.goals;
 
+import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.entity.custom.ConductorEntity;
 import net.migueel26.faunaandorchestra.entity.custom.MusicalEntity;
 import net.migueel26.faunaandorchestra.networking.RestartOrchestraMusicS2CPayload;
@@ -84,6 +85,10 @@ public class ConductorEntityConductingOrchestraGoal extends Goal {
         if (waitForMoreMusicians == 0 || conductor.getTicksPlaying() == MusicUtil.getDuration(conductor.getSheetMusic())) {
             conductor.setReady(false);
             waitForMoreMusicians = -1;
+
+            if (this.conductor.isOrchestraFull()) {
+                ModAdvancements.FULL_ORCHESTRA.get().trigger((ServerPlayer) conductor.getOwner());
+            }
 
             List<Player> nearbyPlayers = this.conductor.level().getEntitiesOfClass(
                     Player.class, this.conductor.getBoundingBox().inflate(32.0, 32.0, 32.0), EntitySelector.LIVING_ENTITY_STILL_ALIVE);

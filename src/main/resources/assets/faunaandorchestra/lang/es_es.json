@@ -49,5 +49,11 @@
   "entity.faunaandorchestra.macaw": "Guacamayo",
   "entity.faunaandorchestra.quirky_frog": "Rana Talentosa",
   "entity.faunaandorchestra.beaver": "Castor",
-  "entity.faunaandorchestra.wandering_koala": "Koala Ambulante"
+  "entity.faunaandorchestra.wandering_koala": "Koala Ambulante",
+
+  "advancements.faunaandorchestra.root": "Fauna & Orchestra",
+  "advancements.faunaandorchestra.root.desc": "El comienzo de una aventura musical y mística",
+
+  "advancements.faunaandorchestra.full_orchestra": "Pet Sounds",
+  "advancements.faunaandorchestra.full_orchestra.desc": "¡Crea tu propia primera orquesta!"
 }

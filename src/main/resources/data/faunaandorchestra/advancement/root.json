@@ -1,0 +1,29 @@
+{
+  "criteria": {
+    "tick": {
+      "trigger": "minecraft:location"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "background": "minecraft:textures/block/moss_block.png",
+    "description": {
+      "translate": "advancements.faunaandorchestra.root.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "faunaandorchestra:icon"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.faunaandorchestra.root"
+    },
+    "hidden" : false
+  },
+  "requirements": [
+    [
+      "tick"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

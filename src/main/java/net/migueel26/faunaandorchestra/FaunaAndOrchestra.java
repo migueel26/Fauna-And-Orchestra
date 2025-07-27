@@ -1,5 +1,6 @@
 package net.migueel26.faunaandorchestra;
 
+import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.block.ModBlockEntities;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.client.block.ComposerGravestoneBlockEntityRenderer;
@@ -68,6 +69,7 @@ public class FaunaAndOrchestra {
         ModLootTables.register(modEventBus);
         ModBlocks.register(modEventBus);
         ModBlockEntities.register(modEventBus);
+        ModAdvancements.register(modEventBus);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

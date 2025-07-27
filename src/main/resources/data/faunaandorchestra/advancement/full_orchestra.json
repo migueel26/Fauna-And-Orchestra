@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "count": 1,
+      "id": "faunaandorchestra:bach_air_sheet_music"
+    },
+    "title": {
+      "translate": "advancements.faunaandorchestra.full_orchestra"
+    },
+    "description": {
+      "translate": "advancements.faunaandorchestra.full_orchestra.desc"
+    },
+    "frame": "task"
+  },
+  "parent": "faunaandorchestra:root",
+  "criteria": {
+    "unique": {
+      "trigger": "faunaandorchestra:full_orchestra"
+    }
+  },
+  "requirements": [
+    [
+      "unique"
+    ]
+  ]
+}

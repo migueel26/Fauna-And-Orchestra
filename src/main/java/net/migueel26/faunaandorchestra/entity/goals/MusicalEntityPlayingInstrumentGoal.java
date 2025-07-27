@@ -1,11 +1,13 @@
 package net.migueel26.faunaandorchestra.entity.goals;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
+import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.entity.custom.ConductorEntity;
 import net.migueel26.faunaandorchestra.entity.custom.MusicalEntity;
 import net.migueel26.faunaandorchestra.networking.StartOrchestraMusicS2CPayload;
 import net.migueel26.faunaandorchestra.util.MusicUtil;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.neoforged.neoforge.network.PacketDistributor;
 
@@ -69,6 +71,10 @@ public class MusicalEntityPlayingInstrumentGoal extends Goal {
                     ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID,
                             MusicUtil.getLocation(conductor.getSheetMusic(), musician.getInstrument().get())),
                     ticksOffset));
+        }
+
+        if (this.conductor.isOrchestraFull()) {
+            ModAdvancements.FULL_ORCHESTRA.get().trigger((ServerPlayer) conductor.getOwner());
         }
     }
 
