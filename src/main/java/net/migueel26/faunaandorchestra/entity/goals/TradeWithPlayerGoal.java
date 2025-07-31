@@ -1,5 +1,6 @@
-package net.migueel26.faunaandorchestra.entity.custom;
+package net.migueel26.faunaandorchestra.entity.goals;
 
+import net.migueel26.faunaandorchestra.entity.custom.KoalaEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.player.Player;

@@ -4,9 +4,10 @@ import com.google.common.collect.Lists;
 import com.mojang.logging.LogUtils;
 import net.migueel26.faunaandorchestra.entity.goals.FaunaRandomLookAroundGoal;
 import net.migueel26.faunaandorchestra.entity.goals.KoalaRandomChangeStanceGoal;
+import net.migueel26.faunaandorchestra.entity.goals.LookAtTradingPlayerGoal;
+import net.migueel26.faunaandorchestra.entity.goals.TradeWithPlayerGoal;
 import net.migueel26.faunaandorchestra.entity.trades.KoalaTrades;
 import net.minecraft.Util;
-import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.chat.Component;
@@ -88,11 +89,11 @@ public class KoalaEntity extends AgeableMob implements Merchant, Npc, GeoEntity 
         goalSelector.addGoal(0, new FloatGoal(this));
         goalSelector.addGoal(1, new TradeWithPlayerGoal(this));
         // PanicGoal (1)
+        goalSelector.addGoal(1, new LookAtTradingPlayerGoal(this));
         // LookAtPlayerGoal (2)
         goalSelector.addGoal(4, new KoalaRandomChangeStanceGoal(this, 0.05F));
         // RandomStrollGoal (4)
         goalSelector.addGoal(5, new FaunaRandomLookAroundGoal(this));
-        goalSelector.addGoal(6, new InteractGoal(this, Player.class, 3.0F, 1.0F));
     }
 
     private void addOverridenGoals() {
