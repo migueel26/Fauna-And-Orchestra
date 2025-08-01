@@ -50,6 +50,11 @@
   "entity.faunaandorchestra.beaver": "Beaver",
   "entity.faunaandorchestra.wandering_koala": "Wandering Koala",
 
+  "piece.faunaandorchestra.bach_air_sheet_music": "Bach's Air",
+  "piece.faunaandorchestra.greensleeves_sheet_music": "Greensleeves",
+  "piece.faunaandorchestra.blues_sheet_music": "Mindlin's Blues Song",
+  "piece.faunaandorchestra.jazzy_fur_elise_sheet_music": "Jazzy Für Elise",
+
   "advancements.faunaandorchestra.root": "Fauna & Orchestra",
   "advancements.faunaandorchestra.root.desc": "The beginning of a musical and mystical adventure",
 

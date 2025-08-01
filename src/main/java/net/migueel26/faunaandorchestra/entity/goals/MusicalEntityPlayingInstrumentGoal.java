@@ -4,6 +4,7 @@ import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.entity.custom.ConductorEntity;
 import net.migueel26.faunaandorchestra.entity.custom.MusicalEntity;
+import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.networking.StartOrchestraMusicS2CPayload;
 import net.migueel26.faunaandorchestra.util.MusicUtil;
 import net.minecraft.resources.ResourceLocation;
@@ -75,7 +76,8 @@ public class MusicalEntityPlayingInstrumentGoal extends Goal {
 
         if (this.conductor.isOrchestraFull()) {
             ModAdvancements.FULL_ORCHESTRA.get().trigger((ServerPlayer) conductor.getOwner());
-            conductor.level().levelEvent(null, 4005, this.conductor.blockPosition(), 0);
+            int data = conductor.level().registryAccess().registryOrThrow(ModItems.ITEMS.getRegistryKey()).getId(conductor.getSheetMusic());
+            conductor.level().levelEvent(null, 4005, this.conductor.blockPosition(), data);
         }
     }
 

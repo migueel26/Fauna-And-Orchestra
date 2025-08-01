@@ -1,15 +1,20 @@
 package net.migueel26.faunaandorchestra.mixins.client;
 
+import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.mixins.interfaces.ILevelRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -30,12 +35,25 @@ public class MixinLevelRenderer implements ILevelRenderer {
     @Inject(method = "levelEvent", at = @At(value = "TAIL"))
     public void onLevelEvent(int type, BlockPos pos, int data, CallbackInfo ci) {
         if (type == 4005) {
-            playOrchestraSong(pos);
+            this.level
+                    .registryAccess()
+                    .registryOrThrow(ModItems.ITEMS.getRegistryKey())
+                    .getHolder(data)
+                    .ifPresent(item -> this.playOrchestraSong(item, pos));
         }
     }
     @Override
-    public void playOrchestraSong(BlockPos pos) {
-        this.minecraft.gui.setNowPlaying(Component.literal("The Song of Resurrection"));
-        this.notifyNearbyEntities(this.level, pos, true);
+    public void playOrchestraSong(Holder<Item> itemHolder, BlockPos pos) {
+        if (this.level != null) {
+            Item item = itemHolder.value();
+            this.minecraft.gui.setNowPlaying(Component.translatable("piece.faunaandorchestra." + getName(item)));
+            this.notifyNearbyEntities(this.level, pos, true);
+        }
+    }
+
+    @NotNull
+    private static String getName(Item item) {
+        String[] words = item.toString().split(":");
+        return words[words.length-1];
     }
 }

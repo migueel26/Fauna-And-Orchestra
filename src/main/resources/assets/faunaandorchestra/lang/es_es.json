@@ -51,6 +51,11 @@
   "entity.faunaandorchestra.beaver": "Castor",
   "entity.faunaandorchestra.wandering_koala": "Koala Ambulante",
 
+  "piece.faunaandorchestra.bach_air_sheet_music": "Air de Bach",
+  "piece.faunaandorchestra.greensleeves_sheet_music": "Greensleeves",
+  "piece.faunaandorchestra.blues_sheet_music": "Blues Song de Mindlin",
+  "pece.faunaandorchestra.jazzy_fur_elise_sheet_music": "El Jazz de Für Elise",
+
   "advancements.faunaandorchestra.root": "Fauna & Orchestra",
   "advancements.faunaandorchestra.root.desc": "El comienzo de una aventura musical y mística",
 

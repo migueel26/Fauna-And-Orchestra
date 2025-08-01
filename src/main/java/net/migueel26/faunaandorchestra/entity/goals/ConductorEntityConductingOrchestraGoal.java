@@ -101,7 +101,8 @@ public class ConductorEntityConductingOrchestraGoal extends Goal {
             conductor.setTicksPlaying(0);
 
             // PARROT DANCE
-            conductor.level().levelEvent(null, 4005, this.conductor.blockPosition(), 0);
+            int data = conductor.level().registryAccess().registryOrThrow(ModItems.ITEMS.getRegistryKey()).getId(conductor.getSheetMusic());
+            conductor.level().levelEvent(null, 4005, this.conductor.blockPosition(), data);
 
             for (Player player : nearbyPlayers) {
                 PacketDistributor.sendToPlayer((ServerPlayer) player, new RestartOrchestraMusicS2CPayload(
