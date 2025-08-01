@@ -29,6 +29,12 @@
       "faunaandorchestra:sfx/saxophone"
     ]
   },
+  "oboe_use": {
+    "subtitles": "sounds.faunaandorchestra.oboe_use",
+    "sounds": [
+      "faunaandorchestra:sfx/oboe"
+    ]
+  },
   "bach_air_violin": {
     "subtitles": "sounds.faunaandorchestra.bach_air_violin",
     "sounds": [

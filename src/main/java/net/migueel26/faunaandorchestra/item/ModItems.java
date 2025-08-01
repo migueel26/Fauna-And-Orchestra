@@ -37,6 +37,8 @@ public class ModItems {
             () -> new InstrumentItem(new Item.Properties().stacksTo(1), ModSounds.DOUBLE_BASS_USE.get()));
     public static final DeferredItem<Item> SAXOPHONE = ITEMS.register("saxophone",
             () -> new InstrumentItem(new Item.Properties().stacksTo(1), ModSounds.SAXOPHONE_USE.get()));
+    public static final DeferredItem<Item> OBOE = ITEMS.register("oboe",
+            () -> new InstrumentItem(new Item.Properties().stacksTo(1), ModSounds.OBOE_USE.get()));
     public static final DeferredItem<Item> BATON = ITEMS.register("baton",
             () -> new BatonItem(new Item.Properties().stacksTo(1)));
 

@@ -6,6 +6,7 @@
   "item.faunaandorchestra.keytar": "Teclado",
   "item.faunaandorchestra.double_bass": "Contrabajo",
   "item.faunaandorchestra.saxophone": "Saxofón",
+  "item.faunaandorchestra.oboe": "Oboe",
   "item.faunaandorchestra.baton": "Batuta",
   "item.faunaandorchestra.briefcase": "Maletín",
 
@@ -31,6 +32,7 @@
   "tooltip.faunaandorchestra:keytar": "§7Este instrumento parece capturar la atención de algunos... §orojos§r§7 osos",
   "tooltip.faunaandorchestra:double_bass": "§7Este instrumento parece capturar la atención de algunos... §ocoloridos§r§7 parlanchines",
   "tooltip.faunaandorchestra:saxophone": "§7Este instrumento parece capturar la atención de algunos... §oacuáticos§r§7 trabajadores",
+  "tooltip.faunaandorchestra:oboe": "§7Este instrumento parece capturar la atención de algunos... §odeslumbrantes§r§7 primates",
   "tooltip.faunaandorchestra:baton": "Haz §eclick §ra a un músico y después haz §eclick §ra un block para mandarlo allí\n§7Este instrumento parece capturar la atención de algunos... §osimpáticos§r§7 saltarines",
   "tooltip.faunaandorchestra:briefcase_empty": "Haz §eclick §ren un músico o director mientras esté §eabierto §rpara llevártelo (máximo 5)",
   "tooltip.faunaandorchestra:briefcase_full": "Haz §eclick §ren un bloque mientras esté §ecerrado §rpara liberar al §eanimal §rahí",
