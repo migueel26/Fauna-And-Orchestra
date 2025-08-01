@@ -75,6 +75,7 @@ public class MusicalEntityPlayingInstrumentGoal extends Goal {
 
         if (this.conductor.isOrchestraFull()) {
             ModAdvancements.FULL_ORCHESTRA.get().trigger((ServerPlayer) conductor.getOwner());
+            conductor.level().levelEvent(null, 4005, this.conductor.blockPosition(), 0);
         }
     }
 

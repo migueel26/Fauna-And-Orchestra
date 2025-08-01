@@ -3,14 +3,17 @@ package net.migueel26.faunaandorchestra.entity.goals;
 import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.entity.custom.ConductorEntity;
 import net.migueel26.faunaandorchestra.entity.custom.MusicalEntity;
+import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.networking.RestartOrchestraMusicS2CPayload;
 import net.migueel26.faunaandorchestra.networking.StopOrchestraMusicS2CPayload;
 import net.migueel26.faunaandorchestra.util.MusicUtil;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.JukeboxSongs;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.network.PacketDistributor;
 
@@ -54,6 +57,8 @@ public class ConductorEntityConductingOrchestraGoal extends Goal {
     public void stop() {
         //System.out.println("Conductor OUT!");
         MusicUtil.deleteOrchestra(conductor.getUUID());
+        // PARROT DANCE
+        conductor.level().levelEvent(null, 1011, this.conductor.blockPosition(), 0);
         super.stop();
     }
 
@@ -94,6 +99,9 @@ public class ConductorEntityConductingOrchestraGoal extends Goal {
                     Player.class, this.conductor.getBoundingBox().inflate(32.0, 32.0, 32.0), EntitySelector.LIVING_ENTITY_STILL_ALIVE);
 
             conductor.setTicksPlaying(0);
+
+            // PARROT DANCE
+            conductor.level().levelEvent(null, 4005, this.conductor.blockPosition(), 0);
 
             for (Player player : nearbyPlayers) {
                 PacketDistributor.sendToPlayer((ServerPlayer) player, new RestartOrchestraMusicS2CPayload(
