@@ -35,7 +35,7 @@ public class BeaverModel extends GeoModel<BeaverEntity> {
     public void setCustomAnimations(BeaverEntity beaver, long instanceId, AnimationState<BeaverEntity> animationState) {
         GeoBone head = getAnimationProcessor().getBone("head");
 
-        if (head != null && !beaver.isPlayingInstrument() && !animationState.isMoving()) {
+        if (head != null && !beaver.isPlayingInstrument()) {
             EntityModelData entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
 
             if (beaver.isHoldingInstrument() || beaver.isBuilding()) {

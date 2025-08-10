@@ -102,6 +102,7 @@ public class BriefcaseItem extends Item {
             case "RedPandaEntity" -> musicalEntityType = ModEntities.RED_PANDA.get();
             case "MacawEntity" -> musicalEntityType = ModEntities.MACAW.get();
             case "BeaverEntity" -> musicalEntityType = ModEntities.BEAVER.get();
+            case "LemurEntity" -> musicalEntityType = ModEntities.LEMUR.get();
             case "QuirkyFrogEntity" -> conductorEntityType = ModEntities.QUIRKY_FROG.get();
         }
         // Holding Instrument
@@ -170,6 +171,7 @@ public class BriefcaseItem extends Item {
                 case "MacawEntity" -> typeName = Component.translatable("entity.faunaandorchestra.macaw");
                 case "QuirkyFrogEntity" -> typeName = Component.translatable("entity.faunaandorchestra.quirky_frog");
                 case "BeaverEntity" -> typeName = Component.translatable("entity.faunaandorchestra.beaver");
+                case "LemurEntity" -> typeName = Component.translatable("entity.faunaandorchestra.lemur");
             }
             if (typeName != null) {
                 if (name != null) {

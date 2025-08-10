@@ -60,6 +60,10 @@ public class ModItems {
     public static final DeferredItem<Item> BEAVER_SPAWN_EGG = ITEMS.register("beaver_spawn_egg",
             () -> new DeferredSpawnEggItem(ModEntities.BEAVER, 0x170a00, 0x401e03,
                     new Item.Properties()));
+
+    public static final DeferredItem<Item> LEMUR_SPAWN_EGG = ITEMS.register("lemur_spawn_egg",
+            () -> new DeferredSpawnEggItem(ModEntities.LEMUR, 0x322a29, 0xc1c1c1,
+                    new Item.Properties()));
     public static final DeferredItem<Item> QUIRKY_FROG_SPAWN_EGG = ITEMS.register("quirky_frog_spawn_egg",
             () -> new DeferredSpawnEggItem(ModEntities.QUIRKY_FROG, 0x245715, 0xbfbd82,
                     new Item.Properties()));

@@ -32,6 +32,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.RED_PANDA_SPAWN_EGG);
                         output.accept(ModItems.MACAW_SPAWN_EGG);
                         output.accept(ModItems.BEAVER_SPAWN_EGG);
+                        output.accept(ModItems.LEMUR_SPAWN_EGG);
                         output.accept(ModItems.QUIRKY_FROG_SPAWN_EGG);
                         output.accept(ModItems.WANDERING_KOALA_SPAWN_EGG);
                         output.accept(ModItems.BACH_AIR_SHEET_MUSIC);

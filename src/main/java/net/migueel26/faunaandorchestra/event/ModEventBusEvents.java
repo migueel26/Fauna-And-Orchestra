@@ -24,6 +24,7 @@ public class ModEventBusEvents {
         event.put(ModEntities.RED_PANDA.get(), RedPandaEntity.createAttributes().build());
         event.put(ModEntities.MACAW.get(), MacawEntity.createAttributes().build());
         event.put(ModEntities.BEAVER.get(), BeaverEntity.createAttributes().build());
+        event.put(ModEntities.LEMUR.get(), LemurEntity.createAttributes().build());
         event.put(ModEntities.WANDERING_KOALA.get(), KoalaEntity.createAttributes().build());
     }
 
@@ -41,6 +42,8 @@ public class ModEventBusEvents {
                 QuirkyFrogEntity::checkFrogSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
         event.register(ModEntities.BEAVER.get(), SpawnPlacementTypes.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 BeaverEntity::checkAnimalSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        event.register(ModEntities.LEMUR.get(), SpawnPlacementTypes.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                LemurEntity::checkAnimalSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
     }
 
     @SubscribeEvent

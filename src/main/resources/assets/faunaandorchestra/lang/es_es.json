@@ -25,6 +25,7 @@
   "item.faunaandorchestra.macaw_spawn_egg": "Generar Guacamayo",
   "item.faunaandorchestra.quirky_frog_spawn_egg": "Generar Rana Talentosa",
   "item.faunaandorchestra.beaver_spawn_egg": "Generar Castor",
+  "item.faunaandorchestra.lemur_spawn_egg": "Generar Lémur",
   "item.faunaandorchestra.wandering_koala_spawn_egg": "Generar Koala Ambulante",
 
   "tooltip.faunaandorchestra:violin": "§7Este instrumento parece capturar la atención de algunos... §odevotos§r§7 insectos",
@@ -51,6 +52,7 @@
   "entity.faunaandorchestra.macaw": "Guacamayo",
   "entity.faunaandorchestra.quirky_frog": "Rana Talentosa",
   "entity.faunaandorchestra.beaver": "Castor",
+  "entity.faunaandorchestra.lemur": "Lémur",
   "entity.faunaandorchestra.wandering_koala": "Koala Ambulante",
 
   "piece.faunaandorchestra.bach_air_sheet_music": "Air de Bach",
