@@ -113,6 +113,24 @@
       "faunaandorchestra:music/fur_elise_saxophone"
     ]
   },
+  "swans_oboe": {
+    "subtitles": "sounds.faunaandorchestra.swans_oboe",
+    "sounds": [
+      "faunaandorchestra:music/swans_oboe"
+    ]
+  },
+  "swans_flute": {
+    "subtitles": "sounds.faunaandorchestra.swans_flute",
+    "sounds": [
+      "faunaandorchestra:music/swans_flute"
+    ]
+  },
+  "swans_keytar": {
+    "subtitles": "sounds.faunaandorchestra.swans_keytar",
+    "sounds": [
+      "faunaandorchestra:music/swans_keytar"
+    ]
+  },
   "frog_song": {
     "subtitles": "sounds.faunaandorchestra.frog_song",
     "sounds": [

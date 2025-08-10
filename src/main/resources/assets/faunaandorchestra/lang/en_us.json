@@ -17,6 +17,7 @@
   "item.faunaandorchestra.greensleeves_sheet_music": "Greensleeves Sheet",
   "item.faunaandorchestra.blues_sheet_music": "Mindlin's Blues Song Sheet",
   "item.faunaandorchestra.jazzy_fur_elise_sheet_music": "Jazzy Für Elise Sheet",
+  "item.faunaandorchestra.dance_of_the_little_swans_sheet_music": "Dance of the Little Swans Sheet",
 
   "item.faunaandorchestra.mantis_spawn_egg": "Mantis Spawn Egg",
   "item.faunaandorchestra.penguin_spawn_egg": "Baby Penguin Spawn Egg",
@@ -58,6 +59,7 @@
   "piece.faunaandorchestra.greensleeves_sheet_music": "Greensleeves",
   "piece.faunaandorchestra.blues_sheet_music": "Mindlin's Blues Song",
   "piece.faunaandorchestra.jazzy_fur_elise_sheet_music": "Jazzy Für Elise",
+  "piece.faunaandorchestra.dance_of_the_little_swans_sheet_music": "Dance of the Little Swans",
 
   "advancements.faunaandorchestra.root": "Fauna & Orchestra",
   "advancements.faunaandorchestra.root.desc": "The beginning of a musical and mystical adventure",

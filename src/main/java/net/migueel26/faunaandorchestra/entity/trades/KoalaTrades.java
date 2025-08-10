@@ -28,7 +28,8 @@ public class KoalaTrades {
                         new ItemsForEmeralds(ModItems.BACH_AIR_SHEET_MUSIC.get(), 5, 1, 1, 1),
                         new ItemsForEmeralds(ModItems.BLUES_SHEET_MUSIC.get(), 5, 1, 1, 1),
                         new ItemsForEmeralds(ModItems.GREENSLEEVES_SHEET_MUSIC.get(), 5, 1, 1,1),
-                        new ItemsForEmeralds(ModItems.JAZZY_FUR_ELISE_SHEET_MUSIC.get(), 5, 1, 1, 1)
+                        new ItemsForEmeralds(ModItems.JAZZY_FUR_ELISE_SHEET_MUSIC.get(), 5, 1, 1, 1),
+                        new ItemsForEmeralds(ModItems.DANCE_OF_THE_LITTLE_SWANS.get(), 5, 1, 1, 1)
                     },
                     2,
                     new VillagerTrades.ItemListing[]{

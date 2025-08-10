@@ -17,7 +17,7 @@
   "item.faunaandorchestra.greensleeves_sheet_music": "Partitura de Greensleeves",
   "item.faunaandorchestra.blues_sheet_music": "Partitura de Blues Song de Mindlin",
   "item.faunaandorchestra.jazzy_fur_elise_sheet_music": "Partitura del Jazz de Für Elise",
-
+  "item.faunaandorchestra.dance_of_the_little_swans_sheet_music": "Partitura de la Danza de los Pequeños Cisnes",
 
   "item.faunaandorchestra.mantis_spawn_egg": "Generar Mantis",
   "item.faunaandorchestra.penguin_spawn_egg": "Generar Bebé Pingüino",
@@ -59,6 +59,7 @@
   "piece.faunaandorchestra.greensleeves_sheet_music": "Greensleeves",
   "piece.faunaandorchestra.blues_sheet_music": "Blues Song de Mindlin",
   "pece.faunaandorchestra.jazzy_fur_elise_sheet_music": "El Jazz de Für Elise",
+  "piece.faunaandorchestra.dance_of_the_little_swans_sheet_music": "Danza de los Pequeños Cisnes",
 
   "advancements.faunaandorchestra.root": "Fauna & Orchestra",
   "advancements.faunaandorchestra.root.desc": "El comienzo de una aventura musical y mística",

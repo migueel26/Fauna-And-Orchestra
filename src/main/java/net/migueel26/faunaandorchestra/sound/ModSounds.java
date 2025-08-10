@@ -38,6 +38,10 @@ public class ModSounds {
     public static final Supplier<SoundEvent> FUR_ELISE_FLUTE = registerSoundEvent("fur_elise_flute");
     public static final Supplier<SoundEvent> FUR_ELISE_KEYTAR = registerSoundEvent("fur_elise_keytar");
 
+    public static final Supplier<SoundEvent> SWANS_OBOE = registerSoundEvent("swans_oboe");
+    public static final Supplier<SoundEvent> SWANS_FLUTE = registerSoundEvent("swans_flute");
+    public static final Supplier<SoundEvent> SWANS_KEYTAR = registerSoundEvent("swans_keytar");
+
     public static final Supplier<SoundEvent> FROG_SONG = registerSoundEvent("frog_song");
 
     public static final Supplier<SoundEvent> MANTIS_AMBIENT = registerSoundEvent("mantis_ambient");
