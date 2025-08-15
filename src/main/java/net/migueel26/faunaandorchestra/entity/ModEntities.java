@@ -29,6 +29,12 @@ public class ModEntities {
     public  static final Supplier<EntityType<QuirkyFrogEntity>> QUIRKY_FROG = ENTITY_TYPES.register("quirky_frog",
             () -> EntityType.Builder.of(QuirkyFrogEntity::new, MobCategory.CREATURE).sized(0.75f, 0.75f).build("quirky_frog"));
 
+    public static final Supplier<EntityType<Faust>> FAUST = ENTITY_TYPES.register("faust",
+            () -> EntityType.Builder.of(Faust::new, MobCategory.CREATURE).sized(0.75f, 1.25f).build("faust"));
+    public static final Supplier<EntityType<Orion>> ORION = ENTITY_TYPES.register("orion",
+            () -> EntityType.Builder.of(Orion::new, MobCategory.CREATURE).sized(0.75f, 1.25f).build("orion"));
+
+
 
     public static final Supplier<EntityType<KoalaEntity>> WANDERING_KOALA = ENTITY_TYPES.register("wandering_koala",
             () -> EntityType.Builder.of(KoalaEntity::new, MobCategory.CREATURE).sized(0.5f, 1.25f).build("wandering_koala"));

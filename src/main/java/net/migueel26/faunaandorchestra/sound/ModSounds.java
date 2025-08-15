@@ -43,6 +43,7 @@ public class ModSounds {
     public static final Supplier<SoundEvent> SWANS_KEYTAR = registerSoundEvent("swans_keytar");
 
     public static final Supplier<SoundEvent> FROG_SONG = registerSoundEvent("frog_song");
+    public static final Supplier<SoundEvent> RINGTAILS_SONG = registerSoundEvent("hona_bildots_eztia");
 
     public static final Supplier<SoundEvent> MANTIS_AMBIENT = registerSoundEvent("mantis_ambient");
     public static final Supplier<SoundEvent> MANTIS_ANGRY = registerSoundEvent("mantis_angry");

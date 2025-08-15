@@ -163,5 +163,11 @@
     "sounds": [
       "faunaandorchestra:sfx/successful_tame"
     ]
+  },
+  "hona_bildots_eztia": {
+    "subtitles": "sounds.faunaandorchestra.hona_bildots_eztia",
+    "sounds": [
+      "faunaandorchestra:music/hona_bildots_eztia"
+    ]
   }
 }
