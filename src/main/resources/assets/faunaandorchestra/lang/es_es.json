@@ -8,7 +8,10 @@
   "item.faunaandorchestra.saxophone": "Saxofón",
   "item.faunaandorchestra.oboe": "Oboe",
   "item.faunaandorchestra.baton": "Batuta",
+
   "item.faunaandorchestra.briefcase": "Maletín",
+  "item.faunaandorchestra.music_bottle": "Música líquida",
+  "item.faunaandorchestra.sheet_fragments": "Fragmentos de una composición perdida",
 
   "block.faunaandorchestra.composer_gravestone": "Tumba del Gran Compositor",
   "block.faunaandorchestra.gravestone": "Tumba",
@@ -18,6 +21,9 @@
   "item.faunaandorchestra.blues_sheet_music": "Partitura de Blues Song de Mindlin",
   "item.faunaandorchestra.jazzy_fur_elise_sheet_music": "Partitura del Jazz de Für Elise",
   "item.faunaandorchestra.dance_of_the_little_swans_sheet_music": "Partitura de la Danza de los Pequeños Cisnes",
+  "item.faunaandorchestra.resurrection_song": "El Réquiem de Resurrección",
+
+  "item.faunaandorchestra.resurrection_song.desc": "§8§oOración de San Francisco",
 
   "item.faunaandorchestra.mantis_spawn_egg": "Generar Mantis",
   "item.faunaandorchestra.penguin_spawn_egg": "Generar Bebé Pingüino",

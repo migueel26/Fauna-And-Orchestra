@@ -44,6 +44,10 @@ public class ModItems {
 
     public static final DeferredItem<Item> BRIEFCASE = ITEMS.register("briefcase",
             () -> new BriefcaseItem(new Item.Properties().stacksTo(1)));
+    public static final DeferredItem<Item> MUSIC_BOTTLE = ITEMS.register("music_bottle",
+            () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> SHEET_FRAGMENTS = ITEMS.register("sheet_fragments",
+            () -> new Item(new Item.Properties().rarity(Rarity.UNCOMMON)));
 
     public static final DeferredItem<Item> MANTIS_SPAWN_EGG = ITEMS.register("mantis_spawn_egg",
             () -> new DeferredSpawnEggItem(ModEntities.MANTIS, 0x46eb4c, 0x23a628,
@@ -71,23 +75,18 @@ public class ModItems {
             () -> new DeferredSpawnEggItem(ModEntities.WANDERING_KOALA, 0xb5b5b5, 0x707070,
                     new Item.Properties()));
 
-    public static final DeferredItem<Item> BACH_AIR_SHEET_MUSIC = ITEMS.register("bach_air_sheet_music",
-            createSheetMusic());
-    public static final DeferredItem<Item> GREENSLEEVES_SHEET_MUSIC = ITEMS.register("greensleeves_sheet_music",
-            createSheetMusic());
-    public static final DeferredItem<Item> BLUES_SHEET_MUSIC = ITEMS.register("blues_sheet_music",
-            createSheetMusic());
-    public static final DeferredItem<Item> JAZZY_FUR_ELISE_SHEET_MUSIC = ITEMS.register("jazzy_fur_elise_sheet_music",
-            createSheetMusic());
-    public static final DeferredItem<Item> DANCE_OF_THE_LITTLE_SWANS = ITEMS.register("dance_of_the_little_swans_sheet_music",
-            createSheetMusic());
+    public static final DeferredItem<Item> BACH_AIR_SHEET_MUSIC = createSheetMusic("bach_air_sheet_music");
+    public static final DeferredItem<Item> GREENSLEEVES_SHEET_MUSIC = createSheetMusic("greensleeves_sheet_music");
+    public static final DeferredItem<Item> BLUES_SHEET_MUSIC = createSheetMusic("blues_sheet_music");
+    public static final DeferredItem<Item> JAZZY_FUR_ELISE_SHEET_MUSIC = createSheetMusic("jazzy_fur_elise_sheet_music");
+    public static final DeferredItem<Item> DANCE_OF_THE_LITTLE_SWANS = createSheetMusic("dance_of_the_little_swans_sheet_music");
+    public static final DeferredItem<Item> RESURRECTION_SONG = createLegendarySheetMusic("resurrection_song");
 
     public static final DeferredItem<Item> ICON = ITEMS.register("icon",
             () -> new Item(new Item.Properties().stacksTo(1)));
 
-    @NotNull
-    private static Supplier<Item> createSheetMusic() {
-        return () -> new Item(new Item.Properties().rarity(Rarity.RARE)) {
+    private static DeferredItem<Item> createSheetMusic(String name) {
+        return ITEMS.register(name, () -> new Item(new Item.Properties().rarity(Rarity.RARE)) {
             @Override
             public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
                 MutableComponent instruments = Component.empty();
@@ -101,7 +100,21 @@ public class ModItems {
                 tooltipComponents.add(instruments.withStyle(ChatFormatting.GRAY));
                 super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
             }
-        };
+        });
+    }
+
+    private static DeferredItem<Item> createLegendarySheetMusic(String name) {
+        return ITEMS.register(name,
+                () -> new Item(new Item.Properties().rarity(Rarity.EPIC)) {
+                    @Override
+                    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+                        tooltipComponents.add(Component.translatable("item.faunaandorchestra." + name + ".desc"));
+
+                        // Añadir instrumento
+
+                        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+                    }
+                });
     }
 
     public static void register(IEventBus eventBus) {

@@ -8,7 +8,10 @@
   "item.faunaandorchestra.saxophone": "Saxophone",
   "item.faunaandorchestra.oboe": "Oboe",
   "item.faunaandorchestra.baton": "Baton",
+
   "item.faunaandorchestra.briefcase": "Briefcase",
+  "item.faunaandorchestra.music_bottle": "Liquid Music",
+  "item.faunaandorchestra.sheet_fragments": "Fragments of a Lost Composition",
 
   "block.faunaandorchestra.composer_gravestone": "The Great Composer's Tomb",
   "block.faunaandorchestra.gravestone": "Tomb",
@@ -18,6 +21,9 @@
   "item.faunaandorchestra.blues_sheet_music": "Mindlin's Blues Song Sheet",
   "item.faunaandorchestra.jazzy_fur_elise_sheet_music": "Jazzy Für Elise Sheet",
   "item.faunaandorchestra.dance_of_the_little_swans_sheet_music": "Dance of the Little Swans Sheet",
+  "item.faunaandorchestra.resurrection_song": "The Requiem of Resurrection",
+
+  "item.faunaandorchestra.resurrection_song.desc": "§8§oPrayer of St. Francis",
 
   "item.faunaandorchestra.mantis_spawn_egg": "Mantis Spawn Egg",
   "item.faunaandorchestra.penguin_spawn_egg": "Baby Penguin Spawn Egg",
