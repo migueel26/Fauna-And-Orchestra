@@ -2,6 +2,7 @@ package net.migueel26.faunaandorchestra.item;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
+import net.migueel26.faunaandorchestra.item.custom.BandSpawnEggItem;
 import net.migueel26.faunaandorchestra.item.custom.BatonItem;
 import net.migueel26.faunaandorchestra.item.custom.BriefcaseItem;
 import net.migueel26.faunaandorchestra.item.custom.InstrumentItem;
@@ -64,7 +65,6 @@ public class ModItems {
     public static final DeferredItem<Item> BEAVER_SPAWN_EGG = ITEMS.register("beaver_spawn_egg",
             () -> new DeferredSpawnEggItem(ModEntities.BEAVER, 0x170a00, 0x401e03,
                     new Item.Properties()));
-
     public static final DeferredItem<Item> LEMUR_SPAWN_EGG = ITEMS.register("lemur_spawn_egg",
             () -> new DeferredSpawnEggItem(ModEntities.LEMUR, 0x322a29, 0xc1c1c1,
                     new Item.Properties()));
@@ -74,6 +74,17 @@ public class ModItems {
     public static final DeferredItem<Item> WANDERING_KOALA_SPAWN_EGG = ITEMS.register("wandering_koala_spawn_egg",
             () -> new DeferredSpawnEggItem(ModEntities.WANDERING_KOALA, 0xb5b5b5, 0x707070,
                     new Item.Properties()));
+    public static final DeferredItem<Item> RINGTAILS_SPAWN_EGG = ITEMS.register("ringtails_spawn_egg",
+            () -> new BandSpawnEggItem(new Item.Properties(), ModEntities.FAUST.get(), ModEntities.ORION.get()) {
+                @Override
+                public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+                    tooltipComponents.add(Component.translatable("entity.faunaandorchestra.faust")
+                            .append(Component.literal(" & "))
+                            .append(Component.translatable("entity.faunaandorchestra.orion"))
+                            .withStyle(ChatFormatting.GRAY));
+                    super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+                }
+            });
 
     public static final DeferredItem<Item> BACH_AIR_SHEET_MUSIC = createSheetMusic("bach_air_sheet_music");
     public static final DeferredItem<Item> GREENSLEEVES_SHEET_MUSIC = createSheetMusic("greensleeves_sheet_music");

@@ -1,6 +1,13 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
+import net.migueel26.faunaandorchestra.entity.goals.FaustFindOrionGoal;
+import net.migueel26.faunaandorchestra.entity.goals.RingtailsRunAwayGoal;
+import net.migueel26.faunaandorchestra.networking.StartAmbientMusicS2CPayload;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.DifficultyInstance;
@@ -17,6 +24,7 @@ import net.minecraft.world.entity.npc.Npc;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -24,18 +32,34 @@ import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class Faust extends AgeableMob implements Npc, GeoEntity {
+public class Faust extends TravellingMusician implements Npc, GeoEntity {
     private static final RawAnimation PLAYING = RawAnimation.begin().thenPlay("playing");
     private static final RawAnimation WALK = RawAnimation.begin().thenPlay("walk");
     private static final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
+
+    protected Orion orion;
     private final AnimationController<Faust> faustController = new AnimationController<>(this, "faust_controller", 5, this::faustState);
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
     public Faust(EntityType<? extends AgeableMob> entityType, Level level) {
         super(entityType, level);
+
+        this.setCustomName(Component.translatable("entity.faunaandorchestra.faust"));
+    }
+
+    @Override
+    protected void registerGoals() {
+        this.goalSelector.addGoal(0, new RingtailsRunAwayGoal(this, 2.0));
+        this.goalSelector.addGoal(1, new FaustFindOrionGoal(this));
     }
 
     private <E extends GeoAnimatable> PlayState faustState(AnimationState<E> state) {
-        state.getController().setAnimation(PLAYING);
+        if (state.isMoving()) {
+            state.getController().setAnimation(WALK);
+        } else if (isPlaying()){
+            state.getController().setAnimation(PLAYING);
+        } else {
+            state.getController().setAnimation(IDLE);
+        }
         return PlayState.CONTINUE;
     }
 
@@ -57,6 +81,22 @@ public class Faust extends AgeableMob implements Npc, GeoEntity {
         return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
     }
 
+    @Override
+    protected void tickDeath() {
+        if (orion != null) {
+            orion.setFaust(null);
+        }
+        super.tickDeath();
+    }
+
+    @Override
+    public void setPlaying(boolean playing) {
+        if (playing && !isPlaying()) {
+            PacketDistributor.sendToAllPlayers(new StartAmbientMusicS2CPayload(this.uuid));
+        }
+        super.setPlaying(playing);
+    }
+
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
@@ -66,6 +106,14 @@ public class Faust extends AgeableMob implements Npc, GeoEntity {
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(faustController);
+    }
+
+    public void setOrion(Orion orion) {
+        this.orion = orion;
+    }
+
+    public Orion getOrion() {
+        return orion;
     }
 
     @Override

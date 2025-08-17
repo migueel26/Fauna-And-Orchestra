@@ -4,24 +4,26 @@ import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.entity.custom.ConductorEntity;
 import net.migueel26.faunaandorchestra.entity.custom.MusicalEntity;
 import net.migueel26.faunaandorchestra.entity.custom.QuirkyFrogEntity;
+import net.migueel26.faunaandorchestra.entity.custom.TravellingMusician;
 import net.migueel26.faunaandorchestra.mixins.client.accessors.ClientLevelAccessor;
 import net.migueel26.faunaandorchestra.mixins.interfaces.ISoundManagerMixin;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.migueel26.faunaandorchestra.sound.custom.FrogSongSoundInstance;
 import net.migueel26.faunaandorchestra.sound.custom.InstrumentSoundInstance;
+import net.migueel26.faunaandorchestra.sound.custom.TravellingMusicianSoundInstance;
 import net.migueel26.faunaandorchestra.util.MusicUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.logging.Level;
 
 public class ClientPayloadHandler {
     public static void handleEmpty(CustomPacketPayload payload, IPayloadContext iPayloadContext) {
@@ -103,18 +105,24 @@ public class ClientPayloadHandler {
         }
     }
 
-    public static void handleStartFrogChoirOnNetwork(StartFrogChoirMusicS2CPayload payload, IPayloadContext iPayloadContext) {
+    public static void handleStartAmbientMusicOnNetwork(StartAmbientMusicS2CPayload payload, IPayloadContext iPayloadContext) {
         UUID uuid = payload.conductorUUID();
         ClientLevelAccessor level = (ClientLevelAccessor) Minecraft.getInstance().level;
 
         if (level != null) {
-            QuirkyFrogEntity conductor = (QuirkyFrogEntity) level.callGetEntities().get(uuid);
-            if (conductor != null) {
+            Entity musician = level.callGetEntities().get(uuid);
+
+            if (musician instanceof QuirkyFrogEntity quirkyFrog) {
                 Minecraft.getInstance().getSoundManager().play(new FrogSongSoundInstance(
                         ModSounds.FROG_SONG.get(),
-                        conductor));
+                        quirkyFrog));
+            } else if (musician instanceof TravellingMusician travellingMusician) {
+                Minecraft.getInstance().getSoundManager().play(new TravellingMusicianSoundInstance(
+                        ModSounds.RINGTAILS_SONG.get(),
+                        travellingMusician
+                ));
             } else {
-                System.err.println("The UUID in the StartFrogChoirMusicPayload is for an entity that does not exist");
+                System.err.println("The UUID in the StartAmbientMusicPayload is for an entity that does not exist");
             }
         }
     }

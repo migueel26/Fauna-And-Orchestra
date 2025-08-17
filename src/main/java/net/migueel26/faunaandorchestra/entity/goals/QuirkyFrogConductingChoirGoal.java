@@ -1,19 +1,14 @@
 package net.migueel26.faunaandorchestra.entity.goals;
 
-import net.migueel26.faunaandorchestra.entity.custom.MusicalEntity;
 import net.migueel26.faunaandorchestra.entity.custom.QuirkyFrogEntity;
-import net.migueel26.faunaandorchestra.networking.StartFrogChoirMusicS2CPayload;
+import net.migueel26.faunaandorchestra.networking.StartAmbientMusicS2CPayload;
 import net.migueel26.faunaandorchestra.networking.StopMusicS2CPayload;
-import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.network.PacketDistributor;
 
@@ -111,7 +106,7 @@ public class QuirkyFrogConductingChoirGoal extends Goal {
         } else {
             if (!conductor.isConducting()) {
                 conductor.setConducting(true);
-                PacketDistributor.sendToAllPlayers(new StartFrogChoirMusicS2CPayload(conductor.getUUID()));
+                PacketDistributor.sendToAllPlayers(new StartAmbientMusicS2CPayload(conductor.getUUID()));
                 conductor.setMusical(true);
             } else {
                 croacIfRightTick(tick);

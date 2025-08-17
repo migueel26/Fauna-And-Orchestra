@@ -30,9 +30,9 @@ public class ModEntities {
             () -> EntityType.Builder.of(QuirkyFrogEntity::new, MobCategory.CREATURE).sized(0.75f, 0.75f).build("quirky_frog"));
 
     public static final Supplier<EntityType<Faust>> FAUST = ENTITY_TYPES.register("faust",
-            () -> EntityType.Builder.of(Faust::new, MobCategory.CREATURE).sized(0.75f, 1.25f).build("faust"));
+            () -> EntityType.Builder.of(Faust::new, MobCategory.CREATURE).sized(0.75f, 1.5f).build("faust"));
     public static final Supplier<EntityType<Orion>> ORION = ENTITY_TYPES.register("orion",
-            () -> EntityType.Builder.of(Orion::new, MobCategory.CREATURE).sized(0.75f, 1.25f).build("orion"));
+            () -> EntityType.Builder.of(Orion::new, MobCategory.CREATURE).sized(0.75f, 1.5f).build("orion"));
 
 
 

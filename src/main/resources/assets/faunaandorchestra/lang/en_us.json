@@ -33,6 +33,7 @@
   "item.faunaandorchestra.beaver_spawn_egg": "Beaver Spawn Egg",
   "item.faunaandorchestra.lemur_spawn_egg": "Lemur Spawn Egg",
   "item.faunaandorchestra.wandering_koala_spawn_egg": "Wandering Koala Spawn Egg",
+  "item.faunaandorchestra.ringtails_spawn_egg": "The Ringtails Spawn Egg",
 
   "tooltip.faunaandorchestra:violin": "§7This instrument seems to capture the attention of some... §odevout§r§7 insects",
   "tooltip.faunaandorchestra:flute": "§7This instrument seems to capture the attention of some... §ocool§r§7 fellas",
@@ -60,6 +61,8 @@
   "entity.faunaandorchestra.beaver": "Beaver",
   "entity.faunaandorchestra.lemur": "Lemur",
   "entity.faunaandorchestra.wandering_koala": "Wandering Koala",
+  "entity.faunaandorchestra.faust": "Faust",
+  "entity.faunaandorchestra.orion": "Orion",
 
   "piece.faunaandorchestra.bach_air_sheet_music": "Bach's Air",
   "piece.faunaandorchestra.greensleeves_sheet_music": "Greensleeves",

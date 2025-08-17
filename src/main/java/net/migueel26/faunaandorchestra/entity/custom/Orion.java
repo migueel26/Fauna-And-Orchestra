@@ -1,5 +1,10 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
+import net.migueel26.faunaandorchestra.entity.goals.RingtailsRunAwayGoal;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
@@ -15,18 +20,32 @@ import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class Orion extends AgeableMob implements Npc, GeoEntity {
+public class Orion extends TravellingMusician implements Npc, GeoEntity {
     private static final RawAnimation PLAYING = RawAnimation.begin().thenPlay("playing");
     private static final RawAnimation WALK = RawAnimation.begin().thenPlay("walk");
     private static final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
-    private final AnimationController<Orion> orionController = new AnimationController<>(this, "orion_controller", 5, this::faustState);
+    protected Faust faust;
+    private final AnimationController<Orion> orionController = new AnimationController<>(this, "orion_controller", 5, this::orionState);
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
     public Orion(EntityType<? extends AgeableMob> entityType, Level level) {
         super(entityType, level);
+
+        this.setCustomName(Component.translatable("entity.faunaandorchestra.orion"));
     }
 
-    private <E extends GeoAnimatable> PlayState faustState(AnimationState<E> state) {
-        state.getController().setAnimation(PLAYING);
+    @Override
+    protected void registerGoals() {
+        this.goalSelector.addGoal(0, new RingtailsRunAwayGoal(this, 2.0));
+    }
+
+    private <E extends GeoAnimatable> PlayState orionState(AnimationState<E> state) {
+        if (state.isMoving()) {
+            state.getController().setAnimation(WALK);
+        } else if (isPlaying()){
+            state.getController().setAnimation(PLAYING);
+        } else {
+            state.getController().setAnimation(IDLE);
+        }
         return PlayState.CONTINUE;
     }
 
@@ -46,6 +65,14 @@ public class Orion extends AgeableMob implements Npc, GeoEntity {
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(orionController);
+    }
+
+    public void setFaust(Faust faust) {
+        this.faust = faust;
+    }
+
+    public Faust getFaust() {
+        return faust;
     }
 
     @Override

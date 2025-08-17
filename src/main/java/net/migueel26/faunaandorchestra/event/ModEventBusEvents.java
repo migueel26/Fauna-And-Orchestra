@@ -72,9 +72,9 @@ public class ModEventBusEvents {
                 (payload, context) -> ClientPayloadHandler.handleStopMusicOnNetwork(payload, context)
         );
         registrar.playToClient(
-                StartFrogChoirMusicS2CPayload.TYPE,
-                StartFrogChoirMusicS2CPayload.STREAM_CODEC,
-                (payload, context) -> ClientPayloadHandler.handleStartFrogChoirOnNetwork(payload, context)
+                StartAmbientMusicS2CPayload.TYPE,
+                StartAmbientMusicS2CPayload.STREAM_CODEC,
+                (payload, context) -> ClientPayloadHandler.handleStartAmbientMusicOnNetwork(payload, context)
         );
         registrar.playToClient(
                 StopOrchestraMusicS2CPayload.TYPE,

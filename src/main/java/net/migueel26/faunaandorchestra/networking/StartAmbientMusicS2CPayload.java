@@ -8,16 +8,16 @@ import net.minecraft.resources.ResourceLocation;
 
 import java.util.UUID;
 
-public record StartFrogChoirMusicS2CPayload(UUID conductorUUID) implements CustomPacketPayload{
-    private StartFrogChoirMusicS2CPayload(FriendlyByteBuf buf) {
+public record StartAmbientMusicS2CPayload(UUID conductorUUID) implements CustomPacketPayload{
+    private StartAmbientMusicS2CPayload(FriendlyByteBuf buf) {
         this(buf.readUUID());
     }
 
-    public static final CustomPacketPayload.Type<StartFrogChoirMusicS2CPayload> TYPE =
+    public static final CustomPacketPayload.Type<StartAmbientMusicS2CPayload> TYPE =
             new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "start_frog_choir_music_payload"));
 
-    public static final StreamCodec<FriendlyByteBuf, StartFrogChoirMusicS2CPayload> STREAM_CODEC = CustomPacketPayload.codec(
-            StartFrogChoirMusicS2CPayload::write, StartFrogChoirMusicS2CPayload::new
+    public static final StreamCodec<FriendlyByteBuf, StartAmbientMusicS2CPayload> STREAM_CODEC = CustomPacketPayload.codec(
+            StartAmbientMusicS2CPayload::write, StartAmbientMusicS2CPayload::new
     );
 
     private void write(FriendlyByteBuf buf) {
