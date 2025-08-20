@@ -1,10 +1,7 @@
 package net.migueel26.faunaandorchestra.networking;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
-import net.migueel26.faunaandorchestra.entity.custom.ConductorEntity;
-import net.migueel26.faunaandorchestra.entity.custom.MusicalEntity;
-import net.migueel26.faunaandorchestra.entity.custom.QuirkyFrogEntity;
-import net.migueel26.faunaandorchestra.entity.custom.TravellingMusician;
+import net.migueel26.faunaandorchestra.entity.custom.*;
 import net.migueel26.faunaandorchestra.mixins.client.accessors.ClientLevelAccessor;
 import net.migueel26.faunaandorchestra.mixins.interfaces.ISoundManagerMixin;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
@@ -101,7 +98,13 @@ public class ClientPayloadHandler {
         ClientLevelAccessor level = (ClientLevelAccessor) Minecraft.getInstance().level;
 
         if (level != null) {
-            ((ISoundManagerMixin) Minecraft.getInstance().getSoundManager()).faunaStopFrogMusic(uuid);
+            Entity entity = level.callGetEntities().get(uuid);
+            if (entity instanceof QuirkyFrogEntity) {
+                ((ISoundManagerMixin) Minecraft.getInstance().getSoundManager()).faunaStopFrogMusic(uuid);
+            } else if (entity instanceof TravellingMusician) {
+                ((ISoundManagerMixin) Minecraft.getInstance().getSoundManager()).faunaStopTravellingMusicianMusic(uuid);
+            }
+
         }
     }
 

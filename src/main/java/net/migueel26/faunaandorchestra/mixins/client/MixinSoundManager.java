@@ -25,6 +25,11 @@ public class MixinSoundManager implements ISoundManagerMixin {
     }
 
     @Override
+    public void faunaStopTravellingMusicianMusic(UUID entityID) {
+        ((ISoundEngineMixin) this.soundEngine).faunaStopTravellingMusicianMusic(entityID);
+    }
+
+    @Override
     public boolean faunaIsThereAnOrchestra() {
         return ((ISoundEngineMixin) this.soundEngine).faunaIsThereAnOrchestra();
     }

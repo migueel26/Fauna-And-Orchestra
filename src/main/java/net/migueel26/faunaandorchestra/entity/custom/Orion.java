@@ -63,6 +63,11 @@ public class Orion extends TravellingMusician implements Npc, GeoEntity {
     }
 
     @Override
+    public void checkDespawn() {
+
+    }
+
+    @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(orionController);
     }

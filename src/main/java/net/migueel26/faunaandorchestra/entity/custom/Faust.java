@@ -2,21 +2,22 @@ package net.migueel26.faunaandorchestra.entity.custom;
 
 import net.migueel26.faunaandorchestra.entity.goals.FaustFindOrionGoal;
 import net.migueel26.faunaandorchestra.entity.goals.RingtailsRunAwayGoal;
+import net.migueel26.faunaandorchestra.networking.RestartOrchestraMusicS2CPayload;
 import net.migueel26.faunaandorchestra.networking.StartAmbientMusicS2CPayload;
+import net.migueel26.faunaandorchestra.networking.StopMusicS2CPayload;
+import net.migueel26.faunaandorchestra.networking.StopOrchestraMusicS2CPayload;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Animal;
@@ -30,12 +31,17 @@ import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.*;
+import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.util.GeckoLibUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Faust extends TravellingMusician implements Npc, GeoEntity {
     private static final RawAnimation PLAYING = RawAnimation.begin().thenPlay("playing");
     private static final RawAnimation WALK = RawAnimation.begin().thenPlay("walk");
     private static final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
+    private List<Player> playersListening = new ArrayList<>();
 
     protected Orion orion;
     private final AnimationController<Faust> faustController = new AnimationController<>(this, "faust_controller", 5, this::faustState);
@@ -90,10 +96,36 @@ public class Faust extends TravellingMusician implements Npc, GeoEntity {
     }
 
     @Override
-    public void setPlaying(boolean playing) {
-        if (playing && !isPlaying()) {
-            PacketDistributor.sendToAllPlayers(new StartAmbientMusicS2CPayload(this.uuid));
+    public void tick() {
+        if (isPlaying() && !level().isClientSide()) {
+            List<Player> nearbyPlayers = this.level().getEntitiesOfClass(
+                    Player.class, this.getBoundingBox().inflate(32.0, 32.0, 32.0), EntitySelector.LIVING_ENTITY_STILL_ALIVE);
+
+            List<Player> newPlayers = new ArrayList<>(nearbyPlayers);
+            List<Player> exitPlayers = new ArrayList<>(playersListening);
+            exitPlayers.removeAll(nearbyPlayers);
+            newPlayers.removeAll(playersListening);
+
+            for (Player player : newPlayers) {
+                PacketDistributor.sendToPlayer((ServerPlayer) player, new StartAmbientMusicS2CPayload(this.uuid));
+            }
+
+            for (Player player : exitPlayers) {
+                PacketDistributor.sendToPlayer((ServerPlayer) player, new StopMusicS2CPayload(this.uuid));
+            }
+
+            playersListening = nearbyPlayers;
         }
+        super.tick();
+    }
+
+    @Override
+    public void checkDespawn() {
+
+    }
+
+    @Override
+    public void setPlaying(boolean playing) {
         super.setPlaying(playing);
     }
 

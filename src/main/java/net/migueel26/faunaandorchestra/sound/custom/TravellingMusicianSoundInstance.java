@@ -8,6 +8,8 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 
+import java.util.UUID;
+
 public class TravellingMusicianSoundInstance extends AbstractTickableSoundInstance {
     TravellingMusician musician;
     private int stopDelay = 5;
@@ -24,6 +26,7 @@ public class TravellingMusicianSoundInstance extends AbstractTickableSoundInstan
 
     @Override
     public void tick() {
+        System.out.println(volume);
         if (!musician.isPlaying() || musician.isRemoved()) {
             if (stopDelay > 0) {
                 stopDelay--;
@@ -44,10 +47,19 @@ public class TravellingMusicianSoundInstance extends AbstractTickableSoundInstan
     private float calculateVolume() {
         double distance = Minecraft.getInstance().player.distanceTo(musician);
 
-        return (float) Math.max(0, 1.0F - (distance * 0.03125F));
+        return (float) Math.max(0, 1.1F - (distance * 0.03125F));
+    }
+
+    @Override
+    public boolean canStartSilent() {
+        return true;
     }
 
     public void stopSound() {
         super.stop();
+    }
+
+    public UUID getUUID() {
+        return musician.getUUID();
     }
 }
