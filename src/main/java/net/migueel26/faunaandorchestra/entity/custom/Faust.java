@@ -115,6 +115,8 @@ public class Faust extends TravellingMusician implements Npc, GeoEntity {
             }
 
             playersListening = nearbyPlayers;
+        } else {
+            playersListening = new ArrayList<>();
         }
         super.tick();
     }

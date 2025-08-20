@@ -26,7 +26,6 @@ public class TravellingMusicianSoundInstance extends AbstractTickableSoundInstan
 
     @Override
     public void tick() {
-        System.out.println(volume);
         if (!musician.isPlaying() || musician.isRemoved()) {
             if (stopDelay > 0) {
                 stopDelay--;
