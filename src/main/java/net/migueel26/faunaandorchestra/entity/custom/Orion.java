@@ -2,6 +2,7 @@ package net.migueel26.faunaandorchestra.entity.custom;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.entity.goals.RingtailsRunAwayGoal;
+import net.migueel26.faunaandorchestra.util.ModSavedData;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -31,10 +32,16 @@ public class Orion extends TravellingMusician implements Npc, GeoEntity, Talkabl
     private static final RawAnimation WALK = RawAnimation.begin().thenPlay("walk");
     private static final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
     protected static final EntityDataAccessor<Integer> DIALOGUE_TIMER = SynchedEntityData.defineId(Orion.class, EntityDataSerializers.INT);
+    protected static final EntityDataAccessor<Integer> CONFIDENCE = SynchedEntityData.defineId(Orion.class, EntityDataSerializers.INT);
+    protected static final EntityDataAccessor<Boolean> GOOD_MORNING = SynchedEntityData.defineId(Orion.class, EntityDataSerializers.BOOLEAN);
     public static final ResourceLocation ICON = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/gui/entity/orion_icon.png");
+    public static final int COOL_CONFIDENCE = 35;
+    public static final String RESOURCE = "dialogue.faunaandorchestra.orion";
+    public String currentDialogue;
     protected Faust faust;
     private final AnimationController<Orion> orionController = new AnimationController<>(this, "orion_controller", 5, this::orionState);
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
+    int confidence;
     public Orion(EntityType<? extends AgeableMob> entityType, Level level) {
         super(entityType, level);
 
@@ -46,6 +53,8 @@ public class Orion extends TravellingMusician implements Npc, GeoEntity, Talkabl
         super.defineSynchedData(builder);
 
         builder.define(DIALOGUE_TIMER, 0);
+        builder.define(CONFIDENCE, 0);
+        builder.define(GOOD_MORNING, true);
     }
 
     @Override
@@ -85,7 +94,14 @@ public class Orion extends TravellingMusician implements Npc, GeoEntity, Talkabl
     @Override
     protected InteractionResult mobInteract(Player player, InteractionHand hand) {
         if (getDialogueTimer() == 0) {
-            if (level().isClientSide()) increaseDialogueTimer();
+
+            if (level().isClientSide()) {
+                increaseDialogueTimer();
+            } else {
+                this.confidence = ModSavedData.getConfidence((ServerLevel) level(), this, player.getUUID());
+                setConfidence(confidence);
+                ModSavedData.saveConfidence((ServerLevel) level(), this, player.getUUID(), this.confidence + 1);
+            }
             return InteractionResult.SUCCESS;
         }
         return InteractionResult.FAIL;
@@ -116,7 +132,32 @@ public class Orion extends TravellingMusician implements Npc, GeoEntity, Talkabl
 
     @Override
     public String getRandomDialogue(Player player) {
-        return Component.literal("Nice to meet you! I'm Faust, and together we're The Ringtails").getString();
+        // NOTE: % is the player's name
+        // # is laugh and it's animated
+        String dialogue = currentDialogue;
+        boolean goodMorning = entityData.get(GOOD_MORNING);
+        this.confidence = getConfidence();
+        if (getDialogueTimer() <= 5) {
+            if (confidence == -1) {
+                dialogue = Component.translatable(RESOURCE + "2").getString();
+                String[] arr = dialogue.split("%");
+                dialogue = arr[0] + player.getDisplayName().getString() + arr[1];
+            } else if (confidence == 0 && goodMorning) {
+                dialogue = Component.translatable(RESOURCE + "0").getString();
+            } else if (confidence > 0 && confidence <= COOL_CONFIDENCE && goodMorning) {
+                dialogue = Component.translatable(RESOURCE + "1").getString();
+            } else if (confidence > COOL_CONFIDENCE && goodMorning) {
+                dialogue = Component.translatable(RESOURCE + "1s").getString();
+                String[] arr = dialogue.split("%");
+                dialogue = arr[0] + player.getDisplayName().getString() + arr[1];
+            } else {
+                int randomDialogue = random.nextInt(3, 20);
+                dialogue = Component.translatable(RESOURCE + randomDialogue).getString();
+                if (randomDialogue >= 16 && confidence > COOL_CONFIDENCE) dialogue = Component.translatable(RESOURCE + randomDialogue + "s").getString();
+            }
+            currentDialogue = dialogue;
+        }
+        return dialogue;
     }
 
     @Override
@@ -144,13 +185,19 @@ public class Orion extends TravellingMusician implements Npc, GeoEntity, Talkabl
         entityData.set(DIALOGUE_TIMER, 0);
     }
 
-    @Override
     public void setGoodMorning(boolean goodMorning) {
-
+        entityData.set(GOOD_MORNING, goodMorning);
     }
 
-    @Override
     public boolean getGoodMorning() {
-        return false;
+        return entityData.get(GOOD_MORNING);
+    }
+
+    public void setConfidence(int confidence) {
+        entityData.set(CONFIDENCE, confidence);
+    }
+
+    public int getConfidence() {
+        return entityData.get(CONFIDENCE);
     }
 }

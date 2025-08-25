@@ -28,7 +28,9 @@ public class ModSavedData extends SavedData {
             Entry entry = new Entry(listTag.getCompound(i));
             List<Entry> list = data.ANIMAL_MAP.getOrDefault(entry.playerUUID, new ArrayList<>());
             if (!list.isEmpty()) {
-                list.add(entry);
+                ArrayList<Entry> newList = new ArrayList<>(list);
+                newList.add(entry);
+                data.ANIMAL_MAP.put(entry.playerUUID, newList);
             } else {
                 data.ANIMAL_MAP.put(entry.playerUUID, List.of(entry));
             }
@@ -80,10 +82,17 @@ public class ModSavedData extends SavedData {
             if (entryList == null || entryList.isEmpty()) {
                 map.put(player, List.of(new Entry(player, name, confidence)));
             } else {
+                boolean found = false;
                 for (Entry entry : entryList) {
                     if (entry.talkingEntity.equalsIgnoreCase(name)) {
                         entry.confidence = confidence;
+                        found = true;
                     }
+                }
+                if (!found) {
+                    ArrayList<Entry> newList = new ArrayList<>(entryList);
+                    newList.add(new Entry(player, name, confidence));
+                    map.put(player, newList);
                 }
             }
 

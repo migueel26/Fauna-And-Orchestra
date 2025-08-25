@@ -53,7 +53,7 @@ public class Faust extends TravellingMusician implements Npc, GeoEntity, Talkabl
     protected static final EntityDataAccessor<Boolean> GOOD_MORNING = SynchedEntityData.defineId(Faust.class, EntityDataSerializers.BOOLEAN);
     public static final ResourceLocation ICON = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/gui/entity/faust_icon.png");
     public static final int COOL_CONFIDENCE = 35;
-    public final String RESOURCE = "dialogue.faunaandorchestra.faust";
+    public static final String RESOURCE = "dialogue.faunaandorchestra.faust";
     public String currentDialogue;
     private List<Player> playersListening = new ArrayList<>();
 
@@ -195,7 +195,9 @@ public class Faust extends TravellingMusician implements Npc, GeoEntity, Talkabl
     }
 
     @Override
-    public String getRandomDialogue(Player player) {;
+    public String getRandomDialogue(Player player) {
+        // NOTE: % is the player's name
+        // # is laugh and it's animated
         String dialogue = currentDialogue;
         boolean goodMorning = entityData.get(GOOD_MORNING);
         this.confidence = getConfidence();

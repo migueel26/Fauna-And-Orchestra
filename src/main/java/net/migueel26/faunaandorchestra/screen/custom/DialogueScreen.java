@@ -1,6 +1,7 @@
 package net.migueel26.faunaandorchestra.screen.custom;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
+import net.migueel26.faunaandorchestra.entity.custom.Orion;
 import net.migueel26.faunaandorchestra.entity.custom.TalkableEntity;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.minecraft.client.DeltaTracker;
@@ -61,7 +62,7 @@ public class DialogueScreen {
                     currOffset = (int) Math.round(DEFAULT_OFFSET * (1 - Math.pow((double) (entity.getDialogueTimer() - 220) / TRANSITION_DURATION, 4)));
                 }
 
-                currentText = typewritify(text, entity.getDialogueTimer());
+                currentText = typewritify(text, entity.getDialogueTimer(), guiGraphics, currTextY, currOffset);
 
                 entity.increaseDialogueTimer();
 
@@ -79,10 +80,32 @@ public class DialogueScreen {
         }
     }
 
-    private static String typewritify(String fullText, int dialogueTimer) {
+    private static String typewritify(String fullText, int dialogueTimer, GuiGraphics guiGraphics, int currentTextY, int currentOffset) {
         Player player = Minecraft.getInstance().player;
+        boolean hasLaugh = false;
 
-        if (dialogueTimer < fullText.length()*2 && dialogueTimer % 2 == 0) {
+        if (fullText.charAt(fullText.length()-1) == '#') {
+            fullText = fullText.substring(0, fullText.length()-2);
+            hasLaugh = true;
+        }
+
+        if (hasLaugh && dialogueTimer >= fullText.length()*2) {
+            // If laugh
+            String laugh = Component.translatable(Orion.RESOURCE + "_laugh").getString();
+            int newTime = dialogueTimer - fullText.length()*2;
+
+            String drawLaugh = newTime < laugh.length()*20 ? laugh.substring(0, newTime/20) : laugh;
+
+            int laughY = (int) Math.round(currentTextY - currentOffset + 9 + Math.sin(newTime/5)*3);
+
+            if (newTime <= laugh.length()*20 && newTime % 20 == 0) {
+                player.playSound(ModSounds.DIALOGUE.get(), 0.5F, RandomSource.create().nextFloat());
+            }
+
+            guiGraphics.drawString(Minecraft.getInstance().font, drawLaugh, 260, laughY, 0xffffff);
+        }
+
+        if (dialogueTimer <= fullText.length()*2 && dialogueTimer % 2 == 0) {
             player.playSound(ModSounds.DIALOGUE.get(), 0.5F, RandomSource.create().nextFloat());
         }
 
