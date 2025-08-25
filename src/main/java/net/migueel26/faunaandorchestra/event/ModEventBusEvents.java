@@ -81,5 +81,10 @@ public class ModEventBusEvents {
                 StopOrchestraMusicS2CPayload.STREAM_CODEC,
                 (payload, context) -> ClientPayloadHandler.handleStopOrchestraOnNetwork(payload, context)
         );
+        registrar.playToClient(
+          ShowDialogueS2CPayload.TYPE,
+          ShowDialogueS2CPayload.STREAM_CODEC,
+                (payload, context) -> ClientPayloadHandler.handleShowDialogueOnNetwork(payload, context)
+        );
     }
 }

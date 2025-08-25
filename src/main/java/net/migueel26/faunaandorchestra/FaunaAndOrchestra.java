@@ -14,12 +14,13 @@ import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
 import net.migueel26.faunaandorchestra.particles.custom.FaunaNoteParticle;
 import net.migueel26.faunaandorchestra.screen.ModMenuTypes;
 import net.migueel26.faunaandorchestra.screen.custom.ConductorScreen;
+import net.migueel26.faunaandorchestra.screen.custom.DialogueScreen;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.migueel26.faunaandorchestra.util.ModItemProperties;
 import net.minecraft.client.renderer.entity.EntityRenderers;
-import net.neoforged.neoforge.client.event.EntityRenderersEvent;
-import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
-import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
+import net.minecraft.resources.ResourceLocation;
+import net.neoforged.neoforge.client.event.*;
+import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -114,6 +115,11 @@ public class FaunaAndOrchestra {
         @SubscribeEvent
         public static void registerScreens(RegisterMenuScreensEvent event) {
             event.register(ModMenuTypes.CONDUCTOR_MENU.get(), ConductorScreen::new);
+        }
+
+        @SubscribeEvent
+        public static void registerOverlays(final RegisterGuiLayersEvent event) {
+            event.registerBelow(VanillaGuiLayers.HOTBAR, ResourceLocation.fromNamespaceAndPath(MOD_ID, "dialogue"), DialogueScreen.OVERLAY);
         }
 
         @SubscribeEvent

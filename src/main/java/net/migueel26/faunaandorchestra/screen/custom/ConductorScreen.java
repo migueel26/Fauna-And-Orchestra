@@ -18,7 +18,7 @@ import net.neoforged.neoforge.client.gui.widget.ExtendedSlider;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 public class ConductorScreen extends AbstractContainerScreen<ConductorMenu> {
-    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/gui/conductor/conductor_gui.png");
+    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/gui/entity/conductor_gui.png");
     private final ConductorEntity conductor;
     private float xMouse;
     private float yMouse;

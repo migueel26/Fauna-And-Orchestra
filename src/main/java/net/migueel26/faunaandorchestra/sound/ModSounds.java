@@ -50,6 +50,7 @@ public class ModSounds {
 
     public static final Supplier<SoundEvent> BABY_PENGUIN_AMBIENT = registerSoundEvent("baby_penguin_ambient");
     public static final Supplier<SoundEvent> SUCCESSFUL_TAME = registerSoundEvent("successful_tame");
+    public static final Supplier<SoundEvent> DIALOGUE = registerSoundEvent("dialogue");
 
     private static Supplier<SoundEvent> registerSoundEvent(String name) {
         ResourceLocation path = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, name);

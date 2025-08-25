@@ -4,6 +4,7 @@ import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.entity.custom.*;
 import net.migueel26.faunaandorchestra.mixins.client.accessors.ClientLevelAccessor;
 import net.migueel26.faunaandorchestra.mixins.interfaces.ISoundManagerMixin;
+import net.migueel26.faunaandorchestra.screen.custom.DialogueScreen;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.migueel26.faunaandorchestra.sound.custom.FrogSongSoundInstance;
 import net.migueel26.faunaandorchestra.sound.custom.InstrumentSoundInstance;
@@ -138,6 +139,20 @@ public class ClientPayloadHandler {
             ISoundManagerMixin soundManager = (ISoundManagerMixin) Minecraft.getInstance().getSoundManager();
             for (UUID musicianUUID : orchestraUUID) {
                 soundManager.faunaStopMusic(musicianUUID);
+            }
+        }
+    }
+
+    public static void handleShowDialogueOnNetwork(ShowDialogueS2CPayload payload, IPayloadContext context) {
+        UUID uuid = payload.entityUUID();
+        ClientLevelAccessor level = (ClientLevelAccessor) Minecraft.getInstance().level;
+
+        if (level != null) {
+            Entity entity = level.callGetEntities().get(uuid);
+            if (entity != null) {
+                if (entity instanceof Faust faust) {
+
+                }
             }
         }
     }

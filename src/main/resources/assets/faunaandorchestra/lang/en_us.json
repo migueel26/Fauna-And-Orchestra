@@ -74,5 +74,32 @@
   "advancements.faunaandorchestra.root.desc": "The beginning of a musical and mystical adventure",
 
   "advancements.faunaandorchestra.full_orchestra": "Pet Sounds",
-  "advancements.faunaandorchestra.full_orchestra.desc": "Arrange your very own Orchestra for the first time!"
+  "advancements.faunaandorchestra.full_orchestra.desc": "Arrange your very own Orchestra for the first time!",
+
+  "dialogue.faunaandorchestra.faust0": "Nice to meet you! I'm Faust, and together we're The Ringtails",
+  "dialogue.faunaandorchestra.faust1": "Nice to see you again, %! Care to join us?",
+  "dialogue.faunaandorchestra.faust1s": "Hey dude! How is it going? Say hi to an old friend!",
+  "dialogue.faunaandorchestra.faust2": "Hey, %. Try not to scare us next time, alright?",
+  "dialogue.faunaandorchestra.faust3": "I've played the accordion since I was a child. The odd one out!",
+  "dialogue.faunaandorchestra.faust4": "You're free to tip us some gold if you want!",
+  "dialogue.faunaandorchestra.faust5": "I've got a couple items that might come in handy to you, pal",
+  "dialogue.faunaandorchestra.faust6": "Orion and I have been playing together for 30 years!",
+  "dialogue.faunaandorchestra.faust7": "Time goes by so fast, don't ever forget that",
+  "dialogue.faunaandorchestra.faust8": "I might lend you some liquid music for some gold if you want",
+  "dialogue.faunaandorchestra.faust9": "Music is the core of life, we just live around it",
+  "dialogue.faunaandorchestra.faust10": "The Ringtails is our past and future! Long live folklore music!",
+  "dialogue.faunaandorchestra.faust11": "Don't you love the little things in life?",
+  "dialogue.faunaandorchestra.faust12": "I think Orion would rock an eye patch, but he likes it that way",
+  "dialogue.faunaandorchestra.faust13": "We get along with the Jazzy Dammys, do you know them?",
+  "dialogue.faunaandorchestra.faust14": "Haven't had a haircut in 17 years and counting!",
+  "dialogue.faunaandorchestra.faust15": "You're kind of weird, you know? What species are you?",
+
+  "dialogue.faunaandorchestra.faust16": "How did we meet? We don't know each other very well",
+  "dialogue.faunaandorchestra.faust17": "The Great Composer? Uhm... Never heard of him",
+  "dialogue.faunaandorchestra.faust18": "Why do we keep playing music? Kind of a long story",
+  "dialogue.faunaandorchestra.faust19": "Why do we talk? Hmm... Kind of private, don't you think?",
+  "dialogue.faunaandorchestra.faust16s": "We were both kicked out of our families, so we formed our own",
+  "dialogue.faunaandorchestra.faust17s": "Tiego is the Great Composer. He's done unforgivable things...",
+  "dialogue.faunaandorchestra.faust18s": "We hope that she might listen to our music and come back...",
+  "dialogue.faunaandorchestra.faust19s": "Sentience comes from Nature's touch. Nothing more I can say."
 }
