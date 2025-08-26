@@ -6,6 +6,7 @@ import net.migueel26.faunaandorchestra.entity.custom.TalkableEntity;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.network.chat.Component;
@@ -26,6 +27,13 @@ public class DialogueScreen {
     public static final int DEFAULT_TEXT_Y = 172;
     public static final int TRANSITION_DURATION = 40;
     public static final int DEFAULT_TEXT_WIDTH = 160;
+    // SCALING
+    public static final int Y_DEF = 240;
+
+    public static final double M =  30.0/53.0;
+    public static final double N = -12810.0/53.0;
+    public static final double My = 245.0/251.0;
+    public static final double Ny = -58800.0/251.0;
 
     public static final LayeredDraw.Layer OVERLAY = DialogueScreen::renderOverlay;
 
@@ -49,6 +57,7 @@ public class DialogueScreen {
                 int currOffset = DEFAULT_OFFSET;
                 String currentText = "";
 
+                System.out.println(guiGraphics.guiHeight());
                 guiGraphics.pose().translate(0, 0, 1);
 
                 if (entity.getDialogueTimer() <= TRANSITION_DURATION) {
@@ -71,13 +80,21 @@ public class DialogueScreen {
                     entity.setGoodMorning(false);
                 }
 
-                guiGraphics.blit(BACKGROUND, DEFAULT_BACKGROUND_X, currBackY - currOffset,0,0,223, TRANSITION_DURATION);
-                // 56 69
-                guiGraphics.blit(icon, location.getA(), currIconY - currOffset, 0, 0, size.getA(), size.getB(), size.getA(), size.getB());
+                guiGraphics.blit(BACKGROUND, DEFAULT_BACKGROUND_X + xOffset(guiGraphics), currBackY - currOffset + yOffset(guiGraphics),0,0,223, TRANSITION_DURATION);
 
-                guiGraphics.drawWordWrap(minecraft.font, FormattedText.of(currentText), 157, currTextY - currOffset, DEFAULT_TEXT_WIDTH, 0xffffff);
+                guiGraphics.blit(icon, location.getA() + xOffset(guiGraphics), currIconY - currOffset + yOffset(guiGraphics), 0, 0, size.getA(), size.getB(), size.getA(), size.getB());
+
+                guiGraphics.drawWordWrap(minecraft.font, FormattedText.of(currentText), 157 + xOffset(guiGraphics), currTextY - currOffset + yOffset(guiGraphics), DEFAULT_TEXT_WIDTH, 0xffffff);
             }
         }
+    }
+
+    private static int xOffset(GuiGraphics guiGraphics) {
+        return (int) Math.round(M * (double) guiGraphics.guiWidth() + N);
+    }
+
+    private static int yOffset(GuiGraphics guiGraphics) {
+        return (int) Math.round(My * (double) guiGraphics.guiHeight() + Ny);
     }
 
     private static String typewritify(String fullText, int dialogueTimer, GuiGraphics guiGraphics, int currentTextY, int currentOffset) {
@@ -102,7 +119,7 @@ public class DialogueScreen {
                 player.playSound(ModSounds.DIALOGUE.get(), 0.5F, RandomSource.create().nextFloat());
             }
 
-            guiGraphics.drawString(Minecraft.getInstance().font, drawLaugh, 260, laughY, 0xffffff);
+            guiGraphics.drawString(Minecraft.getInstance().font, drawLaugh, 260 + xOffset(guiGraphics), laughY + yOffset(guiGraphics), 0xffffff);
         }
 
         if (dialogueTimer <= fullText.length()*2 && dialogueTimer % 2 == 0) {

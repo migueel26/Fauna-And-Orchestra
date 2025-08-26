@@ -152,6 +152,7 @@ public class Orion extends TravellingMusician implements Npc, GeoEntity, Talkabl
                 dialogue = arr[0] + player.getDisplayName().getString() + arr[1];
             } else {
                 int randomDialogue = random.nextInt(3, 20);
+                randomDialogue = 8;
                 dialogue = Component.translatable(RESOURCE + randomDialogue).getString();
                 if (randomDialogue >= 16 && confidence > COOL_CONFIDENCE) dialogue = Component.translatable(RESOURCE + randomDialogue + "s").getString();
             }
