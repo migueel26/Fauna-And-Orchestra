@@ -15,6 +15,8 @@
 
   "block.faunaandorchestra.composer_gravestone": "The Great Composer's Tomb",
   "block.faunaandorchestra.gravestone": "Tomb",
+  "block.faunaandorchestra.tip_case": "Tip Case",
+  "block.faunaandorchestra.tip_case_theft": "This case is not yours! You can't take the gold",
 
   "item.faunaandorchestra.bach_air_sheet_music": "Bach's Air Sheet",
   "item.faunaandorchestra.greensleeves_sheet_music": "Greensleeves Sheet",
@@ -122,7 +124,7 @@
   "dialogue.faunaandorchestra.orion15": "Are you like, a villager? Where are you from?",
   "dialogue.faunaandorchestra.orion_laugh": "haha",
 
-  "dialogue.faunaandorchestra.orion16": "What happened to my eye? Kinda disrespectful, don't you think?",
+  "dialogue.faunaandorchestra.orion16": "What happened to my eye? Kinda disrespectful, dude",
   "dialogue.faunaandorchestra.orion17": "The Great Composer? Ehm... Ask Faust first",
   "dialogue.faunaandorchestra.orion18": "Why are we travelling musicians? Maybe I'll tell you someday",
   "dialogue.faunaandorchestra.orion19": "My biggest secret? It's... too dark to reveal",

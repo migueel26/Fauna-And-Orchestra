@@ -46,6 +46,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.SHEET_FRAGMENTS);
                         output.accept(ModBlocks.COMPOSER_GRAVESTONE);
                         output.accept(ModBlocks.GRAVESTONE);
+                        output.accept(ModBlocks.TIP_CASE);
                     }).build());
 
     public static void register(IEventBus eventBus) {

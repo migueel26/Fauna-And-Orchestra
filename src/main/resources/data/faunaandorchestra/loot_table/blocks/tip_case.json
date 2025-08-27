@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "block": "faunaandorchestra:tip_case",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "part": "head"
+              }
+            }
+          ],
+          "name": "faunaandorchestra:tip_case"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "faunaandorchestra:blocks/tip_case"
+}

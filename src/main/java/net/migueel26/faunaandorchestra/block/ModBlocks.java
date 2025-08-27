@@ -3,11 +3,14 @@ package net.migueel26.faunaandorchestra.block;
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.block.custom.ComposerGravestoneBlock;
 import net.migueel26.faunaandorchestra.block.custom.RegularGravestoneBlock;
+import net.migueel26.faunaandorchestra.block.custom.TipCaseBlock;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -27,6 +30,14 @@ public class ModBlocks {
             () -> new RegularGravestoneBlock(BlockBehaviour.Properties.of()
                     .noOcclusion()
                     .strength(2.0F, 6.0F)));
+
+    public static final DeferredBlock<Block> TIP_CASE = registerBlock("tip_case",
+            () -> new TipCaseBlock(BlockBehaviour.Properties.of()
+                    .noOcclusion()
+                    .strength(0.2F)
+                    .ignitedByLava()
+                    .pushReaction(PushReaction.DESTROY)
+                    .sound(SoundType.WOOL)));
 
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block) {
         DeferredBlock<T> toReturn = BLOCKS.register(name, block);

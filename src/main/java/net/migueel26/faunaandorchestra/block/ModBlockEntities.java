@@ -2,6 +2,7 @@ package net.migueel26.faunaandorchestra.block;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.block.entity.ComposerGravestoneBlockEntity;
+import net.migueel26.faunaandorchestra.block.entity.TipCaseBlockEntity;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
@@ -18,8 +19,13 @@ public class ModBlockEntities {
                     ComposerGravestoneBlockEntity::new,
                     ModBlocks.COMPOSER_GRAVESTONE.get(),
                     ModBlocks.GRAVESTONE.get())
-                    .build(null)
-            );
+            .build(null));
+
+    public static final Supplier<BlockEntityType<TipCaseBlockEntity>> TIP_CASE_BE =
+            BLOCK_ENTITES.register("tip_case_be", () -> BlockEntityType.Builder.of(
+                    TipCaseBlockEntity::new,
+                    ModBlocks.TIP_CASE.get()
+            ).build(null));
 
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITES.register(eventBus);

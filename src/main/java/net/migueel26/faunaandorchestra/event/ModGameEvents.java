@@ -1,19 +1,28 @@
 package net.migueel26.faunaandorchestra.event;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
+import net.migueel26.faunaandorchestra.block.ModBlocks;
+import net.migueel26.faunaandorchestra.block.custom.TipCaseBlock;
+import net.migueel26.faunaandorchestra.block.entity.TipCaseBlockEntity;
 import net.migueel26.faunaandorchestra.entity.custom.MusicalEntity;
 import net.migueel26.faunaandorchestra.entity.custom.PenguinEntity;
 import net.migueel26.faunaandorchestra.entity.custom.QuirkyFrogEntity;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.FinalizeSpawnEvent;
 import net.neoforged.neoforge.event.entity.living.MobSpawnEvent;
 import net.neoforged.neoforge.event.entity.living.SpawnClusterSizeEvent;
+import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -52,6 +61,15 @@ public class ModGameEvents {
                 musicalityIndex = 0;
                 musicalEntity.setMusical();
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void placeTipCase(BlockEvent.EntityPlaceEvent event) {
+        Entity entity = event.getEntity();
+        BlockState block = event.getPlacedBlock();
+        if (block.getBlock() == ModBlocks.TIP_CASE.get() && entity instanceof Player player) {
+            ((TipCaseBlockEntity) event.getLevel().getBlockEntity(event.getPos())).setOwner(player.getUUID());
         }
     }
 }

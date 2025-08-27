@@ -15,6 +15,8 @@
 
   "block.faunaandorchestra.composer_gravestone": "Tumba del Gran Compositor",
   "block.faunaandorchestra.gravestone": "Tumba",
+  "block.faunaandorchestra.tip_case": "Funda para propinas",
+  "block.faunaandorchestra.tip_case_theft": "¡Esta funda no es tuya! No puedes llevarte el oro",
 
   "item.faunaandorchestra.bach_air_sheet_music": "Partitura del Air de Bach",
   "item.faunaandorchestra.greensleeves_sheet_music": "Partitura de Greensleeves",
@@ -76,7 +78,7 @@
   "advancements.faunaandorchestra.full_orchestra": "Pet Sounds",
   "advancements.faunaandorchestra.full_orchestra.desc": "¡Crea tu propia primera orquesta!",
 
-  "dialogue.faunaandorchestra.faust0": "¡Encantado! Soy Fausto, y juntos somos The Ringtails",
+  "dialogue.faunaandorchestra.faust0": "¡Encantado! Soy Fausto, y juntos somos Los Ringtails",
   "dialogue.faunaandorchestra.faust1": "¡Me alegro de verte, %! ¿Con ganas de música?",
   "dialogue.faunaandorchestra.faust1s": "¡Hey, tío! ¿Cómo te va? ¡Saluda a un viejo amigo!",
   "dialogue.faunaandorchestra.faust2": "Ey, %. Intenta no volver asustarnos, ¿va?",
@@ -87,7 +89,7 @@
   "dialogue.faunaandorchestra.faust7": "El tiempo pasa rápido, que no se te olvide",
   "dialogue.faunaandorchestra.faust8": "Te puedo dar algo de música líquida si quieres",
   "dialogue.faunaandorchestra.faust9": "La música es el núcleo de la vida, vivimos alrededor de ella",
-  "dialogue.faunaandorchestra.faust10": "¡The Ringtails es nuestro pasado y futuro!",
+  "dialogue.faunaandorchestra.faust10": "¡Los Ringtails es nuestro pasado y futuro!",
   "dialogue.faunaandorchestra.faust11": "¿No disfrutas de las pequeñas cosas de la vida?",
   "dialogue.faunaandorchestra.faust12": "A Orión le quedaría genial un parche, pero no quiere",
   "dialogue.faunaandorchestra.faust13": "Nos llevamos bien con los Jazzy Dammys, ¿los conoces?",

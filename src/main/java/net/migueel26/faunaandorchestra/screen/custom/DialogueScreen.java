@@ -57,7 +57,6 @@ public class DialogueScreen {
                 int currOffset = DEFAULT_OFFSET;
                 String currentText = "";
 
-                System.out.println(guiGraphics.guiHeight());
                 guiGraphics.pose().translate(0, 0, 1);
 
                 if (entity.getDialogueTimer() <= TRANSITION_DURATION) {
