@@ -45,6 +45,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.UUID;
 
 public class TipCaseBlock extends HorizontalDirectionalBlock implements EntityBlock {
     public static final MapCodec<TipCaseBlock> CODEC = simpleCodec(TipCaseBlock::new);
@@ -54,11 +55,26 @@ public class TipCaseBlock extends HorizontalDirectionalBlock implements EntityBl
     public static final BooleanProperty SECOND = BooleanProperty.create("second");
     public static final BooleanProperty THIRD = BooleanProperty.create("third");
     private static final VoxelShape SOUTH_SHAPE = Shapes.or(
-            Block.box(2.5, 0, 2.5, 12.5, 4, 10),
-            Block.box(3.75, 0, 10, 11.25, 4, 15));
-    private static final VoxelShape NORTH_SHAPE = Block.box(1, 0, 0, 15, 8, 15);
-    private static final VoxelShape WEST_SHAPE = Block.box(0, 0, 1, 15, 8, 15);
-    private static final VoxelShape EAST_SHAPE = Block.box(1, 0, 1, 16, 8, 15);
+            Block.box(2.5, 0, 2.5, 13.5, 5, 11),
+            Block.box(3.75, 0, 10, 12.25, 5, 16)
+    );
+    private static final VoxelShape NORTH_SHAPE = Shapes.or(
+            Block.box(3.75, 0, 0, 12.25, 5, 5),
+            Block.box(2.5, 0, 5, 13.5, 5, 13.5)
+    );
+    private static final VoxelShape WEST_SHAPE = Shapes.or(
+            Block.box(0, 0, 3.75, 5, 5, 12.25),
+            Block.box(5, 0, 2.5, 13.5, 5, 13.5)
+    );
+    private static final VoxelShape EAST_SHAPE = Shapes.or(
+            Block.box(2.5, 0, 2.5, 11, 5, 13.5),
+            Block.box(10, 0, 3.75, 16, 5, 12.25)
+    );
+
+    public static final VoxelShape NORTH_SHAPE_H = Block.box(5.5, 0, 0, 10.5, 5, 13.9);
+    public static final VoxelShape SOUTH_SHAPE_H = Block.box(5.5, 0, 2.1, 10.5, 5, 16);
+    public static final VoxelShape EAST_SHAPE_H = Block.box(2.1, 0, 5.5, 16, 5, 10.5);
+    public static final VoxelShape WEST_SHAPE_H = Block.box(0, 0, 5.5, 13.9, 5, 10.5);
     public TipCaseBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.getStateDefinition().any()
@@ -72,10 +88,10 @@ public class TipCaseBlock extends HorizontalDirectionalBlock implements EntityBl
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return switch (getConnectedDirection(state)) {
-            case NORTH -> NORTH_SHAPE;
-            case SOUTH -> SOUTH_SHAPE;
-            case WEST -> WEST_SHAPE;
-            default -> EAST_SHAPE;
+            case NORTH -> state.getValue(PART) == BedPart.FOOT ? NORTH_SHAPE : NORTH_SHAPE_H;
+            case SOUTH -> state.getValue(PART) == BedPart.FOOT ? SOUTH_SHAPE : SOUTH_SHAPE_H;
+            case WEST -> state.getValue(PART) == BedPart.FOOT ? WEST_SHAPE : WEST_SHAPE_H;
+            default -> state.getValue(PART) == BedPart.FOOT ? EAST_SHAPE : EAST_SHAPE_H;
         };
     }
 
@@ -133,7 +149,7 @@ public class TipCaseBlock extends HorizontalDirectionalBlock implements EntityBl
 
     @Override
     public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack tool) {
-        if (player.getUUID() == ((TipCaseBlockEntity) blockEntity).getOwner()) {
+        if (player.getUUID().equals(((TipCaseBlockEntity) blockEntity).getOwner())) {
             level.addFreshEntity(new ItemEntity(level, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(Items.GOLD_INGOT,
                     state.getValue(TIPS))));
         }
@@ -164,7 +180,10 @@ public class TipCaseBlock extends HorizontalDirectionalBlock implements EntityBl
 
         } else if (player.getItemInHand(hand).isEmpty() && state.getValue(TIPS) > 0 && !level.isClientSide()) {
             // Try to get gold (you may be the owner or not)
-            if (((TipCaseBlockEntity) level.getBlockEntity(pos)).getOwner() == player.getUUID()) {
+            UUID tipCaseUUID = ((TipCaseBlockEntity) level.getBlockEntity(pos)).getOwner();
+            UUID playerUUID = player.getUUID();
+
+            if (tipCaseUUID.equals(playerUUID)) {
                 int tips = state.getValue(TIPS);
                 player.setItemInHand(hand, new ItemStack(Items.GOLD_INGOT, tips));
                 level.setBlock(pos, state.setValue(TIPS, 0), 3);
