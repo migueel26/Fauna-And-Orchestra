@@ -44,9 +44,9 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.RESURRECTION_SONG);
                         output.accept(ModItems.MUSIC_BOTTLE);
                         output.accept(ModItems.SHEET_FRAGMENTS);
+                        output.accept(ModBlocks.TIP_CASE);
                         output.accept(ModBlocks.COMPOSER_GRAVESTONE);
                         output.accept(ModBlocks.GRAVESTONE);
-                        output.accept(ModBlocks.TIP_CASE);
                     }).build());
 
     public static void register(IEventBus eventBus) {

@@ -3,6 +3,10 @@ package net.migueel26.faunaandorchestra.block.custom;
 import com.mojang.serialization.MapCodec;
 import net.migueel26.faunaandorchestra.block.entity.ComposerGravestoneBlockEntity;
 import net.migueel26.faunaandorchestra.block.entity.TipCaseBlockEntity;
+import net.migueel26.faunaandorchestra.entity.custom.Faust;
+import net.migueel26.faunaandorchestra.item.ModItems;
+import net.migueel26.faunaandorchestra.sound.ModSounds;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -11,13 +15,18 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -26,10 +35,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BedPart;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -38,10 +44,15 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 public class TipCaseBlock extends HorizontalDirectionalBlock implements EntityBlock {
     public static final MapCodec<TipCaseBlock> CODEC = simpleCodec(TipCaseBlock::new);
     public static final EnumProperty<BedPart> PART = BlockStateProperties.BED_PART;
     public static final IntegerProperty TIPS = IntegerProperty.create("tip_amount", 0, 64);
+    public static final BooleanProperty FIRST = BooleanProperty.create("first");
+    public static final BooleanProperty SECOND = BooleanProperty.create("second");
+    public static final BooleanProperty THIRD = BooleanProperty.create("third");
     private static final VoxelShape SOUTH_SHAPE = Shapes.or(
             Block.box(2.5, 0, 2.5, 12.5, 4, 10),
             Block.box(3.75, 0, 10, 11.25, 4, 15));
@@ -50,7 +61,12 @@ public class TipCaseBlock extends HorizontalDirectionalBlock implements EntityBl
     private static final VoxelShape EAST_SHAPE = Block.box(1, 0, 1, 16, 8, 15);
     public TipCaseBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(this.getStateDefinition().any().setValue(PART, BedPart.FOOT).setValue(TIPS, 0));
+        this.registerDefaultState(this.getStateDefinition().any()
+                .setValue(PART, BedPart.FOOT)
+                .setValue(TIPS, 0)
+                .setValue(FIRST, true)
+                .setValue(SECOND, true)
+                .setValue(THIRD, true));
     }
 
     @Override
@@ -128,10 +144,26 @@ public class TipCaseBlock extends HorizontalDirectionalBlock implements EntityBl
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 
         if (player.getItemInHand(hand).is(Items.GOLD_INGOT) && state.getValue(TIPS) < 64) {
+            // Tip gold
             stack.consume(1, player);
-            level.setBlock(pos, state.setValue(TIPS, state.getValue(TIPS) + 1), 3);
+            int tips = state.getValue(TIPS) + 1;
+            level.setBlock(pos, state.setValue(TIPS, tips), 3);
+
+            if (!level.isClientSide()) {
+
+                TipCaseBlockEntity blockEntity = (TipCaseBlockEntity) level.getBlockEntity(pos);
+                Entity entity = null;
+                if (blockEntity.getOwner() != null) entity = ((ServerLevel) level).getEntity(blockEntity.getOwner());
+                if (entity instanceof Faust) giveRingtailsTipAward(state, level, pos, player, tips);
+
+            }
+
+        } else if (player.getItemInHand(hand).is(Items.GOLD_INGOT) && state.getValue(TIPS) == 64) {
+            // Try to tip gold but it's full
+            return ItemInteractionResult.FAIL;
 
         } else if (player.getItemInHand(hand).isEmpty() && state.getValue(TIPS) > 0 && !level.isClientSide()) {
+            // Try to get gold (you may be the owner or not)
             if (((TipCaseBlockEntity) level.getBlockEntity(pos)).getOwner() == player.getUUID()) {
                 int tips = state.getValue(TIPS);
                 player.setItemInHand(hand, new ItemStack(Items.GOLD_INGOT, tips));
@@ -139,6 +171,7 @@ public class TipCaseBlock extends HorizontalDirectionalBlock implements EntityBl
             } else {
                 player.displayClientMessage(Component.translatable("block.faunaandorchestra.tip_case_theft"), true);
             }
+
         }
 
         if (!level.isClientSide()) {
@@ -153,6 +186,50 @@ public class TipCaseBlock extends HorizontalDirectionalBlock implements EntityBl
         return ItemInteractionResult.SUCCESS;
     }
 
+    private static void giveRingtailsTipAward(BlockState state, Level level, BlockPos pos, Player player, int tips) {
+        if (tips == 16 && state.getValue(TipCaseBlock.FIRST)) {
+            popResourceFromFace(level, pos, Direction.UP, new ItemStack(ModItems.MUSIC_BOTTLE.get()));
+            level.playSound(null, pos,
+                    ModSounds.SUCCESSFUL_TAME.get(), SoundSource.NEUTRAL, 1.0F, 1.0F);
+        } else if (tips == 32 && state.getValue(TipCaseBlock.SECOND)) {
+            popResourceFromFace(level, pos, Direction.UP, new ItemStack(ModItems.SHEET_FRAGMENTS.get()));
+            level.playSound(null, pos,
+                    ModSounds.SUCCESSFUL_TAME.get(), SoundSource.NEUTRAL, 1.0F, 1.0F);
+        } else if (tips == 64 && state.getValue(TipCaseBlock.THIRD)) {
+            popResourceFromFace(level, pos, Direction.UP, new ItemStack(Items.PAINTING));
+            level.playSound(null, pos,
+                    ModSounds.SUCCESSFUL_TAME.get(), SoundSource.NEUTRAL, 1.0F, 1.0F);
+        }
+    }
+
+    @Override
+    protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        TipCaseBlockEntity blockEntity = (TipCaseBlockEntity) level.getBlockEntity(pos);
+        if (!level.isClientSide()) {
+            // If Faust no longer exists, the tip case is owner-free
+            if (blockEntity.getOwner() != null && faustIsRemoved(level, blockEntity)) {
+                blockEntity.setOwner(null);
+                BlockPos blockPos = pos.relative(state.getValue(FACING).getOpposite());
+                ((TipCaseBlockEntity) level.getBlockEntity(blockPos)).setOwner(null);
+
+            }
+        }
+
+        super.tick(state, level, pos, random);
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+        tooltipComponents.add(Component.translatable("block.faunaandorchestra.tip_case.desc")
+                .withStyle(ChatFormatting.GRAY));
+        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+    }
+
+    private static boolean faustIsRemoved(ServerLevel level, TipCaseBlockEntity blockEntity) {
+        return (level.getEntity(blockEntity.getOwner()) instanceof Faust faust)
+                && (faust.isDeadOrDying() || faust.isRemoved());
+    }
+
     @Override
     protected RenderShape getRenderShape(BlockState state) {
         return RenderShape.ENTITYBLOCK_ANIMATED;
@@ -164,6 +241,6 @@ public class TipCaseBlock extends HorizontalDirectionalBlock implements EntityBl
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, PART, TIPS);
+        builder.add(FACING, PART, TIPS, FIRST, SECOND, THIRD);
     }
 }

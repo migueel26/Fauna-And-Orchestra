@@ -1,26 +1,45 @@
 package net.migueel26.faunaandorchestra.entity.goals;
 
+import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.entity.custom.Faust;
 import net.migueel26.faunaandorchestra.entity.custom.Orion;
 import net.migueel26.faunaandorchestra.entity.custom.TalkableEntity;
 import net.migueel26.faunaandorchestra.util.ModSavedData;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.UUID;
 
 public class RingtailsRunAwayGoal extends PanicGoal {
     protected int runTicks;
+    protected BlockPos tipCasePos;
     public RingtailsRunAwayGoal(PathfinderMob mob, double speedModifier) {
         super(mob, speedModifier);
     }
 
     @Override
+    public boolean canUse() {
+        boolean tipCaseBroken = false;
+        if (mob instanceof Faust faust) this.tipCasePos = faust.getTipCasePos();
+
+        if (tipCasePos != null) {
+            if (mob.level().getBlockState(tipCasePos).is(Blocks.AIR)) tipCaseBroken = true;
+        }
+
+        return super.canUse() || tipCaseBroken;
+    }
+
+    @Override
     public void start() {
+        BlockState state = null;
+
         super.start();
 
         if (mob instanceof Faust faust && faust.getOrion() != null) {
@@ -28,11 +47,22 @@ public class RingtailsRunAwayGoal extends PanicGoal {
             faust.getOrion().getNavigation().moveTo(this.posX, this.posY, this.posZ, this.speedModifier);
             faust.getOrion().setPlaying(false);
             faust.setPlaying(false);
+
+            this.tipCasePos = faust.getTipCasePos();
+
         } else if (mob instanceof Orion orion && orion.getFaust() != null) {
             findRandomPosition();
             orion.getFaust().getNavigation().moveTo(this.posX, this.posY, this.posZ, this.speedModifier);
             orion.getFaust().setPlaying(false);
             orion.setPlaying(false);
+
+            this.tipCasePos = orion.getFaust().getTipCasePos();
+        }
+
+        if (tipCasePos != null) state = mob.level().getBlockState(tipCasePos);
+
+        if (tipCasePos != null && state.is(ModBlocks.TIP_CASE)) {
+            mob.level().setBlock(tipCasePos, Blocks.AIR.defaultBlockState(), 3);
         }
 
         runTicks = 10;

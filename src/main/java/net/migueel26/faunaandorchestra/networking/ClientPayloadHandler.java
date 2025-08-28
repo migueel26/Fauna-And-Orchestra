@@ -1,6 +1,8 @@
 package net.migueel26.faunaandorchestra.networking;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
+import net.migueel26.faunaandorchestra.block.ModBlocks;
+import net.migueel26.faunaandorchestra.block.entity.TipCaseBlockEntity;
 import net.migueel26.faunaandorchestra.entity.custom.*;
 import net.migueel26.faunaandorchestra.mixins.client.accessors.ClientLevelAccessor;
 import net.migueel26.faunaandorchestra.mixins.interfaces.ISoundManagerMixin;
@@ -11,6 +13,8 @@ import net.migueel26.faunaandorchestra.sound.custom.InstrumentSoundInstance;
 import net.migueel26.faunaandorchestra.sound.custom.TravellingMusicianSoundInstance;
 import net.migueel26.faunaandorchestra.util.MusicUtil;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
@@ -18,10 +22,13 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Level;
 
 public class ClientPayloadHandler {
     public static void handleEmpty(CustomPacketPayload payload, IPayloadContext iPayloadContext) {
@@ -154,6 +161,19 @@ public class ClientPayloadHandler {
 
                 }
             }
+        }
+    }
+
+    public static void handleSyncTipCaseOnNetwork(SyncTipCaseOwnerPayload payload, IPayloadContext context) {
+        UUID uuid = payload.owner();
+        BlockPos blockPos = new BlockPos(payload.x(), payload.y(), payload.z());
+        ClientLevel level = Minecraft.getInstance().level;
+
+        BlockState state = level.getBlockState(blockPos);
+        Entity entity = ((ClientLevelAccessor) level).callGetEntities().get(uuid);
+        if (state.getBlock() == ModBlocks.TIP_CASE.get() && entity != null) {
+            BlockEntity blockEntity = level.getBlockEntity(blockPos);
+            ((TipCaseBlockEntity) blockEntity).setOwner(uuid);
         }
     }
 }

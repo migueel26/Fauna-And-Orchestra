@@ -13,10 +13,15 @@
   "item.faunaandorchestra.music_bottle": "Liquid Music",
   "item.faunaandorchestra.sheet_fragments": "Fragments of a Lost Composition",
 
+  "item.faunaandorchestra.music_bottle.desc": "The essence of joy and nature itself. Basic ingredient in Herbology",
+  "item.faunaandorchestra.sheet_fragments.desc": "Faust gave this to you as a thank you. Made by The Great Composer himself",
+
   "block.faunaandorchestra.composer_gravestone": "The Great Composer's Tomb",
   "block.faunaandorchestra.gravestone": "Tomb",
   "block.faunaandorchestra.tip_case": "Tip Case",
   "block.faunaandorchestra.tip_case_theft": "This case is not yours! You can't take the gold",
+
+  "block.faunaandorchestra.tip_case.desc": "Everybody can tip you gold, but only you can retrieve it",
 
   "item.faunaandorchestra.bach_air_sheet_music": "Bach's Air Sheet",
   "item.faunaandorchestra.greensleeves_sheet_music": "Greensleeves Sheet",
@@ -131,5 +136,9 @@
   "dialogue.faunaandorchestra.orion16s": "He took my eye while fighting for her. And I would do it again",
   "dialogue.faunaandorchestra.orion17s": "The baton is the source of the Great Composer's powers",
   "dialogue.faunaandorchestra.orion18s": "Every moment we're still she might be getting further away",
-  "dialogue.faunaandorchestra.orion19s": "My biggest secret is... I don't like Faust's beard"
+  "dialogue.faunaandorchestra.orion19s": "My biggest secret is... I don't like Faust's beard",
+
+  "dialogue.faunaandorchestra.ringtails_prize1": "Nice tip, mate! Crafting a Listener with this will get you even more Liquid Music!",
+  "dialogue.faunaandorchestra.ringtails_prize2": "This is for you. If you could reassemble these fragments, you could take him down",
+  "dialogue.faunaandorchestra.ringtails_prize3": "WOAH, you're our biggest fan! Here's a signed poster as a thank you for all those tips!"
 }

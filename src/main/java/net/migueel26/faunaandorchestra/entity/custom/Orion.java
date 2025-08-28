@@ -161,6 +161,11 @@ public class Orion extends TravellingMusician implements Npc, GeoEntity, Talkabl
     }
 
     @Override
+    public boolean canBeLeashed() {
+        return false;
+    }
+
+    @Override
     public Pair<Integer, Integer> getIconSize() {
         return new Pair<>(49, 60);
     }

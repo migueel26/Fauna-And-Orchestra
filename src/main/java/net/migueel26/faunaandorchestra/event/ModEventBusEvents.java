@@ -12,6 +12,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
+import net.neoforged.neoforge.network.handling.DirectionalPayloadHandler;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 
 @EventBusSubscriber(modid = FaunaAndOrchestra.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
@@ -85,6 +86,14 @@ public class ModEventBusEvents {
           ShowDialogueS2CPayload.TYPE,
           ShowDialogueS2CPayload.STREAM_CODEC,
                 (payload, context) -> ClientPayloadHandler.handleShowDialogueOnNetwork(payload, context)
+        );
+        registrar.playBidirectional(
+                SyncTipCaseOwnerPayload.TYPE,
+                SyncTipCaseOwnerPayload.STREAM_CODEC,
+                new DirectionalPayloadHandler<>(
+                        ClientPayloadHandler::handleSyncTipCaseOnNetwork,
+                        ServerPayloadHandler::handleSyncTipCaseOnNetwork
+                )
         );
     }
 }

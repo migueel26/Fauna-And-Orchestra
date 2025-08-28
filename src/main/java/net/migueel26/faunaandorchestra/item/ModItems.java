@@ -46,9 +46,23 @@ public class ModItems {
     public static final DeferredItem<Item> BRIEFCASE = ITEMS.register("briefcase",
             () -> new BriefcaseItem(new Item.Properties().stacksTo(1)));
     public static final DeferredItem<Item> MUSIC_BOTTLE = ITEMS.register("music_bottle",
-            () -> new Item(new Item.Properties()));
+            () -> new Item(new Item.Properties()) {
+                @Override
+                public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+                    tooltipComponents.add(Component.translatable("item.faunaandorchestra.music_bottle.desc")
+                            .withStyle(ChatFormatting.GRAY));
+                    super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+                }
+            });
     public static final DeferredItem<Item> SHEET_FRAGMENTS = ITEMS.register("sheet_fragments",
-            () -> new Item(new Item.Properties().rarity(Rarity.UNCOMMON)));
+            () -> new Item(new Item.Properties().rarity(Rarity.UNCOMMON)) {
+                @Override
+                public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+                    tooltipComponents.add(Component.translatable("item.faunaandorchestra.sheet_fragments.desc")
+                            .withStyle(ChatFormatting.GRAY));
+                    super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+                }
+            });
 
     public static final DeferredItem<Item> MANTIS_SPAWN_EGG = ITEMS.register("mantis_spawn_egg",
             () -> new DeferredSpawnEggItem(ModEntities.MANTIS, 0x46eb4c, 0x23a628,

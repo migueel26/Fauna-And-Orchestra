@@ -1,13 +1,19 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
+import net.migueel26.faunaandorchestra.block.ModBlocks;
+import net.migueel26.faunaandorchestra.block.custom.TipCaseBlock;
+import net.migueel26.faunaandorchestra.block.entity.TipCaseBlockEntity;
 import net.migueel26.faunaandorchestra.entity.goals.FaustFindOrionGoal;
 import net.migueel26.faunaandorchestra.entity.goals.RingtailsRunAwayGoal;
 import net.migueel26.faunaandorchestra.networking.*;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.migueel26.faunaandorchestra.util.ModSavedData;
 import net.minecraft.client.Minecraft;
+import net.minecraft.commands.arguments.EntityAnchorArgument;
+import net.minecraft.core.BlockPos;
 import net.minecraft.data.DataProvider;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -28,7 +34,9 @@ import net.minecraft.world.entity.npc.Npc;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.saveddata.SavedData;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
 import oshi.util.tuples.Pair;
@@ -39,10 +47,7 @@ import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class Faust extends TravellingMusician implements Npc, GeoEntity, TalkableEntity {
     private static final RawAnimation PLAYING = RawAnimation.begin().thenPlay("playing");
@@ -53,12 +58,15 @@ public class Faust extends TravellingMusician implements Npc, GeoEntity, Talkabl
     protected static final EntityDataAccessor<Boolean> GOOD_MORNING = SynchedEntityData.defineId(Faust.class, EntityDataSerializers.BOOLEAN);
     public static final ResourceLocation ICON = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/gui/entity/faust_icon.png");
     public static final int COOL_CONFIDENCE = 35;
+    public static final int DEFAULT_LOOK_TIME = 60;
     public static final String RESOURCE = "dialogue.faunaandorchestra.faust";
     public String currentDialogue;
     private List<Player> playersListening = new ArrayList<>();
 
     protected Orion orion;
-    int confidence;
+    protected BlockPos tipCasePos;
+    private int lookTime;
+    protected int confidence;
 
     private final AnimationController<Faust> faustController = new AnimationController<>(this, "faust_controller", 5, this::faustState);
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
@@ -66,6 +74,8 @@ public class Faust extends TravellingMusician implements Npc, GeoEntity, Talkabl
         super(entityType, level);
 
         this.setCustomName(Component.translatable("entity.faunaandorchestra.faust"));
+        this.tipCasePos = null;
+        this.lookTime = DEFAULT_LOOK_TIME;
     }
 
     @Override
@@ -109,6 +119,24 @@ public class Faust extends TravellingMusician implements Npc, GeoEntity, Talkabl
         return InteractionResult.FAIL;
     }
 
+    @Override
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+
+        this.tipCasePos = new BlockPos(compound.getInt("X"), compound.getInt("Y"), compound.getInt("Z"));
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        if (tipCasePos != null) {
+            compound.putInt("X", tipCasePos.getX());
+            compound.putInt("Y", tipCasePos.getY());
+            compound.putInt("Z", tipCasePos.getZ());
+        }
+
+    }
+
     public static AttributeSupplier.Builder createAttributes() {
         return Animal.createLivingAttributes()
                 .add(Attributes.MAX_HEALTH, 1000d)
@@ -149,15 +177,48 @@ public class Faust extends TravellingMusician implements Npc, GeoEntity, Talkabl
             }
 
             playersListening = nearbyPlayers;
+
+            // TIP CASE
+
+            if (tipCasePos == null) {
+                Optional<BlockPos> tipCase = BlockPos.findClosestMatch(this.blockPosition(),
+                        6, 2, pred -> level().getBlockState(pred).is(ModBlocks.TIP_CASE));
+
+                if (tipCase.isPresent() && ((TipCaseBlockEntity) level().getBlockEntity(tipCase.get())).getOwner() == null) {
+                    this.tipCasePos = tipCase.get();
+                    ((TipCaseBlockEntity) level().getBlockEntity(tipCasePos)).setOwner(this.getUUID());
+                    BlockPos other = tipCasePos.relative(level().getBlockState(tipCasePos).getValue(TipCaseBlock.FACING).getOpposite());
+                    ((TipCaseBlockEntity) level().getBlockEntity(other)).setOwner(this.getUUID());
+                }
+            }
+
+
         } else {
             playersListening = new ArrayList<>();
         }
+
+        if (tipCasePos != null && orion != null) {
+            if (lookTime > 0) {
+                lookTime--;
+            } else {
+                Vec3 vec3 = new Vec3(tipCasePos.getX(), tipCasePos.getY(), tipCasePos.getZ());
+                this.lookAt(EntityAnchorArgument.Anchor.FEET, vec3);
+                orion.lookAt(EntityAnchorArgument.Anchor.FEET, vec3);
+                lookTime = DEFAULT_LOOK_TIME;
+            }
+        }
+
         super.tick();
     }
 
     @Override
     public void checkDespawn() {
 
+    }
+
+    @Override
+    public boolean canBeLeashed() {
+        return false;
     }
 
     @Override
@@ -263,5 +324,9 @@ public class Faust extends TravellingMusician implements Npc, GeoEntity, Talkabl
 
     public int getConfidence() {
         return entityData.get(CONFIDENCE);
+    }
+
+    public BlockPos getTipCasePos() {
+        return tipCasePos;
     }
 }

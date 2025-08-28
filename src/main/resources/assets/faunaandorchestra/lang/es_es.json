@@ -13,10 +13,15 @@
   "item.faunaandorchestra.music_bottle": "Música líquida",
   "item.faunaandorchestra.sheet_fragments": "Fragmentos de una composición perdida",
 
+  "item.faunaandorchestra.music_bottle.desc": "La esencia de la vida y alegría. Ingrediente básico en la Herbología",
+  "item.faunaandorchestra.sheet_fragments.desc": "Fausto te lo dio como agradecimiento. Compuesto por el Gran Compositor",
+
   "block.faunaandorchestra.composer_gravestone": "Tumba del Gran Compositor",
   "block.faunaandorchestra.gravestone": "Tumba",
   "block.faunaandorchestra.tip_case": "Funda para propinas",
   "block.faunaandorchestra.tip_case_theft": "¡Esta funda no es tuya! No puedes llevarte el oro",
+
+  "block.faunaandorchestra.tip_case.desc": "Todo el mundo te puede donar, pero sólo tú puedes retirarlo",
 
   "item.faunaandorchestra.bach_air_sheet_music": "Partitura del Air de Bach",
   "item.faunaandorchestra.greensleeves_sheet_music": "Partitura de Greensleeves",
@@ -131,5 +136,9 @@
   "dialogue.faunaandorchestra.orion16s": "Él me quitó el ojo luchando por ella. No me arrepiento de nada",
   "dialogue.faunaandorchestra.orion17s": "El poder del Gran Compositor viene de su batuta, ¿sabes?",
   "dialogue.faunaandorchestra.orion18s": "Cada segundo que pasamos quietos ella se esté alejando",
-  "dialogue.faunaandorchestra.orion19s": "Mi mayor secreto es... que no me gusta la barba de Fausto"
+  "dialogue.faunaandorchestra.orion19s": "Mi mayor secreto es... que no me gusta la barba de Fausto",
+
+  "dialogue.faunaandorchestra.ringtails_prize1": "¡Gracias por la propina, colega! Con esto podrás craftear un Escuchador y generar más",
+  "dialogue.faunaandorchestra.ringtails_prize2": "Esto es para ti. Si consigues reparar la partitura, podrías derrotarlo",
+  "dialogue.faunaandorchestra.ringtails_prize3": "¡WOW, eres nuestro mayor fan! ¡Aquí tienes un póster firmado como agradecimiento!"
 }

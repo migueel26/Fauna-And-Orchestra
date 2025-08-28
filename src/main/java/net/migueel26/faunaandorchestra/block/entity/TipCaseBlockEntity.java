@@ -1,12 +1,15 @@
 package net.migueel26.faunaandorchestra.block.entity;
 
 import net.migueel26.faunaandorchestra.block.ModBlockEntities;
+import net.migueel26.faunaandorchestra.networking.SyncTipCaseOwnerPayload;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.network.PacketDistributor;
+import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.AnimatableManager;
@@ -19,6 +22,7 @@ public class TipCaseBlockEntity extends BlockEntity implements GeoBlockEntity {
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
     public TipCaseBlockEntity(BlockPos pos, BlockState blockState) {
         super(ModBlockEntities.TIP_CASE_BE.get(), pos, blockState);
+        this.owner = null;
     }
 
     @Override
@@ -39,8 +43,11 @@ public class TipCaseBlockEntity extends BlockEntity implements GeoBlockEntity {
         return owner;
     }
 
-    public void setOwner(UUID owner) {
+    public void setOwner(@Nullable UUID owner) {
         this.owner = owner;
+        PacketDistributor.sendToAllPlayers(new SyncTipCaseOwnerPayload(
+                worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(),
+                owner));
     }
 
     @Override

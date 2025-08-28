@@ -1,15 +1,21 @@
 package net.migueel26.faunaandorchestra.networking;
 
+import net.migueel26.faunaandorchestra.block.ModBlocks;
+import net.migueel26.faunaandorchestra.block.entity.TipCaseBlockEntity;
 import net.migueel26.faunaandorchestra.entity.custom.ConductorEntity;
 import net.migueel26.faunaandorchestra.entity.custom.MusicalEntity;
 import net.migueel26.faunaandorchestra.mixins.client.accessors.ClientLevelAccessor;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
@@ -42,4 +48,17 @@ public class ServerPayloadHandler {
             }
         }
      }
+
+    public static void handleSyncTipCaseOnNetwork(SyncTipCaseOwnerPayload payload, IPayloadContext context) {
+        UUID uuid = payload.owner();
+        BlockPos blockPos = new BlockPos(payload.x(), payload.y(), payload.z());
+        ServerLevel level = (ServerLevel) context.player().level();
+
+        BlockState state = level.getBlockState(blockPos);
+        Entity entity = level.getEntity(uuid);
+        if (state.getBlock() == ModBlocks.TIP_CASE.get() && entity != null) {
+            BlockEntity blockEntity = level.getBlockEntity(blockPos);
+            ((TipCaseBlockEntity) blockEntity).setOwner(uuid);
+        }
+    }
 }

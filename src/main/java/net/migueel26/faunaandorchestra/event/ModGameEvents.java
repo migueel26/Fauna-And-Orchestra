@@ -7,6 +7,7 @@ import net.migueel26.faunaandorchestra.block.entity.TipCaseBlockEntity;
 import net.migueel26.faunaandorchestra.entity.custom.MusicalEntity;
 import net.migueel26.faunaandorchestra.entity.custom.PenguinEntity;
 import net.migueel26.faunaandorchestra.entity.custom.QuirkyFrogEntity;
+import net.migueel26.faunaandorchestra.item.ModItems;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.Block;
@@ -68,7 +69,8 @@ public class ModGameEvents {
     public static void placeTipCase(BlockEvent.EntityPlaceEvent event) {
         Entity entity = event.getEntity();
         BlockState block = event.getPlacedBlock();
-        if (block.getBlock() == ModBlocks.TIP_CASE.get() && entity instanceof Player player) {
+        if (block.getBlock() == ModBlocks.TIP_CASE.get() && entity instanceof Player player
+                && !player.getMainHandItem().is(ModItems.ICON.get()) && !player.getOffhandItem().is(ModItems.ICON.get())) {
             ((TipCaseBlockEntity) event.getLevel().getBlockEntity(event.getPos())).setOwner(player.getUUID());
         }
     }
