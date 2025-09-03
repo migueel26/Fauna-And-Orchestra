@@ -26,6 +26,7 @@ import net.minecraft.world.level.block.state.properties.BedPart;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -107,6 +108,11 @@ public class ComposerGravestoneBlock extends HorizontalDirectionalBlock implemen
     public static Direction getConnectedDirection(BlockState state) {
         Direction direction = state.getValue(FACING);
         return state.getValue(PART) == BedPart.FOOT ? direction.getOpposite() : direction;
+    }
+
+    @Override
+    public @Nullable PushReaction getPistonPushReaction(BlockState state) {
+        return PushReaction.BLOCK;
     }
 
     @Override

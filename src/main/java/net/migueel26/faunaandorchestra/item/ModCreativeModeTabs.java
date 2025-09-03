@@ -45,6 +45,8 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.MUSIC_BOTTLE);
                         output.accept(ModItems.SHEET_FRAGMENTS);
                         output.accept(ModBlocks.TIP_CASE);
+                        output.accept(ModBlocks.LISTENER);
+                        output.accept(ModBlocks.LISTENER_CONTAINER);
                         output.accept(ModBlocks.COMPOSER_GRAVESTONE);
                         output.accept(ModBlocks.GRAVESTONE);
                     }).build());

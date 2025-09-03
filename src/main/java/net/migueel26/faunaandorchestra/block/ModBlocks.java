@@ -1,9 +1,7 @@
 package net.migueel26.faunaandorchestra.block;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
-import net.migueel26.faunaandorchestra.block.custom.ComposerGravestoneBlock;
-import net.migueel26.faunaandorchestra.block.custom.RegularGravestoneBlock;
-import net.migueel26.faunaandorchestra.block.custom.TipCaseBlock;
+import net.migueel26.faunaandorchestra.block.custom.*;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -38,6 +36,16 @@ public class ModBlocks {
                     .ignitedByLava()
                     .pushReaction(PushReaction.DESTROY)
                     .sound(SoundType.WOOL)));
+
+    public static final DeferredBlock<Block> LISTENER = registerBlock("listener",
+            () -> new ListenerBlock(BlockBehaviour.Properties.of()
+                    .strength(2.0F)
+                    .sound(SoundType.WOOD)));
+
+    public static final DeferredBlock<Block> LISTENER_CONTAINER = registerBlock("listener_container",
+            () -> new ListenerContainerBlock(BlockBehaviour.Properties.of()
+                    .strength(2.0F)
+                    .sound(SoundType.WOOD)));
 
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block) {
         DeferredBlock<T> toReturn = BLOCKS.register(name, block);

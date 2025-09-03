@@ -2,6 +2,8 @@ package net.migueel26.faunaandorchestra.block;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.block.entity.ComposerGravestoneBlockEntity;
+import net.migueel26.faunaandorchestra.block.entity.ListenerBlockEntity;
+import net.migueel26.faunaandorchestra.block.entity.ListenerContainerBlockEntity;
 import net.migueel26.faunaandorchestra.block.entity.TipCaseBlockEntity;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -25,6 +27,18 @@ public class ModBlockEntities {
             BLOCK_ENTITES.register("tip_case_be", () -> BlockEntityType.Builder.of(
                     TipCaseBlockEntity::new,
                     ModBlocks.TIP_CASE.get()
+            ).build(null));
+
+    public static final Supplier<BlockEntityType<ListenerBlockEntity>> LISTENER_BE =
+            BLOCK_ENTITES.register("listener_be", () -> BlockEntityType.Builder.of(
+                    ListenerBlockEntity::new,
+                    ModBlocks.LISTENER.get()
+            ).build(null));
+
+    public static final Supplier<BlockEntityType<ListenerContainerBlockEntity>> LISTENER_CONTAINER_BE =
+            BLOCK_ENTITES.register("listener_container_be", () -> BlockEntityType.Builder.of(
+                    ListenerContainerBlockEntity::new,
+                    ModBlocks.LISTENER_CONTAINER.get()
             ).build(null));
 
     public static void register(IEventBus eventBus) {

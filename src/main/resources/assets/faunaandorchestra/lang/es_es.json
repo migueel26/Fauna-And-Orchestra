@@ -19,9 +19,13 @@
   "block.faunaandorchestra.composer_gravestone": "Tumba del Gran Compositor",
   "block.faunaandorchestra.gravestone": "Tumba",
   "block.faunaandorchestra.tip_case": "Funda para propinas",
+  "block.faunaandorchestra.listener": "Escuchador",
+  "block.faunaandorchestra.listener_container": "Contenedor del Escuchador",
   "block.faunaandorchestra.tip_case_theft": "¡Esta funda no es tuya! No puedes llevarte el oro",
 
   "block.faunaandorchestra.tip_case.desc": "Todo el mundo te puede donar, pero sólo tú puedes retirarlo",
+  "block.faunaandorchestra.listener.desc": "Colócalo encima del Contenedor y toca algo de música",
+  "block.faunaandorchestra.listener_container.desc": "Recoge música líquida colocando un Escuchador encima y colocando una orquesta",
 
   "item.faunaandorchestra.bach_air_sheet_music": "Partitura del Air de Bach",
   "item.faunaandorchestra.greensleeves_sheet_music": "Partitura de Greensleeves",

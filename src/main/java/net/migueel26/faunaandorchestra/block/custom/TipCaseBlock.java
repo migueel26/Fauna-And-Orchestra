@@ -7,6 +7,7 @@ import net.migueel26.faunaandorchestra.entity.custom.Faust;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -36,6 +37,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.*;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -157,6 +159,11 @@ public class TipCaseBlock extends HorizontalDirectionalBlock implements EntityBl
     }
 
     @Override
+    public @Nullable PushReaction getPistonPushReaction(BlockState state) {
+        return PushReaction.DESTROY;
+    }
+
+    @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 
         if (player.getItemInHand(hand).is(Items.GOLD_INGOT) && state.getValue(TIPS) < 64) {
@@ -239,9 +246,12 @@ public class TipCaseBlock extends HorizontalDirectionalBlock implements EntityBl
 
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        tooltipComponents.add(Component.translatable("block.faunaandorchestra.tip_case.desc")
-                .withStyle(ChatFormatting.GRAY));
-        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+        if (Screen.hasShiftDown()) {
+            tooltipComponents.add(Component.translatable("block.faunaandorchestra.tip_case.desc")
+                    .withStyle(ChatFormatting.GRAY));
+        } else {
+            tooltipComponents.add(Component.translatable("tooltip.faunaandorchestra.shift"));
+        }
     }
 
     private static boolean faustIsRemoved(ServerLevel level, TipCaseBlockEntity blockEntity) {

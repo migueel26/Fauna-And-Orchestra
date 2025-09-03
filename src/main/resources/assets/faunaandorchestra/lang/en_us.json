@@ -19,9 +19,13 @@
   "block.faunaandorchestra.composer_gravestone": "The Great Composer's Tomb",
   "block.faunaandorchestra.gravestone": "Tomb",
   "block.faunaandorchestra.tip_case": "Tip Case",
+  "block.faunaandorchestra.listener": "Listener",
+  "block.faunaandorchestra.listener_container": "Listener Container",
   "block.faunaandorchestra.tip_case_theft": "This case is not yours! You can't take the gold",
 
   "block.faunaandorchestra.tip_case.desc": "Everybody can tip you gold, but only you can retrieve it",
+  "block.faunaandorchestra.listener.desc": "Place it on top of a Listener Container and play some music",
+  "block.faunaandorchestra.listener_container.desc": "Produce some liquid music by placing a Listener above and creating an orchestra",
 
   "item.faunaandorchestra.bach_air_sheet_music": "Bach's Air Sheet",
   "item.faunaandorchestra.greensleeves_sheet_music": "Greensleeves Sheet",
