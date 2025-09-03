@@ -20,6 +20,9 @@ public class ModParticleTypes {
     public static final Supplier<SimpleParticleType> TREBLE_CLEF =
             PARTICLE_TYPES.register("treble_clef", () -> new SimpleParticleType(true));
 
+    public static final Supplier<SimpleParticleType> DRIPPING_MUSIC =
+            PARTICLE_TYPES.register("dripping_music", () -> new SimpleParticleType(true));
+
     public static void register(IEventBus eventBus) {
         PARTICLE_TYPES.register(eventBus);
     }

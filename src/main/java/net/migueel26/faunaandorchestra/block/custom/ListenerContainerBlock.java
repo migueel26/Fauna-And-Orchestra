@@ -4,6 +4,7 @@ import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.block.entity.ListenerContainerBlockEntity;
 import net.migueel26.faunaandorchestra.entity.custom.ConductorEntity;
 import net.migueel26.faunaandorchestra.item.ModItems;
+import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
@@ -130,7 +131,7 @@ public class ListenerContainerBlock extends Block implements EntityBlock {
         if (conductor.isPresent()) {
             // If there is an orchestra nearby, it's listening
             updateListeningAssembledListener(level, pos, state, true);
-            if (drops < 64 && state.getValue(BOTTLE)) level.sendParticles(ParticleTypes.FALLING_DRIPSTONE_WATER, pos.getCenter().x, pos.getY() + 0.75, pos.getCenter().z, 3, 0, 0, 0, 0.1);
+            if (drops < 64 && state.getValue(BOTTLE)) level.sendParticles(ModParticleTypes.DRIPPING_MUSIC.get(), pos.getCenter().x, pos.getY() + 0.75, pos.getCenter().z, 3, 0, 0, 0, 0.1);
         } else {
             // If there isn't, it is not listening
             updateListeningAssembledListener(level, pos, state, false);
