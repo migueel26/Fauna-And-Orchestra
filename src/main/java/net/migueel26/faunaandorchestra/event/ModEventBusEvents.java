@@ -29,6 +29,7 @@ public class ModEventBusEvents {
         event.put(ModEntities.WANDERING_KOALA.get(), KoalaEntity.createAttributes().build());
         event.put(ModEntities.FAUST.get(), Faust.createAttributes().build());
         event.put(ModEntities.ORION.get(), Orion.createAttributes().build());
+        event.put(ModEntities.SINGING_SPROUTLING.get(), SproutlingEntity.createAttributes().build());
     }
 
     @SubscribeEvent

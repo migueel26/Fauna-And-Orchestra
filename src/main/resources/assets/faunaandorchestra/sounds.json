@@ -164,6 +164,12 @@
       "faunaandorchestra:sfx/successful_tame"
     ]
   },
+  "magic_growth": {
+    "subtitles": "sounds.faunaandorchestra.magic_growth",
+    "sounds": [
+      "faunaandorchestra:sfx/magic_growth"
+    ]
+  },
   "dialogue": {
     "subtitles": "sounds.faunaandorchestra.dialogue",
     "sounds": [

@@ -3,6 +3,7 @@ package net.migueel26.faunaandorchestra.entity.goals;
 import net.migueel26.faunaandorchestra.entity.custom.KoalaEntity;
 import net.migueel26.faunaandorchestra.entity.custom.MusicalEntity;
 import net.migueel26.faunaandorchestra.entity.custom.QuirkyFrogEntity;
+import net.migueel26.faunaandorchestra.entity.custom.SproutlingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;
 
@@ -20,7 +21,7 @@ public class FaunaRandomLookAroundGoal extends Goal {
     }
 
     public enum Fauna {
-        MusicalEntity, ConductorEntity, AgeableMob, QuirkyFrogEntity, KoalaEntity
+        MusicalEntity, ConductorEntity, AgeableMob, QuirkyFrogEntity, KoalaEntity, SproutlingEntity
     }
 
     @Override
@@ -35,6 +36,7 @@ public class FaunaRandomLookAroundGoal extends Goal {
                 case QuirkyFrogEntity -> condition = !((QuirkyFrogEntity) mob).isConducting()
                         && !((QuirkyFrogEntity) mob).isSinging();
                 case KoalaEntity -> condition = !((KoalaEntity) mob).isKoalaSleeping();
+                case SproutlingEntity  -> condition = !((SproutlingEntity) mob).isSinging();
             }
         }
 

@@ -35,9 +35,10 @@ public class ModEntities {
             () -> EntityType.Builder.of(Orion::new, MobCategory.CREATURE).sized(0.75f, 1.5f).build("orion"));
 
 
-
     public static final Supplier<EntityType<KoalaEntity>> WANDERING_KOALA = ENTITY_TYPES.register("wandering_koala",
             () -> EntityType.Builder.of(KoalaEntity::new, MobCategory.CREATURE).sized(0.5f, 1.25f).build("wandering_koala"));
+    public static final Supplier<EntityType<SproutlingEntity>> SINGING_SPROUTLING = ENTITY_TYPES.register("singing_sproutling",
+            () -> EntityType.Builder.of(SproutlingEntity::new, MobCategory.CREATURE).sized(0.35f, 0.45f).build("singing_sproutling"));
 
     public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);
