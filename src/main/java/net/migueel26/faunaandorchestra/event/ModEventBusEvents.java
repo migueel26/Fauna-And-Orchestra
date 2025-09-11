@@ -30,6 +30,7 @@ public class ModEventBusEvents {
         event.put(ModEntities.FAUST.get(), Faust.createAttributes().build());
         event.put(ModEntities.ORION.get(), Orion.createAttributes().build());
         event.put(ModEntities.SINGING_SPROUTLING.get(), SproutlingEntity.createAttributes().build());
+        event.put(ModEntities.BUTTERFLY.get(), ButterflyEntity.createAttributes().build());
     }
 
     @SubscribeEvent
@@ -48,6 +49,8 @@ public class ModEventBusEvents {
                 BeaverEntity::checkAnimalSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
         event.register(ModEntities.LEMUR.get(), SpawnPlacementTypes.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 LemurEntity::checkAnimalSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        //event.register(ModEntities.BUTTERFLY.get(), SpawnPlacementTypes.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                //ButterflyEntity::checkAnimalSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
     }
 
     @SubscribeEvent

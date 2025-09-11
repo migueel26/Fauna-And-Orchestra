@@ -19,11 +19,9 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.function.Supplier;
 
 public class ModItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(FaunaAndOrchestra.MOD_ID);
@@ -88,9 +86,11 @@ public class ModItems {
     public static final DeferredItem<Item> WANDERING_KOALA_SPAWN_EGG = ITEMS.register("wandering_koala_spawn_egg",
             () -> new DeferredSpawnEggItem(ModEntities.WANDERING_KOALA, 0xb5b5b5, 0x707070,
                     new Item.Properties()));
-
     public static final DeferredItem<Item> SPROUTLING_SPAWN_EGG = ITEMS.register("sproutling_spawn_egg",
             () -> new DeferredSpawnEggItem(ModEntities.SINGING_SPROUTLING, 0xd1793a, 0x33a03e,
+                    new Item.Properties()));
+    public static final DeferredItem<Item> BUTTERFLY_SPAWN_EGG = ITEMS.register("butterfly_spawn_egg",
+            () -> new DeferredSpawnEggItem(ModEntities.BUTTERFLY, 0x23a2e3, 0x050505,
                     new Item.Properties()));
     public static final DeferredItem<Item> RINGTAILS_SPAWN_EGG = ITEMS.register("ringtails_spawn_egg",
             () -> new BandSpawnEggItem(new Item.Properties(), ModEntities.FAUST.get(), ModEntities.ORION.get()) {

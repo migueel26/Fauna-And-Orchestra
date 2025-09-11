@@ -110,6 +110,7 @@ public class FaunaAndOrchestra {
             EntityRenderers.register(ModEntities.FAUST.get(), FaustRenderer::new);
             EntityRenderers.register(ModEntities.ORION.get(), OrionRenderer::new);
             EntityRenderers.register(ModEntities.SINGING_SPROUTLING.get(), SproutlingRenderer::new);
+            EntityRenderers.register(ModEntities.BUTTERFLY.get(), ButterflyRenderer::new);
         }
 
         @SubscribeEvent
