@@ -65,6 +65,7 @@
   "text.faunaandorchestra.locked_tomb": "¡Esta tumba está cerrada!",
   "text.faunaandorchestra.sleeping_wandering_koala": "¡Está durmiendo! Intenta despertarlo primero...",
   "text.faunaandorchestra.dont_hurt_koala": "¡Esto no lo despertará! Prueba algo de ruido...",
+  "text.faunaandorchestra.leave_composer": "La influencia del Gran Compositor se desvanece aquí...",
 
   "entity.faunaandorchestra.mantis": "Mantis",
   "entity.faunaandorchestra.penguin": "Bebé Pingüino",
@@ -78,6 +79,8 @@
   "entity.faunaandorchestra.orion": "Orión",
   "entity.faunaandorchestra.singing_sproutling": "Brotecito Cantarín",
   "entity.faunaandorchestra.butterfly": "Mariposa",
+  "entity.faunaandorchestra.the_great_composer": "Tiego, el Gran Compositor",
+  "entity.faunaandorchestra.music_note_projectile": "Proyectil de Nota Musical",
 
   "piece.faunaandorchestra.bach_air_sheet_music": "Air de Bach",
   "piece.faunaandorchestra.greensleeves_sheet_music": "Greensleeves",

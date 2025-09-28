@@ -8,6 +8,8 @@ import net.migueel26.faunaandorchestra.client.block.ListenerBlockEntityRenderer;
 import net.migueel26.faunaandorchestra.client.block.ListenerContainerBlockEntityRenderer;
 import net.migueel26.faunaandorchestra.client.block.TipCaseBlockEntityRenderer;
 import net.migueel26.faunaandorchestra.client.entity.*;
+import net.migueel26.faunaandorchestra.client.entity.boss.TheGreatComposerRenderer;
+import net.migueel26.faunaandorchestra.client.entity.projectile.MusicNoteProjectileRenderer;
 import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.item.ModCreativeModeTabs;
@@ -22,7 +24,9 @@ import net.migueel26.faunaandorchestra.screen.custom.DialogueScreen;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.migueel26.faunaandorchestra.util.ModItemProperties;
 import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
 import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import org.slf4j.Logger;
@@ -112,6 +116,8 @@ public class FaunaAndOrchestra {
             EntityRenderers.register(ModEntities.ANYA_GHOST.get(), AnyaGhostRenderer::new);
             EntityRenderers.register(ModEntities.SINGING_SPROUTLING.get(), SproutlingRenderer::new);
             EntityRenderers.register(ModEntities.BUTTERFLY.get(), ButterflyRenderer::new);
+            EntityRenderers.register(ModEntities.THE_GREAT_COMPOSER.get(), TheGreatComposerRenderer::new);
+            EntityRenderers.register(ModEntities.MUSIC_NOTE_PROJECTILE.get(), MusicNoteProjectileRenderer::new);
         }
 
         @SubscribeEvent

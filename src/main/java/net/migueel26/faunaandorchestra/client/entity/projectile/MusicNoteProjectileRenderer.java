@@ -1,0 +1,80 @@
+package net.migueel26.faunaandorchestra.client.entity.projectile;
+
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
+import net.migueel26.faunaandorchestra.entity.custom.projectile.MusicNoteProjectileEntity;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+
+public class MusicNoteProjectileRenderer extends EntityRenderer<MusicNoteProjectileEntity> {
+    private int tick = 0;
+    private static final ResourceLocation MAIN_TEXTURE_LOCATION = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/music_note_projectile.png");
+    private static final ResourceLocation BACK_TEXTURE_LOCATION = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/music_note_projectile_back.png");
+    private static final RenderType MAIN_RENDER_TYPE = RenderType.entityCutoutNoCull(MAIN_TEXTURE_LOCATION);
+    private static final RenderType BACK_RENDER_TYPE = RenderType.entityTranslucent(BACK_TEXTURE_LOCATION);
+
+    public MusicNoteProjectileRenderer(EntityRendererProvider.Context context) {
+        super(context);
+    }
+
+    protected int getBlockLightLevel(MusicNoteProjectileEntity entity, BlockPos pos) {
+        return 15;
+    }
+
+    public void render(MusicNoteProjectileEntity entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
+        poseStack.pushPose();
+        poseStack.mulPose(this.entityRenderDispatcher.cameraOrientation());
+
+        // Back image (50% transparent)
+        poseStack.pushPose();
+
+        float i = (float) (0.25 * Math.sin(tick * 0.075) + 1.75f);
+
+        poseStack.scale(i, i, i);
+        poseStack.translate(0.0D, -0.05D, -0.001D);
+        PoseStack.Pose backPose = poseStack.last();
+        VertexConsumer backConsumer = buffer.getBuffer(BACK_RENDER_TYPE);
+        vertex(backConsumer, backPose, packedLight, 0.0F, 0, 0, 1, 128);
+        vertex(backConsumer, backPose, packedLight, 1.0F, 0, 1, 1, 128);
+        vertex(backConsumer, backPose, packedLight, 1.0F, 1, 1, 0, 128);
+        vertex(backConsumer, backPose, packedLight, 0.0F, 1, 0, 0, 128);
+        poseStack.popPose();
+
+        // Main image (opaque)
+        poseStack.pushPose();
+        poseStack.scale(1.5F, 1.5F, 1.5F);
+        PoseStack.Pose mainPose = poseStack.last();
+        VertexConsumer mainConsumer = buffer.getBuffer(MAIN_RENDER_TYPE);
+        vertex(mainConsumer, mainPose, packedLight, 0.0F, 0, 0, 1, 255);
+        vertex(mainConsumer, mainPose, packedLight, 1.0F, 0, 1, 1, 255);
+        vertex(mainConsumer, mainPose, packedLight, 1.0F, 1, 1, 0, 255);
+        vertex(mainConsumer, mainPose, packedLight, 0.0F, 1, 0, 0, 255);
+        poseStack.popPose();
+
+        poseStack.popPose();
+        tick++;
+        super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
+    }
+
+    private static void vertex(VertexConsumer consumer, PoseStack.Pose pose, int packedLight, float x, int y, int u, int v, int alpha) {
+        consumer.addVertex(pose, x - 0.5F, (float)y - 0.25F, 0.0F)
+                .setColor(255, 255, 255, alpha)
+                .setUv((float)u, (float)v)
+                .setOverlay(OverlayTexture.NO_OVERLAY)
+                .setLight(packedLight)
+                .setNormal(pose, 0.0F, 1.0F, 0.0F);
+    }
+
+    /**
+     * Returns the location of an entity's texture.
+     */
+    public ResourceLocation getTextureLocation(MusicNoteProjectileEntity entity) {
+        return MAIN_TEXTURE_LOCATION;
+    }
+}
