@@ -47,6 +47,11 @@ public class ModBlocks {
                     .strength(2.0F)
                     .sound(SoundType.WOOD)));
 
+    public static final DeferredBlock<Block> CRAWLING_DISCORD = registerBlock("crawling_discord",
+            () -> new CrawlingDiscordBlock(BlockBehaviour.Properties.of()
+                    .strength(2.0f, 6.0f)
+                    .sound(SoundType.SCULK)));
+
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block) {
         DeferredBlock<T> toReturn = BLOCKS.register(name, block);
         ModItems.ITEMS.register(name, () -> new BlockItem(toReturn.get(), new Item.Properties()));

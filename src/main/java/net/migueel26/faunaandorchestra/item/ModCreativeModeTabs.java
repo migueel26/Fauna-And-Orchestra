@@ -51,6 +51,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModBlocks.LISTENER_CONTAINER);
                         output.accept(ModBlocks.COMPOSER_GRAVESTONE);
                         output.accept(ModBlocks.GRAVESTONE);
+                        output.accept(ModBlocks.CRAWLING_DISCORD);
                     }).build());
 
     public static void register(IEventBus eventBus) {

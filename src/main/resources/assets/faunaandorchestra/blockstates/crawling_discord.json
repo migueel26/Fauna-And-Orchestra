@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "climber=false": {
+      "model": "faunaandorchestra:block/crawling_discord"
+    },
+    "climber=true": {
+      "model": "faunaandorchestra:block/crawling_discord_climber"
+    }
+  }
+}

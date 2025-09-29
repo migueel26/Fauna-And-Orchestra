@@ -1,5 +1,6 @@
 package net.migueel26.faunaandorchestra.entity.custom.boss;
 
+import net.migueel26.faunaandorchestra.effect.ModEffects;
 import net.migueel26.faunaandorchestra.entity.custom.projectile.MusicNoteProjectileEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -14,13 +15,12 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
@@ -32,11 +32,14 @@ import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.*;
+import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.util.GeckoLibUtil;
+
+import java.util.List;
 
 public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
     protected static final int MAX_HEALTH = 300;
-    protected static final int IDLE_ATTACK_COOLDOWN = 40;
+    protected static final int IDLE_ATTACK_COOLDOWN = 80;
     protected static final int THROW_NORMAL_ATTACK_COOLDOWN = 30;
     public static final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
     public static final RawAnimation DODGE = RawAnimation.begin().thenPlay("dodge");
@@ -206,8 +209,8 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
 
         if (state == ComposerBossState.IDLE) {
             if (attackCooldown == 0) {
-                int rnd = level().getRandom().nextInt(1, 5);
-                ComposerBossState newState = getState(1);
+                int rnd = level().getRandom().nextInt(1, 3);
+                ComposerBossState newState = getState(rnd);
 
                 setNewState(newState);
             }
@@ -245,6 +248,17 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
 
         } else if (state == ComposerBossState.WEAK) {
             if (stateTime == 100 || (healthBefore - getHealth() / getMaxHealth()) >= 0.25) {
+                setNewState(ComposerBossState.IDLE);
+                this.attackCooldown = IDLE_ATTACK_COOLDOWN;
+            }
+        } else if (state == ComposerBossState.POISON_ATTACK) {
+            if (stateTime == 45) {
+                List<LivingEntity> entities = level().getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, this, this.getBoundingBox().inflate(20));
+                for (LivingEntity entity : entities) {
+                    entity.addEffect(new MobEffectInstance(ModEffects.BOOGIE_EFFECT, isSecondPhase() ? 200 : 100));
+                }
+            }
+            if (stateTime == 80) {
                 setNewState(ComposerBossState.IDLE);
                 this.attackCooldown = IDLE_ATTACK_COOLDOWN;
             }
@@ -363,6 +377,10 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
     @Override
     public boolean isNoGravity() {
         return true;
+    }
+
+    public boolean isSecondPhase() {
+        return getHealth() / getMaxHealth() <= 0.5;
     }
 
     public enum ComposerBossState {

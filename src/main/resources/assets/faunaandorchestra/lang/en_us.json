@@ -21,8 +21,9 @@
   "block.faunaandorchestra.tip_case": "Tip Case",
   "block.faunaandorchestra.listener": "Listener",
   "block.faunaandorchestra.listener_container": "Listener Container",
-  "block.faunaandorchestra.tip_case_theft": "This case is not yours! You can't take the gold",
+  "block.faunaandorchestra.crawling_discord": "Crawling Discord",
 
+  "block.faunaandorchestra.tip_case_theft": "This case is not yours! You can't take the gold",
   "block.faunaandorchestra.tip_case.desc": "Everybody can tip you gold, but only you can retrieve it",
   "block.faunaandorchestra.listener.desc": "Place it on top of a Listener Container and play some music",
   "block.faunaandorchestra.listener_container.desc": "Produce some liquid music by placing a Listener above and creating an orchestra",
@@ -87,6 +88,8 @@
   "piece.faunaandorchestra.blues_sheet_music": "Mindlin's Blues Song",
   "piece.faunaandorchestra.jazzy_fur_elise_sheet_music": "Jazzy Für Elise",
   "piece.faunaandorchestra.dance_of_the_little_swans_sheet_music": "Dance of the Little Swans",
+
+  "effect.faunaandorchestra.boogie": "Boogie",
 
   "advancements.faunaandorchestra.root": "Fauna & Orchestra",
   "advancements.faunaandorchestra.root.desc": "The beginning of a musical and mystical adventure",
