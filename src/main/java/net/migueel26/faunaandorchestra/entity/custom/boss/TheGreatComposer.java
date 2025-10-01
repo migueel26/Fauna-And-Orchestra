@@ -1,8 +1,12 @@
 package net.migueel26.faunaandorchestra.entity.custom.boss;
 
+import net.migueel26.faunaandorchestra.block.ModBlocks;
+import net.migueel26.faunaandorchestra.block.custom.CrawlingDiscordBlock;
 import net.migueel26.faunaandorchestra.effect.ModEffects;
 import net.migueel26.faunaandorchestra.entity.custom.projectile.MusicNoteProjectileEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -15,7 +19,9 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -35,7 +41,9 @@ import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
     protected static final int MAX_HEALTH = 300;
@@ -73,6 +81,11 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
     // the Composer will repel n-1 times
     protected int repels = 2;
     protected float healthBefore;
+    protected List<? extends Holder<MobEffect>> effectsList = new ArrayList<>(List.of(
+            ModEffects.BOOGIE_EFFECT,
+            MobEffects.DARKNESS,
+            MobEffects.MOVEMENT_SLOWDOWN,
+            MobEffects.WEAKNESS));
     ////////////
     private final ServerBossEvent bossEvent = (ServerBossEvent) new ServerBossEvent(
             this.getDisplayName(), BossEvent.BossBarColor.GREEN, BossEvent.BossBarOverlay.PROGRESS
@@ -209,7 +222,7 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
 
         if (state == ComposerBossState.IDLE) {
             if (attackCooldown == 0) {
-                int rnd = level().getRandom().nextInt(1, 3);
+                int rnd = level().getRandom().nextInt(1, 4);
                 ComposerBossState newState = getState(rnd);
 
                 setNewState(newState);
@@ -255,12 +268,112 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
             if (stateTime == 45) {
                 List<LivingEntity> entities = level().getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, this, this.getBoundingBox().inflate(20));
                 for (LivingEntity entity : entities) {
-                    entity.addEffect(new MobEffectInstance(ModEffects.BOOGIE_EFFECT, isSecondPhase() ? 200 : 100));
+                    Holder<MobEffect> nextEffect = effectsList.get(random.nextInt(0, effectsList.size()));
+                    entity.addEffect(new MobEffectInstance(nextEffect, isSecondPhase() ? 280 : 200, isSecondPhase() ? 2 : 1));
                 }
             }
             if (stateTime == 80) {
                 setNewState(ComposerBossState.IDLE);
                 this.attackCooldown = IDLE_ATTACK_COOLDOWN;
+            }
+
+        } else if (state == ComposerBossState.LAUGH_ATTACK) {
+            if (stateTime == 25) {
+                Optional<ServerPlayer> opPlayer = bossEvent.getPlayers().stream().findAny();
+                if (opPlayer.isPresent()) {
+                    // Create a crawling discord based on the player
+                    ServerPlayer player = opPlayer.get();
+                    int x = player.getBlockX();
+                    int y = player.getBlockY();
+                    int z = player.getBlockZ();
+                    Direction direction = player.getDirection();
+
+                    int rx = random.nextInt(12, 19);
+                    int rz = random.nextInt(12, 19);
+
+                    CrawlingDiscordBlock block = (CrawlingDiscordBlock) ModBlocks.CRAWLING_DISCORD.get();
+                    if (this.isSecondPhase()) block.setDifficult(true);
+
+                    switch (direction) {
+                        case NORTH -> {
+                            rz = (rz - 15)*-1;
+                            rx = random.nextBoolean() ? rx *= -1 : rx;
+                        }
+                        case SOUTH -> {
+                            rx = random.nextBoolean() ? rx *= -1 : rx;
+                            rz -= 10;
+                        }
+                        case EAST -> {
+                            rz = random.nextBoolean() ? rz *= -1 : rz;
+                            rx -= 10;
+                        }
+                        default ->  {
+                            rx = (rx - 15)*-1;
+                            rz = random.nextBoolean() ? rz *= -1 : rz;
+                        }
+                    }
+
+                    int offset = 0;
+                    boolean sw = false;
+                    BlockPos currentPos = new BlockPos(x + rx, y, z + rz);
+
+                    while (!level().getBlockState(currentPos).isAir() || level().getBlockState(currentPos.below()).isAir()) {
+                        currentPos = new BlockPos(x + rx, y + offset, z + rz);
+                        offset = sw ? -offset : (offset <= 0 ? offset-1 : offset+1);
+                        sw = !sw;
+                    }
+
+                    level().setBlock(currentPos, block.defaultBlockState(), 3);
+                    EntityType.LIGHTNING_BOLT.spawn((ServerLevel) level(), currentPos, MobSpawnType.MOB_SUMMONED);
+
+                    // Create two crawling discord based on the composer
+                    direction = this.getDirection().getOpposite();
+
+                    for (int i = 1; i <= 2; i++) {
+
+                        x = this.getBlockX();
+                        y = this.getBlockY();
+                        z = this.getBlockZ();
+
+                        rx = random.nextInt(5, 9);
+                        rz = random.nextInt(5, 9);
+
+                        switch (direction) {
+                            case NORTH -> {
+                                rz *= -1;
+                                if (i == 2) rx *= -1;
+                            }
+                            case SOUTH -> {
+                                if (i == 2) rx *= -1;
+                            }
+                            case EAST -> {
+                                if (i == 2) rz *= -1;
+                            }
+                            default ->  {
+                                rx *= -1;
+                                if (i == 2) rz *= -1;
+                            }
+                        }
+
+                        offset = 0;
+                        sw = false;
+                        currentPos = new BlockPos(x + rx, y, z + rz);
+
+                        while (!level().getBlockState(currentPos).isAir() || level().getBlockState(currentPos.below()).isAir()) {
+                            currentPos = new BlockPos(x + rz, y + offset, z + rz);
+                            offset = sw ? -offset : (offset <= 0 ? offset-1 : offset+1);
+                            sw = !sw;
+                        }
+
+                        level().setBlock(currentPos, block.defaultBlockState(), 3);
+                        EntityType.LIGHTNING_BOLT.spawn((ServerLevel) level(), currentPos, MobSpawnType.MOB_SUMMONED);
+                    }
+                }
+            }
+
+            if (stateTime == CrawlingDiscordBlock.NEW_CHILD_TIME * CrawlingDiscordBlock.MAX_GENERATION + CrawlingDiscordBlock.DIE_TIME + 40) {
+                setNewState(ComposerBossState.IDLE);
+                this.attackCooldown = IDLE_ATTACK_COOLDOWN + 20;
             }
         }
 

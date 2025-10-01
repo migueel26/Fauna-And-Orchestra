@@ -16,10 +16,7 @@ public class ModEffects {
             BuiltInRegistries.MOB_EFFECT, FaunaAndOrchestra.MOD_ID);
 
     public static final Holder<MobEffect> BOOGIE_EFFECT = MOB_EFFECTS.register("boogie",
-            () -> new BoogieEffect(MobEffectCategory.HARMFUL, 0xc8a2c8)
-                    .addAttributeModifier(Attributes.MOVEMENT_SPEED,
-                            ResourceLocation.fromNamespaceAndPath(ResourceLocation.DEFAULT_NAMESPACE, "boogie"), -0.25f,
-                            AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
+            () -> new BoogieEffect(MobEffectCategory.HARMFUL, 0xc8a2c8));
 
     public static void register(IEventBus eventBus) {
         MOB_EFFECTS.register(eventBus);

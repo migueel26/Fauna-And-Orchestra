@@ -18,7 +18,7 @@ public class BoogieEffect extends MobEffect {
     public boolean applyEffectTick(LivingEntity livingEntity, int amplifier) {
         if (livingEntity instanceof Player) {
 
-            float i = (float) ((float) 8*asymmetricSine(tick*0.05, 0.5, 6, 4.0));
+            float i = (float) ((float) 8*asymmetricSine(tick*0.1, 0.5, 6, 4.0));
             livingEntity.setXRot(livingEntity.getXRot() + i);
 
         } else if (livingEntity instanceof PathfinderMob mob){

@@ -20,9 +20,11 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import java.util.Iterator;
 
 public class CrawlingDiscordBlock extends Block {
-    public static final int MAX_GENERATION = 50;
-    public static final int NEW_CHILD_TIME = 5;
-    public static final int DIE_TIME = 200;
+    public static int MAX_GENERATION = 40;
+    public static int NEW_CHILD_TIME = 5;
+    public static int DIE_TIME = 200;
+    protected static int  DIFFICULT_CHILD_TIME = 2;
+    private boolean difficult = false;
     public static final IntegerProperty GENERATION = IntegerProperty.create("generation", 0, MAX_GENERATION);
     public static final BooleanProperty FATHER = BooleanProperty.create("father");
     public static final BooleanProperty CLIMBER = BooleanProperty.create("climber");
@@ -166,6 +168,11 @@ public class CrawlingDiscordBlock extends Block {
     }
 
     private int getNewChildTime(Level level) {
-        return level.random.nextInt(5, 15);
+        return difficult ? level.random.nextInt(DIFFICULT_CHILD_TIME, DIFFICULT_CHILD_TIME + 7)
+                : level.random.nextInt(NEW_CHILD_TIME, NEW_CHILD_TIME + 10);
+    }
+
+    public void setDifficult(boolean difficult) {
+        this.difficult = difficult;
     }
 }
