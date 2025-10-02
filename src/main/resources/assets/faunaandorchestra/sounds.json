@@ -35,6 +35,12 @@
       "faunaandorchestra:sfx/oboe"
     ]
   },
+  "cello_use": {
+    "subtitles": "sounds.faunaandorchestra.cello_use",
+    "sounds": [
+      "faunaandorchestra:sfx/cello"
+    ]
+  },
   "bach_air_violin": {
     "subtitles": "sounds.faunaandorchestra.bach_air_violin",
     "sounds": [

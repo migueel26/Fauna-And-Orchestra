@@ -60,6 +60,7 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
     public static final RawAnimation NORMAL_ATTACK = RawAnimation.begin().thenPlay("attack");
     public static final RawAnimation POISON_ATTACK = RawAnimation.begin().thenPlay("attack_poison");
     public static final RawAnimation SUMMON_ATTACK = RawAnimation.begin().thenPlay("attack_summon");
+    public static final RawAnimation MELEE_ATTACK = RawAnimation.begin().thenPlay("attack_melee");
     public static final RawAnimation LAUGH = RawAnimation.begin().thenPlay("prepare").thenLoop("laugh");
     public static final RawAnimation SHOCK = RawAnimation.begin().thenPlay("shock");
     public static final RawAnimation WEAK = RawAnimation.begin().thenPlay("weak");
@@ -70,9 +71,11 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
             .triggerableAnim("normal_attack", NORMAL_ATTACK)
             .triggerableAnim("poison_attack", POISON_ATTACK)
             .triggerableAnim("summon_attack", SUMMON_ATTACK)
+            .triggerableAnim("melee_attack", MELEE_ATTACK)
             .triggerableAnim("repel", REPEL);
     public static EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(TheGreatComposer.class, EntityDataSerializers.INT);
     public static EntityDataAccessor<Integer> REPELS = SynchedEntityData.defineId(TheGreatComposer.class, EntityDataSerializers.INT);
+    public static EntityDataAccessor<BlockPos> DEFAULT_POSITION = SynchedEntityData.defineId(TheGreatComposer.class, EntityDataSerializers.BLOCK_POS);
     protected int attackCooldown = IDLE_ATTACK_COOLDOWN;
     ////////// CLIENT AND SERVER
     protected int stateId;
@@ -234,7 +237,7 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
 
         if (state == ComposerBossState.IDLE) {
             if (attackCooldown == 0) {
-                int rnd = level().getRandom().nextInt(1, 5);
+                int rnd = level().getRandom().nextInt(1, 6);
                 ComposerBossState newState = getState(rnd);
 
                 setNewState(newState);
@@ -441,6 +444,9 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
                 setNewState(ComposerBossState.IDLE);
                 this.attackCooldown = IDLE_ATTACK_COOLDOWN;
             }
+
+        } else if (state == ComposerBossState.MELEE_ATTACK) {
+
         }
 
         this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
@@ -467,6 +473,9 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
             }
             case SUMMON_ATTACK -> {
                 trigger("summon_attack", false);
+            }
+            case MELEE_ATTACK -> {
+                trigger("melee_attack", false);
             }
             case LAUGH_ATTACK -> {
             }
@@ -498,8 +507,9 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
             case 2 -> ComposerBossState.POISON_ATTACK;
             case 3 -> ComposerBossState.LAUGH_ATTACK;
             case 4 -> ComposerBossState.SUMMON_ATTACK;
-            case 5 -> ComposerBossState.SHOCK;
-            case 6 -> ComposerBossState.WEAK;
+            case 5 -> ComposerBossState.MELEE_ATTACK;
+            case 8 -> ComposerBossState.SHOCK;
+            case 9 -> ComposerBossState.WEAK;
             default -> ComposerBossState.IDLE;
         };
     }
@@ -510,8 +520,9 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
             case POISON_ATTACK -> 2;
             case LAUGH_ATTACK -> 3;
             case SUMMON_ATTACK -> 4;
-            case SHOCK -> 5;
-            case WEAK -> 6;
+            case MELEE_ATTACK -> 5;
+            case SHOCK -> 8;
+            case WEAK -> 9;
             default -> 0;
         };
         this.entityData.set(STATE, id);
@@ -579,6 +590,7 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
         POISON_ATTACK,
         LAUGH_ATTACK,
         SUMMON_ATTACK,
+        MELEE_ATTACK,
         SHOCK,
         WEAK
     }

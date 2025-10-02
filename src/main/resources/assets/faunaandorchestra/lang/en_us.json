@@ -7,6 +7,7 @@
   "item.faunaandorchestra.double_bass": "Double Bass",
   "item.faunaandorchestra.saxophone": "Saxophone",
   "item.faunaandorchestra.oboe": "Oboe",
+  "item.faunaandorchestra.cello": "Cello",
   "item.faunaandorchestra.baton": "Baton",
 
   "item.faunaandorchestra.briefcase": "Briefcase",
@@ -55,8 +56,9 @@
   "tooltip.faunaandorchestra:double_bass": "§7This instrument seems to capture the attention of some... §ovibrant§r§7 squawkers",
   "tooltip.faunaandorchestra:saxophone": "§7This instrument seems to capture the attention of some... §odam-good§r§7 builders",
   "tooltip.faunaandorchestra:oboe": "§7This instrument seems to capture the attention of some... §oloony§r§7 leapers",
+  "tooltip.faunaandorchestra:cello": "§7This instrument seems to capture the attention of some... §ofluttering§r§7 dawn-silks",
   "tooltip.faunaandorchestra:baton": "§eClick §ra musician and then §eclick §ra block to lead it there\n§7This item also seems to capture the attention of some... §oleapy§r§7 lads",
-  "tooltip.faunaandorchestra:briefcase_empty": "§eClick §ra musician or conductor while it's §eopened §rto take it with you (up to 5)",
+  "tooltip.faunaandorchestra:briefcase_empty": "§eClick §ra musician or conductor while it's §eopened §rto take it with you (up to 6)",
   "tooltip.faunaandorchestra:briefcase_full": "§eClick §ra a block while it's §eclosed §rto release the §eanimal §rthere",
 
   "tooltip.faunaandorchestra.shift": "Press §eShift§r for more Information",

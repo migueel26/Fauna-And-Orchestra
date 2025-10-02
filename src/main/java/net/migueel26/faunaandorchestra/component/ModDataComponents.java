@@ -17,6 +17,7 @@ import java.util.function.UnaryOperator;
 public class ModDataComponents {
     public static final DeferredRegister<DataComponentType<?>> DATA_COMPONENT_TYPES =
             DeferredRegister.create(BuiltInRegistries.DATA_COMPONENT_TYPE, FaunaAndOrchestra.MOD_ID);
+    public static final int MAX_SIZE = 6;
 
         public static final DeferredHolder<DataComponentType<?>, DataComponentType<UUID>> MUSICIAN_UUID = register("musician_uuid",
             builder -> builder.persistent(UUIDUtil.CODEC));
@@ -24,11 +25,8 @@ public class ModDataComponents {
         public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> OPENED = register("briefcase_opened",
                 builder -> builder.persistent(Codec.BOOL));
 
-        public static final DeferredHolder<DataComponentType<?>, DataComponentType<String>> BRIEFCASE_ANIMAL = register("briefcase_animal",
-                builder -> builder.persistent(Codec.STRING));
-
         public static final DeferredHolder<DataComponentType<?>, DataComponentType<List<String>>> BRIEFCASE_ANIMAL_LIST = register("briefcase_animal_list",
-                builder -> builder.persistent(Codec.list(Codec.STRING, 0, 5)));
+                builder -> builder.persistent(Codec.list(Codec.STRING, 0, MAX_SIZE)));
 
     private static <T> DeferredHolder<DataComponentType<?>, DataComponentType<T>> register(String name, UnaryOperator<DataComponentType.Builder<T>> builderOperator) {
         return DATA_COMPONENT_TYPES.register(name, () -> builderOperator.apply(DataComponentType.builder()).build());

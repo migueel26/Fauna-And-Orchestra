@@ -25,6 +25,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.DOUBLE_BASS);
                         output.accept(ModItems.SAXOPHONE);
                         output.accept(ModItems.OBOE);
+                        output.accept(ModItems.CELLO);
                         output.accept(ModItems.BATON);
                         output.accept(ModItems.BRIEFCASE);
                         output.accept(ModItems.MANTIS_SPAWN_EGG);
