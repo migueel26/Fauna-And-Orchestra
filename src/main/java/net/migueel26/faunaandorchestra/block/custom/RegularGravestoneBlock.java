@@ -110,7 +110,13 @@ public class RegularGravestoneBlock extends ComposerGravestoneBlock {
         float probability = level.getRandom().nextFloat();
         if (probability >= 0 && probability <= 0.2) {
             // Skeleton
-            List<Item> list = List.of(ModItems.FLUTE.get(), ModItems.SAXOPHONE.get(), ModItems.KEYTAR.get(), ModItems.BATON.get());
+            List<Item> list = new ArrayList<>(List.of(
+                    ModItems.FLUTE.get(),
+                    ModItems.SAXOPHONE.get(),
+                    ModItems.KEYTAR.get(),
+                    ModItems.OBOE.get(),
+                    ModItems.BATON.get()));
+
             Item instrument = list.get(new Random().nextInt(list.size()));
 
             Skeleton skeleton = EntityType.SKELETON.spawn((ServerLevel) level, pos, MobSpawnType.MOB_SUMMONED);
