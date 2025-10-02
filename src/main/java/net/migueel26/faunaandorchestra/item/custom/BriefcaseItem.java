@@ -103,6 +103,7 @@ public class BriefcaseItem extends Item {
             case "MacawEntity" -> musicalEntityType = ModEntities.MACAW.get();
             case "BeaverEntity" -> musicalEntityType = ModEntities.BEAVER.get();
             case "LemurEntity" -> musicalEntityType = ModEntities.LEMUR.get();
+            case "MadameButterflyEntity" -> musicalEntityType = ModEntities.MADAME_BUTTERFLY.get();
             case "QuirkyFrogEntity" -> conductorEntityType = ModEntities.QUIRKY_FROG.get();
         }
         // Holding Instrument

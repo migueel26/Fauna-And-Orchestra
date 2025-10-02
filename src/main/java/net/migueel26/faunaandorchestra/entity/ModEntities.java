@@ -28,6 +28,8 @@ public class ModEntities {
             () -> EntityType.Builder.of(BeaverEntity::new, MobCategory.CREATURE).sized(0.75f, 0.75f).build("beaver"));
     public static final Supplier<EntityType<LemurEntity>> LEMUR = ENTITY_TYPES.register("lemur",
             () -> EntityType.Builder.of(LemurEntity::new, MobCategory.CREATURE).sized(0.75f, 0.75f).build("lemur"));
+    public static final Supplier<EntityType<MadameButterflyEntity>> MADAME_BUTTERFLY = ENTITY_TYPES.register("madame_butterfly",
+            () -> EntityType.Builder.of(MadameButterflyEntity::new, MobCategory.CREATURE).sized(0.5f, 0.5f).build("madame_butterfly"));
     public  static final Supplier<EntityType<QuirkyFrogEntity>> QUIRKY_FROG = ENTITY_TYPES.register("quirky_frog",
             () -> EntityType.Builder.of(QuirkyFrogEntity::new, MobCategory.CREATURE).sized(0.75f, 0.75f).build("quirky_frog"));
 

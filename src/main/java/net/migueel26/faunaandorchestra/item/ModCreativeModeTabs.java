@@ -34,6 +34,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.MACAW_SPAWN_EGG);
                         output.accept(ModItems.BEAVER_SPAWN_EGG);
                         output.accept(ModItems.LEMUR_SPAWN_EGG);
+                        output.accept(ModItems.MADAME_BUTTERFLY_SPAWN_EGG);
                         output.accept(ModItems.QUIRKY_FROG_SPAWN_EGG);
                         output.accept(ModItems.WANDERING_KOALA_SPAWN_EGG);
                         output.accept(ModItems.BUTTERFLY_SPAWN_EGG);
