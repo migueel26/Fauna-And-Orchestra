@@ -143,7 +143,7 @@ public class BriefcaseItem extends Item {
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         List<String> animals = stack.get(ModDataComponents.BRIEFCASE_ANIMAL_LIST);
         if (Screen.hasShiftDown()) {
-            if (animals == null || animals.size() < 5) {
+            if (animals == null || animals.size() < 6) {
                 tooltipComponents.add(Component.translatable("tooltip.faunaandorchestra:briefcase_empty"));
             }
             if (animals != null && !animals.isEmpty()){
@@ -173,6 +173,7 @@ public class BriefcaseItem extends Item {
                 case "QuirkyFrogEntity" -> typeName = Component.translatable("entity.faunaandorchestra.quirky_frog");
                 case "BeaverEntity" -> typeName = Component.translatable("entity.faunaandorchestra.beaver");
                 case "LemurEntity" -> typeName = Component.translatable("entity.faunaandorchestra.lemur");
+                case "MadameButterflyEntity" -> typeName = Component.translatable("entity.faunaandorchestra.madame_butterfly");
             }
             if (typeName != null) {
                 if (name != null) {

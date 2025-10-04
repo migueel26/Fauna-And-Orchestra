@@ -36,7 +36,7 @@
   "item.faunaandorchestra.dance_of_the_little_swans_sheet_music": "Dance of the Little Swans Sheet",
   "item.faunaandorchestra.resurrection_song": "The Requiem of Resurrection",
 
-  "item.faunaandorchestra.resurrection_song.desc": "§8§oPrayer of St. Francis",
+  "item.faunaandorchestra.resurrection_song.desc": "§8Prayer of St. Francis",
 
   "item.faunaandorchestra.mantis_spawn_egg": "Mantis Spawn Egg",
   "item.faunaandorchestra.penguin_spawn_egg": "Baby Penguin Spawn Egg",
@@ -92,6 +92,7 @@
   "piece.faunaandorchestra.blues_sheet_music": "Mindlin's Blues Song",
   "piece.faunaandorchestra.jazzy_fur_elise_sheet_music": "Jazzy Für Elise",
   "piece.faunaandorchestra.dance_of_the_little_swans_sheet_music": "Dance of the Little Swans",
+  "piece.faunaandorchestra.resurrection_song": "The Requiem of Resurrection",
 
   "effect.faunaandorchestra.boogie": "Boogie",
 

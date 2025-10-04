@@ -44,20 +44,32 @@ public class MusicUtil {
             ModItems.KEYTAR.get(), ModSounds.SWANS_KEYTAR.get().getLocation()
     );
 
+    public static final Map<Item, ResourceLocation> RESURRECTION = Map.of(
+            ModItems.OBOE.get(), ModSounds.RESURRECTION_OBOE.get().getLocation(),
+            ModItems.FLUTE.get(), ModSounds.RESURRECTION_FLUTE.get().getLocation(),
+            ModItems.CELLO.get(), ModSounds.RESURRECTION_CELLO.get().getLocation(),
+            ModItems.KEYTAR.get(), ModSounds.RESURRECTION_KEYTAR.get().getLocation(),
+            ModItems.VIOLIN.get(), ModSounds.RESURRECTION_VIOLIN.get().getLocation()
+    );
+
     private static final Map<Item, Map<Item, ResourceLocation>> SONG = Map.of(
             ModItems.BACH_AIR_SHEET_MUSIC.get(), BACH_AIR,
             ModItems.GREENSLEEVES_SHEET_MUSIC.get(), GREENSLEEVES,
             ModItems.BLUES_SHEET_MUSIC.get(), BLUES_SONG,
             ModItems.JAZZY_FUR_ELISE_SHEET_MUSIC.get(), JAZZY_FUR_ELISE,
-            ModItems.DANCE_OF_THE_LITTLE_SWANS.get(), SWANS
+            ModItems.DANCE_OF_THE_LITTLE_SWANS.get(), SWANS,
+            ModItems.RESURRECTION_SONG.get(), RESURRECTION
     );
+
+
 
     private static final Map<String, Item> STRING_TO_SHEET = Map.of(
             "faunaandorchestra:bach_air_sheet_music", ModItems.BACH_AIR_SHEET_MUSIC.get(),
             "faunaandorchestra:greensleeves_sheet_music", ModItems.GREENSLEEVES_SHEET_MUSIC.get(),
             "faunaandorchestra:blues_sheet_music", ModItems.BLUES_SHEET_MUSIC.get(),
             "faunaandorchestra:jazzy_fur_elise_sheet_music", ModItems.JAZZY_FUR_ELISE_SHEET_MUSIC.get(),
-            "faunaandorchestra:dance_of_the_little_swans_sheet_music", ModItems.DANCE_OF_THE_LITTLE_SWANS.get()
+            "faunaandorchestra:dance_of_the_little_swans_sheet_music", ModItems.DANCE_OF_THE_LITTLE_SWANS.get(),
+            "faunaandorchestra:resurrection_song", ModItems.RESURRECTION_SONG.get()
     );
 
     private static final Map<Item, Integer> DURATION = Map.of(
@@ -65,7 +77,8 @@ public class MusicUtil {
             ModItems.GREENSLEEVES_SHEET_MUSIC.get(), 1315,
             ModItems.BLUES_SHEET_MUSIC.get(), 1750,
             ModItems.JAZZY_FUR_ELISE_SHEET_MUSIC.get(), 1775,
-            ModItems.DANCE_OF_THE_LITTLE_SWANS.get(), 1895
+            ModItems.DANCE_OF_THE_LITTLE_SWANS.get(), 1895,
+            ModItems.RESURRECTION_SONG.get(), 4990
     );
 
     private static Map<UUID, Item> CURRENT_ORCHESTRAS = new HashMap<>();

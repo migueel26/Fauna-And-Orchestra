@@ -139,17 +139,17 @@ public abstract class MusicalEntity extends TamableAnimal {
 
                 if (animals == null) {
                     // If it's not initialized, we store it
-                    animals = new ArrayList<>(5);
+                    animals = new ArrayList<>(6);
                     itemStack.set(ModDataComponents.BRIEFCASE_ANIMAL_LIST, animals);
                 }
 
-                if (animals.size() < 5) {
+                if (animals.size() < 6) {
                     if (!level().isClientSide()) {
                         List<String> newAnimals = new ArrayList<>(animals);
                         newAnimals.add(MusicUtil.musicalAnimalToString(this));
                         itemStack.set(ModDataComponents.BRIEFCASE_ANIMAL_LIST, newAnimals);
 
-                        if (newAnimals.size() == 5) {
+                        if (newAnimals.size() == 6) {
                             itemStack.set(ModDataComponents.OPENED, false);
                         }
 

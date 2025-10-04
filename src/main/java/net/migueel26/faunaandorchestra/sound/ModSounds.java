@@ -43,6 +43,12 @@ public class ModSounds {
     public static final Supplier<SoundEvent> SWANS_FLUTE = registerSoundEvent("swans_flute");
     public static final Supplier<SoundEvent> SWANS_KEYTAR = registerSoundEvent("swans_keytar");
 
+    public static final Supplier<SoundEvent> RESURRECTION_KEYTAR = registerSoundEvent("resurrection_keytar");
+    public static final Supplier<SoundEvent> RESURRECTION_OBOE = registerSoundEvent("resurrection_oboe");
+    public static final Supplier<SoundEvent> RESURRECTION_CELLO = registerSoundEvent("resurrection_cello");
+    public static final Supplier<SoundEvent> RESURRECTION_VIOLIN = registerSoundEvent("resurrection_violin");
+    public static final Supplier<SoundEvent> RESURRECTION_FLUTE = registerSoundEvent("resurrection_flute");
+
     public static final Supplier<SoundEvent> FROG_SONG = registerSoundEvent("frog_song");
     public static final Supplier<SoundEvent> RINGTAILS_SONG = registerSoundEvent("hona_bildots_eztia");
 

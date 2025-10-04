@@ -137,6 +137,36 @@
       "faunaandorchestra:music/swans_keytar"
     ]
   },
+  "resurrection_keytar": {
+    "subtitles": "sounds.faunaandorchestra.resurrection_keytar",
+    "sounds": [
+      "faunaandorchestra:music/resurrection_keytar"
+    ]
+  },
+  "resurrection_cello": {
+    "subtitles": "sounds.faunaandorchestra.resurrection_cello",
+    "sounds": [
+      "faunaandorchestra:music/resurrection_cello"
+    ]
+  },
+  "resurrection_flute": {
+    "subtitles": "sounds.faunaandorchestra.resurrection_flute",
+    "sounds": [
+      "faunaandorchestra:music/resurrection_flute"
+    ]
+  },
+  "resurrection_oboe": {
+    "subtitles": "sounds.faunaandorchestra.resurrection_oboe",
+    "sounds": [
+      "faunaandorchestra:music/resurrection_oboe"
+    ]
+  },
+  "resurrection_violin": {
+    "subtitles": "sounds.faunaandorchestra.resurrection_violin",
+    "sounds": [
+      "faunaandorchestra:music/resurrection_violin"
+    ]
+  },
   "frog_song": {
     "subtitles": "sounds.faunaandorchestra.frog_song",
     "sounds": [

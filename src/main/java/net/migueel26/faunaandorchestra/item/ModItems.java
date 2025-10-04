@@ -144,7 +144,15 @@ public class ModItems {
                     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
                         tooltipComponents.add(Component.translatable("item.faunaandorchestra." + name + ".desc"));
 
-                        // Añadir instrumento
+                        MutableComponent instruments = Component.empty();
+                        Iterator<Item> iterator = MusicUtil.getInstruments(this.asItem()).iterator();
+                        while (iterator.hasNext()) {
+                            instruments.append(Component.translatable(iterator.next().getDescriptionId()));
+                            if (iterator.hasNext()) {
+                                instruments.append(Component.literal(", "));
+                            }
+                        }
+                        tooltipComponents.add(instruments.withStyle(ChatFormatting.GRAY));
 
                         super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
                     }
