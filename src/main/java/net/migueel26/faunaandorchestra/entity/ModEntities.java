@@ -2,8 +2,10 @@ package net.migueel26.faunaandorchestra.entity;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.entity.custom.*;
+import net.migueel26.faunaandorchestra.entity.custom.boss.ComposerCanonEntity;
 import net.migueel26.faunaandorchestra.entity.custom.boss.TheGreatComposer;
 import net.migueel26.faunaandorchestra.entity.custom.projectile.MusicNoteProjectileEntity;
+import net.migueel26.faunaandorchestra.entity.custom.projectile.PhantomNoteProjectileEntity;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -50,9 +52,13 @@ public class ModEntities {
 
     public static final Supplier<EntityType<MusicNoteProjectileEntity>> MUSIC_NOTE_PROJECTILE = ENTITY_TYPES.register("music_note_projectile",
             () -> EntityType.Builder.<MusicNoteProjectileEntity>of(MusicNoteProjectileEntity::new, MobCategory.MISC).sized(1.0f, 1.0f).build("music_note_projectile"));
+    public static final Supplier<EntityType<PhantomNoteProjectileEntity>> PHANTOM_NOTE_PROJECTILE = ENTITY_TYPES.register("phantom_note_projectile",
+            () -> EntityType.Builder.<PhantomNoteProjectileEntity>of(PhantomNoteProjectileEntity::new, MobCategory.MISC).sized(1.0f, 1.0f).build("phantom_note_projectile"));
 
     public static final Supplier<EntityType<TheGreatComposer>> THE_GREAT_COMPOSER = ENTITY_TYPES.register("the_great_composer",
             () -> EntityType.Builder.of(TheGreatComposer::new, MobCategory.CREATURE).sized(1.0f, 2.0f).clientTrackingRange(4).updateInterval(10).build("the_great_composer"));
+    public static final Supplier<EntityType<ComposerCanonEntity>> THE_GREAT_COMPOSER_CANON = ENTITY_TYPES.register("the_great_composer_canon",
+            () -> EntityType.Builder.of(ComposerCanonEntity::new, MobCategory.MONSTER).sized(1.25f, 1.0f).build("the_great_composer_canon"));
 
     public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);

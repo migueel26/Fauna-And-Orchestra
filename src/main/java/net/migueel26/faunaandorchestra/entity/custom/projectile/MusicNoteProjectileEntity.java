@@ -100,7 +100,7 @@ public class MusicNoteProjectileEntity extends AbstractHurtingProjectile {
                 Entity entity1 = result.getEntity();
                 Entity owner = this.getOwner();
                 DamageSource source = this.damageSources().magic();
-                entity1.hurt(source, 6.0F);
+                entity1.hurt(source, 8.0F);
                 EnchantmentHelper.doPostAttackEffects(serverlevel, entity1, source);
             }
         }

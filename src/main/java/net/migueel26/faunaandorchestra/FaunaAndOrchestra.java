@@ -8,8 +8,10 @@ import net.migueel26.faunaandorchestra.client.block.ListenerBlockEntityRenderer;
 import net.migueel26.faunaandorchestra.client.block.ListenerContainerBlockEntityRenderer;
 import net.migueel26.faunaandorchestra.client.block.TipCaseBlockEntityRenderer;
 import net.migueel26.faunaandorchestra.client.entity.*;
+import net.migueel26.faunaandorchestra.client.entity.boss.ComposerCanonRenderer;
 import net.migueel26.faunaandorchestra.client.entity.boss.TheGreatComposerRenderer;
 import net.migueel26.faunaandorchestra.client.entity.projectile.MusicNoteProjectileRenderer;
+import net.migueel26.faunaandorchestra.client.entity.projectile.PhantomNoteProjectileRenderer;
 import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.effect.ModEffects;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
@@ -121,6 +123,8 @@ public class FaunaAndOrchestra {
             EntityRenderers.register(ModEntities.BUTTERFLY.get(), ButterflyRenderer::new);
             EntityRenderers.register(ModEntities.THE_GREAT_COMPOSER.get(), TheGreatComposerRenderer::new);
             EntityRenderers.register(ModEntities.MUSIC_NOTE_PROJECTILE.get(), MusicNoteProjectileRenderer::new);
+            EntityRenderers.register(ModEntities.THE_GREAT_COMPOSER_CANON.get(), ComposerCanonRenderer::new);
+            EntityRenderers.register(ModEntities.PHANTOM_NOTE_PROJECTILE.get(), PhantomNoteProjectileRenderer::new);
         }
 
         @SubscribeEvent

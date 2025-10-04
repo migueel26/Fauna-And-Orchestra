@@ -85,7 +85,9 @@
   "entity.faunaandorchestra.singing_sproutling": "Brotecito Cantarín",
   "entity.faunaandorchestra.butterfly": "Mariposa",
   "entity.faunaandorchestra.the_great_composer": "Tiego, el Gran Compositor",
+  "entity.faunaandorchestra.the_great_composer_canon": "Canon del Gran Compositor",
   "entity.faunaandorchestra.music_note_projectile": "Proyectil de Nota Musical",
+  "entity.faunaandorchestra.phantom_note_projectile": "Proyectil Fantasma de Nota Musical",
 
   "piece.faunaandorchestra.bach_air_sheet_music": "Air de Bach",
   "piece.faunaandorchestra.greensleeves_sheet_music": "Greensleeves",

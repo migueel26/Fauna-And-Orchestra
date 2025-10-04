@@ -3,6 +3,7 @@ package net.migueel26.faunaandorchestra.event;
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.entity.custom.*;
+import net.migueel26.faunaandorchestra.entity.custom.boss.ComposerCanonEntity;
 import net.migueel26.faunaandorchestra.entity.custom.boss.TheGreatComposer;
 import net.migueel26.faunaandorchestra.networking.*;
 import net.minecraft.world.entity.SpawnPlacementTypes;
@@ -35,6 +36,7 @@ public class ModEventBusEvents {
         event.put(ModEntities.SINGING_SPROUTLING.get(), SproutlingEntity.createAttributes().build());
         event.put(ModEntities.BUTTERFLY.get(), ButterflyEntity.createAttributes().build());
         event.put(ModEntities.THE_GREAT_COMPOSER.get(), TheGreatComposer.createAttributes().build());
+        event.put(ModEntities.THE_GREAT_COMPOSER_CANON.get(), ComposerCanonEntity.createAttributes().build());
     }
 
     @SubscribeEvent
