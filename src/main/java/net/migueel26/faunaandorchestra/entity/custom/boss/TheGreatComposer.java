@@ -9,6 +9,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -19,6 +20,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.BossEvent;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -38,8 +40,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
@@ -146,6 +150,7 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
 
         builder.define(STATE, 0);
         builder.define(REPELS, 2);
+        builder.define(DEFAULT_POSITION, this.blockPosition());
     }
 
     @Override
@@ -159,6 +164,13 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
         super.onSyncedDataUpdated(key);
     }
 
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+        this.entityData.set(DEFAULT_POSITION, blockPosition());
+        return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
+    }
+
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(composerController);
@@ -170,6 +182,24 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
                 .add(Attributes.MOVEMENT_SPEED, 0.2D)
                 .add(Attributes.WATER_MOVEMENT_EFFICIENCY, 1.0D)
                 .add(Attributes.FOLLOW_RANGE, 24D);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compound) {
+        int x = compound.getInt("X");
+        int y = compound.getInt("Y");
+        int z = compound.getInt("Z");
+        this.entityData.set(DEFAULT_POSITION, new BlockPos(x, y, z));
+        super.readAdditionalSaveData(compound);
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        compound.putInt("X", this.entityData.get(DEFAULT_POSITION).getX());
+        compound.putInt("Y", this.entityData.get(DEFAULT_POSITION).getY());
+        compound.putInt("Z", this.entityData.get(DEFAULT_POSITION).getZ());
+
+        super.addAdditionalSaveData(compound);
     }
 
     @Override
@@ -375,7 +405,7 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
                         currentPos = new BlockPos(x + rx, y, z + rz);
 
                         while (!level().getBlockState(currentPos).isAir() || level().getBlockState(currentPos.below()).isAir()) {
-                            currentPos = new BlockPos(x + rz, y + offset, z + rz);
+                            currentPos = new BlockPos(x + rx, y + offset, z + rz);
                             offset = sw ? -offset : (offset <= 0 ? offset - 1 : offset + 1);
                             sw = !sw;
                         }
@@ -416,28 +446,31 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
                 for (Player player : bossEvent.getPlayers()) {
                     direction = player.getDirection();
 
-                    if (isSecondPhase()) {
-                        float r = random.nextFloat();
-                        if (r >= 0.6) skeletonType = EntityType.SKELETON;
-                        else if (r < 0.6 && r >= 0.4) skeletonType = EntityType.WITHER_SKELETON;
-                        else if (r < 0.4 && r >= 0.2) skeletonType = EntityType.BOGGED;
-                        else skeletonType = EntityType.STRAY;
-                    } else {
-                        if (random.nextFloat() <= 0.3) skeletonType = EntityType.WITHER_SKELETON;
-                        else skeletonType = EntityType.SKELETON;
-                    }
+                    for (int i = 1; i <= 2; i++) {
 
-                    switch (direction) {
-                        case NORTH, SOUTH -> {
-                            spawnSkeleton(player.getBlockX() + 4, player.getBlockY(), player.getBlockZ(), skeletonType);
-                            spawnSkeleton(player.getBlockX() - 4, player.getBlockY(), player.getBlockZ(), skeletonType);
+                        if (isSecondPhase()) {
+                            float r = random.nextFloat();
+                            if (r >= 0.6) skeletonType = EntityType.SKELETON;
+                            else if (r < 0.6 && r >= 0.4) skeletonType = EntityType.WITHER_SKELETON;
+                            else if (r < 0.4 && r >= 0.2) skeletonType = EntityType.BOGGED;
+                            else skeletonType = EntityType.STRAY;
+                        } else {
+                            if (random.nextFloat() <= 0.3) skeletonType = EntityType.WITHER_SKELETON;
+                            else skeletonType = EntityType.SKELETON;
                         }
-                        default -> {
-                            spawnSkeleton(player.getBlockX(), player.getBlockY(), player.getBlockZ() + 4, skeletonType);
-                            spawnSkeleton(player.getBlockX(), player.getBlockY(), player.getBlockZ() - 4, skeletonType);
-                        }
-                    }
 
+                        int offset = (i == 2) ? -4 : 4;
+
+                        switch (direction) {
+                            case NORTH, SOUTH -> {
+                                spawnSkeleton(player.getBlockX() + offset, player.getBlockY(), player.getBlockZ(), skeletonType);
+                            }
+                            default -> {
+                                spawnSkeleton(player.getBlockX(), player.getBlockY(), player.getBlockZ() + offset, skeletonType);
+                            }
+                        }
+
+                    }
 
                 }
             } else if (stateTime == 170) {
@@ -446,7 +479,49 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
             }
 
         } else if (state == ComposerBossState.MELEE_ATTACK) {
+            if (stateTime == 25) {
+                Optional<ServerPlayer> oPlayer = bossEvent.getPlayers().stream().findAny();
+                if (oPlayer.isPresent() && oPlayer.get() instanceof ServerPlayer player) {
+                    ((ServerLevel) level()).sendParticles(ParticleTypes.SCULK_SOUL,
+                            this.getX(), this.getY(), this.getZ(),
+                            60, 0.3, 1, 0.3, 0.1);
+                    this.moveTo(player.getBlockX(), player.getBlockY(), player.getBlockZ());
+                }
+            } else if (stateTime == 30) {
+                ((ServerLevel) level()).sendParticles(ParticleTypes.SCULK_SOUL,
+                        this.getX(), this.getY(), this.getZ(),
+                        60, 0.3, 1, 0.3, 0.1);
 
+            } else if (stateTime >= 45 && stateTime < 100) {
+                if (stateTime % 5 == 0) {
+                    ((ServerLevel) level()).sendParticles(ParticleTypes.SOUL_FIRE_FLAME,
+                            this.getX(), this.getY(), this.getZ(),
+                            40, 1, 0.1, 1, 0.2);
+                }
+
+                if (stateTime % 10 == 2) {
+                    List<LivingEntity> entities = level().getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, this, this.getBoundingBox().inflate(2, 1, 2));
+                    for (LivingEntity entity : entities) {
+                        entity.hurt(damageSources().mobAttack(this), 10.0F);
+                    }
+                }
+
+
+            } else if (stateTime == 105) {
+                ((ServerLevel) level()).sendParticles(ParticleTypes.SCULK_SOUL,
+                        this.getX(), this.getY(), this.getZ(),
+                        60, 0.3, 1, 0.3, 0.1);
+
+                BlockPos blockPos = this.entityData.get(DEFAULT_POSITION);
+
+                ((ServerLevel) level()).sendParticles(ParticleTypes.SCULK_SOUL,
+                        blockPos.getX(), blockPos.getY(), blockPos.getZ(),
+                        60, 0.3, 1, 0.3, 0.1);
+
+                this.moveTo(blockPos.getX(), blockPos.getY(), blockPos.getZ());
+                setNewState(ComposerBossState.IDLE);
+                this.attackCooldown = IDLE_ATTACK_COOLDOWN;
+            }
         }
 
         this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
