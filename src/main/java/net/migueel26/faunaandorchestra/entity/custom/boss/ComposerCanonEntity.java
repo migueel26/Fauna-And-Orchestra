@@ -1,7 +1,15 @@
 package net.migueel26.faunaandorchestra.entity.custom.boss;
 
 import net.migueel26.faunaandorchestra.entity.custom.MantisEntity;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
@@ -13,8 +21,12 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.ThrownPotion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -58,8 +70,18 @@ public class ComposerCanonEntity extends Monster implements GeoEntity {
                 }
             }
         });
-        goalSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, false, true));
-        goalSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Animal.class, false, true));
+        goalSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, false, true) {
+            @Override
+            public boolean canUse() {
+                return ((ComposerCanonEntity)mob).canAttack() && super.canUse();
+            }
+        });
+        goalSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Animal.class, false, true) {
+            @Override
+            public boolean canUse() {
+                return ((ComposerCanonEntity)mob).canAttack() && super.canUse();
+            }
+        });
     }
 
     @Override
@@ -67,11 +89,79 @@ public class ComposerCanonEntity extends Monster implements GeoEntity {
         if (ticks == 1) {
             triggerAnim("composer_canon_controller", "canon_spawn");
         }
-        if (ticks < 40) {
-            this.navigation.stop();
+        if (ticks % 10 == 0) {
+            if (!level().isClientSide()) {
+                ((ServerLevel) level()).sendParticles(ParticleTypes.SMOKE, getX(), getY(), getZ(), 20, 0.1f, 0.2f, 0.1f, 0.05);
+            }
         }
         ticks++;
         super.tick();
+    }
+
+    @Override
+    public boolean hurt(DamageSource source, float amount) {
+        if (this.isInvulnerableTo(source)) {
+            return false;
+        } else {
+            boolean flag = source.getDirectEntity() instanceof ThrownPotion;
+            if (!source.is(DamageTypeTags.IS_PROJECTILE) && !flag) {
+                boolean flag2 = super.hurt(source, amount);
+                if (!this.level().isClientSide() && (source.getEntity() instanceof LivingEntity)) {
+                    this.teleport();
+                }
+
+                return flag2;
+            } else {
+                for (int i = 0; i < 64; i++) {
+                    if (this.teleport()) {
+                        return true;
+                    }
+                }
+
+                return flag;
+            }
+        }
+    }
+
+    protected boolean teleport() {
+        if (!this.level().isClientSide() && this.isAlive()) {
+            double d0 = this.getX() + (this.random.nextDouble() - 0.5) * 32.0;
+            double d1 = this.getY() + 1;
+            double d2 = this.getZ() + (this.random.nextDouble() - 0.5) * 32.0;
+            return this.teleport(d0, d1, d2);
+        } else {
+            return false;
+        }
+    }
+
+    private boolean teleport(double x, double y, double z) {
+        BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(x, y, z);
+
+        while (blockpos$mutableblockpos.getY() > this.level().getMinBuildHeight() && !this.level().getBlockState(blockpos$mutableblockpos).blocksMotion()) {
+            blockpos$mutableblockpos.move(Direction.DOWN);
+        }
+
+        BlockState blockstate = this.level().getBlockState(blockpos$mutableblockpos);
+        boolean flag = blockstate.blocksMotion();
+        boolean flag1 = blockstate.getFluidState().is(FluidTags.WATER);
+        if (flag && !flag1) {
+            net.neoforged.neoforge.event.entity.EntityTeleportEvent.EnderEntity event = net.neoforged.neoforge.event.EventHooks.onEnderTeleport(this, x, y, z);
+            if (event.isCanceled()) return false;
+            Vec3 vec3 = this.position();
+            boolean flag2 = this.randomTeleport(event.getTargetX(), event.getTargetY(), event.getTargetZ(), true);
+            if (flag2) {
+                this.level().gameEvent(GameEvent.TELEPORT, vec3, GameEvent.Context.of(this));
+                if (!this.isSilent()) {
+                    // TODO: CHANGE SOUND
+                    this.level().playSound(null, this.xo, this.yo, this.zo, SoundEvents.ENDERMAN_TELEPORT, this.getSoundSource(), 1.0F, 1.0F);
+                    this.playSound(SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F);
+                }
+            }
+
+            return flag2;
+        } else {
+            return false;
+        }
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -80,6 +170,10 @@ public class ComposerCanonEntity extends Monster implements GeoEntity {
                 .add(Attributes.MOVEMENT_SPEED, 0.45D)
                 .add(Attributes.FOLLOW_RANGE, 24D)
                 .add(Attributes.ATTACK_DAMAGE, 12.0);
+    }
+
+    public boolean canAttack() {
+        return ticks >= 40;
     }
 
     @Override
