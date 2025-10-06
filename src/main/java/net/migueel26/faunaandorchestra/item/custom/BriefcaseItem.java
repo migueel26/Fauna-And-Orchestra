@@ -110,8 +110,10 @@ public class BriefcaseItem extends Item {
         boolean holdingInstrument = elements[1].equals("t");
         // Holding Sheet Music
         Item sheet = MusicUtil.getSheet(elements[2]);
+        // Legendary Baton
+        boolean legendaryBaton = elements[3].equals("t");
         // Custom Name
-        String customName = elements[3].equals("f") ? null : elements[3];
+        String customName = elements[4].equals("f") ? null : elements[3];
 
         if (musicalEntityType != null) {
             MusicalEntity musicalEntity = musicalEntityType.spawn(level, block, MobSpawnType.MOB_SUMMONED);
@@ -128,6 +130,7 @@ public class BriefcaseItem extends Item {
             if (conductor != null) {
                 conductor.tame(player);
                 conductor.setHoldingBaton(holdingInstrument);
+                conductor.setLegendaryBaton(legendaryBaton);
                 conductor.setOrderedToSit(true);
                 if (sheet != Items.AIR) {
                     conductor.inventory.setStackInSlot(0, new ItemStack(sheet));

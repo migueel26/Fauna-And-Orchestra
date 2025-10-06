@@ -122,8 +122,10 @@ public class MusicUtil {
         if (animal.equals("QuirkyFrogEntity")) {
             out.add(((ConductorEntity) entity).isHoldingBaton() ? "t" : "f");
             out.add(((ConductorEntity) entity).getSheetMusic().toString());
+            out.add(((ConductorEntity) entity).isHoldingLegendaryBaton() ? "t" : "f");
         } else {
             out.add(((MusicalEntity) entity).isHoldingInstrument() ? "t" : "f");
+            out.add("f");
             out.add("f");
         }
         out.add(entity.getCustomName() != null ? entity.getCustomName().getString() : "f");

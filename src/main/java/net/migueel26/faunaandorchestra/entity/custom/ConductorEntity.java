@@ -36,6 +36,7 @@ import java.util.Set;
 
 public abstract class ConductorEntity extends TamableAnimal {
     protected static final EntityDataAccessor<Boolean> HOLDING_BATON = SynchedEntityData.defineId(ConductorEntity.class, EntityDataSerializers.BOOLEAN);
+    protected static final EntityDataAccessor<Boolean> IS_LEGENDARY_BATON = SynchedEntityData.defineId(ConductorEntity.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Boolean> IS_MUSICAL = SynchedEntityData.defineId(ConductorEntity.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Boolean> IS_CONDUCTING = SynchedEntityData.defineId(ConductorEntity.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Boolean> IS_READY = SynchedEntityData.defineId(ConductorEntity.class, EntityDataSerializers.BOOLEAN);
@@ -74,6 +75,7 @@ public abstract class ConductorEntity extends TamableAnimal {
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(HOLDING_BATON, false);
+        builder.define(IS_LEGENDARY_BATON, false);
         builder.define(IS_CONDUCTING, false);
         builder.define(IS_READY, false);
         builder.define(IS_MUSICAL, false);
@@ -106,6 +108,7 @@ public abstract class ConductorEntity extends TamableAnimal {
         super.readAdditionalSaveData(compound);
 
         this.entityData.set(HOLDING_BATON, compound.getBoolean("HoldingBaton"));
+        this.entityData.set(IS_LEGENDARY_BATON, compound.getBoolean("LegendaryBaton"));
         this.entityData.set(IS_READY, compound.getBoolean("IsReady"));
         this.entityData.set(VOLUME, compound.getFloat("Volume"));
 
@@ -122,6 +125,7 @@ public abstract class ConductorEntity extends TamableAnimal {
         super.addAdditionalSaveData(compound);
 
         compound.putBoolean("HoldingBaton", this.isHoldingBaton());
+        compound.putBoolean("LegendaryBaton", this.isHoldingLegendaryBaton());
         compound.putBoolean("IsReady", isConducting());
         compound.putFloat("Volume", currentVolume);
 
@@ -171,19 +175,31 @@ public abstract class ConductorEntity extends TamableAnimal {
                 return InteractionResult.SUCCESS;
 
             } else if (itemStack.isEmpty() && isHoldingBaton() && player.isSecondaryUseActive()) {
-                
-                player.setItemInHand(hand, new ItemStack(ModItems.BATON.get(), 1));
+
+                Item item = isHoldingLegendaryBaton() ? ModItems.LEGENDARY_BATON.get() : ModItems.BATON.get();
+                player.setItemInHand(hand, new ItemStack(item, 1));
                 setHoldingBaton(false);
+                setLegendaryBaton(false);
                 setOrderedToSit(false);
                 return InteractionResult.SUCCESS;
                 
             } else if (itemStack.is(ModItems.BATON) && !isHoldingBaton()) {
-                
+
                 level().addParticle(ParticleTypes.NOTE, this.getX(), this.getY() + 2.5, this.getZ(), 0F, 0.5F, 0F);
                 player.setItemInHand(hand, ItemStack.EMPTY);
                 setHoldingBaton(true);
+                setLegendaryBaton(false);
                 setOrderedToSit(true);
                 return InteractionResult.CONSUME;
+
+            } else if (itemStack.is(ModItems.LEGENDARY_BATON) && !isHoldingBaton()) {
+
+                level().addParticle(ParticleTypes.NOTE, this.getX(), this.getY() + 2.5, this.getZ(), 0F, 0.5F, 0F);
+                player.setItemInHand(hand, ItemStack.EMPTY);
+                setHoldingBaton(true);
+                setLegendaryBaton(true);
+                setOrderedToSit(true);
+
                 
             } else if (itemStack.is(ModItems.BRIEFCASE) && itemStack.getOrDefault(ModDataComponents.OPENED, false)
                     && getOwnerUUID().equals(player.getUUID())) {
@@ -228,8 +244,15 @@ public abstract class ConductorEntity extends TamableAnimal {
         if (!this.level().isClientSide) {
             if (isHoldingBaton() && isTame()) {
                 setHoldingBaton(false);
-                this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(),
-                        new ItemStack((Holder<Item>) ModItems.BATON, 1)));
+                if (isHoldingLegendaryBaton()) {
+                    setLegendaryBaton(false);
+                    this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(),
+                            new ItemStack((Holder<Item>) ModItems.LEGENDARY_BATON, 1)));
+                } else {
+                    this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(),
+                            new ItemStack((Holder<Item>) ModItems.BATON, 1)));
+                }
+
             }
             setInSittingPose(false);
         }
@@ -340,5 +363,13 @@ public abstract class ConductorEntity extends TamableAnimal {
 
     public boolean isMusicianApt(MusicalEntity musician) {
         return MusicUtil.getInstruments(getSheetMusic()).contains(musician.getInstrument().get());
+    }
+
+    public boolean isHoldingLegendaryBaton() {
+        return entityData.get(IS_LEGENDARY_BATON);
+    }
+
+    public void setLegendaryBaton(boolean legendaryBaton) {
+        this.entityData.set(IS_LEGENDARY_BATON, legendaryBaton);
     }
 }

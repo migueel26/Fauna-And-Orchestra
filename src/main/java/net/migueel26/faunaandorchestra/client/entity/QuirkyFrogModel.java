@@ -47,7 +47,18 @@ public class QuirkyFrogModel extends GeoModel<QuirkyFrogEntity> {
         }
 
         GeoBone baton = getAnimationProcessor().getBone("baton");
-
-        baton.setHidden(!entity.isHoldingBaton());
+        GeoBone legendaryBaton = getAnimationProcessor().getBone("legendary_baton");
+        if (entity.isHoldingBaton()) {
+            if (entity.isHoldingLegendaryBaton()) {
+                baton.setHidden(true);
+                legendaryBaton.setHidden(false);
+            } else {
+                baton.setHidden(false);
+                legendaryBaton.setHidden(true);
+            }
+        } else {
+            baton.setHidden(true);
+            legendaryBaton.setHidden(true);
+        }
     }
 }

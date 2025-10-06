@@ -1,6 +1,7 @@
 package net.migueel26.faunaandorchestra.item.custom;
 
 import net.migueel26.faunaandorchestra.component.ModDataComponents;
+import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.mixins.client.accessors.ClientLevelAccessor;
 import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
 import net.minecraft.client.gui.screens.Screen;
@@ -49,7 +50,11 @@ public class BatonItem extends Item {
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         if (Screen.hasShiftDown()) {
-            tooltipComponents.add(Component.translatable("tooltip.faunaandorchestra:baton"));
+            if (stack.is(ModItems.LEGENDARY_BATON)) {
+                tooltipComponents.add(Component.translatable("tooltip.faunaandorchestra:legendary_baton"));
+            } else {
+                tooltipComponents.add(Component.translatable("tooltip.faunaandorchestra:baton"));
+            }
         } else {
             tooltipComponents.add(Component.translatable("tooltip.faunaandorchestra.shift"));
         }

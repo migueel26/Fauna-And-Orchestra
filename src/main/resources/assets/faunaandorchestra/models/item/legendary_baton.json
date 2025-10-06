@@ -1,0 +1,18 @@
+{
+  "parent": "minecraft:item/handheld",
+  "loader": "neoforge:separate_transforms",
+  "base": {
+    "parent": "faunaandorchestra:item/legendary_baton_3d"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "faunaandorchestra:item/legendary_baton_2d"
+    },
+    "ground": {
+      "parent": "faunaandorchestra:item/legendary_baton_2d"
+    },
+    "fixed": {
+      "parent": "faunaandorchestra:item/legendary_baton_2d"
+    }
+  }
+}

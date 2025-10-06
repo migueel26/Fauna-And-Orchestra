@@ -42,6 +42,8 @@ public class ModItems {
             () -> new InstrumentItem(new Item.Properties().stacksTo(1), ModSounds.CELLO_USE.get()));
     public static final DeferredItem<Item> BATON = ITEMS.register("baton",
             () -> new BatonItem(new Item.Properties().stacksTo(1)));
+    public static final DeferredItem<Item> LEGENDARY_BATON = ITEMS.register("legendary_baton",
+            () -> new BatonItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)));
 
     public static final DeferredItem<Item> BRIEFCASE = ITEMS.register("briefcase",
             () -> new BriefcaseItem(new Item.Properties().stacksTo(1)));

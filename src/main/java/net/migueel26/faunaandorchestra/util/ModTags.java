@@ -9,6 +9,7 @@ import net.minecraft.world.item.Item;
 public class ModTags {
     public static class Items {
         public static final TagKey<Item> SHEET_MUSIC = registerTag("sheet_music");
+        public static final TagKey<Item> IS_BATON = registerTag("is_baton");
 
         private static TagKey<Item> registerTag(String name) {
             return ItemTags.create(ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, name));

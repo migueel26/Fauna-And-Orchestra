@@ -6,6 +6,8 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
@@ -47,7 +49,7 @@ public class CrawlingDiscordBlock extends Block {
 
     @Override
     public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity) {
-        entity.hurt(level.damageSources().magic(), 2.0F);
+        if (entity instanceof LivingEntity) entity.hurt(level.damageSources().magic(), 2.0F);
         if (!level.isClientSide()) {
             ((ServerLevel) level).sendParticles(ParticleTypes.SCULK_SOUL,
                     entity.getX(), entity.getY(), entity.getZ(),
@@ -58,7 +60,7 @@ public class CrawlingDiscordBlock extends Block {
 
     @Override
     protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
-        entity.hurt(level.damageSources().magic(), 2.0F);
+        if (entity instanceof LivingEntity) entity.hurt(level.damageSources().magic(), 2.0F);
         if (!level.isClientSide()) {
             ((ServerLevel) level).sendParticles(ParticleTypes.SCULK_SOUL,
                     entity.getX(), entity.getY(), entity.getZ(),

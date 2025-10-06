@@ -27,6 +27,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.OBOE);
                         output.accept(ModItems.CELLO);
                         output.accept(ModItems.BATON);
+                        output.accept(ModItems.LEGENDARY_BATON);
                         output.accept(ModItems.BRIEFCASE);
                         output.accept(ModItems.MANTIS_SPAWN_EGG);
                         output.accept(ModItems.PENGUIN_SPAWN_EGG);

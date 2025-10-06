@@ -6,6 +6,7 @@ import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.item.custom.BriefcaseItem;
 import net.migueel26.faunaandorchestra.mixins.client.accessors.ClientLevelAccessor;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
+import net.migueel26.faunaandorchestra.util.ModTags;
 import net.migueel26.faunaandorchestra.util.MusicUtil;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.Holder;
@@ -113,7 +114,7 @@ public abstract class MusicalEntity extends TamableAnimal {
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
         if (isTame()) {
-            if (itemStack.is(ModItems.BATON) && !isPlayingInstrument() && itemStack.get(ModDataComponents.MUSICIAN_UUID) == null) {
+            if (itemStack.is(ModTags.Items.IS_BATON) && !isPlayingInstrument() && itemStack.get(ModDataComponents.MUSICIAN_UUID) == null) {
 
                 itemStack.set(ModDataComponents.MUSICIAN_UUID, this.uuid);
                 return InteractionResult.SUCCESS;

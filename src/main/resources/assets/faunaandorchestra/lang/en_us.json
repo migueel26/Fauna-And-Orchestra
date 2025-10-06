@@ -9,6 +9,7 @@
   "item.faunaandorchestra.oboe": "Oboe",
   "item.faunaandorchestra.cello": "Cello",
   "item.faunaandorchestra.baton": "Baton",
+  "item.faunaandorchestra.legendary_baton": "The Great Baton",
 
   "item.faunaandorchestra.briefcase": "Briefcase",
   "item.faunaandorchestra.music_bottle": "Liquid Music",
@@ -59,6 +60,7 @@
   "tooltip.faunaandorchestra:oboe": "§7This instrument seems to capture the attention of some... §oloony§r§7 leapers",
   "tooltip.faunaandorchestra:cello": "§7This instrument seems to capture the attention of some... §ofluttering§r§7 dawn-silks",
   "tooltip.faunaandorchestra:baton": "§eClick §ra musician and then §eclick §ra block to lead it there\n§7This item also seems to capture the attention of some... §oleapy§r§7 lads",
+  "tooltip.faunaandorchestra:legendary_baton": "§eClick §ra musician and then §eclick §ra block to lead it there\n§rThis §elegendary baton §runlocks the true power of sheet music",
   "tooltip.faunaandorchestra:briefcase_empty": "§eClick §ra musician or conductor while it's §eopened §rto take it with you (up to 6)",
   "tooltip.faunaandorchestra:briefcase_full": "§eClick §ra a block while it's §eclosed §rto release the §eanimal §rthere",
 

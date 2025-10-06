@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "faunaandorchestra:item/legendary_baton_2d"
+  }
+}
