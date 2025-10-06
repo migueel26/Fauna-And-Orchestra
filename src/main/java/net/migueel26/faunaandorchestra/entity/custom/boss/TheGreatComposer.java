@@ -28,6 +28,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -37,6 +38,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
@@ -49,7 +51,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoAnimatable;
@@ -103,6 +104,7 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
     public static final RawAnimation HEAD_ATTACK_LOOP = RawAnimation.begin().thenLoop("head_attack");
     public static final RawAnimation HEAD_ATTACK_MELEE = RawAnimation.begin().thenPlay("head_melee");
     public static final RawAnimation HEAD_ATTACK_CANON = RawAnimation.begin().thenPlay("head_canon");
+    public static final RawAnimation HEAD_DYING = RawAnimation.begin().thenPlay("head_dying");
     public final AnimationController<TheGreatComposer> composerController = new AnimationController<>(this, "composer_controller", 5, this::composerState)
             .triggerableAnim("dodge", DODGE)
             .triggerableAnim("normal_attack", NORMAL_ATTACK)
@@ -114,7 +116,8 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
             .triggerableAnim("fake_die", FAKE_DYING)
             .triggerableAnim("attack_head", HEAD_ATTACK)
             .triggerableAnim("melee_head", HEAD_ATTACK_MELEE)
-            .triggerableAnim("canon_head", HEAD_ATTACK_CANON);
+            .triggerableAnim("canon_head", HEAD_ATTACK_CANON)
+            .triggerableAnim("die", HEAD_DYING);
     public static EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(TheGreatComposer.class, EntityDataSerializers.INT);
     public static EntityDataAccessor<Integer> REPELS = SynchedEntityData.defineId(TheGreatComposer.class, EntityDataSerializers.INT);
     public static EntityDataAccessor<BlockPos> DEFAULT_POSITION = SynchedEntityData.defineId(TheGreatComposer.class, EntityDataSerializers.BLOCK_POS);
@@ -134,6 +137,7 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
     protected int repels = 2;
     protected float healthBefore;
     ComposerCanonEntity canonEntity;
+    protected BlockPos diePos;
     protected List<? extends Holder<MobEffect>> effectsList = new ArrayList<>(List.of(
             ModEffects.BOOGIE_EFFECT,
             MobEffects.DARKNESS,
@@ -180,6 +184,7 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
             case WEAK -> state.getController().setAnimation(WEAK);
             case SHOCK -> state.getController().setAnimation(SHOCK);
             case DEAD -> state.getController().setAnimation(FAKE_DEAD);
+            case DYING -> state.getController().setAnimation(HEAD_DYING);
             case null, default -> state.getController().setAnimation(isFinalPhase() ? IDLE_HEAD : IDLE);
         }
 
@@ -680,7 +685,7 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
                 this.attackCooldown = getCooldownTicks();
                 consecutiveAttacks++;
             }
-        } else if (state == ComposerBossState.DYING) {
+        } else if (state == ComposerBossState.FAKE_DYING) {
             if (stateTime == 1) {
                 BlockPos pos = entityData.get(DEFAULT_POSITION);
                 this.moveTo(pos.getX(), pos.getY(), pos.getZ());
@@ -707,6 +712,50 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
             } else {
                 setNewState(ComposerBossState.IDLE);
                 this.attackCooldown = getCooldownTicks();
+            }
+
+        } else if (state == ComposerBossState.DYING) {
+            if (stateTime == 1) {
+                this.diePos = blockPosition();
+            } else if (stateTime == 160) {
+                ((ServerLevel) level()).sendParticles(ParticleTypes.CLOUD,
+                        getX(), getY()+0.2, getZ(), 70, 0.1, 0.1, 0.1, 0.25);
+
+                ItemEntity baton = new ItemEntity(level(), getX(), getY(), getZ(), new ItemStack(ModItems.LEGENDARY_BATON.get(), 1));
+                level().addFreshEntity(baton);
+
+                ExperienceOrb.award((ServerLevel) this.level(), this.position(), 100);
+                this.discard();
+            }
+
+            //TPS
+            if (stateTime == 26) {
+                double d0 = getX() + (this.random.nextDouble() - 0.5) * 4.0;
+                double d1 = getY() - 1;
+                double d2 = getZ() + (this.random.nextDouble() - 0.5) * 4.0;
+
+                this.moveTo(d0, d1, d2);
+            } else if (stateTime == 54) {
+                double d0 = getX() + (this.random.nextDouble() - 0.5) * 4.0;
+                double d1 = getY() + 2;
+                double d2 = getZ() + (this.random.nextDouble() - 0.5) * 4.0;
+
+                this.moveTo(d0, d1, d2);
+            } else if (stateTime == 85) {
+                double d0 = getX() + (this.random.nextDouble() - 0.5) * 4.0;
+                double d1 = getY() - 2;
+                double d2 = getZ() + (this.random.nextDouble() - 0.5) * 4.0;
+
+                this.moveTo(d0, d1, d2);
+
+            } else if (stateTime == 112) {
+                this.moveTo(diePos.getX(), diePos.getY(), diePos.getZ());
+            }
+
+            // PARTICLES
+            if (stateTime % 5 == 0) {
+                ((ServerLevel) level()).sendParticles(ParticleTypes.SCULK_SOUL,
+                        getX(), getY()+0.2, getZ(), 20, 0.1, 0.1, 0.1, 0.15);
             }
         }
 
@@ -782,7 +831,7 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
 
         setStateId(newState);
 
-        if (isFinalPhase()) {
+        if (isFinalPhase() && newState != ComposerBossState.DYING) {
             teleport();
         }
 
@@ -790,9 +839,18 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
     }
 
     @Override
+    public boolean isInvulnerableTo(DamageSource source) {
+        if (source.is(DamageTypes.FALL)) return true;
+        return super.isInvulnerableTo(source);
+    }
+
+    @Override
     public boolean hurt(DamageSource source, float amount) {
         ComposerBossState state = getState(stateId);
-        if (isFinalPhase() && state != ComposerBossState.CANON_ATTACK) {
+        if (isFinalPhase() &&
+                state != ComposerBossState.CANON_ATTACK &&
+                !isInvalidState(state) &&
+                getHealth() - amount > 0) {
             // If final phase, teleport
             if (this.isInvulnerableTo(source)) {
                 return false;
@@ -816,13 +874,19 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
                 }
             }
         }
-        if (getHealth() - amount <= 0 && this.entityData.get(PHASE) <= 2) {
-            // If final hit, fake die
-            setNewState(ComposerBossState.DYING);
-            this.attackCooldown = IDLE_ATTACK_COOLDOWN;
-            this.bossEvent.setVisible(false);
-            this.setHealth(0.01f);
-            return true;
+        if (getHealth() - amount <= 0 && !isInvalidState(state)) {
+            // If final hit in phase 2, fake die
+            if (this.entityData.get(PHASE) <= 2) {
+                setNewState(ComposerBossState.FAKE_DYING);
+                this.attackCooldown = IDLE_ATTACK_COOLDOWN;
+                this.bossEvent.setVisible(false);
+                this.setHealth(0.01f);
+                return true;
+            } else if (this.entityData.get(PHASE) >= 3) {
+                setNewState(ComposerBossState.DYING);
+                this.setHealth(0.01f);
+                return true;
+            }
 
         } else if (state == ComposerBossState.DEAD && !source.getMsgId().equalsIgnoreCase("generickill")) {
             // If fake dead, send message
@@ -830,7 +894,8 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
                 player.displayClientMessage(Component.translatable("text.faunaandorchestra.pick_up_composer"), true);
             }
             return false;
-
+        } else if (isInvalidState(state)) {
+            return false;
         } else if (state != ComposerBossState.WEAK && !source.getMsgId().equalsIgnoreCase("generickill")) {
             // If phase one or two, dodge
             composerController.transitionLength(1);
@@ -896,8 +961,9 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
             case 8 -> ComposerBossState.SHOCK;
             case 9 -> ComposerBossState.WEAK;
             case 10 -> ComposerBossState.DEAD;
-            case 11 -> ComposerBossState.DYING;
+            case 11 -> ComposerBossState.FAKE_DYING;
             case 12 -> ComposerBossState.RESURRECTING;
+            case 13 -> ComposerBossState.DYING;
             default -> ComposerBossState.IDLE;
         };
     }
@@ -914,8 +980,9 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
             case SHOCK -> 8;
             case WEAK -> 9;
             case DEAD -> 10;
-            case DYING -> 11;
+            case FAKE_DYING -> 11;
             case RESURRECTING -> 12;
+            case DYING -> 13;
             default -> 0;
         };
         this.entityData.set(STATE, id);
@@ -929,7 +996,7 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
         if (dirty) this.scheduleDirty = 5;
         else composerController.transitionLength(5);
 
-        if (isFinalPhase()) switch (animation) {
+        if (isFinalPhase() && getState(stateId) != ComposerBossState.DYING) switch (animation) {
             case "melee_attack" -> animation = "melee_head";
             case "canon_attack" -> animation = "canon_head";
             default -> animation = "attack_head";
@@ -980,6 +1047,10 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
         return true;
     }
 
+    protected boolean isInvalidState(ComposerBossState state) {
+        return state == ComposerBossState.DYING || state == ComposerBossState.FAKE_DYING || state == ComposerBossState.RESURRECTING || state == ComposerBossState.DEAD;
+    }
+
     public boolean isSecondPhase() {
         return getHealth() / getMaxHealth() <= 0.5;
     }
@@ -996,8 +1067,9 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
         SHOCK,
         WEAK,
         DEAD,
-        DYING,
-        RESURRECTING
+        FAKE_DYING,
+        RESURRECTING,
+        DYING
     }
 
 
