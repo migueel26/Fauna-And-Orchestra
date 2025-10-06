@@ -70,6 +70,7 @@
   "text.faunaandorchestra.sleeping_wandering_koala": "This koala is sleeping! Try to wake him up first...",
   "text.faunaandorchestra.dont_hurt_koala": "This won't wake it up! Try some noise...",
   "text.faunaandorchestra.leave_composer": "The influence of the Great Composer fades away here...",
+  "text.faunaandorchestra.pick_up_composer": "Pick the Great Baton up and claim your prize!",
 
   "entity.faunaandorchestra.mantis": "Mantis",
   "entity.faunaandorchestra.penguin": "Baby Penguin",
