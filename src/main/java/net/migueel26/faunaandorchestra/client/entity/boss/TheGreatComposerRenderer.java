@@ -22,6 +22,7 @@ public class TheGreatComposerRenderer extends GeoEntityRenderer<TheGreatComposer
 
     @Override
     protected float getShadowRadius(TheGreatComposer entity) {
-        return entity.getDimensions(Pose.STANDING).width() * 0.65F;
+        return entity.isFakeDead() ? entity.getDimensions(Pose.STANDING).width() * 0.25F
+                : entity.getDimensions(Pose.STANDING).width() * 0.65F;
     }
 }

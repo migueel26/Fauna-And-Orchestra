@@ -42,5 +42,13 @@ public class TheGreatComposerModel extends GeoModel<TheGreatComposer> {
             head.setRotY(entityData.netHeadYaw() * Mth.DEG_TO_RAD);
         }
 
+        GeoBone chest = getAnimationProcessor().getBone("chest");
+
+        if (theGreatComposer.isFinalPhase()) {
+            chest.setHidden(true);
+        } else {
+            chest.setHidden(false);
+        }
+
     }
 }
