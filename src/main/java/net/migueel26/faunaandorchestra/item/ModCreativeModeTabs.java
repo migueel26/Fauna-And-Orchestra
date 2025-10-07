@@ -55,6 +55,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModBlocks.LISTENER_CONTAINER);
                         output.accept(ModBlocks.COMPOSER_GRAVESTONE);
                         output.accept(ModBlocks.GRAVESTONE);
+                        output.accept(ModItems.THE_GREAT_HEAD_ITEM);
                         output.accept(ModBlocks.CRAWLING_DISCORD);
                     }).build());
 

@@ -1,6 +1,7 @@
 package net.migueel26.faunaandorchestra.item;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
+import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.item.custom.*;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
@@ -121,6 +122,9 @@ public class ModItems {
     public static final DeferredItem<Item> JAZZY_FUR_ELISE_SHEET_MUSIC = createSheetMusic("jazzy_fur_elise_sheet_music");
     public static final DeferredItem<Item> DANCE_OF_THE_LITTLE_SWANS = createSheetMusic("dance_of_the_little_swans_sheet_music");
     public static final DeferredItem<Item> RESURRECTION_SONG = createLegendarySheetMusic("resurrection_song");
+
+    public static final DeferredItem<Item> THE_GREAT_HEAD_ITEM = ITEMS.register("the_great_head_item",
+            () -> new TheGreatHeadItem(ModBlocks.THE_GREAT_HEAD.get(), new Item.Properties().rarity(Rarity.EPIC)));
 
     public static final DeferredItem<Item> ICON = ITEMS.register("icon",
             () -> new Item(new Item.Properties().stacksTo(1)));

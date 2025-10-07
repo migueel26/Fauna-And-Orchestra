@@ -721,8 +721,10 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
                 ((ServerLevel) level()).sendParticles(ParticleTypes.CLOUD,
                         getX(), getY()+0.2, getZ(), 70, 0.1, 0.1, 0.1, 0.25);
 
-                ItemEntity baton = new ItemEntity(level(), getX(), getY(), getZ(), new ItemStack(ModItems.LEGENDARY_BATON.get(), 1));
+                ItemEntity baton = new ItemEntity(level(), getX()+0.2, getY(), getZ()+0.2, new ItemStack(ModItems.LEGENDARY_BATON.get(), 1));
+                ItemEntity head = new ItemEntity(level(), getX()-0.2, getY(), getZ()-0.2, new ItemStack(ModItems.THE_GREAT_HEAD_ITEM.get(), 1));
                 level().addFreshEntity(baton);
+                level().addFreshEntity(head);
 
                 ExperienceOrb.award((ServerLevel) this.level(), this.position(), 100);
                 this.discard();

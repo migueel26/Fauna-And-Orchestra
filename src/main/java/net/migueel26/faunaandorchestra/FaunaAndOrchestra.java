@@ -3,10 +3,7 @@ package net.migueel26.faunaandorchestra;
 import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.block.ModBlockEntities;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
-import net.migueel26.faunaandorchestra.client.block.ComposerGravestoneBlockEntityRenderer;
-import net.migueel26.faunaandorchestra.client.block.ListenerBlockEntityRenderer;
-import net.migueel26.faunaandorchestra.client.block.ListenerContainerBlockEntityRenderer;
-import net.migueel26.faunaandorchestra.client.block.TipCaseBlockEntityRenderer;
+import net.migueel26.faunaandorchestra.client.block.*;
 import net.migueel26.faunaandorchestra.client.entity.*;
 import net.migueel26.faunaandorchestra.client.entity.boss.ComposerCanonRenderer;
 import net.migueel26.faunaandorchestra.client.entity.boss.TheGreatComposerRenderer;
@@ -133,6 +130,7 @@ public class FaunaAndOrchestra {
             event.registerBlockEntityRenderer(ModBlockEntities.TIP_CASE_BE.get(), TipCaseBlockEntityRenderer::new);
             event.registerBlockEntityRenderer(ModBlockEntities.LISTENER_BE.get(), ListenerBlockEntityRenderer::new);
             event.registerBlockEntityRenderer(ModBlockEntities.LISTENER_CONTAINER_BE.get(), ListenerContainerBlockEntityRenderer::new);
+            event.registerBlockEntityRenderer(ModBlockEntities.THE_GREAT_HEAD_BE.get(), TheGreatHeadBlockEntityRenderer::new);
         }
 
         @SubscribeEvent

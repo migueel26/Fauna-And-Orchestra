@@ -1,10 +1,7 @@
 package net.migueel26.faunaandorchestra.block;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
-import net.migueel26.faunaandorchestra.block.entity.ComposerGravestoneBlockEntity;
-import net.migueel26.faunaandorchestra.block.entity.ListenerBlockEntity;
-import net.migueel26.faunaandorchestra.block.entity.ListenerContainerBlockEntity;
-import net.migueel26.faunaandorchestra.block.entity.TipCaseBlockEntity;
+import net.migueel26.faunaandorchestra.block.entity.*;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
@@ -39,6 +36,12 @@ public class ModBlockEntities {
             BLOCK_ENTITES.register("listener_container_be", () -> BlockEntityType.Builder.of(
                     ListenerContainerBlockEntity::new,
                     ModBlocks.LISTENER_CONTAINER.get()
+            ).build(null));
+
+    public static final Supplier<BlockEntityType<TheGreatHeadBlockEntity>> THE_GREAT_HEAD_BE =
+            BLOCK_ENTITES.register("the_great_head_be", () -> BlockEntityType.Builder.of(
+                    TheGreatHeadBlockEntity::new,
+                    ModBlocks.THE_GREAT_HEAD.get()
             ).build(null));
 
     public static void register(IEventBus eventBus) {

@@ -15,7 +15,9 @@
   "item.faunaandorchestra.butterfly_net": "Cazamariposas",
   "item.faunaandorchestra.music_bottle": "Música líquida",
   "item.faunaandorchestra.sheet_fragments": "Fragmentos de una composición perdida",
+  "item.faunaandorchestra.the_great_head_item": "La Grandiosa Cabeza",
 
+  "item.faunaandorchestra.the_great_head.desc": "La calavera del más magnífico y horrible monstruo que acechó la fauna de esta tierra",
   "item.faunaandorchestra.butterfly_net.desc": "Mariposas sueltas por la calle...",
   "item.faunaandorchestra.music_bottle.desc": "La esencia de la vida y alegría. Ingrediente básico en la Herbología",
   "item.faunaandorchestra.sheet_fragments.desc": "Fausto te lo dio como agradecimiento. Compuesto por el Gran Compositor",
@@ -26,6 +28,7 @@
   "block.faunaandorchestra.listener": "Escuchador",
   "block.faunaandorchestra.listener_container": "Contenedor del Escuchador",
   "block.faunaandorchestra.crawling_discord": "Discordia Trepadora",
+  "block.faunaandorchestra.the_great_head": "La Grandiosa Cabeza",
 
   "block.faunaandorchestra.tip_case_theft": "¡Esta funda no es tuya! No puedes llevarte el oro",
   "block.faunaandorchestra.tip_case.desc": "Todo el mundo te puede donar, pero sólo tú puedes retirarlo",
