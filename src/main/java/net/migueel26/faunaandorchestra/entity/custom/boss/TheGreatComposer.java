@@ -856,7 +856,7 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
                 return false;
             } else {
                 boolean flag = source.getDirectEntity() instanceof ThrownPotion;
-                if (!source.is(DamageTypeTags.IS_PROJECTILE) && !flag) {
+                if (!flag) {
                     boolean flag2 = super.hurt(source, amount);
                     if (!this.level().isClientSide() && (source.getEntity() instanceof LivingEntity)) {
                         this.teleport();
