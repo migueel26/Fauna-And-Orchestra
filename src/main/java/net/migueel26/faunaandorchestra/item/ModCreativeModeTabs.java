@@ -29,6 +29,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.BATON);
                         output.accept(ModItems.LEGENDARY_BATON);
                         output.accept(ModItems.BRIEFCASE);
+                        output.accept(ModItems.BUTTERFLY_NET);
                         output.accept(ModItems.MANTIS_SPAWN_EGG);
                         output.accept(ModItems.PENGUIN_SPAWN_EGG);
                         output.accept(ModItems.RED_PANDA_SPAWN_EGG);
@@ -38,9 +39,9 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.MADAME_BUTTERFLY_SPAWN_EGG);
                         output.accept(ModItems.QUIRKY_FROG_SPAWN_EGG);
                         output.accept(ModItems.WANDERING_KOALA_SPAWN_EGG);
-                        output.accept(ModItems.BUTTERFLY_SPAWN_EGG);
                         output.accept(ModItems.SPROUTLING_SPAWN_EGG);
                         output.accept(ModItems.RINGTAILS_SPAWN_EGG);
+                        output.accept(ModItems.BUTTERFLY_SPAWN_EGG);
                         output.accept(ModItems.BACH_AIR_SHEET_MUSIC);
                         output.accept(ModItems.GREENSLEEVES_SHEET_MUSIC);
                         output.accept(ModItems.BLUES_SHEET_MUSIC);

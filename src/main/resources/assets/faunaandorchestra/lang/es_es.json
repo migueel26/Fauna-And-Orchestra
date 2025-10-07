@@ -12,9 +12,11 @@
   "item.faunaandorchestra.legendary_baton": "La Gran Batuta",
 
   "item.faunaandorchestra.briefcase": "Maletín",
+  "item.faunaandorchestra.butterfly_net": "Cazamariposas",
   "item.faunaandorchestra.music_bottle": "Música líquida",
   "item.faunaandorchestra.sheet_fragments": "Fragmentos de una composición perdida",
 
+  "item.faunaandorchestra.butterfly_net.desc": "Mariposas sueltas por la calle...",
   "item.faunaandorchestra.music_bottle.desc": "La esencia de la vida y alegría. Ingrediente básico en la Herbología",
   "item.faunaandorchestra.sheet_fragments.desc": "Fausto te lo dio como agradecimiento. Compuesto por el Gran Compositor",
 
@@ -50,7 +52,7 @@
   "item.faunaandorchestra.wandering_koala_spawn_egg": "Generar Koala Ambulante",
   "item.faunaandorchestra.ringtails_spawn_egg": "Generar a Los Ringtails",
   "item.faunaandorchestra.sproutling_spawn_egg": "Generar Brotecito Cantarín",
-  "item.faunaandorchestra.butterfly_spawn_egg": "Generar Mariposa",
+  "item.faunaandorchestra.butterfly_spawn_egg": "Mariposa",
 
   "tooltip.faunaandorchestra:violin": "§7Este instrumento parece capturar la atención de algunos... §odevotos§r§7 insectos",
   "tooltip.faunaandorchestra:flute": "§7Este instrumento parece capturar la atención de algunos... §ofrescos§r§7 amiguitos",

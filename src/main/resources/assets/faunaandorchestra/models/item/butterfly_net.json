@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "faunaandorchestra:item/butterfly_spawn_egg"
+    "layer0": "faunaandorchestra:item/butterfly_net"
   }
 }

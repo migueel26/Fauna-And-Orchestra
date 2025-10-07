@@ -2,10 +2,7 @@ package net.migueel26.faunaandorchestra.item;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
-import net.migueel26.faunaandorchestra.item.custom.BandSpawnEggItem;
-import net.migueel26.faunaandorchestra.item.custom.BatonItem;
-import net.migueel26.faunaandorchestra.item.custom.BriefcaseItem;
-import net.migueel26.faunaandorchestra.item.custom.InstrumentItem;
+import net.migueel26.faunaandorchestra.item.custom.*;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.migueel26.faunaandorchestra.util.MusicUtil;
 import net.minecraft.ChatFormatting;
@@ -47,6 +44,14 @@ public class ModItems {
 
     public static final DeferredItem<Item> BRIEFCASE = ITEMS.register("briefcase",
             () -> new BriefcaseItem(new Item.Properties().stacksTo(1)));
+    public static final DeferredItem<Item> BUTTERFLY_NET = ITEMS.register("butterfly_net",
+            () -> new Item(new Item.Properties().stacksTo(1)) {
+                public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+                    tooltipComponents.add(Component.translatable("item.faunaandorchestra.butterfly_net.desc")
+                            .withStyle(ChatFormatting.GRAY));
+                    super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+                }
+            });
     public static final DeferredItem<Item> MUSIC_BOTTLE = ITEMS.register("music_bottle",
             () -> new Item(new Item.Properties()) {
                 @Override
@@ -85,7 +90,7 @@ public class ModItems {
             () -> new DeferredSpawnEggItem(ModEntities.LEMUR, 0x322a29, 0xc1c1c1,
                     new Item.Properties()));
     public static final DeferredItem<Item> MADAME_BUTTERFLY_SPAWN_EGG = ITEMS.register("madame_butterfly_spawn_egg",
-            () -> new DeferredSpawnEggItem(ModEntities.MADAME_BUTTERFLY, 0x1845cc, 0x02050d,
+            () -> new DeferredSpawnEggItem(ModEntities.MADAME_BUTTERFLY, 0x23a2e3, 0x02050d,
                     new Item.Properties()));
     public static final DeferredItem<Item> QUIRKY_FROG_SPAWN_EGG = ITEMS.register("quirky_frog_spawn_egg",
             () -> new DeferredSpawnEggItem(ModEntities.QUIRKY_FROG, 0x245715, 0xbfbd82,
@@ -97,10 +102,9 @@ public class ModItems {
             () -> new DeferredSpawnEggItem(ModEntities.SINGING_SPROUTLING, 0xd1793a, 0x33a03e,
                     new Item.Properties()));
     public static final DeferredItem<Item> BUTTERFLY_SPAWN_EGG = ITEMS.register("butterfly_spawn_egg",
-            () -> new DeferredSpawnEggItem(ModEntities.BUTTERFLY, 0x23a2e3, 0x050505,
-                    new Item.Properties()));
+            () -> new CustomSpawnEggItem(new Item.Properties(), ModEntities.BUTTERFLY.get()));
     public static final DeferredItem<Item> RINGTAILS_SPAWN_EGG = ITEMS.register("ringtails_spawn_egg",
-            () -> new BandSpawnEggItem(new Item.Properties(), ModEntities.FAUST.get(), ModEntities.ORION.get()) {
+            () -> new CustomSpawnEggItem(new Item.Properties(), ModEntities.FAUST.get(), ModEntities.ORION.get()) {
                 @Override
                 public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
                     tooltipComponents.add(Component.translatable("entity.faunaandorchestra.faust")

@@ -1,8 +1,12 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
+import net.migueel26.faunaandorchestra.item.ModItems;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -20,6 +24,7 @@ import net.minecraft.world.entity.ambient.AmbientCreature;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Bee;
 import net.minecraft.world.entity.animal.FlyingAnimal;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
@@ -36,6 +41,7 @@ import javax.annotation.Nullable;
 import java.util.EnumSet;
 
 public class ButterflyEntity extends Animal implements FlyingAnimal, GeoEntity {
+    public int scheduleDeath = -1;
     protected final static RawAnimation FLY = RawAnimation.begin().thenPlay("fly");
     protected final static RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
     public static final int TICKS_PER_FLAP = 5;
@@ -63,6 +69,22 @@ public class ButterflyEntity extends Animal implements FlyingAnimal, GeoEntity {
         return PlayState.CONTINUE;
     }
 
+    @Override
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+        if (player.getItemInHand(hand).is(ModItems.BUTTERFLY_NET)) {
+            if (!level().isClientSide()) {
+                ((ServerLevel) level()).sendParticles(ParticleTypes.CLOUD,
+                        getX(), getY(), getZ(),
+                        5, 0, 0, 0, 0.05);
+            }
+
+            player.addItem(new ItemStack(ModItems.BUTTERFLY_SPAWN_EGG.get(), 1));
+            this.scheduleDeath = 3;
+            return InteractionResult.SUCCESS;
+        }
+        return super.mobInteract(player, hand);
+    }
+
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 3.0)
@@ -70,6 +92,16 @@ public class ButterflyEntity extends Animal implements FlyingAnimal, GeoEntity {
                 .add(Attributes.MOVEMENT_SPEED, 0.3F)
                 .add(Attributes.ATTACK_DAMAGE, 2.0)
                 .add(Attributes.FOLLOW_RANGE, 48.0);
+    }
+
+    @Override
+    public void tick() {
+        if (scheduleDeath == 0) {
+            this.discard();
+        } else if (scheduleDeath > 0) {
+            scheduleDeath--;
+        }
+        super.tick();
     }
 
     @Override
