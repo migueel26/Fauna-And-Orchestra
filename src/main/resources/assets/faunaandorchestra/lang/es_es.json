@@ -16,7 +16,9 @@
   "item.faunaandorchestra.music_bottle": "Música líquida",
   "item.faunaandorchestra.sheet_fragments": "Fragmentos de una composición perdida",
   "item.faunaandorchestra.the_great_head_item": "La Grandiosa Cabeza",
+  "item.faunaandorchestra.musical_ink": "Tinta Musical",
 
+  "item.faunaandorchestra.musical_ink.desc": "Haz §eclick §ra a un cartel y dale un estilo musical único",
   "item.faunaandorchestra.the_great_head.desc": "La calavera del más magnífico y horrible monstruo que acechó la fauna de esta tierra",
   "item.faunaandorchestra.butterfly_net.desc": "Mariposas sueltas por la calle...",
   "item.faunaandorchestra.music_bottle.desc": "La esencia de la vida y alegría. Ingrediente básico en la Herbología",
@@ -65,7 +67,7 @@
   "tooltip.faunaandorchestra:oboe": "§7Este instrumento parece capturar la atención de algunos... §odeslumbrantes§r§7 primates",
   "tooltip.faunaandorchestra:cello": "§7Este instrumento parece capturar la atención de algunas... §orevoloteantes§r§7 danzarinas",
   "tooltip.faunaandorchestra:baton": "Haz §eclick §ra a un músico y después haz §eclick §ra un block para mandarlo allí\n§7Este instrumento parece capturar la atención de algunos... §osimpáticos§r§7 saltarines",
-  "tooltip.faunaandorchestra:legendary_baton": "Haz §eclick §ra a un músico y después haz §eclick §ra un block para mandarlo allí\n§r Esta §elegendaria batuta §r desbloquea el verdadero poder de las partituras",
+  "tooltip.faunaandorchestra:legendary_baton": "Haz §eclick §ra a un músico y después haz §eclick §ra un block para mandarlo allí\n§rEsta §elegendaria batuta §rdesbloquea el verdadero poder de las partituras",
   "tooltip.faunaandorchestra:briefcase_empty": "Haz §eclick §ren un músico o director mientras esté §eabierto §rpara llevártelo (máximo 6)",
   "tooltip.faunaandorchestra:briefcase_full": "Haz §eclick §ren un bloque mientras esté §ecerrado §rpara liberar al §eanimal §rahí",
 

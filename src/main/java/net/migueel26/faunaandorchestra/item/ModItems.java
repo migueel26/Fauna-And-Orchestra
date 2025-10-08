@@ -71,6 +71,8 @@ public class ModItems {
                     super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
                 }
             });
+    public static final DeferredItem<Item> MUSICAL_INK = ITEMS.register("musical_ink",
+            () -> new MusicalInkItem(new Item.Properties()));
 
     public static final DeferredItem<Item> MANTIS_SPAWN_EGG = ITEMS.register("mantis_spawn_egg",
             () -> new DeferredSpawnEggItem(ModEntities.MANTIS, 0x46eb4c, 0x23a628,

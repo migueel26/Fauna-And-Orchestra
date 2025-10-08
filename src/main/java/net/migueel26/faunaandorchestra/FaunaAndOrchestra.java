@@ -18,6 +18,7 @@ import net.migueel26.faunaandorchestra.loot_tables.ModLootTables;
 import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
 import net.migueel26.faunaandorchestra.particles.custom.DrippingMusicParticle;
 import net.migueel26.faunaandorchestra.particles.custom.FaunaNoteParticle;
+import net.migueel26.faunaandorchestra.particles.custom.MagicalNoteParticle;
 import net.migueel26.faunaandorchestra.screen.ModMenuTypes;
 import net.migueel26.faunaandorchestra.screen.custom.ConductorScreen;
 import net.migueel26.faunaandorchestra.screen.custom.DialogueScreen;
@@ -148,6 +149,7 @@ public class FaunaAndOrchestra {
             event.registerSpriteSet(ModParticleTypes.FAUNA_NOTES.get(), FaunaNoteParticle.NoteProvider::new);
             event.registerSpriteSet(ModParticleTypes.TREBLE_CLEF.get(), FaunaNoteParticle.TrebleProvider::new);
             event.registerSpriteSet(ModParticleTypes.DRIPPING_MUSIC.get(), DrippingMusicParticle.Provider::new);
+            event.registerSpriteSet(ModParticleTypes.MAGICAL_NOTE.get(), MagicalNoteParticle.Provider::new);
         }
     }
 }
