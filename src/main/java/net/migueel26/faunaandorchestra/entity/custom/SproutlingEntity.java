@@ -2,12 +2,16 @@ package net.migueel26.faunaandorchestra.entity.custom;
 
 import net.migueel26.faunaandorchestra.entity.goals.FaunaRandomLookAroundGoal;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -38,6 +42,7 @@ public class SproutlingEntity extends AgeableMob implements GeoEntity {
     protected boolean isSinging;
     protected int ticksUntilSing;
     protected int ticksSinging;
+    protected int ticks = 0;
     public SproutlingEntity(EntityType<? extends AgeableMob> entityType, Level level) {
         super(entityType, level);
 
@@ -120,22 +125,40 @@ public class SproutlingEntity extends AgeableMob implements GeoEntity {
         this.isSinging = singing;
     }
 
+    @Nullable
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return SoundEvents.RABBIT_HURT;
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getDeathSound() {
+        return SoundEvents.AXOLOTL_DEATH;
+    }
+
     @Override
     public void tick() {
+        if (ticks % 11 == 0 && !this.isPathFinding()) {
+            level().playSound(null, getX(), getY(), getZ(), SoundEvents.GRASS_HIT, SoundSource.AMBIENT, 0.5f, 1.0f);
+        } else if (isPathFinding()) {
+            ticks = 0;
+        }
+
         if (ticksUntilSing > 0) {
             ticksUntilSing--;
         } else if (!isSinging() && navigation.isDone()) {
             this.setSinging(true);
             triggerAnim("sproutling_controller", "sing_trigger");
             this.ticksSinging = 0;
-
-
         }
 
         if (ticksSinging == MAX_TICKS_SINGING / 3 && !level().isClientSide) {
             ((ServerLevel) level()).sendParticles(ParticleTypes.NOTE,
                     this.getX(), this.getY() + 1.0F, this.getZ(),
                     1, 0, 0, 0, 1);
+            level().playSound(null, getX(), getY(), getZ(),
+                    ModSounds.SINGING_SPROUTLING_SOUND.get(), SoundSource.AMBIENT, 1.0f, 1.0f);
         }
 
         if (ticksSinging >= 0 && ticksSinging < MAX_TICKS_SINGING) {
@@ -157,6 +180,7 @@ public class SproutlingEntity extends AgeableMob implements GeoEntity {
             this.ticksUntilSing = TICKS_UNTIL_SING;
             this.ticksSinging = -1;
         }
+        ticks++;
         super.tick();
     }
 

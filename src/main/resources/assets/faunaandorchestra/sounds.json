@@ -206,6 +206,17 @@
       "faunaandorchestra:sfx/magic_growth"
     ]
   },
+  "singing_sproutling_sound": {
+    "subtitles": "sounds.faunaandorchestra.singing_sproutling_sound",
+    "sounds": [
+      "faunaandorchestra:sfx/singing_sproutling_0",
+      "faunaandorchestra:sfx/singing_sproutling_1",
+      "faunaandorchestra:sfx/singing_sproutling_2",
+      "faunaandorchestra:sfx/singing_sproutling_3",
+      "faunaandorchestra:sfx/singing_sproutling_4",
+      "faunaandorchestra:sfx/singing_sproutling_5"
+    ]
+  },
   "dialogue": {
     "subtitles": "sounds.faunaandorchestra.dialogue",
     "sounds": [
