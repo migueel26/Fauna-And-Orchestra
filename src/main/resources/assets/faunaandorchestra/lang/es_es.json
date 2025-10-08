@@ -31,6 +31,7 @@
   "block.faunaandorchestra.listener_container": "Contenedor del Escuchador",
   "block.faunaandorchestra.crawling_discord": "Discordia Trepadora",
   "block.faunaandorchestra.the_great_head": "La Grandiosa Cabeza",
+  "block.faunaandorchestra.dam_block": "Bloque de presa",
 
   "block.faunaandorchestra.tip_case_theft": "¡Esta funda no es tuya! No puedes llevarte el oro",
   "block.faunaandorchestra.tip_case.desc": "Todo el mundo te puede donar, pero sólo tú puedes retirarlo",

@@ -4,6 +4,8 @@ import net.migueel26.faunaandorchestra.item.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -77,6 +79,7 @@ public class ButterflyEntity extends Animal implements FlyingAnimal, GeoEntity {
                         getX(), getY(), getZ(),
                         5, 0, 0, 0, 0.05);
             }
+            level().playSound(null, blockPosition(), SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, 1.0f, 0.75f);
 
             player.addItem(new ItemStack(ModItems.BUTTERFLY_SPAWN_EGG.get(), 1));
             this.scheduleDeath = 3;
