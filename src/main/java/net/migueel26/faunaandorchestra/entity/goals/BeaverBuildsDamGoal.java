@@ -1,5 +1,7 @@
 package net.migueel26.faunaandorchestra.entity.goals;
 
+import net.migueel26.faunaandorchestra.block.ModBlocks;
+import net.migueel26.faunaandorchestra.block.custom.DamBlock;
 import net.migueel26.faunaandorchestra.entity.custom.BeaverEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.FluidTags;
@@ -64,7 +66,7 @@ public class BeaverBuildsDamGoal extends Goal {
     public void stop() {
         if (isDam) waterPos = new BlockPos(waterPos.getX(), waterPos.getY()+1, waterPos.getZ());
         if (waterPos.getZ() != wantedPathBlock.z || waterPos.getX() != wantedPathBlock.x) {
-            level.setBlock(waterPos, Blocks.BAMBOO_PLANKS.defaultBlockState(), 3);
+            level.setBlock(waterPos, ModBlocks.DAM_BLOCK.get().defaultBlockState().setValue(DamBlock.WATERLOGGED, true), 3);
         }
         waterPos = null;
         wantedPathBlock = null;
@@ -76,10 +78,12 @@ public class BeaverBuildsDamGoal extends Goal {
 
     private Pair<Vec3, BlockPos> getDamPosition() {
         BlockPos pathBlock = null;
-        Optional<BlockPos> water = BlockPos.findClosestMatch(beaver.blockPosition(), 20, 3, pred -> level.getFluidState(pred).is(FluidTags.WATER));
-        Optional<BlockPos> dam = BlockPos.findClosestMatch(beaver.blockPosition(), 20, 3, pred -> level.getBlockState(pred).getBlock() == Blocks.BAMBOO_PLANKS);
+        Optional<BlockPos> water = BlockPos.findClosestMatch(beaver.blockPosition(), 20, 3, this::isWaterApt);
+        Optional<BlockPos> dam = BlockPos.findClosestMatch(beaver.blockPosition(), 20, 3, pred -> level.getBlockState(pred).getBlock() == ModBlocks.DAM_BLOCK.get());
         BlockPos waterPos = null;
-    if (water.isPresent() && level.getBiome(water.get()).getKey() == Biomes.RIVER) {
+    if (water.isPresent()
+            //&& level.getBiome(water.get()).getKey() == Biomes.RIVER
+    ) {
             int x, y, z;
 
             // Default to water
@@ -89,7 +93,9 @@ public class BeaverBuildsDamGoal extends Goal {
             z = waterPos.getZ();
             isDam = false;
 
-            if (dam.isPresent() && level.getBiome(dam.get()).getKey() == Biomes.RIVER) {
+            if (dam.isPresent()
+                    //&& level.getBiome(dam.get()).getKey() == Biomes.RIVER
+            ) {
                 //isDam = level.getRandom().nextFloat() <= 0.25;
                 if (isDam) {
                     // WE (TRY TO) PLACE ON TOP OF DAM
@@ -111,6 +117,10 @@ public class BeaverBuildsDamGoal extends Goal {
             }
         }
         return pathBlock == null ? null : new Pair<>(pathBlock.getCenter(), waterPos);
+    }
+
+    private boolean isWaterApt(BlockPos pred) {
+        return (level.getBlockState(pred).is(Blocks.WATER)) && (level.getBlockState(pred.above()).is(Blocks.AIR));
     }
 
     @Override

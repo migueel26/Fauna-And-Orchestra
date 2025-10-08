@@ -58,6 +58,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModBlocks.GRAVESTONE);
                         output.accept(ModItems.THE_GREAT_HEAD_ITEM);
                         output.accept(ModBlocks.CRAWLING_DISCORD);
+                        output.accept(ModBlocks.DAM_BLOCK);
                     }).build());
 
     public static void register(IEventBus eventBus) {

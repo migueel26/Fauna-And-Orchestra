@@ -6,8 +6,12 @@ import net.migueel26.faunaandorchestra.item.ModItems;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.RootsBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
@@ -51,6 +55,14 @@ public class ModBlocks {
             () -> new CrawlingDiscordBlock(BlockBehaviour.Properties.of()
                     .strength(2.0f, 6.0f)
                     .sound(SoundType.SCULK)));
+
+    public static final DeferredBlock<Block> DAM_BLOCK = registerBlock("dam_block",
+            () -> new DamBlock(BlockBehaviour.Properties.of()
+                            .strength(0.7F)
+                            .sound(SoundType.MANGROVE_ROOTS)
+                            .noOcclusion()
+                            .ignitedByLava()
+            ));
 
     public static final DeferredBlock<Block> THE_GREAT_HEAD = registerBlock("the_great_head",
             () -> new TheGreatHeadBlock(BlockBehaviour.Properties.of()
