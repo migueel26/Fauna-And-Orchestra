@@ -42,6 +42,7 @@ public class ListenerContainerBlockEntityRenderer extends GeoBlockRenderer<Liste
                 tap.setHidden(false);
             }
         }
+
         super.actuallyRender(poseStack, listener, model, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, colour);
     }
 }

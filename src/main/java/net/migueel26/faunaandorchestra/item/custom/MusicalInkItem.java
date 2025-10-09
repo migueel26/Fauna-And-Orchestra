@@ -1,6 +1,7 @@
 package net.migueel26.faunaandorchestra.item.custom;
 
 import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -8,6 +9,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SignBlock;
@@ -16,6 +19,8 @@ import net.minecraft.world.level.block.entity.SignBlockEntity;
 import net.minecraft.world.level.block.entity.SignText;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+
+import java.util.List;
 
 public class MusicalInkItem extends Item {
     String[] colors = new String[]{"§5", "§d", "§b", "§9"};
@@ -64,6 +69,16 @@ public class MusicalInkItem extends Item {
             return InteractionResult.SUCCESS;
         }
         return super.useOn(context);
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+        if (Screen.hasShiftDown()) {
+            tooltipComponents.add(Component.translatable("item.faunaandorchestra.musical_ink.desc"));
+        } else {
+            tooltipComponents.add(Component.translatable("tooltip.faunaandorchestra.shift"));
+        }
+        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
     }
 
     private int nextColor(int c) {
