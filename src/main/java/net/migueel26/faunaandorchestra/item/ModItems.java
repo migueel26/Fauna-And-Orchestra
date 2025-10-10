@@ -127,6 +127,8 @@ public class ModItems {
 
     public static final DeferredItem<Item> THE_GREAT_HEAD_ITEM = ITEMS.register("the_great_head_item",
             () -> new TheGreatHeadItem(ModBlocks.THE_GREAT_HEAD.get(), new Item.Properties().rarity(Rarity.EPIC)));
+    public static final DeferredItem<Item> MELOMANCY_CAULDRON_ITEM = ITEMS.register("melomancy_cauldron_item",
+            () -> new MelomancyCauldronItem(ModBlocks.MELOMANCY_CAULDRON.get(), new Item.Properties()));
 
     public static final DeferredItem<Item> ICON = ITEMS.register("icon",
             () -> new Item(new Item.Properties().stacksTo(1)));

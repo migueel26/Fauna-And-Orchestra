@@ -54,6 +54,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModBlocks.TIP_CASE);
                         output.accept(ModBlocks.LISTENER);
                         output.accept(ModBlocks.LISTENER_CONTAINER);
+                        output.accept(ModItems.MELOMANCY_CAULDRON_ITEM);
                         output.accept(ModBlocks.COMPOSER_GRAVESTONE);
                         output.accept(ModBlocks.GRAVESTONE);
                         output.accept(ModItems.THE_GREAT_HEAD_ITEM);
