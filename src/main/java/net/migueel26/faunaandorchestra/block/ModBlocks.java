@@ -51,6 +51,9 @@ public class ModBlocks {
                     .strength(2.0F)
                     .sound(SoundType.WOOD)));
 
+    public static final DeferredBlock<Block> MELOMANCY_CAULDRON = registerBlock("melomancy_cauldron",
+            () -> new MelomancyCauldronBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CAULDRON)));
+
     public static final DeferredBlock<Block> CRAWLING_DISCORD = registerBlock("crawling_discord",
             () -> new CrawlingDiscordBlock(BlockBehaviour.Properties.of()
                     .strength(2.0f, 6.0f)

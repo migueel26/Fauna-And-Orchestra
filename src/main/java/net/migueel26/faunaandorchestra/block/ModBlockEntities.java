@@ -38,6 +38,12 @@ public class ModBlockEntities {
                     ModBlocks.LISTENER_CONTAINER.get()
             ).build(null));
 
+    public static final Supplier<BlockEntityType<MelomancyCauldronBlockEntity>> MELOMANCY_CAULDRON_BE =
+            BLOCK_ENTITES.register("melomancy_cauldron_be", () -> BlockEntityType.Builder.of(
+                    MelomancyCauldronBlockEntity::new,
+                    ModBlocks.MELOMANCY_CAULDRON.get()
+            ).build(null));
+
     public static final Supplier<BlockEntityType<TheGreatHeadBlockEntity>> THE_GREAT_HEAD_BE =
             BLOCK_ENTITES.register("the_great_head_be", () -> BlockEntityType.Builder.of(
                     TheGreatHeadBlockEntity::new,
