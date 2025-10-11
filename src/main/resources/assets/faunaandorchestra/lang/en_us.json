@@ -25,6 +25,7 @@
   "item.faunaandorchestra.butterfly_net.desc": "Trying to catch your light...",
   "item.faunaandorchestra.music_bottle.desc": "The essence of joy and nature itself. Basic ingredient in Melomancy",
   "item.faunaandorchestra.sheet_fragments.desc": "Faust gave this to you as a thank you. Made by The Great Composer himself",
+  "item.faunaandorchestra.the_great_composer_spawn_egg.desc": "Boss",
 
 
   "block.faunaandorchestra.composer_gravestone": "The Great Composer's Tomb",
@@ -61,6 +62,7 @@
   "item.faunaandorchestra.madame_butterfly_spawn_egg": "Madame Butterfly Spawn Egg",
   "item.faunaandorchestra.wandering_koala_spawn_egg": "Wandering Koala Spawn Egg",
   "item.faunaandorchestra.ringtails_spawn_egg": "The Ringtails Spawn Egg",
+  "item.faunaandorchestra.the_great_composer_spawn_egg": "The Great Composer Spawn Egg",
   "item.faunaandorchestra.sproutling_spawn_egg": "Singing Sproutling Spawn Egg",
   "item.faunaandorchestra.butterfly_spawn_egg": "Butterfly",
 

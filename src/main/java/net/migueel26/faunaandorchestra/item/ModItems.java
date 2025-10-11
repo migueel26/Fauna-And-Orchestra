@@ -117,6 +117,15 @@ public class ModItems {
                     super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
                 }
             });
+    public static final DeferredItem<Item> THE_GREAT_COMPOSER_SPAWN_EGG = ITEMS.register("the_great_composer_spawn_egg",
+            () -> new DeferredSpawnEggItem(ModEntities.THE_GREAT_COMPOSER, 0xe2d7a8, 0x23ab53, new Item.Properties()) {
+                @Override
+                public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+                    tooltipComponents.add(Component.translatable("item.faunaandorchestra.the_great_composer_spawn_egg.desc")
+                            .withStyle(ChatFormatting.RED));
+                    super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+                }
+            });
 
     public static final DeferredItem<Item> BACH_AIR_SHEET_MUSIC = createSheetMusic("bach_air_sheet_music");
     public static final DeferredItem<Item> GREENSLEEVES_SHEET_MUSIC = createSheetMusic("greensleeves_sheet_music");

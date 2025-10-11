@@ -717,6 +717,8 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
         } else if (state == ComposerBossState.DYING) {
             if (stateTime == 1) {
                 this.diePos = blockPosition();
+            } else if (stateTime == 157) {
+                level().explode(null, getX(), getY(), getZ(), 5, Level.ExplosionInteraction.TNT);
             } else if (stateTime == 160) {
                 ((ServerLevel) level()).sendParticles(ParticleTypes.CLOUD,
                         getX(), getY()+0.2, getZ(), 70, 0.1, 0.1, 0.1, 0.25);
@@ -849,6 +851,7 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
     @Override
     public boolean hurt(DamageSource source, float amount) {
         ComposerBossState state = getState(stateId);
+
         if (isFinalPhase() &&
                 state != ComposerBossState.CANON_ATTACK &&
                 !isInvalidState(state) &&

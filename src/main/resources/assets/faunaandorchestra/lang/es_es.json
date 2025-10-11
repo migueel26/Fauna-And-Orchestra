@@ -25,6 +25,7 @@
   "item.faunaandorchestra.butterfly_net.desc": "Mariposas sueltas por la calle...",
   "item.faunaandorchestra.music_bottle.desc": "La esencia de la vida y alegría. Ingrediente básico en la Melomancia",
   "item.faunaandorchestra.sheet_fragments.desc": "Fausto te lo dio como agradecimiento. Compuesto por el Gran Compositor",
+  "item.faunaandorchestra.the_great_composer_spawn_egg.desc": "Boss",
 
   "block.faunaandorchestra.composer_gravestone": "Tumba del Gran Compositor",
   "block.faunaandorchestra.gravestone": "Tumba",
@@ -60,6 +61,7 @@
   "item.faunaandorchestra.madame_butterfly_spawn_egg": "Generar Madame Butterfly",
   "item.faunaandorchestra.wandering_koala_spawn_egg": "Generar Koala Ambulante",
   "item.faunaandorchestra.ringtails_spawn_egg": "Generar a Los Ringtails",
+  "item.faunaandorchestra.the_great_composer_spawn_egg": "Generar al Gran Compositor",
   "item.faunaandorchestra.sproutling_spawn_egg": "Generar Brotecito Cantarín",
   "item.faunaandorchestra.butterfly_spawn_egg": "Mariposa",
 
