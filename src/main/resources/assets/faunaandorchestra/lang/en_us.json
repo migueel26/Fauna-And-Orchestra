@@ -18,7 +18,9 @@
   "item.faunaandorchestra.the_great_head_item": "The Great Head",
   "item.faunaandorchestra.melomancy_cauldron_item": "Melomancy Cauldron",
   "item.faunaandorchestra.musical_ink": "Musical Ink",
+  "item.faunaandorchestra.discord_essence": "Essence of Discord",
 
+  "item.faunaandorchestra.discord_essence.desc": "When somebody tries to meddle with the nature of sound, it causes a discord to its surroundings",
   "item.faunaandorchestra.musical_ink.desc": "§eClick §ra sign block to give it a unique musical style!",
   "item.faunaandorchestra.the_great_head.desc": "The skull of the greatest and most magnificent terror of this land's fauna",
   "item.faunaandorchestra.melomancy_cauldron.desc": "Deposit all the ingredients you need and poof! The world of music is on your hand",
@@ -42,6 +44,8 @@
   "block.faunaandorchestra.tip_case.desc": "Everybody can tip you gold, but only you can retrieve it",
   "block.faunaandorchestra.listener.desc": "Place it on top of a Listener Container and play some music",
   "block.faunaandorchestra.listener_container.desc": "Produce some liquid music by placing a Listener above and creating an orchestra",
+  "block.faunaandorchestra.melomancy_cauldron.preparing": "Preparing",
+  "block.faunaandorchestra.melomancy_cauldron.finished": "Right click with recipient if needed to retrieve the result",
 
   "item.faunaandorchestra.bach_air_sheet_music": "Bach's Air Sheet",
   "item.faunaandorchestra.greensleeves_sheet_music": "Greensleeves Sheet",

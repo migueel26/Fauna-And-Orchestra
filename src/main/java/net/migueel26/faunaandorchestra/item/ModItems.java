@@ -53,6 +53,15 @@ public class ModItems {
                     super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
                 }
             });
+    public static final DeferredItem<Item> DISCORD_ESSENCE = ITEMS.register("discord_essence",
+            () -> new Item(new Item.Properties()) {
+                @Override
+                public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+                    tooltipComponents.add(Component.translatable("item.faunaandorchestra.discord_essence.desc")
+                            .withStyle(ChatFormatting.GRAY));
+                    super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+                }
+            });
     public static final DeferredItem<Item> MUSIC_BOTTLE = ITEMS.register("music_bottle",
             () -> new Item(new Item.Properties()) {
                 @Override

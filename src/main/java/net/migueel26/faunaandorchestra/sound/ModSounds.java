@@ -59,6 +59,8 @@ public class ModSounds {
     public static final Supplier<SoundEvent> SUCCESSFUL_TAME = registerSoundEvent("successful_tame");
     public static final Supplier<SoundEvent> MAGIC_GROWTH = registerSoundEvent("magic_growth");
     public static final Supplier<SoundEvent> SINGING_SPROUTLING_SOUND = registerSoundEvent("singing_sproutling_sound");
+    public static final Supplier<SoundEvent> CAULDRON_BUBBLING = registerSoundEvent("cauldron_bubbling");
+    public static final Supplier<SoundEvent> CAULDRON_ITEM = registerSoundEvent("cauldron_item");
     public static final Supplier<SoundEvent> DIALOGUE = registerSoundEvent("dialogue");
 
     private static Supplier<SoundEvent> registerSoundEvent(String name) {

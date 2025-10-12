@@ -217,6 +217,19 @@
       "faunaandorchestra:sfx/singing_sproutling_5"
     ]
   },
+  "cauldron_bubbling": {
+    "subtitles": "sounds.faunaandorchestra.cauldron_bubbling",
+    "sounds": [
+      "faunaandorchestra:sfx/cauldron_bubbling_0",
+      "faunaandorchestra:sfx/cauldron_bubbling_1"
+    ]
+  },
+  "cauldron_item": {
+    "subtitles": "sounds.faunaandorchestra.cauldron_item",
+    "sounds": [
+      "faunaandorchestra:sfx/cauldron_item"
+    ]
+  },
   "dialogue": {
     "subtitles": "sounds.faunaandorchestra.dialogue",
     "sounds": [

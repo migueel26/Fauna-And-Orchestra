@@ -22,8 +22,10 @@ import net.migueel26.faunaandorchestra.particles.custom.MagicalNoteParticle;
 import net.migueel26.faunaandorchestra.screen.ModMenuTypes;
 import net.migueel26.faunaandorchestra.screen.custom.ConductorScreen;
 import net.migueel26.faunaandorchestra.screen.custom.DialogueScreen;
+import net.migueel26.faunaandorchestra.screen.custom.MelomancyCauldronScreen;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.migueel26.faunaandorchestra.util.ModItemProperties;
+import net.minecraft.client.particle.SculkChargePopParticle;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderers;
@@ -145,6 +147,7 @@ public class FaunaAndOrchestra {
         @SubscribeEvent
         public static void registerOverlays(final RegisterGuiLayersEvent event) {
             event.registerBelow(VanillaGuiLayers.HOTBAR, ResourceLocation.fromNamespaceAndPath(MOD_ID, "dialogue"), DialogueScreen.OVERLAY);
+            event.registerAbove(VanillaGuiLayers.CROSSHAIR, ResourceLocation.fromNamespaceAndPath(MOD_ID, "melomancy_hottip"), MelomancyCauldronScreen.OVERLAY);
         }
 
         @SubscribeEvent
@@ -153,6 +156,7 @@ public class FaunaAndOrchestra {
             event.registerSpriteSet(ModParticleTypes.TREBLE_CLEF.get(), FaunaNoteParticle.TrebleProvider::new);
             event.registerSpriteSet(ModParticleTypes.DRIPPING_MUSIC.get(), DrippingMusicParticle.Provider::new);
             event.registerSpriteSet(ModParticleTypes.MAGICAL_NOTE.get(), MagicalNoteParticle.Provider::new);
+            event.registerSpriteSet(ModParticleTypes.CAULDRON_POP.get(), SculkChargePopParticle.Provider::new);
         }
     }
 

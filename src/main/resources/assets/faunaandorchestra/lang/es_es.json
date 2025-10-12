@@ -18,7 +18,9 @@
   "item.faunaandorchestra.the_great_head_item": "La Grandiosa Cabeza",
   "item.faunaandorchestra.melomancy_cauldron_item": "Caldero de Melomancia",
   "item.faunaandorchestra.musical_ink": "Tinta Musical",
+  "item.faunaandorchestra.discord_essence": "Esencia de discordia",
 
+  "item.faunaandorchestra.discord_essence.desc": "Cuando alguien intenta entrometerse con la naturaleza del sonido, crea una discordia en sus alrededores",
   "item.faunaandorchestra.musical_ink.desc": "Haz §eclick §ra a un cartel y dale un estilo musical único",
   "item.faunaandorchestra.the_great_head.desc": "La calavera del más magnífico y horrible monstruo que acechó la fauna de esta tierra",
   "item.faunaandorchestra.melomancy_cauldron.desc": "Deposita todos los ingredientes y puf! El mundo de la música está a tu alcance",
@@ -41,6 +43,8 @@
   "block.faunaandorchestra.tip_case.desc": "Todo el mundo te puede donar, pero sólo tú puedes retirarlo",
   "block.faunaandorchestra.listener.desc": "Colócalo encima del Contenedor y toca algo de música",
   "block.faunaandorchestra.listener_container.desc": "Recoge música líquida colocando un Escuchador encima y colocando una orquesta",
+  "block.faunaandorchestra.melomancy_cauldron.preparing": "Preparando",
+  "block.faunaandorchestra.melomancy_cauldron.finished": "Click derecho con un recipiente si es necesario para recoger",
 
   "item.faunaandorchestra.bach_air_sheet_music": "Partitura del Air de Bach",
   "item.faunaandorchestra.greensleeves_sheet_music": "Partitura de Greensleeves",
