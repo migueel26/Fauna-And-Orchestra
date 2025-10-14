@@ -14,6 +14,9 @@
   "item.faunaandorchestra.briefcase": "Briefcase",
   "item.faunaandorchestra.butterfly_net": "Butterfly Net",
   "item.faunaandorchestra.music_bottle": "Liquid Music",
+  "item.faunaandorchestra.singing_seed": "Singing Seed",
+  "item.faunaandorchestra.boogie_fruit": "Boogie Fruit",
+  "item.faunaandorchestra.glove": "Glove",
   "item.faunaandorchestra.sheet_fragments": "Fragments of a Lost Composition",
   "item.faunaandorchestra.the_great_head_item": "The Great Head",
   "item.faunaandorchestra.melomancy_cauldron_item": "Melomancy Cauldron",
@@ -22,6 +25,7 @@
 
   "item.faunaandorchestra.discord_essence.desc": "When somebody tries to meddle with the nature of sound, it causes a discord to its surroundings",
   "item.faunaandorchestra.musical_ink.desc": "§eClick §ra sign block to give it a unique musical style!",
+  "item.faunaandorchestra.boogie_fruit.desc": "A single bite and you won't be able to stop dancing!",
   "item.faunaandorchestra.the_great_head.desc": "The skull of the greatest and most magnificent terror of this land's fauna",
   "item.faunaandorchestra.melomancy_cauldron.desc": "Deposit all the ingredients you need and poof! The world of music is on your hand",
   "item.faunaandorchestra.butterfly_net.desc": "Trying to catch your light...",
@@ -39,6 +43,7 @@
   "block.faunaandorchestra.crawling_discord": "Crawling Discord",
   "block.faunaandorchestra.the_great_head": "The Great Head",
   "block.faunaandorchestra.dam_block": "Dam Block",
+  "block.faunaandorchestra.singing_crop": "Singing Crop",
 
   "block.faunaandorchestra.tip_case_theft": "This case is not yours! You can't take the gold",
   "block.faunaandorchestra.tip_case.desc": "Everybody can tip you gold, but only you can retrieve it",

@@ -49,9 +49,12 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.JAZZY_FUR_ELISE_SHEET_MUSIC);
                         output.accept(ModItems.DANCE_OF_THE_LITTLE_SWANS);
                         output.accept(ModItems.RESURRECTION_SONG);
+                        output.accept(ModItems.SHEET_FRAGMENTS);
                         output.accept(ModItems.MUSIC_BOTTLE);
                         output.accept(ModItems.MUSICAL_INK);
-                        output.accept(ModItems.SHEET_FRAGMENTS);
+                        output.accept(ModItems.BOOGIE_FRUIT);
+                        output.accept(ModItems.SINGING_SEED);
+                        output.accept(ModItems.GLOVE);
                         output.accept(ModBlocks.TIP_CASE);
                         output.accept(ModBlocks.LISTENER);
                         output.accept(ModBlocks.LISTENER_CONTAINER);

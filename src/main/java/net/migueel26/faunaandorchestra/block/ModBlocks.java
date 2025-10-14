@@ -71,6 +71,9 @@ public class ModBlocks {
                             .ignitedByLava()
             ));
 
+    public static final DeferredBlock<Block> SINGING_CROP = registerBlock("singing_crop",
+            () -> new SingingCropBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BEETROOTS)));
+
     public static final DeferredBlock<Block> THE_GREAT_HEAD = registerBlock("the_great_head",
             () -> new TheGreatHeadBlock(BlockBehaviour.Properties.of()
                     .strength(1.0F)));

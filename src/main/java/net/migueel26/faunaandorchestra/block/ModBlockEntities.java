@@ -44,6 +44,12 @@ public class ModBlockEntities {
                     ModBlocks.MELOMANCY_CAULDRON.get()
             ).build(null));
 
+    public static final Supplier<BlockEntityType<SingingCropBlockEntity>> SINGING_CROP_BE =
+            BLOCK_ENTITES.register("singing_crop_be", () -> BlockEntityType.Builder.of(
+                    SingingCropBlockEntity::new,
+                    ModBlocks.SINGING_CROP.get()
+            ).build(null));
+
     public static final Supplier<BlockEntityType<TheGreatHeadBlockEntity>> THE_GREAT_HEAD_BE =
             BLOCK_ENTITES.register("the_great_head_be", () -> BlockEntityType.Builder.of(
                     TheGreatHeadBlockEntity::new,

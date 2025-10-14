@@ -4,15 +4,14 @@ import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.item.custom.*;
+import net.migueel26.faunaandorchestra.item.custom.InstrumentItem;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.migueel26.faunaandorchestra.util.MusicUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.block.Blocks;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -45,6 +44,17 @@ public class ModItems {
 
     public static final DeferredItem<Item> BRIEFCASE = ITEMS.register("briefcase",
             () -> new BriefcaseItem(new Item.Properties().stacksTo(1)));
+    public static final DeferredItem<Item> SINGING_SEED = ITEMS.register("singing_seed",
+            () -> new ItemNameBlockItem(ModBlocks.SINGING_CROP.get(), new Item.Properties()));
+    public static final DeferredItem<Item> BOOGIE_FRUIT = ITEMS.register("boogie_fruit",
+            () -> new Item(new Item.Properties().food(ModFoodProperties.BOOGIE_FRUIT)) {
+                @Override
+                public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+                    tooltipComponents.add(Component.translatable("item.faunaandorchestra.boogie_fruit.desc")
+                            .withStyle(ChatFormatting.GRAY));
+                    super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+                }
+            });
     public static final DeferredItem<Item> BUTTERFLY_NET = ITEMS.register("butterfly_net",
             () -> new Item(new Item.Properties().stacksTo(1)) {
                 public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
@@ -82,6 +92,8 @@ public class ModItems {
             });
     public static final DeferredItem<Item> MUSICAL_INK = ITEMS.register("musical_ink",
             () -> new MusicalInkItem(new Item.Properties()));
+    public static final DeferredItem<Item> GLOVE = ITEMS.register("glove",
+            () -> new Item(new Item.Properties().durability(3)));
 
     public static final DeferredItem<Item> MANTIS_SPAWN_EGG = ITEMS.register("mantis_spawn_egg",
             () -> new DeferredSpawnEggItem(ModEntities.MANTIS, 0x46eb4c, 0x23a628,

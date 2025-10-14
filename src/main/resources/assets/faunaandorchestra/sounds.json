@@ -217,6 +217,12 @@
       "faunaandorchestra:sfx/singing_sproutling_5"
     ]
   },
+  "sproutling_twinkle": {
+    "subtitles": "sounds.faunaandorchestra.sproutling_twinkle",
+    "sounds": [
+      "faunaandorchestra:sfx/sproutling_twinkle"
+    ]
+  },
   "cauldron_bubbling": {
     "subtitles": "sounds.faunaandorchestra.cauldron_bubbling",
     "sounds": [
