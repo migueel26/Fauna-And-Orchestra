@@ -49,6 +49,8 @@ public class ModEntities {
             () -> EntityType.Builder.of(SproutlingEntity::new, MobCategory.CREATURE).sized(0.35f, 0.45f).build("singing_sproutling"));
     public static final Supplier<EntityType<ButterflyEntity>> BUTTERFLY = ENTITY_TYPES.register("butterfly",
             () -> EntityType.Builder.of(ButterflyEntity::new, MobCategory.CREATURE).sized(0.35f, 0.35f).build("butterfly"));
+    public static final Supplier<EntityType<WanderingNoteEntity>> WANDERING_NOTE = ENTITY_TYPES.register("wandering_note_entity",
+            () -> EntityType.Builder.of(WanderingNoteEntity::new, MobCategory.AMBIENT).sized(1.0f, 1.0f).build("wandering_note_entity"));
 
     public static final Supplier<EntityType<MusicNoteProjectileEntity>> MUSIC_NOTE_PROJECTILE = ENTITY_TYPES.register("music_note_projectile",
             () -> EntityType.Builder.<MusicNoteProjectileEntity>of(MusicNoteProjectileEntity::new, MobCategory.MISC).sized(1.0f, 1.0f).build("music_note_projectile"));

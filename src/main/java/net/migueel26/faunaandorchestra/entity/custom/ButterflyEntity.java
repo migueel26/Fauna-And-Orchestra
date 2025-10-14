@@ -11,6 +11,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -73,13 +74,20 @@ public class ButterflyEntity extends Animal implements FlyingAnimal, GeoEntity {
 
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
-        if (player.getItemInHand(hand).is(ModItems.BUTTERFLY_NET)) {
+        ItemStack stack = player.getItemInHand(hand);
+        if (stack.is(ModItems.BUTTERFLY_NET)) {
             if (!level().isClientSide()) {
                 ((ServerLevel) level()).sendParticles(ParticleTypes.CLOUD,
                         getX(), getY(), getZ(),
                         5, 0, 0, 0, 0.05);
             }
             level().playSound(null, blockPosition(), SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, 1.0f, 0.75f);
+
+            if (hand.equals(InteractionHand.MAIN_HAND)) {
+                stack.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
+            } else {
+                stack.hurtAndBreak(1, player, EquipmentSlot.OFFHAND);
+            }
 
             player.addItem(new ItemStack(ModItems.BUTTERFLY_SPAWN_EGG.get(), 1));
             this.scheduleDeath = 3;

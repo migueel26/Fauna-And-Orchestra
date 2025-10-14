@@ -9,6 +9,7 @@ import net.migueel26.faunaandorchestra.client.entity.boss.ComposerCanonRenderer;
 import net.migueel26.faunaandorchestra.client.entity.boss.TheGreatComposerRenderer;
 import net.migueel26.faunaandorchestra.client.entity.projectile.MusicNoteProjectileRenderer;
 import net.migueel26.faunaandorchestra.client.entity.projectile.PhantomNoteProjectileRenderer;
+import net.migueel26.faunaandorchestra.client.entity.projectile.WanderingNoteRenderer;
 import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.effect.ModEffects;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
@@ -20,6 +21,7 @@ import net.migueel26.faunaandorchestra.particles.custom.DrippingMusicParticle;
 import net.migueel26.faunaandorchestra.particles.custom.FaunaNoteParticle;
 import net.migueel26.faunaandorchestra.particles.custom.MagicalNoteParticle;
 import net.migueel26.faunaandorchestra.particles.custom.StarParticle;
+import net.migueel26.faunaandorchestra.potion.ModPotions;
 import net.migueel26.faunaandorchestra.screen.ModMenuTypes;
 import net.migueel26.faunaandorchestra.screen.custom.ConductorScreen;
 import net.migueel26.faunaandorchestra.screen.custom.DialogueScreen;
@@ -33,6 +35,9 @@ import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.PotionContents;
 import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import org.slf4j.Logger;
@@ -86,6 +91,7 @@ public class FaunaAndOrchestra {
         ModBlockEntities.register(modEventBus);
         ModAdvancements.register(modEventBus);
         ModEffects.register(modEventBus);
+        ModPotions.register(modEventBus);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
@@ -124,6 +130,7 @@ public class FaunaAndOrchestra {
             EntityRenderers.register(ModEntities.ANYA_GHOST.get(), AnyaGhostRenderer::new);
             EntityRenderers.register(ModEntities.SINGING_SPROUTLING.get(), SproutlingRenderer::new);
             EntityRenderers.register(ModEntities.BUTTERFLY.get(), ButterflyRenderer::new);
+            EntityRenderers.register(ModEntities.WANDERING_NOTE.get(), WanderingNoteRenderer::new);
             EntityRenderers.register(ModEntities.THE_GREAT_COMPOSER.get(), TheGreatComposerRenderer::new);
             EntityRenderers.register(ModEntities.MUSIC_NOTE_PROJECTILE.get(), MusicNoteProjectileRenderer::new);
             EntityRenderers.register(ModEntities.THE_GREAT_COMPOSER_CANON.get(), ComposerCanonRenderer::new);

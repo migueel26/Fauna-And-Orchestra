@@ -21,7 +21,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.DifficultyInstance;
@@ -139,7 +138,7 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
     ComposerCanonEntity canonEntity;
     protected BlockPos diePos;
     protected List<? extends Holder<MobEffect>> effectsList = new ArrayList<>(List.of(
-            ModEffects.BOOGIE_EFFECT,
+            ModEffects.BOOGIE,
             MobEffects.DARKNESS,
             MobEffects.MOVEMENT_SLOWDOWN,
             MobEffects.WEAKNESS));

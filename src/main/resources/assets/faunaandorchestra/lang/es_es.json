@@ -14,6 +14,7 @@
   "item.faunaandorchestra.briefcase": "Maletín",
   "item.faunaandorchestra.butterfly_net": "Cazamariposas",
   "item.faunaandorchestra.music_bottle": "Música líquida",
+  "item.faunaandorchestra.wandering_note": "Nota ambulante",
   "item.faunaandorchestra.singing_seed": "Semilla cantarina",
   "item.faunaandorchestra.boogie_fruit": "Fruta Boogie",
   "item.faunaandorchestra.glove": "Guante",
@@ -121,6 +122,10 @@
   "piece.faunaandorchestra.dance_of_the_little_swans_sheet_music": "Danza de los Pequeños Cisnes",
 
   "effect.faunaandorchestra.boogie": "Coreomanía",
+  "effect.faunaandorchestra.absolute_hearing": "Oído absoluto",
+  "item.minecraft.potion.effect.absolute_hearing": "Poción de oído absoluto",
+  "item.minecraft.splash_potion.effect.absolute_hearing": "Poción de oído absoluto arrojadiza",
+  "item.minecraft.lingering_potion.effect.absolute_hearing": "Poción de oído absoluto persistente",
 
   "advancements.faunaandorchestra.root": "Fauna & Orchestra",
   "advancements.faunaandorchestra.root.desc": "El comienzo de una aventura musical y mística",

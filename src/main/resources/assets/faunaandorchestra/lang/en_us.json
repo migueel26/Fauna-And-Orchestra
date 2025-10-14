@@ -14,6 +14,7 @@
   "item.faunaandorchestra.briefcase": "Briefcase",
   "item.faunaandorchestra.butterfly_net": "Butterfly Net",
   "item.faunaandorchestra.music_bottle": "Liquid Music",
+  "item.faunaandorchestra.wandering_note": "Wandering Note",
   "item.faunaandorchestra.singing_seed": "Singing Seed",
   "item.faunaandorchestra.boogie_fruit": "Boogie Fruit",
   "item.faunaandorchestra.glove": "Glove",
@@ -32,7 +33,6 @@
   "item.faunaandorchestra.music_bottle.desc": "The essence of joy and nature itself. Basic ingredient in Melomancy",
   "item.faunaandorchestra.sheet_fragments.desc": "Faust gave this to you as a thank you. Made by The Great Composer himself",
   "item.faunaandorchestra.the_great_composer_spawn_egg.desc": "Boss",
-
 
   "block.faunaandorchestra.composer_gravestone": "The Great Composer's Tomb",
   "block.faunaandorchestra.gravestone": "Tomb",
@@ -123,6 +123,10 @@
   "piece.faunaandorchestra.resurrection_song": "The Requiem of Resurrection",
 
   "effect.faunaandorchestra.boogie": "Choreomania",
+  "effect.faunaandorchestra.absolute_hearing": "Absolute Hearing",
+  "item.minecraft.potion.effect.absolute_hearing_potion": "Absolute Hearing Potion",
+  "item.minecraft.splash_potion.effect.absolute_hearing_potion": "Absolute Hearing Splash Potion",
+  "item.minecraft.lingering_potion.effect.absolute_hearing_potion": "Absolute Hearing Lingering Potion",
 
   "advancements.faunaandorchestra.root": "Fauna & Orchestra",
   "advancements.faunaandorchestra.root.desc": "The beginning of a musical and mystical adventure",
