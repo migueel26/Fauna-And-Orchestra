@@ -3,14 +3,16 @@ package net.migueel26.faunaandorchestra.block;
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.block.custom.*;
 import net.migueel26.faunaandorchestra.item.ModItems;
+import net.migueel26.faunaandorchestra.worldgen.tree.ModTreeGrowers;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.RootsBlock;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.bus.api.IEventBus;
@@ -73,6 +75,35 @@ public class ModBlocks {
 
     public static final DeferredBlock<Block> SINGING_CROP = registerBlock("singing_crop",
             () -> new SingingCropBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BEETROOTS)));
+
+    public static final DeferredBlock<Block> GINGKO_BILOBA_LEAVES = registerBlock("gingko_biloba_leaves",
+            () -> new LeavesBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.PLANT)
+                    .strength(0.2F)
+                    .randomTicks()
+                    .sound(SoundType.GRASS)
+                    .noOcclusion()
+                    .isValidSpawn(Blocks::ocelotOrParrot)
+                    .ignitedByLava()
+                    .pushReaction(PushReaction.DESTROY)) {
+                @Override
+                public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return true;
+                }
+
+                @Override
+                public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 60;
+                }
+
+                @Override
+                public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 30;
+                }
+            });
+
+    public static final DeferredBlock<Block> GINGKO_BILOBA_SAPLING = registerBlock("gingko_biloba_sapling",
+            () -> new SaplingBlock(ModTreeGrowers.GINGKO_BILOBA_TREE, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING)));
 
     public static final DeferredBlock<Block> THE_GREAT_HEAD = registerBlock("the_great_head",
             () -> new TheGreatHeadBlock(BlockBehaviour.Properties.of()

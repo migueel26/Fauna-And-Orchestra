@@ -57,6 +57,15 @@ public class ModItems {
             });
     public static final DeferredItem<Item> WANDERING_NOTE = ITEMS.register("wandering_note",
             () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> GINGKO_BILOBA = ITEMS.register("gingko_biloba",
+            () -> new Item(new Item.Properties()) {
+                @Override
+                public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+                    tooltipComponents.add(Component.translatable("item.faunaandorchestra.gingko_biloba.desc")
+                            .withStyle(ChatFormatting.GRAY));
+                    super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+                }
+            });
     public static final DeferredItem<Item> BUTTERFLY_NET = ITEMS.register("butterfly_net",
             () -> new Item(new Item.Properties().stacksTo(1).durability(32)) {
                 public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {

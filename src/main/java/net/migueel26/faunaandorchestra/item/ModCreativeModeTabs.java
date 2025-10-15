@@ -53,6 +53,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.SHEET_FRAGMENTS);
                         output.accept(ModItems.MUSIC_BOTTLE);
                         output.accept(ModItems.MUSICAL_INK);
+                        output.accept(ModItems.GINGKO_BILOBA);
                         output.accept(ModItems.WANDERING_NOTE);
                         output.accept(ModItems.BOOGIE_FRUIT);
                         output.accept(ModItems.SINGING_SEED);
@@ -67,6 +68,8 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.DISCORD_ESSENCE);
                         output.accept(ModBlocks.CRAWLING_DISCORD);
                         output.accept(ModBlocks.DAM_BLOCK);
+                        output.accept(ModBlocks.GINGKO_BILOBA_LEAVES);
+                        output.accept(ModBlocks.GINGKO_BILOBA_SAPLING);
                     }).build());
 
     public static void register(IEventBus eventBus) {

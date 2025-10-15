@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/leaves",
+  "textures": {
+    "all": "faunaandorchestra:block/gingko_biloba_leaves"
+  }
+}
