@@ -37,6 +37,7 @@
   "item.faunaandorchestra.gingko_biloba.desc": "In ages past, villagers were said to chew these leaves to heighten their auditory perception",
   "item.faunaandorchestra.whistle.tooltip": "§eClick §ra tamed entity to link it. After that you can call it anytime!",
   "item.faunaandorchestra.whistle.desc": "Linked to: ",
+  "item.faunaandorchestra.whistle.far_message": "It's too far away!",
   "item.faunaandorchestra.the_great_composer_spawn_egg.desc": "Boss",
 
   "block.faunaandorchestra.composer_gravestone": "The Great Composer's Tomb",

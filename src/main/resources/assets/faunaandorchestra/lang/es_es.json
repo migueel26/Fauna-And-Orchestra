@@ -37,6 +37,7 @@
   "item.faunaandorchestra.gingko_biloba.desc": "Otrora los aldeanos masticaban estas hojas para agudizar su oído",
   "item.faunaandorchestra.whistle.tooltip": "Haz §eclick §ra una mascota para enlazarla. ¡Después podrás llamarla cuando quieras!",
   "item.faunaandorchestra.whistle.desc": "Enlazado con: ",
+  "item.faunaandorchestra.whistle.far_message": "¡Está muy lejos!",
   "item.faunaandorchestra.the_great_composer_spawn_egg.desc": "Boss",
 
   "block.faunaandorchestra.composer_gravestone": "Tumba del Gran Compositor",

@@ -63,6 +63,8 @@ public class WhistleItem extends Item {
                         entity.moveTo(blockHitResult.getBlockPos().above().getCenter());
                         whistle.hurtAndBreak(1, player, context.getHand() == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
                         player.getCooldowns().addCooldown(whistle.getItem(), 400);
+                    } else {
+                        player.displayClientMessage(Component.translatable("item.faunaandorchestra.whistle.far_message"), true);
                     }
                 } else {
                     Entity entity = ((ClientLevelAccessor) level).callGetEntities().get(uuid);
