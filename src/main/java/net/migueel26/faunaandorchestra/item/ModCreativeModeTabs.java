@@ -51,6 +51,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.DANCE_OF_THE_LITTLE_SWANS);
                         output.accept(ModItems.RESURRECTION_SONG);
                         output.accept(ModItems.SHEET_FRAGMENTS);
+                        output.accept(ModItems.WHISTLE);
                         output.accept(ModItems.MUSIC_BOTTLE);
                         output.accept(ModItems.MUSICAL_INK);
                         output.accept(ModItems.GINGKO_BILOBA);

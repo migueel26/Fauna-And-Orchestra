@@ -19,6 +19,7 @@
   "item.faunaandorchestra.singing_seed": "Semilla cantarina",
   "item.faunaandorchestra.boogie_fruit": "Fruta Boogie",
   "item.faunaandorchestra.glove": "Guante",
+  "item.faunaandorchestra.whistle": "Silbato",
   "item.faunaandorchestra.sheet_fragments": "Fragmentos de una composición perdida",
   "item.faunaandorchestra.the_great_head_item": "La Grandiosa Cabeza",
   "item.faunaandorchestra.melomancy_cauldron_item": "Caldero de Melomancia",
@@ -34,6 +35,8 @@
   "item.faunaandorchestra.music_bottle.desc": "La esencia de la vida y alegría. Ingrediente básico en la Melomancia",
   "item.faunaandorchestra.sheet_fragments.desc": "Fausto te lo dio como agradecimiento. Compuesto por el Gran Compositor",
   "item.faunaandorchestra.gingko_biloba.desc": "Otrora los aldeanos masticaban estas hojas para agudizar su oído",
+  "item.faunaandorchestra.whistle.tooltip": "Haz §eclick §ra una mascota para enlazarla. ¡Después podrás llamarla cuando quieras!",
+  "item.faunaandorchestra.whistle.desc": "Enlazado con: ",
   "item.faunaandorchestra.the_great_composer_spawn_egg.desc": "Boss",
 
   "block.faunaandorchestra.composer_gravestone": "Tumba del Gran Compositor",

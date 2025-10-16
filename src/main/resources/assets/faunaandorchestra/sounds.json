@@ -206,6 +206,12 @@
       "faunaandorchestra:sfx/magic_growth"
     ]
   },
+  "whistle_call": {
+    "subtitles": "sounds.faunaandorchestra.whistle_call",
+    "sounds": [
+      "faunaandorchestra:sfx/whistle_call"
+    ]
+  },
   "singing_sproutling_sound": {
     "subtitles": "sounds.faunaandorchestra.singing_sproutling_sound",
     "sounds": [

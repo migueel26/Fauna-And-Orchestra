@@ -9,12 +9,18 @@ import net.migueel26.faunaandorchestra.entity.custom.QuirkyFrogEntity;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.FinalizeSpawnEvent;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 
@@ -44,6 +50,15 @@ public class ModGameEvents {
                     chorister.setReady(false);
                 }
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void whistleClickOnEntity(PlayerInteractEvent.EntityInteractSpecific event) {
+        ItemStack stack = event.getItemStack();
+
+        if (stack.is(ModItems.WHISTLE) && event.getTarget() instanceof TamableAnimal animal) {
+            stack.use(event.getLevel(), event.getEntity(), event.getHand());
         }
     }
 

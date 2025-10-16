@@ -22,6 +22,9 @@ public class ModDataComponents {
         public static final DeferredHolder<DataComponentType<?>, DataComponentType<UUID>> MUSICIAN_UUID = register("musician_uuid",
             builder -> builder.persistent(UUIDUtil.CODEC));
 
+        public static final DeferredHolder<DataComponentType<?>, DataComponentType<String>> WHISTLE_NAME = register("whistle_name",
+                builder -> builder.persistent(Codec.STRING));
+
         public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> OPENED = register("briefcase_opened",
                 builder -> builder.persistent(Codec.BOOL));
 

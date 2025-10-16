@@ -60,6 +60,7 @@ public class ModSounds {
     public static final Supplier<SoundEvent> MAGIC_GROWTH = registerSoundEvent("magic_growth");
     public static final Supplier<SoundEvent> SINGING_SPROUTLING_SOUND = registerSoundEvent("singing_sproutling_sound");
     public static final Supplier<SoundEvent> SPROUTLING_TWINKLE = registerSoundEvent("sproutling_twinkle");
+    public static final Supplier<SoundEvent> WHISTLE_CALL = registerSoundEvent("whistle_call");
     public static final Supplier<SoundEvent> CAULDRON_BUBBLING = registerSoundEvent("cauldron_bubbling");
     public static final Supplier<SoundEvent> CAULDRON_ITEM = registerSoundEvent("cauldron_item");
     public static final Supplier<SoundEvent> DIALOGUE = registerSoundEvent("dialogue");

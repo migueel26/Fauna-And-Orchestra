@@ -74,6 +74,8 @@ public class ModItems {
                     super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
                 }
             });
+    public static final DeferredItem<Item> WHISTLE = ITEMS.register("whistle",
+            () -> new WhistleItem(new Item.Properties().stacksTo(1).durability(20)));
     public static final DeferredItem<Item> DISCORD_ESSENCE = ITEMS.register("discord_essence",
             () -> new Item(new Item.Properties()) {
                 @Override
