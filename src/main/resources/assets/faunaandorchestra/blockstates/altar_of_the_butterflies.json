@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "facing=north,offering=false": { "model": "faunaandorchestra:block/altar_of_the_butterflies" },
+    "facing=south,offering=false": { "model": "faunaandorchestra:block/altar_of_the_butterflies", "y": 180 },
+    "facing=west,offering=false":  { "model": "faunaandorchestra:block/altar_of_the_butterflies", "y": 270 },
+    "facing=east,offering=false":  { "model": "faunaandorchestra:block/altar_of_the_butterflies", "y": 90 },
+
+    "facing=north,offering=true": { "model": "faunaandorchestra:block/altar_of_the_butterflies_offering" },
+    "facing=south,offering=true": { "model": "faunaandorchestra:block/altar_of_the_butterflies_offering", "y": 180 },
+    "facing=west,offering=true":  { "model": "faunaandorchestra:block/altar_of_the_butterflies_offering", "y": 270 },
+    "facing=east,offering=true":  { "model": "faunaandorchestra:block/altar_of_the_butterflies_offering", "y": 90 }
+  }
+}

@@ -55,6 +55,15 @@ public class ModItems {
                     super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
                 }
             });
+    public static final DeferredItem<Item> OFFERING = ITEMS.register("offering",
+            () -> new Item(new Item.Properties()) {
+                @Override
+                public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+                    tooltipComponents.add(Component.translatable("item.faunaandorchestra.offering.desc")
+                            .withStyle(ChatFormatting.GRAY));
+                    super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+                }
+            });
     public static final DeferredItem<Item> WANDERING_NOTE = ITEMS.register("wandering_note",
             () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> GINGKO_BILOBA = ITEMS.register("gingko_biloba",

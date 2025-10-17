@@ -18,7 +18,7 @@ public class MadameButterflyRenderer extends GeoEntityRenderer<MadameButterflyEn
 
     @Override
     protected float getShadowRadius(MadameButterflyEntity entity) {
-        return entity.getDimensions(Pose.STANDING).width() * 0.65F;
+        return entity.getDimensions(Pose.STANDING).width() * 0.45F;
     }
 
     @Override

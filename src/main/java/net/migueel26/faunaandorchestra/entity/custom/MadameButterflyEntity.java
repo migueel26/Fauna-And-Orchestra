@@ -264,6 +264,13 @@ public class MadameButterflyEntity extends MusicalEntity implements GeoEntity, F
             super(p_186224_, p_186225_);
         }
 
+        @Override
+        public boolean canUse() {
+            return super.canUse() &
+                    !((MadameButterflyEntity) mob).isOrderedToSit() &&
+                    !((MadameButterflyEntity)mob).isPlayingInstrument();
+        }
+
         @Nullable
         @Override
         protected Vec3 getPosition() {

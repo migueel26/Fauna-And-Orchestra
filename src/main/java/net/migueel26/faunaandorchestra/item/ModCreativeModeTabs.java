@@ -63,6 +63,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModBlocks.LISTENER);
                         output.accept(ModBlocks.LISTENER_CONTAINER);
                         output.accept(ModItems.MELOMANCY_CAULDRON_ITEM);
+                        output.accept(ModBlocks.ALTAR_OF_THE_BUTTERFLIES);
                         output.accept(ModBlocks.COMPOSER_GRAVESTONE);
                         output.accept(ModBlocks.GRAVESTONE);
                         output.accept(ModItems.THE_GREAT_HEAD_ITEM);
@@ -71,6 +72,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModBlocks.DAM_BLOCK);
                         output.accept(ModBlocks.GINGKO_BILOBA_LEAVES);
                         output.accept(ModBlocks.GINGKO_BILOBA_SAPLING);
+                        output.accept(ModItems.OFFERING);
                     }).build());
 
     public static void register(IEventBus eventBus) {
