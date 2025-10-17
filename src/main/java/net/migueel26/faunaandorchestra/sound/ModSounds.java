@@ -21,6 +21,14 @@ public class ModSounds {
     public static final Supplier<SoundEvent> SAXOPHONE_USE = registerSoundEvent("saxophone_use");
     public static final Supplier<SoundEvent> OBOE_USE = registerSoundEvent("oboe_use");
     public static final Supplier<SoundEvent> CELLO_USE = registerSoundEvent("cello_use");
+    public static final Supplier<SoundEvent> PAN_FLUTE_USE = registerSoundEvent("pan_flute_use");
+
+    public static final Supplier<SoundEvent> PAN_FLUTE_NOTES = registerSoundEvent("pan_flute_notes");
+    public static final Supplier<SoundEvent> PAN_FLUTE_PUSH = registerSoundEvent("pan_flute_push");
+    public static final Supplier<SoundEvent> PAN_FLUTE_HEALTH = registerSoundEvent("pan_flute_health");
+    public static final Supplier<SoundEvent> PAN_FLUTE_WIND = registerSoundEvent("pan_flute_wind");
+    public static final Supplier<SoundEvent> PAN_FLUTE_NATURE = registerSoundEvent("pan_flute_nature");
+    public static final Supplier<SoundEvent> PAN_FLUTE_CHANGE = registerSoundEvent("pan_flute_change");
 
     public static final Supplier<SoundEvent> BACH_AIR_VIOLIN = registerSoundEvent("bach_air_violin");
     public static final Supplier<SoundEvent> BACH_AIR_FLUTE = registerSoundEvent("bach_air_flute");

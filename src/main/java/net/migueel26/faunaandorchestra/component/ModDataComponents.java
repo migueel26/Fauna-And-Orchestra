@@ -31,6 +31,12 @@ public class ModDataComponents {
         public static final DeferredHolder<DataComponentType<?>, DataComponentType<List<String>>> BRIEFCASE_ANIMAL_LIST = register("briefcase_animal_list",
                 builder -> builder.persistent(Codec.list(Codec.STRING, 0, MAX_SIZE)));
 
+        public static final DeferredHolder<DataComponentType<?>, DataComponentType<List<Integer>>> PAN_FLUTE_LIST = register("pan_flute_list",
+                builder -> builder.persistent(Codec.list(Codec.INT)));
+
+        public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> PAN_FLUTE_SOUND = register("pan_flute_sound",
+                builder -> builder.persistent(Codec.INT));
+
     private static <T> DeferredHolder<DataComponentType<?>, DataComponentType<T>> register(String name, UnaryOperator<DataComponentType.Builder<T>> builderOperator) {
         return DATA_COMPONENT_TYPES.register(name, () -> builderOperator.apply(DataComponentType.builder()).build());
     }

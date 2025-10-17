@@ -2,6 +2,7 @@ package net.migueel26.faunaandorchestra.item;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
+import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.item.custom.*;
 import net.migueel26.faunaandorchestra.item.custom.InstrumentItem;
@@ -17,6 +18,7 @@ import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -37,6 +39,18 @@ public class ModItems {
             () -> new InstrumentItem(new Item.Properties().stacksTo(1), ModSounds.OBOE_USE.get()));
     public static final DeferredItem<Item> CELLO = ITEMS.register("cello",
             () -> new InstrumentItem(new Item.Properties().stacksTo(1), ModSounds.CELLO_USE.get()));
+    public static final DeferredItem<Item> PAN_FLUTE = ITEMS.register("pan_flute",
+            () -> new PanFluteItem(new Item.Properties()
+                    .stacksTo(1)
+                    .component(ModDataComponents.PAN_FLUTE_SOUND, 0)
+                    .component(ModDataComponents.PAN_FLUTE_LIST, new ArrayList<>())));
+
+    public static final DeferredItem<Item> PAN_FLUTE_CREATIVE = ITEMS.register("pan_flute_creative",
+            () -> new PanFluteItem(new Item.Properties()
+                    .stacksTo(1)
+                    .component(ModDataComponents.PAN_FLUTE_SOUND, 0)
+                    .component(ModDataComponents.PAN_FLUTE_LIST, new ArrayList<>(List.of(1,2,3,4,5)))
+                    .rarity(Rarity.EPIC)));
     public static final DeferredItem<Item> BATON = ITEMS.register("baton",
             () -> new BatonItem(new Item.Properties().stacksTo(1)));
     public static final DeferredItem<Item> LEGENDARY_BATON = ITEMS.register("legendary_baton",

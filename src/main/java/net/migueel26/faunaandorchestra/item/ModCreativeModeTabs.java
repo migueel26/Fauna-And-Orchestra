@@ -27,6 +27,8 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.SAXOPHONE);
                         output.accept(ModItems.OBOE);
                         output.accept(ModItems.CELLO);
+                        output.accept(ModItems.PAN_FLUTE);
+                        output.accept(ModItems.PAN_FLUTE_CREATIVE);
                         output.accept(ModItems.BATON);
                         output.accept(ModItems.LEGENDARY_BATON);
                         output.accept(ModItems.BRIEFCASE);

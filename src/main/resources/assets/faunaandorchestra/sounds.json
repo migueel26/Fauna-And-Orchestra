@@ -41,6 +41,48 @@
       "faunaandorchestra:sfx/cello"
     ]
   },
+  "pan_flute_use": {
+    "subtitles": "sounds.faunaandorchestra.pan_flute_use",
+    "sounds": [
+      "faunaandorchestra:sfx/pan_flute_0"
+    ]
+  },
+  "pan_flute_notes": {
+    "subtitles": "sounds.faunaandorchestra.pan_flute_notes",
+    "sounds": [
+      "faunaandorchestra:sfx/pan_flute_1"
+    ]
+  },
+  "pan_flute_push": {
+    "subtitles": "sounds.faunaandorchestra.pan_flute_push",
+    "sounds": [
+      "faunaandorchestra:sfx/pan_flute_2"
+    ]
+  },
+  "pan_flute_health": {
+    "subtitles": "sounds.faunaandorchestra.pan_flute_health",
+    "sounds": [
+      "faunaandorchestra:sfx/pan_flute_3"
+    ]
+  },
+  "pan_flute_wind": {
+    "subtitles": "sounds.faunaandorchestra.pan_flute_wind",
+    "sounds": [
+      "faunaandorchestra:sfx/pan_flute_4"
+    ]
+  },
+  "pan_flute_nature": {
+    "subtitles": "sounds.faunaandorchestra.pan_flute_nature",
+    "sounds": [
+      "faunaandorchestra:sfx/pan_flute_5"
+    ]
+  },
+  "pan_flute_change": {
+    "subtitles": "sounds.faunaandorchestra.pan_flute_change",
+    "sounds": [
+      "faunaandorchestra:sfx/pan_flute_change"
+    ]
+  },
   "bach_air_violin": {
     "subtitles": "sounds.faunaandorchestra.bach_air_violin",
     "sounds": [

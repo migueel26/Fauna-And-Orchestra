@@ -11,6 +11,14 @@
   "item.faunaandorchestra.baton": "Baton",
   "item.faunaandorchestra.legendary_baton": "The Great Baton",
 
+  "item.faunaandorchestra.pan_flute": "Pan Flute",
+  "item.faunaandorchestra.pan_flute_creative": "Pan Flute - Creative",
+  "item.faunaandorchestra.pan_flute.notes": "Sound of Burst",
+  "item.faunaandorchestra.pan_flute.push": "Sound of Gust",
+  "item.faunaandorchestra.pan_flute.health": "Sound of Vigour",
+  "item.faunaandorchestra.pan_flute.wind": "Sound of Zephyr",
+  "item.faunaandorchestra.pan_flute.nature": "Sound of the Species",
+
   "item.faunaandorchestra.briefcase": "Briefcase",
   "item.faunaandorchestra.butterfly_net": "Butterfly Net",
   "item.faunaandorchestra.music_bottle": "Liquid Music",

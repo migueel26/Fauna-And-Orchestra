@@ -11,6 +11,14 @@
   "item.faunaandorchestra.baton": "Batuta",
   "item.faunaandorchestra.legendary_baton": "La Gran Batuta",
 
+  "item.faunaandorchestra.pan_flute": "Flauta de Pan",
+  "item.faunaandorchestra.pan_flute_creative": "Flauta de Pan - Creativo",
+  "item.faunaandorchestra.pan_flute.notes": "Sonido de la Ráfaga",
+  "item.faunaandorchestra.pan_flute.push": "Sonido del Soplo",
+  "item.faunaandorchestra.pan_flute.health": "Sonido del Vigor",
+  "item.faunaandorchestra.pan_flute.wind": "Sonido del Céfiro",
+  "item.faunaandorchestra.pan_flute.nature": "Sonido de las Especies",
+
   "item.faunaandorchestra.briefcase": "Maletín",
   "item.faunaandorchestra.butterfly_net": "Cazamariposas",
   "item.faunaandorchestra.music_bottle": "Música líquida",
