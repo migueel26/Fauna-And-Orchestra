@@ -43,7 +43,8 @@ public class ModItems {
             () -> new PanFluteItem(new Item.Properties()
                     .stacksTo(1)
                     .component(ModDataComponents.PAN_FLUTE_SOUND, 0)
-                    .component(ModDataComponents.PAN_FLUTE_LIST, new ArrayList<>())));
+                    .component(ModDataComponents.PAN_FLUTE_LIST, new ArrayList<>(List.of(1,2,3,4,5)))
+                    .durability(120)));
 
     public static final DeferredItem<Item> PAN_FLUTE_CREATIVE = ITEMS.register("pan_flute_creative",
             () -> new PanFluteItem(new Item.Properties()

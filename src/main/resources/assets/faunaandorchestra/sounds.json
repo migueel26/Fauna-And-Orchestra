@@ -83,6 +83,19 @@
       "faunaandorchestra:sfx/pan_flute_change"
     ]
   },
+  "pan_flute_push_wind": {
+    "subtitles": "sounds.faunaandorchestra.pan_flute_push_wind",
+    "sounds": [
+      "faunaandorchestra:sfx/pan_flute_push_0",
+      "faunaandorchestra:sfx/pan_flute_push_1"
+    ]
+  },
+  "pan_flute_wind_impulse": {
+    "subtitles": "sounds.faunaandorchestra.pan_flute_wind_impulse",
+    "sounds": [
+      "faunaandorchestra:sfx/pan_flute_wind"
+    ]
+  },
   "bach_air_violin": {
     "subtitles": "sounds.faunaandorchestra.bach_air_violin",
     "sounds": [

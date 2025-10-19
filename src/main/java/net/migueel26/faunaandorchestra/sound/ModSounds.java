@@ -25,8 +25,10 @@ public class ModSounds {
 
     public static final Supplier<SoundEvent> PAN_FLUTE_NOTES = registerSoundEvent("pan_flute_notes");
     public static final Supplier<SoundEvent> PAN_FLUTE_PUSH = registerSoundEvent("pan_flute_push");
+    public static final Supplier<SoundEvent> PAN_FLUTE_PUSH_WIND = registerSoundEvent("pan_flute_push_wind");
     public static final Supplier<SoundEvent> PAN_FLUTE_HEALTH = registerSoundEvent("pan_flute_health");
     public static final Supplier<SoundEvent> PAN_FLUTE_WIND = registerSoundEvent("pan_flute_wind");
+    public static final Supplier<SoundEvent> PAN_FLUTE_WIND_IMPULSE = registerSoundEvent("pan_flute_wind_impulse");
     public static final Supplier<SoundEvent> PAN_FLUTE_NATURE = registerSoundEvent("pan_flute_nature");
     public static final Supplier<SoundEvent> PAN_FLUTE_CHANGE = registerSoundEvent("pan_flute_change");
 

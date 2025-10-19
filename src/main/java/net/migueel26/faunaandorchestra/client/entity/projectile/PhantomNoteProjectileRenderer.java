@@ -3,6 +3,7 @@ package net.migueel26.faunaandorchestra.client.entity.projectile;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
+import net.migueel26.faunaandorchestra.entity.custom.WanderingNoteEntity;
 import net.migueel26.faunaandorchestra.entity.custom.projectile.PhantomNoteProjectileEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -14,8 +15,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.projectile.DragonFireball;
 
 public class PhantomNoteProjectileRenderer extends EntityRenderer<PhantomNoteProjectileEntity> {
-    private static final ResourceLocation TEXTURE_LOCATION = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/phantom_note.png");
-    private static final RenderType RENDER_TYPE = RenderType.entityCutoutNoCull(TEXTURE_LOCATION);
+    private static final ResourceLocation DEFAULT_TEXTURE_LOCATION = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/phantom_note.png");
 
     public PhantomNoteProjectileRenderer(EntityRendererProvider.Context context) {
         super(context);
@@ -28,9 +28,12 @@ public class PhantomNoteProjectileRenderer extends EntityRenderer<PhantomNotePro
     public void render(PhantomNoteProjectileEntity entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
         poseStack.pushPose();
         poseStack.scale(1.0F, 1.0F, 1.0F);
+
+        if (!entity.isBad()) poseStack.translate(0, 0.25f, 0);
+
         poseStack.mulPose(this.entityRenderDispatcher.cameraOrientation());
         PoseStack.Pose posestack$pose = poseStack.last();
-        VertexConsumer vertexconsumer = buffer.getBuffer(RENDER_TYPE);
+        VertexConsumer vertexconsumer = buffer.getBuffer(RenderType.entityCutoutNoCull(getTextureLocation(entity)));
         vertex(vertexconsumer, posestack$pose, packedLight, 0.0F, 0, 0, 1);
         vertex(vertexconsumer, posestack$pose, packedLight, 1.0F, 0, 1, 1);
         vertex(vertexconsumer, posestack$pose, packedLight, 1.0F, 1, 1, 0);
@@ -52,6 +55,7 @@ public class PhantomNoteProjectileRenderer extends EntityRenderer<PhantomNotePro
      * Returns the location of an entity's texture.
      */
     public ResourceLocation getTextureLocation(PhantomNoteProjectileEntity entity) {
-        return TEXTURE_LOCATION;
+        return entity.isBad() ? DEFAULT_TEXTURE_LOCATION : ResourceLocation.fromNamespaceAndPath(
+                FaunaAndOrchestra.MOD_ID, "textures/particle/fauna_note_" + entity.getTextureIndex() + ".png");
     }
 }
