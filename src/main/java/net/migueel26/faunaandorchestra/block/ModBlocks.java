@@ -60,11 +60,21 @@ public class ModBlocks {
                     .noOcclusion()
                     .sound(SoundType.STONE)));
 
+    public static final DeferredBlock<Block> ALTAR = registerBlock("altar",
+            () -> new AltarBlock(BlockBehaviour.Properties.of()
+                    .noOcclusion()
+                    .strength(2.0F, 6.0F)));
+
     public static final DeferredBlock<Block> ALTAR_OF_THE_BUTTERFLIES = registerBlock("altar_of_the_butterflies",
             () -> new AltarOfTheButterfliesBlock(BlockBehaviour.Properties.of()
                     .noOcclusion()
                     .strength(2.0F, 6.0F)
                     .randomTicks()));
+
+    public static final DeferredBlock<Block> ALTAR_OF_THE_PAN_FLUTE = registerBlock("altar_of_the_pan_flute",
+            () -> new AltarOfThePanFluteBlock(BlockBehaviour.Properties.of()
+                    .noOcclusion()
+                    .strength(2.0F, 6.0F)));
 
     public static final DeferredBlock<Block> CRAWLING_DISCORD = registerBlock("crawling_discord",
             () -> new CrawlingDiscordBlock(BlockBehaviour.Properties.of()

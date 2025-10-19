@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "faunaandorchestra:block/altar" },
+    "facing=south": { "model": "faunaandorchestra:block/altar", "y": 180 },
+    "facing=west":  { "model": "faunaandorchestra:block/altar", "y": 270 },
+    "facing=east":  { "model": "faunaandorchestra:block/altar", "y": 90 }
+  }
+}

@@ -50,6 +50,12 @@ public class ModBlockEntities {
                     ModBlocks.SINGING_CROP.get()
             ).build(null));
 
+    public static final Supplier<BlockEntityType<AltarOfThePanFluteBlockEntity>> ALTAR_OF_THE_PAN_FLUTE_BE =
+            BLOCK_ENTITES.register("altar_of_the_pan_flute_be", () -> BlockEntityType.Builder.of(
+                    AltarOfThePanFluteBlockEntity::new,
+                    ModBlocks.ALTAR_OF_THE_PAN_FLUTE.get()
+            ).build(null));
+
     public static final Supplier<BlockEntityType<TheGreatHeadBlockEntity>> THE_GREAT_HEAD_BE =
             BLOCK_ENTITES.register("the_great_head_be", () -> BlockEntityType.Builder.of(
                     TheGreatHeadBlockEntity::new,

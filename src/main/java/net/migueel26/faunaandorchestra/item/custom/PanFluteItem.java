@@ -59,7 +59,7 @@ public class PanFluteItem extends Item {
         if (Screen.hasShiftDown() && powers != null && !powers.isEmpty()) {
             if (currentSound != null) {
                 if (currentSound == 0) currentSound = 1;
-                else currentSound = powers.get(currentSound) % powers.size();
+                else currentSound = (currentSound+1) % powers.size();
 
                 player.displayClientMessage(
                         Component.translatable("item.faunaandorchestra.pan_flute." + powersString.get(currentSound)), true);
@@ -228,6 +228,7 @@ public class PanFluteItem extends Item {
 
     @Override
     public int getUseDuration(ItemStack stack, LivingEntity entity) {
+        if (stack.get(ModDataComponents.PAN_FLUTE_LIST) == null || stack.get(ModDataComponents.PAN_FLUTE_LIST).isEmpty()) return 0;
         return switch (getPower(stack)) {
             case 1 -> 25;
             case null, default -> 0;
@@ -264,7 +265,7 @@ public class PanFluteItem extends Item {
                 }
 
                 tooltipComponents.add(
-                        Component.translatable("item.faunaandorchestra.pan_flute." + powersString.get(i))
+                        Component.translatable("item.faunaandorchestra.pan_flute." + powersString.get(powers.get(i)-1))
                                 .withStyle(color));
             }
         }

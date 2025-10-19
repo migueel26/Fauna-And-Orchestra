@@ -65,7 +65,9 @@ public class ModCreativeModeTabs {
                         output.accept(ModBlocks.LISTENER);
                         output.accept(ModBlocks.LISTENER_CONTAINER);
                         output.accept(ModItems.MELOMANCY_CAULDRON_ITEM);
+                        output.accept(ModBlocks.ALTAR_OF_THE_PAN_FLUTE);
                         output.accept(ModBlocks.ALTAR_OF_THE_BUTTERFLIES);
+                        output.accept(ModBlocks.ALTAR);
                         output.accept(ModBlocks.COMPOSER_GRAVESTONE);
                         output.accept(ModBlocks.GRAVESTONE);
                         output.accept(ModItems.THE_GREAT_HEAD_ITEM);

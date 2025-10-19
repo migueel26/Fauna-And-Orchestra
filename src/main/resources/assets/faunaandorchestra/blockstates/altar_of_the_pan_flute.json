@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "facing=north,pan_flute=false": { "model": "faunaandorchestra:block/altar_of_the_pan_flute_without" },
+    "facing=south,pan_flute=false": { "model": "faunaandorchestra:block/altar_of_the_pan_flute_without", "y": 180 },
+    "facing=west,pan_flute=false":  { "model": "faunaandorchestra:block/altar_of_the_pan_flute_without", "y": 270 },
+    "facing=east,pan_flute=false":  { "model": "faunaandorchestra:block/altar_of_the_pan_flute_without", "y": 90 },
+
+    "facing=north,pan_flute=true": { "model": "faunaandorchestra:block/altar_of_the_pan_flute_with" },
+    "facing=south,pan_flute=true": { "model": "faunaandorchestra:block/altar_of_the_pan_flute_with", "y": 180 },
+    "facing=west,pan_flute=true":  { "model": "faunaandorchestra:block/altar_of_the_pan_flute_with", "y": 270 },
+    "facing=east,pan_flute=true":  { "model": "faunaandorchestra:block/altar_of_the_pan_flute_with", "y": 90 }
+  }
+}

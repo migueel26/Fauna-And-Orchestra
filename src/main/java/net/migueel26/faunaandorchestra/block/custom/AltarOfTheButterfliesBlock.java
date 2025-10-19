@@ -37,14 +37,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import java.util.List;
 
-public class AltarOfTheButterfliesBlock extends HorizontalDirectionalBlock {
-    public static final MapCodec<AltarOfTheButterfliesBlock> CODEC = simpleCodec(AltarOfTheButterfliesBlock::new);
+public class AltarOfTheButterfliesBlock extends AltarBlock {
     public static final BooleanProperty OFFERING = BooleanProperty.create("offering");
-    public static final VoxelShape SHAPE = Shapes.or(
-            Block.box(1.5f, 0f, 1.5f, 14.5f, 4f, 14.5f),
-            Block.box(3.75f, 4f, 3.75f, 12.25f, 12f, 12.25f),
-            Block.box(2.75f, 12f, 2.75f, 13.25f, 16f, 13.25f)
-    );
     public AltarOfTheButterfliesBlock(Properties properties) {
         super(properties);
 
@@ -101,37 +95,6 @@ public class AltarOfTheButterfliesBlock extends HorizontalDirectionalBlock {
             popResourceFromFace(level, pos, Direction.UP, new ItemStack(ModItems.OFFERING.get()));
         }
         super.onRemove(state, level, pos, newState, movedByPiston);
-    }
-
-    @Override
-    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return SHAPE;
-    }
-
-    @Override
-    public BlockState getStateForPlacement(BlockPlaceContext context) {
-        Direction direction = context.getHorizontalDirection();
-        BlockPos blockpos = context.getClickedPos();
-        BlockPos blockpos1 = blockpos.relative(direction);
-        Level level = context.getLevel();
-        return level.getBlockState(blockpos1).canBeReplaced(context) && level.getWorldBorder().isWithinBounds(blockpos1)
-                ? this.defaultBlockState().setValue(FACING, direction.getOpposite())
-                : null;
-    }
-
-    @Override
-    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
-        return CODEC;
-    }
-
-    private float getYRot(Direction facing) {
-        return switch (facing) {
-            case NORTH -> 180f;
-            case SOUTH -> 0f;
-            case WEST  -> 90f;
-            case EAST  -> -90f;
-            default -> 0f;
-        };
     }
 
     @Override
