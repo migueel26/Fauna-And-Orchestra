@@ -61,35 +61,14 @@ public class ModItems {
             () -> new BriefcaseItem(new Item.Properties().stacksTo(1)));
     public static final DeferredItem<Item> SINGING_SEED = ITEMS.register("singing_seed",
             () -> new ItemNameBlockItem(ModBlocks.SINGING_CROP.get(), new Item.Properties()));
-    public static final DeferredItem<Item> BOOGIE_FRUIT = ITEMS.register("boogie_fruit",
-            () -> new Item(new Item.Properties().food(ModFoodProperties.BOOGIE_FRUIT)) {
-                @Override
-                public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-                    tooltipComponents.add(Component.translatable("item.faunaandorchestra.boogie_fruit.desc")
-                            .withStyle(ChatFormatting.GRAY));
-                    super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
-                }
-            });
-    public static final DeferredItem<Item> OFFERING = ITEMS.register("offering",
-            () -> new Item(new Item.Properties()) {
-                @Override
-                public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-                    tooltipComponents.add(Component.translatable("item.faunaandorchestra.offering.desc")
-                            .withStyle(ChatFormatting.GRAY));
-                    super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
-                }
-            });
+    public static final DeferredItem<Item> BOOGIE_FRUIT = createRegularDescriptionItem("boogie_fruit");
+    public static final DeferredItem<Item> OFFERING = createRegularDescriptionItem("offering");
     public static final DeferredItem<Item> WANDERING_NOTE = ITEMS.register("wandering_note",
             () -> new Item(new Item.Properties()));
-    public static final DeferredItem<Item> GINGKO_BILOBA = ITEMS.register("gingko_biloba",
-            () -> new Item(new Item.Properties()) {
-                @Override
-                public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-                    tooltipComponents.add(Component.translatable("item.faunaandorchestra.gingko_biloba.desc")
-                            .withStyle(ChatFormatting.GRAY));
-                    super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
-                }
-            });
+    public static final DeferredItem<Item> AMPLIFIER_CRYSTAL = ITEMS.register("amplifier_crystal",
+            () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> STEELSONIC_INGOT = createRegularDescriptionItem("steelsonic_ingot");
+    public static final DeferredItem<Item> GINGKO_BILOBA = createRegularDescriptionItem("gingko_biloba");
     public static final DeferredItem<Item> BUTTERFLY_NET = ITEMS.register("butterfly_net",
             () -> new Item(new Item.Properties().stacksTo(1).durability(32)) {
                 public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
@@ -100,24 +79,8 @@ public class ModItems {
             });
     public static final DeferredItem<Item> WHISTLE = ITEMS.register("whistle",
             () -> new WhistleItem(new Item.Properties().stacksTo(1).durability(20)));
-    public static final DeferredItem<Item> DISCORD_ESSENCE = ITEMS.register("discord_essence",
-            () -> new Item(new Item.Properties()) {
-                @Override
-                public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-                    tooltipComponents.add(Component.translatable("item.faunaandorchestra.discord_essence.desc")
-                            .withStyle(ChatFormatting.GRAY));
-                    super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
-                }
-            });
-    public static final DeferredItem<Item> MUSIC_BOTTLE = ITEMS.register("music_bottle",
-            () -> new Item(new Item.Properties()) {
-                @Override
-                public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-                    tooltipComponents.add(Component.translatable("item.faunaandorchestra.music_bottle.desc")
-                            .withStyle(ChatFormatting.GRAY));
-                    super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
-                }
-            });
+    public static final DeferredItem<Item> DISCORD_ESSENCE = createRegularDescriptionItem("discord_essence");
+    public static final DeferredItem<Item> MUSIC_BOTTLE = createRegularDescriptionItem("music_bottle");
     public static final DeferredItem<Item> SHEET_FRAGMENTS = ITEMS.register("sheet_fragments",
             () -> new Item(new Item.Properties().rarity(Rarity.UNCOMMON)) {
                 @Override
@@ -235,6 +198,18 @@ public class ModItems {
                         }
                         tooltipComponents.add(instruments.withStyle(ChatFormatting.GRAY));
 
+                        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+                    }
+                });
+    }
+
+    private static DeferredItem<Item> createRegularDescriptionItem(String name) {
+        return ITEMS.register(name,
+                () -> new Item(new Item.Properties()) {
+                    @Override
+                    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+                        tooltipComponents.add(Component.translatable("item.faunaandorchestra." + name + ".desc")
+                                .withStyle(ChatFormatting.GRAY));
                         super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
                     }
                 });
