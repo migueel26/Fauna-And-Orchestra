@@ -17,10 +17,7 @@ import net.migueel26.faunaandorchestra.item.ModCreativeModeTabs;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.loot_tables.ModLootTables;
 import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
-import net.migueel26.faunaandorchestra.particles.custom.DrippingMusicParticle;
-import net.migueel26.faunaandorchestra.particles.custom.FaunaNoteParticle;
-import net.migueel26.faunaandorchestra.particles.custom.MagicalNoteParticle;
-import net.migueel26.faunaandorchestra.particles.custom.StarParticle;
+import net.migueel26.faunaandorchestra.particles.custom.*;
 import net.migueel26.faunaandorchestra.potion.ModPotions;
 import net.migueel26.faunaandorchestra.screen.ModMenuTypes;
 import net.migueel26.faunaandorchestra.screen.custom.ConductorScreen;
@@ -167,6 +164,7 @@ public class FaunaAndOrchestra {
             event.registerSpriteSet(ModParticleTypes.MAGICAL_NOTE.get(), MagicalNoteParticle.Provider::new);
             event.registerSpriteSet(ModParticleTypes.CAULDRON_POP.get(), SculkChargePopParticle.Provider::new);
             event.registerSpriteSet(ModParticleTypes.STAR.get(), StarParticle.Provider::new);
+            event.registerSpriteSet(ModParticleTypes.VOICE_PARTICLE.get(), VoiceParticle.Provider::new);
         }
     }
 

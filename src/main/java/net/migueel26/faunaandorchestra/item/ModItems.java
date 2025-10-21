@@ -79,6 +79,10 @@ public class ModItems {
             });
     public static final DeferredItem<Item> WHISTLE = ITEMS.register("whistle",
             () -> new WhistleItem(new Item.Properties().stacksTo(1).durability(20)));
+    public static final DeferredItem<Item> VOICE_VESSEL = ITEMS.register("voice_vessel",
+            () -> new VoiceVesselItem(new Item.Properties()
+                    .stacksTo(1)
+                    .component(ModDataComponents.OPENED, false)));
     public static final DeferredItem<Item> DISCORD_ESSENCE = createRegularDescriptionItem("discord_essence");
     public static final DeferredItem<Item> MUSIC_BOTTLE = createRegularDescriptionItem("music_bottle");
     public static final DeferredItem<Item> SHEET_FRAGMENTS = ITEMS.register("sheet_fragments",
@@ -160,8 +164,12 @@ public class ModItems {
     public static final DeferredItem<Item> MELOMANCY_CAULDRON_ITEM = ITEMS.register("melomancy_cauldron_item",
             () -> new MelomancyCauldronItem(ModBlocks.MELOMANCY_CAULDRON.get(), new Item.Properties()));
 
+    // MISC
     public static final DeferredItem<Item> ICON = ITEMS.register("icon",
             () -> new Item(new Item.Properties().stacksTo(1)));
+
+    public static final DeferredItem<Item> VOICE = ITEMS.register("voice",
+            () -> new Item(new Item.Properties()));
 
     private static DeferredItem<Item> createSheetMusic(String name) {
         return ITEMS.register(name, () -> new Item(new Item.Properties().rarity(Rarity.RARE)) {

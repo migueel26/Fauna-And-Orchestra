@@ -297,6 +297,24 @@
       "faunaandorchestra:sfx/cauldron_item"
     ]
   },
+  "vessel_click": {
+    "subtitles": "sounds.faunaandorchestra.vessel_click",
+    "sounds": [
+      "faunaandorchestra:sfx/vessel_click"
+    ]
+  },
+  "vessel_air": {
+    "subtitles": "sounds.faunaandorchestra.vessel_air",
+    "sounds": [
+      "faunaandorchestra:sfx/vessel_air"
+    ]
+  },
+  "vessel_collect": {
+    "subtitles": "sounds.faunaandorchestra.vessel_collect",
+    "sounds": [
+      "faunaandorchestra:sfx/vessel_collect"
+    ]
+  },
   "dialogue": {
     "subtitles": "sounds.faunaandorchestra.dialogue",
     "sounds": [

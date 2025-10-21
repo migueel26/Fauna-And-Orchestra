@@ -2,7 +2,6 @@ package net.migueel26.faunaandorchestra.component;
 
 import com.mojang.serialization.Codec;
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -22,7 +21,7 @@ public class ModDataComponents {
         public static final DeferredHolder<DataComponentType<?>, DataComponentType<UUID>> MUSICIAN_UUID = register("musician_uuid",
             builder -> builder.persistent(UUIDUtil.CODEC));
 
-        public static final DeferredHolder<DataComponentType<?>, DataComponentType<String>> WHISTLE_NAME = register("whistle_name",
+        public static final DeferredHolder<DataComponentType<?>, DataComponentType<String>> FAUNA_NAME = register("whistle_name",
                 builder -> builder.persistent(Codec.STRING));
 
         public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> OPENED = register("briefcase_opened",

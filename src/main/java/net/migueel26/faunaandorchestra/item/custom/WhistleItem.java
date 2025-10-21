@@ -4,11 +4,9 @@ import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.mixins.client.accessors.ClientLevelAccessor;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -41,7 +39,7 @@ public class WhistleItem extends Item {
         HitResult hitResult = calculateHitResult(player);
         if (hitResult instanceof EntityHitResult entityHitResult && entityHitResult.getEntity() instanceof TamableAnimal animal && animal.isTame()) {
             whistle.set(ModDataComponents.MUSICIAN_UUID, animal.getUUID());
-            whistle.set(ModDataComponents.WHISTLE_NAME, animal.hasCustomName() ? animal.getCustomName().getString() : animal.getName().getString());
+            whistle.set(ModDataComponents.FAUNA_NAME, animal.hasCustomName() ? animal.getCustomName().getString() : animal.getName().getString());
             level.playSound(player, player.blockPosition(), ModSounds.SUCCESSFUL_TAME.get(), SoundSource.NEUTRAL, 1.0f, 1.0f);
             return InteractionResultHolder.consume(whistle);
         }
@@ -90,7 +88,7 @@ public class WhistleItem extends Item {
         }
 
         if (uuid != null) {
-            tooltipComponents.add(Component.translatable("item.faunaandorchestra.whistle.desc").append(stack.get(ModDataComponents.WHISTLE_NAME))
+            tooltipComponents.add(Component.translatable("item.faunaandorchestra.whistle.desc").append(stack.get(ModDataComponents.FAUNA_NAME))
                     .withStyle(ChatFormatting.GRAY));
         }
         super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);

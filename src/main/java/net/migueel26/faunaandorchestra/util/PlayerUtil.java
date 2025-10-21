@@ -1,7 +1,8 @@
 package net.migueel26.faunaandorchestra.util;
 
 import com.google.common.base.Predicate;
-import com.google.common.base.Predicates;
+import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
@@ -10,7 +11,6 @@ import net.minecraft.world.phys.Vec3;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class PlayerUtil {
     public static <T extends Entity> List<T> entitiesInFrontOf(
@@ -59,5 +59,45 @@ public class PlayerUtil {
         }
 
         return targets;
+    }
+
+    public static void spawnParticlesFromEntityTo(SimpleParticleType particleType, ServerLevel level, Entity startEntity, Entity endEntity, float startOffset, float endOffset) {
+        Vec3 start = startEntity.position().add(0, startEntity.getEyeHeight() + startOffset, 0); // from eyes
+        Vec3 end = endEntity.position().add(0, endEntity.getBbHeight() / 2 + endOffset, 0); // to middle of entity
+        Vec3 dir = end.subtract(start);
+        double distance = dir.length();
+        dir = dir.normalize();
+
+        // Step every 0.5 blocks, add cloud trail
+        for (double i = 0; i < distance; i += 0.1) {
+            double pOffset = 0.05f;
+            Vec3 pos = start.add(dir.scale(i));
+            ((ServerLevel) level).sendParticles(
+                    particleType,
+                    pos.x, pos.y, pos.z,
+                    2, // count
+                    pOffset, pOffset, pOffset, // spread
+                    0.01f // speed
+            );
+        }
+    }
+
+    public static void spawnParticlesFromTo(SimpleParticleType particleType, int count, ServerLevel level, Vec3 start, Vec3 end) {
+        Vec3 dir = end.subtract(start);
+        double distance = dir.length();
+        dir = dir.normalize();
+
+        // Step every 0.5 blocks, add cloud trail
+        for (double i = 0; i < distance; i += 0.1) {
+            double pOffset = 0.05f;
+            Vec3 pos = start.add(dir.scale(i));
+            ((ServerLevel) level).sendParticles(
+                    particleType,
+                    pos.x, pos.y, pos.z,
+                    count, // count
+                    pOffset, pOffset, pOffset, // spread
+                    0.01f // speed
+            );
+        }
     }
 }

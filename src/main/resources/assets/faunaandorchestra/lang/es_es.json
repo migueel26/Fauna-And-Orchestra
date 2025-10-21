@@ -26,6 +26,7 @@
   "item.faunaandorchestra.gingko_biloba": "Gingko biloba",
   "item.faunaandorchestra.amplifier_crystal": "Cristal amplificador",
   "item.faunaandorchestra.steelsonic_ingot": "Lingote de acerónico",
+  "item.faunaandorchestra.voice_vessel": "Vasija de voces",
   "item.faunaandorchestra.singing_seed": "Semilla cantarina",
   "item.faunaandorchestra.boogie_fruit": "Fruta Boogie",
   "item.faunaandorchestra.offering": "Ofrenda para M. Butterfly",
@@ -36,6 +37,7 @@
   "item.faunaandorchestra.melomancy_cauldron_item": "Caldero de Melomancia",
   "item.faunaandorchestra.musical_ink": "Tinta Musical",
   "item.faunaandorchestra.discord_essence": "Esencia de discordia",
+  "item.faunaandorchestra.voice": "Voz de ",
 
   "item.faunaandorchestra.discord_essence.desc": "Cuando alguien intenta entrometerse con la naturaleza del sonido, crea una discordia en sus alrededores",
   "item.faunaandorchestra.musical_ink.desc": "Haz §eclick §ra a un cartel y dale un estilo musical único",
@@ -49,6 +51,7 @@
   "item.faunaandorchestra.sheet_fragments.desc": "Fausto te lo dio como agradecimiento. Compuesto por el Gran Compositor",
   "item.faunaandorchestra.gingko_biloba.desc": "Otrora los aldeanos masticaban estas hojas para agudizar su oído",
   "item.faunaandorchestra.whistle.tooltip": "Haz §eclick §ra una mascota para enlazarla. ¡Después podrás llamarla cuando quieras!",
+  "item.faunaandorchestra.voice_vessel.tooltip": "Haz §eclick derecho §rpara absorber las voces en la vasija",
   "item.faunaandorchestra.whistle.desc": "Enlazado con: ",
   "item.faunaandorchestra.whistle.far_message": "¡Está muy lejos!",
   "item.faunaandorchestra.the_great_composer_spawn_egg.desc": "Boss",

@@ -1,0 +1,65 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"open": {
+			"animation_length": 0.75,
+			"bones": {
+				"tap": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.75": {
+							"vector": [-30, 0, 0],
+							"easing": "easeInBounce",
+							"easingArgs": [0.2]
+						}
+					}
+				}
+			}
+		},
+		"close": {
+			"animation_length": 0.75,
+			"bones": {
+				"tap": {
+					"rotation": {
+						"0.0": {
+							"vector": [-30, 0, 0],
+							"easing": "easeInBounce",
+							"easingArgs": [0.2]
+						},
+						"0.75": {
+							"vector": [0, 0, 0],
+							"easing": "easeInBounce",
+							"easingArgs": [0.2]
+						}
+					}
+				}
+			}
+		},
+		"absorb": {
+			"loop": true,
+			"animation_length": 0.5,
+			"bones": {
+				"tap": {
+					"rotation": {
+						"0.0": {
+							"vector": [-30, 0, 0],
+							"easing": "easeInBounce",
+							"easingArgs": [0.2]
+						},
+						"0.25": {
+							"vector": [-25, 0, 0],
+							"easing": "easeInOutSine"
+						},
+						"0.5": {
+							"vector": [-30, 0, 0],
+							"easing": "easeInOutSine"
+						}
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

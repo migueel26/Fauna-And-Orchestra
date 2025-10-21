@@ -26,6 +26,8 @@ public class ModParticleTypes {
             PARTICLE_TYPES.register("star", () -> new SimpleParticleType(true));
     public static final Supplier<SimpleParticleType> CAULDRON_POP =
             PARTICLE_TYPES.register("cauldron_pop", () -> new SimpleParticleType(true));
+    public static final Supplier<SimpleParticleType> VOICE_PARTICLE =
+            PARTICLE_TYPES.register("voice_particle", () -> new SimpleParticleType(true));
     public static void register(IEventBus eventBus) {
         PARTICLE_TYPES.register(eventBus);
     }

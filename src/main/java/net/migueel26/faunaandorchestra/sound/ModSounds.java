@@ -73,6 +73,9 @@ public class ModSounds {
     public static final Supplier<SoundEvent> WHISTLE_CALL = registerSoundEvent("whistle_call");
     public static final Supplier<SoundEvent> CAULDRON_BUBBLING = registerSoundEvent("cauldron_bubbling");
     public static final Supplier<SoundEvent> CAULDRON_ITEM = registerSoundEvent("cauldron_item");
+    public static final Supplier<SoundEvent> VESSEL_CLICK = registerSoundEvent("vessel_click");
+    public static final Supplier<SoundEvent> VESSEL_AIR = registerSoundEvent("vessel_air");
+    public static final Supplier<SoundEvent> VESSEL_COLLECT = registerSoundEvent("vessel_collect");
     public static final Supplier<SoundEvent> DIALOGUE = registerSoundEvent("dialogue");
 
     private static Supplier<SoundEvent> registerSoundEvent(String name) {

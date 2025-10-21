@@ -2,15 +2,21 @@ package net.migueel26.faunaandorchestra.item;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
-import net.migueel26.faunaandorchestra.potion.ModPotions;
+import net.migueel26.faunaandorchestra.component.ModDataComponents;
+import net.minecraft.core.component.DataComponentPatch;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
+
+import static net.migueel26.faunaandorchestra.util.VesselUtil.voiceOfEntity;
 
 public class ModCreativeModeTabs {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TAB =
@@ -58,6 +64,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.MUSICAL_INK);
                         output.accept(ModItems.STEELSONIC_INGOT);
                         output.accept(ModItems.AMPLIFIER_CRYSTAL);
+                        output.accept(ModItems.VOICE_VESSEL);
                         output.accept(ModItems.GINGKO_BILOBA);
                         output.accept(ModItems.WANDERING_NOTE);
                         output.accept(ModItems.BOOGIE_FRUIT);
@@ -79,6 +86,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModBlocks.GINGKO_BILOBA_LEAVES);
                         output.accept(ModBlocks.GINGKO_BILOBA_SAPLING);
                         output.accept(ModItems.OFFERING);
+                        output.accept(voiceOfEntity(EntityType.WOLF));
                     }).build());
 
     public static void register(IEventBus eventBus) {
