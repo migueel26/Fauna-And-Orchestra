@@ -62,24 +62,30 @@ public class ModBlocks {
 
     public static final DeferredBlock<Block> ALTAR = registerBlock("altar",
             () -> new AltarBlock(BlockBehaviour.Properties.of()
+                    .requiresCorrectToolForDrops()
+                    .strength(2.0F)
                     .noOcclusion()
-                    .strength(2.0F, 6.0F)));
+                    .sound(SoundType.STONE)));
 
     public static final DeferredBlock<Block> ALTAR_OF_THE_BUTTERFLIES = registerBlock("altar_of_the_butterflies",
             () -> new AltarOfTheButterfliesBlock(BlockBehaviour.Properties.of()
+                    .requiresCorrectToolForDrops()
+                    .strength(2.0F)
                     .noOcclusion()
-                    .strength(2.0F, 6.0F)
+                    .sound(SoundType.STONE)
                     .randomTicks()));
 
     public static final DeferredBlock<Block> ALTAR_OF_THE_PAN_FLUTE = registerBlock("altar_of_the_pan_flute",
             () -> new AltarOfThePanFluteBlock(BlockBehaviour.Properties.of()
+                    .requiresCorrectToolForDrops()
+                    .strength(2.0F)
                     .noOcclusion()
-                    .strength(2.0F, 6.0F)));
+                    .sound(SoundType.STONE)));
 
     public static final DeferredBlock<Block> VOICE_CHAMBER = registerBlock("voice_chamber",
             () -> new VoiceChamberBlock(BlockBehaviour.Properties.of()
                     .noOcclusion()
-                    .strength(2.0F, 6.0F)));
+                    .strength(1.0F, 6.0F)));
 
     public static final DeferredBlock<Block> CRAWLING_DISCORD = registerBlock("crawling_discord",
             () -> new CrawlingDiscordBlock(BlockBehaviour.Properties.of()
