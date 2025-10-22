@@ -56,6 +56,12 @@ public class ModBlockEntities {
                     ModBlocks.ALTAR_OF_THE_PAN_FLUTE.get()
             ).build(null));
 
+    public static final Supplier<BlockEntityType<VoiceChamberBlockEntity>> VOICE_CHAMBER_BE =
+            BLOCK_ENTITES.register("voice_chamber_be", () -> BlockEntityType.Builder.of(
+                    VoiceChamberBlockEntity::new,
+                    ModBlocks.VOICE_CHAMBER.get()
+            ).build(null));
+
     public static final Supplier<BlockEntityType<TheGreatHeadBlockEntity>> THE_GREAT_HEAD_BE =
             BLOCK_ENTITES.register("the_great_head_be", () -> BlockEntityType.Builder.of(
                     TheGreatHeadBlockEntity::new,

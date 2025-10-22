@@ -11,7 +11,12 @@ import net.migueel26.faunaandorchestra.util.MusicUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
@@ -165,11 +170,10 @@ public class ModItems {
             () -> new MelomancyCauldronItem(ModBlocks.MELOMANCY_CAULDRON.get(), new Item.Properties()));
 
     // MISC
-    public static final DeferredItem<Item> ICON = ITEMS.register("icon",
-            () -> new Item(new Item.Properties().stacksTo(1)));
-
     public static final DeferredItem<Item> VOICE = ITEMS.register("voice",
             () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> ICON = ITEMS.register("icon",
+            () -> new Item(new Item.Properties().stacksTo(1)));
 
     private static DeferredItem<Item> createSheetMusic(String name) {
         return ITEMS.register(name, () -> new Item(new Item.Properties().rarity(Rarity.RARE)) {

@@ -5,6 +5,7 @@ import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -23,7 +24,7 @@ public class VesselUtil {
         ItemStack stack = new ItemStack(ModItems.VOICE.get());
 
         stack.applyComponents(DataComponentPatch.builder()
-                .set(ModDataComponents.FAUNA_NAME.get(), Component.translatable(entityType.getDescriptionId()).getString())
+                .set(ModDataComponents.FAUNA_NAME.get(), BuiltInRegistries.ENTITY_TYPE.getKey(entityType).toString())
                 .set(DataComponents.ITEM_NAME, Component.translatable("item.faunaandorchestra.voice")
                         .append(Component.translatable(entityType.getDescriptionId())))
                 .build());

@@ -143,6 +143,7 @@ public class FaunaAndOrchestra {
             event.registerBlockEntityRenderer(ModBlockEntities.MELOMANCY_CAULDRON_BE.get(), MelomancyCauldronBlockEntityRenderer::new);
             event.registerBlockEntityRenderer(ModBlockEntities.THE_GREAT_HEAD_BE.get(), TheGreatHeadBlockEntityRenderer::new);
             event.registerBlockEntityRenderer(ModBlockEntities.SINGING_CROP_BE.get(), SingingCropBlockEntityRenderer::new);
+            event.registerBlockEntityRenderer(ModBlockEntities.VOICE_CHAMBER_BE.get(), VoiceChamberBlockEntityRenderer::new);
         }
 
         @SubscribeEvent

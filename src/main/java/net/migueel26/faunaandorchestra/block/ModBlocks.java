@@ -76,6 +76,11 @@ public class ModBlocks {
                     .noOcclusion()
                     .strength(2.0F, 6.0F)));
 
+    public static final DeferredBlock<Block> VOICE_CHAMBER = registerBlock("voice_chamber",
+            () -> new VoiceChamberBlock(BlockBehaviour.Properties.of()
+                    .noOcclusion()
+                    .strength(2.0F, 6.0F)));
+
     public static final DeferredBlock<Block> CRAWLING_DISCORD = registerBlock("crawling_discord",
             () -> new CrawlingDiscordBlock(BlockBehaviour.Properties.of()
                     .strength(2.0f, 6.0f)
