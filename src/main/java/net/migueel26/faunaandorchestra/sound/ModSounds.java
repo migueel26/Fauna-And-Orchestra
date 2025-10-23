@@ -76,6 +76,8 @@ public class ModSounds {
     public static final Supplier<SoundEvent> VESSEL_CLICK = registerSoundEvent("vessel_click");
     public static final Supplier<SoundEvent> VESSEL_AIR = registerSoundEvent("vessel_air");
     public static final Supplier<SoundEvent> VESSEL_COLLECT = registerSoundEvent("vessel_collect");
+    public static final Supplier<SoundEvent> PAN_FLUTE_ALTAR_THUNDER = registerSoundEvent("pan_flute_altar_thunder");
+    public static final Supplier<SoundEvent> PAN_FLUTE_ALTAR_QUAKE = registerSoundEvent("pan_flute_altar_quake");
     public static final Supplier<SoundEvent> DIALOGUE = registerSoundEvent("dialogue");
 
     private static Supplier<SoundEvent> registerSoundEvent(String name) {

@@ -3,6 +3,7 @@ package net.migueel26.faunaandorchestra.item;
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.component.ModDataComponents;
+import net.migueel26.faunaandorchestra.util.VesselUtil;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
@@ -87,8 +88,9 @@ public class ModCreativeModeTabs {
                         output.accept(ModBlocks.GINGKO_BILOBA_LEAVES);
                         output.accept(ModBlocks.GINGKO_BILOBA_SAPLING);
                         output.accept(ModItems.OFFERING);
-                        output.accept(voiceOfEntity(EntityType.WOLF));
+                        output.acceptAll(VesselUtil.getAllVoiceItems());
                     }).build());
+
 
     public static void register(IEventBus eventBus) {
         CREATIVE_MODE_TAB.register(eventBus);

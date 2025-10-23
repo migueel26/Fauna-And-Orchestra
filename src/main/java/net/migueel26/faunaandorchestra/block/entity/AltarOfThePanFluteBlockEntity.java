@@ -20,7 +20,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class AltarOfThePanFluteBlockEntity extends BlockEntity {
-    private List<Integer> powers = new ArrayList<>();
+    private List<Integer> powers = List.of();
     public AltarOfThePanFluteBlockEntity(BlockPos pos, BlockState blockState) {
         super(ModBlockEntities.ALTAR_OF_THE_PAN_FLUTE_BE.get(), pos, blockState);
     }

@@ -315,6 +315,18 @@
       "faunaandorchestra:sfx/vessel_collect"
     ]
   },
+  "pan_flute_altar_quake": {
+    "subtitles": "sounds.faunaandorchestra.pan_flute_altar_quake",
+    "sounds": [
+      "faunaandorchestra:sfx/pan_flute_altar_quake"
+    ]
+  },
+  "pan_flute_altar_thunder": {
+    "subtitles": "sounds.faunaandorchestra.pan_flute_altar_thunder",
+    "sounds": [
+      "faunaandorchestra:sfx/pan_flute_altar_thunder"
+    ]
+  },
   "dialogue": {
     "subtitles": "sounds.faunaandorchestra.dialogue",
     "sounds": [

@@ -49,14 +49,15 @@ public class VoiceChamberBlock extends Block implements EntityBlock {
 
     @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        if (level.getBlockEntity(pos) instanceof VoiceChamberBlockEntity blockEntity) {
+        if (level.getBlockEntity(pos) instanceof VoiceChamberBlockEntity blockEntity && !blockEntity.isLocked()) {
             if (stack.is(ModItems.VOICE) && stack.has(ModDataComponents.FAUNA_NAME) && !state.getValue(VOICE)) {
                 String voice = stack.get(ModDataComponents.FAUNA_NAME);
                 EntityType<? extends Entity> entityType = EntityType.byString(voice).orElseThrow();
 
                 // We play entity sound
                 if (entityType.create(level) instanceof Mob mob) {
-                    level.playSound(player, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.AMETHYST_CLUSTER_PLACE, SoundSource.BLOCKS, 1.0f, 1.5f);
+                    level.playSound(player, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.LANTERN_PLACE, SoundSource.BLOCKS, 1.0f, 1.5f);
+                    level.playSound(player, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.SCULK_BLOCK_HIT, SoundSource.BLOCKS, 1.0f, 1.5f);
                     mob.playAmbientSound();
                     mob.discard();
                 }
@@ -73,7 +74,8 @@ public class VoiceChamberBlock extends Block implements EntityBlock {
             } else if (stack.isEmpty() && state.getValue(VOICE)) {
                 EntityType<? extends Entity> entityType = EntityType.byString(blockEntity.getVoice()).orElseThrow();
                 if (entityType.create(level) instanceof Mob mob) {
-                    level.playSound(player, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.AMETHYST_CLUSTER_PLACE, SoundSource.BLOCKS, 1.0f, 1.5f);
+                    level.playSound(player, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.LANTERN_PLACE, SoundSource.BLOCKS, 1.0f, 1.5f);
+                    level.playSound(player, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.SCULK_BLOCK_PLACE, SoundSource.BLOCKS, 1.0f, 1.5f);
                     mob.playAmbientSound();
                     mob.discard();
                 }

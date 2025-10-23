@@ -53,16 +53,16 @@ public class PanFluteItem extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
         ItemStack flute = player.getItemInHand(usedHand);
+
         List<Integer> powers = flute.get(ModDataComponents.PAN_FLUTE_LIST);
         Integer currentSound = flute.get(ModDataComponents.PAN_FLUTE_SOUND);
 
         if (Screen.hasShiftDown() && powers != null && !powers.isEmpty()) {
             if (currentSound != null) {
-                if (currentSound == 0) currentSound = 1;
-                else currentSound = (currentSound+1) % powers.size();
+                currentSound = (currentSound+1) % powers.size();
 
                 player.displayClientMessage(
-                        Component.translatable("item.faunaandorchestra.pan_flute." + powersString.get(currentSound)), true);
+                        Component.translatable("item.faunaandorchestra.pan_flute." + powersString.get(powers.get(currentSound)-1)), true);
             }
 
             flute.set(ModDataComponents.PAN_FLUTE_SOUND, currentSound);

@@ -19,6 +19,7 @@ import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class VoiceChamberBlockEntity extends BlockEntity implements GeoBlockEntity {
+    protected boolean locked = false;
     protected String voice = "";
     public static final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
@@ -35,6 +36,9 @@ public class VoiceChamberBlockEntity extends BlockEntity implements GeoBlockEnti
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         if (tag.contains("Voice")) {
             this.voice = tag.getString("Voice");
+        }
+        if (tag.contains("Locked")) {
+            this.locked = tag.getBoolean("Locked");
         }
         super.loadAdditional(tag, registries);
     }
@@ -55,6 +59,7 @@ public class VoiceChamberBlockEntity extends BlockEntity implements GeoBlockEnti
     public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
         CompoundTag compoundTag = new CompoundTag();
         compoundTag.putString("Voice", voice);
+        compoundTag.putBoolean("Locked", locked);
         return compoundTag;
     }
 
@@ -65,6 +70,20 @@ public class VoiceChamberBlockEntity extends BlockEntity implements GeoBlockEnti
     public void setVoice(String voice) {
         this.voice = voice;
     }
+
+    public boolean isLocked() {
+        return locked;
+    }
+
+    public void setLocked(boolean locked) {
+        this.locked = locked;
+        this.markUpdated();
+    }
+    private void markUpdated() {
+        this.setChanged();
+        this.getLevel().sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 3);
+    }
+
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
