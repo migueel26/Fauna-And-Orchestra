@@ -63,6 +63,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.WHISTLE);
                         output.accept(ModItems.MUSIC_BOTTLE);
                         output.accept(ModItems.MUSICAL_INK);
+                        output.accept(ModItems.BOOGIE_BOMB);
                         output.accept(ModItems.STEELSONIC_INGOT);
                         output.accept(ModItems.AMPLIFIER_CRYSTAL);
                         output.accept(ModItems.VOICE_VESSEL);

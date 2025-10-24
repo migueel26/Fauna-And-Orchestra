@@ -22,7 +22,7 @@ public class BoogieEffect extends MobEffect {
             livingEntity.setXRot(livingEntity.getXRot() + i);
 
         } else if (livingEntity instanceof PathfinderMob mob){
-            float i = (float) ((float) 100 * asymmetricSine(tick*0.1, 0.5, 6));
+            float i = (float) ((float) 100 * asymmetricSine(tick*0.2, 0.5, 6));
 
             mob.setXRot(i - 40);
             mob.setNoAi(true);

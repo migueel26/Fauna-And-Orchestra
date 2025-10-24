@@ -333,6 +333,12 @@
       "faunaandorchestra:sfx/dialogue"
     ]
   },
+  "boogie_bomb_dance": {
+    "subtitles": "sounds.faunaandorchestra.boogie_bomb_dance",
+    "sounds": [
+      "faunaandorchestra:sfx/boogie_bomb_dance"
+    ]
+  },
   "hona_bildots_eztia": {
     "subtitles": "sounds.faunaandorchestra.hona_bildots_eztia",
     "sounds": [

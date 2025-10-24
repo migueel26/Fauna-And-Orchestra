@@ -132,6 +132,7 @@ public class FaunaAndOrchestra {
             EntityRenderers.register(ModEntities.MUSIC_NOTE_PROJECTILE.get(), MusicNoteProjectileRenderer::new);
             EntityRenderers.register(ModEntities.THE_GREAT_COMPOSER_CANON.get(), ComposerCanonRenderer::new);
             EntityRenderers.register(ModEntities.PHANTOM_NOTE_PROJECTILE.get(), PhantomNoteProjectileRenderer::new);
+            EntityRenderers.register(ModEntities.THROWN_BOOGIE_BOMB.get(), ThrownItemRenderer::new);
         }
 
         @SubscribeEvent

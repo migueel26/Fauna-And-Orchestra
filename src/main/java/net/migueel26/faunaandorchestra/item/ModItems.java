@@ -84,6 +84,8 @@ public class ModItems {
             });
     public static final DeferredItem<Item> WHISTLE = ITEMS.register("whistle",
             () -> new WhistleItem(new Item.Properties().stacksTo(1).durability(20)));
+    public static final DeferredItem<Item> BOOGIE_BOMB = ITEMS.register("boogie_bomb",
+            () -> new BoogieBombItem(new Item.Properties()));
     public static final DeferredItem<Item> VOICE_VESSEL = ITEMS.register("voice_vessel",
             () -> new VoiceVesselItem(new Item.Properties()
                     .stacksTo(1)
