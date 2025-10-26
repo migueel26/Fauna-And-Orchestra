@@ -94,7 +94,7 @@ public class DialogueScreen {
 
                 guiGraphics.blit(icon, location.getA() + xOffset(guiGraphics), currIconY - currOffset + yOffset(guiGraphics), 0, 0, size.getA(), size.getB(), size.getA(), size.getB());
 
-                guiGraphics.drawWordWrap(minecraft.font, FormattedText.of(currentText), 157 + xOffset(guiGraphics), currTextY - currOffset + yOffset(guiGraphics), DEFAULT_TEXT_WIDTH, 0xffffff);
+                guiGraphics.drawWordWrap(minecraft.font, FormattedText.of(currentText), 157 + xOffset(guiGraphics) + entity.getTextBoxOffset(), currTextY - currOffset + yOffset(guiGraphics), DEFAULT_TEXT_WIDTH - entity.getTextBoxOffset(), 0xffffff);
             }
         }
 

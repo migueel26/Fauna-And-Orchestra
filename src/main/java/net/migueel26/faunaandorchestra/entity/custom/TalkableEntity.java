@@ -17,5 +17,8 @@ public interface TalkableEntity {
     void increaseDialogueTimer();
     void resetDialogueTimer();
     void setGoodMorning(boolean goodMorning);
+    default int getTextBoxOffset() {
+        return 0;
+    }
     boolean getGoodMorning();
 }

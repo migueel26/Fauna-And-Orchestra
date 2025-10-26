@@ -249,6 +249,15 @@
       "faunaandorchestra:sfx/baby_penguin_ambient3"
     ]
   },
+  "wise_tree_ambient": {
+    "subtitles": "sounds.faunaandorchestra.wise_tree_ambient",
+    "sounds": [
+      "faunaandorchestra:sfx/wise_tree_0",
+      "faunaandorchestra:sfx/wise_tree_1",
+      "faunaandorchestra:sfx/wise_tree_2",
+      "faunaandorchestra:sfx/wise_tree_3"
+    ]
+  },
   "successful_tame": {
     "subtitles": "sounds.faunaandorchestra.successful_tame",
     "sounds": [
