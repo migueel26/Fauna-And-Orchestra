@@ -138,6 +138,9 @@ public class ModItems {
                     new Item.Properties()));
     public static final DeferredItem<Item> BUTTERFLY_SPAWN_EGG = ITEMS.register("butterfly_spawn_egg",
             () -> new CustomSpawnEggItem(new Item.Properties(), ModEntities.BUTTERFLY.get()));
+    public static final DeferredItem<Item> WISE_TREE_SPAWN_EGG = ITEMS.register("wise_tree_spawn_egg",
+            () -> new DeferredSpawnEggItem(ModEntities.WISE_TREE, 0x5f4a2b, 0x567e22,
+                    new Item.Properties()));
     public static final DeferredItem<Item> RINGTAILS_SPAWN_EGG = ITEMS.register("ringtails_spawn_egg",
             () -> new CustomSpawnEggItem(new Item.Properties(), ModEntities.FAUST.get(), ModEntities.ORION.get()) {
                 @Override

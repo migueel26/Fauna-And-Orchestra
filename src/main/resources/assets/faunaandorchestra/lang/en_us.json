@@ -101,6 +101,7 @@
   "item.faunaandorchestra.madame_butterfly_spawn_egg": "Madame Butterfly Spawn Egg",
   "item.faunaandorchestra.wandering_koala_spawn_egg": "Wandering Koala Spawn Egg",
   "item.faunaandorchestra.ringtails_spawn_egg": "The Ringtails Spawn Egg",
+  "item.faunaandorchestra.wise_tree_spawn_egg": "Wise Tree Spawn Egg",
   "item.faunaandorchestra.the_great_composer_spawn_egg": "The Great Composer Spawn Egg",
   "item.faunaandorchestra.sproutling_spawn_egg": "Singing Sproutling Spawn Egg",
   "item.faunaandorchestra.butterfly_spawn_egg": "Butterfly",
@@ -138,6 +139,7 @@
   "entity.faunaandorchestra.wandering_koala": "Wandering Koala",
   "entity.faunaandorchestra.faust": "Faust",
   "entity.faunaandorchestra.orion": "Orion",
+  "entity.faunaandorchestra.wise_tree": "Wise Tree",
   "entity.faunaandorchestra.singing_sproutling": "Singing Sproutling",
   "entity.faunaandorchestra.butterfly": "Butterfly",
   "entity.faunaandorchestra.the_great_composer": "Tiego, the Great Composer",
@@ -221,5 +223,31 @@
 
   "dialogue.faunaandorchestra.ringtails_prize1": "Nice tip, mate! Crafting a Listener with this will get you even more Liquid Music!",
   "dialogue.faunaandorchestra.ringtails_prize2": "This is for you. If you could reassemble these fragments, you could take him down",
-  "dialogue.faunaandorchestra.ringtails_prize3": "WOAH, you're our biggest fan! Here's a signed poster as a thank you for all those tips!"
+  "dialogue.faunaandorchestra.ringtails_prize3": "WOAH, you're our biggest fan! Here's a signed poster as a thank you for all those tips!",
+
+  "dialogue.faunaandorchestra.wise_tree0": "Greetings, master. The good old Wise Tree at your service",
+  "dialogue.faunaandorchestra.wise_tree1": "Did you know only my master can understand my language?",
+  "dialogue.faunaandorchestra.wise_tree2": "My brothers are scattered around our planet, praying",
+  "dialogue.faunaandorchestra.wise_tree3": "We are a praying species. We look after musical balance",
+  "dialogue.faunaandorchestra.wise_tree4": "Our fruit, in the wrong hands, could end life itself",
+  "dialogue.faunaandorchestra.wise_tree5": "My wisdom comes from my six other lives",
+  "dialogue.faunaandorchestra.wise_tree6": "I sometimes wish I remembered who I once was... or were",
+  "dialogue.faunaandorchestra.wise_tree7": "Don't believe everything she says in that guide, my lord",
+  "dialogue.faunaandorchestra.wise_tree8": "Discord represents the imbalance of the musical realm",
+  "dialogue.faunaandorchestra.wise_tree9": "Orion? I have not had the pleasure. A friend of yours?",
+  "dialogue.faunaandorchestra.wise_tree10": "I can sense harmony in you. Use it for good",
+  "dialogue.faunaandorchestra.wise_tree11": "Mother gave us life, gave us music, gave us roots",
+  "dialogue.faunaandorchestra.wise_tree12": "Faust? I've been sensing him for a while, an apprentice",
+  "dialogue.faunaandorchestra.wise_tree13": "The Fruit of Life takes part of my own self, for you",
+  "dialogue.faunaandorchestra.wise_tree14": "Tiego? My brother once met him... then disappeared",
+  "dialogue.faunaandorchestra.wise_tree15": "We are the children of Mother, therefore we speak",
+  "dialogue.faunaandorchestra.wise_tree16": "I am grateful again for giving me life, master",
+  "dialogue.faunaandorchestra.wise_tree17": "Despite my appearance, I have a top-notch voice",
+  "dialogue.faunaandorchestra.wise_tree18": "A good use of discord could surpass melomancy",
+  "dialogue.faunaandorchestra.wise_tree19": "Us trees can't listen, but we sense your vibrations",
+  "dialogue.faunaandorchestra.wise_tree20": "I do not mind being rooted, I am a tree after all"
+
+
+
+
 }

@@ -42,6 +42,8 @@ public class ModEntities {
             () -> EntityType.Builder.of(Orion::new, MobCategory.CREATURE).sized(0.75f, 1.5f).build("orion"));
     public static final Supplier<EntityType<AnyaGhost>> ANYA_GHOST = ENTITY_TYPES.register("anya_ghost",
             () -> EntityType.Builder.of(AnyaGhost::new, MobCategory.CREATURE).sized(0.6f, 1.8f).build("anya_ghost"));
+    public static final Supplier<EntityType<WiseTree>> WISE_TREE = ENTITY_TYPES.register("wise_tree",
+            () -> EntityType.Builder.of(WiseTree::new, MobCategory.CREATURE).sized(0.6f, 1.0f).build("wise_tree"));
 
 
     public static final Supplier<EntityType<KoalaEntity>> WANDERING_KOALA = ENTITY_TYPES.register("wandering_koala",
