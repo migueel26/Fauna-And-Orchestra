@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BedPart;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.cache.object.BakedGeoModel;
@@ -20,6 +21,19 @@ public class ComposerGravestoneBlockEntityRenderer extends GeoBlockRenderer<Comp
 
     public ComposerGravestoneBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
         super(new ComposerGravestoneModel());
+    }
+
+    @Override
+    public boolean shouldRenderOffScreen(ComposerGravestoneBlockEntity blockEntity) {
+        return true;
+    }
+
+    @Override
+    public AABB getRenderBoundingBox(ComposerGravestoneBlockEntity blockEntity) {
+        return new AABB(
+                blockEntity.getBlockPos().offset(-16, -16, -16).getCenter(),
+                blockEntity.getBlockPos().offset(16, 16, 16).getCenter()
+        );
     }
 
     @Override

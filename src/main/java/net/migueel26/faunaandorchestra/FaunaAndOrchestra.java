@@ -25,6 +25,7 @@ import net.migueel26.faunaandorchestra.screen.custom.DialogueScreen;
 import net.migueel26.faunaandorchestra.screen.custom.MelomancyCauldronScreen;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.migueel26.faunaandorchestra.util.ModItemProperties;
+import net.migueel26.faunaandorchestra.worldgen.structures.ModStructuredProcessors;
 import net.minecraft.client.particle.SculkChargePopParticle;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
@@ -35,6 +36,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionContents;
+import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import org.slf4j.Logger;
@@ -76,6 +78,7 @@ public class FaunaAndOrchestra {
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
 
+        ModStructuredProcessors.register(modEventBus);
         ModItems.register(modEventBus);
         ModCreativeModeTabs.register(modEventBus);
         ModEntities.register(modEventBus);
