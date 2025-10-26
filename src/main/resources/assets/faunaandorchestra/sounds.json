@@ -353,5 +353,17 @@
     "sounds": [
       "faunaandorchestra:music/hona_bildots_eztia"
     ]
+  },
+  "the_great_composer_theme": {
+    "subtitles": "sounds.faunaandorchestra.the_great_composer_theme",
+    "sounds": [
+      "faunaandorchestra:music/the_great_composer_theme"
+    ]
+  },
+  "the_great_composer_theme2": {
+    "subtitles": "sounds.faunaandorchestra.the_great_composer_theme2",
+    "sounds": [
+      "faunaandorchestra:music/the_great_composer_theme2"
+    ]
   }
 }

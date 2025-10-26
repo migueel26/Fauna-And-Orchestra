@@ -3,6 +3,7 @@ package net.migueel26.faunaandorchestra.mixins.client;
 import net.migueel26.faunaandorchestra.entity.custom.QuirkyFrogEntity;
 import net.migueel26.faunaandorchestra.mixins.interfaces.IChannelMixin;
 import net.migueel26.faunaandorchestra.mixins.interfaces.ISoundEngineMixin;
+import net.migueel26.faunaandorchestra.sound.custom.BossSoundInstance;
 import net.migueel26.faunaandorchestra.sound.custom.FrogSongSoundInstance;
 import net.migueel26.faunaandorchestra.sound.custom.InstrumentSoundInstance;
 import net.migueel26.faunaandorchestra.sound.custom.TravellingMusicianSoundInstance;
@@ -114,6 +115,8 @@ public class MixinSoundEngine implements ISoundEngineMixin {
 
     @Override
     public boolean faunaIsThereAnOrchestra() {
-        return tickingSounds.stream().anyMatch(InstrumentSoundInstance.class::isInstance);
+        return tickingSounds.stream().anyMatch(InstrumentSoundInstance.class::isInstance) ||
+                tickingSounds.stream().anyMatch(TravellingMusicianSoundInstance.class::isInstance) ||
+                tickingSounds.stream().anyMatch(BossSoundInstance.class::isInstance);
     }
 }

@@ -35,7 +35,7 @@ public class TheGreatComposerModel extends GeoModel<TheGreatComposer> {
     public void setCustomAnimations(TheGreatComposer theGreatComposer, long instanceId, AnimationState<TheGreatComposer> animationState) {
         GeoBone head = getAnimationProcessor().getBone("head");
 
-        if (head != null && !theGreatComposer.isBusy()) {
+        if (head != null && !theGreatComposer.isBusy() && !theGreatComposer.isSpawning()) {
             EntityModelData entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
 
             head.setRotX(entityData.headPitch() * Mth.DEG_TO_RAD);
@@ -44,7 +44,7 @@ public class TheGreatComposerModel extends GeoModel<TheGreatComposer> {
 
         GeoBone chest = getAnimationProcessor().getBone("chest");
 
-        if (theGreatComposer.isFinalPhase()) {
+        if (theGreatComposer.isFinalPhase() && theGreatComposer.getState() != TheGreatComposer.ComposerBossState.RESURRECTING) {
             chest.setHidden(true);
         } else {
             chest.setHidden(false);
