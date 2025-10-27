@@ -1,6 +1,7 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
 import net.migueel26.faunaandorchestra.entity.goals.FaunaRandomLookAroundGoal;
+import net.migueel26.faunaandorchestra.entity.goals.SingingSproutlingGatherGoal;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -22,6 +23,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -29,11 +31,21 @@ import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.UUID;
+
 public class SproutlingEntity extends AgeableMob implements GeoEntity {
     protected static final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
     protected static final RawAnimation SING = RawAnimation.begin().thenPlay("sing");
     protected static final RawAnimation WALK = RawAnimation.begin().thenPlay("walk");
     protected static final EntityDataAccessor<Boolean> SINGING = SynchedEntityData.defineId(SproutlingEntity.class, EntityDataSerializers.BOOLEAN);
+    ///// SPROUTLING DIRECTOR
+    protected List<SproutlingEntity> sproutlings = null;
+    protected Vec3 centroid = null;
+    protected UUID ownerUUID = null;
+    /////
     public static final int TICKS_UNTIL_SING = 400;
     public static final int MAX_TICKS_SINGING = 42;
     private final AnimationController<SproutlingEntity> sproutlingController = new AnimationController<>(this, "sproutling_controller", 5, this::sproutlingState)
@@ -68,7 +80,7 @@ public class SproutlingEntity extends AgeableMob implements GeoEntity {
 
     @Override
     protected void registerGoals() {
-        // 0 - Create Wise Tree
+        goalSelector.addGoal(0, new SingingSproutlingGatherGoal(this));
         goalSelector.addGoal(0, new PanicGoal(this, 2.0));
         // WaterAvoidingRandomStroll (1)
         // LookAtPlayerGoal (2)
@@ -192,5 +204,30 @@ public class SproutlingEntity extends AgeableMob implements GeoEntity {
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return geoCache;
+    }
+
+    public Vec3 getDirCentroid() { return centroid; }
+
+    public List<SproutlingEntity> getDirSproutlings() { return sproutlings; }
+
+    public void setDirSproutlings(List<SproutlingEntity> sproutlings) {
+        this.sproutlings = sproutlings;
+    }
+
+    public void setDirCentroid(Vec3 centroid) {
+        this.centroid = centroid;
+    }
+
+    public UUID getDirOwnerUUID() {
+        return ownerUUID;
+    }
+
+    public void setDirOwnerUUID(UUID ownerUUID) {
+        this.ownerUUID = ownerUUID;
+    }
+
+    public List<SproutlingEntity> getDirSproutlingsMinusDir() {
+        sproutlings.remove(this);
+        return sproutlings;
     }
 }

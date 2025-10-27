@@ -258,6 +258,12 @@
       "faunaandorchestra:sfx/wise_tree_3"
     ]
   },
+  "wise_tree_drop": {
+    "subtitles": "sounds.faunaandorchestra.wise_tree_drop",
+    "sounds": [
+      "faunaandorchestra:sfx/drop_fruit"
+    ]
+  },
   "successful_tame": {
     "subtitles": "sounds.faunaandorchestra.successful_tame",
     "sounds": [
@@ -291,6 +297,12 @@
     "subtitles": "sounds.faunaandorchestra.sproutling_twinkle",
     "sounds": [
       "faunaandorchestra:sfx/sproutling_twinkle"
+    ]
+  },
+  "sproutling_song": {
+    "subtitles": "sounds.faunaandorchestra.sproutling_song",
+    "sounds": [
+      "faunaandorchestra:sfx/sproutling_song"
     ]
   },
   "cauldron_bubbling": {

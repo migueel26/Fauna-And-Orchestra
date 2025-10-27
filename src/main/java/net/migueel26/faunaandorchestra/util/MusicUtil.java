@@ -6,9 +6,11 @@ import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.item.custom.InstrumentItem;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
 
 import java.util.*;
 
@@ -61,8 +63,6 @@ public class MusicUtil {
             ModItems.RESURRECTION_SONG.get(), RESURRECTION
     );
 
-
-
     private static final Map<String, Item> STRING_TO_SHEET = Map.of(
             "faunaandorchestra:bach_air_sheet_music", ModItems.BACH_AIR_SHEET_MUSIC.get(),
             "faunaandorchestra:greensleeves_sheet_music", ModItems.GREENSLEEVES_SHEET_MUSIC.get(),
@@ -79,6 +79,16 @@ public class MusicUtil {
             ModItems.JAZZY_FUR_ELISE_SHEET_MUSIC.get(), 1775,
             ModItems.DANCE_OF_THE_LITTLE_SWANS.get(), 1895,
             ModItems.RESURRECTION_SONG.get(), 4990
+    );
+
+    public static final List<Item> INSTRUMENTS = new ArrayList<>(List.of(
+            ModItems.FLUTE.get(),
+            ModItems.OBOE.get(),
+            ModItems.SAXOPHONE.get(),
+            ModItems.CELLO.get(),
+            ModItems.DOUBLE_BASS.get(),
+            ModItems.VIOLIN.get(),
+            ModItems.KEYTAR.get())
     );
 
     private static Map<UUID, Item> CURRENT_ORCHESTRAS = new HashMap<>();
@@ -150,6 +160,10 @@ public class MusicUtil {
 
     public static Item getSheet(String name) {
         return STRING_TO_SHEET.getOrDefault(name, Items.AIR);
+    }
+
+    public static Item getRandomInstrument(Level level) {
+        return INSTRUMENTS.get(level.random.nextInt(0, INSTRUMENTS.size()));
     }
 
 }

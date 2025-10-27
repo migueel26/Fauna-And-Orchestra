@@ -33,6 +33,7 @@
   "item.faunaandorchestra.offering": "Offering for M. Butterfly",
   "item.faunaandorchestra.glove": "Glove",
   "item.faunaandorchestra.whistle": "Whistle",
+  "item.faunaandorchestra.fruit_of_life": "Fruit of Life",
   "item.faunaandorchestra.sheet_fragments": "Fragments of a Lost Composition",
   "item.faunaandorchestra.the_great_head_item": "The Great Head",
   "item.faunaandorchestra.melomancy_cauldron_item": "Melomancy Cauldron",
@@ -42,6 +43,7 @@
 
   "item.faunaandorchestra.discord_essence.desc": "When somebody tries to meddle with the nature of sound, it causes a discord to its surroundings",
   "item.faunaandorchestra.musical_ink.desc": "§eClick §ra sign block to give it a unique musical style!",
+  "item.faunaandorchestra.fruit_of_life.desc": "Fruit of the Wise Tree, not apt for human consumption",
   "item.faunaandorchestra.boogie_fruit.desc": "A single bite and you won't be able to stop dancing!",
   "item.faunaandorchestra.boogie_bomb.desc": "Sugar and spice… then §oboom! §r§7They dance real nice",
   "item.faunaandorchestra.the_great_head.desc": "The skull of the greatest and most magnificent terror of this land's fauna",

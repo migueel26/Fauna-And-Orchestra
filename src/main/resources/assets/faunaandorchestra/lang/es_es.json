@@ -33,6 +33,7 @@
   "item.faunaandorchestra.offering": "Ofrenda para M. Butterfly",
   "item.faunaandorchestra.glove": "Guante",
   "item.faunaandorchestra.whistle": "Silbato",
+  "item.faunaandorchestra.fruit_of_life": "Fruta de la vida",
   "item.faunaandorchestra.sheet_fragments": "Fragmentos de una composición perdida",
   "item.faunaandorchestra.the_great_head_item": "La Grandiosa Cabeza",
   "item.faunaandorchestra.melomancy_cauldron_item": "Caldero de Melomancia",
@@ -42,6 +43,7 @@
 
   "item.faunaandorchestra.discord_essence.desc": "Cuando alguien intenta entrometerse con la naturaleza del sonido, crea una discordia en sus alrededores",
   "item.faunaandorchestra.musical_ink.desc": "Haz §eclick §ra a un cartel y dale un estilo musical único",
+  "item.faunaandorchestra.fruit_of_life.desc": "Fruto del árbol de la sabiduría, no apto para consumo humano",
   "item.faunaandorchestra.boogie_fruit.desc": "¡Un bocado y no podrás parar de bailar!",
   "item.faunaandorchestra.boogie_bomb.desc": "Con un toque travieso y sabor especial, ¡explota y los hace bailar sin parar!",
   "item.faunaandorchestra.steelsonic_ingot.desc": "De acero soy de la cabeza a los pies",

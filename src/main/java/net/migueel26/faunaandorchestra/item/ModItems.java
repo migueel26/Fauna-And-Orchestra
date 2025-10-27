@@ -92,6 +92,14 @@ public class ModItems {
                     .component(ModDataComponents.OPENED, false)));
     public static final DeferredItem<Item> DISCORD_ESSENCE = createRegularDescriptionItem("discord_essence");
     public static final DeferredItem<Item> MUSIC_BOTTLE = createRegularDescriptionItem("music_bottle");
+    public static final DeferredItem<Item> FRUIT_OF_LIFE = ITEMS.register("fruit_of_life",
+            () -> new Item(new Item.Properties().rarity(Rarity.UNCOMMON)) {
+                @Override
+                public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+                    tooltipComponents.add(Component.translatable("item.faunaandorchestra.fruit_of_life.desc").withStyle(ChatFormatting.GRAY));
+                    super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+                }
+            });
     public static final DeferredItem<Item> SHEET_FRAGMENTS = ITEMS.register("sheet_fragments",
             () -> new Item(new Item.Properties().rarity(Rarity.UNCOMMON)) {
                 @Override

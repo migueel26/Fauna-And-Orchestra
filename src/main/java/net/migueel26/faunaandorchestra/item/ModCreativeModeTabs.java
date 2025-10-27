@@ -89,6 +89,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModBlocks.DAM_BLOCK);
                         output.accept(ModBlocks.GINGKO_BILOBA_LEAVES);
                         output.accept(ModBlocks.GINGKO_BILOBA_SAPLING);
+                        output.accept(ModItems.FRUIT_OF_LIFE);
                         output.accept(ModItems.OFFERING);
                         output.acceptAll(VesselUtil.getAllVoiceItems());
                     }).build());

@@ -60,6 +60,7 @@ public class ModSounds {
     public static final Supplier<SoundEvent> RESURRECTION_FLUTE = registerSoundEvent("resurrection_flute");
 
     public static final Supplier<SoundEvent> FROG_SONG = registerSoundEvent("frog_song");
+    public static final Supplier<SoundEvent> SPROUTLING_SONG = registerSoundEvent("sproutling_song");
     public static final Supplier<SoundEvent> RINGTAILS_SONG = registerSoundEvent("hona_bildots_eztia");
     public static final Supplier<SoundEvent> THE_GREAT_COMPOSER_THEME = registerSoundEvent("the_great_composer_theme");
     public static final Supplier<SoundEvent> THE_GREAT_COMPOSER_FINAL_THEME = registerSoundEvent("the_great_composer_theme2");
@@ -70,6 +71,7 @@ public class ModSounds {
     public static final Supplier<SoundEvent> BABY_PENGUIN_AMBIENT = registerSoundEvent("baby_penguin_ambient");
 
     public static final Supplier<SoundEvent> WISE_TREE_AMBIENT = registerSoundEvent("wise_tree_ambient");
+    public static final Supplier<SoundEvent> WISE_TREE_DROP = registerSoundEvent("wise_tree_drop");
 
     public static final Supplier<SoundEvent> SUCCESSFUL_TAME = registerSoundEvent("successful_tame");
     public static final Supplier<SoundEvent> MAGIC_GROWTH = registerSoundEvent("magic_growth");

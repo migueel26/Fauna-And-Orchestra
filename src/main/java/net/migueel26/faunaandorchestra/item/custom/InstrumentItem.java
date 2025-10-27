@@ -2,6 +2,7 @@ package net.migueel26.faunaandorchestra.item.custom;
 
 import net.migueel26.faunaandorchestra.entity.custom.KoalaEntity;
 import net.migueel26.faunaandorchestra.entity.custom.MusicalEntity;
+import net.migueel26.faunaandorchestra.entity.custom.WiseTree;
 import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -52,9 +53,16 @@ public class InstrumentItem extends Item {
             for (Entity entity : entities) {
                 if (entity instanceof MusicalEntity musicalEntity && musicalEntity.isMusical() && !musicalEntity.isTame()
                 && musicalEntity.getInstrument().asItem().equals(this)) {
+                    // If MusicalEntity
                     musicalEntity.tryToTame(player);
+
                 } else if (entity instanceof KoalaEntity koala && koala.isKoalaSleeping()) {
+                    // If Sleeping Koala
                     koala.wakeUp();
+
+                } else if (entity instanceof WiseTree wiseTree) {
+                    // If Wise Tree
+                    wiseTree.tryToWater(this);
                 }
             }
 

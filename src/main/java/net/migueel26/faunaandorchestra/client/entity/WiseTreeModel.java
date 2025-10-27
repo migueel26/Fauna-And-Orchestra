@@ -40,7 +40,7 @@ public class WiseTreeModel extends GeoModel<WiseTree> {
     public void setCustomAnimations(WiseTree wiseTree, long instanceId, AnimationState<WiseTree> animationState) {
         if (wiseTree.getLifeStage() == 3) {
             GeoBone fruit = getAnimationProcessor().getBone("fruit");
-            fruit.setHidden(true);
+            fruit.setHidden(!animationState.isCurrentAnimation(WiseTree.DROP));
         }
     }
 }

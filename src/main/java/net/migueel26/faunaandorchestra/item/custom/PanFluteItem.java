@@ -1,6 +1,8 @@
 package net.migueel26.faunaandorchestra.item.custom;
 
 import net.migueel26.faunaandorchestra.component.ModDataComponents;
+import net.migueel26.faunaandorchestra.entity.custom.MusicalEntity;
+import net.migueel26.faunaandorchestra.entity.custom.SproutlingEntity;
 import net.migueel26.faunaandorchestra.entity.custom.decorative.HealthFluteEntity;
 import net.migueel26.faunaandorchestra.entity.custom.projectile.PhantomNoteProjectileEntity;
 import net.migueel26.faunaandorchestra.item.ModItems;
@@ -31,6 +33,7 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class PanFluteItem extends Item {
     public static final int PUSH_PARTICLES = 10;
@@ -174,6 +177,14 @@ public class PanFluteItem extends Item {
     }
 
     private void executeNature(Level level, Player player, ItemStack flute) {
+        List<SproutlingEntity> sproutlings = level.getEntitiesOfClass(SproutlingEntity.class, player.getBoundingBox().inflate(6.0));
+        if (sproutlings.size() >= 6) {
+            List<SproutlingEntity> choir = sproutlings.stream().limit(6).toList();
+            SproutlingEntity director = choir.getFirst();
+            director.setDirSproutlings(sproutlings);
+            director.setDirCentroid(getCentroid(sproutlings));
+            director.setDirOwnerUUID(player.getUUID());
+        }
     }
 
     @Override
@@ -250,6 +261,15 @@ public class PanFluteItem extends Item {
         List<Integer> powers = stack.get(ModDataComponents.PAN_FLUTE_LIST);
         Integer currentSound = stack.get(ModDataComponents.PAN_FLUTE_SOUND);
         return powers == null || currentSound == null ? null : powers.get(currentSound);
+    }
+
+    private Vec3 getCentroid(List<SproutlingEntity> sproutlingEntities) {
+            double n = sproutlingEntities.size();
+
+            return new Vec3(
+                    sproutlingEntities.stream().map(Entity::getX).reduce(0.0, Double::sum)/n,
+                    sproutlingEntities.getFirst().getY(),
+                    sproutlingEntities.stream().map(Entity::getZ).reduce(0.0, Double::sum)/n);
     }
 
     @Override
