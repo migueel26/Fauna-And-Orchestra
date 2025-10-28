@@ -7,6 +7,9 @@ import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.entity.custom.projectile.MusicNoteProjectileEntity;
 import net.migueel26.faunaandorchestra.entity.custom.projectile.PhantomNoteProjectileEntity;
 import net.migueel26.faunaandorchestra.item.ModItems;
+import net.migueel26.faunaandorchestra.networking.StartAmbientMusicS2CPayload;
+import net.migueel26.faunaandorchestra.networking.StartOrchestraMusicS2CPayload;
+import net.migueel26.faunaandorchestra.networking.StopMusicS2CPayload;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.migueel26.faunaandorchestra.sound.custom.BossSoundInstance;
 import net.minecraft.ChatFormatting;
@@ -56,6 +59,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -149,6 +153,7 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
     protected float healthBefore;
     ComposerCanonEntity canonEntity;
     protected BlockPos diePos;
+    private List<Player> playersListening = new ArrayList<>();
     protected List<? extends Holder<MobEffect>> effectsList = new ArrayList<>(List.of(
             ModEffects.BOOGIE,
             MobEffects.DARKNESS,
@@ -300,13 +305,28 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
     @Override
     public void tick() {
 
-        if (level().isClientSide()) {
+        if (!level().isClientSide()) {
             // Music Logic
-            if ((stateTime == 10 && !isFakeDead()) || (getState(this.stateId) == ComposerBossState.RESURRECTING && this.getHealth() == 1.01F)) {
-                SoundEvent soundEvent = isFinalPhase() ? ModSounds.THE_GREAT_COMPOSER_FINAL_THEME.get() : ModSounds.THE_GREAT_COMPOSER_THEME.get();
-                Minecraft.getInstance().getSoundManager().play(new BossSoundInstance(
-                        soundEvent, this
-                ));
+            if (!isFakeDead()) {
+                List<Player> nearbyPlayers = this.level().getEntitiesOfClass(
+                        Player.class, this.getBoundingBox().inflate(32.0, 32.0, 32.0), EntitySelector.LIVING_ENTITY_STILL_ALIVE);
+
+                List<Player> newPlayers = new ArrayList<>(nearbyPlayers);
+                List<Player> exitPlayers = new ArrayList<>(playersListening);
+                exitPlayers.removeAll(nearbyPlayers);
+                newPlayers.removeAll(playersListening);
+
+                for (Player player : newPlayers) {
+                    PacketDistributor.sendToPlayer((ServerPlayer) player, new StartAmbientMusicS2CPayload(this.uuid));
+                }
+
+                for (Player player : exitPlayers) {
+                    PacketDistributor.sendToPlayer((ServerPlayer) player, new StopMusicS2CPayload(this.uuid));
+                }
+
+                playersListening = nearbyPlayers;
+            } else {
+                playersListening = new ArrayList<>();
             }
         }
 
