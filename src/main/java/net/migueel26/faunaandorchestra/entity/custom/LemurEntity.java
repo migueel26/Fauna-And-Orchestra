@@ -1,6 +1,5 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
-import net.migueel26.faunaandorchestra.entity.goals.BeaverBuildsDamGoal;
 import net.migueel26.faunaandorchestra.entity.goals.FaunaRandomLookAroundGoal;
 import net.migueel26.faunaandorchestra.entity.goals.MusicalEntityPlayingInstrumentGoal;
 import net.migueel26.faunaandorchestra.item.ModItems;

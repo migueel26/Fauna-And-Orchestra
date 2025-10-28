@@ -26,11 +26,7 @@ import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.imageio.ImageIO;
-import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
-import java.awt.image.ColorConvertOp;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 
 public class AnyaGhost extends Mob implements TalkableEntity, GeoEntity {

@@ -8,27 +8,19 @@ import net.migueel26.faunaandorchestra.entity.custom.boss.TheGreatComposer;
 import net.migueel26.faunaandorchestra.item.ModCreativeModeTabs;
 import net.migueel26.faunaandorchestra.networking.*;
 import net.migueel26.faunaandorchestra.potion.ModPotions;
-import net.migueel26.faunaandorchestra.worldgen.structures.GroundStructureProcessorType;
-import net.migueel26.faunaandorchestra.worldgen.structures.GroundedProcessor;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorType;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
-import net.neoforged.neoforge.network.handling.DirectionalPayloadHandler;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
-import net.neoforged.neoforge.registries.RegisterEvent;
 
 @EventBusSubscriber(modid = FaunaAndOrchestra.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 public class ModEventBusEvents {
@@ -87,45 +79,12 @@ public class ModEventBusEvents {
         registrar.playToServer(
                 RestartOrchestraMusicC2SPayload.TYPE,
                 RestartOrchestraMusicC2SPayload.STREAM_CODEC,
-                ServerPayloadHandler::handleRestartOrchestraOnNetwork
+                (payload, context) -> ServerPayloadHandler.handleRestartOrchestraOnNetwork(payload, context)
         );
-        registrar.playToClient(
-                StartOrchestraMusicS2CPayload.TYPE,
-                StartOrchestraMusicS2CPayload.STREAM_CODEC,
-                (payload, context) -> ClientPayloadHandler.handleStartOrchestraOnNetwork(payload, context)
-        );
-        registrar.playToClient(
-                RestartOrchestraMusicS2CPayload.TYPE,
-                RestartOrchestraMusicS2CPayload.STREAM_CODEC,
-                (payload, context) -> ClientPayloadHandler.handleRestartOrchestraOnNetwork(payload, context)
-        );
-        registrar.playToClient(
-                StopMusicS2CPayload.TYPE,
-                StopMusicS2CPayload.STREAM_CODEC,
-                (payload, context) -> ClientPayloadHandler.handleStopMusicOnNetwork(payload, context)
-        );
-        registrar.playToClient(
-                StartAmbientMusicS2CPayload.TYPE,
-                StartAmbientMusicS2CPayload.STREAM_CODEC,
-                (payload, context) -> ClientPayloadHandler.handleStartAmbientMusicOnNetwork(payload, context)
-        );
-        registrar.playToClient(
-                StopOrchestraMusicS2CPayload.TYPE,
-                StopOrchestraMusicS2CPayload.STREAM_CODEC,
-                (payload, context) -> ClientPayloadHandler.handleStopOrchestraOnNetwork(payload, context)
-        );
-        registrar.playToClient(
-          ShowDialogueS2CPayload.TYPE,
-          ShowDialogueS2CPayload.STREAM_CODEC,
-                (payload, context) -> ClientPayloadHandler.handleShowDialogueOnNetwork(payload, context)
-        );
-        registrar.playBidirectional(
+        registrar.playToServer(
                 SyncTipCaseOwnerPayload.TYPE,
                 SyncTipCaseOwnerPayload.STREAM_CODEC,
-                new DirectionalPayloadHandler<>(
-                        ClientPayloadHandler::handleSyncTipCaseOnNetwork,
-                        ServerPayloadHandler::handleSyncTipCaseOnNetwork
-                )
+                (payload, context) -> ServerPayloadHandler.handleSyncTipCaseOnNetwork(payload, context)
         );
     }
 

@@ -14,10 +14,13 @@ import net.migueel26.faunaandorchestra.sound.custom.FrogSongSoundInstance;
 import net.migueel26.faunaandorchestra.sound.custom.InstrumentSoundInstance;
 import net.migueel26.faunaandorchestra.sound.custom.TravellingMusicianSoundInstance;
 import net.migueel26.faunaandorchestra.util.MusicUtil;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -157,18 +160,13 @@ public class ClientPayloadHandler {
         }
     }
 
-    public static void handleShowDialogueOnNetwork(ShowDialogueS2CPayload payload, IPayloadContext context) {
-        UUID uuid = payload.entityUUID();
-        ClientLevelAccessor level = (ClientLevelAccessor) Minecraft.getInstance().level;
+    public static void handleShowTitleOnNetwork(ShowTitlePlayerS2CPayload payload, IPayloadContext context) {
+        Gui gui = Minecraft.getInstance().gui;
+        String title = payload.title();
+        String subtitle = payload.subtitle();
 
-        if (level != null) {
-            Entity entity = level.callGetEntities().get(uuid);
-            if (entity != null) {
-                if (entity instanceof Faust faust) {
-
-                }
-            }
-        }
+        gui.setTitle(Component.literal(title));
+        gui.setSubtitle(Component.literal(subtitle).withStyle(ChatFormatting.GREEN));
     }
 
     public static void handleSyncTipCaseOnNetwork(SyncTipCaseOwnerPayload payload, IPayloadContext context) {

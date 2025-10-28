@@ -7,13 +7,9 @@ import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.entity.custom.projectile.MusicNoteProjectileEntity;
 import net.migueel26.faunaandorchestra.entity.custom.projectile.PhantomNoteProjectileEntity;
 import net.migueel26.faunaandorchestra.item.ModItems;
+import net.migueel26.faunaandorchestra.networking.ShowTitlePlayerS2CPayload;
 import net.migueel26.faunaandorchestra.networking.StartAmbientMusicS2CPayload;
-import net.migueel26.faunaandorchestra.networking.StartOrchestraMusicS2CPayload;
 import net.migueel26.faunaandorchestra.networking.StopMusicS2CPayload;
-import net.migueel26.faunaandorchestra.sound.ModSounds;
-import net.migueel26.faunaandorchestra.sound.custom.BossSoundInstance;
-import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -26,7 +22,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
@@ -167,7 +162,7 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
             ModItems.OBOE.get(),
             ModItems.BATON.get()));
     ////////////
-    private final ServerBossEvent bossEvent = (ServerBossEvent) new ServerBossEvent(
+    private final ServerBossEvent bossEvent = new ServerBossEvent(
             this.getDisplayName(), BossEvent.BossBarColor.GREEN, BossEvent.BossBarOverlay.PROGRESS
     );
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
@@ -420,8 +415,10 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
                 String[] fullName = Component.translatable("entity.faunaandorchestra.the_great_composer").getString().split(",");
                 String name = fullName[0];
                 String nickname = fullName[1].substring(1);
-                Minecraft.getInstance().gui.setTitle(Component.literal(name));
-                Minecraft.getInstance().gui.setSubtitle(Component.literal(nickname).withStyle(ChatFormatting.GREEN));
+
+                for (ServerPlayer player : bossEvent.getPlayers()) {
+                    PacketDistributor.sendToPlayer(player, new ShowTitlePlayerS2CPayload(name, nickname));
+                }
 
             }
 
