@@ -46,7 +46,7 @@ public class BriefcaseItem extends Item {
         ItemStack briefcase = player.getItemInHand(usedHand);
         if (this.calculateHitResult(player).getType() != HitResult.Type.ENTITY
                   && (briefcase.get(ModDataComponents.BRIEFCASE_ANIMAL_LIST) == null
-                  || briefcase.get(ModDataComponents.BRIEFCASE_ANIMAL_LIST).size() < 5)) {
+                  || briefcase.get(ModDataComponents.BRIEFCASE_ANIMAL_LIST).size() < 6)) {
 
             if (!level.isClientSide()) {
                 if (briefcase.getOrDefault(ModDataComponents.OPENED, false)) {
