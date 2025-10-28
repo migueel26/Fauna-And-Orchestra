@@ -1,12 +1,21 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
+import net.migueel26.faunaandorchestra.block.ModBlocks;
+import net.migueel26.faunaandorchestra.block.custom.ComposerGravestoneBlock;
+import net.migueel26.faunaandorchestra.block.entity.ComposerGravestoneBlockEntity;
 import net.migueel26.faunaandorchestra.component.ModDataComponents;
+import net.migueel26.faunaandorchestra.entity.ModEntities;
+import net.migueel26.faunaandorchestra.entity.custom.boss.TheGreatComposer;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
 import net.migueel26.faunaandorchestra.screen.custom.ConductorMenu;
 import net.migueel26.faunaandorchestra.util.ModTags;
 import net.migueel26.faunaandorchestra.util.MusicUtil;
+import net.minecraft.commands.arguments.EntityAnchorArgument;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
+import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -21,18 +30,18 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.items.ItemStackHandler;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public abstract class ConductorEntity extends TamableAnimal {
     protected static final EntityDataAccessor<Boolean> HOLDING_BATON = SynchedEntityData.defineId(ConductorEntity.class, EntityDataSerializers.BOOLEAN);
@@ -63,6 +72,7 @@ public abstract class ConductorEntity extends TamableAnimal {
         }
     };
     protected int ticksPlaying = 0;
+    protected BlockPos composerGrave = null;
 
     public ConductorEntity(EntityType<? extends TamableAnimal> entityType, Level level) {
         super(entityType, level);
@@ -160,6 +170,64 @@ public abstract class ConductorEntity extends TamableAnimal {
                 ticksPlaying = 0;
             }
         }
+
+        // RESURRECTION
+        if (isConducting() && getSheetMusic() == ModItems.RESURRECTION_SONG.get()) {
+            if (ticksPlaying >= 1 && ticksPlaying <= 5) {
+                Optional<BlockPos> candidate = BlockPos.findClosestMatch(blockPosition(), 5, 5, pos -> level().getBlockState(pos).is(ModBlocks.COMPOSER_GRAVESTONE));
+                candidate.ifPresent(pos -> this.composerGrave = pos);
+            }
+        }
+
+        if (composerGrave != null && isConducting() && getSheetMusic() == ModItems.RESURRECTION_SONG.get() && isOrchestraFull()) {
+            if (ticksPlaying > 5) {
+                if (ticksPlaying % 10 == 0 && !level().isClientSide()) {
+                    // Add particles periodically
+                    ((ServerLevel) level()).sendParticles(ParticleTypes.SOUL_FIRE_FLAME, composerGrave.getCenter().x, composerGrave.getY(), composerGrave.getCenter().z,
+                            20, 1,0.3, 1, 0.01);
+                }
+            }
+
+            if (ticksPlaying == 2500) {
+                BlockState graveState = level().getBlockState(composerGrave);
+                if (graveState.is(ModBlocks.COMPOSER_GRAVESTONE) && !graveState.getValue(ComposerGravestoneBlock.OPENED)
+                && level().getBlockEntity(composerGrave) instanceof ComposerGravestoneBlockEntity composerGravestoneBE) {
+                    // START SUMMONING
+                    if (!level().isClientSide()) {
+                        // We spawn a lightning bolt
+                        EntityType.LIGHTNING_BOLT.spawn((ServerLevel) level(), composerGrave, MobSpawnType.MOB_SUMMONED);
+                    }
+                    // Destroy sheet
+                    this.inventory.setStackInSlot(0, ItemStack.EMPTY);
+                    this.ticksPlaying = 0;
+                    // Update block
+                    level().setBlock(composerGrave, graveState.setValue(ComposerGravestoneBlock.OPENED, true), 3);
+
+                    // Sound and particles
+                    level().playSound(null, composerGrave, SoundEvents.GRINDSTONE_USE, SoundSource.BLOCKS, 1.0F, 0.5F);
+                    // Open animation
+                    composerGravestoneBE.open();
+                    if (!level().isClientSide()) {
+
+                        ((ServerLevel) level()).sendParticles(new BlockParticleOption(ParticleTypes.FALLING_DUST, Blocks.STONE.defaultBlockState()),
+                                composerGrave.getX(), composerGrave.getY() + 0.5F, composerGrave.getZ(), 20,
+                                0.2, 0, 0.2, 1.0F);
+
+                    }
+
+                    // Spawn TGC
+                    TheGreatComposer theGreatComposer = new TheGreatComposer(ModEntities.THE_GREAT_COMPOSER.get(), level());
+                    theGreatComposer.setPos(composerGrave.getCenter().x, composerGrave.below().getY(), composerGrave.getCenter().z);
+                    theGreatComposer.setSpawnPos(composerGrave.below());
+                    theGreatComposer.setYHeadRot(getYRot(graveState.getValue(ComposerGravestoneBlock.FACING)));
+                    theGreatComposer.setYBodyRot(theGreatComposer.getYHeadRot());
+
+                    level().addFreshEntity(theGreatComposer);
+                }
+            }
+        }
+
+
 
         super.tick();
     }
@@ -271,6 +339,16 @@ public abstract class ConductorEntity extends TamableAnimal {
     @Override
     public boolean shouldTryTeleportToOwner() {
         return false;
+    }
+
+    private float getYRot(Direction facing) {
+        return switch (facing) {
+            case NORTH -> 180f;
+            case SOUTH -> 0f;
+            case WEST  -> 90f;
+            case EAST  -> -90f;
+            default -> 0f;
+        };
     }
 
     public void activateParticles(boolean particlesActivated) {

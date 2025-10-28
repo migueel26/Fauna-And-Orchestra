@@ -32,7 +32,6 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -138,6 +137,7 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
     protected int stateId;
     /////////// WORKS DIFFERENTLY IN SERVER AND CLIENT
     protected int stateTime = 0;
+    protected int spawnDialogueTime = -1;
     private double velocityY = 0.0; // Velocidad vertical propia
     //////////// CLIENT ONLY
     int scheduleDirty = -1;
@@ -302,12 +302,20 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
 
         if (level().isClientSide()) {
             // Music Logic
-            if ((stateTime == 1 && !isFakeDead()) || (getState(this.stateId) == ComposerBossState.RESURRECTING && this.getHealth() == 1.01F)) {
+            if ((stateTime == 10 && !isFakeDead()) || (getState(this.stateId) == ComposerBossState.RESURRECTING && this.getHealth() == 1.01F)) {
                 SoundEvent soundEvent = isFinalPhase() ? ModSounds.THE_GREAT_COMPOSER_FINAL_THEME.get() : ModSounds.THE_GREAT_COMPOSER_THEME.get();
                 Minecraft.getInstance().getSoundManager().play(new BossSoundInstance(
                         soundEvent, this
                 ));
             }
+        }
+
+        if (isSpawning() && spawnDialogueTime == -1) {
+            spawnDialogueTime = 0;
+
+        } else if (spawnDialogueTime > -1 && spawnDialogueTime <= 320) {
+
+            spawnDialogueTime++;
         }
 
         if (scheduleDirty > 0) {
@@ -340,7 +348,10 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
         // We need to update its position both in the client and server
         ComposerBossState state = getState(stateId);
 
-        if (isSpawning() && stateTime > 1 && stateTime < 120) this.moveTo(getX(), getY() + 0.05, getZ());
+        if (isSpawning() && stateTime > 1 && stateTime < 120) {
+            this.moveTo(getX(), getY() + 0.05, getZ());
+            this.setRemainingFireTicks(0);
+        }
 
         if (state == ComposerBossState.RESURRECTING) {
             refreshDimensions();
@@ -723,7 +734,8 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
             if (stateTime == (isFinalPhase() ? 30 : 90)) {
                 Vec3 direction = this.getViewVector(1f);
                 canonEntity = new ComposerCanonEntity(ModEntities.THE_GREAT_COMPOSER_CANON.get(), level());
-                canonEntity.getLookControl().setLookAt(direction);
+                canonEntity.setYBodyRot(this.getYRot());
+                canonEntity.setYHeadRot(this.getYHeadRot());
                 canonEntity.setPos(this.getX(), this.getY() - 1.25f, this.getZ());
                 level().addFreshEntity(canonEntity);
             }
@@ -1165,6 +1177,10 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
         entityData.set(REPELS, repels);
     }
 
+    public void setSpawnPos(BlockPos pos) {
+        this.entityData.set(DEFAULT_POSITION, pos.above(5));
+    }
+
     public boolean isFakeDead() {
         return entityData.get(PHASE) == 3;
     }
@@ -1174,8 +1190,20 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
     }
     public boolean isSpawning() { return entityData.get(PHASE) == 0; }
 
+    public int getSpawnTime() {
+        return this.spawnDialogueTime;
+    }
+
     public ComposerBossState getState() {
         return getState(stateId);
+    }
+
+    public boolean shouldDisplayDialogue() {
+        return spawnDialogueTime > -1;
+    }
+
+    public void resetDialogueTimer() {
+        this.spawnDialogueTime = -1;
     }
 
     public ItemStack getRandomInstrument() {

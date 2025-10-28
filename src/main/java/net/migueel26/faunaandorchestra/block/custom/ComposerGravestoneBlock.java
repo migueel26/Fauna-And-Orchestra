@@ -117,7 +117,7 @@ public class ComposerGravestoneBlock extends HorizontalDirectionalBlock implemen
 
     @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        if (level.getBlockEntity(pos) instanceof ComposerGravestoneBlockEntity composerGravestoneBlockEntity) {
+        if (level.getBlockEntity(pos) instanceof ComposerGravestoneBlockEntity composerGravestoneBlockEntity && !state.getValue(OPENED)) {
             Vec3 vecPos;
             BlockPos neighbourPos = pos.relative(state.getValue(FACING));
 
