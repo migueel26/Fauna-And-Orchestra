@@ -80,6 +80,7 @@
   "block.faunaandorchestra.tip_case_theft": "This case is not yours! You can't take the gold",
   "block.faunaandorchestra.tip_case.desc": "Everybody can tip you gold, but only you can retrieve it",
   "block.faunaandorchestra.listener.desc": "Place it on top of a Listener Container and play some music",
+  "block.faunaandorchestra.composer_gravestone.gui": "Here lies the Great Composer. May he rest in silence or be awakened by his own sound",
   "block.faunaandorchestra.listener_container.desc": "Produce some liquid music by placing a Listener above and creating an orchestra",
   "block.faunaandorchestra.melomancy_cauldron.preparing": "Preparing",
   "block.faunaandorchestra.melomancy_cauldron.finished": "Right click with recipient if needed to retrieve the result",
@@ -251,6 +252,4 @@
 
   "dialogue.faunaandorchestra.the_great_composer0": "Those who dare to awaken me, the Great Composer...",
   "dialogue.faunaandorchestra.the_great_composer1": "... shall meet their DEMISE!"
-
-
 }

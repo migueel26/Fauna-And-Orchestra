@@ -20,10 +20,7 @@ import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
 import net.migueel26.faunaandorchestra.particles.custom.*;
 import net.migueel26.faunaandorchestra.potion.ModPotions;
 import net.migueel26.faunaandorchestra.screen.ModMenuTypes;
-import net.migueel26.faunaandorchestra.screen.custom.ConductorScreen;
-import net.migueel26.faunaandorchestra.screen.custom.DialogueScreen;
-import net.migueel26.faunaandorchestra.screen.custom.MelomancyCauldronScreen;
-import net.migueel26.faunaandorchestra.screen.custom.TheGreatComposerScreen;
+import net.migueel26.faunaandorchestra.screen.custom.*;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.migueel26.faunaandorchestra.util.ModItemProperties;
 import net.migueel26.faunaandorchestra.worldgen.structures.ModStructuredProcessors;
@@ -162,6 +159,7 @@ public class FaunaAndOrchestra {
             event.registerBelow(VanillaGuiLayers.HOTBAR, ResourceLocation.fromNamespaceAndPath(MOD_ID, "dialogue"), DialogueScreen.OVERLAY);
             event.registerBelow(VanillaGuiLayers.HOTBAR, ResourceLocation.fromNamespaceAndPath(MOD_ID, "dialogue_composer"), TheGreatComposerScreen.OVERLAY);
             event.registerAbove(VanillaGuiLayers.CROSSHAIR, ResourceLocation.fromNamespaceAndPath(MOD_ID, "melomancy_hottip"), MelomancyCauldronScreen.OVERLAY);
+            event.registerAbove(VanillaGuiLayers.CROSSHAIR, ResourceLocation.fromNamespaceAndPath(MOD_ID, "composer_gravestone_gui"), ComposerGravestoneScreen.OVERLAY);
         }
 
         @SubscribeEvent

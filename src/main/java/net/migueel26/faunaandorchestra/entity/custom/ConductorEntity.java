@@ -174,7 +174,7 @@ public abstract class ConductorEntity extends TamableAnimal {
         // RESURRECTION
         if (isConducting() && getSheetMusic() == ModItems.RESURRECTION_SONG.get()) {
             if (ticksPlaying >= 1 && ticksPlaying <= 5) {
-                Optional<BlockPos> candidate = BlockPos.findClosestMatch(blockPosition(), 5, 5, pos -> level().getBlockState(pos).is(ModBlocks.COMPOSER_GRAVESTONE));
+                Optional<BlockPos> candidate = BlockPos.findClosestMatch(blockPosition(), 7, 7, pos -> level().getBlockState(pos).is(ModBlocks.COMPOSER_GRAVESTONE));
                 candidate.ifPresent(pos -> this.composerGrave = pos);
             }
         }

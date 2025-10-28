@@ -80,6 +80,7 @@
   "block.faunaandorchestra.tip_case_theft": "¡Esta funda no es tuya! No puedes llevarte el oro",
   "block.faunaandorchestra.tip_case.desc": "Todo el mundo te puede donar, pero sólo tú puedes retirarlo",
   "block.faunaandorchestra.listener.desc": "Colócalo encima del Contenedor y toca algo de música",
+  "block.faunaandorchestra.composer_gravestone.gui": "Aquí descansa el Gran Compositor. Que descanse en silencio o despierte por su propia música",
   "block.faunaandorchestra.listener_container.desc": "Recoge música líquida colocando un Escuchador encima y colocando una orquesta",
   "block.faunaandorchestra.melomancy_cauldron.preparing": "Preparando",
   "block.faunaandorchestra.melomancy_cauldron.finished": "Click derecho con un recipiente si es necesario para recoger",
