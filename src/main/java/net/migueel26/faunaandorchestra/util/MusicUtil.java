@@ -54,12 +54,22 @@ public class MusicUtil {
             ModItems.VIOLIN.get(), ModSounds.RESURRECTION_VIOLIN.get().getLocation()
     );
 
+    public static final Map<Item, ResourceLocation> LA_BAMBA = Map.of(
+            ModItems.CELLO.get(), ModSounds.BAMBA_CELLO.get().getLocation(),
+            ModItems.DOUBLE_BASS.get(), ModSounds.BAMBA_DOUBLE_BASS.get().getLocation(),
+            ModItems.FLUTE.get(), ModSounds.BAMBA_FLUTE.get().getLocation(),
+            ModItems.KEYTAR.get(), ModSounds.BAMBA_KEYTAR.get().getLocation(),
+            ModItems.SAXOPHONE.get(), ModSounds.BAMBA_SAXOPHONE.get().getLocation(),
+            ModItems.VIOLIN.get(), ModSounds.BAMBA_VIOLIN.get().getLocation()
+    );
+
     private static final Map<Item, Map<Item, ResourceLocation>> SONG = Map.of(
             ModItems.BACH_AIR_SHEET_MUSIC.get(), BACH_AIR,
             ModItems.GREENSLEEVES_SHEET_MUSIC.get(), GREENSLEEVES,
             ModItems.BLUES_SHEET_MUSIC.get(), BLUES_SONG,
             ModItems.JAZZY_FUR_ELISE_SHEET_MUSIC.get(), JAZZY_FUR_ELISE,
             ModItems.DANCE_OF_THE_LITTLE_SWANS.get(), SWANS,
+            ModItems.LA_BAMBA_SHEET_MUSIC.get(), LA_BAMBA,
             ModItems.RESURRECTION_SONG.get(), RESURRECTION
     );
 
@@ -69,6 +79,7 @@ public class MusicUtil {
             "faunaandorchestra:blues_sheet_music", ModItems.BLUES_SHEET_MUSIC.get(),
             "faunaandorchestra:jazzy_fur_elise_sheet_music", ModItems.JAZZY_FUR_ELISE_SHEET_MUSIC.get(),
             "faunaandorchestra:dance_of_the_little_swans_sheet_music", ModItems.DANCE_OF_THE_LITTLE_SWANS.get(),
+            "faunaandorchestra:la_bamba_sheet_music", ModItems.LA_BAMBA_SHEET_MUSIC.get(),
             "faunaandorchestra:resurrection_song", ModItems.RESURRECTION_SONG.get()
     );
 
@@ -78,6 +89,7 @@ public class MusicUtil {
             ModItems.BLUES_SHEET_MUSIC.get(), 1750,
             ModItems.JAZZY_FUR_ELISE_SHEET_MUSIC.get(), 1775,
             ModItems.DANCE_OF_THE_LITTLE_SWANS.get(), 1895,
+            ModItems.LA_BAMBA_SHEET_MUSIC.get(), 1115,
             ModItems.RESURRECTION_SONG.get(), 4990
     );
 

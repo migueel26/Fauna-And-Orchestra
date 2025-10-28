@@ -222,6 +222,42 @@
       "faunaandorchestra:music/resurrection_violin"
     ]
   },
+  "bamba_cello": {
+    "subtitles": "sounds.faunaandorchestra.bamba_cello",
+    "sounds": [
+      "faunaandorchestra:music/bamba_cello"
+    ]
+  },
+  "bamba_double_bass": {
+    "subtitles": "sounds.faunaandorchestra.bamba_double_bass",
+    "sounds": [
+      "faunaandorchestra:music/bamba_double_bass"
+    ]
+  },
+  "bamba_flute": {
+    "subtitles": "sounds.faunaandorchestra.bamba_flute",
+    "sounds": [
+      "faunaandorchestra:music/bamba_flute"
+    ]
+  },
+  "bamba_keytar": {
+    "subtitles": "sounds.faunaandorchestra.bamba_keytar",
+    "sounds": [
+      "faunaandorchestra:music/bamba_keytar"
+    ]
+  },
+  "bamba_saxophone": {
+    "subtitles": "sounds.faunaandorchestra.bamba_saxophone",
+    "sounds": [
+      "faunaandorchestra:music/bamba_saxophone"
+    ]
+  },
+  "bamba_violin": {
+    "subtitles": "sounds.faunaandorchestra.bamba_violin",
+    "sounds": [
+      "faunaandorchestra:music/bamba_violin"
+    ]
+  },
   "frog_song": {
     "subtitles": "sounds.faunaandorchestra.frog_song",
     "sounds": [

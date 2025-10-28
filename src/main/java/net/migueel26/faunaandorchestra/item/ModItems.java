@@ -175,6 +175,7 @@ public class ModItems {
     public static final DeferredItem<Item> BLUES_SHEET_MUSIC = createSheetMusic("blues_sheet_music");
     public static final DeferredItem<Item> JAZZY_FUR_ELISE_SHEET_MUSIC = createSheetMusic("jazzy_fur_elise_sheet_music");
     public static final DeferredItem<Item> DANCE_OF_THE_LITTLE_SWANS = createSheetMusic("dance_of_the_little_swans_sheet_music");
+    public static final DeferredItem<Item> LA_BAMBA_SHEET_MUSIC = createSheetMusic("la_bamba_sheet_music");
     public static final DeferredItem<Item> RESURRECTION_SONG = createLegendarySheetMusic("resurrection_song");
 
     public static final DeferredItem<Item> THE_GREAT_HEAD_ITEM = ITEMS.register("the_great_head_item",

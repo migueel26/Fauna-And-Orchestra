@@ -59,6 +59,13 @@ public class ModSounds {
     public static final Supplier<SoundEvent> RESURRECTION_VIOLIN = registerSoundEvent("resurrection_violin");
     public static final Supplier<SoundEvent> RESURRECTION_FLUTE = registerSoundEvent("resurrection_flute");
 
+    public static final Supplier<SoundEvent> BAMBA_CELLO = registerSoundEvent("bamba_cello");
+    public static final Supplier<SoundEvent> BAMBA_DOUBLE_BASS = registerSoundEvent("bamba_double_bass");
+    public static final Supplier<SoundEvent> BAMBA_FLUTE = registerSoundEvent("bamba_flute");
+    public static final Supplier<SoundEvent> BAMBA_KEYTAR = registerSoundEvent("bamba_keytar");
+    public static final Supplier<SoundEvent> BAMBA_SAXOPHONE = registerSoundEvent("bamba_saxophone");
+    public static final Supplier<SoundEvent> BAMBA_VIOLIN = registerSoundEvent("bamba_violin");
+
     public static final Supplier<SoundEvent> FROG_SONG = registerSoundEvent("frog_song");
     public static final Supplier<SoundEvent> SPROUTLING_SONG = registerSoundEvent("sproutling_song");
     public static final Supplier<SoundEvent> RINGTAILS_SONG = registerSoundEvent("hona_bildots_eztia");
