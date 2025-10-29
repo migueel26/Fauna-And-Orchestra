@@ -1,6 +1,7 @@
 package net.migueel26.faunaandorchestra.screen.custom;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
+import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.block.custom.ComposerGravestoneBlock;
 import net.migueel26.faunaandorchestra.block.entity.ComposerGravestoneBlockEntity;
 import net.migueel26.faunaandorchestra.block.entity.MelomancyCauldronBlockEntity;
@@ -36,6 +37,7 @@ public class ComposerGravestoneScreen {
         if (level != null && hitResult instanceof BlockHitResult blockHitResult) {
             BlockPos pos = blockHitResult.getBlockPos();
             if (level.getBlockEntity(pos) instanceof ComposerGravestoneBlockEntity composerGravestoneBE &&
+                    level.getBlockState(pos).is(ModBlocks.COMPOSER_GRAVESTONE) &&
                     !composerGravestoneBE.getBlockState().getValue(ComposerGravestoneBlock.OPENED) &&
                     composerGravestoneBE.getBlockState().getValue(ComposerGravestoneBlock.PART).equals(BedPart.HEAD)) {
                 String text = Component.translatable("block.faunaandorchestra.composer_gravestone.gui").getString();

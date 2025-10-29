@@ -166,7 +166,7 @@ public class ComposerGravestoneBlock extends HorizontalDirectionalBlock implemen
         return RenderShape.ENTITYBLOCK_ANIMATED;
     }
 
-    private static Direction getNeighbourDirection(BedPart part, Direction direction) {
+    protected static Direction getNeighbourDirection(BedPart part, Direction direction) {
         return part == BedPart.HEAD ? direction : direction.getOpposite();
     }
 
