@@ -1,6 +1,7 @@
 package net.migueel26.faunaandorchestra.block.custom;
 
 import net.migueel26.faunaandorchestra.block.ModBlocks;
+import net.migueel26.faunaandorchestra.util.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -92,7 +93,7 @@ public class CrawlingDiscordBlock extends Block {
                     BlockPos nextPos = iteratorUp.next();
                     BlockPos downPos = iteratorDown.next();
                     if (time % 2 != 0) {
-                        if (level.getBlockState(nextPos).isAir() &&
+                        if (level.getBlockState(nextPos).is(ModTags.Blocks.REPLACEABLE_BY_DISCORD) &&
                                 !level.getBlockState(nextPos.below()).isAir() &&
                                 !level.getBlockState(nextPos.below()).is(ModBlocks.CRAWLING_DISCORD)) {
 
@@ -100,7 +101,7 @@ public class CrawlingDiscordBlock extends Block {
                                     .setValue(GENERATION, myGeneration + 1), 3);
                         }
 
-                        if (level.getBlockState(downPos).isAir() &&
+                        if (level.getBlockState(downPos).is(ModTags.Blocks.REPLACEABLE_BY_DISCORD) &&
                                 canGrab(downPos, level) &&
                                 level.getBlockState(downPos.above()).isAir()) {
 
@@ -134,7 +135,7 @@ public class CrawlingDiscordBlock extends Block {
                 while (iterator.hasNext()) {
                     BlockPos nextPos = iterator.next();
                     if (time % 2 == 0) {
-                        if (level.getBlockState(nextPos).isAir() && canGrab(nextPos, level)) {
+                        if (level.getBlockState(nextPos).is(ModTags.Blocks.REPLACEABLE_BY_DISCORD) && canGrab(nextPos, level)) {
                             level.setBlock(nextPos, ModBlocks.CRAWLING_DISCORD.get().defaultBlockState()
                                     .setValue(GENERATION, myGeneration + 1).setValue(CLIMBER, true), 3);
                         }
@@ -145,7 +146,7 @@ public class CrawlingDiscordBlock extends Block {
 
                 level.setBlock(pos, state.setValue(FATHER, true).setValue(GENERATION, myGeneration).setValue(CLIMBER, true), 3);
                 level.scheduleTick(pos, this, DIE_TIME);
-                if (level.getBlockState(pos.above()).isAir()) {
+                if (level.getBlockState(pos.above()).is(ModTags.Blocks.REPLACEABLE_BY_DISCORD)) {
                     level.setBlock(pos.above(), ModBlocks.CRAWLING_DISCORD.get().defaultBlockState()
                             .setValue(GENERATION, myGeneration + 1), 3);
                 }
