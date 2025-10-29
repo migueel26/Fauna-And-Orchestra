@@ -171,6 +171,7 @@ public class FaunaAndOrchestra {
             event.registerSpriteSet(ModParticleTypes.CAULDRON_POP.get(), SculkChargePopParticle.Provider::new);
             event.registerSpriteSet(ModParticleTypes.STAR.get(), StarParticle.Provider::new);
             event.registerSpriteSet(ModParticleTypes.VOICE_PARTICLE.get(), VoiceParticle.Provider::new);
+            event.registerSpriteSet(ModParticleTypes.SLEEP.get(), SleepParticle.Provider::new);
         }
     }
 

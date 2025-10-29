@@ -82,8 +82,8 @@ public class ModEventBusEvents {
                 (payload, context) -> ServerPayloadHandler.handleRestartOrchestraOnNetwork(payload, context)
         );
         registrar.playToServer(
-                SyncTipCaseOwnerPayload.TYPE,
-                SyncTipCaseOwnerPayload.STREAM_CODEC,
+                SyncTipCaseOwnerPayloadC2S.TYPE,
+                SyncTipCaseOwnerPayloadC2S.STREAM_CODEC,
                 (payload, context) -> ServerPayloadHandler.handleSyncTipCaseOnNetwork(payload, context)
         );
     }

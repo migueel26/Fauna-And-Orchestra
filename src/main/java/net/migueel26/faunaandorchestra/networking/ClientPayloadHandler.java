@@ -7,7 +7,6 @@ import net.migueel26.faunaandorchestra.entity.custom.*;
 import net.migueel26.faunaandorchestra.entity.custom.boss.TheGreatComposer;
 import net.migueel26.faunaandorchestra.mixins.client.accessors.ClientLevelAccessor;
 import net.migueel26.faunaandorchestra.mixins.interfaces.ISoundManagerMixin;
-import net.migueel26.faunaandorchestra.screen.custom.DialogueScreen;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.migueel26.faunaandorchestra.sound.custom.BossSoundInstance;
 import net.migueel26.faunaandorchestra.sound.custom.FrogSongSoundInstance;
@@ -33,7 +32,6 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.logging.Level;
 
 public class ClientPayloadHandler {
     public static void handleEmpty(CustomPacketPayload payload, IPayloadContext iPayloadContext) {
@@ -169,7 +167,7 @@ public class ClientPayloadHandler {
         gui.setSubtitle(Component.literal(subtitle).withStyle(ChatFormatting.GREEN));
     }
 
-    public static void handleSyncTipCaseOnNetwork(SyncTipCaseOwnerPayload payload, IPayloadContext context) {
+    public static void handleSyncTipCaseOnNetwork(SyncTipCaseOwnerPayloadS2C payload, IPayloadContext context) {
         UUID uuid = payload.owner();
         BlockPos blockPos = new BlockPos(payload.x(), payload.y(), payload.z());
         ClientLevel level = Minecraft.getInstance().level;

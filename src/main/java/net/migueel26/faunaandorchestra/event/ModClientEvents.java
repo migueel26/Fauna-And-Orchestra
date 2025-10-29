@@ -2,12 +2,14 @@ package net.migueel26.faunaandorchestra.event;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.networking.*;
+import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 
 @EventBusSubscriber(modid = FaunaAndOrchestra.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = net.neoforged.api.distmarker.Dist.CLIENT)
 public class ModClientEvents {
+    @SubscribeEvent
     public static void register(RegisterPayloadHandlersEvent event) {
         final PayloadRegistrar registrar = event.registrar("1");
         registrar.playToClient(
@@ -41,8 +43,8 @@ public class ModClientEvents {
                 (payload, context) -> ClientPayloadHandler.handleShowTitleOnNetwork(payload, context)
         );
         registrar.playToClient(
-                SyncTipCaseOwnerPayload.TYPE,
-                SyncTipCaseOwnerPayload.STREAM_CODEC,
+                SyncTipCaseOwnerPayloadS2C.TYPE,
+                SyncTipCaseOwnerPayloadS2C.STREAM_CODEC,
                 (payload, context) -> ClientPayloadHandler.handleSyncTipCaseOnNetwork(payload, context)
         );
     }

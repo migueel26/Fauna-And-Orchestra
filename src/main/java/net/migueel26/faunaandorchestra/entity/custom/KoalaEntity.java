@@ -7,6 +7,7 @@ import net.migueel26.faunaandorchestra.entity.goals.KoalaRandomChangeStanceGoal;
 import net.migueel26.faunaandorchestra.entity.goals.LookAtTradingPlayerGoal;
 import net.migueel26.faunaandorchestra.entity.goals.TradeWithPlayerGoal;
 import net.migueel26.faunaandorchestra.entity.trades.KoalaTrades;
+import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
 import net.minecraft.Util;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
@@ -66,6 +67,7 @@ public class KoalaEntity extends AgeableMob implements Merchant, Npc, GeoEntity 
     protected boolean isSitting;
     // SERVER ANIMATION CONTROL
     private int wakeUpTick = -1;
+    protected int tick = 0;
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
 
     public KoalaEntity(EntityType<? extends AgeableMob> entityType, Level level) {
@@ -170,6 +172,12 @@ public class KoalaEntity extends AgeableMob implements Merchant, Npc, GeoEntity 
                 setSleeping(true);
             }
         }
+
+        if (isKoalaSleeping() && !level().isClientSide() && tick % 35 == 0) {
+            ((ServerLevel) level()).sendParticles(ModParticleTypes.SLEEP.get(), position().x, getY()+1.2, position().z, 1, 0.2, 0.05, 0.2, 0.025);
+        }
+
+        tick++;
 
         super.tick();
     }

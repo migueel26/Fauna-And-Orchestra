@@ -8,16 +8,16 @@ import net.minecraft.resources.ResourceLocation;
 
 import java.util.UUID;
 
-public record SyncTipCaseOwnerPayload(int x, int y, int z, UUID owner) implements CustomPacketPayload {
-    private SyncTipCaseOwnerPayload(FriendlyByteBuf buf) {
+public record SyncTipCaseOwnerPayloadS2C(int x, int y, int z, UUID owner) implements CustomPacketPayload {
+    private SyncTipCaseOwnerPayloadS2C(FriendlyByteBuf buf) {
         this(buf.readInt(), buf.readInt(), buf.readInt(), buf.readUUID());
     }
 
-    public static final CustomPacketPayload.Type<SyncTipCaseOwnerPayload> TYPE =
-            new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "sync_tip_case_owner_payload"));
+    public static final CustomPacketPayload.Type<SyncTipCaseOwnerPayloadS2C> TYPE =
+            new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "sync_tip_case_owner_payloads2c"));
 
-    public static final StreamCodec<FriendlyByteBuf, SyncTipCaseOwnerPayload> STREAM_CODEC = CustomPacketPayload.codec(
-            SyncTipCaseOwnerPayload::write, SyncTipCaseOwnerPayload::new
+    public static final StreamCodec<FriendlyByteBuf, SyncTipCaseOwnerPayloadS2C> STREAM_CODEC = CustomPacketPayload.codec(
+            SyncTipCaseOwnerPayloadS2C::write, SyncTipCaseOwnerPayloadS2C::new
     );
 
     private void write(FriendlyByteBuf buf) {
