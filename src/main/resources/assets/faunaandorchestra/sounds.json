@@ -384,6 +384,13 @@
       "faunaandorchestra:sfx/pan_flute_altar_thunder"
     ]
   },
+  "discorded_flower_eat": {
+    "subtitles": "sounds.faunaandorchestra.discorded_flower_eat",
+    "sounds": [
+      "faunaandorchestra:sfx/discorded_flower0",
+      "faunaandorchestra:sfx/discorded_flower1"
+    ]
+  },
   "dialogue": {
     "subtitles": "sounds.faunaandorchestra.dialogue",
     "sounds": [

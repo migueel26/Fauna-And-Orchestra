@@ -80,6 +80,8 @@ public class ModSounds {
     public static final Supplier<SoundEvent> WISE_TREE_AMBIENT = registerSoundEvent("wise_tree_ambient");
     public static final Supplier<SoundEvent> WISE_TREE_DROP = registerSoundEvent("wise_tree_drop");
 
+    public static final Supplier<SoundEvent> DISCORDED_FLOWER_EAT = registerSoundEvent("discorded_flower_eat");
+
     public static final Supplier<SoundEvent> SUCCESSFUL_TAME = registerSoundEvent("successful_tame");
     public static final Supplier<SoundEvent> MAGIC_GROWTH = registerSoundEvent("magic_growth");
     public static final Supplier<SoundEvent> SINGING_SPROUTLING_SOUND = registerSoundEvent("singing_sproutling_sound");

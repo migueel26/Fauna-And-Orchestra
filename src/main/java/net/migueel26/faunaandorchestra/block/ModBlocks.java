@@ -6,10 +6,14 @@ import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.worldgen.tree.ModTreeGrowers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.sounds.SoundEvents;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -91,6 +95,33 @@ public class ModBlocks {
             () -> new CrawlingDiscordBlock(BlockBehaviour.Properties.of()
                     .strength(2.0f, 6.0f)
                     .sound(SoundType.SCULK)));
+
+    public static final DeferredBlock<Block> FLOWER_DISCORD_BLOCK = registerBlock("flower_discord_block",
+            () -> new FlowerGrowerDiscordBlock(BlockBehaviour.Properties.ofFullCopy(CRAWLING_DISCORD.get())));
+
+    public static final DeferredBlock<Block> DISCORD_BLOCK = registerBlock("discord_block",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(CRAWLING_DISCORD.get())) {
+                @Override
+                public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity) {
+                    if (entity instanceof LivingEntity) entity.hurt(level.damageSources().magic(), 2.0F);
+                    if (!level.isClientSide()) {
+                        ((ServerLevel) level).sendParticles(ParticleTypes.SCULK_SOUL,
+                                entity.getX(), entity.getY(), entity.getZ(),
+                                3, 0.1f, 0.1f, 0.1f, 0.01f);
+                    }
+                    super.stepOn(level, pos, state, entity);
+                }
+            });
+
+    public static final DeferredBlock<Block> DISCORDED_FLOWER = registerBlock("discorded_flower",
+            () -> new DiscordedFlowerBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.PLANT)
+                    .noCollission()
+                    .instabreak()
+                    .sound(SoundType.SCULK_VEIN)
+                    .offsetType(BlockBehaviour.OffsetType.XZ)
+                    .pushReaction(PushReaction.DESTROY)
+                    .randomTicks()));
 
     public static final DeferredBlock<Block> DAM_BLOCK = registerBlock("dam_block",
             () -> new DamBlock(BlockBehaviour.Properties.of()

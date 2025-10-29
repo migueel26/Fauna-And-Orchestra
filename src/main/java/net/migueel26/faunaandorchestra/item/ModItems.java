@@ -100,6 +100,14 @@ public class ModItems {
                     super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
                 }
             });
+    public static final DeferredItem<Item> PETALS_OF_DEATH = ITEMS.register("petals_of_death",
+            () -> new Item(new Item.Properties().rarity(Rarity.UNCOMMON)) {
+                @Override
+                public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+                    tooltipComponents.add(Component.translatable("item.faunaandorchestra.petals_of_death.desc").withStyle(ChatFormatting.GRAY));
+                    super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+                }
+            });
     public static final DeferredItem<Item> SHEET_FRAGMENTS = ITEMS.register("sheet_fragments",
             () -> new Item(new Item.Properties().rarity(Rarity.UNCOMMON)) {
                 @Override

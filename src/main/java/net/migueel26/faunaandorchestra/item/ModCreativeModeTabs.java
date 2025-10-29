@@ -86,7 +86,10 @@ public class ModCreativeModeTabs {
                         output.accept(ModBlocks.GRAVESTONE);
                         output.accept(ModItems.THE_GREAT_HEAD_ITEM);
                         output.accept(ModItems.DISCORD_ESSENCE);
+                        output.accept(ModItems.PETALS_OF_DEATH);
+                        output.accept(ModBlocks.DISCORDED_FLOWER);
                         output.accept(ModBlocks.CRAWLING_DISCORD);
+                        output.accept(ModBlocks.DISCORD_BLOCK);
                         output.accept(ModBlocks.DAM_BLOCK);
                         output.accept(ModBlocks.GINGKO_BILOBA_LEAVES);
                         output.accept(ModBlocks.GINGKO_BILOBA_SAPLING);

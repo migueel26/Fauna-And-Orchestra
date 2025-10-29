@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "faunaandorchestra:item/petals_of_death"
+  }
+}
