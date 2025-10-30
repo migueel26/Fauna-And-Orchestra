@@ -802,6 +802,9 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
                 setNewState(ComposerBossState.IDLE);
                 this.attackCooldown = getCooldownTicks();
                 ((ServerLevel) level()).sendParticles(ParticleTypes.SCULK_SOUL, position().x, position().y, position().z, 70, 0.1, 0.1, 0.1, 0.15);
+                for (Player player : bossEvent.getPlayers()) {
+                    player.displayClientMessage(Component.translatable("dialogue.faunaandorchestra.the_great_composer2"), true);
+                }
             }
 
         } else if (state == ComposerBossState.DYING) {
