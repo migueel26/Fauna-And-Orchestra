@@ -46,6 +46,7 @@ public class QuirkyFrogEntity extends ConductorEntity implements GeoEntity {
     protected static final RawAnimation CROAC = RawAnimation.begin().thenPlay("croac");
     protected static final RawAnimation CONDUCTING = RawAnimation.begin().thenPlay("conducting");
     protected static final RawAnimation HOLDING_BATON = RawAnimation.begin().thenPlay("holding_baton");
+    public static final int ANIM_DELAY_TICKS = 10;
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
     // Server Variables
     private List<QuirkyFrogEntity> frogChoir = new ArrayList<>();
@@ -238,7 +239,7 @@ public class QuirkyFrogEntity extends ConductorEntity implements GeoEntity {
         this.setJumping(true);
         this.jumpDuration = 15;
         this.jumpTicks = 0;
-        this.animDelayTicks = 10;
+        this.animDelayTicks = ANIM_DELAY_TICKS;
     }
 
     @Override
@@ -256,7 +257,7 @@ public class QuirkyFrogEntity extends ConductorEntity implements GeoEntity {
             QuirkyFrogJumpControl quirkyfrog$quirkyfrogjumpcontrol = (QuirkyFrogJumpControl) this.jumpControl;
             if (!quirkyfrog$quirkyfrogjumpcontrol.wantJump()) {
                 if (this.moveControl.hasWanted() && this.jumpDelayTicks == 0) {
-                    triggerAnim("quirky_frog_controller", "jump");
+                    if (animDelayTicks == ANIM_DELAY_TICKS) triggerAnim("quirky_frog_controller", "jump");
                     if (animDelayTicks > 0) {
                         animDelayTicks--;
                     }

@@ -181,9 +181,9 @@ public class ListenerContainerBlock extends Block implements EntityBlock {
                 level.scheduleTick(pos, this, NEXT_TICK_SCHEDULED);
                 return ItemInteractionResult.SUCCESS;
             }
-        } else if (item.isEmpty()) {
+        } else if (item.isEmpty() || item.is(ModItems.MUSIC_BOTTLE)) {
             if (isFull(state)) {
-                player.setItemInHand(hand, new ItemStack(ModItems.MUSIC_BOTTLE.get(), 1));
+                player.addItem(new ItemStack(ModItems.MUSIC_BOTTLE.get(), 1));
                 level.setBlock(pos, state.setValue(DROPLETS, 0).setValue(BOTTLE, false), 3);
                 return ItemInteractionResult.SUCCESS;
             }

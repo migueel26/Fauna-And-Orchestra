@@ -145,88 +145,88 @@ public abstract class ConductorEntity extends TamableAnimal {
 
     @Override
     public void tick() {
-        if (!level().isClientSide()) {
-            // Server
-            if (!isOrchestraEmpty()) {
-                ticksPlaying++;
+        if (isTame() && isConducting()) {
+            if (!level().isClientSide()) {
+                // Server
+                if (!isOrchestraEmpty()) {
+                    ticksPlaying++;
+                } else {
+                    ticksPlaying = 0;
+                }
             } else {
-                ticksPlaying = 0;
-            }
-        } else {
-            // Client
-            if (particlesActivated && isConducting()) {
-                if (ticksPlaying == 0) {
-                    level().addParticle(ModParticleTypes.TREBLE_CLEF.get(),
-                            this.getX(), this.getY() + 2.5, this.getZ(),
-                            0, 0.025F, 0);
-                } else if (ticksPlaying % 15 == 0) {
-                    level().addParticle(ModParticleTypes.FAUNA_NOTES.get(),
-                            this.getX(), this.getY() + 2.5, this.getZ(),
-                            0,0.025F,0);
-                }
-                ticksPlaying++;
-            } else {
-                ticksPlaying = 0;
-            }
-        }
-
-        // RESURRECTION
-        if (isConducting() && getSheetMusic() == ModItems.RESURRECTION_SONG.get()) {
-            if (ticksPlaying >= 1 && ticksPlaying <= 5) {
-                Optional<BlockPos> candidate = BlockPos.findClosestMatch(blockPosition(), 7, 7, pos -> level().getBlockState(pos).is(ModBlocks.COMPOSER_GRAVESTONE));
-                candidate.ifPresent(pos -> this.composerGrave = pos);
-            }
-        }
-
-        if (composerGrave != null && isConducting() && getSheetMusic() == ModItems.RESURRECTION_SONG.get() && isOrchestraFull()) {
-            if (ticksPlaying > 5) {
-                if (ticksPlaying % 10 == 0 && !level().isClientSide()) {
-                    // Add particles periodically
-                    ((ServerLevel) level()).sendParticles(ParticleTypes.SOUL_FIRE_FLAME, composerGrave.getCenter().x, composerGrave.getY(), composerGrave.getCenter().z,
-                            20, 1,0.3, 1, 0.01);
-                }
-            }
-
-            if (ticksPlaying == 2500) {
-                BlockState graveState = level().getBlockState(composerGrave);
-                if (graveState.is(ModBlocks.COMPOSER_GRAVESTONE) && !graveState.getValue(ComposerGravestoneBlock.OPENED)
-                && level().getBlockEntity(composerGrave) instanceof ComposerGravestoneBlockEntity composerGravestoneBE) {
-                    // START SUMMONING
-                    if (!level().isClientSide()) {
-                        // We spawn a lightning bolt
-                        EntityType.LIGHTNING_BOLT.spawn((ServerLevel) level(), composerGrave, MobSpawnType.MOB_SUMMONED);
+                // Client
+                if (particlesActivated) {
+                    if (ticksPlaying == 0) {
+                        level().addParticle(ModParticleTypes.TREBLE_CLEF.get(),
+                                this.getX(), this.getY() + 2.5, this.getZ(),
+                                0, 0.025F, 0);
+                    } else if (ticksPlaying % 15 == 0) {
+                        level().addParticle(ModParticleTypes.FAUNA_NOTES.get(),
+                                this.getX(), this.getY() + 2.5, this.getZ(),
+                                0,0.025F,0);
                     }
-                    // Destroy sheet
-                    this.inventory.setStackInSlot(0, ItemStack.EMPTY);
-                    this.ticksPlaying = 0;
-                    // Update block
-                    level().setBlock(composerGrave, graveState.setValue(ComposerGravestoneBlock.OPENED, true), 3);
+                    ticksPlaying++;
+                } else {
+                    ticksPlaying = 0;
+                }
+            }
 
-                    // Sound and particles
-                    level().playSound(null, composerGrave, SoundEvents.GRINDSTONE_USE, SoundSource.BLOCKS, 1.0F, 0.5F);
-                    // Open animation
-                    composerGravestoneBE.open();
-                    if (!level().isClientSide()) {
+            // RESURRECTION
+            if (getSheetMusic() == ModItems.RESURRECTION_SONG.get()) {
+                if (ticksPlaying >= 1 && ticksPlaying <= 5) {
+                    Optional<BlockPos> candidate = BlockPos.findClosestMatch(blockPosition(), 7, 7, pos -> level().getBlockState(pos).is(ModBlocks.COMPOSER_GRAVESTONE));
+                    candidate.ifPresent(pos -> this.composerGrave = pos);
+                }
+            }
 
-                        ((ServerLevel) level()).sendParticles(new BlockParticleOption(ParticleTypes.FALLING_DUST, Blocks.STONE.defaultBlockState()),
-                                composerGrave.getX(), composerGrave.getY() + 0.5F, composerGrave.getZ(), 20,
-                                0.2, 0, 0.2, 1.0F);
-
+            if (composerGrave != null && getSheetMusic() == ModItems.RESURRECTION_SONG.get() && isOrchestraFull()) {
+                if (ticksPlaying > 5) {
+                    if (ticksPlaying % 10 == 0 && !level().isClientSide()) {
+                        // Add particles periodically
+                        ((ServerLevel) level()).sendParticles(ParticleTypes.SOUL_FIRE_FLAME, composerGrave.getCenter().x, composerGrave.getY(), composerGrave.getCenter().z,
+                                20, 1,0.3, 1, 0.01);
                     }
+                }
 
-                    // Spawn TGC
-                    TheGreatComposer theGreatComposer = new TheGreatComposer(ModEntities.THE_GREAT_COMPOSER.get(), level());
-                    theGreatComposer.setPos(composerGrave.getCenter().x, composerGrave.below().getY(), composerGrave.getCenter().z);
-                    theGreatComposer.setSpawnPos(composerGrave.below());
-                    theGreatComposer.setYHeadRot(getYRot(graveState.getValue(ComposerGravestoneBlock.FACING)));
-                    theGreatComposer.setYBodyRot(theGreatComposer.getYHeadRot());
+                if (ticksPlaying == 2500) {
+                    BlockState graveState = level().getBlockState(composerGrave);
+                    if (graveState.is(ModBlocks.COMPOSER_GRAVESTONE) && !graveState.getValue(ComposerGravestoneBlock.OPENED)
+                            && level().getBlockEntity(composerGrave) instanceof ComposerGravestoneBlockEntity composerGravestoneBE) {
+                        // START SUMMONING
+                        if (!level().isClientSide()) {
+                            // We spawn a lightning bolt
+                            EntityType.LIGHTNING_BOLT.spawn((ServerLevel) level(), composerGrave, MobSpawnType.MOB_SUMMONED);
+                        }
+                        // Destroy sheet
+                        this.inventory.setStackInSlot(0, ItemStack.EMPTY);
+                        this.ticksPlaying = 0;
+                        // Update block
+                        level().setBlock(composerGrave, graveState.setValue(ComposerGravestoneBlock.OPENED, true), 3);
 
-                    level().addFreshEntity(theGreatComposer);
+                        // Sound and particles
+                        level().playSound(null, composerGrave, SoundEvents.GRINDSTONE_USE, SoundSource.BLOCKS, 1.0F, 0.5F);
+                        // Open animation
+                        composerGravestoneBE.open();
+                        if (!level().isClientSide()) {
+
+                            ((ServerLevel) level()).sendParticles(new BlockParticleOption(ParticleTypes.FALLING_DUST, Blocks.STONE.defaultBlockState()),
+                                    composerGrave.getX(), composerGrave.getY() + 0.5F, composerGrave.getZ(), 20,
+                                    0.2, 0, 0.2, 1.0F);
+
+                        }
+
+                        // Spawn TGC
+                        TheGreatComposer theGreatComposer = new TheGreatComposer(ModEntities.THE_GREAT_COMPOSER.get(), level());
+                        theGreatComposer.setPos(composerGrave.getCenter().x, composerGrave.below().getY(), composerGrave.getCenter().z);
+                        theGreatComposer.setSpawnPos(composerGrave.below());
+                        theGreatComposer.setYHeadRot(getYRot(graveState.getValue(ComposerGravestoneBlock.FACING)));
+                        theGreatComposer.setYBodyRot(theGreatComposer.getYHeadRot());
+
+                        level().addFreshEntity(theGreatComposer);
+                    }
                 }
             }
         }
-
-
 
         super.tick();
     }

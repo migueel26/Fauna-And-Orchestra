@@ -1620,7 +1620,6 @@
 			}
 		},
 		"walk": {
-			"loop": true,
 			"animation_length": 1.1667,
 			"bones": {
 				"frog_left_middle_arm": {
