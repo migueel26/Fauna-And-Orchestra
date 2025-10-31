@@ -190,6 +190,8 @@ public class ModItems {
             () -> new TheGreatHeadItem(ModBlocks.THE_GREAT_HEAD.get(), new Item.Properties().rarity(Rarity.EPIC)));
     public static final DeferredItem<Item> MELOMANCY_CAULDRON_ITEM = ITEMS.register("melomancy_cauldron_item",
             () -> new MelomancyCauldronItem(ModBlocks.MELOMANCY_CAULDRON.get(), new Item.Properties()));
+    public static final DeferredItem<Item> DISCORD_NUCLEI_ITEM = ITEMS.register("discord_nuclei_item",
+            () -> new DiscordNucleiItem(ModBlocks.DISCORD_NUCLEI.get(), new Item.Properties()));
 
     // MISC
     public static final DeferredItem<Item> VOICE = ITEMS.register("voice",

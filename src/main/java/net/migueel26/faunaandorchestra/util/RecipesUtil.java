@@ -1,19 +1,35 @@
 package net.migueel26.faunaandorchestra.util;
 
+import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.block.entity.MelomancyCauldronBlockEntity;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.minecraft.core.NonNullList;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import oshi.util.tuples.Pair;
 
 import java.util.*;
 
 public class RecipesUtil {
     public static final int NUMBER_RECIPES = 1;
+    // MELOMANCY CAULDRON
     public static HashSet<ItemStack> MUSICAL_INK = new HashSet<>(List.of(
             new ItemStack(Items.FEATHER, 1),
             new ItemStack(Items.GLOW_INK_SAC, 1)
     ));
+
+    // DISCORD NUCLEI
+    public static Map<Item, Pair<Integer, Item>> DISCORD_NUCLEI = Map.of(
+            Items.OXEYE_DAISY, new Pair<>(50, ModBlocks.DISCORDED_FLOWER.asItem())
+    );
+
+    // ( BASE UNSTABILITY, EXTRA PROPORTION )
+    public static Map<Item, Pair<Integer, Float>> UNSTABILITY_INDEXES = Map.of(
+            Items.OXEYE_DAISY, new Pair<>(15, 2.75f),
+            ModItems.BOOGIE_BOMB.get(), new Pair<>(10, 1.5f),
+            ModItems.VOICE.get(), new Pair<>(10, 1.5f)
+    );
 
     public static String isRecipe(NonNullList<ItemStack> ingredients) {
         String result = "discord";
@@ -61,5 +77,17 @@ public class RecipesUtil {
             case "musical_ink" -> new ItemStack(ModItems.MUSICAL_INK.get(), 3);
             default -> new ItemStack(ModItems.DISCORD_ESSENCE.get(), 1);
         };
+    }
+
+    public static boolean isDiscordNucleiIngredient(ItemStack stack) {
+        return DISCORD_NUCLEI.containsKey(stack.getItem());
+    }
+
+    public static Pair<Integer, Item> getDiscordNucleiResult(ItemStack stack) {
+        return DISCORD_NUCLEI.get(stack.getItem());
+    }
+
+    public static Pair<Integer, Float> getDiscordNucleiIndexes(ItemStack stack) {
+        return UNSTABILITY_INDEXES.get(stack.getItem());
     }
 }

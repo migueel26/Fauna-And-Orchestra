@@ -3,6 +3,7 @@ package net.migueel26.faunaandorchestra.block;
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.block.entity.*;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -60,6 +61,12 @@ public class ModBlockEntities {
             BLOCK_ENTITES.register("voice_chamber_be", () -> BlockEntityType.Builder.of(
                     VoiceChamberBlockEntity::new,
                     ModBlocks.VOICE_CHAMBER.get()
+            ).build(null));
+
+    public static final Supplier<BlockEntityType<DiscordNucleiBlockEntity>> DISCORD_NUCLEI_BE =
+            BLOCK_ENTITES.register("discord_nuclei_be", () -> BlockEntityType.Builder.of(
+                    DiscordNucleiBlockEntity::new,
+                    ModBlocks.DISCORD_NUCLEI.get()
             ).build(null));
 
     public static final Supplier<BlockEntityType<TheGreatHeadBlockEntity>> THE_GREAT_HEAD_BE =

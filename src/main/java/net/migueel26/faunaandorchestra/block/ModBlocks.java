@@ -123,6 +123,9 @@ public class ModBlocks {
                     .pushReaction(PushReaction.DESTROY)
                     .randomTicks()));
 
+    public static final DeferredBlock<Block> DISCORD_NUCLEI = registerBlock("discord_nuclei",
+            () -> new DiscordNucleiBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SCULK_SHRIEKER)));
+
     public static final DeferredBlock<Block> DAM_BLOCK = registerBlock("dam_block",
             () -> new DamBlock(BlockBehaviour.Properties.of()
                             .strength(0.7F)
