@@ -93,6 +93,8 @@ public class ModItems {
     public static final DeferredItem<Item> DISCORD_ESSENCE = createRegularDescriptionItem("discord_essence");
     public static final DeferredItem<Item> DISCORD_BOMB = ITEMS.register("discord_bomb",
             () -> new DiscordBombItem(new Item.Properties()));
+    public static final DeferredItem<Item> TRANSMUTED_VOICE = ITEMS.register("transmuted_voice",
+            () -> new TransmutedVoiceItem(new Item.Properties()));
     public static final DeferredItem<Item> MUSIC_BOTTLE = createRegularDescriptionItem("music_bottle");
     public static final DeferredItem<Item> FRUIT_OF_LIFE = ITEMS.register("fruit_of_life",
             () -> new Item(new Item.Properties().rarity(Rarity.UNCOMMON)) {

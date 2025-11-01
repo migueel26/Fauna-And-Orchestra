@@ -85,6 +85,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModBlocks.COMPOSER_GRAVESTONE);
                         output.accept(ModBlocks.GRAVESTONE);
                         output.accept(ModItems.THE_GREAT_HEAD_ITEM);
+                        output.accept(ModItems.TRANSMUTED_VOICE);
                         output.accept(ModItems.DISCORD_ESSENCE);
                         output.accept(ModItems.PETALS_OF_DEATH);
                         output.accept(ModBlocks.DISCORDED_FLOWER);

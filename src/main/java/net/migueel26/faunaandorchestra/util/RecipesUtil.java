@@ -22,7 +22,8 @@ public class RecipesUtil {
     // DISCORD NUCLEI
     public static Map<Item, Pair<Integer, Item>> DISCORD_NUCLEI = Map.of(
             Items.OXEYE_DAISY, new Pair<>(50, ModBlocks.DISCORDED_FLOWER.asItem()),
-            ModItems.BOOGIE_FRUIT.get(), new Pair<>(30, ModItems.DISCORD_BOMB.asItem())
+            ModItems.BOOGIE_FRUIT.get(), new Pair<>(30, ModItems.DISCORD_BOMB.asItem()),
+            ModItems.VOICE.get(), new Pair<>(30, ModItems.TRANSMUTED_VOICE.asItem())
     );
 
     // ( BASE UNSTABILITY, EXTRA PROPORTION )
@@ -42,6 +43,10 @@ public class RecipesUtil {
             }
 
             i++;
+        }
+
+        if (result.equalsIgnoreCase("discord")) {
+            result = "discord:" + (ingredients.stream().map(ItemStack::getCount).mapToInt(Integer::intValue).sum() / 2);
         }
 
         return result;
@@ -76,7 +81,7 @@ public class RecipesUtil {
     public static ItemStack getMixResult(String mixResult) {
         return switch (mixResult) {
             case "musical_ink" -> new ItemStack(ModItems.MUSICAL_INK.get(), 3);
-            default -> new ItemStack(ModItems.DISCORD_ESSENCE.get(), 1);
+            default -> new ItemStack(ModItems.DISCORD_ESSENCE.get(), Integer.parseInt(mixResult.split(":")[1]));
         };
     }
 

@@ -42,6 +42,7 @@
   "item.faunaandorchestra.discord_nuclei_item": "Núcleo de discordia",
   "item.faunaandorchestra.musical_ink": "Tinta Musical",
   "item.faunaandorchestra.discord_essence": "Esencia de discordia",
+  "item.faunaandorchestra.transmuted_voice": "Voz transmutada",
   "item.faunaandorchestra.voice": "Voz de ",
 
   "item.faunaandorchestra.discord_essence.desc": "Cuando alguien intenta entrometerse con la naturaleza del sonido, crea una discordia en sus alrededores",
@@ -62,6 +63,7 @@
   "item.faunaandorchestra.gingko_biloba.desc": "Otrora los aldeanos masticaban estas hojas para agudizar su oído",
   "item.faunaandorchestra.whistle.tooltip": "Haz §eclick §ra una mascota para enlazarla. ¡Después podrás llamarla cuando quieras!",
   "item.faunaandorchestra.voice_vessel.tooltip": "Haz §eclick derecho §rpara absorber las voces en la vasija",
+  "item.faunaandorchestra.transmuted_voice.tooltip": "Haz §eclick derecho §ra una criatura sin voz para devolvérsela",
   "item.faunaandorchestra.whistle.desc": "Enlazado con: ",
   "item.faunaandorchestra.whistle.far_message": "¡Está muy lejos!",
   "item.faunaandorchestra.the_great_composer_spawn_egg.desc": "Boss",

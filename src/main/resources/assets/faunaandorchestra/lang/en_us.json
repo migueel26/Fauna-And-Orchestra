@@ -42,6 +42,7 @@
   "item.faunaandorchestra.discord_nuclei_item": "Discord Nuclei",
   "item.faunaandorchestra.musical_ink": "Musical Ink",
   "item.faunaandorchestra.discord_essence": "Essence of Discord",
+  "item.faunaandorchestra.transmuted_voice": "Transmuted Voice",
   "item.faunaandorchestra.voice": "Voice of the ",
 
   "item.faunaandorchestra.discord_essence.desc": "When somebody tries to meddle with the nature of sound, it causes a discord to its surroundings",
@@ -62,6 +63,7 @@
   "item.faunaandorchestra.gingko_biloba.desc": "In ages past, villagers were said to chew these leaves to heighten their auditory perception",
   "item.faunaandorchestra.whistle.tooltip": "§eClick §ra tamed entity to link it. After that you can call it anytime!",
   "item.faunaandorchestra.voice_vessel.tooltip": "§eRight-click §rto absorb the voices nearby into the vessel",
+  "item.faunaandorchestra.transmuted_voice.tooltip": "§eRight-click §ra voiceless entity to give it back",
   "item.faunaandorchestra.whistle.desc": "Linked to: ",
   "item.faunaandorchestra.whistle.far_message": "It's too far away!",
   "item.faunaandorchestra.the_great_composer_spawn_egg.desc": "Boss",
