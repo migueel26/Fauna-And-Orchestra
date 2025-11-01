@@ -88,6 +88,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.DISCORD_ESSENCE);
                         output.accept(ModItems.PETALS_OF_DEATH);
                         output.accept(ModBlocks.DISCORDED_FLOWER);
+                        output.accept(ModItems.DISCORD_BOMB);
                         output.accept(ModItems.DISCORD_NUCLEI_ITEM);
                         output.accept(ModBlocks.CRAWLING_DISCORD);
                         output.accept(ModBlocks.DISCORD_BLOCK);

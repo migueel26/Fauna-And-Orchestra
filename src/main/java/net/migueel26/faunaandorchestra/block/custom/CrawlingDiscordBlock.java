@@ -23,14 +23,15 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import java.util.Iterator;
 
 public class CrawlingDiscordBlock extends Block {
-    public static int MAX_GENERATION = 40;
     public static int NEW_CHILD_TIME = 5;
     public static int DIE_TIME = 200;
+    public static final int DEFAULT_MAX_GENERATION = 40;
     protected static int  DIFFICULT_CHILD_TIME = 2;
     private boolean difficult = false;
-    public static final IntegerProperty GENERATION = IntegerProperty.create("generation", 0, MAX_GENERATION);
+    public static final IntegerProperty GENERATION = IntegerProperty.create("generation", 0, DEFAULT_MAX_GENERATION);
     public static final BooleanProperty FATHER = BooleanProperty.create("father");
     public static final BooleanProperty CLIMBER = BooleanProperty.create("climber");
+    public static final IntegerProperty MAX_GENERATION = IntegerProperty.create("max_generation", 0, DEFAULT_MAX_GENERATION);
     private static final VoxelShape CRAWLER_SHAPE = Block.box(0, 0, 0, 16, 2, 16);
     private static final VoxelShape CLIMBER_SHAPE = Shapes.block();
 
@@ -40,7 +41,8 @@ public class CrawlingDiscordBlock extends Block {
         this.registerDefaultState(this.getStateDefinition().any()
                 .setValue(GENERATION, 0)
                 .setValue(FATHER, false)
-                .setValue(CLIMBER, false));
+                .setValue(CLIMBER, false)
+                .setValue(MAX_GENERATION, DEFAULT_MAX_GENERATION));
     }
 
     @Override
@@ -79,8 +81,9 @@ public class CrawlingDiscordBlock extends Block {
     @Override
     protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         boolean climber = state.getValue(CLIMBER);
-        if (!state.getValue(FATHER) && state.getValue(GENERATION) < MAX_GENERATION) {
+        if (!state.getValue(FATHER) && state.getValue(GENERATION) < state.getValue(MAX_GENERATION)) {
             int myGeneration = state.getValue(GENERATION);
+            int maxGeneration = state.getValue(MAX_GENERATION);
             if (!climber) {
                 // If it's not a climber
                 boolean transformToClimber = false;
@@ -98,7 +101,7 @@ public class CrawlingDiscordBlock extends Block {
                                 !level.getBlockState(nextPos.below()).is(ModBlocks.CRAWLING_DISCORD)) {
 
                             level.setBlock(nextPos, ModBlocks.CRAWLING_DISCORD.get().defaultBlockState()
-                                    .setValue(GENERATION, myGeneration + 1), 3);
+                                    .setValue(GENERATION, myGeneration + 1).setValue(MAX_GENERATION, maxGeneration), 3);
                         }
 
                         if (level.getBlockState(downPos).is(ModTags.Blocks.REPLACEABLE_BY_DISCORD) &&
@@ -106,7 +109,7 @@ public class CrawlingDiscordBlock extends Block {
                                 level.getBlockState(downPos.above()).isAir()) {
 
                             level.setBlock(downPos, ModBlocks.CRAWLING_DISCORD.get().defaultBlockState()
-                                    .setValue(GENERATION, myGeneration + 1).setValue(CLIMBER, true), 3);
+                                    .setValue(GENERATION, myGeneration + 1).setValue(CLIMBER, true).setValue(MAX_GENERATION, maxGeneration), 3);
                         }
 
                     }
@@ -117,11 +120,11 @@ public class CrawlingDiscordBlock extends Block {
 
                 if (!transformToClimber) {
                     // We schedule death
-                    level.setBlock(pos, state.setValue(FATHER, true).setValue(GENERATION, myGeneration), 3);
-                    level.scheduleTick(pos, this, DIE_TIME);
+                    level.setBlock(pos, state.setValue(FATHER, true).setValue(GENERATION, myGeneration).setValue(MAX_GENERATION, maxGeneration), 3);
+                    level.scheduleTick(pos, this, maxGeneration == DEFAULT_MAX_GENERATION ? DIE_TIME : 100);
                 } else {
                     // We transform it
-                    level.setBlock(pos, state.setValue(FATHER, false).setValue(GENERATION, myGeneration).setValue(CLIMBER, true), 3);
+                    level.setBlock(pos, state.setValue(FATHER, false).setValue(GENERATION, myGeneration).setValue(CLIMBER, true).setValue(MAX_GENERATION, maxGeneration), 3);
                     level.scheduleTick(pos, this, getNewChildTime(level));
                 }
 
@@ -137,7 +140,7 @@ public class CrawlingDiscordBlock extends Block {
                     if (time % 2 == 0) {
                         if (level.getBlockState(nextPos).is(ModTags.Blocks.REPLACEABLE_BY_DISCORD) && canGrab(nextPos, level)) {
                             level.setBlock(nextPos, ModBlocks.CRAWLING_DISCORD.get().defaultBlockState()
-                                    .setValue(GENERATION, myGeneration + 1).setValue(CLIMBER, true), 3);
+                                    .setValue(GENERATION, myGeneration + 1).setValue(CLIMBER, true).setValue(MAX_GENERATION, maxGeneration), 3);
                         }
                     }
 
@@ -145,10 +148,10 @@ public class CrawlingDiscordBlock extends Block {
                 }
 
                 level.setBlock(pos, state.setValue(FATHER, true).setValue(GENERATION, myGeneration).setValue(CLIMBER, true), 3);
-                level.scheduleTick(pos, this, DIE_TIME);
+                level.scheduleTick(pos, this, maxGeneration == DEFAULT_MAX_GENERATION ? DIE_TIME : 100);
                 if (level.getBlockState(pos.above()).is(ModTags.Blocks.REPLACEABLE_BY_DISCORD)) {
                     level.setBlock(pos.above(), ModBlocks.CRAWLING_DISCORD.get().defaultBlockState()
-                            .setValue(GENERATION, myGeneration + 1), 3);
+                            .setValue(GENERATION, myGeneration + 1).setValue(MAX_GENERATION, maxGeneration), 3);
                 }
             }
 
@@ -167,7 +170,7 @@ public class CrawlingDiscordBlock extends Block {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(GENERATION, FATHER, CLIMBER);
+        builder.add(GENERATION, FATHER, CLIMBER, MAX_GENERATION);
     }
 
     private int getNewChildTime(Level level) {

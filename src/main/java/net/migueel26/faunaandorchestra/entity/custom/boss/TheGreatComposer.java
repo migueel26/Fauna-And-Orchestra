@@ -613,7 +613,7 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
                 }
             }
 
-            if (stateTime == CrawlingDiscordBlock.NEW_CHILD_TIME * CrawlingDiscordBlock.MAX_GENERATION + CrawlingDiscordBlock.DIE_TIME + (isFinalPhase() ? 0 : 40)) {
+            if (stateTime == CrawlingDiscordBlock.NEW_CHILD_TIME * CrawlingDiscordBlock.DEFAULT_MAX_GENERATION + CrawlingDiscordBlock.DIE_TIME + (isFinalPhase() ? 0 : 40)) {
                 setNewState(ComposerBossState.IDLE);
                 this.attackCooldown = getCooldownTicks() + 20;
                 consecutiveAttacks++;

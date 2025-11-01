@@ -21,14 +21,15 @@ public class RecipesUtil {
 
     // DISCORD NUCLEI
     public static Map<Item, Pair<Integer, Item>> DISCORD_NUCLEI = Map.of(
-            Items.OXEYE_DAISY, new Pair<>(50, ModBlocks.DISCORDED_FLOWER.asItem())
+            Items.OXEYE_DAISY, new Pair<>(50, ModBlocks.DISCORDED_FLOWER.asItem()),
+            ModItems.BOOGIE_FRUIT.get(), new Pair<>(30, ModItems.DISCORD_BOMB.asItem())
     );
 
     // ( BASE UNSTABILITY, EXTRA PROPORTION )
     public static Map<Item, Pair<Integer, Float>> UNSTABILITY_INDEXES = Map.of(
-            Items.OXEYE_DAISY, new Pair<>(15, 2.75f),
-            ModItems.BOOGIE_BOMB.get(), new Pair<>(10, 1.5f),
-            ModItems.VOICE.get(), new Pair<>(10, 1.5f)
+            Items.OXEYE_DAISY, new Pair<>(15, 3.0f),
+            ModItems.BOOGIE_FRUIT.get(), new Pair<>(10, 3.5f),
+            ModItems.VOICE.get(), new Pair<>(10, 3.5f)
     );
 
     public static String isRecipe(NonNullList<ItemStack> ingredients) {

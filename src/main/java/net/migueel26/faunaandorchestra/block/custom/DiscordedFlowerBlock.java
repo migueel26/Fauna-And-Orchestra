@@ -50,7 +50,7 @@ public class DiscordedFlowerBlock extends Block {
             Map.entry(Items.ARMADILLO_SCUTE, 5),
             Map.entry(Items.RABBIT_FOOT, 5),
             Map.entry(Items.TURTLE_SCUTE, 10),
-            Map.entry(Items.SLIME_BALL, 15),
+            Map.entry(Items.SLIME_BALL, 10),
             Map.entry(Items.MAGMA_CREAM, 10),
             Map.entry(Items.GHAST_TEAR, 30),
             Map.entry(Items.PHANTOM_MEMBRANE, 40),
