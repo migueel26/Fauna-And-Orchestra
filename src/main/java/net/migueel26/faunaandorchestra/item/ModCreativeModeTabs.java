@@ -87,6 +87,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.THE_GREAT_HEAD_ITEM);
                         output.accept(ModItems.TRANSMUTED_VOICE);
                         output.accept(ModItems.DISCORD_ESSENCE);
+                        output.accept(ModItems.ACTIVATOR_CLEF);
                         output.accept(ModItems.PETALS_OF_DEATH);
                         output.accept(ModBlocks.DISCORDED_FLOWER);
                         output.accept(ModItems.DISCORD_BOMB);

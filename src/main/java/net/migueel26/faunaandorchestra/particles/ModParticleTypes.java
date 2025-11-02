@@ -30,6 +30,8 @@ public class ModParticleTypes {
             PARTICLE_TYPES.register("voice_particle", () -> new SimpleParticleType(true));
     public static final Supplier<SimpleParticleType> SLEEP =
             PARTICLE_TYPES.register("sleep_particle", () -> new SimpleParticleType(true));
+    public static final Supplier<SimpleParticleType> BASS_CLEF =
+            PARTICLE_TYPES.register("bass_clef", () -> new SimpleParticleType(true));
     public static void register(IEventBus eventBus) {
         PARTICLE_TYPES.register(eventBus);
     }

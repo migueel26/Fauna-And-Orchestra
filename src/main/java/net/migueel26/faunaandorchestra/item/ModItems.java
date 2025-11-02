@@ -91,6 +91,8 @@ public class ModItems {
                     .stacksTo(1)
                     .component(ModDataComponents.OPENED, false)));
     public static final DeferredItem<Item> DISCORD_ESSENCE = createRegularDescriptionItem("discord_essence");
+    public static final DeferredItem<Item> ACTIVATOR_CLEF = ITEMS.register("activator_clef",
+            () -> new ActivatorClefItem(new Item.Properties()));
     public static final DeferredItem<Item> DISCORD_BOMB = ITEMS.register("discord_bomb",
             () -> new DiscordBombItem(new Item.Properties()));
     public static final DeferredItem<Item> TRANSMUTED_VOICE = ITEMS.register("transmuted_voice",

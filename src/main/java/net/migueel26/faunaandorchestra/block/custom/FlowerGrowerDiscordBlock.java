@@ -103,9 +103,10 @@ public class FlowerGrowerDiscordBlock extends Block {
         }
     }
 
-    private boolean isNotProhibited(BlockState nextState) {
+    public static boolean isNotProhibited(BlockState nextState) {
         return !nextState.is(ModBlocks.COMPOSER_GRAVESTONE) && !nextState.is(ModBlocks.DISCORDED_FLOWER)
-                && !nextState.is(Blocks.END_PORTAL) && !nextState.is(Blocks.BEDROCK) && !nextState.is(Blocks.CHEST);
+                && !nextState.is(Blocks.END_PORTAL) && !nextState.is(Blocks.BEDROCK) && !nextState.is(Blocks.CHEST)
+                && !nextState.is(ModBlocks.DISCORD_NUCLEI);
     }
 
     private int getNewChildTime(Level level) {

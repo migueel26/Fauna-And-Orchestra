@@ -42,10 +42,12 @@
   "item.faunaandorchestra.discord_nuclei_item": "Discord Nuclei",
   "item.faunaandorchestra.musical_ink": "Musical Ink",
   "item.faunaandorchestra.discord_essence": "Essence of Discord",
+  "item.faunaandorchestra.activator_clef": "Activator Clef",
   "item.faunaandorchestra.transmuted_voice": "Transmuted Voice",
   "item.faunaandorchestra.voice": "Voice of the ",
 
   "item.faunaandorchestra.discord_essence.desc": "When somebody tries to meddle with the nature of sound, it causes a discord to its surroundings",
+  "item.faunaandorchestra.activator_clef.desc": "Unstable clef with the capacity to excite the terrain and manifest discord",
   "item.faunaandorchestra.petals_of_death.desc": "Byproduct of the great hunger of a Discorded Flower",
   "item.faunaandorchestra.musical_ink.desc": "§eClick §ra sign block to give it a unique musical style!",
   "item.faunaandorchestra.fruit_of_life.desc": "Fruit of the Wise Tree, not apt for human consumption",

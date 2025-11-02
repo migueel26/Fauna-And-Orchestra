@@ -24,6 +24,7 @@ import net.migueel26.faunaandorchestra.screen.custom.*;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.migueel26.faunaandorchestra.util.ModItemProperties;
 import net.migueel26.faunaandorchestra.worldgen.structures.ModStructuredProcessors;
+import net.minecraft.client.particle.NoteParticle;
 import net.minecraft.client.particle.SculkChargePopParticle;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
@@ -161,7 +162,7 @@ public class FaunaAndOrchestra {
             event.registerBelow(VanillaGuiLayers.HOTBAR, ResourceLocation.fromNamespaceAndPath(MOD_ID, "dialogue"), DialogueScreen.OVERLAY);
             event.registerBelow(VanillaGuiLayers.HOTBAR, ResourceLocation.fromNamespaceAndPath(MOD_ID, "dialogue_composer"), TheGreatComposerScreen.OVERLAY);
             event.registerAbove(VanillaGuiLayers.CROSSHAIR, ResourceLocation.fromNamespaceAndPath(MOD_ID, "melomancy_hottip"), MelomancyCauldronScreen.OVERLAY);
-        event.registerAbove(VanillaGuiLayers.CROSSHAIR, ResourceLocation.fromNamespaceAndPath(MOD_ID, "discord_nuclei_hottip"), DiscordNucleiScreen.OVERLAY);
+            event.registerAbove(VanillaGuiLayers.CROSSHAIR, ResourceLocation.fromNamespaceAndPath(MOD_ID, "discord_nuclei_hottip"), DiscordNucleiScreen.OVERLAY);
             event.registerAbove(VanillaGuiLayers.CROSSHAIR, ResourceLocation.fromNamespaceAndPath(MOD_ID, "composer_gravestone_gui"), ComposerGravestoneScreen.OVERLAY);
         }
 
@@ -175,6 +176,7 @@ public class FaunaAndOrchestra {
             event.registerSpriteSet(ModParticleTypes.STAR.get(), StarParticle.Provider::new);
             event.registerSpriteSet(ModParticleTypes.VOICE_PARTICLE.get(), VoiceParticle.Provider::new);
             event.registerSpriteSet(ModParticleTypes.SLEEP.get(), SleepParticle.Provider::new);
+            event.registerSpriteSet(ModParticleTypes.BASS_CLEF.get(), BassClefParticle.Provider::new);
         }
     }
 
