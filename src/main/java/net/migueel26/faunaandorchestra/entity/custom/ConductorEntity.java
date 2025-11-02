@@ -6,11 +6,13 @@ import net.migueel26.faunaandorchestra.block.entity.ComposerGravestoneBlockEntit
 import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.entity.custom.boss.TheGreatComposer;
+import net.migueel26.faunaandorchestra.entity.custom.projectile.PhantomNoteProjectileEntity;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
 import net.migueel26.faunaandorchestra.screen.custom.ConductorMenu;
 import net.migueel26.faunaandorchestra.util.ModTags;
 import net.migueel26.faunaandorchestra.util.MusicUtil;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -28,16 +30,21 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.items.ItemStackHandler;
 
 import java.util.*;
@@ -163,7 +170,7 @@ public abstract class ConductorEntity extends TamableAnimal {
                     } else if (ticksPlaying % 15 == 0) {
                         level().addParticle(ModParticleTypes.FAUNA_NOTES.get(),
                                 this.getX(), this.getY() + 2.5, this.getZ(),
-                                0,0.025F,0);
+                                0, 0.025F, 0);
                     }
                     ticksPlaying++;
                 } else {
@@ -173,62 +180,145 @@ public abstract class ConductorEntity extends TamableAnimal {
 
             // RESURRECTION
             if (getSheetMusic() == ModItems.RESURRECTION_SONG.get()) {
-                if (ticksPlaying >= 1 && ticksPlaying <= 5) {
-                    Optional<BlockPos> candidate = BlockPos.findClosestMatch(blockPosition(), 7, 7, pos -> level().getBlockState(pos).is(ModBlocks.COMPOSER_GRAVESTONE));
-                    candidate.ifPresent(pos -> this.composerGrave = pos);
-                }
+                tryToResurrect();
             }
 
-            if (composerGrave != null && getSheetMusic() == ModItems.RESURRECTION_SONG.get() && isOrchestraFull()) {
-                if (ticksPlaying > 5) {
-                    if (ticksPlaying % 10 == 0 && !level().isClientSide()) {
-                        // Add particles periodically
-                        ((ServerLevel) level()).sendParticles(ParticleTypes.SOUL_FIRE_FLAME, composerGrave.getCenter().x, composerGrave.getY(), composerGrave.getCenter().z,
-                                20, 1,0.3, 1, 0.01);
-                    }
-                }
-
-                if (ticksPlaying == 2500) {
-                    BlockState graveState = level().getBlockState(composerGrave);
-                    if (graveState.is(ModBlocks.COMPOSER_GRAVESTONE) && !graveState.getValue(ComposerGravestoneBlock.OPENED)
-                            && level().getBlockEntity(composerGrave) instanceof ComposerGravestoneBlockEntity composerGravestoneBE) {
-                        // START SUMMONING
-                        if (!level().isClientSide()) {
-                            // We spawn a lightning bolt
-                            EntityType.LIGHTNING_BOLT.spawn((ServerLevel) level(), composerGrave, MobSpawnType.MOB_SUMMONED);
-                        }
-                        // Destroy sheet
-                        this.inventory.setStackInSlot(0, ItemStack.EMPTY);
-                        this.ticksPlaying = 0;
-                        // Update block
-                        level().setBlock(composerGrave, graveState.setValue(ComposerGravestoneBlock.OPENED, true), 3);
-
-                        // Sound and particles
-                        level().playSound(null, composerGrave, SoundEvents.GRINDSTONE_USE, SoundSource.BLOCKS, 1.0F, 0.5F);
-                        // Open animation
-                        composerGravestoneBE.open();
-                        if (!level().isClientSide()) {
-
-                            ((ServerLevel) level()).sendParticles(new BlockParticleOption(ParticleTypes.FALLING_DUST, Blocks.STONE.defaultBlockState()),
-                                    composerGrave.getX(), composerGrave.getY() + 0.5F, composerGrave.getZ(), 20,
-                                    0.2, 0, 0.2, 1.0F);
-
-                        }
-
-                        // Spawn TGC
-                        TheGreatComposer theGreatComposer = new TheGreatComposer(ModEntities.THE_GREAT_COMPOSER.get(), level());
-                        theGreatComposer.setPos(composerGrave.getCenter().x, composerGrave.below().getY(), composerGrave.getCenter().z);
-                        theGreatComposer.setSpawnPos(composerGrave.below());
-                        theGreatComposer.setYHeadRot(getYRot(graveState.getValue(ComposerGravestoneBlock.FACING)));
-                        theGreatComposer.setYBodyRot(theGreatComposer.getYHeadRot());
-
-                        level().addFreshEntity(theGreatComposer);
-                    }
-                }
+            // MAGIC
+            if (isHoldingLegendaryBaton() && isHoldingASheetMusic() && isOrchestraFull()) {
+                tryToApplyLegendaryEffect();
             }
         }
 
         super.tick();
+    }
+
+    private void tryToResurrect() {
+        if (ticksPlaying >= 1 && ticksPlaying <= 5) {
+            Optional<BlockPos> candidate = BlockPos.findClosestMatch(blockPosition(), 7, 7, pos -> level().getBlockState(pos).is(ModBlocks.COMPOSER_GRAVESTONE));
+            candidate.ifPresent(pos -> this.composerGrave = pos);
+        }
+
+
+        if (composerGrave != null && isOrchestraFull()) {
+            if (ticksPlaying > 5) {
+                if (ticksPlaying % 10 == 0 && !level().isClientSide()) {
+                    // Add particles periodically
+                    ((ServerLevel) level()).sendParticles(ParticleTypes.SOUL_FIRE_FLAME, composerGrave.getCenter().x, composerGrave.getY(), composerGrave.getCenter().z,
+                            20, 1, 0.3, 1, 0.01);
+                }
+            }
+
+            if (ticksPlaying == 2500) {
+                BlockState graveState = level().getBlockState(composerGrave);
+                if (graveState.is(ModBlocks.COMPOSER_GRAVESTONE) && !graveState.getValue(ComposerGravestoneBlock.OPENED)
+                        && level().getBlockEntity(composerGrave) instanceof ComposerGravestoneBlockEntity composerGravestoneBE) {
+                    startResurrection(composerGravestoneBE, graveState);
+                }
+            }
+        }
+    }
+
+    private void startResurrection(ComposerGravestoneBlockEntity composerGravestoneBE, BlockState graveState) {
+        // START SUMMONING
+        if (!level().isClientSide()) {
+            // We spawn a lightning bolt
+            EntityType.LIGHTNING_BOLT.spawn((ServerLevel) level(), composerGrave, MobSpawnType.MOB_SUMMONED);
+        }
+        // Destroy sheet
+        this.inventory.setStackInSlot(0, ItemStack.EMPTY);
+        this.ticksPlaying = 0;
+        // Update block
+        level().setBlock(composerGrave, graveState.setValue(ComposerGravestoneBlock.OPENED, true), 3);
+
+        // Sound and particles
+        level().playSound(null, composerGrave, SoundEvents.GRINDSTONE_USE, SoundSource.BLOCKS, 1.0F, 0.5F);
+        // Open animation
+        composerGravestoneBE.open();
+        if (!level().isClientSide()) {
+
+            ((ServerLevel) level()).sendParticles(new BlockParticleOption(ParticleTypes.FALLING_DUST, Blocks.STONE.defaultBlockState()),
+                    composerGrave.getX(), composerGrave.getY() + 0.5F, composerGrave.getZ(), 20,
+                    0.2, 0, 0.2, 1.0F);
+
+        }
+
+        // Spawn TGC
+        TheGreatComposer theGreatComposer = new TheGreatComposer(ModEntities.THE_GREAT_COMPOSER.get(), level());
+        theGreatComposer.setPos(composerGrave.getCenter().x, composerGrave.below().getY(), composerGrave.getCenter().z);
+        theGreatComposer.setSpawnPos(composerGrave.below());
+        theGreatComposer.setYHeadRot(getYRot(graveState.getValue(ComposerGravestoneBlock.FACING)));
+        theGreatComposer.setYBodyRot(theGreatComposer.getYHeadRot());
+
+        level().addFreshEntity(theGreatComposer);
+    }
+
+    private void tryToApplyLegendaryEffect() {
+        if (level().isClientSide()) return; // Only run on the server
+
+        ServerLevel serverLevel = (ServerLevel) level();
+        Item sheetMusic = getSheetMusic();
+
+        if (sheetMusic.equals(ModItems.BLUES_SHEET_MUSIC.get())) {
+            if (ticksPlaying == 10) {
+                serverLevel.setDayTime(14000L); // night
+                serverLevel.sendParticles(ParticleTypes.GLOW_SQUID_INK,
+                        getX(), getY() + 10, getZ(), 100, 0.5, 10, 0.5, 0.05);
+            }
+        } else if (sheetMusic.equals(ModItems.BACH_AIR_SHEET_MUSIC.get())) {
+            if (ticksPlaying == 10) {
+                serverLevel.setDayTime(1000L); // early morning
+                serverLevel.sendParticles(ParticleTypes.GLOW_SQUID_INK,
+                        getX(), getY() + 10, getZ(), 100, 0.5, 10, 0.5, 0.05);
+            }
+        } else if (sheetMusic.equals(ModItems.GREENSLEEVES_SHEET_MUSIC.get())) {
+            if (ticksPlaying % 40 == 0) {
+                applyLegendaryOrchestraEffect(serverLevel, MobEffects.HEALTH_BOOST, 4);
+            }
+        } else if (sheetMusic.equals(ModItems.LA_BAMBA_SHEET_MUSIC.get())) {
+            if (ticksPlaying % 40 == 0) {
+                applyLegendaryOrchestraEffect(serverLevel, MobEffects.LUCK, 2);
+            }
+        } else if (sheetMusic.equals(ModItems.JAZZY_FUR_ELISE_SHEET_MUSIC.get())) {
+            if (ticksPlaying % 40 == 0) {
+                applyLegendaryOrchestraEffect(serverLevel, MobEffects.SATURATION, 2);
+            }
+        } else if (sheetMusic.equals(ModItems.DANCE_OF_THE_LITTLE_SWANS.get())) {
+            if (ticksPlaying % 20 == 0) {
+                Player owner = level().getPlayerByUUID(getOwnerUUID());
+                Monster target = level().getNearestEntity(
+                        Monster.class,
+                        TargetingConditions.forCombat().range(15.0), // optional: limit distance
+                        owner,
+                        getX(), getY(), getZ(),
+                        getBoundingBox().inflate(15)
+                );
+
+                if (target != null) {
+                    Vec3 direction = target.position()
+                            .add(0, target.getBbHeight() * 0.5, 0)
+                            .subtract(this.position().add(0, 2.5, 0))
+                            .normalize()
+                            .scale(0.35);
+
+                    PhantomNoteProjectileEntity note = new PhantomNoteProjectileEntity(this, direction, level());
+                    note.setGood(true);
+                    note.moveTo(getX(), getY() + 1.75f, getZ());
+                    note.setDeltaMovement(direction);
+                    level().addFreshEntity(note);
+                }
+            }
+        } else if (sheetMusic.equals(ModItems.RESURRECTION_SONG.get())) {
+
+        }
+    }
+
+    private void applyLegendaryOrchestraEffect(ServerLevel serverLevel, Holder<MobEffect> luck, int amplifier) {
+        List<ServerPlayer> players = serverLevel.getPlayers(
+                player -> player.distanceTo(this) <= 50
+        );
+        for (Player player : players) {
+            player.addEffect(new MobEffectInstance(luck, 100, amplifier, true, true));
+        }
     }
 
     @Override
@@ -236,7 +326,7 @@ public abstract class ConductorEntity extends TamableAnimal {
         ItemStack itemStack = player.getItemInHand(hand);
         if (isTame()) {
             if (hand == InteractionHand.MAIN_HAND && isHoldingBaton() && !player.isSecondaryUseActive()
-                && !this.level().isClientSide()) {
+                    && !this.level().isClientSide()) {
 
                 this.openCustomMenu(player);
                 return InteractionResult.SUCCESS;
@@ -249,7 +339,7 @@ public abstract class ConductorEntity extends TamableAnimal {
                 setLegendaryBaton(false);
                 setOrderedToSit(false);
                 return InteractionResult.SUCCESS;
-                
+
             } else if (itemStack.is(ModItems.BATON) && !isHoldingBaton()) {
 
                 level().addParticle(ParticleTypes.NOTE, this.getX(), this.getY() + 2.5, this.getZ(), 0F, 0.5F, 0F);
@@ -267,7 +357,7 @@ public abstract class ConductorEntity extends TamableAnimal {
                 setLegendaryBaton(true);
                 setOrderedToSit(true);
 
-                
+
             } else if (itemStack.is(ModItems.BRIEFCASE) && itemStack.getOrDefault(ModDataComponents.OPENED, false)
                     && getOwnerUUID().equals(player.getUUID())) {
                 List<String> animals = itemStack.get(ModDataComponents.BRIEFCASE_ANIMAL_LIST);
@@ -344,8 +434,8 @@ public abstract class ConductorEntity extends TamableAnimal {
         return switch (facing) {
             case NORTH -> 180f;
             case SOUTH -> 0f;
-            case WEST  -> 90f;
-            case EAST  -> -90f;
+            case WEST -> 90f;
+            case EAST -> -90f;
             default -> 0f;
         };
     }
@@ -409,12 +499,14 @@ public abstract class ConductorEntity extends TamableAnimal {
 
     public void addMusician(MusicalEntity musicalEntity) {
         orchestra.add(musicalEntity);
-        if (!isConducting) this.entityData.set(IS_CONDUCTING, true); isConducting = true;
+        if (!isConducting) this.entityData.set(IS_CONDUCTING, true);
+        isConducting = true;
     }
 
     public void removeMusician(MusicalEntity musicalEntity) {
         orchestra.remove(musicalEntity);
-        if (orchestra.isEmpty()) this.entityData.set(IS_CONDUCTING, false); isConducting = false;
+        if (orchestra.isEmpty()) this.entityData.set(IS_CONDUCTING, false);
+        isConducting = false;
     }
 
     public void setConducting(boolean setConducting) {
