@@ -1,0 +1,33 @@
+{
+  "name": "symphonia.entry.sheet_music",
+  "category": "faunaandorchestra:musicians",
+  "icon": "faunaandorchestra:bach_air_sheet_music",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "text",
+      "text": "symphonia.page.sheet_music0"
+    },
+    {
+      "type": "entity",
+      "entity": "faunaandorchestra:wandering_koala",
+      "rotate": true,
+      "offset": 0.1,
+      "default_rotation": 22.5,
+      "text": "symphonia.page.sheet_music1"
+    },
+    {
+      "type": "spotlight",
+      "item": "faunaandorchestra:bach_air_sheet_music",
+      "text": "symphonia.page.sheet_music2"
+    },
+    {
+      "type": "image",
+      "images": [
+        "faunaandorchestra:textures/gui/entries/composer_graveyard.png"
+      ],
+      "border": true,
+      "title": "symphonia.page.sheet_music3"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "name": "symphonia.entry.conductor",
+  "category": "faunaandorchestra:musicians",
+  "icon": "faunaandorchestra:baton",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "text",
+      "text": "symphonia.page.conductor0"
+    },
+    {
+      "type": "entity",
+      "entity": "faunaandorchestra:quirky_frog",
+      "rotate": false,
+      "default_rotation": 22.5,
+      "text": "symphonia.page.conductor1"
+    },
+    {
+      "type": "spotlight",
+      "item": "faunaandorchestra:baton",
+      "text": "symphonia.page.conductor2"
+    },
+    {
+      "type": "image",
+      "images": [
+        "faunaandorchestra:textures/gui/entries/frog_song.png"
+      ],
+      "border": true,
+      "title": "symphonia.page.conductor3"
+    }
+  ]
+}

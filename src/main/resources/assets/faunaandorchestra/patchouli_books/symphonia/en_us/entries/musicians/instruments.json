@@ -25,7 +25,8 @@
     },
     {
       "type": "crafting",
-      "recipe": "faunaandorchestra:oboe"
+      "recipe": "faunaandorchestra:oboe",
+      "recipe2": "faunaandorchestra:baton"
     }
   ]
 }

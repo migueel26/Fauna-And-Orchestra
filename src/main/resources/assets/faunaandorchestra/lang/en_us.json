@@ -287,7 +287,7 @@
   "symphonia.page.welcome2": "In spite of sounding like a safe and joyous journey $(o)(and it is!)$(), you need to be aware of the dangers you may encounter. Top-notch orchestras produce $(o)$(#290747)magical melodies$() which can be used for good or for bad. It may enhance your powers with magic, or doom us all. But let's not get ahead of ourselves! I've already documented a pretty complete animal dictionary with all the regular animals you may encounter, alongside some more... $(o)interesting ones$(). Have fun!",
   "symphonia.page.welcome3": "Welcome to Fauna & Orchestra!",
 
-  "symphonia.entry.instruments": "Instruments",
+  "symphonia.entry.instruments": "Instruments & the Baton",
   "symphonia.page.instruments0": "Before even trying to find your feral mates, you need to create the $(l)instruments$() they'll play! Remember: in order to awaken their true gift to music, you need to $(o)play these instruments around them$(). Don't give up if they ignore you, only $(o)one in every three animals$() can become an expert in the musical arts. Following this page are you'll find the instruments you can craft.",
 
   "symphonia.entry.briefcase": "Briefcase",
@@ -316,5 +316,17 @@
 
   "symphonia.entry.beaver": "Beaver",
   "symphonia.page.beaver0": "$(l)Beavers$()! These hardworking $(o)(and kind of annoying...)$() animals can be found in almost every $(l)river$() you may found! You'll notice their presence by the large $(o)dams$() they adore to build. But beware! If you don't control their population, they might clog every single body of water in the world! $(br)Even though they might be... $(o)annoying$() I can't deny their musical talent! ",
-  "symphonia.page.beaver1": "Fun fact: If you ever run out of sticks, find a river. You'll have sticks for days!"
+  "symphonia.page.beaver1": "Fun fact: If you ever run out of sticks, find a river. You'll have sticks for days!",
+
+  "symphonia.entry.conductor": "The Conductor",
+  "symphonia.page.conductor0": "May I present to you, nature's best conductor... the $(l)quirky frog$()! I know, you might be thinking: $(o)but I've seen frogs before$()! While not being wrong, this special kind of frogs live in $(o)swamps$() and have one great talent: absolute hearing. They're great singers and some of them might even become great $(o)conductors$()! $(br)For more, keep reading the next page.",
+  "symphonia.page.conductor1": "My family always told me some forest kids taught the frogs their song ages ago.",
+  "symphonia.page.conductor2": "In order to tame these $(o)leapy animals$(), you'll need to get yourself a $(l)baton$(). Then, you have to wait $(o)(or make)$() for a group of five or more frogs to reunite. After that, they'll start singing and one of them will start to $(o)conduct$(). Give the baton to the conductor and take it with you!",
+  "symphonia.page.conductor3": "A Frog Choir",
+
+  "symphonia.entry.sheet_music": "Sheet Music",
+  "symphonia.page.sheet_music0": "Although you may not find regular $(l)koalas$() anymore, there are still some $(o)wandering ones$() traveling around the world. These koalas left their homes a long time ago in search of something greater: the origin of music itself. That's why they're never in the same place: they're always on the run, looking for new $(l)sheet music$() to collect and, for a good price, even sell.",
+  "symphonia.page.sheet_music1": "Read the next page to discover how to find them!",
+  "symphonia.page.sheet_music2": "These $(l)wandering koalas$() can usually be found in $(o)composer graveyards (in taiga biomes) or pyramids$(). You know, places of interest. Be careful though: you might find them $(o)asleep$()! They can't be waken up hurting them in this state, you'll need to play some sort of $(o)instrument$() around them to wake them up and trade with them.",
+  "symphonia.page.sheet_music3": "Composer Graveyard"
 }
