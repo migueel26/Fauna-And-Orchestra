@@ -1,0 +1,31 @@
+{
+  "name": "symphonia.entry.instruments",
+  "category": "faunaandorchestra:musicians",
+  "icon": "faunaandorchestra:violin",
+  "sortnum": -9,
+  "pages": [
+    {
+      "type": "text",
+      "text": "symphonia.page.instruments0"
+    },
+    {
+      "type": "crafting",
+      "recipe": "faunaandorchestra:violin",
+      "recipe2": "faunaandorchestra:flute"
+    },
+    {
+      "type": "crafting",
+      "recipe": "faunaandorchestra:keytar",
+      "recipe2": "faunaandorchestra:double_bass"
+    },
+    {
+      "type": "crafting",
+      "recipe": "faunaandorchestra:saxophone",
+      "recipe2": "faunaandorchestra:cello"
+    },
+    {
+      "type": "crafting",
+      "recipe": "faunaandorchestra:oboe"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "name": "symphonia.entry.welcome",
+  "category": "faunaandorchestra:musicians",
+  "icon": "faunaandorchestra:icon",
+  "priority": true,
+  "sortnum": -10,
+  "pages": [
+    {
+      "type": "text",
+      "text": "symphonia.page.welcome0"
+    },
+    {
+      "type": "text",
+      "text": "symphonia.page.welcome1"
+    },
+    {
+      "type": "text",
+      "text": "symphonia.page.welcome2"
+    },
+    {
+      "type": "image",
+      "images": [
+        "faunaandorchestra:textures/gui/entries/intro_render.png"
+      ],
+      "title": "Fauna & Orchestra",
+      "text": "symphonia.page.welcome3"
+    }
+  ]
+}

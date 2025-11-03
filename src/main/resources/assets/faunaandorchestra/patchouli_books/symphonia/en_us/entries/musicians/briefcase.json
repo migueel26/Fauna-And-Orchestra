@@ -1,0 +1,16 @@
+{
+  "name": "symphonia.entry.briefcase",
+  "category": "faunaandorchestra:musicians",
+  "icon": "faunaandorchestra:briefcase",
+  "pages": [
+    {
+      "type": "text",
+      "text": "symphonia.page.briefcase0"
+    },
+    {
+      "type": "crafting",
+      "recipe": "faunaandorchestra:briefcase",
+      "text": "symphonia.page.briefcase1"
+    }
+  ]
+}

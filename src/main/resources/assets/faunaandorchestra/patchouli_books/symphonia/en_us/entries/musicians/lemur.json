@@ -1,0 +1,19 @@
+{
+  "name": "symphonia.entry.lemur",
+  "category": "faunaandorchestra:musicians",
+  "icon": "faunaandorchestra:lemur_spawn_egg",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "text",
+      "text": "symphonia.page.lemur0"
+    },
+    {
+      "type": "entity",
+      "entity": "faunaandorchestra:lemur",
+      "rotate": false,
+      "default_rotation": 15,
+      "text": "symphonia.page.lemur1"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "name": "symphonia.entry.red_panda",
+  "category": "faunaandorchestra:musicians",
+  "icon": "faunaandorchestra:red_panda_spawn_egg",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "text",
+      "text": "symphonia.page.red_panda0"
+    },
+    {
+      "type": "entity",
+      "entity": "faunaandorchestra:red_panda",
+      "rotate": false,
+      "offset": 0.1,
+      "default_rotation": 20,
+      "text": "symphonia.page.red_panda1"
+    }
+  ]
+}

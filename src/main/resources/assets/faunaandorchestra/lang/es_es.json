@@ -270,5 +270,10 @@
 
   "dialogue.faunaandorchestra.the_great_composer0": "Quién ose despertarme a mí, el Gran Compositor...",
   "dialogue.faunaandorchestra.the_great_composer1": "...¡sufrirá mi IRA!",
-  "dialogue.faunaandorchestra.the_great_composer2": "Ya no podrá defenderse más, ¡atácalo directamente!"
+  "dialogue.faunaandorchestra.the_great_composer2": "Ya no podrá defenderse más, ¡atácalo directamente!",
+
+  "item.faunaandorchestra.symphonia": "Symphonia",
+  "symphonia.landing": "I'm $(#290747)Anya$(), the creator of this guide. During my long exile, I've compiled everything and everyone there is to know about $(o)animals, music and melomancy$() in the hope that somebody frees our land from the horrors of discordance.",
+  "symphonia.category.musicians": "An Overview on Phenomenal Nature",
+  "symphonia.category.musicians.desc": "The fauna of our world is inherently musical: you just need to know how to wake their gifts up! This chapter contains all the information regarding the musical creatures around our world and how to interact with them."
 }

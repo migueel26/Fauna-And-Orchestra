@@ -1,0 +1,20 @@
+{
+  "name": "symphonia.entry.beaver",
+  "category": "faunaandorchestra:musicians",
+  "icon": "faunaandorchestra:beaver_spawn_egg",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "text",
+      "text": "symphonia.page.beaver0"
+    },
+    {
+      "type": "entity",
+      "entity": "faunaandorchestra:beaver",
+      "rotate": false,
+      "scale": 0.9,
+      "default_rotation": 30,
+      "text": "symphonia.page.beaver1"
+    }
+  ]
+}

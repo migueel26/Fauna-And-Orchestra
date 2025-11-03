@@ -264,6 +264,18 @@
       "faunaandorchestra:music/frog_song"
     ]
   },
+  "symphonia_page": {
+    "subtitles": "sounds.faunaandorchestra.symphonia_page",
+    "sounds": [
+      "faunaandorchestra:sfx/symphonia_page"
+    ]
+  },
+  "symphonia_open": {
+    "subtitles": "sounds.faunaandorchestra.symphonia_open",
+    "sounds": [
+      "faunaandorchestra:sfx/symphonia_open"
+    ]
+  },
   "mantis_ambient": {
     "subtitles": "sounds.faunaandorchestra.mantis_ambient",
     "sounds": [

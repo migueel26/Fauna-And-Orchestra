@@ -1,4 +1,6 @@
 {
+  "_comment1": "If you're a translator, feel free to rename advancements and descriptions to make musical references!",
+
   "creativetab.faunaandorchestra.fauna_and_orchestra": "Fauna & Orchestra",
 
   "item.faunaandorchestra.violin": "Violin",
@@ -270,5 +272,49 @@
 
   "dialogue.faunaandorchestra.the_great_composer0": "Those who dare to awaken me, the Great Composer...",
   "dialogue.faunaandorchestra.the_great_composer1": "... shall meet their DEMISE!",
-  "dialogue.faunaandorchestra.the_great_composer2": "He can't defend himself anymore, attack him directly!"
+  "dialogue.faunaandorchestra.the_great_composer2": "He can't defend himself anymore, attack him directly!",
+
+  "item.faunaandorchestra.symphonia": "Symphonia",
+  "symphonia.landing": "I'm $(#290747)Anya$(), the creator of this guide. During my long exile, I've compiled everything and everyone there is to know about $(o)animals, music and melomancy$() in the hope that somebody frees our land from the horrors of discordance.",
+  "symphonia.category.musicians": "Intro to Biophilia",
+  "symphonia.category.musicians.desc": "The $(o)fauna$() of our world is inherently musical: you just need to know how to wake their gifts up! This chapter contains all the information regarding the musical creatures around our world and how to interact with them.",
+  "symphonia.category.melomancy": "Melomancy 101",
+  "symphonia.category.melomancy.desc": "Desc",
+
+  "symphonia.entry.welcome": "Introduction to Musicality",
+  "symphonia.page.welcome0": "$(o)Welcome to our musical world!$() Whether you found this book by accident, crafted it with some musical ink, or received it from me: this is the first step towards unveiling this world's true sound and becoming a true musician! Whether you just want to enliven your home with some music, or truly become a master of the $(o)$(#290747)melomantic arts$(), this is your guide.",
+  "symphonia.page.welcome1": "Every good musician needs to find a good orchestra. Lucky for you, this world is filled with $(o)musical creatures and magical sounds$()! You'll need to recruit your own $(l)musicians$(), find your $(l)sheets$() and select a $(l)competent conductor$() for them. You can find these animals everywhere! A lot of creatures are innate artists, they just need that... $(o)special sound$() to bring the melodies out of them!",
+  "symphonia.page.welcome2": "In spite of sounding like a safe and joyous journey $(o)(and it is!)$(), you need to be aware of the dangers you may encounter. Top-notch orchestras produce $(o)$(#290747)magical melodies$() which can be used for good or for bad. It may enhance your powers with magic, or doom us all. But let's not get ahead of ourselves! I've already documented a pretty complete animal dictionary with all the regular animals you may encounter, alongside some more... $(o)interesting ones$(). Have fun!",
+  "symphonia.page.welcome3": "Welcome to Fauna & Orchestra!",
+
+  "symphonia.entry.instruments": "Instruments",
+  "symphonia.page.instruments0": "Before even trying to find your feral mates, you need to create the $(l)instruments$() they'll play! Remember: in order to awaken their true gift to music, you need to $(o)play these instruments around them$(). Don't give up if they ignore you, only $(o)one in every three animals$() can become an expert in the musical arts. Following this page are you'll find the instruments you can craft.",
+
+  "symphonia.entry.briefcase": "Briefcase",
+  "symphonia.page.briefcase0": "You're going to encounter lots of musical animals in your adventure, and you always have to be prepared for that! Whether you are looking for an oboist or a violinist, you need some sort of method of transportation for your musicians. Introducing the $(l)briefcase$(): with cutting edge ender-technology you'll be able to $(o)store up to six musical animals$() inside it and take them home.",
+  "symphonia.page.briefcase1": "Tip: Most items with functionalities have descriptions telling how you can use them!",
+
+  "symphonia.entry.mantis": "Mantis",
+  "symphonia.page.mantis0": "$(l)Mantises$() have inhabited the $(o)Mangrove Swamps$()! These abnormally gigantic mantises are found in small packs, usually between two and three, and are extremely territorial. They won't attack you unless you hurt one of them, but don't try to approach them in the night either! $(br)Besides all of this, they are great musicians when given the right instrument!",
+  "symphonia.page.mantis1": "Fun fact: Their giant yellow eyes hide their pupils when angry: their predators get intimidated by this tactic!",
+
+  "symphonia.entry.penguin": "Baby Penguin",
+  "symphonia.page.penguin0": "Check the floor at all times! You might bump into these little $(l)penguins$() while traveling through most $(o)snowy biomes$(). They're one of the most social creatures out there: they will always wave at you with great happiness when they notice your presence! They also love swimming, and the can run very fast! $(br)Despite their age, they can perform music spectacularly!",
+  "symphonia.page.penguin1": "Fun fact: If they don't practice the musical arts when young, they'll lose their gift when grown up!",
+
+  "symphonia.entry.red_panda": "Red Panda",
+  "symphonia.page.red_panda0": "Who doesn't love $(o)bamboo forests$()? You may do, but certainly not more than $(l)red pandas$()! Just like their bigger white and black siblings, you can find them there and more rarely in regular jungles. They love to wander around, stare at other animals. If they get tired of walking on four, they might even stand up for a while! $(br)Nature gave them legs and paws for something: music!",
+  "symphonia.page.red_panda1": "Fun fact: They believe they're as intimidating as regular pandas, so they stand up to them sometimes!",
+
+  "symphonia.entry.macaw": "Macaw",
+  "symphonia.page.macaw0": "You may know parrots, but have you ever heard of $(l)macaws$()? They bring life to every $(o)jungle forest$() you may find! They love flying around, usually in flocks, alongside their colorful siblings $(o)(cousins, even?)$(). Despite being so similar to them, they can't imitate the sounds you make or dance to the tunes you may play. $(br)However, they are big fans of some string instrument!",
+  "symphonia.page.macaw1": "Fun fact: Although they might be small, they have great strength lifting heavy equipment!",
+
+  "symphonia.entry.lemur": "Lemur",
+  "symphonia.page.lemur0": "Our favorite ring-tailed animal of all time: the $(l)lemur!$() Whether you actually prefer red pandas or racoons, these little creatures can't be took for granted! They come from a foreign island, and since they inhabited the $(o)savannas$() in our world, they have been blissing the environment with their charismatic appearance! $(br)But it's not all charisma, they're unique when it comes to music!",
+  "symphonia.page.lemur1": "I really loved lemurs when I was younger, they always helped me find my way home!",
+
+  "symphonia.entry.beaver": "Beaver",
+  "symphonia.page.beaver0": "$(l)Beavers$()! These hardworking $(o)(and kind of annoying...)$() animals can be found in almost every $(l)river$() you may found! You'll notice their presence by the large $(o)dams$() they adore to build. But beware! If you don't control their population, they might clog every single body of water in the world! $(br)Even though they might be... $(o)annoying$() I can't deny their musical talent! ",
+  "symphonia.page.beaver1": "Fun fact: If you ever run out of sticks, find a river. You'll have sticks for days!"
 }

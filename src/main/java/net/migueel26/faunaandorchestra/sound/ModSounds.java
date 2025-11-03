@@ -72,6 +72,9 @@ public class ModSounds {
     public static final Supplier<SoundEvent> THE_GREAT_COMPOSER_THEME = registerSoundEvent("the_great_composer_theme");
     public static final Supplier<SoundEvent> THE_GREAT_COMPOSER_FINAL_THEME = registerSoundEvent("the_great_composer_theme2");
 
+    public static final Supplier<SoundEvent> SYMPHONIA_OPEN = registerSoundEvent("symphonia_open");
+    public static final Supplier<SoundEvent> SYMPHONIA_PAGE = registerSoundEvent("symphonia_page");
+
     public static final Supplier<SoundEvent> MANTIS_AMBIENT = registerSoundEvent("mantis_ambient");
     public static final Supplier<SoundEvent> MANTIS_ANGRY = registerSoundEvent("mantis_angry");
 

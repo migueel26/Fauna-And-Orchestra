@@ -1,0 +1,19 @@
+{
+  "name": "symphonia.entry.macaw",
+  "category": "faunaandorchestra:musicians",
+  "icon": "faunaandorchestra:macaw_spawn_egg",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "text",
+      "text": "symphonia.page.macaw0"
+    },
+    {
+      "type": "entity",
+      "entity": "faunaandorchestra:macaw",
+      "rotate": false,
+      "default_rotation": 30,
+      "text": "symphonia.page.macaw1"
+    }
+  ]
+}

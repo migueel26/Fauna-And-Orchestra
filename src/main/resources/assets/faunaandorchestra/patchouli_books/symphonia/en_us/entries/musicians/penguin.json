@@ -1,0 +1,21 @@
+{
+  "name": "symphonia.entry.penguin",
+  "category": "faunaandorchestra:musicians",
+  "icon": "faunaandorchestra:penguin_spawn_egg",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "text",
+      "text": "symphonia.page.penguin0"
+    },
+    {
+      "type": "entity",
+      "entity": "faunaandorchestra:penguin",
+      "rotate": false,
+      "offset": 0.1,
+      "scale": 0.8,
+      "default_rotation": 35,
+      "text": "symphonia.page.penguin1"
+    }
+  ]
+}

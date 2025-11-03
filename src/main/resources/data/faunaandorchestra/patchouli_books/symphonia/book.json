@@ -1,7 +1,12 @@
 {
-  "name": "My First Book!",
-  "landing_text": "Welcome to Patchouli",
+  "name": "item.faunaandorchestra.symphonia",
+  "landing_text": "symphonia.landing",
   "version": 1,
+  "book_texture": "patchouli:textures/gui/book_red.png",
+  "open_sound": "faunaandorchestra:symphonia_open",
+  "flip_sound": "faunaandorchestra:symphonia_page",
   "creative_tab": "faunaandorchestra:fauna_and_orchestra",
-  "use_resource_pack": true
+  "advancements_tab": "faunaandorchestra:root",
+  "use_resource_pack": true,
+  "i18n": true
 }
