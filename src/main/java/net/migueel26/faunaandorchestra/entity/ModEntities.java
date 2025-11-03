@@ -69,6 +69,8 @@ public class ModEntities {
             () -> EntityType.Builder.of(TheGreatComposer::new, MobCategory.CREATURE).sized(1.0f, 2.0f).clientTrackingRange(4).updateInterval(10).build("the_great_composer"));
     public static final Supplier<EntityType<ComposerCanonEntity>> THE_GREAT_COMPOSER_CANON = ENTITY_TYPES.register("the_great_composer_canon",
             () -> EntityType.Builder.of(ComposerCanonEntity::new, MobCategory.MONSTER).sized(1.25f, 1.0f).build("the_great_composer_canon"));
+    public static final Supplier<EntityType<PlayerCanonEntity>> PLAYER_CANON = ENTITY_TYPES.register("player_canon",
+            () -> EntityType.Builder.of(PlayerCanonEntity::new, MobCategory.MONSTER).sized(0.6f, 1.8f).build("player_canon"));
 
     public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);

@@ -80,6 +80,28 @@ public class ModSounds {
     public static final Supplier<SoundEvent> WISE_TREE_AMBIENT = registerSoundEvent("wise_tree_ambient");
     public static final Supplier<SoundEvent> WISE_TREE_DROP = registerSoundEvent("wise_tree_drop");
 
+    public static final Supplier<SoundEvent> CANON_ATTACK = registerSoundEvent("canon_attack");
+    public static final Supplier<SoundEvent> CANON_DEATH = registerSoundEvent("canon_death");
+    public static final Supplier<SoundEvent> CANON_HURT = registerSoundEvent("canon_hurt");
+    public static final Supplier<SoundEvent> CANON_SPAWN = registerSoundEvent("canon_spawn");
+
+    public static final Supplier<SoundEvent> ATTACK_CANON = registerSoundEvent("attack_canon");
+    public static final Supplier<SoundEvent> ATTACK_HEADLESS = registerSoundEvent("attack_headless");
+    public static final Supplier<SoundEvent> ATTACK_LAUGH = registerSoundEvent("attack_laugh");
+    public static final Supplier<SoundEvent> ATTACK_MELEE = registerSoundEvent("attack_melee");
+    public static final Supplier<SoundEvent> ATTACK_NORMAL = registerSoundEvent("attack_normal");
+    public static final Supplier<SoundEvent> ATTACK_POISON = registerSoundEvent("attack_poison");
+    public static final Supplier<SoundEvent> ATTACK_SUMMON = registerSoundEvent("attack_summon");
+    public static final Supplier<SoundEvent> FAKE_DYING = registerSoundEvent("dying1");
+    public static final Supplier<SoundEvent> DYING = registerSoundEvent("dying2");
+    public static final Supplier<SoundEvent> PREPARE = registerSoundEvent("prepare");
+    public static final Supplier<SoundEvent> REPEL = registerSoundEvent("repel");
+    public static final Supplier<SoundEvent> RESURRECT = registerSoundEvent("resurrect");
+    public static final Supplier<SoundEvent> ELECTRIC_SHOCK = registerSoundEvent("electric_shock");
+    public static final Supplier<SoundEvent> SHOCK = registerSoundEvent("shock");
+    public static final Supplier<SoundEvent> SPAWN = registerSoundEvent("spawn");
+    public static final Supplier<SoundEvent> WEAK = registerSoundEvent("weak");
+
     public static final Supplier<SoundEvent> DISCORDED_FLOWER_EAT = registerSoundEvent("discorded_flower_eat");
 
     public static final Supplier<SoundEvent> SUCCESSFUL_TAME = registerSoundEvent("successful_tame");

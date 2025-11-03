@@ -2,11 +2,13 @@ package net.migueel26.faunaandorchestra.entity.custom.projectile;
 
 import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.entity.custom.boss.TheGreatComposer;
+import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -72,6 +74,7 @@ public class MusicNoteProjectileEntity extends AbstractHurtingProjectile {
             if (greatComposer.getRepels() > 0) {
                 greatComposer.composerController.transitionLength(1);
                 greatComposer.trigger("repel", true);
+                level().playSound(null, blockPosition(), ModSounds.REPEL.get(), SoundSource.NEUTRAL);
                 if (this.getOwner() != null) {
 
                     /*

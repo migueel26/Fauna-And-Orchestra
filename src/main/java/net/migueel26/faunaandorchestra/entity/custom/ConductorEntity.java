@@ -13,6 +13,7 @@ import net.migueel26.faunaandorchestra.screen.custom.ConductorMenu;
 import net.migueel26.faunaandorchestra.util.ModTags;
 import net.migueel26.faunaandorchestra.util.MusicUtil;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -44,6 +45,7 @@ import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.items.ItemStackHandler;
 
@@ -253,10 +255,11 @@ public abstract class ConductorEntity extends TamableAnimal {
     }
 
     private void tryToApplyLegendaryEffect() {
+        Item sheetMusic = getSheetMusic();
+
         if (level().isClientSide()) return; // Only run on the server
 
         ServerLevel serverLevel = (ServerLevel) level();
-        Item sheetMusic = getSheetMusic();
 
         if (sheetMusic.equals(ModItems.BLUES_SHEET_MUSIC.get())) {
             if (ticksPlaying == 10) {
@@ -308,7 +311,19 @@ public abstract class ConductorEntity extends TamableAnimal {
                 }
             }
         } else if (sheetMusic.equals(ModItems.RESURRECTION_SONG.get())) {
+            if (ticksPlaying == 10) {
+                List<PlayerCanonEntity> entities =  level().getEntitiesOfClass(PlayerCanonEntity.class, getBoundingBox().inflate(64),
+                        entity -> entity.getOwnerUUID().equals(this.getOwnerUUID()));
+                if (this.getOwner() instanceof Player player &&
+                       entities.isEmpty()) {
+                    PlayerCanonEntity playerCanon = new PlayerCanonEntity(ModEntities.PLAYER_CANON.get(), level());
+                    playerCanon.setPos(player.position());
+                    playerCanon.setConductor(this);
+                    playerCanon.setOwnerUUID(player.getUUID());
 
+                    level().addFreshEntity(playerCanon);
+                }
+            }
         }
     }
 

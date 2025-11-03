@@ -1,10 +1,13 @@
 package net.migueel26.faunaandorchestra.entity.custom.boss;
 
+import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.damagesource.DamageSource;
@@ -60,7 +63,7 @@ public class ComposerCanonEntity extends Monster implements GeoEntity {
                     ((ComposerCanonEntity) this.mob).triggerAnim("composer_canon_controller", "canon_attack");
                     this.resetAttackCooldown();
                     this.mob.doHurtTarget(target);
-
+                    level().playSound(null, blockPosition(), ModSounds.CANON_ATTACK.get(), SoundSource.NEUTRAL);
                 }
             }
         });
@@ -82,6 +85,7 @@ public class ComposerCanonEntity extends Monster implements GeoEntity {
     public void tick() {
         if (ticks == 1) {
             triggerAnim("composer_canon_controller", "canon_spawn");
+            level().playSound(null, blockPosition(), ModSounds.CANON_SPAWN.get(), SoundSource.NEUTRAL);
         }
         if (ticks % 10 == 0) {
             if (!level().isClientSide()) {
@@ -168,6 +172,16 @@ public class ComposerCanonEntity extends Monster implements GeoEntity {
 
     public boolean canAttack() {
         return ticks >= 40;
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return ModSounds.CANON_HURT.get();
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return ModSounds.CANON_DEATH.get();
     }
 
     @Override

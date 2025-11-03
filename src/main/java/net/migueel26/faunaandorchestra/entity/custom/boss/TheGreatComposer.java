@@ -10,6 +10,7 @@ import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.networking.ShowTitlePlayerS2CPayload;
 import net.migueel26.faunaandorchestra.networking.StartAmbientMusicS2CPayload;
 import net.migueel26.faunaandorchestra.networking.StopMusicS2CPayload;
+import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -22,6 +23,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
@@ -408,9 +410,13 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
         }
 
         if (isSpawning()) {
-            if (stateTime == 1) triggerAnim("composer_controller", "spawn");
+            if (stateTime == 1) {
+                triggerAnim("composer_controller", "spawn");
+            }
 
-            if (stateTime == 147) {
+            if (stateTime == 140) {
+                level().playSound(null, blockPosition(), SoundEvents.SCULK_SHRIEKER_SHRIEK, SoundSource.NEUTRAL);
+                playStateSound(ModSounds.SPAWN.get());
                 ((ServerLevel) level()).sendParticles(ParticleTypes.SOUL_FIRE_FLAME, position().x, position().y, position().z, 100, 0.1, 0.1, 0.1, 0.3);
                 String[] fullName = Component.translatable("entity.faunaandorchestra.the_great_composer").getString().split(",");
                 String name = fullName[0];
@@ -446,6 +452,9 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
                 setNewState(newState);
             }
         } else if (state == ComposerBossState.NORMAL_ATTACK) {
+            if (stateTime == 1) {
+                playStateSound(ModSounds.ATTACK_NORMAL.get());
+            }
             if (stateTime == THROW_NORMAL_ATTACK_COOLDOWN) {
                 for (Player player : bossEvent.getPlayers()) {
                     // We add the music note projectile
@@ -483,12 +492,19 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
             }
 
         } else if (state == ComposerBossState.SHOCK) {
+            if (stateTime == 1) {
+                playStateSound(ModSounds.SHOCK.get());
+                playStateSound(ModSounds.ELECTRIC_SHOCK.get());
+            }
             if (stateTime == 40) {
                 this.healthBefore = getHealth() / getMaxHealth();
                 setNewState(ComposerBossState.WEAK);
             }
 
         } else if (state == ComposerBossState.WEAK) {
+            if (stateTime == 1) {
+                playStateSound(ModSounds.WEAK.get());
+            }
             if (stateTime == 100 || (healthBefore - getHealth() / getMaxHealth()) >= 0.25) {
                 setNewState(ComposerBossState.IDLE);
                 ((ServerLevel) level()).sendParticles(ParticleTypes.SCULK_SOUL,
@@ -506,7 +522,11 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
                 this.consecutiveAttacks = 0;
             }
         } else if (state == ComposerBossState.POISON_ATTACK) {
+            if (stateTime == 1) {
+                playStateSound(isFinalPhase() ? ModSounds.ATTACK_HEADLESS.get() : ModSounds.ATTACK_POISON.get());
+            }
             if (stateTime == 45) {
+                level().playSound(null, blockPosition(), SoundEvents.WARDEN_HEARTBEAT, SoundSource.NEUTRAL);
                 List<LivingEntity> entities = level().getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, this, this.getBoundingBox().inflate(20));
                 for (LivingEntity entity : entities) {
                     Holder<MobEffect> nextEffect = effectsList.get(random.nextInt(0, effectsList.size()));
@@ -520,6 +540,9 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
             }
 
         } else if (state == ComposerBossState.LAUGH_ATTACK) {
+            if (stateTime == 1) {
+                playStateSound(ModSounds.PREPARE.get());
+            }
             if (stateTime == 25) {
                 Optional<ServerPlayer> opPlayer = bossEvent.getPlayers().stream().findAny();
                 if (opPlayer.isPresent()) {
@@ -613,6 +636,10 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
                 }
             }
 
+            if (stateTime >= 25 && (stateTime-25) % 80 == 0) {
+                level().playSound(null, blockPosition(), ModSounds.ATTACK_LAUGH.get(), SoundSource.NEUTRAL, 1.5f, 1.0f + (level().random.nextFloat()/2 - 0.25f));
+            }
+
             if (stateTime == CrawlingDiscordBlock.NEW_CHILD_TIME * CrawlingDiscordBlock.DEFAULT_MAX_GENERATION + CrawlingDiscordBlock.DIE_TIME + (isFinalPhase() ? 0 : 40)) {
                 setNewState(ComposerBossState.IDLE);
                 this.attackCooldown = getCooldownTicks() + 20;
@@ -620,7 +647,9 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
             }
 
         } else if (state == ComposerBossState.SUMMON_ATTACK) {
+            if (stateTime == 6) playStateSound(isFinalPhase() ? ModSounds.ATTACK_HEADLESS.get() : ModSounds.ATTACK_SUMMON.get());
             if (stateTime == (isFinalPhase() ? 30 : 65)) {
+                level().playSound(null, blockPosition(), SoundEvents.WARDEN_SONIC_BOOM, SoundSource.NEUTRAL);
                 Direction direction = this.getDirection();
                 EntityType<? extends AbstractSkeleton> skeletonType;
 
@@ -678,6 +707,9 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
             }
 
         } else if (state == ComposerBossState.MELEE_ATTACK) {
+            if (stateTime == 1) {
+                playStateSound(ModSounds.ATTACK_MELEE.get());
+            }
             if (stateTime == 25) {
                 Optional<ServerPlayer> oPlayer = bossEvent.getPlayers().stream().findAny();
                 if (oPlayer.isPresent() && oPlayer.get() instanceof ServerPlayer player) {
@@ -724,6 +756,9 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
             }
 
         } else if (state == ComposerBossState.NOTE_ATTACK) {
+            if (stateTime == 1) {
+                playStateSound(ModSounds.PREPARE.get());
+            }
             int frequency = isSecondPhase() ? 4 : 7;
             if (stateTime >= 40 && stateTime % frequency == 0) {
                 for (Player player : bossEvent.getPlayers()) {
@@ -736,6 +771,8 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
                     PhantomNoteProjectileEntity note = new PhantomNoteProjectileEntity(this, vec31.normalize(), level());
                     note.setPos(this.getX() + vec3.x * 1.25, this.getY(0.5) - (isFinalPhase() ? 0.5 : 0), note.getZ() + vec3.z * 1.25);
                     level().addFreshEntity(note);
+
+                    level().playSound(null, blockPosition(), SoundEvents.FIRECHARGE_USE, SoundSource.NEUTRAL);
                 }
 
             }
@@ -747,7 +784,9 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
             }
 
         } else if (state == ComposerBossState.CANON_ATTACK) {
-
+            if (stateTime == 1) {
+                playStateSound(ModSounds.ATTACK_CANON.get());
+            }
             if (stateTime == (isFinalPhase() ? 30 : 90)) {
                 Vec3 direction = this.getViewVector(1f);
                 canonEntity = new ComposerCanonEntity(ModEntities.THE_GREAT_COMPOSER_CANON.get(), level());
@@ -772,6 +811,8 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
                 this.moveTo(pos.getX(), pos.getY(), pos.getZ());
                 this.entityData.set(PHASE, 3);
                 trigger("fake_die", false);
+                level().playSound(null, blockPosition(), ModSounds.FAKE_DYING.get(), SoundSource.NEUTRAL);
+                level().playSound(null, blockPosition(), ModSounds.ELECTRIC_SHOCK.get(), SoundSource.NEUTRAL);
 
             } else if (stateTime >= 1 && stateTime < 100) {
                 if (stateTime % 5 == 0) {
@@ -786,6 +827,9 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
             }
 
         } else if (state == ComposerBossState.RESURRECTING) {
+            if (stateTime == 1) {
+                playStateSound(ModSounds.RESURRECT.get());
+            }
             if (this.getHealth() < (this.getMaxHealth() / 2) - 1) {
                 if (stateTime == 1) triggerAnim("composer_controller", "resurrect");
                 if (stateTime > 15) {
@@ -810,6 +854,8 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
         } else if (state == ComposerBossState.DYING) {
             if (stateTime == 1) {
                 this.diePos = blockPosition();
+                level().playSound(null, blockPosition(), ModSounds.DYING.get(), SoundSource.NEUTRAL);
+                level().playSound(null, blockPosition(), ModSounds.ELECTRIC_SHOCK.get(), SoundSource.NEUTRAL);
             } else if (stateTime == 157) {
                 level().explode(null, getX(), getY(), getZ(), 5, Level.ExplosionInteraction.TNT);
             } else if (stateTime == 160) {
@@ -858,6 +904,10 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
 
         this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
 
+    }
+
+    private void playStateSound(SoundEvent soundEvent) {
+        level().playSound(null, blockPosition(),soundEvent, SoundSource.NEUTRAL, 1.0f, 1.0f);
     }
 
     private int getNextAttack() {
@@ -1195,6 +1245,12 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
             this.repels = 8;
         }
         entityData.set(REPELS, repels);
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return SoundEvents.WARDEN_HURT;
     }
 
     public void setSpawnPos(BlockPos pos) {

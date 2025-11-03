@@ -80,7 +80,7 @@ public class ButterflyEntity extends Animal implements FlyingAnimal, GeoEntity {
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
-        if (stack.is(ModItems.BUTTERFLY_NET)) {
+        if (stack.is(ModItems.BUTTERFLY_NET) && scheduleDeath == -1) {
             if (!level().isClientSide()) {
                 ((ServerLevel) level()).sendParticles(ParticleTypes.CLOUD,
                         getX(), getY(), getZ(),

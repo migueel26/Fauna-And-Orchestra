@@ -44,6 +44,7 @@ public class ModEventBusEvents {
         event.put(ModEntities.WANDERING_NOTE.get(), ButterflyEntity.createAttributes().build());
         event.put(ModEntities.THE_GREAT_COMPOSER.get(), TheGreatComposer.createAttributes().build());
         event.put(ModEntities.THE_GREAT_COMPOSER_CANON.get(), ComposerCanonEntity.createAttributes().build());
+        event.put(ModEntities.PLAYER_CANON.get(), PlayerCanonEntity.createAttributes().build());
     }
 
     @SubscribeEvent

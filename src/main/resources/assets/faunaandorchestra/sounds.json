@@ -285,6 +285,31 @@
       "faunaandorchestra:sfx/baby_penguin_ambient3"
     ]
   },
+  "canon_attack": {
+    "subtitles": "sounds.faunaandorchestra.canon_attack",
+    "sounds": [
+      "faunaandorchestra:sfx/canon_attack"
+    ]
+  },
+  "canon_death": {
+    "subtitles": "sounds.faunaandorchestra.canon_death",
+    "sounds": [
+      "faunaandorchestra:sfx/canon_death"
+    ]
+  },
+  "canon_hurt": {
+    "subtitles": "sounds.faunaandorchestra.canon_hurt",
+    "sounds": [
+      "faunaandorchestra:sfx/canon_hurt0",
+      "faunaandorchestra:sfx/canon_hurt1"
+    ]
+  },
+  "canon_spawn": {
+    "subtitles": "sounds.faunaandorchestra.canon_spawn",
+    "sounds": [
+      "faunaandorchestra:sfx/canon_spawn"
+    ]
+  },
   "wise_tree_ambient": {
     "subtitles": "sounds.faunaandorchestra.wise_tree_ambient",
     "sounds": [
@@ -419,6 +444,104 @@
     "subtitles": "sounds.faunaandorchestra.the_great_composer_theme2",
     "sounds": [
       "faunaandorchestra:music/the_great_composer_theme2"
+    ]
+  },
+  "attack_canon": {
+    "subtitles": "sounds.faunaandorchestra.attack_canon",
+    "sounds": [
+      "faunaandorchestra:sfx/the_great_composer/attack_canon"
+    ]
+  },
+  "attack_headless": {
+    "subtitles": "sounds.faunaandorchestra.attack_headless",
+    "sounds": [
+      "faunaandorchestra:sfx/the_great_composer/attack_headless"
+    ]
+  },
+  "attack_laugh": {
+    "subtitles": "sounds.faunaandorchestra.attack_summon",
+    "sounds": [
+      "faunaandorchestra:sfx/the_great_composer/attack_laugh"
+    ]
+  },
+  "attack_melee": {
+    "subtitles": "sounds.faunaandorchestra.attack_melee",
+    "sounds": [
+      "faunaandorchestra:sfx/the_great_composer/attack_melee"
+    ]
+  },
+  "attack_normal": {
+    "subtitles": "sounds.faunaandorchestra.attack_normal",
+    "sounds": [
+      "faunaandorchestra:sfx/the_great_composer/attack_normal"
+    ]
+  },
+  "attack_poison": {
+    "subtitles": "sounds.faunaandorchestra.attack_poison",
+    "sounds": [
+      "faunaandorchestra:sfx/the_great_composer/attack_poison"
+    ]
+  },
+  "attack_summon": {
+    "subtitles": "sounds.faunaandorchestra.attack_summon",
+    "sounds": [
+      "faunaandorchestra:sfx/the_great_composer/attack_summon"
+    ]
+  },
+  "dying1": {
+    "subtitles": "sounds.faunaandorchestra.dying1",
+    "sounds": [
+      "faunaandorchestra:sfx/the_great_composer/dying1"
+    ]
+  },
+  "dying2": {
+    "subtitles": "sounds.faunaandorchestra.dying2",
+    "sounds": [
+      "faunaandorchestra:sfx/the_great_composer/dying2"
+    ]
+  },
+  "prepare": {
+    "subtitles": "sounds.faunaandorchestra.prepare",
+    "sounds": [
+      "faunaandorchestra:sfx/the_great_composer/prepare"
+    ]
+  },
+  "repel": {
+    "subtitles": "sounds.faunaandorchestra.repel",
+    "sounds": [
+      "faunaandorchestra:sfx/the_great_composer/repel0",
+      "faunaandorchestra:sfx/the_great_composer/repel1",
+      "faunaandorchestra:sfx/the_great_composer/repel2"
+    ]
+  },
+  "resurrect": {
+    "subtitles": "sounds.faunaandorchestra.resurrect",
+    "sounds": [
+      "faunaandorchestra:sfx/the_great_composer/resurrect"
+    ]
+  },
+  "electric_shock": {
+    "subtitles": "sounds.faunaandorchestra.electric_shock",
+    "sounds": [
+      "faunaandorchestra:sfx/the_great_composer/electric_shock"
+    ]
+  },
+  "shock": {
+    "subtitles": "sounds.faunaandorchestra.shock",
+    "sounds": [
+      "faunaandorchestra:sfx/the_great_composer/shock"
+    ]
+  },
+  "spawn": {
+    "subtitles": "sounds.faunaandorchestra.spawn",
+    "sounds": [
+      "faunaandorchestra:sfx/the_great_composer/spawn"
+    ]
+  },
+  "weak": {
+    "subtitles": "sounds.faunaandorchestra.weak",
+    "sounds": [
+      "faunaandorchestra:sfx/the_great_composer/weak"
     ]
   }
 }
