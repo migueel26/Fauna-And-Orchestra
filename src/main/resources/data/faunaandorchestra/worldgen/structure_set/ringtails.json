@@ -1,0 +1,19 @@
+{
+  "structures": [
+    {
+      "structure": "faunaandorchestra:ringtails",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 20,
+    "separation": 5,
+    "salt": 584762395,
+    "exclude_biomes": [
+      "#minecraft:is_ocean",
+      "#minecraft:ice_spikes",
+      "minecraft:frozen_peaks"
+    ]
+  }
+}

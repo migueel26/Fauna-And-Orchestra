@@ -1,6 +1,7 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
+import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.block.custom.TipCaseBlock;
 import net.migueel26.faunaandorchestra.block.entity.TipCaseBlockEntity;
@@ -105,6 +106,9 @@ public class Faust extends TravellingMusician implements Npc, GeoEntity, Talkabl
             } else {
                 this.confidence = ModSavedData.getConfidence((ServerLevel) level(), this, player.getUUID());
                 setConfidence(confidence);
+                if (this.confidence >= COOL_CONFIDENCE) {
+                    ModAdvancements.BEFRIEND_FAUST.get().trigger((ServerPlayer) player);
+                }
                 ModSavedData.saveConfidence((ServerLevel) level(), this, player.getUUID(), this.confidence + 1);
             }
             return InteractionResult.SUCCESS;
@@ -116,7 +120,11 @@ public class Faust extends TravellingMusician implements Npc, GeoEntity, Talkabl
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
 
-        this.tipCasePos = new BlockPos(compound.getInt("X"), compound.getInt("Y"), compound.getInt("Z"));
+        BlockPos pos = new BlockPos(compound.getInt("X"), compound.getInt("Y"), compound.getInt("Z"));
+        if (!(pos.getX() == 0 && pos.getY() == 0 && pos.getZ() == 0)) {
+            this.tipCasePos = pos;
+        }
+
     }
 
     @Override
@@ -163,6 +171,7 @@ public class Faust extends TravellingMusician implements Npc, GeoEntity, Talkabl
 
             for (Player player : newPlayers) {
                 PacketDistributor.sendToPlayer((ServerPlayer) player, new StartAmbientMusicS2CPayload(this.uuid));
+                ModAdvancements.MEET_RINGTAILS.get().trigger((ServerPlayer) player);
             }
 
             for (Player player : exitPlayers) {
@@ -170,21 +179,6 @@ public class Faust extends TravellingMusician implements Npc, GeoEntity, Talkabl
             }
 
             playersListening = nearbyPlayers;
-
-            // TIP CASE
-
-            if (tipCasePos == null) {
-                Optional<BlockPos> tipCase = BlockPos.findClosestMatch(this.blockPosition(),
-                        6, 2, pred -> level().getBlockState(pred).is(ModBlocks.TIP_CASE));
-
-                if (tipCase.isPresent() && ((TipCaseBlockEntity) level().getBlockEntity(tipCase.get())).getOwner() == null) {
-                    this.tipCasePos = tipCase.get();
-                    ((TipCaseBlockEntity) level().getBlockEntity(tipCasePos)).setOwner(this.getUUID());
-                    BlockPos other = tipCasePos.relative(level().getBlockState(tipCasePos).getValue(TipCaseBlock.FACING).getOpposite());
-                    ((TipCaseBlockEntity) level().getBlockEntity(other)).setOwner(this.getUUID());
-                }
-            }
-
 
         } else {
             playersListening = new ArrayList<>();
@@ -321,5 +315,9 @@ public class Faust extends TravellingMusician implements Npc, GeoEntity, Talkabl
 
     public BlockPos getTipCasePos() {
         return tipCasePos;
+    }
+
+    public void setTipCasePos(BlockPos pos) {
+        this.tipCasePos = pos;
     }
 }

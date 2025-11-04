@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "count": 1,
+      "id": "faunaandorchestra:music_bottle"
+    },
+    "title": {
+      "translate": "advancements.faunaandorchestra.music_bottle"
+    },
+    "description": {
+      "translate": "advancements.faunaandorchestra.music_bottle.desc"
+    },
+    "frame": "task"
+  },
+  "parent": "faunaandorchestra:meet_ringtails",
+  "criteria": {
+    "unique": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "faunaandorchestra:music_bottle"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "unique"
+    ]
+  ]
+}

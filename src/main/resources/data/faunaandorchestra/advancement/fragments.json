@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "count": 1,
+      "id": "faunaandorchestra:sheet_fragments"
+    },
+    "title": {
+      "translate": "advancements.faunaandorchestra.fragments"
+    },
+    "description": {
+      "translate": "advancements.faunaandorchestra.fragments.desc"
+    },
+    "frame": "task"
+  },
+  "parent": "faunaandorchestra:meet_ringtails",
+  "criteria": {
+    "unique": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "faunaandorchestra:sheet_fragments"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "unique"
+    ]
+  ]
+}

@@ -222,7 +222,7 @@ public class TipCaseBlock extends HorizontalDirectionalBlock implements EntityBl
             level.playSound(null, pos,
                     ModSounds.SUCCESSFUL_TAME.get(), SoundSource.NEUTRAL, 1.0F, 1.0F);
         } else if (tips == 64 && state.getValue(TipCaseBlock.THIRD)) {
-            popResourceFromFace(level, pos, Direction.UP, new ItemStack(Items.PAINTING));
+            popResourceFromFace(level, pos, Direction.UP, new ItemStack(ModItems.RINGTAILS_POSTER.get()));
             level.playSound(null, pos,
                     ModSounds.SUCCESSFUL_TAME.get(), SoundSource.NEUTRAL, 1.0F, 1.0F);
         }

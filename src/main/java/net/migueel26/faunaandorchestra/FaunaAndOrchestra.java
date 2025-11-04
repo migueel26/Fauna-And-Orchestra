@@ -23,7 +23,7 @@ import net.migueel26.faunaandorchestra.screen.ModMenuTypes;
 import net.migueel26.faunaandorchestra.screen.custom.*;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.migueel26.faunaandorchestra.util.ModItemProperties;
-import net.migueel26.faunaandorchestra.worldgen.structures.ModStructuredProcessors;
+import net.migueel26.faunaandorchestra.worldgen.structures.ModStructures;
 import net.minecraft.client.particle.SculkChargePopParticle;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
@@ -69,7 +69,7 @@ public class FaunaAndOrchestra {
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
 
-        ModStructuredProcessors.register(modEventBus);
+        ModStructures.register(modEventBus);
         ModItems.register(modEventBus);
         ModCreativeModeTabs.register(modEventBus);
         ModEntities.register(modEventBus);

@@ -1,0 +1,28 @@
+{
+  "name": "symphonia.entry.ringtails",
+  "category": "faunaandorchestra:quests",
+  "icon": "faunaandorchestra:tip_case",
+  "turnin": "faunaandorchestra:meet_ringtails",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "quest",
+      "trigger": "faunaandorchestra:meet_ringtails",
+      "text": "symphonia.page.ringtails0"
+    },
+    {
+      "type": "image",
+      "images": [
+        "faunaandorchestra:textures/gui/entries/ringtails.png"
+      ],
+      "advancement": "faunaandorchestra:meet_ringtails",
+      "text": "symphonia.page.ringtails1"
+    },
+    {
+      "type": "text",
+      "advancement": "faunaandorchestra:meet_ringtails",
+      "title": "symphonia.entry.ringtails",
+      "text": "symphonia.page.ringtails2"
+    }
+  ]
+}

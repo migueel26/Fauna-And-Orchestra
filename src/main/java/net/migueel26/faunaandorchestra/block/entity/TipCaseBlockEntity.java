@@ -5,6 +5,9 @@ import net.migueel26.faunaandorchestra.networking.SyncTipCaseOwnerPayloadS2C;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.network.PacketDistributor;
@@ -47,6 +50,25 @@ public class TipCaseBlockEntity extends BlockEntity implements GeoBlockEntity {
         PacketDistributor.sendToAllPlayers(new SyncTipCaseOwnerPayloadS2C(
                 worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(),
                 owner));
+        markUpdated();
+    }
+
+    @Nullable
+    @Override
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
+    }
+
+    @Override
+    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+        CompoundTag compoundTag = new CompoundTag();
+        compoundTag.putUUID("Owner", owner);
+        return compoundTag;
+    }
+
+    private void markUpdated() {
+        this.setChanged();
+        this.getLevel().sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 3);
     }
 
     @Override

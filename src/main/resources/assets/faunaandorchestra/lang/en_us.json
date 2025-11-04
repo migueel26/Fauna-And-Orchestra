@@ -45,6 +45,7 @@
   "item.faunaandorchestra.musical_ink": "Musical Ink",
   "item.faunaandorchestra.discord_essence": "Essence of Discord",
   "item.faunaandorchestra.activator_clef": "Activator Clef",
+  "item.faunaandorchestra.ringtails_poster": "Ringtails Poster",
   "item.faunaandorchestra.transmuted_voice": "Transmuted Voice",
   "item.faunaandorchestra.voice": "Voice of the ",
 
@@ -69,6 +70,7 @@
   "item.faunaandorchestra.voice_vessel.tooltip": "§eRight-click §rto absorb the voices nearby into the vessel",
   "item.faunaandorchestra.transmuted_voice.tooltip": "§eRight-click §ra voiceless entity to give it back",
   "item.faunaandorchestra.whistle.desc": "Linked to: ",
+  "item.faunaandorchestra.ringtails_poster.desc": "3x3",
   "item.faunaandorchestra.whistle.far_message": "It's too far away!",
   "item.faunaandorchestra.the_great_composer_spawn_egg.desc": "Boss",
 
@@ -188,6 +190,16 @@
 
   "advancements.faunaandorchestra.full_orchestra": "Pet Sounds",
   "advancements.faunaandorchestra.full_orchestra.desc": "Arrange your very own Orchestra for the first time!",
+  "advancements.faunaandorchestra.meet_ringtails": "Didn't You Hear?",
+  "advancements.faunaandorchestra.meet_ringtails.desc": "Meet Faust & Orion playing some music",
+  "advancements.faunaandorchestra.music_bottle": "Sugar Water Cyanide",
+  "advancements.faunaandorchestra.music_bottle.desc": "Obtain your first Liquid Music from Faust & Orion",
+  "advancements.faunaandorchestra.fragments": "The Downward Spiral",
+  "advancements.faunaandorchestra.fragments.desc": "Obtain the broken sheet music from Faust & Orion",
+  "advancements.faunaandorchestra.befriend_faust": "A Night At The Opera",
+  "advancements.faunaandorchestra.befriend_faust.desc": "Max out Faust's friendship and unlock their poster",
+  "advancements.faunaandorchestra.befriend_orion": "A Day At The Races",
+  "advancements.faunaandorchestra.befriend_orion.desc": "Max out Orion's friendship and unlock their poster",
 
   "dialogue.faunaandorchestra.faust0": "Nice to meet you! I'm Faust, and together we're The Ringtails",
   "dialogue.faunaandorchestra.faust1": "Nice to see you again, %! Care to join us?",
@@ -247,6 +259,8 @@
   "dialogue.faunaandorchestra.ringtails_prize1": "Nice tip, mate! Crafting a Listener with this will get you even more Liquid Music!",
   "dialogue.faunaandorchestra.ringtails_prize2": "This is for you. If you could reassemble these fragments, you could take him down",
   "dialogue.faunaandorchestra.ringtails_prize3": "WOAH, you're our biggest fan! Here's a signed poster as a thank you for all those tips!",
+  "painting.faunaandorchestra.ringtails_poster.title": "Ringtails Poster",
+  "painting.faunaandorchestra.ringtails_poster.author": "Faust & Orion",
 
   "dialogue.faunaandorchestra.wise_tree0": "Greetings, master. The good old Wise Tree at your service",
   "dialogue.faunaandorchestra.wise_tree1": "Did you know only my master can understand my language?",
@@ -280,6 +294,8 @@
   "symphonia.category.musicians.desc": "The $(o)fauna$() of our world is inherently musical: you just need to know how to wake their gifts up! This chapter contains all the information regarding the musical creatures around our world and how to interact with them.",
   "symphonia.category.melomancy": "Melomancy 101",
   "symphonia.category.melomancy.desc": "Desc",
+  "symphonia.category.quests": "Quests & Characters",
+  "symphonia.category.quests.desc": "I can see you want more than just an orchestra in your home... You want to know what's beyond the music: what kind of power and magic can be achieved with the proper $(o)(or improper...)$() use of melody. Let's see what we can do.",
 
   "symphonia.entry.welcome": "Introduction to Musicality",
   "symphonia.page.welcome0": "$(o)Welcome to our musical world!$() Whether you found this book by accident, crafted it with some musical ink, or received it from me: this is the first step towards unveiling this world's true sound and becoming a true musician! Whether you just want to enliven your home with some music, or truly become a master of the $(o)$(#290747)melomantic arts$(), this is your guide.",
@@ -328,5 +344,18 @@
   "symphonia.page.sheet_music0": "Although you may not find regular $(l)koalas$() anymore, there are still some $(o)wandering ones$() traveling around the world. These koalas left their homes a long time ago in search of something greater: the origin of music itself. That's why they're never in the same place: they're always on the run, looking for new $(l)sheet music$() to collect and, for a good price, even sell.",
   "symphonia.page.sheet_music1": "Read the next page to discover how to find them!",
   "symphonia.page.sheet_music2": "These $(l)wandering koalas$() can usually be found in $(o)composer graveyards (in taiga biomes) or pyramids$(). You know, places of interest. Be careful though: you might find them $(o)asleep$()! They can't be waken up hurting them in this state, you'll need to play some sort of $(o)instrument$() around them to wake them up and trade with them.",
-  "symphonia.page.sheet_music3": "Composer Graveyard"
+  "symphonia.page.sheet_music3": "Composer Graveyard",
+
+  "symphonia.entry.ringtails": "The Traveling Musicians",
+  "symphonia.page.ringtails0": "If you ever want to start this $(o)melomantic$() journey, you should look for a pair of $(l)traveling musicians$() playing around the world. I can't tell you much about them, but you'll recognise them by the $(o)unique melody$() they love to play. They're charismatic and lovely, you'll love them!",
+  "symphonia.page.ringtails1": "Meet the Ringtails! $(l)Faust$() and $(l)Orion$(), the traveling musicians. Keep reading!",
+  "symphonia.page.ringtails2": "$(l)Faust$() and $(l)Orion$() have been traveling around the world for a long time. You can talk directly to them and get to know them and their history better. Trust me, it's $(o)worth it$(). They're also pretty into $(l)melomancy$(), so try to tip them some $(o)gold in their tip case$() and they might give you just what you need to begin your adventure! Who knows what might happen if you tip them a lot...",
+
+  "symphonia.entry.faust": "Faust",
+  "symphonia.page.faust0": "Faust",
+  "symphonia.page.faust1": "Faust",
+
+  "symphonia.entry.orion": "Orion",
+  "symphonia.page.orion0": "Orion",
+  "symphonia.page.orion1": "Orion"
 }

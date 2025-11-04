@@ -2,29 +2,47 @@ package net.migueel26.faunaandorchestra.event;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
+import net.migueel26.faunaandorchestra.block.custom.TipCaseBlock;
 import net.migueel26.faunaandorchestra.block.entity.TipCaseBlockEntity;
 import net.migueel26.faunaandorchestra.effect.ModEffects;
+import net.migueel26.faunaandorchestra.entity.custom.Faust;
 import net.migueel26.faunaandorchestra.entity.custom.MusicalEntity;
+import net.migueel26.faunaandorchestra.entity.custom.Orion;
 import net.migueel26.faunaandorchestra.entity.custom.QuirkyFrogEntity;
 import net.migueel26.faunaandorchestra.item.ModItems;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.entity.TamableAnimal;
+import net.migueel26.faunaandorchestra.item.custom.RingtailsPosterItem;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.entity.decoration.BlockAttachedEntity;
+import net.minecraft.world.entity.decoration.Painting;
+import net.minecraft.world.entity.decoration.PaintingVariant;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.SpawnData;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BedPart;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.EntityLeaveLevelEvent;
 import net.neoforged.neoforge.event.entity.living.FinalizeSpawnEvent;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
+import net.neoforged.neoforge.event.entity.living.MobSpawnEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 
 import java.util.List;
+import java.util.Optional;
 
 @EventBusSubscriber(modid = FaunaAndOrchestra.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public class ModGameEvents {
@@ -89,6 +107,28 @@ public class ModGameEvents {
             if (event.getEntity() instanceof PathfinderMob mob) {
                 mob.setNoAi(false);
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onFaustTick(EntityTickEvent.Post event) {
+        if (event.getEntity() instanceof Faust faust && faust.getTipCasePos() == null && faust.getOrion() != null) {
+            Vec3 vec = faust.position().subtract(faust.getOrion().position());
+            Direction facing = Direction.getNearest(vec);
+            Direction direction = Direction.getNearest(vec.yRot((float) (Math.PI/2)));
+
+            BlockPos.MutableBlockPos blockPos = new BlockPos.MutableBlockPos(faust.getX(), faust.getY(), faust.getZ());
+            blockPos = blockPos.move(direction);
+            event.getEntity().level().setBlock(blockPos,
+                    ModBlocks.TIP_CASE.get().defaultBlockState().setValue(TipCaseBlock.FACING, facing), 3);
+            ((TipCaseBlockEntity) event.getEntity().level().getBlockEntity(blockPos)).setOwner(faust.getUUID());
+
+            faust.setTipCasePos(blockPos);
+
+            BlockPos headPos = blockPos.move(facing.getOpposite());
+            event.getEntity().level().setBlock(headPos,
+                    ModBlocks.TIP_CASE.get().defaultBlockState().setValue(TipCaseBlock.FACING, facing).setValue(TipCaseBlock.PART, BedPart.HEAD), 3);
+            ((TipCaseBlockEntity) event.getEntity().level().getBlockEntity(headPos)).setOwner(faust.getUUID());
         }
     }
 }

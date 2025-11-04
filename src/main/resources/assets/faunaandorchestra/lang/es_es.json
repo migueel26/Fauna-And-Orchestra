@@ -43,6 +43,7 @@
   "item.faunaandorchestra.musical_ink": "Tinta Musical",
   "item.faunaandorchestra.discord_essence": "Esencia de discordia",
   "item.faunaandorchestra.activator_clef": "Clave activadora",
+  "item.faunaandorchestra.ringtails_poster": "Póster de los Ringtails",
   "item.faunaandorchestra.transmuted_voice": "Voz transmutada",
   "item.faunaandorchestra.voice": "Voz de ",
 
@@ -67,6 +68,7 @@
   "item.faunaandorchestra.voice_vessel.tooltip": "Haz §eclick derecho §rpara absorber las voces en la vasija",
   "item.faunaandorchestra.transmuted_voice.tooltip": "Haz §eclick derecho §ra una criatura sin voz para devolvérsela",
   "item.faunaandorchestra.whistle.desc": "Enlazado con: ",
+  "item.faunaandorchestra.ringtails_poster.desc": "3x3",
   "item.faunaandorchestra.whistle.far_message": "¡Está muy lejos!",
   "item.faunaandorchestra.the_great_composer_spawn_egg.desc": "Boss",
 

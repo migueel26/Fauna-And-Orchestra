@@ -1,0 +1,17 @@
+{
+  "name": "symphonia.entry.orion",
+  "category": "faunaandorchestra:quests",
+  "icon": "minecraft:acacia_sapling",
+  "advancement": "faunaandorchestra:befriend_orion",
+  "pages": [
+    {
+      "type": "text",
+      "text": "symphonia.page.orion0"
+    },
+    {
+      "type": "entity",
+      "entity": "faunaandorchestra:orion",
+      "text": "symphonia.page.orion1"
+    }
+  ]
+}

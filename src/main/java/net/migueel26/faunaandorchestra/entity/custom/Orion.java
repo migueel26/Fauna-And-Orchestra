@@ -1,6 +1,7 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
+import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.entity.goals.RingtailsRunAwayGoal;
 import net.migueel26.faunaandorchestra.util.ModSavedData;
 import net.minecraft.network.chat.Component;
@@ -9,6 +10,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.AgeableMob;
@@ -100,6 +102,9 @@ public class Orion extends TravellingMusician implements Npc, GeoEntity, Talkabl
             } else {
                 this.confidence = ModSavedData.getConfidence((ServerLevel) level(), this, player.getUUID());
                 setConfidence(confidence);
+                if (this.confidence >= COOL_CONFIDENCE) {
+                    ModAdvancements.BEFRIEND_ORION.get().trigger((ServerPlayer) player);
+                }
                 ModSavedData.saveConfidence((ServerLevel) level(), this, player.getUUID(), this.confidence + 1);
             }
             return InteractionResult.SUCCESS;

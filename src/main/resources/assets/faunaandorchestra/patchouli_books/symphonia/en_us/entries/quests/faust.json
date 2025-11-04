@@ -1,0 +1,17 @@
+{
+  "name": "symphonia.entry.faust",
+  "category": "faunaandorchestra:quests",
+  "icon": "minecraft:bamboo",
+  "advancement": "faunaandorchestra:befriend_faust",
+  "pages": [
+    {
+      "type": "text",
+      "text": "symphonia.page.faust0"
+    },
+    {
+      "type": "entity",
+      "entity": "faunaandorchestra:faust",
+      "text": "symphonia.page.faust1"
+    }
+  ]
+}

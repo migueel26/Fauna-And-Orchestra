@@ -1,0 +1,35 @@
+{
+  "display": {
+    "icon": {
+      "count": 1,
+      "id": "minecraft:bamboo"
+    },
+    "title": {
+      "translate": "advancements.faunaandorchestra.befriend_faust"
+    },
+    "description": {
+      "translate": "advancements.faunaandorchestra.befriend_faust.desc"
+    },
+    "frame": "task",
+    "hidden": true
+  },
+  "parent": "faunaandorchestra:meet_ringtails",
+  "criteria": {
+    "befriend": {
+      "trigger": "faunaandorchestra:befriend_faust"
+    },
+    "poster": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "faunaandorchestra:ringtails_poster"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    ["befriend"], ["poster"]
+  ]
+}

@@ -14,6 +14,9 @@ public class ModAdvancements {
             DeferredRegister.create(BuiltInRegistries.TRIGGER_TYPES, FaunaAndOrchestra.MOD_ID);
 
     public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> FULL_ORCHESTRA = register("full_orchestra");
+    public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> MEET_RINGTAILS = register("meet_ringtails");
+    public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> BEFRIEND_ORION = register("befriend_orion");
+    public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> BEFRIEND_FAUST = register("befriend_faust");
 
     public static <T extends CriterionTrigger<?>> DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> register(String name) {
         return TRIGGERS.register(name, CustomSimpleTrigger::new);
