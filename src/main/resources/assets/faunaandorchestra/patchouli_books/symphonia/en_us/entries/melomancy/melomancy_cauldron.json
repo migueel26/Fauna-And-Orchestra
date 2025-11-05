@@ -1,0 +1,28 @@
+{
+  "name": "symphonia.entry.melomancy_cauldron",
+  "category": "faunaandorchestra:melomancy",
+  "icon": "faunaandorchestra:melomancy_cauldron_item",
+  "advancement": "faunaandorchestra:music_bottle",
+  "pages": [
+    {
+      "type": "text",
+      "text": "symphonia.page.melomancy_cauldron0"
+    },
+    {
+      "type": "image",
+      "title": "block.faunaandorchestra.melomancy_cauldron",
+      "images": [
+        "faunaandorchestra:textures/gui/entries/melomancy_cauldron1.png",
+        "faunaandorchestra:textures/gui/entries/melomancy_cauldron2.png",
+        "faunaandorchestra:textures/gui/entries/melomancy_cauldron3.png"
+      ],
+      "border": true,
+      "text": "symphonia.page.melomancy_cauldron1"
+    },
+    {
+      "type": "crafting",
+      "recipe": "faunaandorchestra:melomancy_cauldron",
+      "text": "symphonia.page.melomancy_cauldron2"
+    }
+  ]
+}

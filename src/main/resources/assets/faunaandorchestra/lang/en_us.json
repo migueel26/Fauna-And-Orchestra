@@ -356,6 +356,11 @@
   "symphonia.page.listener0": "$(thing)Listeners$() are the main method of obtaining $(o)liquid music$(). By placing a $(l)Listener$() on top of o a $(l)Listener Container$() you'll have successfully built your machine. First of all, place an $(item)Glass Bottle$() in the Container. To make it work, you need to have an $(thing)orchestra$() playing nearby with $(o)all the instruments of the sheet music they're playing$(). After a couple of minutes, the bottle will be filled.",
   "symphonia.page.listener1": "It takes about 5 minutes to fill one bottle with $(item)Liquid Music$()!",
 
+  "symphonia.entry.melomancy_cauldron": "Melomancy Cauldron",
+  "symphonia.page.melomancy_cauldron0": "The $(l)Melomancy Cauldron$() will be where all the melomancy brewing will take place from now on. You need to be careful when following the steps for the recipes to work: $(li)First, place $(item)x3 Liquid Music$() inside the cauldron. $(li)Second, place all the $(item)ingredients$() needed. $(li)Third, right click to start. $(li)Finally, right click with your hand or recipient if needed",
+  "symphonia.page.melomancy_cauldron1": "$(#f00)Careful!$() If you mess up the recipe, you'll get $(item)Discord Essence$() instead.",
+  "symphonia.page.melomancy_cauldron2": "Melomancy was discovered centuries ago. It used to cause all sorts of accidents since, like you'll soon discover, music is hard to treat. The $(thing)music realm$() is fragile — one minimal mistake and $(thing)discordance$() will emerge.",
+
   "symphonia.entry.ringtails": "The Traveling Musicians",
   "symphonia.page.ringtails0": "If you ever want to start this $(o)melomantic$() journey, you should look for a pair of $(l)traveling musicians$() playing around the world. I can't tell you much about them, but you'll recognise them by the $(o)unique melody$() they love to play. They're charismatic and lovely, you'll love them!",
   "symphonia.page.ringtails1": "Meet the Ringtails! $(l)Faust$() and $(l)Orion$(), the traveling musicians. Keep reading!",

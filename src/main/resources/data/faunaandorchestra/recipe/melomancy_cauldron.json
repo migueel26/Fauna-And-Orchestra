@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "iOi",
+    "iSi",
+    "iii"
+  ],
+  "key": {
+    "i": {
+      "item": "minecraft:iron_ingot"
+    },
+    "O": {
+      "tag": "minecraft:logs"
+    },
+    "S": {
+      "item": "faunaandorchestra:music_bottle"
+    }
+  },
+  "result": {
+    "id": "faunaandorchestra:melomancy_cauldron_item",
+    "count": 1
+  }
+}
