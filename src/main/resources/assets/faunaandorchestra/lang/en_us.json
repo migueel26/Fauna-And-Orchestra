@@ -346,6 +346,9 @@
   "symphonia.page.sheet_music2": "These $(l)wandering koalas$() can usually be found in $(o)composer graveyards (in taiga biomes) or pyramids$(). You know, places of interest. Be careful though: you might find them $(o)asleep$()! They can't be waken up hurting them in this state, you'll need to play some sort of $(o)instrument$() around them to wake them up and trade with them.",
   "symphonia.page.sheet_music3": "Composer Graveyard",
 
+  "symphonia.entry.tip_case": "Tip Case",
+  "symphonia.page.tip_case0": "You can craft your own $(l)tip case$() if you want other players to donate you! After placing it on the world, other players will be able to tip up to $(item)x64 gold ingots$() by $(o)right-click$() it. Only you'll able to take them by $(o)right-clicking$() as well.",
+
   "symphonia.entry.ringtails": "The Traveling Musicians",
   "symphonia.page.ringtails0": "If you ever want to start this $(o)melomantic$() journey, you should look for a pair of $(l)traveling musicians$() playing around the world. I can't tell you much about them, but you'll recognise them by the $(o)unique melody$() they love to play. They're charismatic and lovely, you'll love them!",
   "symphonia.page.ringtails1": "Meet the Ringtails! $(l)Faust$() and $(l)Orion$(), the traveling musicians. Keep reading!",

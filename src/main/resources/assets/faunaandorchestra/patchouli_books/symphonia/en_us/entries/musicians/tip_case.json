@@ -1,0 +1,17 @@
+{
+  "name": "symphonia.entry.tip_case",
+  "category": "faunaandorchestra:musicians",
+  "icon": "faunaandorchestra:tip_case",
+  "achievement": "faunaandorchestra:meet_ringtails",
+  "sortnum": -9,
+  "pages": [
+    {
+      "type": "text",
+      "text": "symphonia.page.tip_case0"
+    },
+    {
+      "type": "crafting",
+      "recipe": "faunaandorchestra:tip_case"
+    }
+  ]
+}
