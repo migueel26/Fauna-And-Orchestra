@@ -1,0 +1,26 @@
+{
+  "name": "symphonia.entry.listener",
+  "category": "faunaandorchestra:melomancy",
+  "icon": "faunaandorchestra:listener",
+  "advancement": "faunaandorchestra:music_bottle",
+  "pages": [
+    {
+      "type": "text",
+      "text": "symphonia.page.listener0"
+    },
+    {
+      "type": "image",
+      "title": "block.faunaandorchestra.listener",
+      "images": [
+        "faunaandorchestra:textures/gui/entries/listener.png"
+      ],
+      "border": true,
+      "text": "symphonia.page.listener1"
+    },
+    {
+      "type": "crafting",
+      "recipe": "faunaandorchestra:listener",
+      "recipe2": "faunaandorchestra:listener_container"
+    }
+  ]
+}

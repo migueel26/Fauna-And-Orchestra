@@ -1,0 +1,14 @@
+{
+  "name": "symphonia.entry.music_bottle",
+  "category": "faunaandorchestra:melomancy",
+  "icon": "faunaandorchestra:music_bottle",
+  "advancement": "faunaandorchestra:music_bottle",
+  "sortnum": -10,
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "faunaandorchestra:music_bottle",
+      "text": "symphonia.page.music_bottle0"
+    }
+  ]
+}

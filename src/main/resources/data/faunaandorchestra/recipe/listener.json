@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ggg",
+    "gMg",
+    "OiO"
+  ],
+  "key": {
+    "g": {
+      "item": "minecraft:gold_ingot"
+    },
+    "M": {
+      "item": "faunaandorchestra:music_bottle"
+    },
+    "O": {
+      "item": "minecraft:oak_log"
+    },
+    "i": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "result": {
+    "id": "faunaandorchestra:listener",
+    "count": 1
+  }
+}

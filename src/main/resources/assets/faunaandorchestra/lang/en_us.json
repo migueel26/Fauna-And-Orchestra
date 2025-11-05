@@ -290,10 +290,10 @@
 
   "item.faunaandorchestra.symphonia": "Symphonia",
   "symphonia.landing": "I'm $(#290747)$(k)Anya$(), the creator of this guide. During my long exile, I've compiled everything and everyone there is to know about $(o)animals, music and melomancy$() in the hope that somebody frees our land from the horrors of discordance.",
-  "symphonia.category.musicians": "Intro to Biophilia",
+  "symphonia.category.musicians": "Intro to Solfège",
   "symphonia.category.musicians.desc": "The $(o)fauna$() of our world is inherently musical: you just need to know how to wake their gifts up! This chapter contains all the information regarding the musical creatures around our world and how to interact with them.",
   "symphonia.category.melomancy": "Melomancy 101",
-  "symphonia.category.melomancy.desc": "Desc",
+  "symphonia.category.melomancy.desc": "Welcome to $(thing)Melomancy 101$()! In these chapters you'll learn most of the basics when it comes to safe music manipulation: from liquefying music to the creation of artifacts or unique materials inside of the $(o)Melomancy Cauldron$().",
   "symphonia.category.quests": "Quests & Characters",
   "symphonia.category.quests.desc": "I can see you want more than just an orchestra in your home... You want to know what's beyond the music: what kind of power and magic can be achieved with the proper $(o)(or improper...)$() use of melody. Let's see what we can do.",
 
@@ -348,6 +348,13 @@
 
   "symphonia.entry.tip_case": "Tip Case",
   "symphonia.page.tip_case0": "You can craft your own $(l)tip case$() if you want other players to donate you! After placing it on the world, other players will be able to tip up to $(item)x64 gold ingots$() by $(o)right-click$() it. Only you'll able to take them by $(o)right-clicking$() as well.",
+
+  "symphonia.entry.music_bottle": "Liquid Music",
+  "symphonia.page.music_bottle0": "It seems like you have finally obtained $(l)liquid music$(), the core ingredient in all $(o)melomantic recipes$(). As you might already know, this is the physical manifestation of superb music, whose main form of obtention is through $(#290747)Listeners$() $(o)(more on the next chapter)$(). For the time being, know that the harvest of this ingredient is fundamental",
+
+  "symphonia.entry.listener": "Listeners",
+  "symphonia.page.listener0": "$(thing)Listeners$() are the main method of obtaining $(o)liquid music$(). By placing a $(l)Listener$() on top of o a $(l)Listener Container$() you'll have successfully built your machine. First of all, place an $(item)Glass Bottle$() in the Container. To make it work, you need to have an $(thing)orchestra$() playing nearby with $(o)all the instruments of the sheet music they're playing$(). After a couple of minutes, the bottle will be filled.",
+  "symphonia.page.listener1": "It takes about 5 minutes to fill one bottle with $(item)Liquid Music$()!",
 
   "symphonia.entry.ringtails": "The Traveling Musicians",
   "symphonia.page.ringtails0": "If you ever want to start this $(o)melomantic$() journey, you should look for a pair of $(l)traveling musicians$() playing around the world. I can't tell you much about them, but you'll recognise them by the $(o)unique melody$() they love to play. They're charismatic and lovely, you'll love them!",
