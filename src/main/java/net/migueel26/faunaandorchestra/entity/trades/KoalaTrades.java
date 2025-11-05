@@ -3,6 +3,7 @@ package net.migueel26.faunaandorchestra.entity.trades;
 import com.google.common.collect.ImmutableMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.RandomSource;
@@ -29,7 +30,8 @@ public class KoalaTrades {
                         new ItemsForEmeralds(ModItems.BLUES_SHEET_MUSIC.get(), 5, 1, 1, 1),
                         new ItemsForEmeralds(ModItems.GREENSLEEVES_SHEET_MUSIC.get(), 5, 1, 1,1),
                         new ItemsForEmeralds(ModItems.JAZZY_FUR_ELISE_SHEET_MUSIC.get(), 5, 1, 1, 1),
-                        new ItemsForEmeralds(ModItems.DANCE_OF_THE_LITTLE_SWANS.get(), 5, 1, 1, 1)
+                        new ItemsForEmeralds(ModItems.DANCE_OF_THE_LITTLE_SWANS.get(), 5, 1, 1, 1),
+                        new ItemsForEmeralds(ModItems.LA_BAMBA_SHEET_MUSIC.get(), 5, 1, 1, 1)
                     },
                     2,
                     new VillagerTrades.ItemListing[]{
@@ -38,7 +40,17 @@ public class KoalaTrades {
                         new ItemsForEmeralds(ModItems.DOUBLE_BASS.get(), 3, 1, 3, 1),
                         new ItemsForEmeralds(ModItems.SAXOPHONE.get(), 3, 1, 3, 1),
                         new ItemsForEmeralds(ModItems.VIOLIN.get(), 3, 1, 3, 1),
-                        new ItemsForEmeralds(ModItems.KEYTAR.get(), 3, 1, 3, 1)
+                        new ItemsForEmeralds(ModItems.KEYTAR.get(), 3, 1, 3, 1),
+                        new ItemsForEmeralds(ModItems.OBOE.get(), 3, 1, 3, 1),
+                        new ItemsForEmeralds(ModItems.CELLO.get(), 3, 1, 3, 1)
+                    },
+                    3,
+                    new VillagerTrades.ItemListing[]{
+                        new ItemsForEmeralds(ModItems.PAN_FLUTE.get(), 5, 1, 1, 1)
+                    },
+                    4,
+                    new VillagerTrades.ItemListing[]{
+                        new ItemsForEmeralds(ModBlocks.GINGKO_BILOBA_SAPLING.asItem(), 5, 1, 5, 1)
                     }
             )
     );

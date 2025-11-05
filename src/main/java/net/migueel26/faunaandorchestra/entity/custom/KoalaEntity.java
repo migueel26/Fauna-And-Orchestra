@@ -216,9 +216,11 @@ public class KoalaEntity extends AgeableMob implements Merchant, Npc, GeoEntity 
     private void updateTrades() {
         VillagerTrades.ItemListing[] sheets = KoalaTrades.WANDERING_KOALA_TRADES.get(1);
         VillagerTrades.ItemListing[] instruments = KoalaTrades.WANDERING_KOALA_TRADES.get(2);
+        VillagerTrades.ItemListing[] panFlutes = KoalaTrades.WANDERING_KOALA_TRADES.get(3);
+        VillagerTrades.ItemListing[] gingkoBilobas = KoalaTrades.WANDERING_KOALA_TRADES.get(4);
         if (sheets != null && instruments != null) {
             MerchantOffers merchantOffers = this.getOffers();
-            this.addOffersFromItemListings(merchantOffers, sheets, instruments, 5);
+            this.addOffersFromItemListings(merchantOffers, sheets, instruments, panFlutes, gingkoBilobas, 6);
 
             /*int i = this.random.nextInt(sheets.length);
             VillagerTrades.ItemListing itemListing = sheets[i];
@@ -229,17 +231,23 @@ public class KoalaEntity extends AgeableMob implements Merchant, Npc, GeoEntity 
         }
     }
 
-    private void addOffersFromItemListings(MerchantOffers givenMerchantOffers, VillagerTrades.ItemListing[] sheets, VillagerTrades.ItemListing[] instruments, int maxNumbers) {
+    private void addOffersFromItemListings(MerchantOffers givenMerchantOffers, VillagerTrades.ItemListing[] sheets, VillagerTrades.ItemListing[] instruments, VillagerTrades.ItemListing[] panFlutes, VillagerTrades.ItemListing[] gingkoBilobas, int maxNumbers) {
         ArrayList<VillagerTrades.ItemListing> sheetsList = Lists.newArrayList(sheets);
         ArrayList<VillagerTrades.ItemListing> instrumentsList = Lists.newArrayList(instruments);
+        ArrayList<VillagerTrades.ItemListing> panFluteList = Lists.newArrayList(panFlutes);
+        ArrayList<VillagerTrades.ItemListing> gingkoBilobaList = Lists.newArrayList(gingkoBilobas);
         int i = 0;
 
         while (i < maxNumbers && !sheetsList.isEmpty()) {
             MerchantOffer merchantoffer = null;
             if (i <= 1)
                 merchantoffer = sheetsList.remove(this.random.nextInt(sheetsList.size())).getOffer(this, this.random);
-            if (i > 1)
+            if (i > 1 && i <= 3)
                 merchantoffer = instrumentsList.remove(this.random.nextInt(instrumentsList.size())).getOffer(this, this.random);
+            if (i == 4)
+                merchantoffer = panFluteList.remove(this.random.nextInt(panFluteList.size())).getOffer(this, this.random);
+            if (i == 5)
+                merchantoffer = gingkoBilobaList.remove(this.random.nextInt(gingkoBilobaList.size())).getOffer(this, this.random);
             if (merchantoffer != null) {
                 givenMerchantOffers.add(merchantoffer);
                 i++;
