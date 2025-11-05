@@ -9,8 +9,11 @@
       "text": "symphonia.page.orion0"
     },
     {
-      "type": "entity",
-      "entity": "faunaandorchestra:orion",
+      "type": "image",
+      "images": [
+        "faunaandorchestra:textures/gui/entries/orion.png"
+      ],
+      "border": true,
       "text": "symphonia.page.orion1"
     }
   ]

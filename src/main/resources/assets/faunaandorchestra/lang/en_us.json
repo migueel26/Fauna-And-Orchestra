@@ -289,7 +289,7 @@
   "dialogue.faunaandorchestra.the_great_composer2": "He can't defend himself anymore, attack him directly!",
 
   "item.faunaandorchestra.symphonia": "Symphonia",
-  "symphonia.landing": "I'm $(#290747)Anya$(), the creator of this guide. During my long exile, I've compiled everything and everyone there is to know about $(o)animals, music and melomancy$() in the hope that somebody frees our land from the horrors of discordance.",
+  "symphonia.landing": "I'm $(#290747)$(k)Anya$(), the creator of this guide. During my long exile, I've compiled everything and everyone there is to know about $(o)animals, music and melomancy$() in the hope that somebody frees our land from the horrors of discordance.",
   "symphonia.category.musicians": "Intro to Biophilia",
   "symphonia.category.musicians.desc": "The $(o)fauna$() of our world is inherently musical: you just need to know how to wake their gifts up! This chapter contains all the information regarding the musical creatures around our world and how to interact with them.",
   "symphonia.category.melomancy": "Melomancy 101",
@@ -352,10 +352,10 @@
   "symphonia.page.ringtails2": "$(l)Faust$() and $(l)Orion$() have been traveling around the world for a long time. You can talk directly to them and get to know them and their history better. Trust me, it's $(o)worth it$(). They're also pretty into $(l)melomancy$(), so try to tip them some $(o)gold in their tip case$() and they might give you just what you need to begin your adventure! Who knows what might happen if you tip them a lot...",
 
   "symphonia.entry.faust": "Faust",
-  "symphonia.page.faust0": "Faust",
-  "symphonia.page.faust1": "Faust",
+  "symphonia.page.faust0": "$(l)Faust$() is the core of the Ringtails! After both him and $(l)Orion$() were kicked out of their families, they decided to partner up and travel the world together. He's quite keen on melomancy, and loves to study its relationship with $(o)Mother$(). He's quite a thinker, which sometimes clashes with Orion's impulsiveness. Despite that, they always make up their differences, especially after what happened with $(o)Tiego",
+  "symphonia.page.faust1": "His interest could become obsession. I just hope he doesn't lose himself...",
 
   "symphonia.entry.orion": "Orion",
-  "symphonia.page.orion0": "Orion",
-  "symphonia.page.orion1": "Orion"
+  "symphonia.page.orion0": "Meet $(l)Orion$(), the guitarist of the Ringtails! Formed after meeting $(l)Faust$(), their band is widely known between species. He's also quite a composer: he wrote their main song! Being a self-taught musician, he helped Faust learn the accordion when they were kids. He doesn't care about music, just about making good music for other to enjoy. His impulsiveness, however, made him losing his eye against $(o)Tiego$().",
+  "symphonia.page.orion1": "I love how self-driven he is, though he ends up being relentless sometimes."
 }

@@ -9,8 +9,11 @@
       "text": "symphonia.page.faust0"
     },
     {
-      "type": "entity",
-      "entity": "faunaandorchestra:faust",
+      "type": "image",
+      "images": [
+        "faunaandorchestra:textures/gui/entries/faust.png"
+      ],
+      "border": true,
       "text": "symphonia.page.faust1"
     }
   ]
