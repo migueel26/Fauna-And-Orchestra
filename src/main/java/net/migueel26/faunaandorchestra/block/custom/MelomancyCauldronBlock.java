@@ -1,6 +1,7 @@
 package net.migueel26.faunaandorchestra.block.custom;
 
 import com.mojang.serialization.MapCodec;
+import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.block.ModBlockEntities;
 import net.migueel26.faunaandorchestra.block.entity.MelomancyCauldronBlockEntity;
 import net.migueel26.faunaandorchestra.item.ModItems;
@@ -11,6 +12,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
@@ -93,6 +95,9 @@ public class MelomancyCauldronBlock extends HorizontalDirectionalBlock implement
                 if (RecipesUtil.isCorrectItem(stack, melomancyCauldronBE)) {
                     player.addItem(melomancyCauldronBE.getResult());
                     stack.consume(1, player);
+                    if (!level.isClientSide()) {
+                        ModAdvancements.USE_MELOMANCY_CAULDRON.get().trigger((ServerPlayer) player);
+                    }
                     melomancyCauldronBE.clearContent(false);
                     level.playSound(null,
                             pos.getX(), pos.getY(), pos.getZ(),

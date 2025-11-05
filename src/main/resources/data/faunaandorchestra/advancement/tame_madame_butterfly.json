@@ -1,0 +1,36 @@
+{
+  "display": {
+    "icon": {
+      "count": 1,
+      "id": "faunaandorchestra:butterfly_spawn_egg"
+    },
+    "title": {
+      "translate": "advancements.faunaandorchestra.tame_madame_butterfly"
+    },
+    "description": {
+      "translate": "advancements.faunaandorchestra.tame_madame_butterfly.desc"
+    },
+    "frame": "task"
+  },
+  "parent": "faunaandorchestra:use_melomancy_cauldron",
+  "criteria": {
+    "unique": {
+      "trigger": "minecraft:player_interacted_with_entity",
+      "conditions": {
+        "item": {
+          "items": [
+            "faunaandorchestra:cello"
+          ]
+        },
+        "entity": {
+          "type": "faunaandorchestra:madame_butterfly"
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "unique"
+    ]
+  ]
+}

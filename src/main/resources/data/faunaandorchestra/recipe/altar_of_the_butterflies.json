@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " # ",
+    "#L#",
+    " # "
+  ],
+  "key": {
+    "#": {
+      "item": "faunaandorchestra:butterfly_spawn_egg"
+    },
+    "L": {
+      "item": "faunaandorchestra:altar"
+    }
+  },
+  "result": {
+    "id": "faunaandorchestra:altar_of_the_butterflies",
+    "count": 1
+  }
+}

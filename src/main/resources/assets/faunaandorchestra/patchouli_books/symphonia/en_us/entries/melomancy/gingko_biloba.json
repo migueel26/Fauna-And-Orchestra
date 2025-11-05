@@ -1,0 +1,26 @@
+{
+  "name": "symphonia.entry.gingko_biloba",
+  "category": "faunaandorchestra:melomancy",
+  "icon": "faunaandorchestra:gingko_biloba",
+  "advancement": "faunaandorchestra:music_bottle",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "faunaandorchestra:gingko_biloba",
+      "text": "symphonia.page.gingko_biloba0"
+    },
+    {
+      "type": "multiblock",
+      "name": "block.faunaandorchestra.gingko_biloba_sapling",
+      "multiblock": {
+        "pattern": [
+          ["0"]
+        ],
+        "mapping": {
+          "0": "faunaandorchestra:gingko_biloba_sapling"
+        }
+      },
+      "enable_visualize": false
+    }
+  ]
+}

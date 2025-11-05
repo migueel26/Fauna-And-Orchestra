@@ -1,0 +1,22 @@
+{
+  "name": "symphonia.entry.madame_butterfly",
+  "category": "faunaandorchestra:musicians",
+  "icon": "faunaandorchestra:madame_butterfly_spawn_egg",
+  "advancement": "faunaandorchestra:tame_madame_butterfly",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "text",
+      "text": "symphonia.page.madame_butterfly0"
+    },
+    {
+      "type": "image",
+      "title": "entity.faunaandorchestra.madame_butterfly",
+      "images": [
+        "faunaandorchestra:textures/gui/entries/madame_butterfly.png"
+      ],
+      "border": true,
+      "text": "symphonia.page.madame_butterfly1"
+    }
+  ]
+}

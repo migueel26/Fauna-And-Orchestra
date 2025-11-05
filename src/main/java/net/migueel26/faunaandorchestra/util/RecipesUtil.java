@@ -12,11 +12,18 @@ import oshi.util.tuples.Pair;
 import java.util.*;
 
 public class RecipesUtil {
-    public static final int NUMBER_RECIPES = 1;
+    public static final int NUMBER_RECIPES = 2;
     // MELOMANCY CAULDRON
     public static HashSet<ItemStack> MUSICAL_INK = new HashSet<>(List.of(
             new ItemStack(Items.FEATHER, 1),
             new ItemStack(Items.GLOW_INK_SAC, 1)
+    ));
+
+    public static HashSet<ItemStack> OFFERING = new HashSet<>(List.of(
+            new ItemStack(Items.ALLIUM, 3),
+            new ItemStack(Items.GLOW_BERRIES, 5),
+            new ItemStack(ModItems.GINKGO_BILOBA.get(), 5),
+            new ItemStack(Items.SWEET_BERRIES, 10)
     ));
 
     // DISCORD NUCLEI
@@ -40,6 +47,7 @@ public class RecipesUtil {
         while (result.equalsIgnoreCase("discord") && i <= NUMBER_RECIPES) {
             switch (i) {
                 case 1 -> result = sameIngredients(ingredients, MUSICAL_INK) ? "musical_ink" : "discord";
+                case 2 -> result = sameIngredients(ingredients, OFFERING) ? "offering" : "discord";
             }
 
             i++;
@@ -55,6 +63,7 @@ public class RecipesUtil {
     public static boolean isCorrectItem(ItemStack stack, MelomancyCauldronBlockEntity cauldronBlock) {
         return stack.is(switch (cauldronBlock.getMixResult()) {
                     case "musical_ink" -> Items.GLASS_BOTTLE;
+                    case "offering" -> Items.STRING;
                     default -> stack.getItem();
                 }
         );
@@ -81,6 +90,7 @@ public class RecipesUtil {
     public static ItemStack getMixResult(String mixResult) {
         return switch (mixResult) {
             case "musical_ink" -> new ItemStack(ModItems.MUSICAL_INK.get(), 3);
+            case "offering" -> new ItemStack(ModItems.OFFERING.get());
             default -> new ItemStack(ModItems.DISCORD_ESSENCE.get(), Integer.parseInt(mixResult.split(":")[1]));
         };
     }

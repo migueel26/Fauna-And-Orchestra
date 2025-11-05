@@ -1,0 +1,28 @@
+{
+  "name": "symphonia.entry.altar",
+  "category": "faunaandorchestra:melomancy",
+  "icon": "faunaandorchestra:altar",
+  "advancement": "faunaandorchestra:music_bottle",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "faunaandorchestra:altar",
+      "text": "symphonia.page.altar0"
+    },
+    {
+      "type": "multiblock",
+      "name": "block.faunaandorchestra.altar",
+      "multiblock": {
+        "pattern": [
+          ["0"],
+          ["A"]
+        ],
+        "mapping": {
+          "0": "faunaandorchestra:altar",
+          "A": "minecraft:air"
+        }
+      },
+      "enable_visualize": false
+    }
+  ]
+}

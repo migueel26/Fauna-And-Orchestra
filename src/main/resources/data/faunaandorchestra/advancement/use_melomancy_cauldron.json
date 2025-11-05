@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "count": 1,
+      "id": "faunaandorchestra:melomancy_cauldron_item"
+    },
+    "title": {
+      "translate": "advancements.faunaandorchestra.use_melomancy_cauldron"
+    },
+    "description": {
+      "translate": "advancements.faunaandorchestra.use_melomancy_cauldron.desc"
+    },
+    "frame": "task"
+  },
+  "parent": "faunaandorchestra:music_bottle",
+  "criteria": {
+    "unique": {
+      "trigger": "faunaandorchestra:use_melomancy_cauldron"
+    }
+  },
+  "requirements": [
+    [
+      "unique"
+    ]
+  ]
+}
