@@ -1,0 +1,33 @@
+{
+  "name": "symphonia.entry.offering",
+  "category": "faunaandorchestra:melomancy",
+  "icon": "faunaandorchestra:offering",
+  "advancement": "faunaandorchestra:music_bottle",
+  "pages": [
+    {
+      "type": "spotlight",
+      "title": "symphonia.page.offering0",
+      "item": "faunaandorchestra:offering",
+      "text": "symphonia.page.offering1"
+    },
+    {
+      "type": "crafting",
+      "recipe": "faunaandorchestra:altar_of_the_butterflies",
+      "text": "symphonia.page.offering2"
+    },
+    {
+      "type": "text",
+      "text": "symphonia.page.offering3",
+      "title": "symphonia.page.offering0"
+    },
+    {
+      "type": "image",
+      "images": [
+        "faunaandorchestra:textures/gui/entries/altar_butterflies.png"
+      ],
+      "border": true,
+      "title": "entity.faunaandorchestra.madame_butterfly",
+      "text": "symphonia.page.offering4"
+    }
+  ]
+}

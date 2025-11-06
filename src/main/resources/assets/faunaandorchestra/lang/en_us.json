@@ -355,7 +355,7 @@
   "symphonia.page.sheet_music3": "Composer Graveyard",
 
   "symphonia.entry.tip_case": "Tip Case",
-  "symphonia.page.tip_case0": "You can craft your own $(l)tip case$() if you want other players to donate you! After placing it on the world, other players will be able to tip up to $(item)x64 gold ingots$() by $(o)right-click$() it. Only you'll able to take them by $(o)right-clicking$() as well.",
+  "symphonia.page.tip_case0": "You can craft your own $(l)tip case$() if you want other players to donate you! After placing it on the world, other players will be able to tip up to $(item)64x gold ingots$() by $(o)right-click$() it. Only you'll able to take them by $(o)right-clicking$() as well.",
 
   "symphonia.entry.butterfly_net": "Butterfly Net",
   "symphonia.page.butterfly_net0": "$(o)Butterflies$() don't seem to be all that interesting, don't they? Well, don't judge too soon! You can now craft a $(l)Butterfly Net$() to take them home. It's as easy as $(o)right-clicking$() them with great precision and you'll be able to transport them anywhere.",
@@ -369,7 +369,8 @@
   "symphonia.page.listener1": "It takes about 5 minutes to fill one bottle with $(item)Liquid Music$()!",
 
   "symphonia.entry.melomancy_cauldron": "Melomancy Cauldron",
-  "symphonia.page.melomancy_cauldron0": "The $(l)Melomancy Cauldron$() will be where all the melomancy brewing will take place from now on. You need to be careful when following the steps for the recipes to work: $(li)First, place $(item)x3 Liquid Music$() inside the cauldron. $(li)Second, place all the $(item)ingredients$() needed. $(li)Third, right click to start. $(li)Finally, right click with your hand or recipient if needed",
+  "symphonia.page.melomancy_cauldron0": "The $(l)Melomancy Cauldron$() will be where all the melomancy brewing will take place from now on. You need to be careful when following the steps for the recipes to work: $(li)First, place $(item)3x Liquid Music$() inside the cauldron. $(li)Second, place all the $(item)ingredients$() needed. $(li)Third, right click to start. $(li)Finally, right click with your hand or recipient if needed",
+
   "symphonia.page.melomancy_cauldron1": "$(#f00)Careful!$() If you mess up the recipe, you'll get $(item)Discord Essence$() instead.",
   "symphonia.page.melomancy_cauldron2": "Melomancy was discovered centuries ago. It used to cause all sorts of accidents since, like you'll soon discover, music is hard to treat. The $(thing)music realm$() is fragile — one minimal mistake and $(thing)discordance$() will emerge.",
 
@@ -380,7 +381,11 @@
   "symphonia.page.altar0": "$(l)Altars$() are a pretty important part of $(o)melomancy$(). They connect us to nature, they connect us to music, to $(o)her$(). Regular altars don't do much, however: they're not linked to any activity besides $(o)ceremonies$().$(br2)They can be crafted in the $(item)stonecutter$() with some $(item)stone bricks$()",
 
   "symphonia.entry.offering": "Offering for M. Butterfly",
-  "symphonia.page.offering0": "",
+  "symphonia.page.offering0": "Offering",
+  "symphonia.page.offering1": "Believe it not, the packs of butterflies you encounter around the world come from a common relative: a $(l)Madame Butterfly$(). The thing is, she doesn't really show up around the world due to her importance. For that reason, you need to attract her with some sort of $(item)offering$().",
+  "symphonia.page.offering2": "First of all, you need to craft an $(item)Altar of the Butterflies$() with some of the $(item)butterflies$() captured with the $(item)butterfly net$().$(br2)Once placed in the world, you need to craft the $(item)Offering for M. Butterfly$() in the $(o)melomancy cauldron$().",
+  "symphonia.page.offering3": "The $(item)Offering for M. Butterfly$() has the next recipe: $(li)$(item)3x Allium$() $(li)$(item)5x Ginkgo Biloba$() $(li)$(item)5x Glow Berries$() $(li)$(item)10x Sweet Berries$() $(br)To take the $(o)offering$() you need to click the mixture with a $(item)string$(). After that, place it on top of the Altar of the Butterflies and place $(thing)5 or more $(o)(the more the likelier)$()$(thing)butterflies$() around it. If they remain nearby the altar, $(o)she$() will eventually appear.",
+  "symphonia.page.offering4": "Just like any other $(o)musical animal$(), you need to tame her with her $(item)instrument$().",
 
   "symphonia.entry.ringtails": "The Traveling Musicians",
   "symphonia.page.ringtails0": "If you ever want to start this $(o)melomantic$() journey, you should look for a pair of $(l)traveling musicians$() playing around the world. I can't tell you much about them, but you'll recognise them by the $(o)unique melody$() they love to play. They're charismatic and lovely, you'll love them!",
