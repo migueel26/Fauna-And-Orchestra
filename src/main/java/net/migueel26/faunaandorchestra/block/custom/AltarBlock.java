@@ -13,6 +13,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.Nullable;
 
 public class AltarBlock extends HorizontalDirectionalBlock {
     public static final MapCodec<AltarBlock> CODEC = simpleCodec(AltarBlock::new);
@@ -30,15 +31,11 @@ public class AltarBlock extends HorizontalDirectionalBlock {
         return SHAPE;
     }
 
+    @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        Direction direction = context.getHorizontalDirection();
-        BlockPos blockpos = context.getClickedPos();
-        BlockPos blockpos1 = blockpos.relative(direction);
-        Level level = context.getLevel();
-        return level.getBlockState(blockpos1).canBeReplaced(context) && level.getWorldBorder().isWithinBounds(blockpos1)
-                ? this.defaultBlockState().setValue(FACING, direction.getOpposite())
-                : null;
+        Direction direction = context.getHorizontalDirection().getOpposite();
+        return this.defaultBlockState().setValue(FACING, direction);
     }
 
     protected float getYRot(Direction facing) {

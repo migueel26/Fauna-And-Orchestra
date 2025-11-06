@@ -217,13 +217,8 @@ public class SingingCropBlock extends BushBlock implements EntityBlock, Bonemeal
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        Direction direction = context.getHorizontalDirection();
-        BlockPos blockpos = context.getClickedPos();
-        BlockPos blockpos1 = blockpos.relative(direction);
-        Level level = context.getLevel();
-        return level.getBlockState(blockpos1).canBeReplaced(context) && level.getWorldBorder().isWithinBounds(blockpos1)
-                ? this.defaultBlockState().setValue(FACING, direction.getOpposite())
-                : null;
+        Direction direction = context.getHorizontalDirection().getOpposite();
+        return this.defaultBlockState().setValue(FACING, direction);
     }
     @Override
     protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
