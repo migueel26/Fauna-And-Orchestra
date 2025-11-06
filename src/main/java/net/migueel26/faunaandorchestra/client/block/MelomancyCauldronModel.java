@@ -13,6 +13,7 @@ public class MelomancyCauldronModel extends GeoModel<MelomancyCauldronBlockEntit
     private static final ResourceLocation INK_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/block/melomancy_cauldron_ink.png");
     private static final ResourceLocation DISCORD_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/block/melomancy_cauldron_discord.png");
     private static final ResourceLocation OFFERING_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/block/melomancy_cauldron_offering.png");
+    private static final ResourceLocation HEARING_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/block/melomancy_cauldron_hearing.png");
     private static final ResourceLocation ANIMATIONS = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "animations/block/melomancy_cauldron.animation.json");
     private static final ResourceLocation MODEL = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "geo/block/melomancy_cauldron.geo.json");
     @Override
@@ -26,6 +27,7 @@ public class MelomancyCauldronModel extends GeoModel<MelomancyCauldronBlockEntit
             case String item when item.startsWith("discord") -> DISCORD_TEXTURE;
             case "musical_ink" -> INK_TEXTURE;
             case "offering" -> OFFERING_TEXTURE;
+            case "absolute_hearing" -> HEARING_TEXTURE;
             default -> DEFAULT_TEXTURE;
         };
     }

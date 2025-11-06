@@ -3,16 +3,18 @@ package net.migueel26.faunaandorchestra.util;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.block.entity.MelomancyCauldronBlockEntity;
 import net.migueel26.faunaandorchestra.item.ModItems;
+import net.migueel26.faunaandorchestra.potion.ModPotions;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.PotionContents;
 import oshi.util.tuples.Pair;
 
 import java.util.*;
 
 public class RecipesUtil {
-    public static final int NUMBER_RECIPES = 2;
+    public static final int NUMBER_RECIPES = 3;
     // MELOMANCY CAULDRON
     public static HashSet<ItemStack> MUSICAL_INK = new HashSet<>(List.of(
             new ItemStack(Items.FEATHER, 1),
@@ -24,6 +26,12 @@ public class RecipesUtil {
             new ItemStack(Items.GLOW_BERRIES, 5),
             new ItemStack(ModItems.GINKGO_BILOBA.get(), 5),
             new ItemStack(Items.SWEET_BERRIES, 10)
+    ));
+
+    public static HashSet<ItemStack> ABSOLUTE_HEARING_POTION = new HashSet<>(List.of(
+            new ItemStack(Items.BLAZE_POWDER, 1),
+            new ItemStack(Items.NETHER_WART, 1),
+            new ItemStack(ModItems.GINKGO_BILOBA.get(), 3)
     ));
 
     // DISCORD NUCLEI
@@ -48,6 +56,7 @@ public class RecipesUtil {
             switch (i) {
                 case 1 -> result = sameIngredients(ingredients, MUSICAL_INK) ? "musical_ink" : "discord";
                 case 2 -> result = sameIngredients(ingredients, OFFERING) ? "offering" : "discord";
+                case 3 -> result = sameIngredients(ingredients, ABSOLUTE_HEARING_POTION) ? "absolute_hearing" : "discord";
             }
 
             i++;
@@ -62,9 +71,9 @@ public class RecipesUtil {
 
     public static boolean isCorrectItem(ItemStack stack, MelomancyCauldronBlockEntity cauldronBlock) {
         return stack.is(switch (cauldronBlock.getMixResult()) {
-                    case "musical_ink" -> Items.GLASS_BOTTLE;
+                    case "musical_ink", "absolute_hearing" -> Items.GLASS_BOTTLE;
                     case "offering" -> Items.STRING;
-                    default -> stack.getItem();
+            default -> stack.getItem();
                 }
         );
     }
@@ -91,6 +100,7 @@ public class RecipesUtil {
         return switch (mixResult) {
             case "musical_ink" -> new ItemStack(ModItems.MUSICAL_INK.get(), 3);
             case "offering" -> new ItemStack(ModItems.OFFERING.get());
+            case "absolute_hearing" -> PotionContents.createItemStack(Items.POTION, ModPotions.ABSOLUTE_HEARING_POTION);
             default -> new ItemStack(ModItems.DISCORD_ESSENCE.get(), Integer.parseInt(mixResult.split(":")[1]));
         };
     }

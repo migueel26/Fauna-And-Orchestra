@@ -1,0 +1,18 @@
+{
+  "name": "symphonia.entry.wandering_notes",
+  "category": "faunaandorchestra:melomancy",
+  "icon": "faunaandorchestra:wandering_note",
+  "advancement": "faunaandorchestra:music_bottle",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "faunaandorchestra:wandering_note",
+      "text": "symphonia.page.wandering_notes0"
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:potion[potion_contents={potion:'faunaandorchestra:absolute_hearing_potion'}]",
+      "text": "symphonia.page.wandering_notes1"
+    }
+  ]
+}

@@ -387,6 +387,10 @@
   "symphonia.page.offering3": "The $(item)Offering for M. Butterfly$() has the next recipe: $(li)$(item)3x Allium$() $(li)$(item)5x Ginkgo Biloba$() $(li)$(item)5x Glow Berries$() $(li)$(item)10x Sweet Berries$() $(br)To take the $(o)offering$() you need to click the mixture with a $(item)string$(). After that, place it on top of the Altar of the Butterflies and place $(thing)5 or more $(o)(the more the likelier)$()$(thing)butterflies$() around it. If they remain nearby the altar, $(o)she$() will eventually appear.",
   "symphonia.page.offering4": "Just like any other $(o)musical animal$(), you need to tame her with her $(item)instrument$().",
 
+  "symphonia.entry.wandering_notes": "Wandering Notes",
+  "symphonia.page.wandering_notes0": "These little creatures, the $(l)Wandering Notes$(), are an essential ingredient in $(o)melomancy$(). These only appear after drinking an $(item)Absolute Hearing Potion$() and standing nearby an orchestra. You'll start to see the physically see the notes and you'll be able to $(o)catch them$() with a $(item)Butterfly Net$()!",
+  "symphonia.page.wandering_notes1": "The recipe for the $(item)Absolute Hearing Potion$() in the $(o)Melomancy Cauldron$() is: $(li)$(item)1x Blaze Powder $(li)1x Nether Wart $(li)3x Ginkgo Biloba $()$(br)Once brewed, you need a $(item)Glass Bottle$() to take the potion. After drinking it, you'll have $(o)30 seconds$() of $(thing)absolute hearing$().",
+
   "symphonia.entry.ringtails": "The Traveling Musicians",
   "symphonia.page.ringtails0": "If you ever want to start this $(o)melomantic$() journey, you should look for a pair of $(l)traveling musicians$() playing around the world. I can't tell you much about them, but you'll recognise them by the $(o)unique melody$() they love to play. They're charismatic and lovely, you'll love them!",
   "symphonia.page.ringtails1": "Meet the Ringtails! $(l)Faust$() and $(l)Orion$(), the traveling musicians. Keep reading!",
