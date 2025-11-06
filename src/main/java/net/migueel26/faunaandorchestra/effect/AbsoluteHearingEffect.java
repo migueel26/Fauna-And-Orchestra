@@ -12,7 +12,6 @@ import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import java.util.Optional;
 
 public class AbsoluteHearingEffect extends MobEffect {
-    protected int tick = 0;
     protected AbsoluteHearingEffect(MobEffectCategory category, int color) {
         super(category, color);
     }
@@ -25,7 +24,7 @@ public class AbsoluteHearingEffect extends MobEffect {
                 .filter(ConductorEntity::isConducting)
                 .findAny();
 
-        if (conductor.isPresent() && tick % 40 == 0) {
+        if (conductor.isPresent() && livingEntity.tickCount % 40 == 0 && !livingEntity.level().isClientSide()) {
             WanderingNoteEntity entity = new WanderingNoteEntity(ModEntities.WANDERING_NOTE.get(), livingEntity.level());
             int x = livingEntity.getRandom().nextInt(9) - 4;
             int z = livingEntity.getRandom().nextInt(3);
@@ -34,11 +33,10 @@ public class AbsoluteHearingEffect extends MobEffect {
             entity.moveTo(livingEntity.getX() + x, livingEntity.getY() + y, livingEntity.getZ() + z);
             livingEntity.level().addFreshEntity(entity);
 
-            entity.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP, 1.0f, 0.5f);
+            entity.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP, 1.0f, 1.5f);
 
         }
 
-        tick++;
         return super.applyEffectTick(livingEntity, amplifier);
     }
 
