@@ -14,7 +14,7 @@ import oshi.util.tuples.Pair;
 import java.util.*;
 
 public class RecipesUtil {
-    public static final int NUMBER_RECIPES = 4;
+    public static final int NUMBER_RECIPES = 6;
     // MELOMANCY CAULDRON
     public static HashSet<ItemStack> MUSICAL_INK = new HashSet<>(List.of(
             new ItemStack(Items.FEATHER, 1),
@@ -38,6 +38,18 @@ public class RecipesUtil {
             new ItemStack(Items.IRON_INGOT, 5),
             new ItemStack(Items.LAVA_BUCKET, 1),
             new ItemStack(ModItems.WANDERING_NOTE.get(), 3)
+    ));
+
+    public static HashSet<ItemStack> SINGING_SEED = new HashSet<>(List.of(
+            new ItemStack(Items.BEETROOT_SEEDS, 3),
+            new ItemStack(Items.HONEYCOMB, 2),
+            new ItemStack(Items.CARROT, 5),
+            new ItemStack(ModItems.WANDERING_NOTE.get(), 3)
+    ));
+
+    public static HashSet<ItemStack> BOOGIE_BOMB = new HashSet<>(List.of(
+            new ItemStack(Items.GUNPOWDER, 3),
+            new ItemStack(Items.SAND, 2)
     ));
 
     // DISCORD NUCLEI
@@ -64,6 +76,8 @@ public class RecipesUtil {
                 case 2 -> result = sameIngredients(ingredients, OFFERING) ? "offering" : "discord";
                 case 3 -> result = sameIngredients(ingredients, ABSOLUTE_HEARING_POTION) ? "absolute_hearing" : "discord";
                 case 4 -> result = sameIngredients(ingredients, STEELSONIC) ? "steelsonic" : "discord";
+                case 5 -> result = sameIngredients(ingredients, SINGING_SEED) ? "singing_seed" : "discord";
+                case 6 -> result = sameIngredients(ingredients, BOOGIE_BOMB) ? "boogie_bomb" : "discord";
             }
 
             i++;
@@ -80,6 +94,8 @@ public class RecipesUtil {
         return stack.is(switch (cauldronBlock.getMixResult()) {
                     case "musical_ink", "absolute_hearing" -> Items.GLASS_BOTTLE;
                     case "offering" -> Items.STRING;
+                    case "singing_seed" -> Items.WHEAT_SEEDS;
+                    case "boogie_bomb" -> ModItems.BOOGIE_FRUIT.get();
             default -> stack.getItem();
                 }
         );
@@ -109,6 +125,8 @@ public class RecipesUtil {
             case "offering" -> new ItemStack(ModItems.OFFERING.get());
             case "absolute_hearing" -> PotionContents.createItemStack(Items.POTION, ModPotions.ABSOLUTE_HEARING_POTION);
             case "steelsonic" -> new ItemStack(ModItems.STEELSONIC_INGOT.get(), 2);
+            case "singing_seed" -> new ItemStack(ModItems.SINGING_SEED.get(), 1);
+            case "boogie_bomb" -> new ItemStack(ModItems.BOOGIE_BOMB.get(), 1);
             default -> new ItemStack(ModItems.DISCORD_ESSENCE.get(), Integer.parseInt(mixResult.split(":")[1]));
         };
     }

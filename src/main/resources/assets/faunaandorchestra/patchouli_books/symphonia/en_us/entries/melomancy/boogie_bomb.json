@@ -1,0 +1,17 @@
+{
+  "name": "symphonia.entry.boogie_bomb",
+  "category": "faunaandorchestra:melomancy",
+  "icon": "faunaandorchestra:boogie_bomb",
+  "advancement": "faunaandorchestra:boogie_fruit",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "faunaandorchestra:boogie_bomb",
+      "text": "symphonia.page.boogie_bomb0"
+    },
+    {
+      "type": "text",
+      "text": "symphonia.page.boogie_bomb1"
+    }
+  ]
+}

@@ -204,6 +204,8 @@
   "advancements.faunaandorchestra.use_melomancy_cauldron.desc": "Create your first item in the Melomancy Cauldron",
   "advancements.faunaandorchestra.tame_madame_butterfly": "When You're Good To Mama",
   "advancements.faunaandorchestra.tame_madame_butterfly.desc": "Tame Madame Butterfly by attracting her with an offering",
+  "advancements.faunaandorchestra.boogie_fruit": "Dance Fever",
+  "advancements.faunaandorchestra.boogie_fruit.desc": "Harvest your very first Boogie Fruit!",
 
   "dialogue.faunaandorchestra.faust0": "Nice to meet you! I'm Faust, and together we're The Ringtails",
   "dialogue.faunaandorchestra.faust1": "Nice to see you again, %! Care to join us?",
@@ -399,6 +401,14 @@
 
   "symphonia.entry.whistle": "Whistle",
   "symphonia.page.whistle0": "The $(l)Whistle$() is a really useful item if you to call some pet that's far away! By $(o)right-clicking$() any kind of pet you'll link the whistle to them, no matter the pet. After that, $(music)play it again$() anywhere and you'll be able to summon your little friend. Be $(careful)careful$() though, if you're $(o)very$() far away they won't be able to hear the whistle.",
+
+  "symphonia.entry.singing_seed": "Singing Seed",
+  "symphonia.page.singing_seed0": "The $(l)Singing Seed$() is the first step towards the exciting world of $(thing)biophilia$(): the communion of melody and life. In order to obtain one of these exciting seeds, this is the recipe for the $(music)Melomancy Cauldron$(): $(li)$(item)3x Beetroot Seeds $(li)2x Honeycomb $(li)5x Carrots $(li)3x Wandering Notes",
+  "symphonia.page.singing_seed1": "After everything is properly brewed, $(o)right-click$() it with some $(item)Wheat Seeds$() to infuse them with the mixture and obtain the $(l)Singing Seed$(). After that, just like any regular plant you have to place it in your garden and water it. After being fully grown, harvest it and you'll obtain a $(l)Boogie Fruit$().",
+
+  "symphonia.entry.boogie_bomb": "Boogie Bomb",
+  "symphonia.page.boogie_bomb0": "Have you tried eating a $(item)Boogie Fruit$(). You just can't stop dancing! That's called $(thing)Choreomania$(), and it really disables your senses. If you want to use it against enemies, try creating a $(l)Boogie Bomb$()! The recipe in the $(music)Melomancy Cauldron$() is: $(li)$(item)3x Gunpowder $(li)2x Sand$()$(br).",
+  "symphonia.page.boogie_bomb1": "After brewing the explosive mixture, click it with a $(item)Boogie Fruit$() to apply it to the service. After that, throw it against your enemies to make them useless against those grooves! They won't be able to do anything but $(music)dance$() while the effect is active.",
 
   "symphonia.entry.ringtails": "The Traveling Musicians",
   "symphonia.page.ringtails0": "If you ever want to start this $(o)melomantic$() journey, you should look for a pair of $(l)traveling musicians$() playing around the world. I can't tell you much about them, but you'll recognise them by the $(o)unique melody$() they love to play. They're charismatic and lovely, you'll love them!",

@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "count": 1,
+      "id": "faunaandorchestra:boogie_fruit"
+    },
+    "title": {
+      "translate": "advancements.faunaandorchestra.boogie_fruit"
+    },
+    "description": {
+      "translate": "advancements.faunaandorchestra.boogie_fruit.desc"
+    },
+    "frame": "task"
+  },
+  "parent": "faunaandorchestra:use_melomancy_cauldron",
+  "criteria": {
+    "unique": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "faunaandorchestra:boogie_fruit"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "unique"
+    ]
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "name": "symphonia.entry.singing_seed",
+  "category": "faunaandorchestra:melomancy",
+  "icon": "faunaandorchestra:singing_seed",
+  "advancement": "faunaandorchestra:music_bottle",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "faunaandorchestra:singing_seed",
+      "text": "symphonia.page.singing_seed0"
+    },
+    {
+      "type": "spotlight",
+      "item": "faunaandorchestra:boogie_fruit",
+      "text": "symphonia.page.singing_seed1"
+    }
+  ]
+}
