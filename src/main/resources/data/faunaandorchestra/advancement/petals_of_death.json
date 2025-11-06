@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "count": 1,
+      "id": "faunaandorchestra:petals_of_death"
+    },
+    "title": {
+      "translate": "advancements.faunaandorchestra.petals_of_death"
+    },
+    "description": {
+      "translate": "advancements.faunaandorchestra.petals_of_death.desc"
+    },
+    "frame": "goal"
+  },
+  "parent": "faunaandorchestra:discord_nuclei",
+  "criteria": {
+    "unique": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "faunaandorchestra:petals_of_death"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "unique"
+    ]
+  ]
+}

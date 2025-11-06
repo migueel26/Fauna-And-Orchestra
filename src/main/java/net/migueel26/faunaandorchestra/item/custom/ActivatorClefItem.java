@@ -1,5 +1,6 @@
 package net.migueel26.faunaandorchestra.item.custom;
 
+import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.block.custom.FlowerGrowerDiscordBlock;
 import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
@@ -8,6 +9,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
@@ -43,6 +45,8 @@ public class ActivatorClefItem extends Item {
                 level.playSound(null, pos, SoundEvents.WARDEN_SONIC_CHARGE, SoundSource.BLOCKS);
                 ((ServerLevel) level).sendParticles(ParticleTypes.SOUL_FIRE_FLAME, pos.above().getCenter().x, pos.above().above().getY(), pos.above().getCenter().z, 20, 0.2, 0.2, 0.2, 0.01);
                 ((ServerLevel) level).sendParticles(ModParticleTypes.BASS_CLEF.get(), pos.above().getCenter().x, pos.above().above().getY(), pos.above().getCenter().z, 1, 0, 0, 0, 0);
+
+                ModAdvancements.DISCORD_NUCLEI.get().trigger((ServerPlayer) context.getPlayer());
             }
 
             stack.consume(1, context.getPlayer());

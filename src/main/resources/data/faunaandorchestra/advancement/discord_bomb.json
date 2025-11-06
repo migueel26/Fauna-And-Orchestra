@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "count": 1,
+      "id": "faunaandorchestra:discord_bomb"
+    },
+    "title": {
+      "translate": "advancements.faunaandorchestra.discord_bomb"
+    },
+    "description": {
+      "translate": "advancements.faunaandorchestra.discord_bomb.desc"
+    },
+    "frame": "task"
+  },
+  "parent": "faunaandorchestra:discord_nuclei",
+  "criteria": {
+    "unique": {
+      "trigger": "faunaandorchestra:use_discord_bomb"
+    }
+  },
+  "requirements": [
+    [
+      "unique"
+    ]
+  ]
+}

@@ -1,5 +1,6 @@
 package net.migueel26.faunaandorchestra.entity.goals;
 
+import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.entity.custom.SproutlingEntity;
 import net.migueel26.faunaandorchestra.entity.custom.WiseTree;
@@ -8,6 +9,7 @@ import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -108,6 +110,9 @@ public class SingingSproutlingGatherGoal extends Goal {
             Player player = director.level().getPlayerByUUID(director.getDirOwnerUUID());
             if (player != null && player.isAlive()) {
                 wiseTree.lookAt(EntityAnchorArgument.Anchor.FEET, player.position());
+                if (!director.level().isClientSide()) {
+                    ModAdvancements.WISE_TREE.get().trigger((ServerPlayer) player);
+                }
             }
 
             director.level().addFreshEntity(wiseTree);

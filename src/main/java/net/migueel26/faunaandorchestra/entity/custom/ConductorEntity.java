@@ -1,5 +1,6 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
+import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.block.custom.ComposerGravestoneBlock;
 import net.migueel26.faunaandorchestra.block.entity.ComposerGravestoneBlockEntity;
@@ -320,6 +321,8 @@ public abstract class ConductorEntity extends TamableAnimal {
                     playerCanon.setPos(player.position());
                     playerCanon.setConductor(this);
                     playerCanon.setOwnerUUID(player.getUUID());
+
+                    ModAdvancements.PLAYER_CANON.get().trigger((ServerPlayer) player);
 
                     level().addFreshEntity(playerCanon);
                 }

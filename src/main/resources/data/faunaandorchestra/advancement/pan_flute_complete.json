@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "count": 1,
+      "id": "faunaandorchestra:pan_flute"
+    },
+    "title": {
+      "translate": "advancements.faunaandorchestra.pan_flute_complete"
+    },
+    "description": {
+      "translate": "advancements.faunaandorchestra.pan_flute_complete.desc"
+    },
+    "frame": "goal"
+  },
+  "parent": "faunaandorchestra:pan_flute",
+  "criteria": {
+    "unique": {
+      "trigger": "faunaandorchestra:pan_flute_complete"
+    }
+  },
+  "requirements": [
+    [
+      "unique"
+    ]
+  ]
+}

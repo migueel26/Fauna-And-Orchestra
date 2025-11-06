@@ -3,6 +3,7 @@
   "category": "faunaandorchestra:quests",
   "icon": "minecraft:acacia_sapling",
   "advancement": "faunaandorchestra:befriend_orion",
+  "sortnum": 2,
   "pages": [
     {
       "type": "text",

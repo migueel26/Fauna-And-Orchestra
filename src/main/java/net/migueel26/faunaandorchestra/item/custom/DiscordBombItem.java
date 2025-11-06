@@ -1,11 +1,13 @@
 package net.migueel26.faunaandorchestra.item.custom;
 
+import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.entity.custom.projectile.ThrownBoogieBomb;
 import net.migueel26.faunaandorchestra.entity.custom.projectile.ThrownDiscordBomb;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Position;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -34,6 +36,8 @@ public class DiscordBombItem extends Item implements ProjectileItem {
             thrownpotion.setItem(itemstack);
             thrownpotion.shootFromRotation(player, player.getXRot(), player.getYRot(), -20.0F, 0.5F, 1.0F);
             level.addFreshEntity(thrownpotion);
+
+            ModAdvancements.USE_DISCORD_BOMB.get().trigger((ServerPlayer) player);
         }
 
         itemstack.consume(1, player);

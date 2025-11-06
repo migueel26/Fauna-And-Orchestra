@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "count": 1,
+      "id": "faunaandorchestra:discord_nuclei_item"
+    },
+    "title": {
+      "translate": "advancements.faunaandorchestra.discord_nuclei"
+    },
+    "description": {
+      "translate": "advancements.faunaandorchestra.discord_nuclei.desc"
+    },
+    "frame": "task"
+  },
+  "parent": "faunaandorchestra:fragments",
+  "criteria": {
+    "unique": {
+      "trigger": "faunaandorchestra:discord_nuclei"
+    }
+  },
+  "requirements": [
+    [
+      "unique"
+    ]
+  ]
+}

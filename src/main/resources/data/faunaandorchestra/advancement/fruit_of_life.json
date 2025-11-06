@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "count": 1,
+      "id": "faunaandorchestra:fruit_of_life"
+    },
+    "title": {
+      "translate": "advancements.faunaandorchestra.fruit_of_life"
+    },
+    "description": {
+      "translate": "advancements.faunaandorchestra.fruit_of_life.desc"
+    },
+    "frame": "goal"
+  },
+  "parent": "faunaandorchestra:wise_tree",
+  "criteria": {
+    "unique": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "faunaandorchestra:fruit_of_life"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "unique"
+    ]
+  ]
+}

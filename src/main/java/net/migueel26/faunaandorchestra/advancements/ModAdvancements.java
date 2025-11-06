@@ -18,7 +18,13 @@ public class ModAdvancements {
     public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> BEFRIEND_ORION = register("befriend_orion");
     public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> BEFRIEND_FAUST = register("befriend_faust");
     public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> USE_MELOMANCY_CAULDRON = register("use_melomancy_cauldron");
-
+    public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> WISE_TREE = register("wise_tree");
+    public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> DISCORD_NUCLEI = register("discord_nuclei");
+    public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> USE_DISCORD_BOMB = register("use_discord_bomb");
+    public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> PAN_FLUTE = register("pan_flute");
+    public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> PAN_FLUTE_COMPLETE = register("voice");
+    public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> KILL_COMPOSER = register("kill_composer");
+    public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> PLAYER_CANON = register("player_canon");
     public static <T extends CriterionTrigger<?>> DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> register(String name) {
         return TRIGGERS.register(name, CustomSimpleTrigger::new);
     }

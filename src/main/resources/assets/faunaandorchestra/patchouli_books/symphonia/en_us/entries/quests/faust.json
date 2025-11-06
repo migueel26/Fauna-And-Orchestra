@@ -3,6 +3,7 @@
   "category": "faunaandorchestra:quests",
   "icon": "minecraft:bamboo",
   "advancement": "faunaandorchestra:befriend_faust",
+  "sortnum": 2,
   "pages": [
     {
       "type": "text",

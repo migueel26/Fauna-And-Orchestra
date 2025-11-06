@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "count": 1,
+      "id": "faunaandorchestra:the_great_head_item"
+    },
+    "title": {
+      "translate": "advancements.faunaandorchestra.kill_composer"
+    },
+    "description": {
+      "translate": "advancements.faunaandorchestra.kill_composer.desc"
+    },
+    "frame": "challenge"
+  },
+  "parent": "faunaandorchestra:resurrection_song",
+  "criteria": {
+    "unique": {
+      "trigger": "faunaandorchestra:kill_composer"
+    }
+  },
+  "requirements": [
+    [
+      "unique"
+    ]
+  ]
+}

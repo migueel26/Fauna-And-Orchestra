@@ -1,6 +1,7 @@
 package net.migueel26.faunaandorchestra.block.custom;
 
 import com.mojang.serialization.MapCodec;
+import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.block.entity.AltarOfThePanFluteBlockEntity;
 import net.migueel26.faunaandorchestra.block.entity.VoiceChamberBlockEntity;
@@ -16,6 +17,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -105,6 +107,15 @@ public class AltarOfThePanFluteBlock extends AltarBlock implements EntityBlock {
                     // Get Pan Flute
                     player.setItemInHand(hand, new ItemStack(ModItems.PAN_FLUTE, 1,
                             DataComponentPatch.builder().set(ModDataComponents.PAN_FLUTE_LIST.get(), altar.getPowers()).build()));
+
+                    if (!level.isClientSide()) {
+                        if (altar.getPowers().size() == 1) {
+                            ModAdvancements.PAN_FLUTE.get().trigger((ServerPlayer) player);
+                        } else if (altar.getPowers().size() == 5) {
+                            ModAdvancements.PAN_FLUTE_COMPLETE.get().trigger((ServerPlayer) player);
+                        }
+                    }
+
                     altar.setPowers(List.of());
                     level.setBlock(pos, state.setValue(PAN_FLUTE, false), 3);
                     level.playSound(player, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.AMETHYST_CLUSTER_PLACE, SoundSource.BLOCKS, 1.0f, 1.5f);

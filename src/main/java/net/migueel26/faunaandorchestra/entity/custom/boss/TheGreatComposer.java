@@ -1,5 +1,6 @@
 package net.migueel26.faunaandorchestra.entity.custom.boss;
 
+import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.block.custom.CrawlingDiscordBlock;
 import net.migueel26.faunaandorchestra.effect.ModEffects;
@@ -853,6 +854,10 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
 
         } else if (state == ComposerBossState.DYING) {
             if (stateTime == 1) {
+                for (ServerPlayer player : bossEvent.getPlayers()) {
+                    ModAdvancements.KILL_COMPOSER.get().trigger(player);
+                }
+
                 this.diePos = blockPosition();
                 level().playSound(null, blockPosition(), ModSounds.DYING.get(), SoundSource.NEUTRAL);
                 level().playSound(null, blockPosition(), ModSounds.ELECTRIC_SHOCK.get(), SoundSource.NEUTRAL);

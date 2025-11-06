@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "count": 1,
+      "id": "minecraft:oak_log"
+    },
+    "title": {
+      "translate": "advancements.faunaandorchestra.wise_tree"
+    },
+    "description": {
+      "translate": "advancements.faunaandorchestra.wise_tree.desc"
+    },
+    "frame": "task"
+  },
+  "parent": "faunaandorchestra:sproutling",
+  "criteria": {
+    "unique": {
+      "trigger": "faunaandorchestra:wise_tree"
+    }
+  },
+  "requirements": [
+    [
+      "unique"
+    ]
+  ]
+}

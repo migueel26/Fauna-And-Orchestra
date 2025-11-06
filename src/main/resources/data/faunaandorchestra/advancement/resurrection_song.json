@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "count": 1,
+      "id": "faunaandorchestra:resurrection_song"
+    },
+    "title": {
+      "translate": "advancements.faunaandorchestra.resurrection_song"
+    },
+    "description": {
+      "translate": "advancements.faunaandorchestra.resurrection_song.desc"
+    },
+    "frame": "goal"
+  },
+  "parent": "faunaandorchestra:fragments",
+  "criteria": {
+    "unique": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "faunaandorchestra:resurrection_song"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "unique"
+    ]
+  ]
+}
