@@ -13,8 +13,8 @@ public class ModLootTables {
     public static final DeferredRegister<MapCodec<? extends IGlobalLootModifier>> GLOBAL_LOOT_MODIFIER_SERIALIZERS =
             DeferredRegister.create(NeoForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, FaunaAndOrchestra.MOD_ID);
 
-    public static final Supplier<MapCodec<AddDungeonItemModifier>> ADD_DUNGEON =
-            GLOBAL_LOOT_MODIFIER_SERIALIZERS.register("add_dungeon", () -> AddDungeonItemModifier.CODEC);
+    public static final Supplier<MapCodec<AddGraveyardItemModifier>> ADD_DUNGEON =
+            GLOBAL_LOOT_MODIFIER_SERIALIZERS.register("add_graveyard", () -> AddGraveyardItemModifier.CODEC);
 
     public static void register(IEventBus eventBus) {
         GLOBAL_LOOT_MODIFIER_SERIALIZERS.register(eventBus);

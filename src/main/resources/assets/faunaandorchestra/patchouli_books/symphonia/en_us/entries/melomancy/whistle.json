@@ -1,0 +1,17 @@
+{
+  "name": "symphonia.entry.whistle",
+  "category": "faunaandorchestra:melomancy",
+  "icon": "faunaandorchestra:whistle",
+  "advancement": "faunaandorchestra:music_bottle",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "faunaandorchestra:whistle",
+      "text": "symphonia.page.whistle0"
+    },
+    {
+      "type": "crafting",
+      "recipe": "faunaandorchestra:whistle"
+    }
+  ]
+}

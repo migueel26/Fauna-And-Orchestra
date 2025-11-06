@@ -3,6 +3,7 @@
   "landing_text": "symphonia.landing",
   "version": 1,
   "book_texture": "patchouli:textures/gui/book_red.png",
+  "model": "faunaandorchestra:symphonia",
   "open_sound": "faunaandorchestra:symphonia_open",
   "flip_sound": "faunaandorchestra:symphonia_page",
   "creative_tab": "faunaandorchestra:fauna_and_orchestra",
@@ -10,6 +11,7 @@
   "use_resource_pack": true,
   "i18n": true,
   "macros": {
-    "$(music)": "$(#290747)"
+    "$(music)": "$(#3f0870)",
+    "$(careful)": "$(#f00)"
   }
 }

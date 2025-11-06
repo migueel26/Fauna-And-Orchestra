@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "  /",
+    " / ",
+    "#  "
+  ],
+  "key": {
+    "#": {
+      "item": "faunaandorchestra:gingko_biloba"
+    },
+    "/": {
+      "item": "faunaandorchestra:steelsonic_ingot"
+    }
+  },
+  "result": {
+    "id": "faunaandorchestra:whistle",
+    "count": 1
+  }
+}
