@@ -1,11 +1,14 @@
 package net.migueel26.faunaandorchestra.item.custom;
 
 import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
+import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
@@ -66,6 +69,7 @@ public class MusicalInkItem extends Item {
                 Vec3 pos = context.getClickLocation();
                 ((ServerLevel) context.getLevel()).sendParticles(ModParticleTypes.MAGICAL_NOTE.get(), pos.x, pos.y, pos.z, 10, 0.4, 0.4, 0.4, 0.05);
             }
+            context.getLevel().playSound(context.getPlayer(), context.getClickedPos(), SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.BLOCKS, 1.0f, 1.5f);
             return InteractionResult.SUCCESS;
         }
         return super.useOn(context);

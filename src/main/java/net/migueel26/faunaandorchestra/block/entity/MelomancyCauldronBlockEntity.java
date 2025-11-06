@@ -20,7 +20,9 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Clearable;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.CampfireBlock;
@@ -63,7 +65,7 @@ public class MelomancyCauldronBlockEntity extends BlockEntity implements GeoBloc
         return PlayState.CONTINUE;
     }
 
-    public boolean addIngredient(@Nullable LivingEntity entity, ItemStack originalStack) {
+    public boolean addIngredient(Player player, ItemStack originalStack) {
         int i = 0;
         boolean found = false;
         while (i < ingredients.size() && !found) {
@@ -72,13 +74,16 @@ public class MelomancyCauldronBlockEntity extends BlockEntity implements GeoBloc
                 // It's already placed, so we increment by 1
                 itemStack.setCount(itemStack.getCount() + 1);
                 ingredients.set(i, itemStack);
-                originalStack.consume(1, entity);
+                if (originalStack.is(Items.LAVA_BUCKET) || originalStack.is(Items.WATER_BUCKET) || originalStack.is(Items.POWDER_SNOW_BUCKET)) {
+                    player.addItem(new ItemStack(Items.BUCKET));
+                }
+                originalStack.consume(1, player);
                 found = true;
                 triggerAnim("melomancy_cauldron_controller", "mix");
                 this.markUpdated();
             } else if (itemStack.isEmpty()) {
                 // It's not placed, so we introduce it
-                this.ingredients.set(i, originalStack.consumeAndReturn(1, entity));
+                this.ingredients.set(i, originalStack.consumeAndReturn(1, player));
                 found = true;
                 triggerAnim("melomancy_cauldron_controller", "mix");
                 this.markUpdated();

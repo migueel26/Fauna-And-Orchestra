@@ -25,7 +25,7 @@ public class MelomancyCauldronModel extends GeoModel<MelomancyCauldronBlockEntit
     public ResourceLocation getTextureResource(MelomancyCauldronBlockEntity animatable) {
         return switch (animatable.getMixResult()) {
             case String item when item.startsWith("discord") -> DISCORD_TEXTURE;
-            case "musical_ink" -> INK_TEXTURE;
+            case "musical_ink", "steelsonic" -> INK_TEXTURE;
             case "offering" -> OFFERING_TEXTURE;
             case "absolute_hearing" -> HEARING_TEXTURE;
             default -> DEFAULT_TEXTURE;

@@ -8,5 +8,8 @@
   "creative_tab": "faunaandorchestra:fauna_and_orchestra",
   "advancements_tab": "faunaandorchestra:root",
   "use_resource_pack": true,
-  "i18n": true
+  "i18n": true,
+  "macros": {
+    "$(music)": "$(#290747)"
+  }
 }

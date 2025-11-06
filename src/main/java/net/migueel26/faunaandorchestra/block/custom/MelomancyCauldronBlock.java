@@ -115,6 +115,7 @@ public class MelomancyCauldronBlock extends HorizontalDirectionalBlock implement
                 if (stack.is(ModItems.MUSIC_BOTTLE) && liquid < 3) {
                     // If the player wants to fill the cauldron
                     stack.consume(1, player);
+                    player.addItem(new ItemStack(Items.GLASS_BOTTLE));
                     level.setBlock(pos, state.setValue(LIQUID, liquid + 1), 3);
                     level.playSound(null,
                             pos.getX(), pos.getY(), pos.getZ(),

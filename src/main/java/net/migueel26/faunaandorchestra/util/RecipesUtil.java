@@ -14,7 +14,7 @@ import oshi.util.tuples.Pair;
 import java.util.*;
 
 public class RecipesUtil {
-    public static final int NUMBER_RECIPES = 3;
+    public static final int NUMBER_RECIPES = 4;
     // MELOMANCY CAULDRON
     public static HashSet<ItemStack> MUSICAL_INK = new HashSet<>(List.of(
             new ItemStack(Items.FEATHER, 1),
@@ -32,6 +32,12 @@ public class RecipesUtil {
             new ItemStack(Items.BLAZE_POWDER, 1),
             new ItemStack(Items.NETHER_WART, 1),
             new ItemStack(ModItems.GINKGO_BILOBA.get(), 3)
+    ));
+
+    public static HashSet<ItemStack> STEELSONIC = new HashSet<>(List.of(
+            new ItemStack(Items.IRON_INGOT, 5),
+            new ItemStack(Items.LAVA_BUCKET, 1),
+            new ItemStack(ModItems.WANDERING_NOTE.get(), 3)
     ));
 
     // DISCORD NUCLEI
@@ -57,6 +63,7 @@ public class RecipesUtil {
                 case 1 -> result = sameIngredients(ingredients, MUSICAL_INK) ? "musical_ink" : "discord";
                 case 2 -> result = sameIngredients(ingredients, OFFERING) ? "offering" : "discord";
                 case 3 -> result = sameIngredients(ingredients, ABSOLUTE_HEARING_POTION) ? "absolute_hearing" : "discord";
+                case 4 -> result = sameIngredients(ingredients, STEELSONIC) ? "steelsonic" : "discord";
             }
 
             i++;
@@ -101,6 +108,7 @@ public class RecipesUtil {
             case "musical_ink" -> new ItemStack(ModItems.MUSICAL_INK.get(), 3);
             case "offering" -> new ItemStack(ModItems.OFFERING.get());
             case "absolute_hearing" -> PotionContents.createItemStack(Items.POTION, ModPotions.ABSOLUTE_HEARING_POTION);
+            case "steelsonic" -> new ItemStack(ModItems.STEELSONIC_INGOT.get(), 2);
             default -> new ItemStack(ModItems.DISCORD_ESSENCE.get(), Integer.parseInt(mixResult.split(":")[1]));
         };
     }

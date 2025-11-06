@@ -1,0 +1,13 @@
+{
+  "name": "symphonia.entry.steelsonic_ingot",
+  "category": "faunaandorchestra:melomancy",
+  "icon": "faunaandorchestra:steelsonic_ingot",
+  "advancement": "faunaandorchestra:music_bottle",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "faunaandorchestra:steelsonic_ingot",
+      "text": "symphonia.page.steelsonic_ingot0"
+    }
+  ]
+}
