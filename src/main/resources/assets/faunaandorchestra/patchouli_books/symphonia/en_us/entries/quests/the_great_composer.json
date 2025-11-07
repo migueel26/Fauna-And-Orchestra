@@ -1,0 +1,21 @@
+{
+  "name": "symphonia.entry.the_great_composer",
+  "category": "faunaandorchestra:quests",
+  "icon": "faunaandorchestra:the_great_head_item",
+  "advancement": "faunaandorchestra:kill_composer",
+  "sortnum": 10,
+  "pages": [
+    {
+      "type": "text",
+      "text": "symphonia.page.the_great_composer0"
+    },
+    {
+      "type": "image",
+      "images": [
+        "faunaandorchestra:textures/gui/entries/the_great_composer.png"
+      ],
+      "border": true,
+      "text": "symphonia.page.the_great_composer1"
+    }
+  ]
+}

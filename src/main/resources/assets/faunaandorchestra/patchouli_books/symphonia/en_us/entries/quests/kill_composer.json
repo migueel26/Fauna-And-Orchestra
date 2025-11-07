@@ -1,0 +1,23 @@
+{
+  "name": "symphonia.entry.kill_composer",
+  "category": "faunaandorchestra:quests",
+  "icon": "faunaandorchestra:legendary_baton",
+  "advancement": "faunaandorchestra:resurrection_song",
+  "turnin": "faunaandorchestra:kill_composer",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "quest",
+      "trigger": "faunaandorchestra:kill_composer",
+      "text": "symphonia.page.kill_composer0"
+    },
+    {
+      "type": "image",
+      "images": [
+        "faunaandorchestra:textures/gui/entries/gravestone.png"
+      ],
+      "border": true,
+      "text": "symphonia.page.kill_composer1"
+    }
+  ]
+}

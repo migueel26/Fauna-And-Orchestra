@@ -1,0 +1,19 @@
+{
+  "name": "symphonia.entry.fragments",
+  "category": "faunaandorchestra:quests",
+  "icon": "faunaandorchestra:resurrection_song",
+  "advancement": "faunaandorchestra:fragments",
+  "turnin": "faunaandorchestra:resurrection_song",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "text",
+      "text": "symphonia.page.fragments0"
+    },
+    {
+      "type": "quest",
+      "trigger": "faunaandorchestra:resurrection_song",
+      "text": "symphonia.page.fragments1"
+    }
+  ]
+}

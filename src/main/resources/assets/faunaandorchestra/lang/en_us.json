@@ -229,7 +229,7 @@
   "advancements.faunaandorchestra.kill_composer": "Is This It",
   "advancements.faunaandorchestra.kill_composer.desc": "Kill the Great Composer and free our land",
   "advancements.faunaandorchestra.player_canon": "Vessel",
-  "advancements.faunaandorchestra.player_canon.desc": "Summon your player canon",
+  "advancements.faunaandorchestra.player_canon.desc": "Summon your Player Canon",
 
   "dialogue.faunaandorchestra.faust0": "Nice to meet you! I'm Faust, and together we're The Ringtails",
   "dialogue.faunaandorchestra.faust1": "Nice to see you again, %! Care to join us?",
@@ -445,5 +445,23 @@
 
   "symphonia.entry.orion": "Orion",
   "symphonia.page.orion0": "Meet $(l)Orion$(), the guitarist of the Ringtails! Formed after meeting $(l)Faust$(), their band is widely known between species. He's also quite a composer: he wrote their main song! Being a self-taught musician, he helped Faust learn the accordion when they were kids. He doesn't care about music, just about making good music for other to enjoy. His impulsiveness, however, made him losing his eye against $(o)Tiego$().",
-  "symphonia.page.orion1": "I love how self-driven he is, though he ends up being relentless sometimes."
+  "symphonia.page.orion1": "I love how self-driven he is, though he ends up being relentless sometimes.",
+
+  "symphonia.entry.fragments": "The Lost Composition",
+  "symphonia.page.fragments0": "$(o)Faust and Orion$() have introduced you to $(music)the Great Composer$(), the terror of this land. He's been hurting and absorbing the fauna and music of the world, and you're the only one that can stop $(o)him$(). In order to do that, he's asked you to repair the $(music)Fragments of a Lost Composition$(), resurrect him and end his reign of terror.",
+  "symphonia.page.fragments1": "In order to repair the $(item)Requiem of Resurrection$() you need to put these ingredients in a $(music)Melomancy Cauldron$(): $(li)$(item)1x Fruit of Life $(li)1x Petals of Death $()$(br)Finally, infuse your $(item)Fragments of a Lost Composition$() with the brewing and you'll repair it.",
+
+  "symphonia.entry.fruit_of_life": "The Fruit of Life",
+  "symphonia.page.fruit_of_life0": "One of the two key ingredients to achieve the great $(music)Resurrection$(). The $(item)Fruit of Life$() is the synthesis of life and harmony itself, only produced as the fruit of a $(thing)great and ancient tree$(). This is $(music)biophilia$() at its finest, so you'll need to delve into this matter.",
+
+  "symphonia.entry.petals_of_death": "The Petals of Death",
+  "symphonia.page.petals_of_death0": "The second part of achieving the great $(music)Resurrection$(), the $(item)Petals of Death$(), is the greatest danger one can achieve with $(music)Melomancy$(). This dark branch of the musical arts, called $(music)discordance$(), is of great danger. In order to get this $(item)ingredient$() you'll need to risk the fabric of earth and sound, possibly endangering your home.",
+
+  "symphonia.entry.kill_composer": "Kill the Great Composer",
+  "symphonia.page.kill_composer0": "You've finally obtained the $(item)Requiem of Resurrection$() and it's time to end the reign of $(music)the Great Composer$() once and for all. To awaken him out of his gravestone you need to $(thing)play the Requiem of Resurrection$() next to his $(o)grave$() in the $(o)Composer Graveyard$(), and after a few minutes, his lethargy should come to an end.",
+  "symphonia.page.kill_composer1": "$(careful)$(l)Careful!$() It's a long and difficult fight, so you need to be $(o)very$() well-equipped.",
+
+  "symphonia.entry.the_great_composer": "The Great Composer",
+  "symphonia.page.the_great_composer0": "$(l)Tiego$(), more commonly refered to as $(music)the Great Composer$(), was once held in high regard by his peers. He composed the most beautiful pieces in his land, and inspired hundreds of animals. $(br)However$(), once he discovered $(thing)Melomancy$(), he started to abandon his passion in pursuit of greater $(o)power$(). After trying many times to control $(thing)discord$(), he lost himself forever.",
+  "symphonia.page.the_great_composer1": "Nobody should ever try to go as far as he wanted to. Not even $(o)you$()."
 }

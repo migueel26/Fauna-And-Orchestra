@@ -1,0 +1,15 @@
+{
+  "name": "symphonia.entry.petals_of_death",
+  "category": "faunaandorchestra:quests",
+  "icon": "faunaandorchestra:petals_of_death",
+  "advancement": "faunaandorchestra:fragments",
+  "turnin": "faunaandorchestra:petals_of_death",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "quest",
+      "trigger": "faunaandorchestra:petals_of_death",
+      "text": "symphonia.page.petals_of_death0"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "symphonia.entry.fruit_of_life",
+  "category": "faunaandorchestra:quests",
+  "icon": "faunaandorchestra:fruit_of_life",
+  "advancement": "faunaandorchestra:fragments",
+  "turnin": "faunaandorchestra:fruit_of_life",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "quest",
+      "trigger": "faunaandorchestra:fruit_of_life",
+      "text": "symphonia.page.fruit_of_life0"
+    }
+  ]
+}
