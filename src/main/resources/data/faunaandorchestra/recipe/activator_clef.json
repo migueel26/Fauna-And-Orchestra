@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "#L#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "faunaandorchestra:discord_essence"
+    },
+    "L": {
+      "item": "faunaandorchestra:wandering_note"
+    }
+  },
+  "result": {
+    "id": "faunaandorchestra:activator_clef",
+    "count": 1
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "name": "symphonia.entry.activator_clef",
+  "category": "faunaandorchestra:discordance",
+  "icon": "faunaandorchestra:activator_clef",
+  "advancement": "faunaandorchestra:fragments",
+  "sortnum": -9,
+  "pages": [
+    {
+      "type": "text",
+      "text": "symphonia.page.activator_clef0"
+    },
+    {
+      "type": "crafting",
+      "recipe": "faunaandorchestra:activator_clef",
+      "text": "symphonia.page.activator_clef1"
+    }
+  ]
+}

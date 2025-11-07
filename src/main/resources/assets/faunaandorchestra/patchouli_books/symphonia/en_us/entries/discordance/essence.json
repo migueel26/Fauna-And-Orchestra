@@ -1,0 +1,14 @@
+{
+  "name": "symphonia.entry.essence",
+  "category": "faunaandorchestra:discordance",
+  "icon": "faunaandorchestra:discord_essence",
+  "advancement": "faunaandorchestra:fragments",
+  "sortnum": -10,
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "faunaandorchestra:discord_essence",
+      "text": "symphonia.page.essence0"
+    }
+  ]
+}

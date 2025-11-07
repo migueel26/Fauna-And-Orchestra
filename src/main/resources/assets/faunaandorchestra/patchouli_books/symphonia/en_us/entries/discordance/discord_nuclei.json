@@ -1,0 +1,18 @@
+{
+  "name": "symphonia.entry.discord_nuclei",
+  "category": "faunaandorchestra:discordance",
+  "icon": "faunaandorchestra:discord_nuclei_item",
+  "advancement": "faunaandorchestra:fragments",
+  "sortnum": -8,
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "faunaandorchestra:discord_nuclei_item",
+      "text": "symphonia.page.discord_nuclei0"
+    },
+    {
+      "type": "text",
+      "text": "symphonia.page.discord_nuclei1"
+    }
+  ]
+}

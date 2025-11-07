@@ -1,0 +1,25 @@
+{
+  "name": "symphonia.entry.discorded_flower",
+  "category": "faunaandorchestra:discordance",
+  "icon": "faunaandorchestra:discorded_flower",
+  "advancement": "faunaandorchestra:discord_bomb",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "faunaandorchestra:discorded_flower",
+      "text": "symphonia.page.discorded_flower0"
+    },
+    {
+      "type": "image",
+      "images": [
+        "faunaandorchestra:textures/gui/entries/discorded_flower.png"
+      ],
+      "border": true,
+      "text": "symphonia.page.discorded_flower1"
+    },
+    {
+      "type": "text",
+      "text": "symphonia.page.discorded_flower2"
+    }
+  ]
+}

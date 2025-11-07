@@ -14,10 +14,12 @@
       "name": "block.faunaandorchestra.gingko_biloba_sapling",
       "multiblock": {
         "pattern": [
-          ["0"]
+          ["0"],
+          ["A"]
         ],
         "mapping": {
-          "0": "faunaandorchestra:gingko_biloba_sapling"
+          "0": "faunaandorchestra:gingko_biloba_sapling",
+          "A": "minecraft:air"
         }
       },
       "enable_visualize": false

@@ -1,0 +1,13 @@
+{
+  "name": "symphonia.entry.transmuted_voice",
+  "category": "faunaandorchestra:discordance",
+  "icon": "faunaandorchestra:transmuted_voice",
+  "advancement": "faunaandorchestra:fragments",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "faunaandorchestra:transmuted_voice",
+      "text": "symphonia.page.transmuted_voice0"
+    }
+  ]
+}
