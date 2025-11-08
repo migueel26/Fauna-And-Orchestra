@@ -3,7 +3,9 @@ package net.migueel26.faunaandorchestra.entity.goals;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.block.custom.DamBlock;
 import net.migueel26.faunaandorchestra.entity.custom.BeaverEntity;
+import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.level.Level;
@@ -67,6 +69,7 @@ public class BeaverBuildsDamGoal extends Goal {
         if (isDam) waterPos = new BlockPos(waterPos.getX(), waterPos.getY()+1, waterPos.getZ());
         if (waterPos.getZ() != wantedPathBlock.z || waterPos.getX() != wantedPathBlock.x) {
             level.setBlock(waterPos, ModBlocks.DAM_BLOCK.get().defaultBlockState().setValue(DamBlock.WATERLOGGED, true), 3);
+
         }
         waterPos = null;
         wantedPathBlock = null;
@@ -134,6 +137,7 @@ public class BeaverBuildsDamGoal extends Goal {
             Vec3 tp = new Vec3(wantedPathBlock.x, wantedPathBlock.y + 0.5, wantedPathBlock.z);
             beaver.moveTo(tp);
             beaver.build();
+            level.playSound(null, beaver.blockPosition(), ModSounds.BEAVER_TEETH.get(), SoundSource.NEUTRAL, 1.0f, 1.0f);
             tick = 0;
         }
 
