@@ -1,0 +1,17 @@
+{
+  "name": "symphonia.entry.amplifier_crystal",
+  "category": "faunaandorchestra:biophilia",
+  "icon": "faunaandorchestra:amplifier_crystal",
+  "advancement": "faunaandorchestra:fragments",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "faunaandorchestra:amplifier_crystal",
+      "text": "symphonia.page.amplifier_crystal0"
+    },
+    {
+      "type": "text",
+      "text": "symphonia.page.amplifier_crystal1"
+    }
+  ]
+}

@@ -91,7 +91,8 @@ public class PanFluteItem extends Item {
                     case 5 -> executeNature(level, player, flute);
                 }
 
-                flute.hurtAndBreak(1, player, usedHand.equals(InteractionHand.MAIN_HAND) ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
+                //???
+                //flute.hurtAndBreak(1, player, usedHand.equals(InteractionHand.MAIN_HAND) ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
             }
 
             // We play the sound

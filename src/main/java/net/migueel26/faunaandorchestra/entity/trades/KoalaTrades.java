@@ -51,6 +51,10 @@ public class KoalaTrades {
                     4,
                     new VillagerTrades.ItemListing[]{
                         new ItemsForEmeralds(ModBlocks.GINGKO_BILOBA_SAPLING.asItem(), 5, 1, 5, 1)
+                    },
+                    5,
+                    new VillagerTrades.ItemListing[]{
+                        new ItemsForEmeralds(ModItems.GLOVE.get().getDefaultInstance(), 3, 1, 5, 1, 0.05f, Optional.empty(), ModItems.BOOGIE_FRUIT.get())
                     }
             )
     );
@@ -60,6 +64,7 @@ public class KoalaTrades {
     }
 
     static class ItemsForEmeralds implements VillagerTrades.ItemListing {
+        private Item coin = Items.EMERALD;
         private final ItemStack itemStack;
         private final int emeraldCost;
         private final int maxUses;
@@ -115,6 +120,26 @@ public class KoalaTrades {
             this.enchantmentProvider = enchantmentProvider;
         }
 
+        public ItemsForEmeralds(
+                ItemStack itemStack,
+                int emeraldCost,
+                int numberOfItems,
+                int maxUses,
+                int villagerXp,
+                float priceMultiplier,
+                Optional<ResourceKey<EnchantmentProvider>> enchantmentProvider,
+                Item coin
+        ) {
+            this.itemStack = itemStack;
+            this.emeraldCost = emeraldCost;
+            this.itemStack.setCount(numberOfItems);
+            this.maxUses = maxUses;
+            this.villagerXp = villagerXp;
+            this.priceMultiplier = priceMultiplier;
+            this.enchantmentProvider = enchantmentProvider;
+            this.coin = coin;
+        }
+
         @Override
         public MerchantOffer getOffer(Entity trader, RandomSource random) {
             ItemStack itemstack = this.itemStack.copy();
@@ -129,7 +154,9 @@ public class KoalaTrades {
                                     random
                             )
                     );
-            return new MerchantOffer(new ItemCost(Items.EMERALD, this.emeraldCost), itemstack, this.maxUses, this.villagerXp, this.priceMultiplier);
+            return new MerchantOffer(new ItemCost(coin, this.emeraldCost), itemstack, this.maxUses, this.villagerXp, this.priceMultiplier);
         }
     }
+
+
 }

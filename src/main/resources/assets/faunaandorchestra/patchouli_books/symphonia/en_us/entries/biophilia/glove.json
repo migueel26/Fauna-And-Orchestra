@@ -1,0 +1,17 @@
+{
+  "name": "symphonia.entry.glove",
+  "category": "faunaandorchestra:biophilia",
+  "icon": "faunaandorchestra:glove",
+  "advancement": "faunaandorchestra:fragments",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "faunaandorchestra:glove",
+      "text": "symphonia.page.glove0"
+    },
+    {
+      "type": "text",
+      "text": "symphonia.page.glove1"
+    }
+  ]
+}

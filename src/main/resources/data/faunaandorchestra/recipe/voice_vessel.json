@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "Q#Q",
+    "Q/Q",
+    "QQQ"
+  ],
+  "key": {
+    "#": {
+      "item": "faunaandorchestra:amplifier_crystal"
+    },
+    "Q": {
+      "item": "minecraft:quartz"
+    },
+    "/": {
+      "item": "faunaandorchestra:wandering_note"
+    }
+  },
+  "result": {
+    "id": "faunaandorchestra:voice_vessel",
+    "count": 1
+  }
+}

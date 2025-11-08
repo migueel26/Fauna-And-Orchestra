@@ -1,0 +1,20 @@
+{
+  "name": "symphonia.entry.sound_gust",
+  "category": "faunaandorchestra:biophilia",
+  "icon": "faunaandorchestra:voice",
+  "advancement": "faunaandorchestra:fragments",
+  "pages": [
+    {
+      "type": "text",
+      "text": "symphonia.page.sound_gust0"
+    },
+    {
+      "type": "image",
+      "images": [
+        "faunaandorchestra:textures/gui/entries/gust.png"
+      ],
+      "border": true,
+      "text": "symphonia.page.sound_gust1"
+    }
+  ]
+}

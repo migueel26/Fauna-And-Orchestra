@@ -1,0 +1,20 @@
+{
+  "name": "symphonia.entry.sound_zephyr",
+  "category": "faunaandorchestra:biophilia",
+  "icon": "faunaandorchestra:voice",
+  "advancement": "faunaandorchestra:fragments",
+  "pages": [
+    {
+      "type": "text",
+      "text": "symphonia.page.sound_zephyr0"
+    },
+    {
+      "type": "image",
+      "images": [
+        "faunaandorchestra:textures/gui/entries/zephyr.png"
+      ],
+      "border": true,
+      "text": "symphonia.page.sound_zephyr1"
+    }
+  ]
+}

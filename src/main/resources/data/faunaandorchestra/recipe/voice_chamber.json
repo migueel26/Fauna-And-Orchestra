@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " L ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "faunaandorchestra:steelsonic_ingot"
+    },
+    "L": {
+      "item": "faunaandorchestra:amplifier_crystal"
+    }
+  },
+  "result": {
+    "id": "faunaandorchestra:voice_chamber",
+    "count": 1
+  }
+}

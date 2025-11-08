@@ -460,6 +460,47 @@
   "symphonia.page.discorded_flower1": "Once placed on top of a $(item)Discord Block$(), you'll need to $(thing)feed$() the flower.",
   "symphonia.page.discorded_flower2": "To feed it, you need to give it $(music)monster or animal parts$(). Whether it's $(o)flesh, bones, rods, or even nether stars or echo shards$(): the $(item)flower$() is hungry for everything. The rarer, the more it will be fed. $(br)You need to be $(careful)extremely careful$() though: along with the monster parts, it will expand itself and consume everything around it. $(o)Place it as far as possible$(). $(br2)Once completely fled, it'll release all its dissonance and drop the $(item)Petals of Death$().",
 
+  "symphonia.entry.glove": "Glove",
+  "symphonia.page.glove0": "This may seem like a simple $(l)Glove$() at first sight, but it's so much more: it's made of $(o)leather from another land$(). Therefore, it's no longer easily craftable. $(br)However, our lovely collectors the $(music)wandering koalas$() have a good supply of them, though they don't sell them to everybody. Try to talk with them while holding a $(item)Boogie Fruit$() and they might sell it to you!",
+  "symphonia.page.glove1": "And what's the $(o)glove$() for? Why don't you use it with a $(music)grown singing crop$()?",
+
+  "symphonia.entry.amplifier_crystal": "Amplifier Crystal",
+  "symphonia.page.amplifier_crystal0": "Containing $(item)voices$() is even trickier than music: they have an $(o)errant and wild nature$(), so $(item)steelsonic$() isn't enough. In order to channel and contain them, we need an $(l)Amplifier Crystal$(). It's quite expensive to make in the $(music)Melomancy Cauldron$(), but worth it. They're indispensable if you want to meddle in this branch of $(thing)biophilia$().",
+  "symphonia.page.amplifier_crystal1": "The recipe for this valuable $(item)item$() is: $(li)$(item)5x Diamonds $(li)3x Wandering Notes $(li)3x Steelsonic Ingots$()$(br)Finally, infuse an $(item)Amethyst Shard$() with it and you'll get your precious $(item)Amplifier Crystal$().",
+
+  "symphonia.entry.singing_sproutling": "Singing Sproutling",
+  "symphonia.page.singing_sproutling0": "These $(o)little creatures$() were the singing crops all along! They're the epitome of what $(thing)biophilia$() is: the marriage between $(o)music and life$(). $(br)They love wandering around, especially around other crops, and singing! $(br2)They have such an $(o)angelical voice$() that when they sing the $(music)crops and grass$() around it $(o)magically grow$()!",
+  "symphonia.page.singing_sproutling1": "They're really useful as a natural $(item)bone meal$() and... $(o)perhaps$() something more?",
+
+  "symphonia.entry.voice_vessel": "Voice Vessel",
+  "symphonia.page.voice_vessel0": "Voice",
+  "symphonia.page.voice_vessel1": "$(item)Voices$() are a really powerful tool. They contain all the power and memories of the $(o)creature$() they belong to. That's why, if you want to harness more power, they're crucial. $(br2)$(l)Voice Vessels$() are used for the containment of $(item)voices$(). The $(item)amplifier crystal$() catches the voice, and the $(item)quartz and wandering note$() contain it.",
+  "symphonia.page.voice_vessel2": "In order to use it, you need a creature apt for the $(music)vessel$() $(o)(more on that later)$(). When found, you need to hold it $(o)opened$() during the entire process. If you close the $(item)vessel$() before finishing, the voice will $(o)fade away$() and the creature will remain $(music)muted$().",
+
+  "symphonia.entry.pan_flute": "Ritual of the Pan Flute",
+  "symphonia.page.pan_flute0": "Every musical animal has its own particular $(music)instrument$(), and so does the human. Your soul is linked by birth to the $(l)Pan Flute$(), and just like every other animal, you won't know it until you $(o)play it$(). $(br)In order to obtain it, you'll need to purchase it from a $(o)Wandering Koala$(). They sell it for $(item)emeralds$() just like any other instrument.",
+  "symphonia.page.pan_flute1": "However, in order to obtain its $(music)true powers$() you'll need to perform different $(o)rituals$() which will produce different effects. $(br2)To set up the $(o)ritual$(), you'll need an $(item)Altar of the Pan Flute$() and several $(item)Altars$() and $(item)Voice Chambers$() $(o)(depends on the ritual)$()$(br2)Once you have more than one sound, you can switch between them with $(o)shift$().",
+
+  "symphonia.entry.sound_burst": "Sound of Burst",
+  "symphonia.page.sound_burst0": "The $(l)Sound of Burst$() gets its powers from fire and music. While playing this $(thing)sounds$(), you'll release a burst of ignited notes which will do $(o)area-damage$()! You'll need to place the following $(item)voices$() in the $(music)Voice Chambers$():$(item)$(li)3x Voices of Llama $(li)2x Voices of Magma Cubes 4(li)1x Voice of Blaze $(li)1x Voice of Piglin Brute",
+  "symphonia.page.sound_burst1": "$If you (o)hold right-click$() you'll throw a burst of flaming notes!",
+
+  "symphonia.entry.sound_gust": "Sound of Gust",
+  "symphonia.page.sound_gust0": "The $(l)Sound of Gust$() takes the strength and force of several creatures into this $(thing)sound$() to release a great gust of wind that $(o)pushes entities away$()! Just like any other $(o)ritual$(), you need to place these $(item)voices$() in the $(music)Voice Chambers: $(li)$(item)2x Voices of Goat $(li)2x Voices of Iron Golem $(li)1x Voice of Breeze",
+  "symphonia.page.sound_gust1": "$(o)Right-click$() near some entities and you'll send them away!",
+
+  "symphonia.entry.sound_vigour": "Sound of Vigour",
+  "symphonia.page.sound_vigour0": "The $(l)Sound of Vigour$() is a defensive sound: by playing this $(thing)sounds$() you'll summon $(o)health wisps$() which will heal you and your allies after a few seconds. In order to get it, you need to place these $(item)voices$() in the $(music)Voice Chambers$():$(li)$(item)4x Vex $(li)1x Witch $(li)1x Evoker",
+  "symphonia.page.sound_vigour1": "$(o)Right-click$() and in a few seconds every ally nearby will be healed!",
+
+  "symphonia.entry.sound_zephyr": "Sound of Zephyr",
+  "symphonia.page.sound_zephyr0": "The $(l)Sound of Zephyr$() makes use of the voices of wind-related creatures. If you play this $(thing)sound$(), you'll be able to impulse yourself in any direction: very useful for getting to places otherwise $(o)unreachable$()! You'll need to place these $(item)voices$() in the $(music)Voice Chambers$():$(li)$(item)2x Voices of Parrot $(li)2x Voices of Breeze $(li)1x Voice of Macaw $(li)1x Voice of Phantom$()",
+  "symphonia.page.sound_zephyr1": "$(o)Right-click$() and you'll be impulsed wherever you're facing!",
+
+  "symphonia.entry.sound_species": "Sound of the Species",
+  "symphonia.page.sound_species0": "The $(l)Sound of the Species$() is quite a tricky one. You'll need to reunite the $(item)voices$() of creatures across the dimensions in order to unify them into a single $(thing)sound$(). $(br2)In order to use this sound, you need to reunite $(music)six Singing Sproutlings$() together and play them this sound. In response, they'll sing along and sacrifice their lives to create $(thing)a new one$().",
+  "symphonia.page.sound_species1": "To get this specific $(thing)sounds$() you'll need to place the following $(item)voices$() in the $(music)Voice Chambers$(): $(li)$(item)1x Voice of Mooshroom $(li)1x Voice of Cave Spider $(li)1x Voice of Dolphin $(li)1x Voice of Hoglin $(li)1x Voice of Strider $(li)1x Voice of Sniffer $(li)1x Voice of Pillager $(li)1x Voice of Mantis",
+
   "symphonia.entry.ringtails": "The Traveling Musicians",
   "symphonia.page.ringtails0": "If you ever want to start this $(o)melomantic$() journey, you should look for a pair of $(l)traveling musicians$() playing around the world. I can't tell you much about them, but you'll recognise them by the $(o)unique melody$() they love to play. They're charismatic and lovely, you'll love them!",
   "symphonia.page.ringtails1": "Meet the Ringtails! $(l)Faust$() and $(l)Orion$(), the traveling musicians. Keep reading!",

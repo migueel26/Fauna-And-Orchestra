@@ -1,0 +1,39 @@
+{
+  "name": "symphonia.entry.pan_flute",
+  "category": "faunaandorchestra:biophilia",
+  "icon": "faunaandorchestra:pan_flute",
+  "advancement": "faunaandorchestra:fragments",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "faunaandorchestra:pan_flute",
+      "text": "symphonia.page.pan_flute0"
+    },
+    {
+      "type": "crafting",
+      "recipe": "faunaandorchestra:altar_of_the_pan_flute",
+      "recipe2": "faunaandorchestra:voice_chamber"
+    },
+    {
+      "type": "text",
+      "text": "symphonia.page.pan_flute1"
+    },
+    {
+      "type": "multiblock",
+      "name": "symphonia.entry.pan_flute",
+      "multiblock": {
+        "pattern": [
+          ["  C C  ", "       ", "C     C", "       ", "C     C","       ","  C C  "],
+          ["  A A  ", "       ", "A     A", "   0   ", "A     A","       ","  A A  "]
+        ],
+        "mapping": {
+          "0": "faunaandorchestra:altar_of_the_pan_flute",
+          "A": "faunaandorchestra:altar",
+          "C": "faunaandorchestra:voice_chamber"
+        },
+        "symmetrical": true
+      },
+      "enable_visualize": true
+    }
+  ]
+}

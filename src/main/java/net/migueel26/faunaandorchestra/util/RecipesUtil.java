@@ -14,7 +14,7 @@ import oshi.util.tuples.Pair;
 import java.util.*;
 
 public class RecipesUtil {
-    public static final int NUMBER_RECIPES = 6;
+    public static final int NUMBER_RECIPES = 7;
     // MELOMANCY CAULDRON
     public static HashSet<ItemStack> MUSICAL_INK = new HashSet<>(List.of(
             new ItemStack(Items.FEATHER, 1),
@@ -52,6 +52,12 @@ public class RecipesUtil {
             new ItemStack(Items.SAND, 2)
     ));
 
+    public static HashSet<ItemStack> AMPLIFIER_CRYSTAL = new HashSet<>(List.of(
+            new ItemStack(Items.DIAMOND, 5),
+            new ItemStack(ModItems.WANDERING_NOTE.get(), 3),
+            new ItemStack(ModItems.STEELSONIC_INGOT.get(), 2)
+    ));
+
     // DISCORD NUCLEI
     public static Map<Item, Pair<Integer, Item>> DISCORD_NUCLEI = Map.of(
             Items.OXEYE_DAISY, new Pair<>(50, ModBlocks.DISCORDED_FLOWER.asItem()),
@@ -78,6 +84,7 @@ public class RecipesUtil {
                 case 4 -> result = sameIngredients(ingredients, STEELSONIC) ? "steelsonic" : "discord";
                 case 5 -> result = sameIngredients(ingredients, SINGING_SEED) ? "singing_seed" : "discord";
                 case 6 -> result = sameIngredients(ingredients, BOOGIE_BOMB) ? "boogie_bomb" : "discord";
+                case 7 -> result = sameIngredients(ingredients, AMPLIFIER_CRYSTAL) ? "amplifier_crystal" : "discord";
             }
 
             i++;
@@ -96,6 +103,7 @@ public class RecipesUtil {
                     case "offering" -> Items.STRING;
                     case "singing_seed" -> Items.WHEAT_SEEDS;
                     case "boogie_bomb" -> ModItems.BOOGIE_FRUIT.get();
+                    case "amplifier_crystal" -> Items.AMETHYST_SHARD;
             default -> stack.getItem();
                 }
         );
@@ -127,6 +135,7 @@ public class RecipesUtil {
             case "steelsonic" -> new ItemStack(ModItems.STEELSONIC_INGOT.get(), 2);
             case "singing_seed" -> new ItemStack(ModItems.SINGING_SEED.get(), 1);
             case "boogie_bomb" -> new ItemStack(ModItems.BOOGIE_BOMB.get(), 1);
+            case "amplifier_crystal" -> new ItemStack(ModItems.AMPLIFIER_CRYSTAL.get(), 1);
             default -> new ItemStack(ModItems.DISCORD_ESSENCE.get(), Integer.parseInt(mixResult.split(":")[1]));
         };
     }

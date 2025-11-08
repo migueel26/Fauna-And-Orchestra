@@ -1,0 +1,21 @@
+{
+  "name": "symphonia.entry.singing_sproutling",
+  "category": "faunaandorchestra:biophilia",
+  "icon": "faunaandorchestra:boogie_fruit",
+  "advancement": "faunaandorchestra:sproutling",
+  "pages": [
+    {
+      "type": "text",
+      "text": "symphonia.page.singing_sproutling0"
+    },
+    {
+      "type": "entity",
+      "entity": "faunaandorchestra:singing_sproutling",
+      "rotate": true,
+      "offset": -0.2,
+      "scale": 1.2,
+      "default_rotation": 35,
+      "text": "symphonia.page.singing_sproutling1"
+    }
+  ]
+}

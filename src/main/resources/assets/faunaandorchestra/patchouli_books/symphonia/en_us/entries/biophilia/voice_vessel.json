@@ -1,0 +1,19 @@
+{
+  "name": "symphonia.entry.voice_vessel",
+  "category": "faunaandorchestra:biophilia",
+  "icon": "faunaandorchestra:voice_vessel",
+  "advancement": "faunaandorchestra:fragments",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "faunaandorchestra:voice",
+      "title": "symphonia.page.voice_vessel0",
+      "text": "symphonia.page.voice_vessel1"
+    },
+    {
+      "type": "crafting",
+      "recipe": "faunaandorchestra:voice_vessel",
+      "text": "symphonia.page.voice_vessel2"
+    }
+  ]
+}

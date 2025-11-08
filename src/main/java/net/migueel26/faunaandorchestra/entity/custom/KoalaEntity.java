@@ -7,6 +7,7 @@ import net.migueel26.faunaandorchestra.entity.goals.KoalaRandomChangeStanceGoal;
 import net.migueel26.faunaandorchestra.entity.goals.LookAtTradingPlayerGoal;
 import net.migueel26.faunaandorchestra.entity.goals.TradeWithPlayerGoal;
 import net.migueel26.faunaandorchestra.entity.trades.KoalaTrades;
+import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
 import net.minecraft.Util;
 import net.minecraft.nbt.CompoundTag;
@@ -261,6 +262,9 @@ public class KoalaEntity extends AgeableMob implements Merchant, Npc, GeoEntity 
             if (!this.level().isClientSide) {
                 if (this.getOffers().isEmpty()) {
                     return InteractionResult.CONSUME;
+                } else if (player.getInventory().contains(item ->item.is(ModItems.BOOGIE_FRUIT))
+                    && offers != null && !offers.contains(KoalaTrades.WANDERING_KOALA_TRADES.get(5)[0].getOffer(player, random))) {
+                   offers.add(KoalaTrades.WANDERING_KOALA_TRADES.get(5)[0].getOffer(player, random));
                 }
 
                 this.setTradingPlayer(player);

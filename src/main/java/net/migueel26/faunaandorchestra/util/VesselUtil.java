@@ -21,19 +21,51 @@ public class VesselUtil {
             EntityType.BREEZE,
             EntityType.PARROT,
             EntityType.PHANTOM,
-            ModEntities.MACAW.get()
+            ModEntities.MACAW.get(),
+            EntityType.VEX,
+            EntityType.WITCH,
+            EntityType.EVOKER,
+            EntityType.LLAMA,
+            EntityType.MAGMA_CUBE,
+            EntityType.BLAZE,
+            EntityType.PIGLIN_BRUTE,
+            EntityType.GOAT,
+            EntityType.IRON_GOLEM,
+            EntityType.BREEZE,
+            EntityType.MOOSHROOM,
+            EntityType.CAVE_SPIDER,
+            EntityType.DOLPHIN,
+            EntityType.HOGLIN,
+            EntityType.STRIDER,
+            EntityType.SNIFFER,
+            EntityType.PILLAGER,
+            ModEntities.MANTIS.get()
     );
 
     // MAX 8 PER SOUND
     public static final Map<Map<? extends EntityType<?>, Integer>, Integer> SOUNDS = Map.of(
-            Map.of(EntityType.HUSK,1), 1,
-            Map.of(EntityType.HUSK,2), 2,
-            Map.of(EntityType.HUSK,3), 3,
+            Map.of(EntityType.LLAMA, 3,
+                    EntityType.MAGMA_CUBE, 2,
+                    EntityType.BLAZE, 1,
+                    EntityType.PIGLIN_BRUTE, 1), 1,
+            Map.of(EntityType.GOAT,2,
+                    EntityType.IRON_GOLEM, 2,
+                    EntityType.BREEZE, 1), 2,
+            Map.of(EntityType.VEX,4,
+                    EntityType.WITCH, 1,
+                    EntityType.EVOKER, 1), 3,
             Map.of(EntityType.BREEZE, 2,
                     ModEntities.MACAW.get(), 1,
                     EntityType.PARROT, 2,
                     EntityType.PHANTOM,1), 4,
-            Map.of(EntityType.HUSK,4), 5
+            Map.of(EntityType.MOOSHROOM,1,
+                    EntityType.CAVE_SPIDER, 1,
+                    EntityType.DOLPHIN, 1,
+                    EntityType.HOGLIN, 1,
+                    EntityType.STRIDER, 1,
+                    EntityType.SNIFFER, 1,
+                    EntityType.PILLAGER, 1,
+                    ModEntities.MANTIS.get(), 1), 5
     );
 
     public static ItemStack voiceOfEntity(EntityType<? extends Entity> entityType) {

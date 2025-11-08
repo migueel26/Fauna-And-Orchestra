@@ -1,0 +1,16 @@
+{
+  "name": "symphonia.entry.sound_species",
+  "category": "faunaandorchestra:biophilia",
+  "icon": "faunaandorchestra:voice",
+  "advancement": "faunaandorchestra:sproutling",
+  "pages": [
+    {
+      "type": "text",
+      "text": "symphonia.page.sound_species0"
+    },
+    {
+      "type": "text",
+      "text": "symphonia.page.sound_species1"
+    }
+  ]
+}

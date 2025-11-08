@@ -111,7 +111,7 @@ public class AltarOfThePanFluteBlock extends AltarBlock implements EntityBlock {
                     if (!level.isClientSide()) {
                         if (altar.getPowers().size() == 1) {
                             ModAdvancements.PAN_FLUTE.get().trigger((ServerPlayer) player);
-                        } else if (altar.getPowers().size() == 5) {
+                        } else if (altar.getPowers().size() == VesselUtil.SOUNDS.size()) {
                             ModAdvancements.PAN_FLUTE_COMPLETE.get().trigger((ServerPlayer) player);
                         }
                     }

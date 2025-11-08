@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " # ",
+    "#L#"
+  ],
+  "key": {
+    "#": {
+      "item": "faunaandorchestra:steelsonic_ingot"
+    },
+    "L": {
+      "item": "faunaandorchestra:altar"
+    }
+  },
+  "result": {
+    "id": "faunaandorchestra:altar_of_the_pan_flute",
+    "count": 1
+  }
+}
