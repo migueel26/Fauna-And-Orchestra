@@ -12,7 +12,7 @@ public class ModClientEvents {
     @SubscribeEvent
     public static void register(RegisterPayloadHandlersEvent event) {
         final PayloadRegistrar registrar = event.registrar("1");
-        registrar.playToClient(
+        /*registrar.playToClient(
                 StartOrchestraMusicS2CPayload.TYPE,
                 StartOrchestraMusicS2CPayload.STREAM_CODEC,
                 (payload, context) -> ClientPayloadHandler.handleStartOrchestraOnNetwork(payload, context)
@@ -47,5 +47,7 @@ public class ModClientEvents {
                 SyncTipCaseOwnerPayloadS2C.STREAM_CODEC,
                 (payload, context) -> ClientPayloadHandler.handleSyncTipCaseOnNetwork(payload, context)
         );
+
+         */
     }
 }
