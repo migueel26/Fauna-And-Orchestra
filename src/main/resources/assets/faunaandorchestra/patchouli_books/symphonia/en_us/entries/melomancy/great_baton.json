@@ -1,0 +1,17 @@
+{
+  "name": "symphonia.entry.great_baton",
+  "category": "faunaandorchestra:melomancy",
+  "icon": "faunaandorchestra:legendary_baton",
+  "advancement": "faunaandorchestra:kill_composer",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "faunaandorchestra:legendary_baton",
+      "text": "symphonia.page.great_baton0"
+    },
+    {
+      "type": "text",
+      "text": "symphonia.page.great_baton1"
+    }
+  ]
+}

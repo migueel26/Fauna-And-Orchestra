@@ -1,5 +1,6 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
+import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.mixins.client.accessors.ClientLevelAccessor;
@@ -13,6 +14,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -202,6 +204,9 @@ public abstract class MusicalEntity extends TamableAnimal {
             this.setTarget(null);
             this.playSound(ModSounds.SUCCESSFUL_TAME.get());
             this.level().broadcastEntityEvent(this, (byte) 7);
+            if (!level().isClientSide()) {
+                ModAdvancements.TAME_MUSICIAN.get().trigger((ServerPlayer) player);
+            }
         } else {
             this.level().broadcastEntityEvent(this, (byte) 6);
         }

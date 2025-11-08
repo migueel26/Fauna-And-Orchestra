@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "count": 1,
+      "id": "faunaandorchestra:violin"
+    },
+    "title": {
+      "translate": "advancements.faunaandorchestra.tame_musician"
+    },
+    "description": {
+      "translate": "advancements.faunaandorchestra.tame_musician.desc"
+    },
+    "frame": "task"
+  },
+  "parent": "faunaandorchestra:root",
+  "criteria": {
+    "unique": {
+      "trigger": "faunaandorchestra:tame_musician"
+    }
+  },
+  "requirements": [
+    [
+      "unique"
+    ]
+  ]
+}

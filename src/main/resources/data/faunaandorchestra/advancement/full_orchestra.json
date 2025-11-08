@@ -12,7 +12,7 @@
     },
     "frame": "task"
   },
-  "parent": "faunaandorchestra:root",
+  "parent": "faunaandorchestra:tame_frog",
   "criteria": {
     "unique": {
       "trigger": "faunaandorchestra:full_orchestra"

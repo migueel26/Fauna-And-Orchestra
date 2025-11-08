@@ -230,6 +230,10 @@
   "advancements.faunaandorchestra.kill_composer.desc": "Kill the Great Composer and free our land",
   "advancements.faunaandorchestra.player_canon": "Vessel",
   "advancements.faunaandorchestra.player_canon.desc": "Summon your Player Canon",
+  "advancements.faunaandorchestra.tame_musician": "What A Wonderful World",
+  "advancements.faunaandorchestra.tame_musician.desc": "Tame your first musician",
+  "advancements.faunaandorchestra.tame_frog": "Super Trouper",
+  "advancements.faunaandorchestra.tame_frog.desc": "Recruit your first conductor",
 
   "dialogue.faunaandorchestra.faust0": "Nice to meet you! I'm Faust, and together we're The Ringtails",
   "dialogue.faunaandorchestra.faust1": "Nice to see you again, %! Care to join us?",
@@ -402,6 +406,7 @@
   "symphonia.page.melomancy_cauldron0": "The $(l)Melomancy Cauldron$() will be where all the melomancy brewing will take place from now on. You need to be careful when following the steps for the recipes to work: $(li)First, place $(item)3x Liquid Music$() inside the cauldron. $(li)Second, place all the $(item)ingredients$() needed. $(li)Third, right click to start. $(li)Finally, right click with your hand or recipient if needed",
   "symphonia.page.melomancy_cauldron1": "$(careful)Careful!$() If you mess up the recipe, you'll get $(item)Discord Essence$() instead.",
   "symphonia.page.melomancy_cauldron2": "Melomancy was discovered centuries ago. It used to cause all sorts of accidents since, like you'll soon discover, music is hard to treat. The $(thing)music realm$() is fragile — one minimal mistake and $(thing)discordance$() will emerge.",
+  "symphonia.page.melomancy_cauldron3": "If you ever regret the ingredients you've put in the $(o)cauldron$(), you can $(careful)toss them away$() with an empty $(item)Bucket$().",
 
   "symphonia.entry.gingko_biloba": "Ginkgo Biloba",
   "symphonia.page.gingko_biloba0": "The $(l)Ginkgo Biloba$() is a special kind of tree almost extinct nowadays. Being pretty much a living fossil, it's pretty hard to get a $(item)sapling$(). The best option is to get one from the $(o)wandering koalas$().$(br)The $(thing)Ginkgo Biloba Leaf$() is a pretty important herb in melomancy, since it has been used for centuries to enhance the $(o)audition$() of its consumer.",
@@ -437,6 +442,10 @@
   "symphonia.entry.boogie_bomb": "Boogie Bomb",
   "symphonia.page.boogie_bomb0": "Have you tried eating a $(item)Boogie Fruit$(). You just can't stop dancing! That's called $(thing)Choreomania$(), and it really disables your senses. If you want to use it against enemies, try creating a $(l)Boogie Bomb$()! The recipe in the $(music)Melomancy Cauldron$() is: $(li)$(item)3x Gunpowder $(li)2x Sand$()$(br).",
   "symphonia.page.boogie_bomb1": "After brewing the explosive mixture, click it with a $(item)Boogie Fruit$() to apply it to the service. After that, throw it against your enemies to make them useless against those grooves! They won't be able to do anything but $(music)dance$() while the effect is active.",
+
+  "symphonia.entry.great_baton": "The Great Baton",
+  "symphonia.page.great_baton0": "All of the effort you made paid off: you've defeated the $(music)Great Composer$() and freed our land of its horrors. In exchange, you've gained a powerful $(item)item$(): the $(l)Great Baton$(), the source of his powers. $(br2)If used by a $(o)superb conductor$(), it can bring the music of its musicians to a $(music)new level$() while you're near them.",
+  "symphonia.page.great_baton1": "Depending on the $(item)sheet music$() being played, it'll summon diverse effects. $(li)$(item)Bach's Air:$() The sun will always shine $(li)$(item)Mindlin's Blues$(): The moon will always gleam $(li)$(item)Greensleeves$(): You'll get extra hearts $(li)$(item)La Bamba$(): You'll get lucky $(li)$(item)Jazzy Für Elise$(): You won't get hunger $(li)$(item)Dance of the Little Swans$(): They'll defend your home $(li)$(item)Resurrection$(): You'll get your own canon",
 
   "symphonia.entry.essence": "Essence of Discord",
   "symphonia.page.essence0": "Despite the $(l)Essence of Discord$() being introduced as an useless remnant of improper use of $(music)Melomancy$(), it's not the full truth. This $(item)essence$() can be used for some extremely dangerous rituals which will be discussed in the next chapters. Remember you can obtain it with incorrect recipes in the $(item)melomancy cauldron$().",
@@ -501,6 +510,11 @@
   "symphonia.page.sound_species0": "The $(l)Sound of the Species$() is quite a tricky one. You'll need to reunite the $(item)voices$() of creatures across the dimensions in order to unify them into a single $(thing)sound$(). $(br2)In order to use this sound, you need to reunite $(music)six Singing Sproutlings$() together and play them this sound. In response, they'll sing along and sacrifice their lives to create $(thing)a new one$().",
   "symphonia.page.sound_species1": "To get this specific $(thing)sounds$() you'll need to place the following $(item)voices$() in the $(music)Voice Chambers$(): $(li)$(item)1x Voice of Mooshroom $(li)1x Voice of Cave Spider $(li)1x Voice of Dolphin $(li)1x Voice of Hoglin $(li)1x Voice of Strider $(li)1x Voice of Sniffer $(li)1x Voice of Pillager $(li)1x Voice of Mantis",
 
+  "symphonia.entry.grow_sprout": "Growing the Sprout",
+  "symphonia.page.grow_sprout0": "It seems like all of your $(music)Singing Sproutlings$() have sung together to form a new $(o)form of life$(): a $(thing)Wise Tree Sprout$(). Now it's time to take care of it until it grows: $(br2)You need to water your $(music)sprout$() for it to grow, but it doesn't need water: it needs $(o)music$(). Every time it will fancy a different $(item)instrument$() sound. If you're correct, it'll become $(o)wet.",
+  "symphonia.page.grow_sprout1": "You need to $(o)water$() your sprout until it becomes a $(music)Wise Tree$().",
+  "symphonia.page.grow_sprout2": "Once fully grown, in order to get the $(item)Fruit of Life$() you need to $(o)water$() it one more time. If it has grown a $(item)fruit$(), punch it with your $(o)bare hard$() and it'll drop the $(item)fruit$() you've longed for $(br2)If you don't $(careful)want it anymore$(), you can chop it down with an $(item)axe$().",
+
   "symphonia.entry.ringtails": "The Traveling Musicians",
   "symphonia.page.ringtails0": "If you ever want to start this $(o)melomantic$() journey, you should look for a pair of $(l)traveling musicians$() playing around the world. I can't tell you much about them, but you'll recognise them by the $(o)unique melody$() they love to play. They're charismatic and lovely, you'll love them!",
   "symphonia.page.ringtails1": "Meet the Ringtails! $(l)Faust$() and $(l)Orion$(), the traveling musicians. Keep reading!",
@@ -530,5 +544,11 @@
 
   "symphonia.entry.the_great_composer": "The Great Composer",
   "symphonia.page.the_great_composer0": "$(l)Tiego$(), more commonly referred to as $(music)the Great Composer$(), was once held in high regard by his peers. He composed the most beautiful pieces in his land, and inspired hundreds of animals. $(br)However$(), once he discovered $(thing)Melomancy$(), he started to abandon his passion in pursuit of greater $(o)power$(). After trying many times to control $(thing)discord$(), he lost himself forever.",
-  "symphonia.page.the_great_composer1": "Nobody should ever try to go as far as he wanted to. Not even $(o)you$()."
+  "symphonia.page.the_great_composer1": "Nobody should ever try to go as far as he wanted to. Not even $(o)you$().",
+
+  "symphonia.entry.wise_tree": "Wise Tree",
+  "symphonia.page.wise_tree0": "The $(l)Wise Tree$() is one of the most interesting species in our planet. Its wisdom comes from the $(music)six lives$() that were given up to bring it to $(o)life$(). The tree is connected to the $(thing)music realm$() and $(thing)Mother$() in a way no other creature can. Despite his great $(o)power$(), he has an extreme loyalty to its master: it even trusts the player enough for a $(item)Fruit of Life$()",
+  "symphonia.page.wise_tree1": "Only its $(o)master$() can understand the language it speaks.",
+
+  "symphonia.entry.anya": "Anya"
 }

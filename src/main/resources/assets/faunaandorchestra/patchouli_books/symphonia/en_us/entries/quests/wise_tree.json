@@ -1,0 +1,21 @@
+{
+  "name": "symphonia.entry.wise_tree",
+  "category": "faunaandorchestra:quests",
+  "icon": "minecraft:oak_log",
+  "advancement": "faunaandorchestra:wise_tree",
+  "sortnum": 10,
+  "pages": [
+    {
+      "type": "text",
+      "text": "symphonia.page.wise_tree0"
+    },
+    {
+      "type": "image",
+      "images": [
+        "faunaandorchestra:textures/gui/entries/wise_tree.png"
+      ],
+      "border": true,
+      "text": "symphonia.page.wise_tree1"
+    }
+  ]
+}

@@ -1,5 +1,6 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
+import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.entity.goals.ConductorEntityConductingOrchestraGoal;
 import net.migueel26.faunaandorchestra.entity.goals.FaunaRandomLookAroundGoal;
 import net.migueel26.faunaandorchestra.entity.goals.QuirkyFrogConductingChoirGoal;
@@ -9,6 +10,7 @@ import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.migueel26.faunaandorchestra.util.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
@@ -357,6 +359,9 @@ public class QuirkyFrogEntity extends ConductorEntity implements GeoEntity {
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         if (isMusical() && player.getMainHandItem().is(ModTags.Items.IS_BATON) && !isTame()) {
+            if (!level().isClientSide()) {
+                ModAdvancements.TAME_FROG.get().trigger((ServerPlayer) player);
+            }
             this.tame(player);
             this.playSound(ModSounds.SUCCESSFUL_TAME.get());
             this.level().broadcastEntityEvent(this, (byte) 7);

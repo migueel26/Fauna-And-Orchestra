@@ -23,6 +23,10 @@
       "type": "crafting",
       "recipe": "faunaandorchestra:melomancy_cauldron",
       "text": "symphonia.page.melomancy_cauldron2"
+    },
+    {
+      "type": "text",
+      "text": "symphonia.page.melomancy_cauldron3"
     }
   ]
 }

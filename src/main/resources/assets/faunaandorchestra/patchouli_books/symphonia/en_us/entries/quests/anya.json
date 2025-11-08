@@ -1,0 +1,13 @@
+{
+  "name": "symphonia.entry.anya",
+  "category": "faunaandorchestra:quests",
+  "icon": "minecraft:air",
+  "advancement": "faunaandorchestra:player_canon",
+  "secret": true,
+  "sortnum": 10,
+  "pages": [
+    {
+      "type": "empty"
+    }
+  ]
+}

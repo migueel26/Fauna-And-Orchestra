@@ -1,0 +1,24 @@
+{
+  "name": "symphonia.entry.grow_sprout",
+  "category": "faunaandorchestra:biophilia",
+  "icon": "minecraft:oak_sapling",
+  "advancement": "faunaandorchestra:wise_tree",
+  "pages": [
+    {
+      "type": "text",
+      "text": "symphonia.page.grow_sprout0"
+    },
+    {
+      "type": "image",
+      "images": [
+        "faunaandorchestra:textures/gui/entries/wise_tree_sprout.png"
+      ],
+      "border": true,
+      "text": "symphonia.page.grow_sprout1"
+    },
+    {
+      "type": "text",
+      "text": "symphonia.page.grow_sprout2"
+    }
+  ]
+}

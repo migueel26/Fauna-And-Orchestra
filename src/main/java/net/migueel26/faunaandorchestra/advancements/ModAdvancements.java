@@ -25,6 +25,8 @@ public class ModAdvancements {
     public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> PAN_FLUTE_COMPLETE = register("pan_flute_complete");
     public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> KILL_COMPOSER = register("kill_composer");
     public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> PLAYER_CANON = register("player_canon");
+    public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> TAME_MUSICIAN = register("tame_musician");
+    public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> TAME_FROG = register("tame_frog");
     public static <T extends CriterionTrigger<?>> DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> register(String name) {
         return TRIGGERS.register(name, CustomSimpleTrigger::new);
     }
