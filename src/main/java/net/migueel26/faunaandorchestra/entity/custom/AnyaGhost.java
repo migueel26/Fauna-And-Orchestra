@@ -48,6 +48,7 @@ import vazkii.patchouli.api.PatchouliAPI;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -130,8 +131,11 @@ public class AnyaGhost extends AbstractCanonEntity implements GeoEntity {
 
     @Override
     public void tick() {
-        if (level().isClientSide() && skin == null && playerUUID != null) {
-            this.setSkin(((AbstractClientPlayer) level().getPlayerByUUID(playerUUID)).getSkin());
+        if (level().isClientSide() && skin == null
+                && playerUUID != null
+                && level().getPlayerByUUID(playerUUID) != null
+                && tickCount >= 10) {
+            this.setSkin(((AbstractClientPlayer) Objects.requireNonNull(level().getPlayerByUUID(playerUUID))).getSkin());
         }
 
         if (!level().isClientSide()) {
