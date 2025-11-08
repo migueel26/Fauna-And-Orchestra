@@ -322,6 +322,9 @@
   "dialogue.faunaandorchestra.the_great_composer1": "... shall meet their DEMISE!",
   "dialogue.faunaandorchestra.the_great_composer2": "He can't defend himself anymore, attack him directly!",
 
+  "dialogue.faunaandorchestra.anya0": "Don't be scared. I'm §kAnya§r and, since I'm trapped, I've taken your appearance. We are all in great danger.",
+  "dialogue.faunaandorchestra.anya1": "If you want to discover the wonders of this musical world and free us all from him, take this guide.",
+
   "item.faunaandorchestra.symphonia": "Symphonia",
   "symphonia.landing": "I'm $(#290747)$(k)Anya$(), the creator of this guide. During my long exile, I've compiled everything and everyone there is to know about $(o)animals, music and melomancy$() in the hope that somebody frees our land from the horrors of discordance.",
   "symphonia.category.musicians": "Intro to Solfège",

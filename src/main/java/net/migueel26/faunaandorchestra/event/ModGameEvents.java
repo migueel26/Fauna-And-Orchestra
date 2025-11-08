@@ -5,16 +5,18 @@ import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.block.custom.TipCaseBlock;
 import net.migueel26.faunaandorchestra.block.entity.TipCaseBlockEntity;
 import net.migueel26.faunaandorchestra.effect.ModEffects;
-import net.migueel26.faunaandorchestra.entity.custom.Faust;
-import net.migueel26.faunaandorchestra.entity.custom.MusicalEntity;
-import net.migueel26.faunaandorchestra.entity.custom.Orion;
-import net.migueel26.faunaandorchestra.entity.custom.QuirkyFrogEntity;
+import net.migueel26.faunaandorchestra.entity.ModEntities;
+import net.migueel26.faunaandorchestra.entity.custom.*;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.item.custom.RingtailsPosterItem;
+import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.decoration.BlockAttachedEntity;
@@ -37,6 +39,7 @@ import net.neoforged.neoforge.event.entity.EntityLeaveLevelEvent;
 import net.neoforged.neoforge.event.entity.living.FinalizeSpawnEvent;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
 import net.neoforged.neoforge.event.entity.living.MobSpawnEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
@@ -107,6 +110,37 @@ public class ModGameEvents {
             if (event.getEntity() instanceof PathfinderMob mob) {
                 mob.setNoAi(false);
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
+        if (!(event.getEntity() instanceof ServerPlayer player)) return;
+
+        CompoundTag persistentData = player.getPersistentData();
+        CompoundTag data = persistentData.getCompound(ServerPlayer.PERSISTED_NBT_TAG);
+
+        if (!data.getBoolean("hasJoinedBefore")) {
+            data.putBoolean("hasJoinedBefore", true);
+            persistentData.put(ServerPlayer.PERSISTED_NBT_TAG, data);
+
+            Vec3 look = player.getLookAngle(); // The player's look direction (normalized)
+            double distance = 2.0;
+
+            AnyaGhost anyaGhost = new AnyaGhost(ModEntities.ANYA_GHOST.get(), event.getEntity().level());
+            anyaGhost.setPos(player.position().add(
+                            look.x * distance,
+                            look.y * distance,   // Slightly above ground if needed
+                            look.z * distance
+            ));
+
+            anyaGhost.lookAt(EntityAnchorArgument.Anchor.FEET, player.position().add(0, 1, 0));
+            anyaGhost.lookAt(EntityAnchorArgument.Anchor.EYES, player.position().add(0, 1, 0));
+            anyaGhost.setYRot(anyaGhost.getYHeadRot());
+            anyaGhost.setYBodyRot(anyaGhost.getYRot());
+            anyaGhost.setPlayerUUID(player.getUUID());
+
+            player.level().addFreshEntity(anyaGhost);
         }
     }
 
