@@ -93,6 +93,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.FRUIT_OF_LIFE);
                         output.accept(ModItems.OFFERING);
                         output.acceptAll(VesselUtil.getAllVoiceItems());
+                        output.accept(ModItems.UNLOCKER);
                     }).build());
 
 

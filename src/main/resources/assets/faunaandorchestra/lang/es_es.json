@@ -318,6 +318,8 @@
   "dialogue.faunaandorchestra.the_great_composer1": "...¡sufrirá mi IRA!",
   "dialogue.faunaandorchestra.the_great_composer2": "Ya no podrá defenderse más, ¡atácalo directamente!",
 
+  "item.faunaandorchestra.unlocker": "Sabiduría de Symphonia — Creativo",
+  "item.faunaandorchestra.unlocker.desc": "Si haces §eright-click§r con este libro desbloquearás casi todas las páginas de Symphonia",
   "item.faunaandorchestra.symphonia": "Symphonia",
   "symphonia.landing": "I'm $(#290747)Anya$(), the creator of this guide. During my long exile, I've compiled everything and everyone there is to know about $(o)animals, music and melomancy$() in the hope that somebody frees our land from the horrors of discordance.",
   "symphonia.category.musicians": "An Overview on Phenomenal Nature",

@@ -1,6 +1,7 @@
 package net.migueel26.faunaandorchestra.item;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
+import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
@@ -11,11 +12,17 @@ import net.migueel26.faunaandorchestra.util.MusicUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import vazkii.patchouli.api.PatchouliAPI;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -198,6 +205,31 @@ public class ModItems {
     // MISC
     public static final DeferredItem<Item> VOICE = ITEMS.register("voice",
             () -> new Item(new Item.Properties()));
+
+    public static final DeferredItem<Item> UNLOCKER = ITEMS.register("unlocker",
+            () -> new Item(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)) {
+                @Override
+                public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+                    tooltipComponents.add(Component.translatable("item.faunaandorchestra.unlocker.desc"));
+                    super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+                }
+
+                @Override
+                public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
+                    if (!level.isClientSide() && player instanceof ServerPlayer serverPlayer) {
+                        player.addItem(new ItemStack(ModItems.SHEET_FRAGMENTS.get()));
+                        player.addItem(new ItemStack(ModItems.FRUIT_OF_LIFE.get()));
+                        player.addItem(new ItemStack(ModItems.PETALS_OF_DEATH.get()));
+                        player.addItem(new ItemStack(ModItems.RESURRECTION_SONG.get()));
+                        player.addItem(new ItemStack(ModItems.MUSIC_BOTTLE.get()));
+                        ModAdvancements.KILL_COMPOSER.get().trigger(serverPlayer);
+                        ModAdvancements.WISE_TREE.get().trigger(serverPlayer);
+                        ModAdvancements.MEET_RINGTAILS.get().trigger(serverPlayer);
+                        ModAdvancements.USE_DISCORD_BOMB.get().trigger(serverPlayer);
+                    }
+                    return super.use(level, player, usedHand);
+                }
+            });
     public static final DeferredItem<Item> ICON = ITEMS.register("icon",
             () -> new Item(new Item.Properties().stacksTo(1)));
 
