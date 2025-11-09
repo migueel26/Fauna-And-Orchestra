@@ -1053,6 +1053,9 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
             // If phase one or two, dodge
             composerController.transitionLength(1);
             trigger("dodge", true);
+            if (source.getEntity() instanceof Player player) {
+                player.displayClientMessage(Component.translatable("dialogue.faunaandorchestra.the_great_composer3"), true);
+            }
 
             if (!level().isClientSide()) {
                 ((ServerLevel) level()).sendParticles(ParticleTypes.CRIT, getX(), getY() + 1.25, getZ(),
