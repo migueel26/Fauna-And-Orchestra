@@ -131,11 +131,22 @@ public class AnyaGhost extends AbstractCanonEntity implements GeoEntity {
 
     @Override
     public void tick() {
-        if (level().isClientSide() && skin == null
-                && playerUUID != null
-                && level().getPlayerByUUID(playerUUID) != null
-                && tickCount >= 10) {
-            this.setSkin(((AbstractClientPlayer) Objects.requireNonNull(level().getPlayerByUUID(playerUUID))).getSkin());
+        if (tickCount >= 40 && playerUUID != null) {
+            Player player = level().getNearestPlayer(this, 7.0);
+            if (player != null) {
+                this.setPlayerUUID(player.getUUID());
+                if (level().isClientSide()) {
+                    this.setSkin(((AbstractClientPlayer) player).getSkin());
+                }
+
+            }
+        }
+
+        if (level().isClientSide() && skin == null && playerUUID != null) {
+            if (level().getPlayerByUUID(playerUUID) instanceof Player player) {
+                this.setSkin(((AbstractClientPlayer) player).getSkin());
+                this.setCustomName(player.getDisplayName());
+            }
         }
 
         if (!level().isClientSide()) {

@@ -3,6 +3,7 @@ package net.migueel26.faunaandorchestra.entity.custom;
 import com.mojang.blaze3d.platform.NativeImage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.DynamicTexture;
+import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.client.resources.PlayerSkin;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -36,7 +37,11 @@ public abstract class AbstractCanonEntity extends TamableAnimal implements GeoEn
             BufferedImage master;
 
             try {
-                master = ImageIO.read(resourceManager.getResource(baseSkin).get().open());
+                if (resourceManager.getResource(baseSkin).isPresent()) {
+                    master = ImageIO.read(resourceManager.getResource(baseSkin).get().open());
+                } else {
+                    master = ImageIO.read(resourceManager.getResource(DefaultPlayerSkin.getDefaultTexture()).get().open());
+                }
 
                 gray = new NativeImage(master.getWidth(), master.getHeight(), true);
 
@@ -57,6 +62,8 @@ public abstract class AbstractCanonEntity extends TamableAnimal implements GeoEn
                         gray.setPixelRGBA(x, y, rgb);
                     }
                 }
+
+
             } catch (IOException ignored) {
             }
 
