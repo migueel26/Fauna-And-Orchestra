@@ -54,7 +54,7 @@ public class ModGameEvents {
     @SubscribeEvent
     public static void quirkyFrogChoir(EntityTickEvent.Post event) {
         if (!event.getEntity().level().isClientSide() &&
-                event.getEntity().tickCount % 80 == 0 &&
+                event.getEntity().tickCount % 60 == 0 &&
                 event.getEntity().level().getRandom().nextFloat() <= 0.01F &&
                 event.getEntity() instanceof QuirkyFrogEntity quirkyFrog
                 && quirkyFrog.isAptForChoir()) {
