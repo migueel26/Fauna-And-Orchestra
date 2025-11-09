@@ -98,10 +98,22 @@ public class MelomancyCauldronBlock extends HorizontalDirectionalBlock implement
                     if (!level.isClientSide()) {
                         ModAdvancements.USE_MELOMANCY_CAULDRON.get().trigger((ServerPlayer) player);
                     }
+
+                    if (melomancyCauldronBE.getMixResult().equalsIgnoreCase("resurrection")) {
+                        level.playSound(player,
+                                pos.getX(), pos.getY(), pos.getZ(),
+                                SoundEvents.WARDEN_EMERGE, SoundSource.BLOCKS);
+                        if (!level.isClientSide()) {
+                            ((ServerLevel) level).sendParticles(ParticleTypes.SCULK_SOUL, pos.getCenter().x, pos.getY()+0.75f, pos.getCenter().z,
+                                    40, 0.2, 0.2, 0.2, 0.3);
+                        }
+                    } else {
+                        level.playSound(player,
+                                pos.getX(), pos.getY(), pos.getZ(),
+                                ModSounds.CAULDRON_ITEM.get(), SoundSource.BLOCKS, 1.0F, 0.75F + level.random.nextFloat()/2);
+                    }
+
                     melomancyCauldronBE.clearContent(false);
-                    level.playSound(null,
-                            pos.getX(), pos.getY(), pos.getZ(),
-                            ModSounds.CAULDRON_ITEM.get(), SoundSource.BLOCKS, 1.0F, 0.75F + level.random.nextFloat()/2);
                     level.setBlock(pos, state.setValue(LIQUID, 0).setValue(COOKING, false), 3);
 
                     return ItemInteractionResult.SUCCESS;

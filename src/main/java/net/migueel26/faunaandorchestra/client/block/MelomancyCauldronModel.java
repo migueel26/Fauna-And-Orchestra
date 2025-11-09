@@ -30,6 +30,7 @@ public class MelomancyCauldronModel extends GeoModel<MelomancyCauldronBlockEntit
             case "offering" -> OFFERING_TEXTURE;
             case "absolute_hearing" -> HEARING_TEXTURE;
             case "singing_seed" -> SEED_TEXTURE;
+            case "resurrection" -> DISCORD_TEXTURE;
             default -> DEFAULT_TEXTURE;
         };
     }
