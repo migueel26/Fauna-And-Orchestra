@@ -4,7 +4,11 @@ import com.mojang.serialization.MapCodec;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
@@ -54,6 +58,15 @@ public class DamBlock extends Block implements SimpleWaterloggedBlock {
         }
 
         return super.updateShape(state, direction, state2, levelAccessor, blockPos, blockPos2);
+    }
+
+    @Override
+    public float getDestroyProgress(BlockState state, Player player, BlockGetter level, BlockPos pos) {
+        ItemStack heldItem = player.getMainHandItem();
+        if (heldItem.getItem() instanceof SwordItem) {
+            return 100.0F; // absurdly high to make it instant
+        }
+        return super.getDestroyProgress(state, player, level, pos);
     }
 
     @Override
