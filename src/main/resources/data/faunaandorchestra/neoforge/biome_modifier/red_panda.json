@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#faunaandorchestra:spawns_red_panda",
+  "spawners": {
+    "type": "faunaandorchestra:red_panda",
+    "maxCount": 4,
+    "minCount": 3,
+    "weight": 14
+  }
+}

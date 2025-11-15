@@ -1,12 +1,10 @@
 {
   "type": "neoforge:add_spawns",
-  "biomes": [
-    "minecraft:swamp"
-  ],
+  "biomes": "#faunaandorchestra:spawns_quirky_frog",
   "spawners": {
     "type": "faunaandorchestra:quirky_frog",
     "maxCount": 6,
     "minCount": 5,
-    "weight": 13
+    "weight": 20
   }
 }

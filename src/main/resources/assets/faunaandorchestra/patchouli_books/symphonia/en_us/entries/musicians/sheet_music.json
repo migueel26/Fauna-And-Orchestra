@@ -2,7 +2,7 @@
   "name": "symphonia.entry.sheet_music",
   "category": "faunaandorchestra:musicians",
   "icon": "faunaandorchestra:bach_air_sheet_music",
-  "sortnum": 1,
+  "sortnum": 2,
   "pages": [
     {
       "type": "text",

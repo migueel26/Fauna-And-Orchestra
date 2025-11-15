@@ -1,9 +1,6 @@
 {
   "type": "neoforge:add_spawns",
-  "biomes": [
-    "minecraft:mangrove_swamp",
-    "minecraft:lush_caves"
-  ],
+  "biomes": "#faunaandorchestra:spawns_mantis",
   "spawners": {
     "type": "faunaandorchestra:mantis",
     "maxCount": 4,

@@ -2,7 +2,7 @@
   "name": "symphonia.entry.conductor",
   "category": "faunaandorchestra:musicians",
   "icon": "faunaandorchestra:baton",
-  "sortnum": 1,
+  "sortnum": 2,
   "pages": [
     {
       "type": "text",

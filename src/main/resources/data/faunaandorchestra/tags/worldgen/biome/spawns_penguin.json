@@ -1,6 +1,5 @@
 {
-  "type": "neoforge:add_spawns",
-  "biomes": [
+  "values": [
     "minecraft:frozen_river",
     "minecraft:snowy_plains",
     "minecraft:ice_spikes",
@@ -9,11 +8,5 @@
     "minecraft:snowy_slopes",
     "minecraft:jagged_peaks",
     "minecraft:frozen_peaks"
-  ],
-  "spawners": {
-    "type": "faunaandorchestra:penguin",
-    "maxCount": 4,
-    "minCount": 3,
-    "weight": 8
-  }
+  ]
 }

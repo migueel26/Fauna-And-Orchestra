@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#faunaandorchestra:spawns_macaw",
+  "spawners": {
+    "type": "faunaandorchestra:macaw",
+    "maxCount": 6,
+    "minCount": 4,
+    "weight": 15
+  }
+}

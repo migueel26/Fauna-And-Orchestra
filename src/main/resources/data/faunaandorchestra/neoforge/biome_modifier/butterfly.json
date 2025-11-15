@@ -1,6 +1,6 @@
 {
   "type": "neoforge:add_spawns",
-  "biomes": "#minecraft:has_structure/village_plains",
+  "biomes": "#faunaandorchestra:spawns_butterfly",
   "spawners": {
     "type": "faunaandorchestra:butterfly",
     "maxCount": 6,

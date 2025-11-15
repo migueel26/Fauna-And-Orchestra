@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#faunaandorchestra:spawns_lemur",
+  "spawners": {
+    "type": "faunaandorchestra:lemur",
+    "maxCount": 4,
+    "minCount": 3,
+    "weight": 8
+  }
+}
