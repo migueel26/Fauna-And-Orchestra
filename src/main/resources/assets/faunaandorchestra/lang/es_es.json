@@ -1,4 +1,6 @@
 {
+  "_comment1": "If you're a translator, feel free to rename advancements and descriptions to make musical references!",
+
   "creativetab.faunaandorchestra.fauna_and_orchestra": "Fauna & Orchestra",
 
   "item.faunaandorchestra.violin": "Violín",
@@ -291,6 +293,8 @@
   "dialogue.faunaandorchestra.ringtails_prize1": "¡Gracias por la propina, colega! Con esto podrás craftear un Escuchador y generar más",
   "dialogue.faunaandorchestra.ringtails_prize2": "Esto es para ti. Si consigues reparar la partitura, podrías derrotarlo",
   "dialogue.faunaandorchestra.ringtails_prize3": "¡WOW, eres nuestro mayor fan! ¡Aquí tienes un póster firmado como agradecimiento!",
+  "painting.faunaandorchestra.ringtails_poster.title": "Póster de los Ringtails",
+  "painting.faunaandorchestra.ringtails_poster.author": "Fausto y Orión",
 
   "dialogue.faunaandorchestra.wise_tree0": "Saludos, maestro. El viejo Árbol Sabio a su servicio",
   "dialogue.faunaandorchestra.wise_tree1": "¿Sabías que sólo mi maestro puede entender mi lengua?",
@@ -319,10 +323,239 @@
   "dialogue.faunaandorchestra.the_great_composer2": "Ya no podrá defenderse más, ¡atácalo directamente!",
   "dialogue.faunaandorchestra.the_great_composer3": "No lo puedes dañar directamente, ¡devuélvele sus ataques!",
 
+  "dialogue.faunaandorchestra.anya0": "No te asustes. Soy §kAnya§r y, como estoy atrapada, he adoptado tu apariencia. Un gran peligro acecha.",
+  "dialogue.faunaandorchestra.anya1": "Si quieres descubrir las maravillas de este musical mundo y liberarnos de él, toma esta guía.",
+
   "item.faunaandorchestra.unlocker": "Sabiduría de Symphonia — Creativo",
   "item.faunaandorchestra.unlocker.desc": "Si haces §eright-click§r con este libro desbloquearás casi todas las páginas de Symphonia",
   "item.faunaandorchestra.symphonia": "Symphonia",
-  "symphonia.landing": "I'm $(#290747)Anya$(), the creator of this guide. During my long exile, I've compiled everything and everyone there is to know about $(o)animals, music and melomancy$() in the hope that somebody frees our land from the horrors of discordance.",
-  "symphonia.category.musicians": "An Overview on Phenomenal Nature",
-  "symphonia.category.musicians.desc": "The fauna of our world is inherently musical: you just need to know how to wake their gifts up! This chapter contains all the information regarding the musical creatures around our world and how to interact with them."
+  "symphonia.landing": "Soy $(#290747)$(k)Anya$(), quien creó esta guía. Durante mi largo éxodo, he recompilado todo lo que hay que saber sobre $(o)animales, música y melomancia$() con la esperanza de que alguien libere nuestra tierra de los horrores de la discordia.",
+  "symphonia.category.musicians": "Intro al Solfeo",
+  "symphonia.category.musicians.desc": "La $(o)fauna$() de nuestro mundo es musical en sí: ¡sólo tienes que aprender cómo sacar sus dones! Este capítulo contiene toda la información posible sobre los animales musicales y cómo interactuar con ellos.",
+  "symphonia.category.melomancy": "Melomancia 101",
+  "symphonia.category.melomancy.desc": "¡Bienvenido a $(thing)Melomancia 101$()! En estos capítulos aprenderás las bases de la segura manipulación musical: desde la licuación de la música hasta la creación de artefactos únicos en el $(o)$(music)Caldero de Melomancia$().",
+  "symphonia.category.quests": "Misiones y Personajes",
+  "symphonia.category.quests.desc": "Parece que quieres más que una simple orquesta... Quieres saber qué hay más allá: qué tipo de poder y magia se puede conseguir con el buen $(o)(o mal...)$() uso de las melodías. Veamos qué podemos hacer.",
+  "symphonia.category.discordance": "Melomancia: Discordia",
+  "symphonia.category.discordance.desc": "La $(thing)Discordia$() puede que sea la rama más peligrosa de la $(music)melomancia$(). Aún siendo de fácil obtención, intentar contenerla y usarla es una tarea peligrosa a la vez que provechosa. Tienes que tener $(o)cuidado$(): podrías perder tu casa, tu vida, y todo tu alrededor. $(careful)Estás avisado$().",
+  "symphonia.category.biophilia": "Melomancia: Biofilia",
+  "symphonia.category.biophilia.desc": "Las maravillas de la $(thing)Biofilia$() pueden dejarte sin aliento. La mayor lección es que $(o)vida y música$() son una en sí y por sí, disciplinas entrelazadas que pueden volver tus $(music)habilidades melománticas$() a un nivel superior. Te aviso que por cada vida creada otra es $(o)dañada$().",
+
+  "symphonia.entry.welcome": "Introduction to Musicality",
+  "symphonia.page.welcome0": "$(o)Welcome to our musical world!$() Whether you found this book by accident, crafted it with some musical ink, or received it from me: this is the first step towards unveiling this world's true sound and becoming a true musician! Whether you just want to enliven your home with some music, or truly become a master of the $(o)$(music)melomantic arts$(), this is your guide.",
+  "symphonia.page.welcome1": "Every good musician needs to find a good orchestra. Lucky for you, this world is filled with $(o)musical creatures and magical sounds$()! You'll need to recruit your own $(l)musicians$(), find your $(l)sheets$() and select a $(l)competent conductor$() for them. You can find these animals everywhere! A lot of creatures are innate artists, they just need that... $(o)special sound$() to bring the melodies out of them!",
+  "symphonia.page.welcome2": "In spite of sounding like a safe and joyous journey $(o)(and it is!)$(), you need to be aware of the dangers you may encounter. Top-notch orchestras produce $(o)$(music)magical melodies$() which can be used for good or for bad. It may enhance your powers with magic, or doom us all. But let's not get ahead of ourselves! I've already documented a pretty complete animal dictionary with all the regular animals you may encounter, alongside some more... $(o)interesting ones$(). Have fun!",
+  "symphonia.page.welcome3": "Welcome to Fauna & Orchestra!",
+
+  "symphonia.entry.instruments": "Instruments & the Baton",
+  "symphonia.page.instruments0": "Before even trying to find your feral mates, you need to create the $(l)instruments$() they'll play! Remember: in order to awaken their true gift to music, you need to $(o)play these instruments around them$(). Don't give up if they ignore you, only $(o)one in every three animals$() can become an expert in the musical arts. Following this page are you'll find the instruments you can craft.",
+
+  "symphonia.entry.briefcase": "Briefcase",
+  "symphonia.page.briefcase0": "You're going to encounter lots of musical animals in your adventure, and you always have to be prepared for that! Whether you are looking for an oboist or a violinist, you need some sort of method of transportation for your musicians. Introducing the $(l)briefcase$(): with cutting edge ender-technology you'll be able to $(o)store up to six musical animals$() inside it and take them home.",
+  "symphonia.page.briefcase1": "Tip: Most items with functionalities have descriptions telling how you can use them!",
+
+  "symphonia.entry.mantis": "Mantis",
+  "symphonia.page.mantis0": "$(l)Mantises$() have inhabited the $(o)Mangrove Swamps$()! These abnormally gigantic mantises are found in small packs, usually between two and three, and are extremely territorial. They won't attack you unless you hurt one of them, but don't try to approach them in the night either! $(br)Besides all of this, they are great musicians when given the right instrument!",
+  "symphonia.page.mantis1": "Fun fact: Their giant yellow eyes hide their pupils when angry: their predators get intimidated by this tactic!",
+
+  "symphonia.entry.penguin": "Baby Penguin",
+  "symphonia.page.penguin0": "Check the floor at all times! You might bump into these little $(l)penguins$() while traveling through most $(o)snowy biomes$(). They're one of the most social creatures out there: they will always wave at you with great happiness when they notice your presence! They also love swimming, and the can run very fast! $(br)Despite their age, they can perform music spectacularly!",
+  "symphonia.page.penguin1": "Fun fact: If they don't practice the musical arts when young, they'll lose their gift when grown up!",
+
+  "symphonia.entry.red_panda": "Red Panda",
+  "symphonia.page.red_panda0": "Who doesn't love $(o)bamboo forests$()? You may do, but certainly not more than $(l)red pandas$()! Just like their bigger white and black siblings, you can find them there and more rarely in regular jungles. They love to wander around, stare at other animals. If they get tired of walking on four, they might even stand up for a while! $(br)Nature gave them legs and paws for something: music!",
+  "symphonia.page.red_panda1": "Fun fact: They believe they're as intimidating as regular pandas, so they stand up to them sometimes!",
+
+  "symphonia.entry.macaw": "Macaw",
+  "symphonia.page.macaw0": "You may know parrots, but have you ever heard of $(l)macaws$()? They bring life to every $(o)jungle forest$() you may find! They love flying around, usually in flocks, alongside their colorful siblings $(o)(cousins, even?)$(). Despite being so similar to them, they can't imitate the sounds you make or dance to the tunes you may play. $(br)However, they are big fans of some string instrument!",
+  "symphonia.page.macaw1": "Fun fact: Although they might be small, they have great strength lifting heavy equipment!",
+
+  "symphonia.entry.lemur": "Lemur",
+  "symphonia.page.lemur0": "Our favorite ring-tailed animal of all time: the $(l)lemur!$() Whether you actually prefer red pandas or racoons, these little creatures can't be took for granted! They come from a foreign island, and since they inhabited the $(o)savannas$() in our world, they have been blissing the environment with their charismatic appearance! $(br)But it's not all charisma, they're unique when it comes to music!",
+  "symphonia.page.lemur1": "I really loved lemurs when I was younger, they always helped me find my way home!",
+
+  "symphonia.entry.beaver": "Beaver",
+  "symphonia.page.beaver0": "$(l)Beavers$()! These hardworking $(o)(and kind of annoying...)$() animals can be found in almost every $(l)river$() you may found! You'll notice their presence by the large $(o)dams$() they adore to build. But beware! If you don't control their population, they might clog every single body of water in the world! $(br)Even though they might be... $(o)annoying$() I can't deny their musical talent! ",
+  "symphonia.page.beaver1": "Fun fact: If you ever run out of sticks, find a river. You'll have sticks for days!",
+
+  "symphonia.entry.madame_butterfly": "Madame Butterfly",
+  "symphonia.page.madame_butterfly0": "Mother of all butterflies, $(l)Madame Butterfly$() has decided that she trusts you! She isn't really seen on the world unless you catch her attention. The mixture of scents, harmonies and flavors of the $(item)offering$() brings her back to her young life, as a naïve animal. Madame Butterflies are chosen when born, and pretty quickly become important $(o)political figures$() in their colonies.",
+  "symphonia.page.madame_butterfly1": "In spite of not technically playing the cello, she conducts the other $(o)butterflies$()",
+
+  "symphonia.entry.conductor": "The Conductor",
+  "symphonia.page.conductor0": "May I present to you, nature's best conductor... the $(l)quirky frog$()! I know, you might be thinking: $(o)but I've seen frogs before$()! While not being wrong, this special kind of frogs live in $(o)swamps$() and have one great talent: absolute hearing. They're great singers and some of them might even become great $(o)conductors$()! $(br)For more, keep reading the next page.",
+  "symphonia.page.conductor1": "My family always told me some forest kids taught the frogs their song ages ago.",
+  "symphonia.page.conductor2": "In order to tame these $(o)leapy animals$(), you'll need to get yourself a $(l)baton$(). Then, you have to wait $(o)(or make)$() for a group of five or more frogs to reunite. After that, they'll start singing and one of them will start to $(o)conduct$(). Give the baton to the conductor and take it with you!",
+  "symphonia.page.conductor3": "A Frog Choir",
+
+  "symphonia.entry.sheet_music": "Sheet Music",
+  "symphonia.page.sheet_music0": "Although you may not find regular $(l)koalas$() anymore, there are still some $(o)wandering ones$() traveling around the world. These koalas left their homes a long time ago in search of something greater: the origin of music itself. That's why they're never in the same place: they're always on the run, looking for new $(l)sheet music$() to collect and, for a good price, even sell.",
+  "symphonia.page.sheet_music1": "Read the next page to discover how to find them!",
+  "symphonia.page.sheet_music2": "These $(l)wandering koalas$() can usually be found in $(o)composer graveyards (in taiga biomes) or pyramids$(). You know, places of interest. Be careful though: you might find them $(o)asleep$()! They can't be waken up hurting them in this state, you'll need to play some sort of $(o)instrument$() around them to wake them up and trade with them.",
+  "symphonia.page.sheet_music3": "Composer Graveyard",
+
+  "symphonia.entry.tip_case": "Tip Case",
+  "symphonia.page.tip_case0": "You can craft your own $(l)tip case$() if you want other players to donate you! After placing it on the world, other players will be able to tip up to $(item)64x gold ingots$() by $(o)right-click$() it. Only you'll able to take them by $(o)right-clicking$() as well.",
+
+  "symphonia.entry.butterfly_net": "Butterfly Net",
+  "symphonia.page.butterfly_net0": "$(o)Butterflies$() don't seem to be all that interesting, don't they? Well, don't judge too soon! You can now craft a $(l)Butterfly Net$() to take them home. It's as easy as $(o)right-clicking$() them with great precision and you'll be able to transport them anywhere.",
+  "symphonia.page.butterfly_net1": "$(item)Butterfly Nets$() are more useful than you might think. What else could you catch?",
+
+  "symphonia.entry.music_bottle": "Liquid Music",
+  "symphonia.page.music_bottle0": "It seems like you have finally obtained $(l)liquid music$(), the core ingredient in all $(o)melomantic recipes$(). As you might already know, this is the physical manifestation of superb music, whose main form of obtention is through $(music)Listeners$() $(o)(more on the next chapter)$(). For the time being, know that the harvest of this ingredient is fundamental",
+
+  "symphonia.entry.listener": "Listeners",
+  "symphonia.page.listener0": "$(thing)Listeners$() are the main method of obtaining $(o)liquid music$(). By placing a $(l)Listener$() on top of o a $(l)Listener Container$() you'll have successfully built your machine. First of all, place an $(item)Glass Bottle$() in the Container. To make it work, you need to have an $(thing)orchestra$() playing nearby with $(o)all the instruments of the sheet music they're playing$(). After a couple of minutes, the bottle will be filled.",
+  "symphonia.page.listener1": "It takes about 5 minutes to fill one bottle with $(item)Liquid Music$()!",
+
+  "symphonia.entry.melomancy_cauldron": "Melomancy Cauldron",
+  "symphonia.page.melomancy_cauldron0": "The $(l)Melomancy Cauldron$() will be where all the melomancy brewing will take place from now on. You need to be careful when following the steps for the recipes to work: $(li)First, place $(item)3x Liquid Music$() inside the cauldron. $(li)Second, place all the $(item)ingredients$() needed. $(li)Third, right click to start. $(li)Finally, right click with your hand or recipient if needed",
+  "symphonia.page.melomancy_cauldron1": "$(careful)Careful!$() If you mess up the recipe, you'll get $(item)Discord Essence$() instead.",
+  "symphonia.page.melomancy_cauldron2": "Melomancy was discovered centuries ago. It used to cause all sorts of accidents since, like you'll soon discover, music is hard to treat. The $(thing)music realm$() is fragile — one minimal mistake and $(thing)discordance$() will emerge.",
+  "symphonia.page.melomancy_cauldron3": "If you ever regret the ingredients you've put in the $(o)cauldron$(), you can $(careful)toss them away$() with an empty $(item)Bucket$().",
+
+  "symphonia.entry.gingko_biloba": "Ginkgo Biloba",
+  "symphonia.page.gingko_biloba0": "The $(l)Ginkgo Biloba$() is a special kind of tree almost extinct nowadays. Being pretty much a living fossil, it's pretty hard to get a $(item)sapling$(). The best option is to get one from the $(o)wandering koalas$().$(br)The $(thing)Ginkgo Biloba Leaf$() is a pretty important herb in melomancy, since it has been used for centuries to enhance the $(o)audition$() of its consumer.",
+
+  "symphonia.entry.altar": "Altar",
+  "symphonia.page.altar0": "$(l)Altars$() are a pretty important part of $(o)melomancy$(). They connect us to nature, they connect us to music, to $(o)her$(). Regular altars don't do much, however: they're not linked to any activity besides $(o)ceremonies$().$(br2)They can be crafted in the $(item)stonecutter$() with some $(item)stone bricks$()",
+
+  "symphonia.entry.offering": "Offering for M. Butterfly",
+  "symphonia.page.offering0": "Offering",
+  "symphonia.page.offering1": "Believe it not, the packs of butterflies you encounter around the world come from a common relative: a $(l)Madame Butterfly$(). The thing is, she doesn't really show up around the world due to her importance. For that reason, you need to attract her with some sort of $(item)offering$().",
+  "symphonia.page.offering2": "First of all, you need to craft an $(item)Altar of the Butterflies$() with some of the $(item)butterflies$() captured with the $(item)butterfly net$().$(br2)Once placed in the world, you need to craft the $(item)Offering for M. Butterfly$() in the $(o)melomancy cauldron$().",
+  "symphonia.page.offering3": "The $(item)Offering for M. Butterfly$() has the next recipe: $(li)$(item)3x Allium$() $(li)$(item)5x Ginkgo Biloba$() $(li)$(item)5x Glow Berries$() $(li)$(item)10x Sweet Berries$() $(br)To take the $(o)offering$() you need to click the mixture with a $(item)string$(). After that, place it on top of the Altar of the Butterflies and place $(thing)5 or more $(o)(the more the likelier)$()$(thing)butterflies$() around it. If they remain nearby the altar, $(o)she$() will eventually appear.",
+  "symphonia.page.offering4": "Just like any other $(o)musical animal$(), you need to tame her with her $(item)instrument$().",
+
+  "symphonia.entry.wandering_notes": "Wandering Notes",
+  "symphonia.page.wandering_notes0": "These little creatures, the $(l)Wandering Notes$(), are an essential ingredient in $(o)melomancy$(). These only appear after drinking an $(item)Absolute Hearing Potion$() and standing nearby an orchestra. You'll start to see the physically see the notes and you'll be able to $(o)catch them$() with a $(item)Butterfly Net$()!",
+  "symphonia.page.wandering_notes1": "The recipe for the $(item)Absolute Hearing Potion$() in the $(o)Melomancy Cauldron$() is: $(li)$(item)1x Blaze Powder $(li)1x Nether Wart $(li)3x Ginkgo Biloba $()$(br)Once brewed, you need a $(item)Glass Bottle$() to take the potion. After drinking it, you'll have $(o)30 seconds$() of $(thing)absolute hearing$().",
+
+  "symphonia.entry.steelsonic_ingot": "Steelsonic Ingot",
+  "symphonia.page.steelsonic_ingot0": "During your $(o)melomantic journey$() you'll encounter a big problem: how can I contain music without it dissipating? That's what $(l)Steelsonic$() is for! $(br)The recipe for $(item)2x Steelsonic Ingots$() is:$(li)$(item)5x Iron Ingots $(li)3x Wandering Notes $(li)1x Bucket of Lava$()$(br)You don't need any recipient to get it!",
+
+  "symphonia.entry.musical_ink": "Musical Ink",
+  "symphonia.page.musical_ink0": "Don't you love how the liquid music looks? Well, it's your lucky day! With a couple ingredients you can transform it into $(l)Musical Ink$()! If you shift-click a $(thing)sign$() with it you'll get some cool colors! The recipe for $(item)3x Musical Ink$() is:$(li)$(item)1x Feather $(li)1x Glow Ink Sac$()$(br)Click it with a $(item)Glass Bottle$() and done!",
+  "symphonia.page.musical_ink1": "You can also recreate this guide with $(item)Musical Ink$() and a $(item)Book$() in a crafting table.",
+
+  "symphonia.entry.whistle": "Whistle",
+  "symphonia.page.whistle0": "The $(l)Whistle$() is a really useful item if you to call some pet that's far away! By $(o)right-clicking$() any kind of pet you'll link the whistle to them, no matter the pet. After that, $(music)play it again$() anywhere and you'll be able to summon your little friend. Be $(careful)careful$() though, if you're $(o)very$() far away they won't be able to hear the whistle.",
+
+  "symphonia.entry.singing_seed": "Singing Seed",
+  "symphonia.page.singing_seed0": "The $(l)Singing Seed$() is the first step towards the exciting world of $(thing)biophilia$(): the communion of melody and life. In order to obtain one of these exciting seeds, this is the recipe for the $(music)Melomancy Cauldron$(): $(li)$(item)3x Beetroot Seeds $(li)2x Honeycomb $(li)5x Carrots $(li)3x Wandering Notes",
+  "symphonia.page.singing_seed1": "After everything is properly brewed, $(o)right-click$() it with some $(item)Wheat Seeds$() to infuse them with the mixture and obtain the $(l)Singing Seed$(). After that, just like any regular plant you have to place it in your garden and water it. After being fully grown, harvest it and you'll obtain a $(l)Boogie Fruit$().",
+
+  "symphonia.entry.boogie_bomb": "Boogie Bomb",
+  "symphonia.page.boogie_bomb0": "Have you tried eating a $(item)Boogie Fruit$(). You just can't stop dancing! That's called $(thing)Choreomania$(), and it really disables your senses. If you want to use it against enemies, try creating a $(l)Boogie Bomb$()! The recipe in the $(music)Melomancy Cauldron$() is: $(li)$(item)3x Gunpowder $(li)2x Sand$()$(br).",
+  "symphonia.page.boogie_bomb1": "After brewing the explosive mixture, click it with a $(item)Boogie Fruit$() to apply it to the service. After that, throw it against your enemies to make them useless against those grooves! They won't be able to do anything but $(music)dance$() while the effect is active.",
+
+  "symphonia.entry.great_baton": "The Great Baton",
+  "symphonia.page.great_baton0": "All of the effort you made paid off: you've defeated the $(music)Great Composer$() and freed our land of its horrors. In exchange, you've gained a powerful $(item)item$(): the $(l)Great Baton$(), the source of his powers. $(br2)If used by a $(o)superb conductor$(), it can bring the music of its musicians to a $(music)new level$() while you're near them.",
+  "symphonia.page.great_baton1": "Depending on the $(item)sheet music$() being played, it'll summon diverse effects. $(li)$(item)Bach's Air:$() The sun will always shine $(li)$(item)Mindlin's Blues$(): The moon will always gleam $(li)$(item)Greensleeves$(): You'll get extra hearts $(li)$(item)La Bamba$(): You'll get lucky $(li)$(item)Jazzy Für Elise$(): You won't get hunger $(li)$(item)Dance of the Little Swans$(): They'll defend your home $(li)$(item)Resurrection$(): You'll get your own canon",
+
+  "symphonia.entry.essence": "Essence of Discord",
+  "symphonia.page.essence0": "Despite the $(l)Essence of Discord$() being introduced as an useless remnant of improper use of $(music)Melomancy$(), it's not the full truth. This $(item)essence$() can be used for some extremely dangerous rituals which will be discussed in the next chapters. Remember you can obtain it with incorrect recipes in the $(item)melomancy cauldron$().",
+
+  "symphonia.entry.activator_clef": "Activator Clef",
+  "symphonia.page.activator_clef0": "The $(music)music realm$() is like an invisible fabric that covers our world. You cannot see it, but you can sense it and $(o)alter$() it. By crafting an $(l)Activator Clef$() you can try to excite it with cacophonous sounds. Like the key of a piano, press the ground with the $(item)clef$() to try to excite a $(music)nuclei$() out of it.",
+  "symphonia.page.activator_clef1": "It might take a couple of tries to bring a $(music)nuclei$() out of the ground. Be $(careful)careful$() because it will bring some $(item)Discord Blocks$() with it which will consume every block nearby.",
+
+  "symphonia.entry.discord_nuclei": "Discord Nuclei",
+  "symphonia.page.discord_nuclei0": "$(careful)Warning$(): Before even trying to use the block, read this page or you might blow up. $(br2)Once excited, the $(l)Discord Nuclei$() is both a useful and dangerous tool. It has the powers of $(music)transforming items$() into a $(music)corrupted version$() by combining these objects with $(item)discord essence$().",
+  "symphonia.page.discord_nuclei1": "When you place an apt item into the $(music)nuclei$(), you'll see two different numbers: $(li)$(l)Discord$(): The amount of $(item)Essence of Discord$() placed. When it reaches 100%%, the transformation is complete. $(li)$(l)Instability$(): For every $(item)essence$() placed, the nuclei's instability will increase. The more essence, the $(o)faster$(). If it reaches, 100%% everything will $(careful)explode$(). To reduce the $(o)instability$(), use $(item)Wandering Notes$(). $(br)$(o)Once the transformation is started, it $(careful)cannot be stopped$().",
+
+  "symphonia.entry.discord_bomb": "Discord Bomb",
+  "symphonia.page.discord_bomb0": "The $(l)Discord Bomb$() is the opposite of the $(item)Boogie Bomb$() you might have crafted before. Instead of making the enemies $(o)dance$(), you bring a wave of $(music)crawling discord$() out of the ground which hurts everything and everyone in its path. $(br2)To create it, you need to transform a $(item)Boogie Fruit$() in the $(music)Discord Nuclei$().",
+
+  "symphonia.entry.transmuted_voice": "Transmuted Voice",
+  "symphonia.page.transmuted_voice0": "Have you ever taken an entity's $(item)voice$() and want to give it back, but don't know how? Me neither, but if you ever want to, you can use a $(l)Transmuted Voice$(). If you use it on any $(o)muted entity$(), you'll be able to give it back. $(br2)In order to obtain it, you need to transform an $(item)Voice$() in the $(music)Discord Nuclei$().",
+
+  "symphonia.entry.discorded_flower": "Discorded Flower",
+  "symphonia.page.discorded_flower0": "This is the last step towards getting the $(item)Petals of Death$(). This $(l)Discorded Flower$() is where dissonance and death meet: the hunger of sound in order to get silence. $(br)To obtain this flower, you need to transform a $(item)Oxeye Daisy$() in the $(music)Discord Nuclei$(). This transformation is longer than usual, you might need more $(item)essence and notes$().",
+  "symphonia.page.discorded_flower1": "Once placed on top of a $(item)Discord Block$(), you'll need to $(thing)feed$() the flower.",
+  "symphonia.page.discorded_flower2": "To feed it, you need to give it $(music)monster or animal parts$(). Whether it's $(o)flesh, bones, rods, or even nether stars or echo shards$(): the $(item)flower$() is hungry for everything. The rarer, the more it will be fed. $(br)You need to be $(careful)extremely careful$() though: along with the monster parts, it will expand itself and consume everything around it. $(o)Place it as far as possible$(). $(br2)Once completely fled, it'll release all its dissonance and drop the $(item)Petals of Death$().",
+
+  "symphonia.entry.glove": "Glove",
+  "symphonia.page.glove0": "This may seem like a simple $(l)Glove$() at first sight, but it's so much more: it's made of $(o)leather from another land$(). Therefore, it's no longer easily craftable. $(br)However, our lovely collectors the $(music)wandering koalas$() have a good supply of them, though they don't sell them to everybody. Try to talk with them while holding a $(item)Boogie Fruit$() and they might sell it to you!",
+  "symphonia.page.glove1": "And what's the $(o)glove$() for? Why don't you use it with a $(music)grown singing crop$()?",
+
+  "symphonia.entry.amplifier_crystal": "Amplifier Crystal",
+  "symphonia.page.amplifier_crystal0": "Containing $(item)voices$() is even trickier than music: they have an $(o)errant and wild nature$(), so $(item)steelsonic$() isn't enough. In order to channel and contain them, we need an $(l)Amplifier Crystal$(). It's quite expensive to make in the $(music)Melomancy Cauldron$(), but worth it. They're indispensable if you want to meddle in this branch of $(thing)biophilia$().",
+  "symphonia.page.amplifier_crystal1": "The recipe for this valuable $(item)item$() is: $(li)$(item)5x Diamonds $(li)3x Wandering Notes $(li)3x Steelsonic Ingots$()$(br)Finally, infuse an $(item)Amethyst Shard$() with it and you'll get your precious $(item)Amplifier Crystal$().",
+
+  "symphonia.entry.singing_sproutling": "Singing Sproutling",
+  "symphonia.page.singing_sproutling0": "These $(o)little creatures$() were the singing crops all along! They're the epitome of what $(thing)biophilia$() is: the marriage between $(o)music and life$(). $(br)They love wandering around, especially around other crops, and singing! $(br2)They have such an $(o)angelical voice$() that when they sing the $(music)crops and grass$() around it $(o)magically grow$()!",
+  "symphonia.page.singing_sproutling1": "They're really useful as a natural $(item)bone meal$() and... $(o)perhaps$() something more?",
+
+  "symphonia.entry.voice_vessel": "Voice Vessel",
+  "symphonia.page.voice_vessel0": "Voice",
+  "symphonia.page.voice_vessel1": "$(item)Voices$() are a really powerful tool. They contain all the power and memories of the $(o)creature$() they belong to. That's why, if you want to harness more power, they're crucial. $(br2)$(l)Voice Vessels$() are used for the containment of $(item)voices$(). The $(item)amplifier crystal$() catches the voice, and the $(item)quartz and wandering note$() contain it.",
+  "symphonia.page.voice_vessel2": "In order to use it, you need a creature apt for the $(music)vessel$() $(o)(more on that later)$(). When found, you need to hold it $(o)opened$() during the entire process. If you close the $(item)vessel$() before finishing, the voice will $(o)fade away$() and the creature will remain $(music)muted$().",
+
+  "symphonia.entry.pan_flute": "Ritual of the Pan Flute",
+  "symphonia.page.pan_flute0": "Every musical animal has its own particular $(music)instrument$(), and so does the human. Your soul is linked by birth to the $(l)Pan Flute$(), and just like every other animal, you won't know it until you $(o)play it$(). $(br)In order to obtain it, you'll need to purchase it from a $(o)Wandering Koala$(). They sell it for $(item)emeralds$() just like any other instrument.",
+  "symphonia.page.pan_flute1": "However, in order to obtain its $(music)true powers$() you'll need to perform different $(o)rituals$() which will produce different effects. $(br2)To set up the $(o)ritual$(), you'll need an $(item)Altar of the Pan Flute$() and several $(item)Altars$() and $(item)Voice Chambers$() $(o)(depends on the ritual)$()$(br2)Once you have more than one sound, you can switch between them with $(o)shift$().",
+
+  "symphonia.entry.sound_burst": "Sound of Burst",
+  "symphonia.page.sound_burst0": "The $(l)Sound of Burst$() gets its powers from fire and music. While playing this $(thing)sounds$(), you'll release a burst of ignited notes which will do $(o)area-damage$()! You'll need to place the following $(item)voices$() in the $(music)Voice Chambers$():$(item)$(li)3x Voices of Llama $(li)2x Voices of Magma Cubes 4(li)1x Voice of Blaze $(li)1x Voice of Piglin Brute",
+  "symphonia.page.sound_burst1": "$If you (o)hold right-click$() you'll throw a burst of flaming notes!",
+
+  "symphonia.entry.sound_gust": "Sound of Gust",
+  "symphonia.page.sound_gust0": "The $(l)Sound of Gust$() takes the strength and force of several creatures into this $(thing)sound$() to release a great gust of wind that $(o)pushes entities away$()! Just like any other $(o)ritual$(), you need to place these $(item)voices$() in the $(music)Voice Chambers: $(li)$(item)2x Voices of Goat $(li)2x Voices of Iron Golem $(li)1x Voice of Breeze",
+  "symphonia.page.sound_gust1": "$(o)Right-click$() near some entities and you'll send them away!",
+
+  "symphonia.entry.sound_vigour": "Sound of Vigour",
+  "symphonia.page.sound_vigour0": "The $(l)Sound of Vigour$() is a defensive sound: by playing this $(thing)sounds$() you'll summon $(o)health wisps$() which will heal you and your allies after a few seconds. In order to get it, you need to place these $(item)voices$() in the $(music)Voice Chambers$():$(li)$(item)4x Vex $(li)1x Witch $(li)1x Evoker",
+  "symphonia.page.sound_vigour1": "$(o)Right-click$() and in a few seconds every ally nearby will be healed!",
+
+  "symphonia.entry.sound_zephyr": "Sound of Zephyr",
+  "symphonia.page.sound_zephyr0": "The $(l)Sound of Zephyr$() makes use of the voices of wind-related creatures. If you play this $(thing)sound$(), you'll be able to impulse yourself in any direction: very useful for getting to places otherwise $(o)unreachable$()! You'll need to place these $(item)voices$() in the $(music)Voice Chambers$():$(li)$(item)2x Voices of Parrot $(li)2x Voices of Breeze $(li)1x Voice of Macaw $(li)1x Voice of Phantom$()",
+  "symphonia.page.sound_zephyr1": "$(o)Right-click$() and you'll be impulsed wherever you're facing!",
+
+  "symphonia.entry.sound_species": "Sound of the Species",
+  "symphonia.page.sound_species0": "The $(l)Sound of the Species$() is quite a tricky one. You'll need to reunite the $(item)voices$() of creatures across the dimensions in order to unify them into a single $(thing)sound$(). $(br2)In order to use this sound, you need to reunite $(music)six Singing Sproutlings$() together and play them this sound. In response, they'll sing along and sacrifice their lives to create $(thing)a new one$().",
+  "symphonia.page.sound_species1": "To get this specific $(thing)sounds$() you'll need to place the following $(item)voices$() in the $(music)Voice Chambers$(): $(li)$(item)1x Voice of Mooshroom $(li)1x Voice of Cave Spider $(li)1x Voice of Dolphin $(li)1x Voice of Hoglin $(li)1x Voice of Strider $(li)1x Voice of Sniffer $(li)1x Voice of Pillager $(li)1x Voice of Mantis",
+
+  "symphonia.entry.grow_sprout": "Growing the Sprout",
+  "symphonia.page.grow_sprout0": "It seems like all of your $(music)Singing Sproutlings$() have sung together to form a new $(o)form of life$(): a $(thing)Wise Tree Sprout$(). Now it's time to take care of it until it grows: $(br2)You need to water your $(music)sprout$() for it to grow, but it doesn't need water: it needs $(o)music$(). Every time it will fancy a different $(item)instrument$() sound. If you're correct, it'll become $(o)wet.",
+  "symphonia.page.grow_sprout1": "You need to $(o)water$() your sprout until it becomes a $(music)Wise Tree$().",
+  "symphonia.page.grow_sprout2": "Once fully grown, in order to get the $(item)Fruit of Life$() you need to $(o)water$() it one more time. If it has grown a $(item)fruit$(), punch it with your $(o)bare hard$() and it'll drop the $(item)fruit$() you've longed for $(br2)If you don't $(careful)want it anymore$(), you can chop it down with an $(item)axe$().",
+
+  "symphonia.entry.ringtails": "The Traveling Musicians",
+  "symphonia.page.ringtails0": "If you ever want to start this $(o)melomantic$() journey, you should look for a pair of $(l)traveling musicians$() playing around the world. I can't tell you much about them, but you'll recognise them by the $(o)unique melody$() they love to play. They're charismatic and lovely, you'll love them!",
+  "symphonia.page.ringtails1": "Meet the Ringtails! $(l)Faust$() and $(l)Orion$(), the traveling musicians. Keep reading!",
+  "symphonia.page.ringtails2": "$(l)Faust$() and $(l)Orion$() have been traveling around the world for a long time. You can talk directly to them and get to know them and their history better. Trust me, it's $(o)worth it$(). They're also pretty into $(l)melomancy$(), so try to tip them some $(o)gold in their tip case$() and they might give you just what you need to begin your adventure! Who knows what might happen if you tip them a lot...",
+
+  "symphonia.entry.faust": "Faust",
+  "symphonia.page.faust0": "$(l)Faust$() is the core of the Ringtails! After both him and $(l)Orion$() were kicked out of their families, they decided to partner up and travel the world together. He's quite keen on melomancy, and loves to study its relationship with $(o)Mother$(). He's quite a thinker, which sometimes clashes with Orion's impulsiveness. Despite that, they always make up their differences, especially after what happened with $(o)Tiego",
+  "symphonia.page.faust1": "His interest could become obsession. I just hope he doesn't lose himself...",
+
+  "symphonia.entry.orion": "Orion",
+  "symphonia.page.orion0": "Meet $(l)Orion$(), the guitarist of the Ringtails! Formed after meeting $(l)Faust$(), their band is widely known between species. He's also quite a composer: he wrote their main song! Being a self-taught musician, he helped Faust learn the accordion when they were kids. He doesn't care about music, just about making good music for other to enjoy. His impulsiveness, however, made him losing his eye against $(o)Tiego$().",
+  "symphonia.page.orion1": "I love how self-driven he is, though he ends up being relentless sometimes.",
+
+  "symphonia.entry.fragments": "The Lost Composition",
+  "symphonia.page.fragments0": "$(o)Faust and Orion$() have introduced you to $(music)the Great Composer$(), the terror of this land. He's been hurting and absorbing the fauna and music of the world, and you're the only one that can stop $(o)him$(). In order to do that, he's asked you to repair the $(music)Fragments of a Lost Composition$(), resurrect him and end his reign of terror.",
+  "symphonia.page.fragments1": "In order to repair the $(item)Requiem of Resurrection$() you need to put these ingredients in a $(music)Melomancy Cauldron$(): $(li)$(item)1x Fruit of Life $(li)1x Petals of Death $()$(br)Finally, infuse your $(item)Fragments of a Lost Composition$() with the brewing and you'll repair it.",
+
+  "symphonia.entry.fruit_of_life": "The Fruit of Life",
+  "symphonia.page.fruit_of_life0": "One of the two key ingredients to achieve the great $(music)Resurrection$(). The $(item)Fruit of Life$() is the synthesis of life and harmony itself, only produced as the fruit of a $(thing)great and ancient tree$(). This is $(music)biophilia$() at its finest, so you'll need to delve into this matter.",
+
+  "symphonia.entry.petals_of_death": "The Petals of Death",
+  "symphonia.page.petals_of_death0": "The second part of achieving the great $(music)Resurrection$(), the $(item)Petals of Death$(), is the greatest danger one can achieve with $(music)Melomancy$(). This dark branch of the musical arts, called $(music)discordance$(), is of great danger. In order to get this $(item)ingredient$() you'll need to risk the fabric of earth and sound, possibly endangering your home.",
+
+  "symphonia.entry.kill_composer": "Kill the Great Composer",
+  "symphonia.page.kill_composer0": "You've finally obtained the $(item)Requiem of Resurrection$() and it's time to end the reign of $(music)the Great Composer$() once and for all. To awaken him out of his gravestone you need to $(thing)play the Requiem of Resurrection$() next to his $(o)grave$() in the $(o)Composer Graveyard$(), and after a few minutes, his lethargy should come to an end.",
+  "symphonia.page.kill_composer1": "$(careful)$(l)Careful!$() It's a long and difficult fight, so you need to be $(o)very$() well-equipped.",
+
+  "symphonia.entry.the_great_composer": "The Great Composer",
+  "symphonia.page.the_great_composer0": "$(l)Tiego$(), more commonly referred to as $(music)the Great Composer$(), was once held in high regard by his peers. He composed the most beautiful pieces in his land, and inspired hundreds of animals. $(br)However$(), once he discovered $(thing)Melomancy$(), he started to abandon his passion in pursuit of greater $(o)power$(). After trying many times to control $(thing)discord$(), he lost himself forever.",
+  "symphonia.page.the_great_composer1": "Nobody should ever try to go as far as he wanted to. Not even $(o)you$().",
+
+  "symphonia.entry.wise_tree": "Wise Tree",
+  "symphonia.page.wise_tree0": "The $(l)Wise Tree$() is one of the most interesting species in our planet. Its wisdom comes from the $(music)six lives$() that were given up to bring it to $(o)life$(). The tree is connected to the $(thing)music realm$() and $(thing)Mother$() in a way no other creature can. Despite his great $(o)power$(), he has an extreme loyalty to its master: it even trusts the player enough for a $(item)Fruit of Life$()",
+  "symphonia.page.wise_tree1": "Only its $(o)master$() can understand the language it speaks.",
+
+  "symphonia.entry.anya": "Anya"
 }
+
