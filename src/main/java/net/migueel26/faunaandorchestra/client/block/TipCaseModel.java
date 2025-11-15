@@ -28,13 +28,13 @@ public class TipCaseModel extends GeoModel<TipCaseBlockEntity> {
     public ResourceLocation getTextureResource(TipCaseBlockEntity animatable) {
         BlockState state = animatable.getBlockState();
         if (state.getValue(TipCaseBlock.PART) == BedPart.FOOT) {
-            if (state.getValue(TipCaseBlock.TIPS) == 64) {
+            if (state.getValue(TipCaseBlock.TIPS) == TipCaseBlock.THIRD_REWARD) {
                 return TIP_CASE_FULL_TEXTURE;
             } else {
                 return TIP_CASE_TEXTURE;
             }
         } else {
-            if (state.getValue(TipCaseBlock.TIPS) == 64) {
+            if (state.getValue(TipCaseBlock.TIPS) == TipCaseBlock.THIRD_REWARD) {
                 return TIP_CASE_HANDLE_FULL_TEXTURE;
             } else {
                 return TIP_CASE_HANDLE_TEXTURE;

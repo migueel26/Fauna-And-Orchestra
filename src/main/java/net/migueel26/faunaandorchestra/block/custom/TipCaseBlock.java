@@ -52,7 +52,10 @@ import java.util.UUID;
 public class TipCaseBlock extends HorizontalDirectionalBlock implements EntityBlock {
     public static final MapCodec<TipCaseBlock> CODEC = simpleCodec(TipCaseBlock::new);
     public static final EnumProperty<BedPart> PART = BlockStateProperties.BED_PART;
-    public static final IntegerProperty TIPS = IntegerProperty.create("tip_amount", 0, 64);
+    public static final int FIRST_REWARD = 6;
+    public static final int SECOND_REWARD = 24;
+    public static final int THIRD_REWARD = 64;
+    public static final IntegerProperty TIPS = IntegerProperty.create("tip_amount", 0, THIRD_REWARD);
     public static final BooleanProperty FIRST = BooleanProperty.create("first");
     public static final BooleanProperty SECOND = BooleanProperty.create("second");
     public static final BooleanProperty THIRD = BooleanProperty.create("third");
@@ -77,6 +80,7 @@ public class TipCaseBlock extends HorizontalDirectionalBlock implements EntityBl
     public static final VoxelShape SOUTH_SHAPE_H = Block.box(5.5, 0, 2.1, 10.5, 5, 16);
     public static final VoxelShape EAST_SHAPE_H = Block.box(2.1, 0, 5.5, 16, 5, 10.5);
     public static final VoxelShape WEST_SHAPE_H = Block.box(0, 0, 5.5, 13.9, 5, 10.5);
+
     public TipCaseBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.getStateDefinition().any()
@@ -166,7 +170,7 @@ public class TipCaseBlock extends HorizontalDirectionalBlock implements EntityBl
     @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 
-        if (player.getItemInHand(hand).is(Items.GOLD_INGOT) && state.getValue(TIPS) < 64) {
+        if (player.getItemInHand(hand).is(Items.GOLD_INGOT) && state.getValue(TIPS) < THIRD_REWARD) {
             // Tip gold
             stack.consume(1, player);
             int tips = state.getValue(TIPS) + 1;
@@ -181,7 +185,7 @@ public class TipCaseBlock extends HorizontalDirectionalBlock implements EntityBl
 
             }
 
-        } else if (player.getItemInHand(hand).is(Items.GOLD_INGOT) && state.getValue(TIPS) == 64) {
+        } else if (player.getItemInHand(hand).is(Items.GOLD_INGOT) && state.getValue(TIPS) == THIRD_REWARD) {
             // Try to tip gold but it's full
             return ItemInteractionResult.FAIL;
 
@@ -213,15 +217,15 @@ public class TipCaseBlock extends HorizontalDirectionalBlock implements EntityBl
     }
 
     private static void giveRingtailsTipAward(BlockState state, Level level, BlockPos pos, Player player, int tips) {
-        if (tips == 16 && state.getValue(TipCaseBlock.FIRST)) {
+        if (tips == FIRST_REWARD && state.getValue(TipCaseBlock.FIRST)) {
             popResourceFromFace(level, pos, Direction.UP, new ItemStack(ModItems.MUSIC_BOTTLE.get()));
             level.playSound(null, pos,
                     ModSounds.SUCCESSFUL_TAME.get(), SoundSource.NEUTRAL, 1.0F, 1.0F);
-        } else if (tips == 32 && state.getValue(TipCaseBlock.SECOND)) {
+        } else if (tips == SECOND_REWARD && state.getValue(TipCaseBlock.SECOND)) {
             popResourceFromFace(level, pos, Direction.UP, new ItemStack(ModItems.SHEET_FRAGMENTS.get()));
             level.playSound(null, pos,
                     ModSounds.SUCCESSFUL_TAME.get(), SoundSource.NEUTRAL, 1.0F, 1.0F);
-        } else if (tips == 64 && state.getValue(TipCaseBlock.THIRD)) {
+        } else if (tips == THIRD_REWARD && state.getValue(TipCaseBlock.THIRD)) {
             popResourceFromFace(level, pos, Direction.UP, new ItemStack(ModItems.RINGTAILS_POSTER.get()));
             level.playSound(null, pos,
                     ModSounds.SUCCESSFUL_TAME.get(), SoundSource.NEUTRAL, 1.0F, 1.0F);

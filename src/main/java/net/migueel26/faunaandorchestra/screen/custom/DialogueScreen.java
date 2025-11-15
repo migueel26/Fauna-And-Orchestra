@@ -108,15 +108,15 @@ public class DialogueScreen {
                 && ((ClientLevelAccessor) minecraft.level).callGetEntities().get(tipCaseBE.getOwner()) instanceof Faust faust) {
                 // The tip case is property of Faust & Orion
                 int tips = state.getValue(TipCaseBlock.TIPS);
-                if (tips == 16 && state.getValue(TipCaseBlock.FIRST)) {
+                if (tips == TipCaseBlock.FIRST_REWARD && state.getValue(TipCaseBlock.FIRST)) {
                     minecraft.level.setBlock(blockPos, state.setValue(TipCaseBlock.FIRST, false), 3);
                     prize = 1;
                     prizeTimer = 1;
-                } else if (tips == 32 && state.getValue(TipCaseBlock.SECOND)) {
+                } else if (tips == TipCaseBlock.SECOND_REWARD && state.getValue(TipCaseBlock.SECOND)) {
                     minecraft.level.setBlock(blockPos, state.setValue(TipCaseBlock.SECOND, false), 3);
                     prize = 2;
                     prizeTimer = 1;
-                } if (tips == 64 && state.getValue(TipCaseBlock.THIRD)) {
+                } if (tips == TipCaseBlock.THIRD_REWARD && state.getValue(TipCaseBlock.THIRD)) {
                     minecraft.level.setBlock(blockPos, state.setValue(TipCaseBlock.THIRD, false), 3);
                     prize = 3;
                     prizeTimer = 1;
