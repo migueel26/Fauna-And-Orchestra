@@ -476,7 +476,7 @@
   "symphonia.page.discorded_flower2": "To feed it, you need to give it $(music)monster or animal parts$(). Whether it's $(o)flesh, bones, rods, or even nether stars or echo shards$(): the $(item)flower$() is hungry for everything. The rarer, the more it will be fed. $(br)You need to be $(careful)extremely careful$() though: along with the monster parts, it will expand itself and consume everything around it. $(o)Place it as far as possible$(). $(br2)Once completely fed, it'll release all its dissonance and drop the $(item)Petals of Death$().",
 
   "symphonia.entry.glove": "Glove",
-  "symphonia.page.glove0": "This may seem like a simple $(l)Glove$() at first sight, but it's so much more: it's made of $(o)leather from another land$(). Therefore, it's no longer easily craftable. $(br)However, our lovely collectors the $(music)wandering koalas$() have a good supply of them, though they don't sell them to everybody. Try to talk with them while holding a $(item)Boogie Fruit$() and they might sell it to you!",
+  "symphonia.page.glove0": "This may seem like a simple $(l)Glove$() at first sight, but it's so much more: it's made of $(o)leather from another land$(). Therefore, it's no longer easily craftable. $(br)However, our lovely collectors, the $(music)wandering koalas$(), have a good supply of them (though they don't sell them to everybody). Try to talk with them while holding a $(item)Boogie Fruit$() and they might sell it to you!",
   "symphonia.page.glove1": "And what's the $(o)glove$() for? Why don't you use it with a $(music)grown singing crop$()?",
 
   "symphonia.entry.amplifier_crystal": "Amplifier Crystal",
@@ -497,15 +497,15 @@
   "symphonia.page.pan_flute1": "However, in order to obtain its $(music)true powers$() you'll need to perform different $(o)rituals$() which will produce different effects. $(br2)To set up the $(o)ritual$(), you'll need an $(item)Altar of the Pan Flute$() and several $(item)Altars$() and $(item)Voice Chambers$() $(o)(depends on the ritual)$()$(br2)Once you have more than one sound, you can switch between them with $(o)shift$().",
 
   "symphonia.entry.sound_burst": "Sound of Burst",
-  "symphonia.page.sound_burst0": "The $(l)Sound of Burst$() gets its powers from fire and music. While playing this $(thing)sounds$(), you'll release a burst of ignited notes which will do $(o)area-damage$()! You'll need to place the following $(item)voices$() in the $(music)Voice Chambers$():$(item)$(li)3x Voices of Llama $(li)2x Voices of Magma Cubes 4(li)1x Voice of Blaze $(li)1x Voice of Piglin Brute",
-  "symphonia.page.sound_burst1": "$If you (o)hold right-click$() you'll throw a burst of flaming notes!",
+  "symphonia.page.sound_burst0": "The $(l)Sound of Burst$() gets its powers from fire and music. While playing this $(thing)sound$(), you'll release a burst of ignited notes which will do $(o)area-damage$()! You'll need to place the following $(item)voices$() in the $(music)Voice Chambers$():$(item)$(li)3x Voices of Llama $(li)2x Voices of Magma Cubes $(li)1x Voice of Blaze $(li)1x Voice of Piglin Brute",
+  "symphonia.page.sound_burst1": "If you (o)hold right-click$() you'll throw a burst of flaming notes!",
 
   "symphonia.entry.sound_gust": "Sound of Gust",
-  "symphonia.page.sound_gust0": "The $(l)Sound of Gust$() takes the strength and force of several creatures into this $(thing)sound$() to release a great gust of wind that $(o)pushes entities away$()! Just like any other $(o)ritual$(), you need to place these $(item)voices$() in the $(music)Voice Chambers: $(li)$(item)2x Voices of Goat $(li)2x Voices of Iron Golem $(li)1x Voice of Breeze",
+  "symphonia.page.sound_gust0": "The $(l)Sound of Gust$() takes the strength and force of several creatures into this $(thing)sound$() to release a great gust of wind that $(o)pushes entities away$()! Just like any other $(o)ritual$(), you need to place these $(item)voices$() in the $(music)Voice Chambers$(): $(li)$(item)2x Voices of Goat $(li)2x Voices of Iron Golem $(li)1x Voice of Breeze",
   "symphonia.page.sound_gust1": "$(o)Right-click$() near some entities and you'll send them away!",
 
   "symphonia.entry.sound_vigour": "Sound of Vigour",
-  "symphonia.page.sound_vigour0": "The $(l)Sound of Vigour$() is a defensive sound: by playing this $(thing)sounds$() you'll summon $(o)health wisps$() which will heal you and your allies after a few seconds. In order to get it, you need to place these $(item)voices$() in the $(music)Voice Chambers$():$(li)$(item)4x Vex $(li)1x Witch $(li)1x Evoker",
+  "symphonia.page.sound_vigour0": "The $(l)Sound of Vigour$() is a defensive sound: by playing this $(thing)sound$() you'll summon $(o)health wisps$() which will heal you and your allies after a few seconds. In order to get it, you need to place these $(item)voices$() in the $(music)Voice Chambers$():$(li)$(item)4x Voices of Vex $(li)1x Voice of Witch $(li)1x Voice of Evoker",
   "symphonia.page.sound_vigour1": "$(o)Right-click$() and in a few seconds every ally nearby will be healed!",
 
   "symphonia.entry.sound_zephyr": "Sound of Zephyr",
@@ -514,10 +514,10 @@
 
   "symphonia.entry.sound_species": "Sound of the Species",
   "symphonia.page.sound_species0": "The $(l)Sound of the Species$() is quite a tricky one. You'll need to reunite the $(item)voices$() of creatures across the dimensions in order to unify them into a single $(thing)sound$(). $(br2)In order to use this sound, you need to reunite $(music)six Singing Sproutlings$() together and play them this sound. In response, they'll sing along and sacrifice their lives to create $(thing)a new one$().",
-  "symphonia.page.sound_species1": "To get this specific $(thing)sounds$() you'll need to place the following $(item)voices$() in the $(music)Voice Chambers$(): $(li)$(item)1x Voice of Mooshroom $(li)1x Voice of Cave Spider $(li)1x Voice of Dolphin $(li)1x Voice of Hoglin $(li)1x Voice of Strider $(li)1x Voice of Sniffer $(li)1x Voice of Pillager $(li)1x Voice of Mantis",
+  "symphonia.page.sound_species1": "To get this specific $(thing)sound$() you'll need to place the following $(item)voices$() in the $(music)Voice Chambers$(): $(li)$(item)1x Voice of Mooshroom $(li)1x Voice of Cave Spider $(li)1x Voice of Dolphin $(li)1x Voice of Hoglin $(li)1x Voice of Strider $(li)1x Voice of Sniffer $(li)1x Voice of Pillager $(li)1x Voice of Mantis",
 
   "symphonia.entry.grow_sprout": "Growing the Sprout",
-  "symphonia.page.grow_sprout0": "It seems like all of your $(music)Singing Sproutlings$() have sung together to form a new $(o)form of life$(): a $(thing)Wise Tree Sprout$(). Now it's time to take care of it until it grows: $(br2)You need to water your $(music)sprout$() for it to grow, but it doesn't need water: it needs $(o)music$(). Every time it will fancy a different $(item)instrument$() sound. If you're correct, it'll become $(o)wet.",
+  "symphonia.page.grow_sprout0": "It seems like all of your $(music)Singing Sproutlings$() have sung together to form a new $(o)form of life$(): a $(thing)Wise Tree Sprout$(). Now it's time to take care of it until it grows: $(br2)You need to water your $(music)sprout$() for it to grow, but it doesn't need water: it needs $(o)music$(). Every time it will fancy a different $(item)instrument$() sound. If you're correct, it'll become $(o)wet$().",
   "symphonia.page.grow_sprout1": "You need to $(o)water$() your sprout until it becomes a $(music)Wise Tree$().",
   "symphonia.page.grow_sprout2": "Once fully grown, in order to get the $(item)Fruit of Life$() you need to $(o)water$() it one more time. If it has grown a $(item)fruit$(), punch it with your $(o)bare hard$() and it'll drop the $(item)fruit$() you've longed for $(br2)If you don't $(careful)want it anymore$(), you can chop it down with an $(item)axe$().",
 
