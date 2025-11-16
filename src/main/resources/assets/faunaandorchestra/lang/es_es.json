@@ -476,8 +476,8 @@
   "symphonia.page.discorded_flower2": "Para alimentarla, necesitas darle $(music)partes de monstruos o animales$(). Ya sea $(o)carne, huesos, varas, o incluso estrellas del nether o fragmentos resonantes$(): la $(item)flor$() tiene un hambre voraz. Cuanto más raro el alimento, más la llenará. $(br)Necesitas tener $(careful)mucho cuidado$(): junto a la comida, se expanderá y consumirá todo a su alrededor. $(o)Colócala lo más lejos posible$(). $(br2)Una vez llena, soltará los $(item)Pétalos de la muerte$().",
 
   "symphonia.entry.glove": "Guante",
-  "symphonia.page.glove0": "Puede que parezca un simple $(l)Guante$(), pero es mucho más: está hecho de $(o)cuero de otra tierra$(). Por ello, no es de fácil obtención. Sin embargo, nuestros queridos coleccionistas, los $(music)koalas ambulantes$(), tienen un buen suministro de ellos (que no venden a cualquiera). ¡Intenta hablar con ellos sujetando una $(item)Fruta boogie$() y capaz te lo venderán!",
-  "symphonia.page.glove1": "¿Y para qué es el $(o)guante$()? ¿Por qué no pruebas a usarlo con un $(music)brote cantarín crecido$()?",
+  "symphonia.page.glove0": "Puede que parezca un simple $(l)Guante$(), pero es mucho más: está hecho de $(o)cuero de otra tierra$(). Por ello, no es de fácil obtención. Sin embargo, nuestros queridos coleccionistas, los $(music)koalas ambulantes$(), tienen un buen suministro de ellos (que no venden a cualquiera).",
+  "symphonia.page.glove1": "¡Intenta hablar con ellos sujetando una $(item)Fruta boogie$() y capaz te lo venderán! $(br2)¿Y para qué es el $(o)guante$()? ¿Por qué no pruebas a usarlo con un $(music)brote cantarín crecido$()?",
 
   "symphonia.entry.amplifier_crystal": "Cristal amplificador",
   "symphonia.page.amplifier_crystal0": "Contener las $(item)voces$() es aún más difícil que la música: tienen una $(o)naturaleza errante y efímera$(), por lo que el $(item)acerónico$() no es suficiente. Para canalizarlos, necesitamos un $(l)Cristal amplificador$(). Es bastante caro de hacer en el $(music)Caldero de melomancia$(), pero merece la pena. Son indispensables para la práctica de $(thing)biofilia$().",
@@ -521,40 +521,40 @@
   "symphonia.page.grow_sprout1": "Necesitas $(o)regarlo$() hasta que se vuelva un $(music)Árbol Sabio$().",
   "symphonia.page.grow_sprout2": "Una vez haya crecido, para conseguir la $(item)Fruta de la Vida$() necesitas $(o)regarlo$() una vez más. Si ha crecido una $(item)fruta$(), golpéalo con tu $(o)mano$() y soltará la $(item)fruta$() que tanto ansias. $(br2)Si no lo $(careful)quieres más$(), puedes talarlo con un $(item)hacha$().",
 
-  "symphonia.entry.ringtails": "The Traveling Musicians",
-  "symphonia.page.ringtails0": "If you ever want to start this $(o)melomantic$() journey, you should look for a pair of $(l)traveling musicians$() playing around the world. I can't tell you much about them, but you'll recognise them by the $(o)unique melody$() they love to play. They're charismatic and lovely, you'll love them!",
-  "symphonia.page.ringtails1": "Meet the Ringtails! $(l)Faust$() and $(l)Orion$(), the traveling musicians. Keep reading!",
-  "symphonia.page.ringtails2": "$(l)Faust$() and $(l)Orion$() have been traveling around the world for a long time. You can talk directly to them and get to know them and their history better. Trust me, it's $(o)worth it$(). They're also pretty into $(l)melomancy$(), so try to tip them some $(o)gold in their tip case$() and they might give you just what you need to begin your adventure! Who knows what might happen if you tip them a lot...",
+  "symphonia.entry.ringtails": "Los Músicos Ambulantes",
+  "symphonia.page.ringtails0": "Si alguna vez quieres empezar esta $(o)melomántica$() aventura, deberías buscar a un par de $(l)músicos ambulantes$() tocando por el mundo. No te puedo contar mucho sobre ellos, pero los reconocerás por la $(o)melodía única$() que aman tocar. Son carismáticos y cariñosos, ¡te encantarán!",
+  "symphonia.page.ringtails1": "¡Conoce a los Ringtails! $(l)Fausto$() y $(l)Orión$(), los músicos ambulantes. ¡Sigue leyendo!",
+  "symphonia.page.ringtails2": "$(l)Fausto$() y $(l)Orión$() llevan viajando por el mundo mucho tiempo. Puedes hablar directamente con ellos para conocerlos mejor. Créeme, $(o)merece la pena$(). También saben bastante $(l)melomancia$(), así que intenta darles $(o)oro de propina en su funda$(), ¡y a lo mejor te dan lo que necesitas para continuar! Quién sabe lo que puede pasar si les das mucha propina...",
 
-  "symphonia.entry.faust": "Faust",
-  "symphonia.page.faust0": "$(l)Faust$() is the core of the Ringtails! After both him and $(l)Orion$() were kicked out of their families, they decided to partner up and travel the world together. He's quite keen on melomancy, and loves to study its relationship with $(o)Mother$(). He's quite a thinker, which sometimes clashes with Orion's impulsiveness. Despite that, they always make up their differences, especially after what happened with $(o)Tiego",
-  "symphonia.page.faust1": "His interest could become obsession. I just hope he doesn't lose himself...",
+  "symphonia.entry.faust": "Fausto",
+  "symphonia.page.faust0": "¡$(l)Fausto$() es el corazón de los Ringtails! Tras ser echados tanto $(l)Orión$() como él de sus familias, decidieron juntarse y tocar juntos por el mundo. Está metido en la melomancia, y le encanta aprender sobre su relación con $(o)Madre$(). Es un pensador, lo cual a veces choca con la impulsividad de Orión. A pesar de eso, siempre arreglan sus diferencias, sobre todo después de lo que pasó con $(o)Tiego$()",
+  "symphonia.page.faust1": "Su interés podría volverse obsesión. Espero que no se pierda a sí mismo...",
 
-  "symphonia.entry.orion": "Orion",
-  "symphonia.page.orion0": "Meet $(l)Orion$(), the guitarist of the Ringtails! Formed after meeting $(l)Faust$(), their band is widely known between species. He's also quite a composer: he wrote their main song! Being a self-taught musician, he helped Faust learn the accordion when they were kids. He doesn't care about music, just about making good music for other to enjoy. His impulsiveness, however, made him losing his eye against $(o)Tiego$().",
-  "symphonia.page.orion1": "I love how self-driven he is, though he ends up being relentless sometimes.",
+  "symphonia.entry.orion": "Orión",
+  "symphonia.page.orion0": "¡Conoce a $(l)Orión$(), el guitarrista de los Ringtails! Formado tras conocer a $(l)Fausto$(), su banda es muy conocida entre especies. También ama componer: ¡escribió su melodía principal! Al ser un autodidacta, ayudó a Fausto a aprender a tocar el acordeón de pequeños. No le importa la melomancia, sólo el hacer buenas canciones. Su impulsividad, por desgracia, lo llevó a perder su ojo contra $(o)Tiego$().",
+  "symphonia.page.orion1": "Me encanta lo decidido que es, aunque a veces se pasa de temerario.",
 
-  "symphonia.entry.fragments": "The Lost Composition",
-  "symphonia.page.fragments0": "$(o)Faust and Orion$() have introduced you to $(music)the Great Composer$(), the terror of this land. He's been hurting and absorbing the fauna and music of the world, and you're the only one that can stop $(o)him$(). In order to do that, he's asked you to repair the $(music)Fragments of a Lost Composition$(), resurrect him and end his reign of terror.",
-  "symphonia.page.fragments1": "In order to repair the $(item)Requiem of Resurrection$() you need to put these ingredients in a $(music)Melomancy Cauldron$(): $(li)$(item)1x Fruit of Life $(li)1x Petals of Death $()$(br)Finally, infuse your $(item)Fragments of a Lost Composition$() with the brewing and you'll repair it.",
+  "symphonia.entry.fragments": "La Partitura Perdida",
+  "symphonia.page.fragments0": "$(o)Fausto y Orión$() te han presentado al $(music)Gran Compositor$(), el terror de esta tierra. Lleva dañando y absorbiendo la fauna desde hace mucho, y eres $(o)el único$() que puede pararlo. Para hacerlo, te ha pedido reparar los $(music)Fragmentos de una composición perdida$(), resucitarlo y acabar con su reinado del terror.",
+  "symphonia.page.fragments1": "Para reparar el $(item)Réquiem de la Resurrección$() necesitas poner estos ingredientes en un $(music)Caldero de melomacia$(): $(li)$(item)1x Fruta de la vida $(li)1x Pétalos de la muerte $()$(br)Finalmente, fusiona tus $(item)Fragmentos de una composición perdida$() con la mezcla y lo repararás.",
 
-  "symphonia.entry.fruit_of_life": "The Fruit of Life",
-  "symphonia.page.fruit_of_life0": "One of the two key ingredients to achieve the great $(music)Resurrection$(). The $(item)Fruit of Life$() is the synthesis of life and harmony itself, only produced as the fruit of a $(thing)great and ancient tree$(). This is $(music)biophilia$() at its finest, so you'll need to delve into this matter.",
+  "symphonia.entry.fruit_of_life": "La Fruta de la Vida",
+  "symphonia.page.fruit_of_life0": "Uno de los dos ingredientes clave para conseguir la $(music)Resurrección$(). La $(item)Fruta de la vida$() es el síntesis entre vida y armonía, sólo producida como el fruto de un $(thing)gran y sabio árbol$(). Esto es $(music)biofilia$() pura, así que necesitarás investigar sobre ésta.",
 
-  "symphonia.entry.petals_of_death": "The Petals of Death",
-  "symphonia.page.petals_of_death0": "The second part of achieving the great $(music)Resurrection$(), the $(item)Petals of Death$(), is the greatest danger one can achieve with $(music)Melomancy$(). This dark branch of the musical arts, called $(music)discordance$(), is of great danger. In order to get this $(item)ingredient$() you'll need to risk the fabric of earth and sound, possibly endangering your home.",
+  "symphonia.entry.petals_of_death": "Los Pétalos de la Muerte",
+  "symphonia.page.petals_of_death0": "La segunda parte para conseguir la gran $(music)Resurrección$(), los $(item)Pétalos de la Muerte$(), es el mayor peligro posible de la $(music)Melomancia$(). Esta oscura rama de las artes musicales, llamada $(music)discordia$(), tiene un gran riesgo. Para obtener este $(item)ingrediente$() necesitarás poner en peligro la esencia de nuestro mundo, tu vida y tu hogar.",
 
-  "symphonia.entry.kill_composer": "Kill the Great Composer",
-  "symphonia.page.kill_composer0": "You've finally obtained the $(item)Requiem of Resurrection$() and it's time to end the reign of $(music)the Great Composer$() once and for all. To awaken him out of his gravestone you need to $(thing)play the Requiem of Resurrection$() next to his $(o)grave$() in the $(o)Composer Graveyard$(), and after a few minutes, his lethargy should come to an end.",
-  "symphonia.page.kill_composer1": "$(careful)$(l)Careful!$() It's a long and difficult fight, so you need to be $(o)very$() well-equipped.",
+  "symphonia.entry.kill_composer": "Derrota al Gran Compositor",
+  "symphonia.page.kill_composer0": "Finalmente has obtenido el $(item)Réquiem de la Resurrección$() y es hora de acabar con el reinado del $(music)Gran Compositor$() de una vez por todas. Para despertarlo necesitarás $(thing)tocar el réquiem$() al lado de su $(o)tumba$() en el $(o)Cementerio de compositores$(), y tras unos minutos, su letargo terminará.",
+  "symphonia.page.kill_composer1": "$(careful)$(l)¡Cuidado!$() Es una larga y difícil batalla, así que ve $(o)muy$() bien equipado.",
 
-  "symphonia.entry.the_great_composer": "The Great Composer",
-  "symphonia.page.the_great_composer0": "$(l)Tiego$(), more commonly referred to as $(music)the Great Composer$(), was once held in high regard by his peers. He composed the most beautiful pieces in his land, and inspired hundreds of animals. $(br)However$(), once he discovered $(thing)Melomancy$(), he started to abandon his passion in pursuit of greater $(o)power$(). After trying many times to control $(thing)discord$(), he lost himself forever.",
-  "symphonia.page.the_great_composer1": "Nobody should ever try to go as far as he wanted to. Not even $(o)you$().",
+  "symphonia.entry.the_great_composer": "El Gran Compositor",
+  "symphonia.page.the_great_composer0": "$(l)Tiego$(), mejor conocido como $(music)el Gran Compositor$(), era antiguamente aclamado por sus contemporáneos. Compuso las más bellas obras de nuestra tierra, inspirando a cientos de animales. $(br)No obstante$(), una vez descubrió la $(thing)Melomancia$(), comenzó a abandonar su pasión en busca del $(o)poder$(). Tras muchos intentos de controlar la $(thing)discordia$(), se perdió a sí mismo, para siempre.",
+  "symphonia.page.the_great_composer1": "Nadie debería jamás llegar tan lejos como él. Ni siquiera $(o)tú$().",
 
-  "symphonia.entry.wise_tree": "Wise Tree",
-  "symphonia.page.wise_tree0": "The $(l)Wise Tree$() is one of the most interesting species in our planet. Its wisdom comes from the $(music)six lives$() that were given up to bring it to $(o)life$(). The tree is connected to the $(thing)music realm$() and $(thing)Mother$() in a way no other creature can. Despite his great $(o)power$(), he has an extreme loyalty to its master: it even trusts the player enough for a $(item)Fruit of Life$()",
-  "symphonia.page.wise_tree1": "Only its $(o)master$() can understand the language it speaks.",
+  "symphonia.entry.wise_tree": "El Sabio Árbol",
+  "symphonia.page.wise_tree0": "El $(l)Árbol Sabio$() es una de las especies más interesantes. Su sabiduría viene de sus $(music)seis vidas pasadas$() que fueron renunciadas para dársela a $(o)él$(). El árbol está conectado con el $(thing)plano musical$() y con $(thing)Madre$() como ninguna otra criatura. A pesar de su gran $(o)poder$(), es extremadamente leal a su dueño: tanto como para cederle la $(item)Fruta de la vida$().",
+  "symphonia.page.wise_tree1": "Sólo su $(o)dueño$() puede entender su lenguaje.",
 
   "symphonia.entry.anya": "Anya"
 }
