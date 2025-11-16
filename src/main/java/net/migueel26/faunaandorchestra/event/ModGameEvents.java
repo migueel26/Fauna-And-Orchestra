@@ -1,5 +1,6 @@
 package net.migueel26.faunaandorchestra.event;
 
+import net.migueel26.faunaandorchestra.Config;
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.block.custom.TipCaseBlock;
@@ -16,6 +17,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
@@ -44,6 +46,7 @@ import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
+import vazkii.patchouli.api.PatchouliAPI;
 
 import java.util.List;
 import java.util.Optional;
@@ -125,23 +128,29 @@ public class ModGameEvents {
             data.putBoolean("hasJoinedBefore", true);
             persistentData.put(ServerPlayer.PERSISTED_NBT_TAG, data);
 
-            Vec3 look = player.getLookAngle(); // The player's look direction (normalized)
-            double distance = 2.0;
+            if (Config.anyaSpawn) {
+                // Anya SHOULD spawn
+                Vec3 look = player.getLookAngle(); // The player's look direction (normalized)
+                double distance = 2.0;
 
-            AnyaGhost anyaGhost = new AnyaGhost(ModEntities.ANYA_GHOST.get(), event.getEntity().level());
-            anyaGhost.setPos(player.position().add(
-                            look.x * distance,
-                            look.y * distance,   // Slightly above ground if needed
-                            look.z * distance
-            ));
+                AnyaGhost anyaGhost = new AnyaGhost(ModEntities.ANYA_GHOST.get(), event.getEntity().level());
+                anyaGhost.setPos(player.position().add(
+                        look.x * distance,
+                        look.y * distance,   // Slightly above ground if needed
+                        look.z * distance
+                ));
 
-            anyaGhost.lookAt(EntityAnchorArgument.Anchor.FEET, player.position().add(0, 1, 0));
-            anyaGhost.lookAt(EntityAnchorArgument.Anchor.EYES, player.position().add(0, 1, 0));
-            anyaGhost.setYRot(anyaGhost.getYHeadRot());
-            anyaGhost.setYBodyRot(anyaGhost.getYRot());
-            anyaGhost.setPlayerUUID(player.getUUID());
+                anyaGhost.lookAt(EntityAnchorArgument.Anchor.FEET, player.position().add(0, 1, 0));
+                anyaGhost.lookAt(EntityAnchorArgument.Anchor.EYES, player.position().add(0, 1, 0));
+                anyaGhost.setYRot(anyaGhost.getYHeadRot());
+                anyaGhost.setYBodyRot(anyaGhost.getYRot());
+                anyaGhost.setPlayerUUID(player.getUUID());
 
-            player.level().addFreshEntity(anyaGhost);
+                player.level().addFreshEntity(anyaGhost);
+            } else {
+                // Anya SHOULD NOT spawn
+                player.addItem(PatchouliAPI.get().getBookStack(ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "symphonia")));
+            }
         }
     }
 
