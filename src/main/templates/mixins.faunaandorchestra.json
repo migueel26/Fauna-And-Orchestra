@@ -9,8 +9,11 @@
     "MixinMusicManager",
     "MixinLevelRenderer",
     "MixinParrot",
+    "MixinDesertPyramidStructure",
+    "MixinStructure",
     "accessors.SoundBufferAccessor",
-    "accessors.ClientLevelAccessor"
+    "accessors.ClientLevelAccessor",
+    "accessors.StructurePieceAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -326,6 +326,11 @@ public class KoalaEntity extends AgeableMob implements Merchant, Npc, GeoEntity 
     }
 
     @Override
+    public boolean isPersistenceRequired() {
+        return true;
+    }
+
+    @Override
     public void setTradingPlayer(@Nullable Player tradingPlayer) {
         this.tradingPlayer = tradingPlayer;
     }
