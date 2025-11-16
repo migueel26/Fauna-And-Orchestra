@@ -222,6 +222,7 @@ public class ModItems {
                         player.addItem(new ItemStack(ModItems.PETALS_OF_DEATH.get()));
                         player.addItem(new ItemStack(ModItems.RESURRECTION_SONG.get()));
                         player.addItem(new ItemStack(ModItems.MUSIC_BOTTLE.get()));
+                        player.addItem(new ItemStack(ModItems.BOOGIE_FRUIT.get()));
                         ModAdvancements.KILL_COMPOSER.get().trigger(serverPlayer);
                         ModAdvancements.WISE_TREE.get().trigger(serverPlayer);
                         ModAdvancements.MEET_RINGTAILS.get().trigger(serverPlayer);

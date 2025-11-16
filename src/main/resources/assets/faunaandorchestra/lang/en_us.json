@@ -428,7 +428,7 @@
   "symphonia.page.offering4": "Just like any other $(o)musical animal$(), you need to tame her with her $(item)instrument$().",
 
   "symphonia.entry.wandering_notes": "Wandering Notes",
-  "symphonia.page.wandering_notes0": "These little creatures, the $(l)Wandering Notes$(), are an essential ingredient in $(o)melomancy$(). These only appear after drinking an $(item)Absolute Hearing Potion$() and standing nearby an orchestra. You'll start to see the physically see the notes and you'll be able to $(o)catch them$() with a $(item)Butterfly Net$()!",
+  "symphonia.page.wandering_notes0": "These little creatures, the $(l)Wandering Notes$(), are an essential ingredient in $(o)melomancy$(). These only appear after drinking an $(item)Absolute Hearing Potion$() and standing nearby an orchestra. You'll start to physically see the notes and you'll be able to $(o)catch them$() with a $(item)Butterfly Net$()!",
   "symphonia.page.wandering_notes1": "The recipe for the $(item)Absolute Hearing Potion$() in the $(o)Melomancy Cauldron$() is: $(li)$(item)1x Blaze Powder $(li)1x Nether Wart $(li)3x Ginkgo Biloba $()$(br)Once brewed, you need a $(item)Glass Bottle$() to take the potion. After drinking it, you'll have $(o)30 seconds$() of $(thing)absolute hearing$().",
 
   "symphonia.entry.steelsonic_ingot": "Steelsonic Ingot",
@@ -446,8 +446,8 @@
   "symphonia.page.singing_seed1": "After everything is properly brewed, $(o)right-click$() it with some $(item)Wheat Seeds$() to infuse them with the mixture and obtain the $(l)Singing Seed$(). After that, just like any regular plant you have to place it in your garden and water it. After being fully grown, harvest it and you'll obtain a $(l)Boogie Fruit$().",
 
   "symphonia.entry.boogie_bomb": "Boogie Bomb",
-  "symphonia.page.boogie_bomb0": "Have you tried eating a $(item)Boogie Fruit$(). You just can't stop dancing! That's called $(thing)Choreomania$(), and it really disables your senses. If you want to use it against enemies, try creating a $(l)Boogie Bomb$()! The recipe in the $(music)Melomancy Cauldron$() is: $(li)$(item)3x Gunpowder $(li)2x Sand$()$(br).",
-  "symphonia.page.boogie_bomb1": "After brewing the explosive mixture, click it with a $(item)Boogie Fruit$() to apply it to the service. After that, throw it against your enemies to make them useless against those grooves! They won't be able to do anything but $(music)dance$() while the effect is active.",
+  "symphonia.page.boogie_bomb0": "Have you tried eating a $(item)Boogie Fruit$()? You just can't stop dancing! That's called $(thing)Choreomania$(), and it really disables your senses. If you want to use it against enemies, try creating a $(l)Boogie Bomb$()! The recipe in the $(music)Melomancy Cauldron$() is: $(li)$(item)3x Gunpowder $(li)2x Sand$()$(br).",
+  "symphonia.page.boogie_bomb1": "After brewing the explosive mixture, click it with a $(item)Boogie Fruit$() to apply it to the surface. After that, throw it against your enemies to make them useless against those grooves! They won't be able to do anything but $(music)dance$() while the effect is active.",
 
   "symphonia.entry.great_baton": "The Great Baton",
   "symphonia.page.great_baton0": "All of the effort you made paid off: you've defeated the $(music)Great Composer$() and freed our land of its horrors. In exchange, you've gained a powerful $(item)item$(): the $(l)Great Baton$(), the source of his powers. $(br2)If used by a $(o)superb conductor$(), it can bring the music of its musicians to a $(music)new level$() while you're near them.",
