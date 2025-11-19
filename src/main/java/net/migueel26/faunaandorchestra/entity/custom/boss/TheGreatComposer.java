@@ -307,7 +307,7 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
             // Music Logic
             if (!isFakeDead()) {
                 List<Player> nearbyPlayers = this.level().getEntitiesOfClass(
-                        Player.class, this.getBoundingBox().inflate(32.0, 32.0, 32.0), EntitySelector.LIVING_ENTITY_STILL_ALIVE);
+                        Player.class, this.getBoundingBox().inflate(63.0, 32.0, 63.0), EntitySelector.LIVING_ENTITY_STILL_ALIVE);
 
                 List<Player> newPlayers = new ArrayList<>(nearbyPlayers);
                 List<Player> exitPlayers = new ArrayList<>(playersListening);
