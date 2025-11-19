@@ -2,10 +2,11 @@
   "required": true,
   "package": "net.migueel26.faunaandorchestra.mixins.client",
   "compatibilityLevel": "JAVA_21",
-  "mixins": [
+  "server": [
     "MixinParrot",
     "MixinDesertPyramidStructure",
-    "MixinStructure"
+    "MixinStructure",
+    "accessors.StructurePieceAccessor"
   ],
   "client": [
     "MixinChannel",
@@ -14,8 +15,7 @@
     "MixinMusicManager",
     "MixinLevelRenderer",
     "accessors.SoundBufferAccessor",
-    "accessors.ClientLevelAccessor",
-    "accessors.StructurePieceAccessor"
+    "accessors.ClientLevelAccessor"
   ],
   "injectors": {
     "defaultRequire": 1
