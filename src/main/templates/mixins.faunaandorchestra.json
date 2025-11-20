@@ -2,7 +2,7 @@
   "required": true,
   "package": "net.migueel26.faunaandorchestra.mixins.client",
   "compatibilityLevel": "JAVA_21",
-  "server": [
+  "mixins": [
     "MixinParrot",
     "MixinDesertPyramidStructure",
     "MixinStructure",

@@ -1,8 +1,7 @@
 {
   "values": [
-    "minecraft:mangrove_swamp",
-    "minecraft:swamp",
-    "minecraft:lush_caves",
+    "#c:is_jungle",
+    "#c:is_lush",
     "minecraft:cherry_grove"
   ]
 }
