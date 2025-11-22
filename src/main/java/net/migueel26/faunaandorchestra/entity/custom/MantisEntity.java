@@ -215,6 +215,13 @@ public class MantisEntity extends MusicalEntity implements GeoEntity, NeutralMob
         return isPlayingInstrument() ? null : ModSounds.MANTIS_AMBIENT.get();
     }
 
+    @Override
+    public void playAmbientSound() {
+        if (this.getAmbientSound() != null) {
+            this.playSound(getAmbientSound(), 0.3f, getVoicePitch());
+        }
+    }
+
     @Nullable
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSource) {

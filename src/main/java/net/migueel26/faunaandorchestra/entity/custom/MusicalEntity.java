@@ -105,7 +105,7 @@ public abstract class MusicalEntity extends TamableAnimal {
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
-        if (isTame()) {
+        if (isTame() && getOwnerUUID().equals(player.getUUID())) {
             if (itemStack.is(ModTags.Items.IS_BATON) && !isPlayingInstrument() && itemStack.get(ModDataComponents.MUSICIAN_UUID) == null) {
 
                 itemStack.set(ModDataComponents.MUSICIAN_UUID, this.uuid);

@@ -9,10 +9,13 @@ import net.migueel26.faunaandorchestra.networking.StartOrchestraMusicS2CPayload;
 import net.migueel26.faunaandorchestra.util.MusicUtil;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.EnumSet;
+import java.util.List;
 import java.util.Optional;
 
 public class MusicalEntityPlayingInstrumentGoal extends Goal {
@@ -66,16 +69,24 @@ public class MusicalEntityPlayingInstrumentGoal extends Goal {
         // We get how many ticks the conductor has been conducting
         int ticksOffset = conductor.getTicksPlaying();
 
+        List<Player> nearbyPlayers = this.conductor.level().getEntitiesOfClass(
+                Player.class, this.conductor.getBoundingBox().inflate(32.0, 32.0, 32.0), EntitySelector.LIVING_ENTITY_STILL_ALIVE);
+
         // Start the musician's part if it's a new musician
-        if (!conductor.isReady()) {
-            PacketDistributor.sendToAllPlayers(new StartOrchestraMusicS2CPayload(musician.getUUID(),
-                    ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID,
-                            MusicUtil.getLocation(conductor.getSheetMusic(), musician.getInstrument().get())),
-                    ticksOffset));
+        if (!conductor.isReady() && !nearbyPlayers.isEmpty()) {
+            for (Player player : nearbyPlayers) {
+                PacketDistributor.sendToPlayer((ServerPlayer) player, new StartOrchestraMusicS2CPayload(musician.getUUID(),
+                        ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID,
+                                MusicUtil.getLocation(conductor.getSheetMusic(), musician.getInstrument().get())),
+                        ticksOffset));
+            }
+
         }
 
         if (this.conductor.isOrchestraFull()) {
-            ModAdvancements.FULL_ORCHESTRA.get().trigger((ServerPlayer) conductor.getOwner());
+            if (conductor.getOwner() != null) {
+                ModAdvancements.FULL_ORCHESTRA.get().trigger((ServerPlayer) conductor.getOwner());
+            }
             int data = conductor.level().registryAccess().registryOrThrow(ModItems.ITEMS.getRegistryKey()).getId(conductor.getSheetMusic());
             conductor.level().levelEvent(null, 4005, this.conductor.blockPosition(), data);
         }

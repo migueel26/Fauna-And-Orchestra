@@ -159,6 +159,13 @@ public class PenguinEntity extends MusicalEntity implements GeoEntity {
         return isPlayingInstrument() ? null : ModSounds.BABY_PENGUIN_AMBIENT.get();
     }
 
+    @Override
+    public void playAmbientSound() {
+        if (this.getAmbientSound() != null) {
+            this.playSound(getAmbientSound(), 0.3f, getVoicePitch());
+        }
+    }
+
     @Nullable
     @Override
     protected SoundEvent getDeathSound() {
