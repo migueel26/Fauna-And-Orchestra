@@ -20,7 +20,6 @@ public class AbsoluteHearingEffect extends MobEffect {
     public boolean applyEffectTick(LivingEntity livingEntity, int amplifier) {
         Optional<ConductorEntity> conductor = livingEntity.level().getNearbyEntities(ConductorEntity.class, TargetingConditions.DEFAULT, livingEntity, livingEntity.getBoundingBox().inflate(15.0f))
                 .stream()
-                .filter(ConductorEntity::isHoldingASheetMusic)
                 .filter(ConductorEntity::isConducting)
                 .findAny();
 
