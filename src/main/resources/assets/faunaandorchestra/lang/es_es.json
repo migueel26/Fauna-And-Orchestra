@@ -405,7 +405,7 @@
   "symphonia.page.music_bottle0": "Parece que finalmente has obtenido $(l)música líquida$(), la base de todas las $(o)recetas melománticas$(). Como quizás sepas, esta es la manifestación física de música sublime, cuya principal forma de obtención es por $(music)Escuchadores$() $(o)(más sobre éstos próximamente)$(). Por ahora, debes saber que la recolecta de este ingrediente es $(o)fundamental$().",
 
   "symphonia.entry.listener": "Escuchadores",
-  "symphonia.page.listener0": "Los $(thing)Escuchadores$() son el principal método de obtención de $(o)música líquida$(). Colocando un $(l)Escuchador$() sobre un $(l)Contenedor del Escuchador$() montarás la máquina. Primero de todo, coloca una $(item)Botella vacía$() en el Contenedor. Para que funcione, necesitas tener una $(thing)orquesta$() tocando cerca con $(o)todos los instrumentos de la partitura escogida$(). Pasados unos minutos, la botella se llenará.",
+  "symphonia.page.listener0": "Los $(thing)Escuchadores$() son el principal método de obtención de $(o)música líquida$(). Colocando un $(l)Escuchador$() sobre un $(l)Contenedor del Escuchador$() montarás la máquina. Primero de todo, coloca una $(item)Botella vacía$() en el Contenedor. Para que funcione, necesitas tener una $(thing)orquesta$() con $(o)todos los instrumentos de la partitura escogida$() a una distancia máx. de 10 bloques. Pasados unos minutos, la botella se llenará.",
   "symphonia.page.listener1": "¡Tarda aproximadamente 5 minutos en llenarse de $(item)música líquida$()!",
 
   "symphonia.entry.melomancy_cauldron": "Caldero de melomancia",
