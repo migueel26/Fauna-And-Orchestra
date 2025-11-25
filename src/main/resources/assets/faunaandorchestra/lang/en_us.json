@@ -436,7 +436,7 @@
 
   "symphonia.entry.musical_ink": "Musical Ink",
   "symphonia.page.musical_ink0": "Don't you love how the liquid music looks? Well, it's your lucky day! With a couple ingredients you can transform it into $(l)Musical Ink$()! If you shift-click a $(thing)sign$() with it you'll get some cool colors! The recipe for $(item)3x Musical Ink$() is:$(li)$(item)1x Feather $(li)1x Glow Ink Sac$()$(br)Click it with a $(item)Glass Bottle$() and done!",
-  "symphonia.page.musical_ink1": "You can also recreate this guide with $(item)Musical Ink$() and a $(item)Book$() in a crafting table.",
+  "symphonia.page.musical_ink1": "Not all music has to be useful, sometimes it's just decorative!",
 
   "symphonia.entry.whistle": "Whistle",
   "symphonia.page.whistle0": "The $(l)Whistle$() is a really useful item if you to call some pet that's far away! By $(o)right-clicking$() any kind of pet you'll link the whistle to them, no matter the pet. After that, $(music)play it again$() anywhere and you'll be able to summon your little friend. Be $(careful)careful$() though, if you're $(o)very$() far away they won't be able to hear the whistle.",

@@ -436,7 +436,7 @@
 
   "symphonia.entry.musical_ink": "Tinta musical",
   "symphonia.page.musical_ink0": "¿No te encanta cómo luce la música líquida? ¡Pues es tu día de suerte! ¡Con unos pocos ingredientes puedes transformarla en $(l)Tinta musical$()! Si haces shift-click a un $(thing)cartel$() lo tintarás con unos colores chulos. La receta para $(item)3x Tintas musicales$() es:$(li)$(item)1x Pluma $(li)1x Saco de tinta luminosa$()$(br)¡Hazle click con una $(item)Botella vacía$() y listo!",
-  "symphonia.page.musical_ink1": "También puedes recrear esta guía con $(item)Tinta musical$() y un $(item)Libro$() en una mesa de crafteo.",
+  "symphonia.page.musical_ink1": "¡No toda la música tiene por qué ser útil! A veces es sólo decorativa.",
 
   "symphonia.entry.whistle": "Silbato",
   "symphonia.page.whistle0": "El $(l)Silbato$() es un item muy útil para llamar a tus animales que estén lejos. Haciendo $(o)click derecho$() a cualquier mascota la podrás enlazar al silbato. Tras esto, $(music)tócala de nuevo$() en cualquier sitio y podrás invocar a tu pequeño amigo. Ten $(careful)cuidado$(), si estás $(o)muy$() lejos no podrán escuchar el sonido del silbato.",
@@ -556,6 +556,24 @@
   "symphonia.page.wise_tree0": "El $(l)Árbol Sabio$() es una de las especies más interesantes. Su sabiduría viene de sus $(music)seis vidas pasadas$() que fueron renunciadas para dársela a $(o)él$(). El árbol está conectado con el $(thing)plano musical$() y con $(thing)Madre$() como ninguna otra criatura. A pesar de su gran $(o)poder$(), es extremadamente leal a su dueño: tanto como para cederle la $(item)Fruta de la vida$().",
   "symphonia.page.wise_tree1": "Sólo su $(o)dueño$() puede entender su lenguaje.",
 
-  "symphonia.entry.anya": "Anya"
+  "symphonia.entry.anya": "Anya",
+
+  "jei.faunaandorchestra.melomancy": "Después de llenar el Caldero de melomancia con §53x Música líquida§r, necesitas colocar los siguientes ingredientes:",
+  "jei.faunaandorchestra.symphonia": "Lee la guía de §4Symphonia§r para más información.",
+  "jei.faunaandorchestra.amplifier_crystal": "§5· 5x Diamantes\n· 3x Notas ambulantes\n· 3x Lingotes de acerónico§r\n\nUsa un §5Fragmento de amatista§r para obtener el resultado.",
+  "jei.faunaandorchestra.offering": "§5· 3x Allium\n· 5x Ginkgo Biloba\n· 5x Bayas luminosas\n· 10x Bayas dulces§r\n\nUsa una §5Cuerda§r para obtener el resultado.",
+  "jei.faunaandorchestra.absolute_hearing_potion": "§5· 1x Polvo de blaze\n· 1x Verruga del nether\n· 3x Ginkgo Biloba§r\n\nUsa una §5Botella de cristal§r para obtener el resultado.",
+  "jei.faunaandorchestra.steelsonic_ingot": "§5· 5x Lingotes de hierro\n· 3x Notas ambulantes\n· 1x Cubo de lava§r\n\nUsa tu mano vacía para obtener los resultados.",
+  "jei.faunaandorchestra.musical_ink": "§5· 1x Pluma\n· 1x Bolsa de tinta luminosa§r\n\nUsa una §5Botella de cristal§r para obtener los resultados.",
+  "jei.faunaandorchestra.boogie_bomb": "§5· 3x Pólvora\n· 2x Arena§r\n\nUsa una §5Fruta boogie§r para obtener los resultados.",
+  "jei.faunaandorchestra.singing_seed": "§5· 3x Semillas de remolacha\n· 2x Panal\n· 5x Zanahorias\n· 3x Notas ambulantes§r\n\nUsa unas §5Semillas de trigo§r para obtener el resultado.",
+  "jei.faunaandorchestra.resurrection_song": "§5· 1x Fruta de la vida\n· 1x Pétalos de la muerte§r\n\nUsa los §5Fragmentos de una composición perdida§r para obtener el resultado.",
+
+  "jei.faunaandorchestra.music_bottle": "La §5Música líquida§r puede obtenerse usando §5Escuchadores§r cerca de una orquesta.",
+  "jei.faunaandorchestra.discord_essence": "La §5Esencia de discordia§r puede obtenerse al arruinar una receta del §5Caldero de melomancia§r.",
+
+  "jei.faunaandorchestra.discorded_flower": "La §5Flor discórdica§r puede obtenerse al mutar una §5Margarita§r en un §oNúcleo de discordia§r.",
+  "jei.faunaandorchestra.discord_bomb": "La §5Bomba de discordia§r puede obtenerse al mutar una §5Fruta boogie§r en un §oNúcleo de discordia§r.",
+  "jei.faunaandorchestra.transmuted_voice": "La §5Voz transmutada§r puede obtenerse al mutar una §5Voz§r en un §oNúcleo de discordia§r."
 }
 

@@ -2,10 +2,13 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "faunaandorchestra:musical_ink"
+      "tag": "faunaandorchestra:is_instrument"
     },
     {
       "item": "minecraft:book"
+    },
+    {
+      "item": "minecraft:feather"
     }
   ],
   "result": {
