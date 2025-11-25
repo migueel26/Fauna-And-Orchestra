@@ -2,7 +2,7 @@
   "name": "symphonia.entry.discord_nuclei",
   "category": "faunaandorchestra:discordance",
   "icon": "faunaandorchestra:discord_nuclei_item",
-  "advancement": "faunaandorchestra:fragments",
+  "advancement": "faunaandorchestra:boogie_fruit",
   "sortnum": -8,
   "pages": [
     {

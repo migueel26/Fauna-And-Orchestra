@@ -443,7 +443,7 @@
 
   "symphonia.entry.singing_seed": "Semilla cantarina",
   "symphonia.page.singing_seed0": "La $(l)Semilla cantarina$() es el primer paso para adentrarse en el alucinante mundo de la $(thing)biofilia$(): la comunión de la música y la vida. Para obtener una de estas semillas, utiliza esta receta en el $(music)Caldero de melomancia$(): $(li)$(item)3x Semillas de remolacha $(li)2x Panales $(li)5x Zanahorias $(li)3x Notas ambulantes",
-  "symphonia.page.singing_seed1": "Tras la correcta infusión, haz $(o)click derechi$() con unas $(item)Semillas de trigo$() para imbuirlas con la mezcla y obtener una $(l)Semilla cantarina$(). Tras esto, tienes que colocarla en tierra como cualquier otra planta. Una vez haya crecido, coséchala y obtendrás una $(l)Fruta boogie$().",
+  "symphonia.page.singing_seed1": "Tras la correcta infusión, haz $(o)click derecho$() con unas $(item)Semillas de trigo$() para imbuirlas con la mezcla y obtener una $(l)Semilla cantarina$(). Tras esto, tienes que colocarla en tierra como cualquier otra planta. Una vez haya crecido, coséchala y obtendrás una $(l)Fruta boogie$().",
 
   "symphonia.entry.boogie_bomb": "Boogie Bomb",
   "symphonia.page.boogie_bomb0": "¿Has intentado comerte una $(item)Fruta boogie$()? ¡No podrás parar de bailar! Ese efecto se llama $(thing)Coreomanía$(), capaz de desactivar tus sentidos. Si quieres usarlo con enemigos, ¡intenta crear una $(l)Boogie Bomb$()! La receta en el $(music)Caldero de melomancia$() es: $(li)$(item)3x Pólvora $(li)2x Arena$()$(br).",

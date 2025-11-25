@@ -2,7 +2,7 @@
   "name": "symphonia.entry.transmuted_voice",
   "category": "faunaandorchestra:discordance",
   "icon": "faunaandorchestra:transmuted_voice",
-  "advancement": "faunaandorchestra:fragments",
+  "advancement": "faunaandorchestra:boogie_fruit",
   "pages": [
     {
       "type": "spotlight",

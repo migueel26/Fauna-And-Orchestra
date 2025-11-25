@@ -3,6 +3,7 @@
   "category": "faunaandorchestra:biophilia",
   "icon": "faunaandorchestra:voice",
   "advancement": "faunaandorchestra:sproutling",
+  "sortnum": 1,
   "pages": [
     {
       "type": "text",

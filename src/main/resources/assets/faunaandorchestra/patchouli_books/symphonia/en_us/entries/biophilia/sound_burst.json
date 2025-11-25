@@ -2,7 +2,8 @@
   "name": "symphonia.entry.sound_burst",
   "category": "faunaandorchestra:biophilia",
   "icon": "faunaandorchestra:voice",
-  "advancement": "faunaandorchestra:fragments",
+  "advancement": "faunaandorchestra:boogie_fruit",
+  "sortnum": 1,
   "pages": [
     {
       "type": "text",

@@ -13,10 +13,10 @@
       "item": "minecraft:redstone"
     },
     "O": {
-      "item": "minecraft:oak_log"
+      "tag": "minecraft:logs"
     },
     "T": {
-      "item": "minecraft:oak_planks"
+      "tag": "minecraft:planks"
     }
   },
   "result": {

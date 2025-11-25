@@ -3,6 +3,7 @@
   "category": "faunaandorchestra:melomancy",
   "icon": "faunaandorchestra:melomancy_cauldron_item",
   "advancement": "faunaandorchestra:music_bottle",
+  "sortnum": -8,
   "pages": [
     {
       "type": "text",

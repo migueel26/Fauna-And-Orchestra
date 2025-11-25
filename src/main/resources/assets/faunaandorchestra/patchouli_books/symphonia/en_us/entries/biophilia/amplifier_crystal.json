@@ -2,7 +2,7 @@
   "name": "symphonia.entry.amplifier_crystal",
   "category": "faunaandorchestra:biophilia",
   "icon": "faunaandorchestra:amplifier_crystal",
-  "advancement": "faunaandorchestra:fragments",
+  "advancement": "faunaandorchestra:boogie_fruit",
   "pages": [
     {
       "type": "spotlight",

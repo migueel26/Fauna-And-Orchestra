@@ -13,7 +13,7 @@
       "item": "faunaandorchestra:music_bottle"
     },
     "O": {
-      "item": "minecraft:oak_log"
+      "tag": "minecraft:logs"
     },
     "i": {
       "item": "minecraft:iron_ingot"
