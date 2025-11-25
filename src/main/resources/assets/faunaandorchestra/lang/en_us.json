@@ -556,5 +556,23 @@
   "symphonia.page.wise_tree0": "The $(l)Wise Tree$() is one of the most interesting species in our planet. Its wisdom comes from the $(music)six lives$() that were given up to bring it to $(o)life$(). The tree is connected to the $(thing)music realm$() and $(thing)Mother$() in a way no other creature can. Despite his great $(o)power$(), he has an extreme loyalty to its master: it even trusts the player enough for a $(item)Fruit of Life$()",
   "symphonia.page.wise_tree1": "Only its $(o)master$() can understand the language it speaks.",
 
-  "symphonia.entry.anya": "Anya"
+  "symphonia.entry.anya": "Anya",
+
+  "jei.faunaandorchestra.melomancy": "After filling the Melomancy Cauldron with §53x Liquid Music§r, you need to place the following ingredients:",
+  "jei.faunaandorchestra.symphonia": "Read the §4Symphonia§r guide for more information.",
+  "jei.faunaandorchestra.amplifier_crystal": "§5· 5x Diamonds\n· 3x Wandering Notes\n· 3x Steelsonic Ingots§r\n\nUse an §5Amethyst Shard§r to obtain the result.",
+  "jei.faunaandorchestra.offering": "§5· 3x Allium\n· 5x Ginkgo Biloba\n· 5x Glow Berries\n· 10x Sweet Berries§r\n\nUse a §5String§r to obtain the result.",
+  "jei.faunaandorchestra.absolute_hearing_potion": "§5· 1x Blaze Powder\n· 1x Nether Wart\n· 3x Ginkgo Biloba§r\n\nUse a §5Glass Bottle§r to obtain the result.",
+  "jei.faunaandorchestra.steelsonic_ingot": "§5· 5x Iron Ingots\n· 3x Wandering Notes\n· 1x Bucket of Lava§r\n\n Use your empty hand to obtain the results.",
+  "jei.faunaandorchestra.musical_ink": "§5· 1x Feather\n· 1x Glow Ink Sac§r\n\n Use a §5Glass Bottle§r to obtain the results.",
+  "jei.faunaandorchestra.boogie_bomb": "§5· 3x Gunpowder\n· 2x Sand§r\n\n Use a §5Boogie Fruit§r to obtain the results.",
+  "jei.faunaandorchestra.singing_seed": "§5· 3x Beetroot Seeds\n· 2x Honeycomb\n· 5x Carrots\n· 3x Wandering Notes§r\n\nUse some §5Wheat Seeds§r to obtain the result.",
+  "jei.faunaandorchestra.resurrection_song": "§5· 1x Fruit of Life\n· 1x Petals of Death§r\n\nUse the §5Fragments of a Lost Composition§r to obtain the result.",
+
+  "jei.faunaandorchestra.music_bottle": "The §5Liquid Music§r can be obtained by using §5Listeners§r near an orchestra.",
+  "jei.faunaandorchestra.discord_essence": "The §5Discord Essence§r can be obtained by messing up a §5Melomancy Cauldron§r recipe.",
+
+  "jei.faunaandorchestra.discorded_flower": "The §5Discorded Flower§r can be obtained by mutating an §5Oxeye Daisy§r in a §oDiscord Nuclei§r.",
+  "jei.faunaandorchestra.discord_bomb": "The §5Discord Bomb§r can be obtained by mutating a §5Boogie Fruit§r in a §oDiscord Nuclei§r.",
+  "jei.faunaandorchestra.transmuted_voice": "The §5Transmuted Voice§r can be obtained by mutating a §5Voice§r in a §oDiscord Nuclei§r."
 }
