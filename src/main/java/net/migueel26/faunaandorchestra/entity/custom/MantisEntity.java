@@ -157,7 +157,7 @@ public class MantisEntity extends MusicalEntity implements GeoEntity, NeutralMob
     public boolean isAngryAt(LivingEntity target) {
         if (!this.canAttack(target)) {
             return false;
-        } else if (this.level().getPathfindingCostFromLightLevels(this.blockPosition()) < 0.5F) {
+        } else if (this.level().getPathfindingCostFromLightLevels(this.blockPosition()) < 0.5F && !isTame()) {
             return true;
         } else {
             return NeutralMob.super.isAngryAt(target);
