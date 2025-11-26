@@ -5,6 +5,7 @@ import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.block.custom.ComposerGravestoneBlock;
 import net.migueel26.faunaandorchestra.block.entity.ComposerGravestoneBlockEntity;
 import net.migueel26.faunaandorchestra.component.ModDataComponents;
+import net.migueel26.faunaandorchestra.effect.ModEffects;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.entity.custom.boss.TheGreatComposer;
 import net.migueel26.faunaandorchestra.entity.custom.projectile.PhantomNoteProjectileEntity;
@@ -190,9 +191,27 @@ public abstract class ConductorEntity extends TamableAnimal {
             if (isHoldingLegendaryBaton() && isHoldingASheetMusic() && isOrchestraFull()) {
                 tryToApplyLegendaryEffect();
             }
+
+            // WANDERING NOTES
+            List<Player> players = level().getEntitiesOfClass(Player.class, this.getAttackBoundingBox().inflate(15));
+            if (ticksPlaying % 30 == 0 && players.stream().anyMatch(player -> player.hasEffect(ModEffects.ABSOLUTE_HEARING))) {
+                tryToSummonWanderingNote();
+            }
         }
 
         super.tick();
+    }
+
+    private void tryToSummonWanderingNote() {
+        WanderingNoteEntity entity = new WanderingNoteEntity(ModEntities.WANDERING_NOTE.get(), level());
+        int x = this.getRandom().nextInt(9) - 4;
+        int z = this.getRandom().nextInt(1, 3);
+        int y = this.getRandom().nextInt(9) - 4;
+
+        entity.moveTo(this.getX() + x, this.getY() + y, this.getZ() + z);
+        this.level().addFreshEntity(entity);
+
+        entity.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP, 1.0f, 1.5f);
     }
 
     private void tryToResurrect() {
