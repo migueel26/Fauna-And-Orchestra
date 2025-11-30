@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class VesselUtil {
+    public static int LIFETIME = 100;
     public static final List<? extends EntityType<?>> APT_ENTITIES = List.of(
             EntityType.BREEZE,
             EntityType.PARROT,

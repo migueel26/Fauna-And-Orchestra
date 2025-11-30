@@ -1,6 +1,5 @@
 package net.migueel26.faunaandorchestra.item.custom;
 
-import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.client.item.VoiceVesselItemRenderer;
 import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
@@ -8,13 +7,11 @@ import net.migueel26.faunaandorchestra.particles.custom.VoiceParticle;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.migueel26.faunaandorchestra.util.PlayerUtil;
 import net.migueel26.faunaandorchestra.util.VesselUtil;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -90,16 +87,18 @@ public class VoiceVesselItem extends Item implements GeoItem {
 
         } else if (stack.has(ModDataComponents.OPENED) && stack.get(ModDataComponents.OPENED)) {
             if (remainingUseDuration % 5 == 0) {
-                if (level.isClientSide()) level.playSound(livingEntity, livingEntity.blockPosition(), ModSounds.VESSEL_AIR.get(), SoundSource.PLAYERS, 0.1f, 1.0f + (level.random.nextFloat() - 0.5f));
+                level.playSound(livingEntity, livingEntity.blockPosition(), ModSounds.VESSEL_AIR.get(), SoundSource.PLAYERS, 0.1f, 1.0f + (level.random.nextFloat() - 0.5f));
             }
 
             if (remainingUseDuration == timestamp - ABSORB_TIME) {
                 this.particlePos = mob.position().add(0, mob.getBbHeight() + 1.5, 0);
-                level.addParticle(ModParticleTypes.VOICE_PARTICLE.get(), mob.getX(), particlePos.y - 1.5, mob.getZ(), 0, 0.35f, 0);
+                if (level.isClientSide()) {
+                    level.addParticle(ModParticleTypes.VOICE_PARTICLE.get(), mob.getX(), particlePos.y - 1.5, mob.getZ(), 0, 0.35f, 0);
+                }
                 level.playSound(livingEntity, livingEntity.blockPosition(), ModSounds.VESSEL_COLLECT.get(), SoundSource.NEUTRAL, 1.0f, 0.5f);
             }
 
-            if (remainingUseDuration == timestamp - ABSORB_TIME - 40 || remainingUseDuration == timestamp - ABSORB_TIME - VoiceParticle.LIFETIME) {
+            if (remainingUseDuration == timestamp - ABSORB_TIME - 40 || remainingUseDuration == timestamp - ABSORB_TIME - VesselUtil.LIFETIME) {
                 if (!level.isClientSide()) {
                     PlayerUtil.spawnParticlesFromTo(ParticleTypes.CLOUD, 1, (ServerLevel) level, particlePos, livingEntity.position().add(0, 1, 0));
                 }
@@ -107,7 +106,7 @@ public class VoiceVesselItem extends Item implements GeoItem {
             }
 
 
-            if (remainingUseDuration == timestamp - ABSORB_TIME - VoiceParticle.LIFETIME - 60) {
+            if (remainingUseDuration == timestamp - ABSORB_TIME - VesselUtil.LIFETIME - 60) {
                 if (!level.isClientSide()) {
                     ((ServerLevel) level).sendParticles(ParticleTypes.CLOUD, particlePos.x(), particlePos.y(), particlePos.z(), 40, 0.3, 0.3, 0.3, 0.1);
                     PlayerUtil.spawnParticlesFromTo(ParticleTypes.CLOUD, 3, (ServerLevel) level, particlePos, livingEntity.position().add(0, 1, 0));
@@ -118,7 +117,7 @@ public class VoiceVesselItem extends Item implements GeoItem {
 
             }
 
-            if (remainingUseDuration == timestamp - ABSORB_TIME - VoiceParticle.LIFETIME - 65) {
+            if (remainingUseDuration == timestamp - ABSORB_TIME - VesselUtil.LIFETIME - 65) {
                livingEntity.releaseUsingItem();
             }
         }

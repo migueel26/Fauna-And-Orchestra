@@ -11,15 +11,14 @@ import net.minecraft.world.phys.AABB;
 import javax.annotation.Nullable;
 
 public class VoiceParticle extends TextureSheetParticle {
-    public static int LIFETIME = 100;
     protected VoiceParticle(ClientLevel level, double x, double y, double z, SpriteSet spriteSet, double xSpeed, double ySpeed, double zSpeed) {
         super(level, x, y, z);
         this.scale(3.3F);
         this.lifetime = 160;
         this.friction = 0.8f;
-        this.xd = xSpeed;
+        this.xd = 0;
         this.yd = ySpeed;
-        this.zd = zSpeed;
+        this.zd = 0;
 
         this.alpha = 0;
     }
