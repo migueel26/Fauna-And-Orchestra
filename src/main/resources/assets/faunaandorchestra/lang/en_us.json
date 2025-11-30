@@ -481,7 +481,7 @@
 
   "symphonia.entry.amplifier_crystal": "Amplifier Crystal",
   "symphonia.page.amplifier_crystal0": "Containing $(item)voices$() is even trickier than music: they have an $(o)errant and wild nature$(), so $(item)steelsonic$() isn't enough. In order to channel and contain them, we need an $(l)Amplifier Crystal$(). It's quite expensive to make in the $(music)Melomancy Cauldron$(), but worth it. They're indispensable if you want to meddle in this branch of $(thing)biophilia$().",
-  "symphonia.page.amplifier_crystal1": "The recipe for this valuable $(item)item$() is: $(li)$(item)5x Diamonds $(li)3x Wandering Notes $(li)3x Steelsonic Ingots$()$(br)Finally, infuse an $(item)Amethyst Shard$() with it and you'll get your precious $(item)Amplifier Crystal$().",
+  "symphonia.page.amplifier_crystal1": "The recipe for this valuable $(item)item$() is: $(li)$(item)5x Diamonds $(li)3x Wandering Notes $(li)2x Steelsonic Ingots$()$(br)Finally, infuse an $(item)Amethyst Shard$() with it and you'll get your precious $(item)Amplifier Crystal$().",
 
   "symphonia.entry.singing_sproutling": "Singing Sproutling",
   "symphonia.page.singing_sproutling0": "These $(o)little creatures$() were the singing crops all along! They're the epitome of what $(thing)biophilia$() is: the marriage between $(o)music and life$(). $(br)They love wandering around, especially around other crops, and singing! $(br2)They have such an $(o)angelical voice$() that when they sing the $(music)crops and grass$() around it $(o)magically grow$()!",
@@ -560,7 +560,7 @@
 
   "jei.faunaandorchestra.melomancy": "After filling the Melomancy Cauldron with §53x Liquid Music§r, you need to place the following ingredients:",
   "jei.faunaandorchestra.symphonia": "Read the §4Symphonia§r guide for more information.",
-  "jei.faunaandorchestra.amplifier_crystal": "§5· 5x Diamonds\n· 3x Wandering Notes\n· 3x Steelsonic Ingots§r\n\nUse an §5Amethyst Shard§r to obtain the result.",
+  "jei.faunaandorchestra.amplifier_crystal": "§5· 5x Diamonds\n· 3x Wandering Notes\n· 2x Steelsonic Ingots§r\n\nUse an §5Amethyst Shard§r to obtain the result.",
   "jei.faunaandorchestra.offering": "§5· 3x Allium\n· 5x Ginkgo Biloba\n· 5x Glow Berries\n· 10x Sweet Berries§r\n\nUse a §5String§r to obtain the result.",
   "jei.faunaandorchestra.absolute_hearing_potion": "§5· 1x Blaze Powder\n· 1x Nether Wart\n· 3x Ginkgo Biloba§r\n\nUse a §5Glass Bottle§r to obtain the result.",
   "jei.faunaandorchestra.steelsonic_ingot": "§5· 5x Iron Ingots\n· 3x Wandering Notes\n· 1x Bucket of Lava§r\n\n Use your empty hand to obtain the results.",

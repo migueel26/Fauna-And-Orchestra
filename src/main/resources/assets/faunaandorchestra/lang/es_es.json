@@ -481,7 +481,7 @@
 
   "symphonia.entry.amplifier_crystal": "Cristal amplificador",
   "symphonia.page.amplifier_crystal0": "Contener las $(item)voces$() es aún más difícil que la música: tienen una $(o)naturaleza errante y efímera$(), por lo que el $(item)acerónico$() no es suficiente. Para canalizarlos, necesitamos un $(l)Cristal amplificador$(). Es bastante caro de hacer en el $(music)Caldero de melomancia$(), pero merece la pena. Son indispensables para la práctica de $(thing)biofilia$().",
-  "symphonia.page.amplifier_crystal1": "La receta para este valioso $(item)item$() es: $(li)$(item)5x Diamantes $(li)3x Notas ambulantes $(li)3x Lingotes de acerónico$()$(br)Finalmente, imbuye un $(item)Fragmento de amatista$() con la mezcla y obtendrás tu $(item)Cristal amplificador$().",
+  "symphonia.page.amplifier_crystal1": "La receta para este valioso $(item)item$() es: $(li)$(item)5x Diamantes $(li)3x Notas ambulantes $(li)2x Lingotes de acerónico$()$(br)Finalmente, imbuye un $(item)Fragmento de amatista$() con la mezcla y obtendrás tu $(item)Cristal amplificador$().",
 
   "symphonia.entry.singing_sproutling": "Brotecito cantarín",
   "symphonia.page.singing_sproutling0": "¡Estas $(o)pequeñas criaturas$() eran los brotecitos cantarines! Son el epítome de lo que es la $(thing)biofilia$(): el casamiento entre $(o)música y vida$(). $(br)¡Les encanta deambular, especialmente junto a otros brotes, y cantar! $(br2)¡Tiene una $(o)voz tan angelical$() que cuando cantan los $(music)cultivos y césped$() a su alrededor $(o)crecen mágicamente$()!",
@@ -560,7 +560,7 @@
 
   "jei.faunaandorchestra.melomancy": "Después de llenar el Caldero de melomancia con §53x Música líquida§r, necesitas colocar los siguientes ingredientes:",
   "jei.faunaandorchestra.symphonia": "Lee la guía de §4Symphonia§r para más información.",
-  "jei.faunaandorchestra.amplifier_crystal": "§5· 5x Diamantes\n· 3x Notas ambulantes\n· 3x Lingotes de acerónico§r\n\nUsa un §5Fragmento de amatista§r para obtener el resultado.",
+  "jei.faunaandorchestra.amplifier_crystal": "§5· 5x Diamantes\n· 3x Notas ambulantes\n· 2x Lingotes de acerónico§r\n\nUsa un §5Fragmento de amatista§r para obtener el resultado.",
   "jei.faunaandorchestra.offering": "§5· 3x Allium\n· 5x Ginkgo Biloba\n· 5x Bayas luminosas\n· 10x Bayas dulces§r\n\nUsa una §5Cuerda§r para obtener el resultado.",
   "jei.faunaandorchestra.absolute_hearing_potion": "§5· 1x Polvo de blaze\n· 1x Verruga del nether\n· 3x Ginkgo Biloba§r\n\nUsa una §5Botella de cristal§r para obtener el resultado.",
   "jei.faunaandorchestra.steelsonic_ingot": "§5· 5x Lingotes de hierro\n· 3x Notas ambulantes\n· 1x Cubo de lava§r\n\nUsa tu mano vacía para obtener los resultados.",
