@@ -76,7 +76,7 @@ public class ModItems {
     public static final DeferredItem<Item> STEELSONIC_INGOT = createRegularDescriptionItem("steelsonic_ingot");
     public static final DeferredItem<Item> GINKGO_BILOBA = createRegularDescriptionItem("gingko_biloba");
     public static final DeferredItem<Item> BUTTERFLY_NET = ITEMS.register("butterfly_net",
-            () -> new Item(new Item.Properties().stacksTo(1).durability(32)) {
+            () -> new Item(new Item.Properties().stacksTo(1).durability(48)) {
                 public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
                     tooltipComponents.add(Component.translatable("item.faunaandorchestra.butterfly_net.desc")
                             .withStyle(ChatFormatting.GRAY));
