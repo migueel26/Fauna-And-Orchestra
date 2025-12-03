@@ -291,6 +291,18 @@ public class KoalaEntity extends AgeableMob implements Merchant, Npc, GeoEntity 
         return super.hurt(source, amount);
     }
 
+    @Nullable
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return SoundEvents.PANDA_HURT;
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getDeathSound() {
+        return SoundEvents.PANDA_DEATH;
+    }
+
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
