@@ -9,7 +9,6 @@ import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.migueel26.faunaandorchestra.util.PlayerUtil;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -60,7 +59,7 @@ public class PanFluteItem extends Item {
         List<Integer> powers = flute.get(ModDataComponents.PAN_FLUTE_LIST);
         Integer currentSound = flute.get(ModDataComponents.PAN_FLUTE_SOUND);
 
-        if (Screen.hasShiftDown() && powers != null && !powers.isEmpty()) {
+        if (player.isShiftKeyDown() && powers != null && !powers.isEmpty()) {
             if (currentSound != null) {
                 currentSound = (currentSound+1) % powers.size();
 
@@ -178,7 +177,7 @@ public class PanFluteItem extends Item {
     }
 
     private void executeNature(Level level, Player player, ItemStack flute) {
-        List<SproutlingEntity> sproutlings = level.getEntitiesOfClass(SproutlingEntity.class, player.getBoundingBox().inflate(6.0));
+        List<SproutlingEntity> sproutlings = level.getEntitiesOfClass(SproutlingEntity.class, player.getBoundingBox().inflate(6.0)).stream().limit(6).toList();
         if (sproutlings.size() >= 6) {
             List<SproutlingEntity> choir = sproutlings.stream().limit(6).toList();
             SproutlingEntity director = choir.getFirst();

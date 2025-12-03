@@ -139,7 +139,7 @@ public class MelomancyCauldronBlock extends HorizontalDirectionalBlock implement
 
                     // If it's an ingredient to add
                     if (!level.isClientSide && !stack.is(ModItems.MUSIC_BOTTLE) && !stack.isEmpty() &&
-                            melomancyCauldronBE.addIngredient(player, itemstack)) {
+                            melomancyCauldronBE.addIngredient(player, itemstack, hand)) {
                         level.playSound(null,
                                 pos.getX(), pos.getY(), pos.getZ(),
                                 SoundEvents.LAVA_POP, SoundSource.NEUTRAL, 1.0F, 1.0F - level.random.nextFloat()/2);
