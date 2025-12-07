@@ -8,6 +8,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -107,6 +108,14 @@ public class MusicNoteProjectileEntity extends AbstractHurtingProjectile {
                 EnchantmentHelper.doPostAttackEffects(serverlevel, entity1, source);
             }
         }
+    }
+
+    @Override
+    protected void onDeflection(@Nullable Entity entity, boolean deflectedByPlayer) {
+        if (entity != null) {
+            entity.level().playSound(null, entity.blockPosition(), SoundEvents.VEX_HURT, SoundSource.NEUTRAL, 2.0f, 1.0f);
+        }
+        super.onDeflection(entity, deflectedByPlayer);
     }
 
     @Override

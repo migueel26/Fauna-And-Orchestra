@@ -417,7 +417,7 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
 
             if (stateTime == 140) {
                 for (Player player : bossEvent.getPlayers()) {
-                    level().playSound(player, player.blockPosition().above(), SoundEvents.SCULK_SHRIEKER_SHRIEK, SoundSource.NEUTRAL);
+                    level().playSound(null, player.blockPosition().above(), SoundEvents.SCULK_SHRIEKER_SHRIEK, SoundSource.NEUTRAL);
                 }
                 playStateSound(ModSounds.SPAWN.get());
                 ((ServerLevel) level()).sendParticles(ParticleTypes.SOUL_FIRE_FLAME, position().x, position().y, position().z, 100, 0.1, 0.1, 0.1, 0.3);
@@ -469,6 +469,7 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
                     Vec3 vec31 = new Vec3(d2, d3, d4);
                     MusicNoteProjectileEntity note = new MusicNoteProjectileEntity(this, vec31.normalize(), level());
                     note.setPos(this.getX() + vec3.x * 1.25, this.getY(0.5), note.getZ() + vec3.z * 1.25);
+                    level().playSound(null, blockPosition(), SoundEvents.VEX_HURT, SoundSource.NEUTRAL, 2.0f, 1.0f);
                     level().addFreshEntity(note);
 
                     // We establish the repels
@@ -530,7 +531,7 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
             }
             if (stateTime == 45) {
                 for (Player player : bossEvent.getPlayers()) {
-                    level().playSound(player, player.blockPosition().above(), SoundEvents.WARDEN_HEARTBEAT, SoundSource.NEUTRAL);
+                    level().playSound(null, player.blockPosition().above(), SoundEvents.VEX_CHARGE, SoundSource.NEUTRAL, 2.0f, 1.0f);
                 }
                 List<LivingEntity> entities = level().getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, this, this.getBoundingBox().inflate(20));
                 for (LivingEntity entity : entities) {
