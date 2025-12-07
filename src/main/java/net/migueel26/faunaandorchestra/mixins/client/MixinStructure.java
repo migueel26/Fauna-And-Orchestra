@@ -57,9 +57,9 @@ public class MixinStructure {
                 if (piece instanceof JungleTemplePiece templePiece) {
 
                     StructurePieceAccessor access = (StructurePieceAccessor) piece;
-                    int wx = access.invokeGetWorldX(9, 7);
+                    int wx = access.invokeGetWorldX(8, 7);
                     int wy = access.invokeGetWorldY(1);
-                    int wz = access.invokeGetWorldZ(7, 9);
+                    int wz = access.invokeGetWorldZ(7, 8);
                     BlockPos pos = new BlockPos.MutableBlockPos(wx, wy, wz);
 
                     //level.setBlock(pos, ModBlocks.DAM_BLOCK.get().defaultBlockState(), 3);
