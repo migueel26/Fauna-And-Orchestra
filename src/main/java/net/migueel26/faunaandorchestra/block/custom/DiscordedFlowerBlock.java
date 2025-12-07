@@ -52,12 +52,12 @@ public class DiscordedFlowerBlock extends Block {
             Map.entry(Items.TURTLE_SCUTE, 10),
             Map.entry(Items.SLIME_BALL, 10),
             Map.entry(Items.MAGMA_CREAM, 10),
+            Map.entry(Items.OMINOUS_BOTTLE, 30),
             Map.entry(Items.GHAST_TEAR, 30),
             Map.entry(Items.PHANTOM_MEMBRANE, 40),
             Map.entry(Items.NAUTILUS_SHELL, 40),
-            Map.entry(Items.OMINOUS_BOTTLE, 40),
-            Map.entry(Items.ECHO_SHARD, 100),
-            Map.entry(Items.NETHER_STAR, 150)
+            Map.entry(Items.ECHO_SHARD, 75),
+            Map.entry(Items.NETHER_STAR, 100)
     );
 
     protected final Map<Integer, Integer> NEW_GENERATIONS = Map.ofEntries(
