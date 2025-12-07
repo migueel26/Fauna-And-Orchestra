@@ -89,11 +89,11 @@ public class DiscordedFlowerBlock extends Block {
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         int food = FOOD.getOrDefault(stack.getItem(), -1);
         if (food != -1) {
-            stack.consume(1, player);
             level.playSound(player, pos, ModSounds.DISCORDED_FLOWER_EAT.get(), SoundSource.BLOCKS, 0.5f, 1.0f + (level.random.nextFloat() - 0.5f));
             if (!level.isClientSide()) {
                 ((ServerLevel) level).sendParticles(ParticleTypes.SCULK_SOUL, pos.getCenter().x, pos.getCenter().y, pos.getCenter().z, 10, 0.25f, 0.25f, 0.25f, 0.05);
             }
+            stack.consume(1, player);
             feed(state, level, pos, food);
             return ItemInteractionResult.SUCCESS;
         }

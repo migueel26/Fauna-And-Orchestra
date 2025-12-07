@@ -61,8 +61,6 @@ public class DiscordNucleiBlock extends Block implements EntityBlock {
                     return ItemInteractionResult.SUCCESS;
 
                 } else if (stack.is(ModItems.WANDERING_NOTE)) {
-                    stack.consume(1, player);
-
                     int reduction = getInstabilityReduction(instability);
                     level.setBlock(pos, state.setValue(INSTABILITY, instability - reduction), 3);
 
@@ -70,16 +68,16 @@ public class DiscordNucleiBlock extends Block implements EntityBlock {
                         ((ServerLevel) level).sendParticles(ParticleTypes.WAX_OFF, pos.getCenter().x, pos.getY()+0.75f, pos.getZ(), 10, 0.2, 0.2, 0.2, 0);
                     }
                     level.playSound(player, pos, SoundEvents.BEACON_DEACTIVATE, SoundSource.BLOCKS, 1.0f, 1.0f);
-
+                    stack.consume(1, player);
                     return ItemInteractionResult.SUCCESS;
                 }
             } else if (RecipesUtil.isDiscordNucleiIngredient(stack)) {
-                stack.consume(1, player);
                 discordNucleiBE.inventory.setStackInSlot(0, new ItemStack(stack.getItem(), 1));
                 level.playSound(player, pos, SoundEvents.WARDEN_TENDRIL_CLICKS, SoundSource.BLOCKS, 1.5f, 0.5f);
                 if (!level.isClientSide()) {
                     ((ServerLevel) level).sendParticles(ParticleTypes.SOUL_FIRE_FLAME, pos.getCenter().x, pos.getY()+0.75f, pos.getCenter().z, 15, 0.1, 0.1, 0.1, 0.15);
                 }
+                stack.consume(1, player);
                 return ItemInteractionResult.SUCCESS;
             }
         }
