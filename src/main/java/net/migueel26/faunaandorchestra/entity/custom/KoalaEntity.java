@@ -423,6 +423,7 @@ public class KoalaEntity extends AgeableMob implements Merchant, Npc, GeoEntity 
     public void setSleeping(boolean sleeping) {
         if (!isSitting()) setSitting(true);
         entityData.set(SLEEPING, sleeping);
+        this.isSleeping = sleeping;
     }
 
     public void wakeUp() {
