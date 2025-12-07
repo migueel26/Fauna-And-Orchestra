@@ -210,7 +210,7 @@ public class SproutlingEntity extends AgeableMob implements GeoEntity {
 
     public List<SproutlingEntity> getDirSproutlings() { return sproutlings; }
 
-    public void setDirSproutlings(List<SproutlingEntity> sproutlings) {
+    public void setDirSproutlings(ArrayList<SproutlingEntity> sproutlings) {
         this.sproutlings = sproutlings;
     }
 

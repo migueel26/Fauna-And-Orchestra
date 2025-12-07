@@ -181,7 +181,7 @@ public class PanFluteItem extends Item {
         if (sproutlings.size() >= 6) {
             List<SproutlingEntity> choir = sproutlings.stream().limit(6).toList();
             SproutlingEntity director = choir.getFirst();
-            director.setDirSproutlings(sproutlings);
+            director.setDirSproutlings(new ArrayList<>(sproutlings));
             director.setDirCentroid(getCentroid(sproutlings));
             director.setDirOwnerUUID(player.getUUID());
         }
