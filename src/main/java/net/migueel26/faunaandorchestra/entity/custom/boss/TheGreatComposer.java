@@ -416,7 +416,9 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
             }
 
             if (stateTime == 140) {
-                level().playSound(null, blockPosition(), SoundEvents.SCULK_SHRIEKER_SHRIEK, SoundSource.NEUTRAL);
+                for (Player player : bossEvent.getPlayers()) {
+                    level().playSound(player, player.blockPosition().above(), SoundEvents.SCULK_SHRIEKER_SHRIEK, SoundSource.NEUTRAL);
+                }
                 playStateSound(ModSounds.SPAWN.get());
                 ((ServerLevel) level()).sendParticles(ParticleTypes.SOUL_FIRE_FLAME, position().x, position().y, position().z, 100, 0.1, 0.1, 0.1, 0.3);
                 String[] fullName = Component.translatable("entity.faunaandorchestra.the_great_composer").getString().split(",");
@@ -527,12 +529,16 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
                 playStateSound(isFinalPhase() ? ModSounds.ATTACK_HEADLESS.get() : ModSounds.ATTACK_POISON.get());
             }
             if (stateTime == 45) {
-                level().playSound(null, blockPosition(), SoundEvents.WARDEN_HEARTBEAT, SoundSource.NEUTRAL);
+                for (Player player : bossEvent.getPlayers()) {
+                    level().playSound(player, player.blockPosition().above(), SoundEvents.WARDEN_HEARTBEAT, SoundSource.NEUTRAL);
+                }
                 List<LivingEntity> entities = level().getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, this, this.getBoundingBox().inflate(20));
                 for (LivingEntity entity : entities) {
                     Holder<MobEffect> nextEffect = effectsList.get(random.nextInt(0, effectsList.size()));
                     entity.addEffect(new MobEffectInstance(nextEffect, isSecondPhase() ? 280 : 200, isSecondPhase() ? 2 : 1));
                 }
+                ((ServerLevel) level()).sendParticles(ParticleTypes.SOUL_FIRE_FLAME, position().x, position().y, position().z, 100, 0.1, 0.1, 0.1, 0.3);
+                ((ServerLevel) level()).sendParticles(ParticleTypes.EFFECT, position().x, position().y, position().z, 100, 0.1, 0.1, 0.1, 0.3);
             }
             if (stateTime == 80) {
                 setNewState(ComposerBossState.IDLE);
@@ -734,7 +740,7 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
                 if (stateTime % 10 == 2) {
                     List<LivingEntity> entities = level().getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, this, this.getBoundingBox().inflate(2));
                     for (LivingEntity entity : entities) {
-                        entity.hurt(damageSources().mobAttack(this), 10.0F);
+                        entity.hurt(damageSources().mobAttack(this), 20.0F);
                     }
                 }
 
