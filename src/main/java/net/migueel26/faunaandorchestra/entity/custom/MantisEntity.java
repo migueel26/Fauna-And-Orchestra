@@ -1,9 +1,13 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
+import net.migueel26.faunaandorchestra.entity.custom.variants.MantisVariant;
 import net.migueel26.faunaandorchestra.entity.goals.MusicalEntityPlayingInstrumentGoal;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -15,7 +19,7 @@ import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.world.InteractionHand;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -30,6 +34,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.jetbrains.annotations.Nullable;
@@ -51,6 +58,7 @@ public class MantisEntity extends MusicalEntity implements GeoEntity, NeutralMob
     protected static final RawAnimation IDLE_VIOLIN = RawAnimation.begin().thenPlay("idle_violin");
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
     private static final EntityDataAccessor<Integer> REMAINING_ANGER_TIME = SynchedEntityData.defineId(MantisEntity.class, EntityDataSerializers.INT);
+    protected static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(MantisEntity.class, EntityDataSerializers.INT);
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
     private final AnimationController MANTIS_CONTROLLER =
             new AnimationController<>(this, "mantis_controller", 5, this::mantisState)
@@ -134,6 +142,39 @@ public class MantisEntity extends MusicalEntity implements GeoEntity, NeutralMob
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(REMAINING_ANGER_TIME, 0);
+        builder.define(VARIANT, 0);
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putInt("Variant", this.getVariantId());
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        this.entityData.set(VARIANT, compound.getInt("Variant"));
+    }
+
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+        MantisVariant variant;
+        if (spawnType.equals(MobSpawnType.SPAWN_EGG)) {
+            // If spawn egg, random
+            variant = Util.getRandom(MantisVariant.values(), this.random);
+        } else {
+            // If not spawn egg, depending on the biome
+            Holder<Biome> biome = level.getBiome(blockPosition());
+            if (biome.is(Biomes.CHERRY_GROVE)) {
+                variant = MantisVariant.ORCHID;
+            } else {
+                variant = MantisVariant.NORMAL;
+            }
+        }
+
+        this.setVariant(variant);
+        return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -243,6 +284,18 @@ public class MantisEntity extends MusicalEntity implements GeoEntity, NeutralMob
     @Override
     public boolean isFood(ItemStack stack) {
         return false;
+    }
+
+    public int getVariantId() {
+        return entityData.get(VARIANT);
+    }
+
+    public MantisVariant getVariant() {
+        return MantisVariant.byId(getVariantId() & 255);
+    }
+
+    private void setVariant(MantisVariant variant) {
+        this.entityData.set(VARIANT, variant.getId());
     }
 
     @Override

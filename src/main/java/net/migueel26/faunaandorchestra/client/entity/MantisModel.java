@@ -11,23 +11,35 @@ import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
 public class MantisModel extends GeoModel<MantisEntity> {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/mantis.png");
-    private static final ResourceLocation ANIMATIONS = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "animations/entity/mantis.animation.json");
-    private static final ResourceLocation MODEL = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "geo/entity/mantis.geo.json");
+    private static final ResourceLocation NORMAL_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/mantis.png");
+    private static final ResourceLocation NORMAL_ANIMATIONS = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "animations/entity/mantis.animation.json");
+    private static final ResourceLocation NORMAL_MODEL = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "geo/entity/mantis.geo.json");
+    private static final ResourceLocation ORCHID_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/orchid_mantis.png");
+    private static final ResourceLocation ORCHID_ANIMATIONS = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "animations/entity/orchid_mantis.animation.json");
+    private static final ResourceLocation ORCHID_MODEL = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "geo/entity/orchid_mantis.geo.json");
 
     @Override
     public ResourceLocation getModelResource(MantisEntity mantis) {
-        return MODEL;
+        return switch (mantis.getVariant()) {
+            case ORCHID -> ORCHID_MODEL;
+            default -> NORMAL_MODEL;
+        };
     }
 
     @Override
-    public ResourceLocation getTextureResource(MantisEntity animatable) {
-        return TEXTURE;
+    public ResourceLocation getTextureResource(MantisEntity mantis) {
+        return switch (mantis.getVariant()) {
+            case ORCHID -> ORCHID_TEXTURE;
+            default -> NORMAL_TEXTURE;
+        };
     }
 
     @Override
-    public ResourceLocation getAnimationResource(MantisEntity animatable) {
-        return ANIMATIONS;
+    public ResourceLocation getAnimationResource(MantisEntity mantis) {
+        return switch (mantis.getVariant()) {
+            case ORCHID -> ORCHID_ANIMATIONS;
+            default -> NORMAL_ANIMATIONS;
+        };
     }
 
     @Override
