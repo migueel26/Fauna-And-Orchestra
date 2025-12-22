@@ -18,10 +18,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
-import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -75,7 +72,7 @@ public class BeaverEntity extends MusicalEntity implements GeoEntity {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new TamableAnimalPanicGoal(2D));
+        this.goalSelector.addGoal(1, new PanicGoal(this,2D));
         this.goalSelector.addGoal(1, new MusicalEntityPlayingInstrumentGoal(this));
         this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
         // LookAtPlayerGoal (3)

@@ -57,18 +57,19 @@ public class PlayerCanonEntity extends AbstractCanonEntity {
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new FloatGoal(this));
         this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
-        this.goalSelector.addGoal(5, new MeleeAttackGoal(this, 1.0, true) {
+        this.goalSelector.addGoal(5, new MeleeAttackGoal(this, 1.25D, false) {
             @Override
-            protected void checkAndPerformAttack(LivingEntity target, double distance) {
-                if (this.canPerformAttack(target)) {
+            protected void checkAndPerformAttack(LivingEntity target, double distToEnemySqr) {
+                double reach = this.getAttackReachSqr(target);
+
+                if (distToEnemySqr <= reach && this.isTimeToAttack()) {
+                    ((MantisEntity) this.mob).attack();
                     this.resetAttackCooldown();
-                    this.mob.swing(InteractionHand.MAIN_HAND);
                     this.mob.doHurtTarget(target);
-                    ((PlayerCanonEntity) mob).triggerAnim("player_canon_controller", "attack");
                 }
             }
         });
-        this.goalSelector.addGoal(6, new FollowOwnerGoal(this, 1.0, 10.0F, 2.0F));
+        this.goalSelector.addGoal(6, new FollowOwnerGoal(this, 1.0, 10.0F, 2.0F, false));
         this.goalSelector.addGoal(7, new BreedGoal(this, 1.0));
         this.goalSelector.addGoal(8, new WaterAvoidingRandomStrollGoal(this, 1.0));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Player.class, 8.0F));

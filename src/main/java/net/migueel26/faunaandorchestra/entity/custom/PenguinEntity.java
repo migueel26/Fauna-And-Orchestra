@@ -1,7 +1,6 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
 import net.migueel26.faunaandorchestra.entity.goals.MusicalEntityPlayingInstrumentGoal;
-import net.migueel26.faunaandorchestra.entity.goals.TamableAnimalPanicGoal;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.minecraft.core.BlockPos;
@@ -88,7 +87,7 @@ public class PenguinEntity extends MusicalEntity implements GeoEntity {
         return PlayState.CONTINUE;
     }
     private void addOverriddenGoals() {
-        this.goalSelector.addGoal(0, new TamableAnimalPanicGoal(2.0D, DamageTypeTags.PANIC_CAUSES) {
+        this.goalSelector.addGoal(0, new PanicGoal(this, 2.0D) {
             final PenguinEntity penguin = (PenguinEntity) super.mob;
             @Override
             public void start() {

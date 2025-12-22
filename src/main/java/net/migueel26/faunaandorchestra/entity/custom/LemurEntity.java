@@ -2,7 +2,6 @@ package net.migueel26.faunaandorchestra.entity.custom;
 
 import net.migueel26.faunaandorchestra.entity.goals.FaunaRandomLookAroundGoal;
 import net.migueel26.faunaandorchestra.entity.goals.MusicalEntityPlayingInstrumentGoal;
-import net.migueel26.faunaandorchestra.entity.goals.TamableAnimalPanicGoal;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -55,7 +54,7 @@ public class LemurEntity extends MusicalEntity implements GeoEntity {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new TamableAnimalPanicGoal(2D));
+        this.goalSelector.addGoal(1, new PanicGoal(this, 2D));
         this.goalSelector.addGoal(1, new MusicalEntityPlayingInstrumentGoal(this));
         this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
         // LookAtPlayerGoal (3)

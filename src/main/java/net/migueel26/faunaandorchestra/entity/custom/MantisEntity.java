@@ -2,7 +2,6 @@ package net.migueel26.faunaandorchestra.entity.custom;
 
 import net.migueel26.faunaandorchestra.entity.custom.variants.MantisVariant;
 import net.migueel26.faunaandorchestra.entity.goals.MusicalEntityPlayingInstrumentGoal;
-import net.migueel26.faunaandorchestra.entity.goals.TamableAnimalPanicGoal;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.minecraft.Util;
@@ -84,7 +83,12 @@ public class MantisEntity extends MusicalEntity implements GeoEntity, NeutralMob
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(0, new TamableAnimalPanicGoal(1.0, DamageTypeTags.PANIC_ENVIRONMENTAL_CAUSES));
+        this.goalSelector.addGoal(0, new PanicGoal(this, 1.0) {
+            @Override
+            public boolean canUse() {
+                return ((TamableAnimal) mob).isTame() && super.canUse();
+            }
+        });
         this.goalSelector.addGoal(1, new MusicalEntityPlayingInstrumentGoal(this));
         this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(3, new HurtByTargetGoal(this).setAlertOthers());
@@ -99,12 +103,13 @@ public class MantisEntity extends MusicalEntity implements GeoEntity, NeutralMob
     private void addOverridenGoals() {
         this.goalSelector.addGoal(5, new MeleeAttackGoal(this, 1.25D, false) {
             @Override
-            protected void checkAndPerformAttack(LivingEntity target, double distance) {
-                if (this.canPerformAttack(target)) {
+            protected void checkAndPerformAttack(LivingEntity target, double distToEnemySqr) {
+                double reach = this.getAttackReachSqr(target);
+
+                if (distToEnemySqr <= reach && this.isTimeToAttack()) {
                     ((MantisEntity) this.mob).attack();
                     this.resetAttackCooldown();
                     this.mob.doHurtTarget(target);
-
                 }
             }
         });

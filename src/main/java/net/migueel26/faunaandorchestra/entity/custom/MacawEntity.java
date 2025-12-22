@@ -1,7 +1,6 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
 import net.migueel26.faunaandorchestra.entity.goals.MusicalEntityPlayingInstrumentGoal;
-import net.migueel26.faunaandorchestra.entity.goals.TamableAnimalPanicGoal;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -75,7 +74,7 @@ public class MacawEntity extends MusicalEntity implements GeoEntity, FlyingAnima
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new TamableAnimalPanicGoal(1.25D));
+        this.goalSelector.addGoal(0, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new MusicalEntityPlayingInstrumentGoal(this));
         // LookAtPlayerGoal (2)

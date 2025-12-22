@@ -84,7 +84,7 @@ public class QuirkyFrogEntity extends ConductorEntity implements GeoEntity {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new TamableAnimalPanicGoal(2.0D));
+        this.goalSelector.addGoal(0, new PanicGoal(this, 2.0D));
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new ConductorEntityConductingOrchestraGoal(this));
         this.goalSelector.addGoal(1, new QuirkyFrogSingGoal(this));

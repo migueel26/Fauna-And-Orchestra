@@ -2,7 +2,6 @@ package net.migueel26.faunaandorchestra.entity.custom;
 
 import net.migueel26.faunaandorchestra.entity.goals.MusicalEntityPlayingInstrumentGoal;
 import net.migueel26.faunaandorchestra.entity.goals.RedPandaRandomChangeStanceGoal;
-import net.migueel26.faunaandorchestra.entity.goals.TamableAnimalPanicGoal;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -96,7 +95,7 @@ public class RedPandaEntity extends MusicalEntity implements GeoEntity {
     }
 
     private void addOverriddenGoals() {
-        this.goalSelector.addGoal(0, new TamableAnimalPanicGoal(2.0D, DamageTypeTags.PANIC_CAUSES) {
+        this.goalSelector.addGoal(0, new PanicGoal(this, 2.0D) {
             final RedPandaEntity redPanda = (RedPandaEntity) this.mob;
 
             @Override
