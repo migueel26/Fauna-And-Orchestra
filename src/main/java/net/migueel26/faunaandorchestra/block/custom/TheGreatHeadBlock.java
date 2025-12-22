@@ -5,7 +5,7 @@ import net.migueel26.faunaandorchestra.block.entity.TheGreatHeadBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -28,7 +28,6 @@ import org.jetbrains.annotations.Nullable;
 
 public class TheGreatHeadBlock extends HorizontalDirectionalBlock implements EntityBlock {
     public static final BooleanProperty ACTIVE = BlockStateProperties.LIT;
-    public static final MapCodec<TheGreatHeadBlock> CODEC = simpleCodec(TheGreatHeadBlock::new);
     public static final VoxelShape BASE = Block.box(4.2, 1, 4.2, 11.8, 8, 11.8);
     public static final VoxelShape SHAPE = Shapes.or(BASE);
     public TheGreatHeadBlock(Properties properties) {
@@ -37,14 +36,14 @@ public class TheGreatHeadBlock extends HorizontalDirectionalBlock implements Ent
     }
 
     @Override
-    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         level.setBlock(pos, state.setValue(ACTIVE, !state.getValue(ACTIVE)), 3);
-        return ItemInteractionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Nullable
@@ -54,10 +53,6 @@ public class TheGreatHeadBlock extends HorizontalDirectionalBlock implements Ent
         return this.defaultBlockState().setValue(FACING, direction);
     }
 
-    @Override
-    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
-        return CODEC;
-    }
 
     @Nullable
     @Override
@@ -66,7 +61,7 @@ public class TheGreatHeadBlock extends HorizontalDirectionalBlock implements Ent
     }
 
     @Override
-    protected RenderShape getRenderShape(BlockState state) {
+    public RenderShape getRenderShape(BlockState state) {
         return RenderShape.ENTITYBLOCK_ANIMATED;
     }
 

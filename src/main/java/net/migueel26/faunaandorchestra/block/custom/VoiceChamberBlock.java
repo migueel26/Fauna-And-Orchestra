@@ -1,7 +1,6 @@
 package net.migueel26.faunaandorchestra.block.custom;
 
 import net.migueel26.faunaandorchestra.block.entity.VoiceChamberBlockEntity;
-import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
 import net.migueel26.faunaandorchestra.util.VesselUtil;
@@ -12,7 +11,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -43,15 +42,17 @@ public class VoiceChamberBlock extends Block implements EntityBlock {
     }
 
     @Override
-    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        ItemStack stack = player.getItemInHand(hand);
+
         if (level.getBlockEntity(pos) instanceof VoiceChamberBlockEntity blockEntity && !blockEntity.isLocked()) {
-            if (stack.is(ModItems.VOICE) && stack.has(ModDataComponents.FAUNA_NAME) && !state.getValue(VOICE)) {
-                String voice = stack.get(ModDataComponents.FAUNA_NAME);
+            if (stack.is(ModItems.VOICE.get()) && stack.hasTag() && !state.getValue(VOICE)) {
+                String voice = VesselUtil.getVoiceName(stack);
                 EntityType<? extends Entity> entityType = EntityType.byString(voice).orElseThrow();
 
                 // We play entity sound
@@ -67,9 +68,9 @@ public class VoiceChamberBlock extends Block implements EntityBlock {
                 }
 
                 blockEntity.setVoice(voice);
-                stack.consume(1, player);
+                stack.shrink(1);
                 level.setBlock(pos, state.setValue(VOICE, true), 3);
-                return ItemInteractionResult.SUCCESS;
+                return InteractionResult.SUCCESS;
 
             } else if (stack.isEmpty() && state.getValue(VOICE)) {
                 EntityType<? extends Entity> entityType = EntityType.byString(blockEntity.getVoice()).orElseThrow();
@@ -87,15 +88,15 @@ public class VoiceChamberBlock extends Block implements EntityBlock {
                 player.setItemInHand(hand, VesselUtil.voiceOfEntity(entityType));
                 blockEntity.setVoice("");
                 level.setBlock(pos, state.setValue(VOICE, false), 3);
-                return ItemInteractionResult.SUCCESS;
+                return InteractionResult.SUCCESS;
 
             }
         }
-        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        return InteractionResult.FAIL;
     }
 
     @Override
-    protected RenderShape getRenderShape(BlockState state) {
+    public RenderShape getRenderShape(BlockState state) {
         return RenderShape.ENTITYBLOCK_ANIMATED;
     }
 

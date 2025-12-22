@@ -19,7 +19,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -50,7 +49,6 @@ import java.util.List;
 import java.util.UUID;
 
 public class TipCaseBlock extends HorizontalDirectionalBlock implements EntityBlock {
-    public static final MapCodec<TipCaseBlock> CODEC = simpleCodec(TipCaseBlock::new);
     public static final EnumProperty<BedPart> PART = BlockStateProperties.BED_PART;
     public static final int FIRST_REWARD = 6;
     public static final int SECOND_REWARD = 24;
@@ -92,7 +90,7 @@ public class TipCaseBlock extends HorizontalDirectionalBlock implements EntityBl
     }
 
     @Override
-    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return switch (getConnectedDirection(state)) {
             case NORTH -> state.getValue(PART) == BedPart.FOOT ? NORTH_SHAPE : NORTH_SHAPE_H;
             case SOUTH -> state.getValue(PART) == BedPart.FOOT ? SOUTH_SHAPE : SOUTH_SHAPE_H;
@@ -106,11 +104,6 @@ public class TipCaseBlock extends HorizontalDirectionalBlock implements EntityBl
         return state.getValue(PART) == BedPart.FOOT ? direction.getOpposite() : direction;
     }
 
-    @Override
-    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
-        return CODEC;
-    }
-
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
@@ -118,7 +111,7 @@ public class TipCaseBlock extends HorizontalDirectionalBlock implements EntityBl
     }
 
     @Override
-    protected @NotNull BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
+    public @NotNull BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
         if (direction == getNeighbourDirection(state.getValue(PART), state.getValue(FACING))) {
             if (neighborState.is(this) && neighborState.getValue(PART) != state.getValue(PART)) {
                 return state.setValue(TIPS, neighborState.getValue(TIPS));
@@ -168,11 +161,12 @@ public class TipCaseBlock extends HorizontalDirectionalBlock implements EntityBl
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        ItemStack stack = player.getItemInHand(hand);
 
-        if (player.getItemInHand(hand).is(Items.GOLD_INGOT) && state.getValue(TIPS) < THIRD_REWARD) {
+        if (stack.is(Items.GOLD_INGOT) && state.getValue(TIPS) < THIRD_REWARD) {
             // Tip gold
-            stack.consume(1, player);
+            stack.shrink(1);
             int tips = state.getValue(TIPS) + 1;
             level.setBlock(pos, state.setValue(TIPS, tips), 3);
 
@@ -187,7 +181,7 @@ public class TipCaseBlock extends HorizontalDirectionalBlock implements EntityBl
 
         } else if (player.getItemInHand(hand).is(Items.GOLD_INGOT) && state.getValue(TIPS) == THIRD_REWARD) {
             // Try to tip gold but it's full
-            return ItemInteractionResult.FAIL;
+            return InteractionResult.FAIL;
 
         } else if (player.getItemInHand(hand).isEmpty() && state.getValue(TIPS) > 0 && !level.isClientSide()) {
             // Try to get gold (you may be the owner or not)
@@ -213,7 +207,7 @@ public class TipCaseBlock extends HorizontalDirectionalBlock implements EntityBl
         }
 
 
-        return ItemInteractionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     private static void giveRingtailsTipAward(BlockState state, Level level, BlockPos pos, Player player, int tips) {
@@ -233,7 +227,7 @@ public class TipCaseBlock extends HorizontalDirectionalBlock implements EntityBl
     }
 
     @Override
-    protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+    public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         TipCaseBlockEntity blockEntity = (TipCaseBlockEntity) level.getBlockEntity(pos);
         if (!level.isClientSide()) {
             // If Faust no longer exists, the tip case is owner-free
@@ -249,7 +243,7 @@ public class TipCaseBlock extends HorizontalDirectionalBlock implements EntityBl
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack stack, BlockGetter blockGetter, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         if (Screen.hasShiftDown()) {
             tooltipComponents.add(Component.translatable("block.faunaandorchestra.tip_case.desc")
                     .withStyle(ChatFormatting.GRAY));
@@ -264,7 +258,7 @@ public class TipCaseBlock extends HorizontalDirectionalBlock implements EntityBl
     }
 
     @Override
-    protected RenderShape getRenderShape(BlockState state) {
+    public RenderShape getRenderShape(BlockState state) {
         return RenderShape.ENTITYBLOCK_ANIMATED;
     }
 

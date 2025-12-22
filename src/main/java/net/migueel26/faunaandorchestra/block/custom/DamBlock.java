@@ -23,13 +23,7 @@ import net.minecraft.world.level.material.Fluids;
 import javax.annotation.Nullable;
 
 public class DamBlock extends Block implements SimpleWaterloggedBlock {
-    public static final MapCodec<DamBlock> CODEC = simpleCodec(DamBlock::new);
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-
-    @Override
-    public MapCodec<DamBlock> codec() {
-        return CODEC;
-    }
 
     public DamBlock(BlockBehaviour.Properties properties) {
         super(properties);
@@ -37,8 +31,8 @@ public class DamBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     @Override
-    protected boolean skipRendering(BlockState state1, BlockState state2, Direction direcction) {
-        return state2.is(ModBlocks.DAM_BLOCK) && direcction.getAxis() == Direction.Axis.Y;
+    public boolean skipRendering(BlockState state1, BlockState state2, Direction direcction) {
+        return state2.is(ModBlocks.DAM_BLOCK.get()) && direcction.getAxis() == Direction.Axis.Y;
     }
 
     @Nullable
@@ -50,7 +44,7 @@ public class DamBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     @Override
-    protected BlockState updateShape(
+    public BlockState updateShape(
             BlockState state, Direction direction, BlockState state2, LevelAccessor levelAccessor, BlockPos blockPos, BlockPos blockPos2
     ) {
         if (state.getValue(WATERLOGGED)) {
@@ -70,7 +64,7 @@ public class DamBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     @Override
-    protected FluidState getFluidState(BlockState state) {
+    public FluidState getFluidState(BlockState state) {
         return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 

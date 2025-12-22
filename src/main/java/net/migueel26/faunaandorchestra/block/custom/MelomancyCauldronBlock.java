@@ -19,13 +19,10 @@ import net.minecraft.stats.Stats;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.item.crafting.CampfireCookingRecipe;
-import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -49,7 +46,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 public class MelomancyCauldronBlock extends HorizontalDirectionalBlock implements EntityBlock {
-    public static final MapCodec<MelomancyCauldronBlock> CODEC = simpleCodec(MelomancyCauldronBlock::new);
     public static final IntegerProperty LIQUID = IntegerProperty.create("liquid", 0, 3);
     public static final BooleanProperty COOKING = BooleanProperty.create("cooking");
     public VoxelShape FLOOR = Block.box(2.5, 4.0, 2.525, 13.5, 5.0, 13.25);
@@ -72,12 +68,14 @@ public class MelomancyCauldronBlock extends HorizontalDirectionalBlock implement
     }
 
     @Override
-    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        ItemStack stack = player.getItemInHand(hand);
+
         int liquid = state.getValue(LIQUID);
         if (level.getBlockEntity(pos) instanceof MelomancyCauldronBlockEntity melomancyCauldronBE) {
 
@@ -88,20 +86,20 @@ public class MelomancyCauldronBlock extends HorizontalDirectionalBlock implement
                 level.playSound(null,
                         pos.getX(), pos.getY(), pos.getZ(),
                         SoundEvents.BUCKET_FILL, SoundSource.NEUTRAL, 1.0F, 1.0F - level.random.nextFloat()/2);
-                return ItemInteractionResult.SUCCESS;
+                return InteractionResult.SUCCESS;
 
             } else if (melomancyCauldronBE.hasFinishedCooking()) {
                 // If the player wants to take the item
                 if (RecipesUtil.isCorrectItem(stack, melomancyCauldronBE)) {
                     player.addItem(melomancyCauldronBE.getResult());
-                    stack.consume(1, player);
+                    stack.shrink(1);
                     if (!level.isClientSide()) {
                         ModAdvancements.USE_MELOMANCY_CAULDRON.trigger((ServerPlayer) player);
                     }
 
                     if (melomancyCauldronBE.getMixResult().equalsIgnoreCase("resurrection")) {
                         level.playSound(player,
-                                pos.getX(), pos.getY(), pos.getZ(),
+                                pos,
                                 SoundEvents.WARDEN_EMERGE, SoundSource.BLOCKS);
                         if (!level.isClientSide()) {
                             ((ServerLevel) level).sendParticles(ParticleTypes.SCULK_SOUL, pos.getCenter().x, pos.getY()+0.75f, pos.getCenter().z,
@@ -116,56 +114,56 @@ public class MelomancyCauldronBlock extends HorizontalDirectionalBlock implement
                     melomancyCauldronBE.clearContent(false);
                     level.setBlock(pos, state.setValue(LIQUID, 0).setValue(COOKING, false), 3);
 
-                    return ItemInteractionResult.SUCCESS;
+                    return InteractionResult.SUCCESS;
                 } else {
-                    return ItemInteractionResult.FAIL;
+                    return InteractionResult.FAIL;
                 }
 
 
             } else if (!state.getValue(COOKING)) {
                 // If it's NOT cooking
-                if (stack.is(ModItems.MUSIC_BOTTLE) && liquid < 3) {
+                if (stack.is(ModItems.MUSIC_BOTTLE.get()) && liquid < 3) {
                     // If the player wants to fill the cauldron
-                    stack.consume(1, player);
+                    stack.shrink(1);
                     player.addItem(new ItemStack(Items.GLASS_BOTTLE));
                     level.setBlock(pos, state.setValue(LIQUID, liquid + 1), 3);
                     level.playSound(null,
                             pos.getX(), pos.getY(), pos.getZ(),
                             SoundEvents.BUCKET_EMPTY, SoundSource.NEUTRAL, 1.0F, 1.0F - level.random.nextFloat()/2);
-                    return ItemInteractionResult.SUCCESS;
+                    return InteractionResult.SUCCESS;
 
                 } else if (liquid == 3) {
                     ItemStack itemstack = player.getItemInHand(hand);
 
                     // If it's an ingredient to add
-                    if (!level.isClientSide && !stack.is(ModItems.MUSIC_BOTTLE) && !stack.isEmpty() &&
+                    if (!level.isClientSide && !stack.is(ModItems.MUSIC_BOTTLE.get()) && !stack.isEmpty() &&
                             melomancyCauldronBE.addIngredient(player, itemstack, hand)) {
                         level.playSound(null,
                                 pos.getX(), pos.getY(), pos.getZ(),
                                 SoundEvents.LAVA_POP, SoundSource.NEUTRAL, 1.0F, 1.0F - level.random.nextFloat()/2);
                         ((ServerLevel) level).sendParticles(ModParticleTypes.MAGICAL_NOTE.get(), pos.getCenter().x, pos.getY() + 0.75f, pos.getCenter().z, 5, 0.4, 0.1, 0.4, 0);
-                        return ItemInteractionResult.SUCCESS;
+                        return InteractionResult.SUCCESS;
 
                     } else if (stack.isEmpty()) {
                         // If the hand is empty, we mix
                         if (!melomancyCauldronBE.isCooking() && melomancyCauldronBE.cook()) {
                             level.setBlock(pos, state.setValue(COOKING, true), 3);
-                            return ItemInteractionResult.SUCCESS;
+                            return InteractionResult.SUCCESS;
                         }
                     }
 
-                    return ItemInteractionResult.CONSUME;
+                    return InteractionResult.CONSUME;
                 }
 
             }
 
         }
 
-        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        return InteractionResult.FAIL;
     }
 
     @Override
-    protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+    public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         level.setBlock(pos, state.setValue(LIQUID, 0).setValue(COOKING, false), 3);
         super.tick(state, level, pos, random);
     }
@@ -213,11 +211,6 @@ public class MelomancyCauldronBlock extends HorizontalDirectionalBlock implement
         return clientType == serverType ? (BlockEntityTicker<A>) ticker : null;
     }
 
-    @Override
-    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
-        return CODEC;
-    }
-
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
@@ -225,7 +218,7 @@ public class MelomancyCauldronBlock extends HorizontalDirectionalBlock implement
     }
 
     @Override
-    protected RenderShape getRenderShape(BlockState state) {
+    public RenderShape getRenderShape(BlockState state) {
         return RenderShape.ENTITYBLOCK_ANIMATED;
     }
 

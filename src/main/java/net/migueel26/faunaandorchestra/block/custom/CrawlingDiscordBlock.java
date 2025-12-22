@@ -46,7 +46,7 @@ public class CrawlingDiscordBlock extends Block {
     }
 
     @Override
-    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return state.getValue(CLIMBER) ? CLIMBER_SHAPE : CRAWLER_SHAPE;
     }
 
@@ -62,7 +62,7 @@ public class CrawlingDiscordBlock extends Block {
     }
 
     @Override
-    protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
+    public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
         if (entity instanceof LivingEntity) entity.hurt(level.damageSources().magic(), 2.0F);
         if (!level.isClientSide()) {
             ((ServerLevel) level).sendParticles(ParticleTypes.SCULK_SOUL,
@@ -73,13 +73,13 @@ public class CrawlingDiscordBlock extends Block {
     }
 
     @Override
-    protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
+    public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
         super.onPlace(state, level, pos, oldState, movedByPiston);
-        if (!oldState.is(ModBlocks.CRAWLING_DISCORD)) level.scheduleTick(pos, this, getNewChildTime(level));
+        if (!oldState.is(ModBlocks.CRAWLING_DISCORD.get())) level.scheduleTick(pos, this, getNewChildTime(level));
     }
 
     @Override
-    protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+    public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         boolean climber = state.getValue(CLIMBER);
         if (!state.getValue(FATHER) && state.getValue(GENERATION) < state.getValue(MAX_GENERATION)) {
             int myGeneration = state.getValue(GENERATION);
@@ -98,7 +98,7 @@ public class CrawlingDiscordBlock extends Block {
                     if (time % 2 != 0) {
                         if (level.getBlockState(nextPos).is(ModTags.Blocks.REPLACEABLE_BY_DISCORD) &&
                                 !level.getBlockState(nextPos.below()).isAir() &&
-                                !level.getBlockState(nextPos.below()).is(ModBlocks.CRAWLING_DISCORD)) {
+                                !level.getBlockState(nextPos.below()).is(ModBlocks.CRAWLING_DISCORD.get())) {
 
                             level.setBlock(nextPos, ModBlocks.CRAWLING_DISCORD.get().defaultBlockState()
                                     .setValue(GENERATION, myGeneration + 1).setValue(MAX_GENERATION, maxGeneration), 3);
@@ -162,10 +162,10 @@ public class CrawlingDiscordBlock extends Block {
     }
 
     private boolean canGrab(BlockPos newPos, ServerLevel level) {
-        return !level.getBlockState(newPos.east()).isAir() && !level.getBlockState(newPos.east()).is(ModBlocks.CRAWLING_DISCORD) ||
-                !level.getBlockState(newPos.west()).isAir() && !level.getBlockState(newPos.west()).is(ModBlocks.CRAWLING_DISCORD) ||
-                !level.getBlockState(newPos.north()).isAir() && !level.getBlockState(newPos.north()).is(ModBlocks.CRAWLING_DISCORD) ||
-                !level.getBlockState(newPos.south()).isAir() && !level.getBlockState(newPos.south()).is(ModBlocks.CRAWLING_DISCORD);
+        return !level.getBlockState(newPos.east()).isAir() && !level.getBlockState(newPos.east()).is(ModBlocks.CRAWLING_DISCORD.get()) ||
+                !level.getBlockState(newPos.west()).isAir() && !level.getBlockState(newPos.west()).is(ModBlocks.CRAWLING_DISCORD.get()) ||
+                !level.getBlockState(newPos.north()).isAir() && !level.getBlockState(newPos.north()).is(ModBlocks.CRAWLING_DISCORD.get()) ||
+                !level.getBlockState(newPos.south()).isAir() && !level.getBlockState(newPos.south()).is(ModBlocks.CRAWLING_DISCORD.get());
     }
 
     @Override

@@ -31,7 +31,7 @@ public class FlowerGrowerDiscordBlock extends Block {
     }
 
     @Override
-    protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
+    public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
         super.onPlace(state, level, pos, oldState, movedByPiston);
         level.scheduleTick(pos, this, getNewChildTime(level));
     }
@@ -48,7 +48,7 @@ public class FlowerGrowerDiscordBlock extends Block {
     }
 
     @Override
-    protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
+    public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
         if (entity instanceof LivingEntity) entity.hurt(level.damageSources().magic(), 2.0F);
         if (!level.isClientSide()) {
             ((ServerLevel) level).sendParticles(ParticleTypes.SCULK_SOUL,
@@ -59,7 +59,7 @@ public class FlowerGrowerDiscordBlock extends Block {
     }
 
     @Override
-    protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+    public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         if (state.getValue(GENERATION) < state.getValue(MAX_GENERATION)) {
             int myGeneration = state.getValue(GENERATION);
             int maxGeneration = state.getValue(MAX_GENERATION);
@@ -104,9 +104,9 @@ public class FlowerGrowerDiscordBlock extends Block {
     }
 
     public static boolean isNotProhibited(BlockState nextState) {
-        return !nextState.is(ModBlocks.COMPOSER_GRAVESTONE) && !nextState.is(ModBlocks.DISCORDED_FLOWER)
+        return !nextState.is(ModBlocks.COMPOSER_GRAVESTONE.get()) && !nextState.is(ModBlocks.DISCORDED_FLOWER.get())
                 && !nextState.is(Blocks.END_PORTAL) && !nextState.is(Blocks.BEDROCK) && !nextState.is(Blocks.CHEST)
-                && !nextState.is(ModBlocks.DISCORD_NUCLEI);
+                && !nextState.is(ModBlocks.DISCORD_NUCLEI.get());
     }
 
     private int getNewChildTime(Level level) {
@@ -114,10 +114,10 @@ public class FlowerGrowerDiscordBlock extends Block {
     }
 
     private boolean canGrab(BlockPos newPos, ServerLevel level) {
-        return !level.getBlockState(newPos.east()).isAir() && !level.getBlockState(newPos.east()).is(ModBlocks.CRAWLING_DISCORD) ||
-                !level.getBlockState(newPos.west()).isAir() && !level.getBlockState(newPos.west()).is(ModBlocks.CRAWLING_DISCORD) ||
-                !level.getBlockState(newPos.north()).isAir() && !level.getBlockState(newPos.north()).is(ModBlocks.CRAWLING_DISCORD) ||
-                !level.getBlockState(newPos.south()).isAir() && !level.getBlockState(newPos.south()).is(ModBlocks.CRAWLING_DISCORD);
+        return !level.getBlockState(newPos.east()).isAir() && !level.getBlockState(newPos.east()).is(ModBlocks.CRAWLING_DISCORD.get()) ||
+                !level.getBlockState(newPos.west()).isAir() && !level.getBlockState(newPos.west()).is(ModBlocks.CRAWLING_DISCORD.get()) ||
+                !level.getBlockState(newPos.north()).isAir() && !level.getBlockState(newPos.north()).is(ModBlocks.CRAWLING_DISCORD.get()) ||
+                !level.getBlockState(newPos.south()).isAir() && !level.getBlockState(newPos.south()).is(ModBlocks.CRAWLING_DISCORD.get());
     }
 
     @Override

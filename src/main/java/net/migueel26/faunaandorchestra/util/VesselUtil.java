@@ -7,9 +7,11 @@ import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.HashSet;
 import java.util.List;
@@ -69,14 +71,27 @@ public class VesselUtil {
                     ModEntities.MANTIS.get(), 1), 5
     );
 
+    public static void setVoiceName(ItemStack stack, String name) {
+        stack.getOrCreateTag().putString("VoiceName", name);
+    }
+
+    public static String getVoiceName(ItemStack stack) {
+        if (stack.hasTag() && stack.getTag().contains("VoiceName")) {
+            return stack.getTag().getString("VoiceName");
+        }
+        return null;
+    }
+
     public static ItemStack voiceOfEntity(EntityType<? extends Entity> entityType) {
         ItemStack stack = new ItemStack(ModItems.VOICE.get());
 
-        stack.applyComponents(DataComponentPatch.builder()
-                .set(ModDataComponents.FAUNA_NAME.get(), BuiltInRegistries.ENTITY_TYPE.getKey(entityType).toString())
-                .set(DataComponents.ITEM_NAME, Component.translatable("item.faunaandorchestra.voice")
-                        .append(Component.translatable(entityType.getDescriptionId())))
-                .build());
+        ResourceLocation entityId = ForgeRegistries.ENTITY_TYPES.getKey(entityType);
+        if (entityId != null) {
+            setVoiceName(stack, entityId.toString());
+        }
+
+        stack.setHoverName(Component.translatable("item.faunaandorchestra.voice")
+                .append(Component.translatable(entityType.getDescriptionId())));
 
         return stack;
     }

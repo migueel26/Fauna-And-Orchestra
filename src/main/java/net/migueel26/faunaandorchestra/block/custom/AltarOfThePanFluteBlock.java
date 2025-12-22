@@ -5,7 +5,6 @@ import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.block.entity.AltarOfThePanFluteBlockEntity;
 import net.migueel26.faunaandorchestra.block.entity.VoiceChamberBlockEntity;
-import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.item.custom.PanFluteItem;
 import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
@@ -14,8 +13,11 @@ import net.migueel26.faunaandorchestra.util.PlayerUtil;
 import net.migueel26.faunaandorchestra.util.VesselUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.IntTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.StringTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -23,7 +25,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -45,6 +47,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
@@ -65,23 +68,26 @@ public class AltarOfThePanFluteBlock extends AltarBlock implements EntityBlock {
     }
 
     @Override
-    protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
-        if (state.getValue(PAN_FLUTE) && !newState.is(ModBlocks.ALTAR_OF_THE_PAN_FLUTE)) {
+    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
+        if (state.getValue(PAN_FLUTE) && !newState.is(ModBlocks.ALTAR_OF_THE_PAN_FLUTE.get())) {
             popResourceFromFace(level, pos, Direction.UP, new ItemStack(ModItems.PAN_FLUTE.get()));
         }
         super.onRemove(state, level, pos, newState, movedByPiston);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    public @NotNull InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        ItemStack stack = player.getItemInHand(hand);
+
         if (level.getBlockEntity(pos) instanceof AltarOfThePanFluteBlockEntity altar) {
-            if (stack.is(ModItems.PAN_FLUTE) && !state.getValue(PAN_FLUTE)) {
+            if (stack.is(ModItems.PAN_FLUTE.get()) && !state.getValue(PAN_FLUTE)) {
                 // Place Pan Flute
-                altar.setPowers(stack.get(ModDataComponents.PAN_FLUTE_LIST));
+                altar.setPowers(PanFluteItem.getSoundList(stack));
                 player.setItemSlot(hand.equals(InteractionHand.MAIN_HAND) ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND, ItemStack.EMPTY);
                 level.setBlock(pos, state.setValue(PAN_FLUTE, true), 3);
                 level.playSound(player, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.AMETHYST_CLUSTER_PLACE, SoundSource.BLOCKS, 1.0f, 1.5f);
-                return ItemInteractionResult.SUCCESS;
+                return InteractionResult.SUCCESS;
 
             } else if (stack.isEmpty() && state.getValue(PAN_FLUTE) && this.song == -1 && !level.isClientSide()) {
                 List<BlockPos> chambers = getChambers(pos);
@@ -102,11 +108,19 @@ public class AltarOfThePanFluteBlock extends AltarBlock implements EntityBlock {
 
                     this.times = 0;
                     level.scheduleTick(pos, this, FIRST_THUNDER_TICKS);
-                    return ItemInteractionResult.SUCCESS;
+                    return InteractionResult.SUCCESS;
                 } else {
-                    // Get Pan Flute
-                    player.setItemInHand(hand, new ItemStack(ModItems.PAN_FLUTE, 1,
-                            DataComponentPatch.builder().set(ModDataComponents.PAN_FLUTE_LIST.get(), altar.getPowers()).build()));
+                    // We add the flute
+                    ItemStack flute = new ItemStack(ModItems.PAN_FLUTE.get(), 1);
+                    CompoundTag tag = flute.getOrCreateTag();
+                    ListTag powerListTag = new ListTag();
+
+                    for (Integer power : altar.getPowers()) {
+                        powerListTag.add(IntTag.valueOf(power));
+                    }
+                    tag.put("Powers", powerListTag);
+                    player.setItemInHand(hand, flute);
+                    //
 
                     if (!level.isClientSide()) {
                         if (altar.getPowers().size() == 1) {
@@ -119,16 +133,16 @@ public class AltarOfThePanFluteBlock extends AltarBlock implements EntityBlock {
                     altar.setPowers(List.of());
                     level.setBlock(pos, state.setValue(PAN_FLUTE, false), 3);
                     level.playSound(player, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.AMETHYST_CLUSTER_PLACE, SoundSource.BLOCKS, 1.0f, 1.5f);
-                    return ItemInteractionResult.SUCCESS;
+                    return InteractionResult.SUCCESS;
                 }
 
             }
         }
-        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        return InteractionResult.FAIL;
     }
 
     @Override
-    protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+    public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         if (this.song == getNewSong(level, getChambers(pos))) {
             if (times < 6) {
                 List<BlockPos> actualPosChambers = getChambers(pos).stream()

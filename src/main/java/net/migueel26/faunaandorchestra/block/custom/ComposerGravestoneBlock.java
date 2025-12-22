@@ -10,7 +10,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -35,7 +35,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class ComposerGravestoneBlock extends HorizontalDirectionalBlock implements EntityBlock {
-    public static final MapCodec<ComposerGravestoneBlock> CODEC = simpleCodec(ComposerGravestoneBlock::new);
     public static final EnumProperty<BedPart> PART = BlockStateProperties.BED_PART;
     public static final BooleanProperty OPENED = BlockStateProperties.OPEN;
     private static final VoxelShape SOUTH_SHAPE = Block.box(1, 0, 1, 15, 8, 16);
@@ -50,18 +49,13 @@ public class ComposerGravestoneBlock extends HorizontalDirectionalBlock implemen
     }
 
     @Override
-    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return switch (getConnectedDirection(state)) {
             case NORTH -> NORTH_SHAPE;
             case SOUTH -> SOUTH_SHAPE;
             case WEST -> WEST_SHAPE;
             default -> EAST_SHAPE;
         };
-    }
-
-    @Override
-    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
-        return CODEC;
     }
 
     @Nullable
@@ -71,7 +65,7 @@ public class ComposerGravestoneBlock extends HorizontalDirectionalBlock implemen
     }
 
     @Override
-    protected @NotNull BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
+    public @NotNull BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
         if (direction == getNeighbourDirection(state.getValue(PART), state.getValue(FACING))) {
             if (neighborState.is(this) && neighborState.getValue(PART) != state.getValue(PART)) {
                 return state.setValue(OPENED, neighborState.getValue(OPENED));
@@ -116,17 +110,17 @@ public class ComposerGravestoneBlock extends HorizontalDirectionalBlock implemen
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         if (level.getBlockEntity(pos) instanceof ComposerGravestoneBlockEntity composerGravestoneBlockEntity && !state.getValue(OPENED)) {
             Vec3 vecPos;
             BlockPos neighbourPos = pos.relative(state.getValue(FACING));
 
             if (state.getValue(PART) == BedPart.HEAD) {
                 // We get the foot, which renders and plays the animation
-                vecPos = neighbourPos.getBottomCenter();
+                vecPos = Vec3.atBottomCenterOf(neighbourPos);
                 composerGravestoneBlockEntity = (ComposerGravestoneBlockEntity) level.getBlockEntity(neighbourPos);
             } else {
-                vecPos = pos.getBottomCenter();
+                vecPos = Vec3.atBottomCenterOf(pos);
             }
 
             Vec3 center;
@@ -158,11 +152,11 @@ public class ComposerGravestoneBlock extends HorizontalDirectionalBlock implemen
                         xOffset, 0, zOffset, 1.0F);
             }
         }
-        return ItemInteractionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Override
-    protected RenderShape getRenderShape(BlockState state) {
+    public RenderShape getRenderShape(BlockState state) {
         return RenderShape.ENTITYBLOCK_ANIMATED;
     }
 

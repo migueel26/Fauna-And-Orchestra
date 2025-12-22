@@ -34,7 +34,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class ListenerBlock extends HorizontalDirectionalBlock implements EntityBlock {
-    public static final MapCodec<ListenerBlock> CODEC = simpleCodec(ListenerBlock::new);
     public static final BooleanProperty LISTENING = BooleanProperty.create("listening");
     public static final VoxelShape BASE = Block.box(1, 0, 1, 15,4.5, 15);
     public ListenerBlock(Properties properties) {
@@ -43,7 +42,7 @@ public class ListenerBlock extends HorizontalDirectionalBlock implements EntityB
     }
 
     @Override
-    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return BASE;
     }
 
@@ -53,11 +52,11 @@ public class ListenerBlock extends HorizontalDirectionalBlock implements EntityB
     }
 
     @Override
-    protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
+    public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
         BlockState listenerContainerState = level.getBlockState(pos.below());
 
-        if (!oldState.is(ModBlocks.LISTENER)
-                && listenerContainerState.is(ModBlocks.LISTENER_CONTAINER)
+        if (!oldState.is(ModBlocks.LISTENER.get())
+                && listenerContainerState.is(ModBlocks.LISTENER_CONTAINER.get())
                 && listenerContainerState.getValue(ListenerContainerBlock.BOTTLE)) {
             level.scheduleTick(pos.below(), listenerContainerState.getBlock(), ListenerContainerBlock.NEXT_TICK_SCHEDULED);
             if (!level.isClientSide()) {
@@ -77,19 +76,14 @@ public class ListenerBlock extends HorizontalDirectionalBlock implements EntityB
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack stack, @Nullable BlockGetter blockGetter, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         if (Screen.hasShiftDown()) {
             tooltipComponents.add(Component.translatable("block.faunaandorchestra.listener.desc")
                     .withStyle(ChatFormatting.GRAY));
         } else {
             tooltipComponents.add(Component.translatable("tooltip.faunaandorchestra.shift"));
         }
-        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
-    }
-
-    @Override
-    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
-            return CODEC;
+        super.appendHoverText(stack, blockGetter, tooltipComponents, tooltipFlag);
     }
 
     @Nullable
@@ -99,7 +93,7 @@ public class ListenerBlock extends HorizontalDirectionalBlock implements EntityB
     }
 
     @Override
-    protected RenderShape getRenderShape(BlockState state) {
+    public RenderShape getRenderShape(BlockState state) {
         return RenderShape.ENTITYBLOCK_ANIMATED;
     }
 

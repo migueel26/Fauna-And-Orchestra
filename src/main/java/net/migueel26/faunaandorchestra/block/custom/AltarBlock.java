@@ -16,7 +16,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 public class AltarBlock extends HorizontalDirectionalBlock {
-    public static final MapCodec<AltarBlock> CODEC = simpleCodec(AltarBlock::new);
     public static final VoxelShape SHAPE = Shapes.or(
             Block.box(1.5f, 0f, 1.5f, 14.5f, 4f, 14.5f),
             Block.box(3.75f, 4f, 3.75f, 12.25f, 12f, 12.25f),
@@ -24,10 +23,11 @@ public class AltarBlock extends HorizontalDirectionalBlock {
     );
     public AltarBlock(Properties properties) {
         super(properties);
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
     }
 
     @Override
-    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }
 
@@ -46,11 +46,6 @@ public class AltarBlock extends HorizontalDirectionalBlock {
             case EAST  -> -90f;
             default -> 0f;
         };
-    }
-
-    @Override
-    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
-        return CODEC;
     }
 
     @Override

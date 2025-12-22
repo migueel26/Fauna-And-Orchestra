@@ -12,7 +12,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -30,6 +30,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,12 +48,10 @@ public class DiscordedFlowerBlock extends Block {
             Map.entry(Items.BEEF, 2),
             Map.entry(Items.SUSPICIOUS_STEW, 3),
             Map.entry(Items.LEATHER, 3),
-            Map.entry(Items.ARMADILLO_SCUTE, 5),
             Map.entry(Items.RABBIT_FOOT, 5),
-            Map.entry(Items.TURTLE_SCUTE, 10),
+            Map.entry(Items.SCUTE, 10),
             Map.entry(Items.SLIME_BALL, 10),
             Map.entry(Items.MAGMA_CREAM, 10),
-            Map.entry(Items.OMINOUS_BOTTLE, 30),
             Map.entry(Items.GHAST_TEAR, 30),
             Map.entry(Items.PHANTOM_MEMBRANE, 40),
             Map.entry(Items.NAUTILUS_SHELL, 40),
@@ -85,19 +84,22 @@ public class DiscordedFlowerBlock extends Block {
         this.registerDefaultState(this.getStateDefinition().any().setValue(HUNGER, 0));
     }
 
+    @SuppressWarnings("deprecation")
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    public @NotNull InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        ItemStack stack = player.getItemInHand(hand);
+
         int food = FOOD.getOrDefault(stack.getItem(), -1);
         if (food != -1) {
             level.playSound(player, pos, ModSounds.DISCORDED_FLOWER_EAT.get(), SoundSource.BLOCKS, 0.5f, 1.0f + (level.random.nextFloat() - 0.5f));
             if (!level.isClientSide()) {
                 ((ServerLevel) level).sendParticles(ParticleTypes.SCULK_SOUL, pos.getCenter().x, pos.getCenter().y, pos.getCenter().z, 10, 0.25f, 0.25f, 0.25f, 0.05);
             }
-            stack.consume(1, player);
+            stack.shrink(1);
             feed(state, level, pos, food);
-            return ItemInteractionResult.SUCCESS;
+            return InteractionResult.SUCCESS;
         }
-        return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
+        return super.use(state, level, pos, player, hand, hitResult);
     }
 
     private void feed(BlockState state, Level level, BlockPos pos, int food) {
@@ -114,17 +116,17 @@ public class DiscordedFlowerBlock extends Block {
             popResourceFromFace(level, pos, Direction.UP, new ItemStack(ModItems.PETALS_OF_DEATH.get()));
             level.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
         } else {
-            int goal = GENERATIONS_INDEX.getFirst();
+            int goal = GENERATIONS_INDEX.get(0);
 
-            for (int i = 0; i < NEW_GENERATIONS.keySet().size() && goal == GENERATIONS_INDEX.getFirst(); i++) {
+            for (int i = 0; i < NEW_GENERATIONS.keySet().size() && goal == GENERATIONS_INDEX.get(0); i++) {
                 if (GENERATIONS_INDEX.get(i) <= hunger && hunger < GENERATIONS_INDEX.get(i + 1)) {
                     goal = GENERATIONS_INDEX.get(i+1);
                 }
             }
 
             if (newHunger >= goal) {
-                int lastGoal = GENERATIONS_INDEX.getFirst();
-                for (int i = 0; i < NEW_GENERATIONS.keySet().size() && lastGoal == GENERATIONS_INDEX.getFirst(); i++) {
+                int lastGoal = GENERATIONS_INDEX.get(0);
+                for (int i = 0; i < NEW_GENERATIONS.keySet().size() && lastGoal == GENERATIONS_INDEX.get(0); i++) {
                     if (GENERATIONS_INDEX.get(i) < newHunger && newHunger <= GENERATIONS_INDEX.get(i + 1)) {
                         lastGoal = GENERATIONS_INDEX.get(i);
                     }
@@ -138,24 +140,24 @@ public class DiscordedFlowerBlock extends Block {
 
     }
 
-    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         Vec3 vec3 = state.getOffset(level, pos);
         return SHAPE.move(vec3.x, vec3.y, vec3.z);
     }
 
     @Override
-    protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+    public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
         BlockPos blockpos = pos.below();
         BlockState belowBlockState = level.getBlockState(blockpos);
-        return belowBlockState.is(ModBlocks.DISCORD_BLOCK) || belowBlockState.is(ModBlocks.FLOWER_DISCORD_BLOCK);
+        return belowBlockState.is(ModBlocks.DISCORD_BLOCK.get()) || belowBlockState.is(ModBlocks.FLOWER_DISCORD_BLOCK.get());
     }
 
-    protected BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor level, BlockPos currentPos, BlockPos facingPos) {
+    public BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor level, BlockPos currentPos, BlockPos facingPos) {
         return !state.canSurvive(level, currentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, facing, facingState, level, currentPos, facingPos);
     }
 
     @Override
-    protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         level.sendParticles(ParticleTypes.SOUL_FIRE_FLAME, pos.getCenter().x, pos.getCenter().y, pos.getCenter().z, 5, 0.3, 0.3, 0.3, 0);
         super.randomTick(state, level, pos, random);
     }

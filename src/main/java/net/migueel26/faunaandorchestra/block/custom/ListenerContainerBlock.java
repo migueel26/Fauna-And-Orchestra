@@ -16,7 +16,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -68,24 +68,24 @@ public class ListenerContainerBlock extends Block implements EntityBlock {
     }
 
     @Override
-    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack stack, BlockGetter blockGetter, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         if (Screen.hasShiftDown()) {
             tooltipComponents.add(Component.translatable("block.faunaandorchestra.listener_container.desc")
                     .withStyle(ChatFormatting.GRAY));
         } else {
             tooltipComponents.add(Component.translatable("tooltip.faunaandorchestra.shift"));
         }
-        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+        super.appendHoverText(stack, blockGetter, tooltipComponents, tooltipFlag);
     }
 
     @Override
-    protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
-        if (!oldState.is(ModBlocks.LISTENER_CONTAINER) && level.getBlockState(pos.above()).is(ModBlocks.LISTENER)) {
+    public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
+        if (!oldState.is(ModBlocks.LISTENER_CONTAINER.get()) && level.getBlockState(pos.above()).is(ModBlocks.LISTENER.get())) {
             if (!level.isClientSide()) {
                 ((ServerLevel) level).sendParticles(ParticleTypes.POOF, pos.getCenter().x, pos.getY() + 0.5, pos.getCenter().z, 25, 0.1, 0.5, 0.1, 0.2);
                 level.playSound(null, pos, SoundEvents.ANVIL_USE, SoundSource.BLOCKS, 1.0F, 2.0F);
@@ -96,15 +96,15 @@ public class ListenerContainerBlock extends Block implements EntityBlock {
     }
 
     @Override
-    protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
-        if (!newState.is(ModBlocks.LISTENER_CONTAINER) && state.getValue(BOTTLE)) {
+    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
+        if (!newState.is(ModBlocks.LISTENER_CONTAINER.get()) && state.getValue(BOTTLE)) {
             if (state.getValue(DROPLETS) == 64) {
                 popResourceFromFace(level, pos, Direction.UP, new ItemStack(ModItems.MUSIC_BOTTLE.get()));
             } else {
                 popResourceFromFace(level, pos, Direction.UP, new ItemStack(Items.GLASS_BOTTLE));
             }
 
-            if (level.getBlockState(pos.above()).is(ModBlocks.LISTENER)) {
+            if (level.getBlockState(pos.above()).is(ModBlocks.LISTENER.get())) {
                 level.setBlock(pos.above(), level.getBlockState(pos.above()).setValue(ListenerBlock.LISTENING, false), 3);
             }
     }
@@ -118,7 +118,7 @@ public class ListenerContainerBlock extends Block implements EntityBlock {
     }
 
     @Override
-    protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+    public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         // Already assembled
         int drops = state.getValue(DROPLETS);
 
@@ -150,14 +150,14 @@ public class ListenerContainerBlock extends Block implements EntityBlock {
     }
 
     private static void updateListeningAssembledListener(ServerLevel level, BlockPos pos, BlockState state, boolean listening) {
-        if (level.getBlockState(pos.above()).is(ModBlocks.LISTENER)) {
+        if (level.getBlockState(pos.above()).is(ModBlocks.LISTENER.get())) {
             level.setBlock(pos.above(), level.getBlockState(pos.above()).setValue(ListenerBlock.LISTENING, listening), 3);
         }
         level.setBlock(pos, state.setValue(LISTENING, listening), 3);
     }
 
     private void checkIfStillAssembled(ServerLevel level, BlockPos pos, BlockState state) {
-        if (level.getBlockState(pos.above()).is(ModBlocks.LISTENER) && state.getValue(BOTTLE)) {
+        if (level.getBlockState(pos.above()).is(ModBlocks.LISTENER.get()) && state.getValue(BOTTLE)) {
             level.scheduleTick(pos, this, NEXT_TICK_SCHEDULED);
         } else {
             // If it's not, 0 seconds and not schedule tick
@@ -166,29 +166,30 @@ public class ListenerContainerBlock extends Block implements EntityBlock {
         }
     }
 
+    @SuppressWarnings("deprecation")
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         ItemStack item = player.getItemInHand(hand);
         if (item.is(Items.GLASS_BOTTLE)) {
             if (isFull(state)) {
-                item.consume(1, player);
+                item.shrink(1);
                 player.addItem(new ItemStack(ModItems.MUSIC_BOTTLE.get(), 1));
                 level.setBlock(pos, state.setValue(DROPLETS, 0), 3);
-                return ItemInteractionResult.SUCCESS;
+                return InteractionResult.SUCCESS;
             } else if (isContainerEmpty(state)) {
-                item.consume(1, player);
+                item.shrink(1);
                 level.setBlock(pos, state.setValue(BOTTLE, true), 3);
                 level.scheduleTick(pos, this, NEXT_TICK_SCHEDULED);
-                return ItemInteractionResult.SUCCESS;
+                return InteractionResult.SUCCESS;
             }
-        } else if (item.isEmpty() || item.is(ModItems.MUSIC_BOTTLE)) {
+        } else if (item.isEmpty() || item.is(ModItems.MUSIC_BOTTLE.get())) {
             if (isFull(state)) {
                 player.addItem(new ItemStack(ModItems.MUSIC_BOTTLE.get(), 1));
                 level.setBlock(pos, state.setValue(DROPLETS, 0).setValue(BOTTLE, false), 3);
-                return ItemInteractionResult.SUCCESS;
+                return InteractionResult.SUCCESS;
             }
         }
-        return ItemInteractionResult.FAIL;
+        return InteractionResult.FAIL;
     }
 
     @Nullable
@@ -206,7 +207,7 @@ public class ListenerContainerBlock extends Block implements EntityBlock {
     }
 
     @Override
-    protected RenderShape getRenderShape(BlockState state) {
+    public RenderShape getRenderShape(BlockState state) {
         return RenderShape.ENTITYBLOCK_ANIMATED;
     }
 

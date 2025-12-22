@@ -12,7 +12,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
@@ -43,24 +43,26 @@ public class DiscordNucleiBlock extends Block implements EntityBlock {
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        ItemStack stack = player.getItemInHand(hand);
+
         if (level.getBlockEntity(pos) instanceof DiscordNucleiBlockEntity discordNucleiBE) {
             int essence = state.getValue(ESSENCE);
             int instability = state.getValue(INSTABILITY);
             ItemStack stackInSlot = discordNucleiBE.inventory.getStackInSlot(0);
             if (!stackInSlot.isEmpty()) {
-                if (stack.is(ModItems.DISCORD_ESSENCE)) {
+                if (stack.is(ModItems.DISCORD_ESSENCE.get())) {
                     level.playSound(player, pos, SoundEvents.WARDEN_LISTENING, SoundSource.BLOCKS);
                     if (!level.isClientSide()) {
                         ((ServerLevel) level).sendParticles(ParticleTypes.SCULK_SOUL, pos.getCenter().x, pos.getY()+0.75f, pos.getCenter().z, 20, 0.2, 0.2, 0.2, 0.01);
                     }
-                    stack.consume(1, player);
+                    stack.shrink(1);
 
                     applyEffect(stackInSlot, level, state, pos, discordNucleiBE, essence ,instability);
 
-                    return ItemInteractionResult.SUCCESS;
+                    return InteractionResult.SUCCESS;
 
-                } else if (stack.is(ModItems.WANDERING_NOTE)) {
+                } else if (stack.is(ModItems.WANDERING_NOTE.get())) {
                     int reduction = getInstabilityReduction(instability);
                     level.setBlock(pos, state.setValue(INSTABILITY, instability - reduction), 3);
 
@@ -68,8 +70,8 @@ public class DiscordNucleiBlock extends Block implements EntityBlock {
                         ((ServerLevel) level).sendParticles(ParticleTypes.WAX_OFF, pos.getCenter().x, pos.getY()+0.75f, pos.getZ(), 10, 0.2, 0.2, 0.2, 0);
                     }
                     level.playSound(player, pos, SoundEvents.BEACON_DEACTIVATE, SoundSource.BLOCKS, 1.0f, 1.0f);
-                    stack.consume(1, player);
-                    return ItemInteractionResult.SUCCESS;
+                    stack.shrink(1);
+                    return InteractionResult.SUCCESS;
                 }
             } else if (RecipesUtil.isDiscordNucleiIngredient(stack)) {
                 discordNucleiBE.inventory.setStackInSlot(0, new ItemStack(stack.getItem(), 1));
@@ -77,11 +79,11 @@ public class DiscordNucleiBlock extends Block implements EntityBlock {
                 if (!level.isClientSide()) {
                     ((ServerLevel) level).sendParticles(ParticleTypes.SOUL_FIRE_FLAME, pos.getCenter().x, pos.getY()+0.75f, pos.getCenter().z, 15, 0.1, 0.1, 0.1, 0.15);
                 }
-                stack.consume(1, player);
-                return ItemInteractionResult.SUCCESS;
+                stack.shrink(1);
+                return InteractionResult.SUCCESS;
             }
         }
-        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        return InteractionResult.FAIL;
     }
 
     private int getInstabilityReduction(int instability) {
@@ -131,7 +133,7 @@ public class DiscordNucleiBlock extends Block implements EntityBlock {
     }
 
     @Override
-    protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+    public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         int instability = state.getValue(INSTABILITY);
         if (instability > 0 && state.getValue(ESSENCE) > 0) {
             if (instability+1 == 100) {
@@ -145,18 +147,18 @@ public class DiscordNucleiBlock extends Block implements EntityBlock {
     }
 
     @Override
-    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }
 
     @Override
-    protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+    public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
         BlockPos blockpos = pos.below();
         BlockState belowBlockState = level.getBlockState(blockpos);
-        return belowBlockState.is(ModBlocks.DISCORD_BLOCK) || belowBlockState.is(ModBlocks.FLOWER_DISCORD_BLOCK);
+        return belowBlockState.is(ModBlocks.DISCORD_BLOCK.get()) || belowBlockState.is(ModBlocks.FLOWER_DISCORD_BLOCK.get());
     }
 
-    protected BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor level, BlockPos currentPos, BlockPos facingPos) {
+    public BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor level, BlockPos currentPos, BlockPos facingPos) {
         return !state.canSurvive(level, currentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, facing, facingState, level, currentPos, facingPos);
     }
 

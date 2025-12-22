@@ -13,7 +13,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.monster.Skeleton;
 import net.minecraft.world.entity.player.Player;
@@ -51,7 +51,7 @@ public class RegularGravestoneBlock extends ComposerGravestoneBlock {
     }
 
     @Override
-    protected @NotNull BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
+    public @NotNull BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
         if (direction == getNeighbourDirection(state.getValue(PART), state.getValue(FACING))) {
             if (neighborState.is(this) && neighborState.getValue(PART) != state.getValue(PART)) {
                 return state.setValue(OPENED, neighborState.getValue(OPENED)).setValue(CAN_DROP, neighborState.getValue(CAN_DROP));
@@ -76,17 +76,19 @@ public class RegularGravestoneBlock extends ComposerGravestoneBlock {
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        ItemStack stack = player.getItemInHand(hand);
+
         if (level.getBlockEntity(pos) instanceof ComposerGravestoneBlockEntity composerGravestoneBlockEntity) {
             Vec3 vecPos;
             BlockPos neighbourPos = pos.relative(state.getValue(FACING));
 
             if (state.getValue(PART) == BedPart.HEAD) {
                 // We get the foot, which renders and plays the animation
-                vecPos = neighbourPos.getBottomCenter();
+                vecPos = Vec3.atBottomCenterOf(neighbourPos);
                 composerGravestoneBlockEntity = (ComposerGravestoneBlockEntity) level.getBlockEntity(neighbourPos);
             } else {
-                vecPos = pos.getBottomCenter();
+                vecPos = Vec3.atBottomCenterOf(pos);
             }
 
             Vec3 center;
@@ -133,7 +135,7 @@ public class RegularGravestoneBlock extends ComposerGravestoneBlock {
             if (!isOpened && canDrop) level.setBlock(pos, state.setValue(OPENED, true).setValue(CAN_DROP, false), 3);
             else level.setBlock(pos, state.setValue(OPENED, !isOpened), 3);
         }
-        return ItemInteractionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     /***
@@ -166,7 +168,7 @@ public class RegularGravestoneBlock extends ComposerGravestoneBlock {
             float itemProb = level.getRandom().nextFloat();
             ItemStack reward;
             if (itemProb >= 0 && itemProb <= 0.05) {
-                reward = new ItemStack(ModBlocks.GINGKO_BILOBA_SAPLING);
+                reward = new ItemStack(ModBlocks.GINGKO_BILOBA_SAPLING.get());
             } else if (itemProb > 0.05 && itemProb <= 0.1) {
                 reward = new ItemStack(Items.DIAMOND, 2);
             } else if (itemProb > 0.1 && itemProb <= 0.15) {

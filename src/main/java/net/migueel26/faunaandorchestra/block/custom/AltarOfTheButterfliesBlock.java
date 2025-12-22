@@ -16,7 +16,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -34,6 +34,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -45,23 +46,27 @@ public class AltarOfTheButterfliesBlock extends AltarBlock {
         this.registerDefaultState(this.getStateDefinition().any().setValue(OFFERING, false));
     }
 
+    @SuppressWarnings("deprecation")
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        if (stack.is(ModItems.OFFERING) && !state.getValue(OFFERING) && level.getBlockState(pos.above()).isAir()) {
-            stack.consume(1, player);
+    public @NotNull InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult p_60508_) {
+        ItemStack stack = player.getItemInHand(hand);
+        if (stack.is(ModItems.OFFERING.get()) && !state.getValue(OFFERING) && level.getBlockState(pos.above()).isAir()) {
+            if (!player.getAbilities().instabuild) {
+                stack.shrink(1);
+            }
             level.setBlock(pos, state.setValue(OFFERING, true), 3);
             if (!level.isClientSide()) {
                 ((ServerLevel) level).sendParticles(ParticleTypes.WAX_OFF, pos.getCenter().x, pos.above().getY(), pos.getCenter().z,
                         20, 0.2, 0.2, 0.2, 0.05);
             }
-            level.playSound(player, pos.above(), SoundEvents.ARMOR_EQUIP_LEATHER.value(), SoundSource.NEUTRAL, 2f, 1.5f);
-            return ItemInteractionResult.SUCCESS;
+            level.playSound(player, pos.above(), SoundEvents.ARMOR_EQUIP_LEATHER, SoundSource.NEUTRAL, 2f, 1.5f);
+            return InteractionResult.SUCCESS;
         }
-        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        return InteractionResult.FAIL;
     }
 
     @Override
-    protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         if (state.getValue(OFFERING)) {
             List<ButterflyEntity> butterflies = level.getEntitiesOfClass(ButterflyEntity.class,
                     AABB.ofSize(pos.getCenter(), 10, 10, 10));
@@ -90,8 +95,8 @@ public class AltarOfTheButterfliesBlock extends AltarBlock {
     }
 
     @Override
-    protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
-        if (state.getValue(OFFERING) && !newState.is(ModBlocks.ALTAR_OF_THE_BUTTERFLIES)) {
+    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
+        if (state.getValue(OFFERING) && !newState.is(ModBlocks.ALTAR_OF_THE_BUTTERFLIES.get())) {
             popResourceFromFace(level, pos, Direction.UP, new ItemStack(ModItems.OFFERING.get()));
         }
         super.onRemove(state, level, pos, newState, movedByPiston);

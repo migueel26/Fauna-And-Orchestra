@@ -14,7 +14,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.MobSpawnType;
@@ -35,13 +35,16 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.common.IPlantable;
+import net.minecraftforge.event.ForgeEventFactory;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class SingingCropBlock extends BushBlock implements EntityBlock, BonemealableBlock {
-    public static final MapCodec<SingingCropBlock> CODEC = simpleCodec(SingingCropBlock::new);
     public static int MAX_AGE = 3;
     public static final IntegerProperty AGE = IntegerProperty.create("age", 0, 3);
     public static final BooleanProperty FINAL = BooleanProperty.create("final");
@@ -70,20 +73,20 @@ public class SingingCropBlock extends BushBlock implements EntityBlock, Bonemeal
     }
 
     @Override
-    protected boolean isRandomlyTicking(BlockState state) {
+    public boolean isRandomlyTicking(BlockState state) {
         return !this.isMaxAge(state);
     }
 
     @Override
-    protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        if (!level.isAreaLoaded(pos, 1)) return; // Forge: prevent loading unloaded chunks when checking neighbor's light
+    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        if (!level.isAreaLoaded(pos, 1)) return;
         if (level.getRawBrightness(pos, 0) >= 9) {
             int i = this.getAge(state);
             if (i < this.getMaxAge()) {
                 float f = getGrowthSpeed(state, level, pos);
-                if (net.neoforged.neoforge.common.CommonHooks.canCropGrow(level, pos, state, random.nextInt((int)(25.0F / f) + 1) == 0)) {
+                if (ForgeHooks.onCropsGrowPre(level, pos, state, random.nextInt((int)(25.0F / f) + 1) == 0)) {
                     level.setBlock(pos, this.getStateForAge(i + 1, state.getValue(FACING)), 2);
-                    net.neoforged.neoforge.common.CommonHooks.fireCropGrowPost(level, pos, state);
+                    ForgeHooks.onCropsGrowPost(level, pos, state);
                 }
             }
         }
@@ -115,26 +118,28 @@ public class SingingCropBlock extends BushBlock implements EntityBlock, Bonemeal
     }
 
     @Override
-    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return SHAPE_BY_AGE[state.getValue(AGE)];
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        if (stack.is(ModItems.GLOVE)
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        ItemStack stack = player.getItemInHand(hand);
+
+        if (stack.is(ModItems.GLOVE.get())
                 && state.getValue(AGE) == 3
                 && level.getBlockEntity(pos) instanceof SingingCropBlockEntity blockEntity) {
             blockEntity.triggerAnim("singing_crop_controller", "emerge");
             level.scheduleTick(pos, this, 30);
-            stack.hurtAndBreak(1, player, hand.equals(InteractionHand.MAIN_HAND) ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
-            return ItemInteractionResult.SUCCESS;
+            stack.hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(hand));
+            return InteractionResult.SUCCESS;
         } else {
-            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+            return InteractionResult.FAIL;
         }
     }
 
     @Override
-    protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+    public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         if (!state.getValue(FINAL)) {
             if (!level.isClientSide()) {
                 ((ServerLevel) level).sendParticles(ModParticleTypes.STAR.get(),
@@ -168,19 +173,30 @@ public class SingingCropBlock extends BushBlock implements EntityBlock, Bonemeal
         };
     }
 
-    protected static float getGrowthSpeed(BlockState blockState, BlockGetter p_52274_, BlockPos p_52275_) {
-        Block p_52273_ = blockState.getBlock();
+    protected static float getGrowthSpeed(BlockState blockState, BlockGetter level, BlockPos pos) {
+        Block cropBlock = blockState.getBlock();
         float f = 1.0F;
-        BlockPos blockpos = p_52275_.below();
+        BlockPos blockpos = pos.below();
 
-        for (int i = -1; i <= 1; i++) {
-            for (int j = -1; j <= 1; j++) {
+        for(int i = -1; i <= 1; ++i) {
+            for(int j = -1; j <= 1; ++j) {
                 float f1 = 0.0F;
-                BlockState blockstate = p_52274_.getBlockState(blockpos.offset(i, 0, j));
-                net.neoforged.neoforge.common.util.TriState soilDecision = blockstate.canSustainPlant(p_52274_, blockpos.offset(i, 0, j), net.minecraft.core.Direction.UP, blockState);
-                if (soilDecision.isDefault() ? blockstate.getBlock() instanceof net.minecraft.world.level.block.FarmBlock : soilDecision.isTrue()) {
+                BlockState soilState = level.getBlockState(blockpos.offset(i, 0, j));
+
+                // CAMBIO 1: canSustainPlant devuelve boolean en 1.20.1
+                // CAMBIO 2: El último argumento debe ser IPlantable.
+                // Como 'cropBlock' es tu cultivo, debe implementar IPlantable (los cultivos lo hacen por defecto).
+                boolean canSustain = false;
+
+                if (cropBlock instanceof IPlantable plantable) {
+                    canSustain = soilState.canSustainPlant(level, blockpos.offset(i, 0, j), net.minecraft.core.Direction.UP, plantable);
+                }
+
+                // Lógica simplificada: Si puede sostener la planta, calculamos fertilidad
+                if (canSustain) {
                     f1 = 1.0F;
-                    if (blockstate.isFertile(p_52274_, p_52275_.offset(i, 0, j))) {
+                    // isFertile existe en Forge 1.20.1
+                    if (soilState.isFertile(level, blockpos.offset(i, 0, j))) {
                         f1 = 3.0F;
                     }
                 }
@@ -193,19 +209,21 @@ public class SingingCropBlock extends BushBlock implements EntityBlock, Bonemeal
             }
         }
 
-        BlockPos blockpos1 = p_52275_.north();
-        BlockPos blockpos2 = p_52275_.south();
-        BlockPos blockpos3 = p_52275_.west();
-        BlockPos blockpos4 = p_52275_.east();
-        boolean flag = p_52274_.getBlockState(blockpos3).is(p_52273_) || p_52274_.getBlockState(blockpos4).is(p_52273_);
-        boolean flag1 = p_52274_.getBlockState(blockpos1).is(p_52273_) || p_52274_.getBlockState(blockpos2).is(p_52273_);
+        // --- El resto de la lógica de vecinos es Vanilla estándar y funciona igual ---
+        BlockPos blockpos1 = pos.north();
+        BlockPos blockpos2 = pos.south();
+        BlockPos blockpos3 = pos.west();
+        BlockPos blockpos4 = pos.east();
+        boolean flag = level.getBlockState(blockpos3).is(cropBlock) || level.getBlockState(blockpos4).is(cropBlock);
+        boolean flag1 = level.getBlockState(blockpos1).is(cropBlock) || level.getBlockState(blockpos2).is(cropBlock);
+
         if (flag && flag1) {
             f /= 2.0F;
         } else {
-            boolean flag2 = p_52274_.getBlockState(blockpos3.north()).is(p_52273_)
-                    || p_52274_.getBlockState(blockpos4.north()).is(p_52273_)
-                    || p_52274_.getBlockState(blockpos4.south()).is(p_52273_)
-                    || p_52274_.getBlockState(blockpos3.south()).is(p_52273_);
+            boolean flag2 = level.getBlockState(blockpos3.north()).is(cropBlock)
+                    || level.getBlockState(blockpos4.north()).is(cropBlock)
+                    || level.getBlockState(blockpos4.south()).is(cropBlock)
+                    || level.getBlockState(blockpos3.south()).is(cropBlock);
             if (flag2) {
                 f /= 2.0F;
             }
@@ -220,20 +238,27 @@ public class SingingCropBlock extends BushBlock implements EntityBlock, Bonemeal
         Direction direction = context.getHorizontalDirection().getOpposite();
         return this.defaultBlockState().setValue(FACING, direction);
     }
-    @Override
-    protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
-        net.neoforged.neoforge.common.util.TriState soilDecision = level.getBlockState(pos.below()).canSustainPlant(level, pos.below(), net.minecraft.core.Direction.UP, state);
-        if (!soilDecision.isDefault()) return soilDecision.isTrue();
-        return hasSufficientLight(level, pos) && super.canSurvive(state, level, pos);
-    }
 
     public static boolean hasSufficientLight(LevelReader level, BlockPos pos) {
         return level.getRawBrightness(pos, 0) >= 8;
     }
+    @Override
+    public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+        BlockPos posBelow = pos.below();
+        BlockState soilState = level.getBlockState(posBelow);
+
+        if (state.getBlock() instanceof IPlantable plantable) {
+            if (soilState.canSustainPlant(level, posBelow, Direction.UP, plantable)) {
+                return hasSufficientLight(level, pos);
+            }
+        }
+
+        return super.canSurvive(state, level, pos);
+    }
 
     @Override
-    protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
-        if (entity instanceof Ravager && net.neoforged.neoforge.event.EventHooks.canEntityGrief(level, entity)) {
+    public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
+        if (entity instanceof Ravager && ForgeEventFactory.getMobGriefingEvent(level, entity)) {
             level.destroyBlock(pos, true, entity);
         }
 
@@ -241,12 +266,12 @@ public class SingingCropBlock extends BushBlock implements EntityBlock, Bonemeal
     }
 
     @Override
-    public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state) {
+    public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {
         return new ItemStack(this.getBaseSeedId());
     }
 
     @Override
-    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
+    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, boolean b) {
         return !this.isMaxAge(state);
     }
 
@@ -260,16 +285,11 @@ public class SingingCropBlock extends BushBlock implements EntityBlock, Bonemeal
         this.growCrops(level, pos, state);
     }
 
-    @Override
-    public MapCodec<? extends BushBlock> codec() {
-        return CODEC;
-    }
-
     /**
      * Returns the blockstate with the given rotation from the passed blockstate. If inapplicable, returns the passed blockstate.
      */
     @Override
-    protected @NotNull BlockState rotate(BlockState state, Rotation rot) {
+    public @NotNull BlockState rotate(BlockState state, Rotation rot) {
         return state.setValue(FACING, rot.rotate(state.getValue(FACING)));
     }
 
@@ -277,12 +297,12 @@ public class SingingCropBlock extends BushBlock implements EntityBlock, Bonemeal
      * Returns the blockstate with the given mirror of the passed blockstate. If inapplicable, returns the passed blockstate.
      */
     @Override
-    protected @NotNull BlockState mirror(BlockState state, Mirror mirror) {
+    public @NotNull BlockState mirror(BlockState state, Mirror mirror) {
         return state.rotate(mirror.getRotation(state.getValue(FACING)));
     }
 
     protected ItemLike getBaseSeedId() {
-        return ModItems.SINGING_SEED;
+        return ModItems.SINGING_SEED.get();
     }
 
     public IntegerProperty getAgeProperty() {
