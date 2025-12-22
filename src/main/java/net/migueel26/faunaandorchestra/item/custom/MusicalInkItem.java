@@ -15,6 +15,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SignBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -76,13 +77,13 @@ public class MusicalInkItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack stack, Level level, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         if (Screen.hasShiftDown()) {
             tooltipComponents.add(Component.translatable("item.faunaandorchestra.musical_ink.desc"));
         } else {
             tooltipComponents.add(Component.translatable("tooltip.faunaandorchestra.shift"));
         }
-        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+        super.appendHoverText(stack, level, tooltipComponents, tooltipFlag);
     }
 
     private int nextColor(int c) {

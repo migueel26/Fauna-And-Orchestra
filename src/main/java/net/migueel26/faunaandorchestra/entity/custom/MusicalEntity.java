@@ -1,7 +1,6 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
 import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
-import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.mixins.client.accessors.ClientLevelAccessor;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
@@ -27,13 +26,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.registries.DeferredItem;
+import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
 public abstract class MusicalEntity extends TamableAnimal {
-    protected DeferredItem<Item> instrument;
+    protected RegistryObject<Item> instrument;
     protected static final EntityDataAccessor<Boolean> HOLDING_INSTRUMENT = SynchedEntityData.defineId(MusicalEntity.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Optional<UUID>> CONDUCTOR_ID = SynchedEntityData.defineId(MusicalEntity.class, EntityDataSerializers.OPTIONAL_UUID);
     protected static final EntityDataAccessor<Boolean> IS_MUSICAL = SynchedEntityData.defineId(MusicalEntity.class, EntityDataSerializers.BOOLEAN);
@@ -50,7 +49,7 @@ public abstract class MusicalEntity extends TamableAnimal {
         this.ticksSinceLoaded = 0;
     }
 
-    public abstract DeferredItem<Item> getInstrument();
+    public abstract RegistryObject<Item> getInstrument();
 
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {

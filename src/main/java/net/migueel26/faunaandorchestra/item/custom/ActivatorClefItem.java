@@ -13,7 +13,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -49,7 +48,7 @@ public class ActivatorClefItem extends Item {
                 ModAdvancements.DISCORD_NUCLEI.trigger((ServerPlayer) context.getPlayer());
             }
 
-            stack.consume(1, context.getPlayer());
+            stack.shrink(1);
 
             return InteractionResult.SUCCESS;
         }
@@ -57,9 +56,9 @@ public class ActivatorClefItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack stack, Level level, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         tooltipComponents.add(Component.translatable("item.faunaandorchestra.activator_clef.desc")
                 .withStyle(ChatFormatting.GRAY));
-        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+        super.appendHoverText(stack, level, tooltipComponents, tooltipFlag);
     }
 }

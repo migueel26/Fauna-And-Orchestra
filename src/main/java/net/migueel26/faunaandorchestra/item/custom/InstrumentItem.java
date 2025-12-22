@@ -22,6 +22,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.HitResult;
+import net.minecraftforge.common.ForgeMod;
 import org.checkerframework.checker.units.qual.A;
 
 import java.util.List;
@@ -52,7 +53,7 @@ public class InstrumentItem extends Item {
             List<Entity> entities = level.getEntities(player, player.getBoundingBox().inflate(10));
             for (Entity entity : entities) {
                 if (entity instanceof MusicalEntity musicalEntity && musicalEntity.isMusical() && !musicalEntity.isTame()
-                && musicalEntity.getInstrument().asItem().equals(this)) {
+                && musicalEntity.getInstrument().get().equals(this)) {
                     // If MusicalEntity
                     musicalEntity.tryToTame(player);
 
@@ -73,18 +74,18 @@ public class InstrumentItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack stack, Level level, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         if (Screen.hasShiftDown()) {
             tooltipComponents.add(Component.translatable("tooltip." + stack.getItem()));
         } else {
             tooltipComponents.add(Component.translatable("tooltip.faunaandorchestra.shift"));
         }
-        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+        super.appendHoverText(stack, level, tooltipComponents, tooltipFlag);
     }
     
     private HitResult calculateHitResult(Player player) {
         return ProjectileUtil.getHitResultOnViewVector(
-                player, entity -> !entity.isSpectator() && entity.isPickable(), player.blockInteractionRange()
+                player, entity -> !entity.isSpectator() && entity.isPickable(), player.getAttributeValue(ForgeMod.ENTITY_REACH.get())
         );
     }
     

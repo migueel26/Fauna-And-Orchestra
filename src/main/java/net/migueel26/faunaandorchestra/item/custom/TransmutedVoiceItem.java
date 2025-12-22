@@ -19,6 +19,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.minecraftforge.common.ForgeMod;
 
 import java.util.List;
 
@@ -42,17 +43,18 @@ public class TransmutedVoiceItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack stack, Level level, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         if (Screen.hasShiftDown()) {
             tooltipComponents.add(Component.translatable("item.faunaandorchestra.transmuted_voice.tooltip"));
         } else {
             tooltipComponents.add(Component.translatable("tooltip.faunaandorchestra.shift"));
         }
-        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+        super.appendHoverText(stack, level, tooltipComponents, tooltipFlag);
     }
 
-    public HitResult calculateHitResult(Player player) {
+    private HitResult calculateHitResult(Player player) {
         return ProjectileUtil.getHitResultOnViewVector(
-                player, entity -> !entity.isSpectator() && entity.isPickable(), player.blockInteractionRange());
+                player, entity -> !entity.isSpectator() && entity.isPickable(), player.getAttributeValue(ForgeMod.ENTITY_REACH.get())
+        );
     }
 }

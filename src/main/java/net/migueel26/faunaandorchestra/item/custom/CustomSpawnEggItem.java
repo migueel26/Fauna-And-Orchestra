@@ -71,9 +71,7 @@ public class CustomSpawnEggItem extends Item {
         return InteractionResult.CONSUME;
     }
 
-    /**
-     * Called to trigger the item's "innate" right click behavior. To handle when this item is used on a Block, see {@link #onItemUse}.
-     */
+
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
@@ -91,7 +89,7 @@ public class CustomSpawnEggItem extends Item {
                     entitytype.spawn((ServerLevel)level, itemstack, player, blockpos, MobSpawnType.SPAWN_EGG, false, false);
                 }
 
-                itemstack.consume(1, player);
+                itemstack.shrink(1);
                 player.awardStat(Stats.ITEM_USED.get(this));
                 level.gameEvent(player, GameEvent.ENTITY_PLACE, blockpos);
                 return InteractionResultHolder.consume(itemstack);

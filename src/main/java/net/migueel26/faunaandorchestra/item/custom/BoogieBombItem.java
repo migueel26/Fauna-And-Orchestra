@@ -18,7 +18,7 @@ import net.minecraft.world.level.Level;
 
 import java.util.List;
 
-public class BoogieBombItem extends Item implements ProjectileItem {
+public class BoogieBombItem extends Item {
     public BoogieBombItem(Properties properties) {
         super(properties);
     }
@@ -34,27 +34,14 @@ public class BoogieBombItem extends Item implements ProjectileItem {
             level.addFreshEntity(thrownpotion);
         }
 
-        itemstack.consume(1, player);
+        itemstack.shrink(1);
         return InteractionResultHolder.sidedSuccess(itemstack, level.isClientSide());
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack stack, Level level, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         tooltipComponents.add(Component.translatable("item.faunaandorchestra.boogie_bomb.desc")
                 .withStyle(ChatFormatting.GRAY));
-        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
-    }
-
-    @Override
-    public Projectile asProjectile(Level level, Position pos, ItemStack stack, Direction direction) {
-        return new ThrownBoogieBomb(level, pos.x(), pos.y(), pos.z());
-    }
-
-    @Override
-    public ProjectileItem.DispenseConfig createDispenseConfig() {
-        return ProjectileItem.DispenseConfig.builder()
-                .uncertainty(ProjectileItem.DispenseConfig.DEFAULT.uncertainty() * 0.5F)
-                .power(ProjectileItem.DispenseConfig.DEFAULT.power() * 1.25F)
-                .build();
+        super.appendHoverText(stack, level, tooltipComponents, tooltipFlag);
     }
 }

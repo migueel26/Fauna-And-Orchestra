@@ -1,16 +1,12 @@
 package net.migueel26.faunaandorchestra.item.custom;
 
-import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.item.ModItems;
-import net.migueel26.faunaandorchestra.mixins.client.accessors.ClientLevelAccessor;
-import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -26,15 +22,24 @@ public class BatonItem extends Item {
         super(properties);
     }
 
+    public void setMusicianUUID(ItemStack stack, UUID uuid) {
+        stack.getOrCreateTag().putUUID("MusicianUUID", uuid);
+    }
+
+    public static UUID getMusicianUUID(ItemStack stack) {
+        return stack.hasTag() ? stack.getTag().getUUID("MusicianUUID") : null;
+    }
+
     @Override
     public InteractionResult useOn(UseOnContext context) {
         // TODO: SHINING SQUARE? CUSTOM PARTICLE AND SOUND
-        UUID uuid = context.getItemInHand().get(ModDataComponents.MUSICIAN_UUID);
+        ItemStack stack = context.getItemInHand();
+        UUID uuid = getMusicianUUID(stack);
         if (!context.getLevel().isClientSide() && uuid != null) {
             ServerLevel level = (ServerLevel) context.getLevel();
             BlockPos block = context.getClickedPos();
             Mob mob = (Mob) level.getEntity(uuid);
-            context.getItemInHand().set(ModDataComponents.MUSICIAN_UUID, null);
+            setMusicianUUID(stack, null);
             if (mob != null && mob.distanceToSqr(block.getCenter()) < 150) {
                 mob.getNavigation().moveTo(block.getX(), block.getY(), block.getZ(), 1F);
                 level.addParticle(ParticleTypes.NOTE, block.getX(), block.getY() + 2.5, block.getZ(), 0F, 0.5F, 0F);
@@ -48,9 +53,9 @@ public class BatonItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack stack, Level level, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         if (Screen.hasShiftDown()) {
-            if (stack.is(ModItems.LEGENDARY_BATON)) {
+            if (stack.is(ModItems.LEGENDARY_BATON.get())) {
                 tooltipComponents.add(Component.translatable("tooltip.faunaandorchestra:legendary_baton"));
             } else {
                 tooltipComponents.add(Component.translatable("tooltip.faunaandorchestra:baton"));
@@ -58,6 +63,6 @@ public class BatonItem extends Item {
         } else {
             tooltipComponents.add(Component.translatable("tooltip.faunaandorchestra.shift"));
         }
-        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+        super.appendHoverText(stack, level, tooltipComponents, tooltipFlag);
     }
 }

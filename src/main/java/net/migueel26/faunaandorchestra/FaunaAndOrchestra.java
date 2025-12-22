@@ -13,6 +13,8 @@ import net.migueel26.faunaandorchestra.client.entity.projectile.WanderingNoteRen
 import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.effect.ModEffects;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
+import net.migueel26.faunaandorchestra.entity.custom.projectile.ThrownBoogieBomb;
+import net.migueel26.faunaandorchestra.entity.custom.projectile.ThrownDiscordBomb;
 import net.migueel26.faunaandorchestra.item.ModCreativeModeTabs;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.loot_tables.ModLootTables;
@@ -27,7 +29,13 @@ import net.migueel26.faunaandorchestra.worldgen.structures.ModStructures;
 import net.minecraft.client.particle.SculkChargePopParticle;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.minecraft.core.Position;
+import net.minecraft.core.dispenser.AbstractProjectileDispenseBehavior;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
@@ -66,7 +74,6 @@ public class FaunaAndOrchestra {
         ModCreativeModeTabs.register(modEventBus);
         ModEntities.register(modEventBus);
         ModSounds.register(modEventBus);
-        ModDataComponents.register(modEventBus);
         ModMenuTypes.register(modEventBus);
         ModParticleTypes.register(modEventBus);
         ModLootTables.register(modEventBus);
@@ -78,7 +85,23 @@ public class FaunaAndOrchestra {
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-
+        event.enqueueWork(() -> {
+            // REGISTERS
+            ModAdvancements.register();
+            // PROJECTILES
+            DispenserBlock.registerBehavior(ModItems.BOOGIE_BOMB.get(), new AbstractProjectileDispenseBehavior() {
+                @Override
+                protected Projectile getProjectile(Level level, Position position, ItemStack stack) {
+                    return new ThrownBoogieBomb(level, position.x(), position.y(), position.z());
+                }
+            });
+            DispenserBlock.registerBehavior(ModItems.DISCORD_BOMB.get(), new AbstractProjectileDispenseBehavior() {
+                @Override
+                protected Projectile getProjectile(Level level, Position position, ItemStack stack) {
+                    return new ThrownDiscordBomb(level, position.x(), position.y(), position.z());
+                }
+            });
+        });
     }
 
     // Add the example block item to the building blocks tab

@@ -20,7 +20,6 @@ public class ModAdvancements {
     public static final CustomSimpleTrigger TAME_MUSICIAN = new CustomSimpleTrigger(ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "tame_musician"));
     public static final CustomSimpleTrigger TAME_FROG = new CustomSimpleTrigger(ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "tame_frog"));
 
-    // Método para registrar todo manualmente
     public static void register() {
         CriteriaTriggers.register(FULL_ORCHESTRA);
         CriteriaTriggers.register(MEET_RINGTAILS);

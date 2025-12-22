@@ -1,6 +1,5 @@
 package net.migueel26.faunaandorchestra.item.custom;
 
-import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.entity.custom.ConductorEntity;
 import net.migueel26.faunaandorchestra.entity.custom.MusicalEntity;
@@ -8,11 +7,13 @@ import net.migueel26.faunaandorchestra.util.MusicUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.StringTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -20,7 +21,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
@@ -31,28 +31,64 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
+import net.minecraftforge.common.ForgeMod;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class BriefcaseItem extends Item {
     public BriefcaseItem(Properties properties) {
         super(properties);
     }
 
+    public void setOpened(ItemStack stack, boolean opened) {
+        stack.getOrCreateTag().putBoolean("Opened", opened);
+    }
+
+    public static boolean isOpened(ItemStack stack) {
+        return stack.hasTag() && stack.getTag().getBoolean("Opened");
+    }
+
+    public void setAnimalList(ItemStack stack, List<String> animals) {
+        CompoundTag nbt = stack.getOrCreateTag();
+        ListTag list = new ListTag();
+        for (String s : animals) {
+            list.add(StringTag.valueOf(s));
+        }
+        nbt.put("AnimalList", list);
+    }
+
+    public List<String> getAnimalList(ItemStack stack) {
+        List<String> animals = new ArrayList<>();
+        if (stack.hasTag() && stack.getTag().contains("AnimalList", Tag.TAG_LIST)) {
+            ListTag list = stack.getTag().getList("AnimalList", Tag.TAG_STRING);
+            for (int i = 0; i < list.size(); i++) {
+                animals.add(list.getString(i));
+            }
+        }
+        return animals;
+    }
+
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
         ItemStack briefcase = player.getItemInHand(usedHand);
+
+        if (!briefcase.hasTag()) {
+            setAnimalList(briefcase, new ArrayList<>());
+            setOpened(briefcase, false);
+        }
+
         if (this.calculateHitResult(player).getType() != HitResult.Type.ENTITY
-                  && (briefcase.get(ModDataComponents.BRIEFCASE_ANIMAL_LIST) == null
-                  || briefcase.get(ModDataComponents.BRIEFCASE_ANIMAL_LIST).size() < 6)) {
+                  && (getAnimalList(briefcase) == null
+                  || getAnimalList(briefcase).size() < 6)) {
+
+
 
             if (!level.isClientSide()) {
-                if (briefcase.getOrDefault(ModDataComponents.OPENED, false)) {
-                    briefcase.set(ModDataComponents.OPENED, false);
+                if (isOpened(briefcase)) {
+                    setOpened(briefcase, false);
                 } else {
-                    briefcase.set(ModDataComponents.OPENED, true);
+                    setOpened(briefcase, true);
                 }
             }
 
@@ -66,24 +102,24 @@ public class BriefcaseItem extends Item {
     public InteractionResult useOn(UseOnContext context) {
         // TODO: SHINING SQUARE? CUSTOM PARTICLE AND SOUND
             ItemStack briefcase = context.getItemInHand();
-            List<String> animals = briefcase.get(ModDataComponents.BRIEFCASE_ANIMAL_LIST);
-            if (animals != null && !animals.isEmpty() && !briefcase.getOrDefault(ModDataComponents.OPENED, false)) {
+            List<String> animals = getAnimalList(briefcase);
+            if (animals != null && !animals.isEmpty() && !isOpened(briefcase)) {
                 if (!context.getLevel().isClientSide()) {
-                    String animalString = animals.getFirst();
+                    String animalString = animals.get(0);
                     List<String> newAnimals = new ArrayList<>(animals);
-                    newAnimals.removeFirst();
+                    newAnimals.remove(0);
                     ServerLevel level = (ServerLevel) context.getLevel();
                     BlockPos block = context.getClickedPos().above();
-                    briefcase.set(ModDataComponents.BRIEFCASE_ANIMAL_LIST, newAnimals);
+                    setAnimalList(briefcase, newAnimals);
                     if (newAnimals.isEmpty()) {
-                        briefcase.set(ModDataComponents.OPENED, true);
+                        setOpened(briefcase, true);
                     }
                     spawnMusicalEntity(animalString, level, block, context.getPlayer());
                     level.sendParticles(ParticleTypes.PORTAL,
                             block.getX(), block.getY(), block.getZ(),
                             40, 0.5, 0.5, 0.5, 0F);
                 } else {
-                    context.getLevel().playSound(context.getPlayer(), context.getClickedPos(), SoundEvents.PLAYER_TELEPORT, SoundSource.BLOCKS);
+                    context.getLevel().playSound(context.getPlayer(), context.getClickedPos(), SoundEvents.ENDERMAN_TELEPORT, SoundSource.BLOCKS);
                 }
                 return InteractionResult.SUCCESS;
             } else {
@@ -143,8 +179,8 @@ public class BriefcaseItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        List<String> animals = stack.get(ModDataComponents.BRIEFCASE_ANIMAL_LIST);
+    public void appendHoverText(ItemStack stack, Level level, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+        List<String> animals = getAnimalList(stack);
         if (Screen.hasShiftDown()) {
             if (animals == null || animals.size() < 6) {
                 tooltipComponents.add(Component.translatable("tooltip.faunaandorchestra:briefcase_empty"));
@@ -160,7 +196,7 @@ public class BriefcaseItem extends Item {
                 addStoredAnimal(tooltipComponents, animalString);
             }
         }
-        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+        super.appendHoverText(stack, level, tooltipComponents, tooltipFlag);
     }
 
     private static void addStoredAnimal(List<Component> tooltipComponents, String animalString) {
@@ -190,7 +226,7 @@ public class BriefcaseItem extends Item {
 
     private HitResult calculateHitResult(Player player) {
         return ProjectileUtil.getHitResultOnViewVector(
-                player, entity -> !entity.isSpectator() && entity.isPickable(), player.blockInteractionRange()
+                player, entity -> !entity.isSpectator() && entity.isPickable(), player.getAttributeValue(ForgeMod.ENTITY_REACH.get())
         );
     }
 }

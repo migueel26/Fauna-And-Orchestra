@@ -1,6 +1,5 @@
 package net.migueel26.faunaandorchestra.item.custom;
 
-import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.mixins.client.accessors.ClientLevelAccessor;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.minecraft.ChatFormatting;
@@ -24,6 +23,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.minecraftforge.common.ForgeMod;
 
 import java.util.List;
 import java.util.UUID;
@@ -33,13 +33,29 @@ public class WhistleItem extends Item {
         super(properties);
     }
 
+    public void setMusicianUUID(ItemStack stack, UUID uuid) {
+        stack.getOrCreateTag().putUUID("MusicianUUID", uuid);
+    }
+
+    public static UUID getMusicianUUID(ItemStack stack) {
+        return stack.hasTag() ? stack.getTag().getUUID("MusicianUUID") : null;
+    }
+
+    public void setMusicianCustomName(ItemStack stack, String name) {
+        stack.getOrCreateTag().putString("MusicianCustomName", name);
+    }
+
+    public static String getMusicianCustomName(ItemStack stack) {
+        return stack.hasTag() ? stack.getTag().getString("MusicianCustomName") : null;
+    }
+
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
         ItemStack whistle = player.getItemInHand(usedHand);
         HitResult hitResult = calculateHitResult(player);
         if (hitResult instanceof EntityHitResult entityHitResult && entityHitResult.getEntity() instanceof TamableAnimal animal && animal.isTame()) {
-            whistle.set(ModDataComponents.MUSICIAN_UUID, animal.getUUID());
-            whistle.set(ModDataComponents.FAUNA_NAME, animal.hasCustomName() ? animal.getCustomName().getString() : animal.getName().getString());
+            setMusicianUUID(whistle, animal.getUUID());
+            setMusicianCustomName(whistle, animal.hasCustomName() ? animal.getCustomName().getString() : animal.getName().getString());
             level.playSound(player, player.blockPosition(), ModSounds.SUCCESSFUL_TAME.get(), SoundSource.NEUTRAL, 1.0f, 1.0f);
             return InteractionResultHolder.consume(whistle);
         }
@@ -53,13 +69,13 @@ public class WhistleItem extends Item {
         HitResult hitResult = calculateHitResult(player);
         Level level = context.getLevel();
         if (hitResult instanceof BlockHitResult blockHitResult) {
-            UUID uuid = whistle.get(ModDataComponents.MUSICIAN_UUID);
-            if (uuid != null) {
+            UUID uuid = getMusicianUUID(whistle);
+            if (uuid != null && player != null) {
                 if (!level.isClientSide()) {
                     Entity entity = ((ServerLevel) level).getEntity(uuid);
                     if (entity != null && entity.isAlive()) {
                         entity.moveTo(blockHitResult.getBlockPos().above().getCenter());
-                        whistle.hurtAndBreak(1, player, context.getHand() == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
+                        whistle.hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(context.getHand()));
                         player.getCooldowns().addCooldown(whistle.getItem(), 400);
                     } else {
                         player.displayClientMessage(Component.translatable("item.faunaandorchestra.whistle.far_message"), true);
@@ -79,8 +95,8 @@ public class WhistleItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        UUID uuid = stack.get(ModDataComponents.MUSICIAN_UUID);
+    public void appendHoverText(ItemStack stack, Level level, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+        UUID uuid = getMusicianUUID(stack);
         if (Screen.hasShiftDown()) {
             tooltipComponents.add(Component.translatable("item.faunaandorchestra.whistle.tooltip"));
         } else {
@@ -88,15 +104,15 @@ public class WhistleItem extends Item {
         }
 
         if (uuid != null) {
-            tooltipComponents.add(Component.translatable("item.faunaandorchestra.whistle.desc").append(stack.get(ModDataComponents.FAUNA_NAME))
+            tooltipComponents.add(Component.translatable("item.faunaandorchestra.whistle.desc").append(getMusicianCustomName(stack))
                     .withStyle(ChatFormatting.GRAY));
         }
-        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+        super.appendHoverText(stack, level, tooltipComponents, tooltipFlag);
     }
 
-    public HitResult calculateHitResult(Player player) {
+    private HitResult calculateHitResult(Player player) {
         return ProjectileUtil.getHitResultOnViewVector(
-                player, entity -> !entity.isSpectator() && entity.isPickable(), player.blockInteractionRange());
+                player, entity -> !entity.isSpectator() && entity.isPickable(), player.getAttributeValue(ForgeMod.ENTITY_REACH.get())
+        );
     }
-
 }
