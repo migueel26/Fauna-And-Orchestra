@@ -27,13 +27,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.animatable.GeoAnimatable;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.AnimatableManager;
-import software.bernie.geckolib.animation.AnimationController;
-import software.bernie.geckolib.animation.AnimationState;
-import software.bernie.geckolib.animation.PlayState;
-import software.bernie.geckolib.animation.RawAnimation;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.Optional;
@@ -59,7 +59,7 @@ public class PlayerCanonEntity extends AbstractCanonEntity {
         this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(5, new MeleeAttackGoal(this, 1.0, true) {
             @Override
-            protected void checkAndPerformAttack(LivingEntity target) {
+            protected void checkAndPerformAttack(LivingEntity target, double distance) {
                 if (this.canPerformAttack(target)) {
                     this.resetAttackCooldown();
                     this.mob.swing(InteractionHand.MAIN_HAND);
@@ -95,16 +95,16 @@ public class PlayerCanonEntity extends AbstractCanonEntity {
             this.jumping = false;
             this.navigation.stop();
             this.setTarget((LivingEntity)null);
-            return InteractionResult.SUCCESS_NO_ITEM_USED;
+            return InteractionResult.SUCCESS;
         } else {
             return interactionresult;
         }
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        super.defineSynchedData(builder);
-        builder.define(CONDUCTOR_UUID, Optional.empty());
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(CONDUCTOR_UUID, Optional.empty());
     }
 
     @Override
@@ -134,7 +134,7 @@ public class PlayerCanonEntity extends AbstractCanonEntity {
     public void tick() {
         if (level().isClientSide() && skin == null) {
             if (getOwner() != null) {
-                this.setSkin(((AbstractClientPlayer) getOwner()).getSkin());
+                this.setSkin(((AbstractClientPlayer) getOwner()).getSkinTextureLocation());
                 this.setCustomName(getOwner() == null ? getName() : getOwner().getDisplayName());
             }
         }

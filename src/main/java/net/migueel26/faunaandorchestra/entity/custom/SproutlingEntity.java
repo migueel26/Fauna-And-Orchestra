@@ -25,10 +25,14 @@ import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.*;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.ArrayList;
@@ -64,10 +68,10 @@ public class SproutlingEntity extends AgeableMob implements GeoEntity {
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        super.defineSynchedData(builder);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
 
-        builder.define(SINGING, false);
+        this.entityData.define(SINGING, false);
     }
 
     @Override
@@ -183,7 +187,7 @@ public class SproutlingEntity extends AgeableMob implements GeoEntity {
                     block.performBonemeal((ServerLevel) level(), random, blockPosition().below(), state);
                 }
 
-                level().playSound(null, getX(), getY(), getZ(), ModSounds.MAGIC_GROWTH.get(), SoundSource.NEUTRAL);
+                this.playSound(ModSounds.MAGIC_GROWTH.get());
                 ((ServerLevel) level()).sendParticles(ParticleTypes.HAPPY_VILLAGER,
                         this.getX(), this.getY(), this.getZ(),
                         60, 1.5, 1, 5, 0.3);

@@ -4,12 +4,12 @@ import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.block.custom.ComposerGravestoneBlock;
 import net.migueel26.faunaandorchestra.block.entity.ComposerGravestoneBlockEntity;
-import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.effect.ModEffects;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.entity.custom.boss.TheGreatComposer;
 import net.migueel26.faunaandorchestra.entity.custom.projectile.PhantomNoteProjectileEntity;
 import net.migueel26.faunaandorchestra.item.ModItems;
+import net.migueel26.faunaandorchestra.item.custom.BriefcaseItem;
 import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
 import net.migueel26.faunaandorchestra.screen.custom.ConductorMenu;
 import net.migueel26.faunaandorchestra.util.ModTags;
@@ -49,8 +49,15 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.network.NetworkHooks;
+import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nullable;
 import java.util.*;
 
 public abstract class ConductorEntity extends TamableAnimal {
@@ -70,17 +77,17 @@ public abstract class ConductorEntity extends TamableAnimal {
 
     // Client
     private boolean particlesActivated;
-    public ItemStackHandler inventory = new ItemStackHandler(1) {
+    public final ItemStackHandler inventory = new ItemStackHandler(1) {
         @Override
-        public boolean isItemValid(int slot, ItemStack stack) {
+        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
             return stack.is(ModTags.Items.SHEET_MUSIC);
         }
-
         @Override
-        protected int getStackLimit(int slot, ItemStack stack) {
+        public int getSlotLimit(int slot) {
             return 1;
         }
     };
+    private LazyOptional<IItemHandler> inventoryOptional = LazyOptional.of(() -> this.inventory);
     protected int ticksPlaying = 0;
     protected BlockPos composerGrave = null;
 
@@ -92,14 +99,14 @@ public abstract class ConductorEntity extends TamableAnimal {
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        super.defineSynchedData(builder);
-        builder.define(HOLDING_BATON, false);
-        builder.define(IS_LEGENDARY_BATON, false);
-        builder.define(IS_CONDUCTING, false);
-        builder.define(IS_READY, false);
-        builder.define(IS_MUSICAL, false);
-        builder.define(VOLUME, 1.0F);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(HOLDING_BATON, false);
+        this.entityData.define(IS_LEGENDARY_BATON, false);
+        this.entityData.define(IS_CONDUCTING, false);
+        this.entityData.define(IS_READY, false);
+        this.entityData.define(IS_MUSICAL, false);
+        this.entityData.define(VOLUME, 1.0F);
     }
 
     @Override
@@ -133,7 +140,7 @@ public abstract class ConductorEntity extends TamableAnimal {
         this.entityData.set(VOLUME, compound.getFloat("Volume"));
 
         if (compound.contains("SheetMusic")) {
-            ItemStack itemstack = ItemStack.parse(this.registryAccess(), compound.getCompound("SheetMusic")).orElse(ItemStack.EMPTY);
+            ItemStack itemstack = ItemStack.of(compound.getCompound("SheetMusic"));
             if (itemstack.is(ModTags.Items.SHEET_MUSIC)) {
                 this.inventory.setStackInSlot(0, itemstack);
             }
@@ -149,8 +156,11 @@ public abstract class ConductorEntity extends TamableAnimal {
         compound.putBoolean("IsReady", isConducting());
         compound.putFloat("Volume", currentVolume);
 
-        if (!this.inventory.getStackInSlot(0).isEmpty()) {
-            compound.put("SheetMusic", this.inventory.getStackInSlot(0).save(this.registryAccess()));
+        ItemStack stack = this.inventory.getStackInSlot(0);
+        if (!stack.isEmpty()) {
+            CompoundTag itemTag = new CompoundTag();
+            stack.save(itemTag);
+            compound.put("SheetMusic", itemTag);
         }
     }
 
@@ -193,8 +203,8 @@ public abstract class ConductorEntity extends TamableAnimal {
             }
 
             // WANDERING NOTES
-            List<Player> players = level().getEntitiesOfClass(Player.class, this.getAttackBoundingBox().inflate(15));
-            if (ticksPlaying % 30 == 0 && players.stream().anyMatch(player -> player.hasEffect(ModEffects.ABSOLUTE_HEARING))) {
+            List<Player> players = level().getEntitiesOfClass(Player.class, this.getBoundingBox().inflate(15));
+            if (ticksPlaying % 30 == 0 && players.stream().anyMatch(player -> player.hasEffect(ModEffects.ABSOLUTE_HEARING.get()))) {
                 tryToSummonWanderingNote();
             }
         }
@@ -216,7 +226,7 @@ public abstract class ConductorEntity extends TamableAnimal {
 
     private void tryToResurrect() {
         if (ticksPlaying >= 1 && ticksPlaying <= 5) {
-            Optional<BlockPos> candidate = BlockPos.findClosestMatch(blockPosition(), 7, 7, pos -> level().getBlockState(pos).is(ModBlocks.COMPOSER_GRAVESTONE) &&
+            Optional<BlockPos> candidate = BlockPos.findClosestMatch(blockPosition(), 7, 7, pos -> level().getBlockState(pos).is(ModBlocks.COMPOSER_GRAVESTONE.get()) &&
                     !level().getBlockState(pos).getValue(ComposerGravestoneBlock.OPENED));
             candidate.ifPresent(pos -> this.composerGrave = pos);
         }
@@ -233,7 +243,7 @@ public abstract class ConductorEntity extends TamableAnimal {
 
             if (ticksPlaying == 2500) {
                 BlockState graveState = level().getBlockState(composerGrave);
-                if (graveState.is(ModBlocks.COMPOSER_GRAVESTONE) && !graveState.getValue(ComposerGravestoneBlock.OPENED)
+                if (graveState.is(ModBlocks.COMPOSER_GRAVESTONE.get()) && !graveState.getValue(ComposerGravestoneBlock.OPENED)
                         && level().getBlockEntity(composerGrave) instanceof ComposerGravestoneBlockEntity composerGravestoneBE) {
                     startResurrection(composerGravestoneBE, graveState);
                 }
@@ -350,18 +360,18 @@ public abstract class ConductorEntity extends TamableAnimal {
         }
     }
 
-    private void applyLegendaryOrchestraEffect(ServerLevel serverLevel, Holder<MobEffect> luck, int amplifier) {
+    private void applyLegendaryOrchestraEffect(ServerLevel serverLevel, MobEffect effect, int amplifier) {
         List<ServerPlayer> players = serverLevel.getPlayers(
                 player -> player.distanceTo(this) <= 50
         );
         for (Player player : players) {
-            player.addEffect(new MobEffectInstance(luck, 100, amplifier, true, true));
+            player.addEffect(new MobEffectInstance(effect, 100, amplifier, true, true));
         }
     }
 
     @Override
-    public InteractionResult mobInteract(Player player, InteractionHand hand) {
-        ItemStack itemStack = player.getItemInHand(hand);
+    public @NotNull InteractionResult mobInteract(Player player, InteractionHand hand) {
+        ItemStack stack = player.getItemInHand(hand);
         if (isTame()) {
             if (hand == InteractionHand.MAIN_HAND && isHoldingBaton() && !player.isSecondaryUseActive()
                     && !this.level().isClientSide()) {
@@ -369,7 +379,7 @@ public abstract class ConductorEntity extends TamableAnimal {
                 this.openCustomMenu(player);
                 return InteractionResult.SUCCESS;
 
-            } else if (itemStack.isEmpty() && isHoldingBaton() && player.isSecondaryUseActive()) {
+            } else if (stack.isEmpty() && isHoldingBaton() && player.isSecondaryUseActive()) {
 
                 Item item = isHoldingLegendaryBaton() ? ModItems.LEGENDARY_BATON.get() : ModItems.BATON.get();
                 player.setItemInHand(hand, new ItemStack(item, 1));
@@ -378,7 +388,7 @@ public abstract class ConductorEntity extends TamableAnimal {
                 setOrderedToSit(false);
                 return InteractionResult.SUCCESS;
 
-            } else if (itemStack.is(ModItems.BATON) && !isHoldingBaton()) {
+            } else if (stack.is(ModItems.BATON.get()) && !isHoldingBaton()) {
 
                 level().addParticle(ParticleTypes.NOTE, this.getX(), this.getY() + 2.5, this.getZ(), 0F, 0.5F, 0F);
                 player.setItemInHand(hand, ItemStack.EMPTY);
@@ -387,7 +397,7 @@ public abstract class ConductorEntity extends TamableAnimal {
                 setOrderedToSit(true);
                 return InteractionResult.CONSUME;
 
-            } else if (itemStack.is(ModItems.LEGENDARY_BATON) && !isHoldingBaton()) {
+            } else if (stack.is(ModItems.LEGENDARY_BATON.get()) && !isHoldingBaton()) {
 
                 level().addParticle(ParticleTypes.NOTE, this.getX(), this.getY() + 2.5, this.getZ(), 0F, 0.5F, 0F);
                 player.setItemInHand(hand, ItemStack.EMPTY);
@@ -396,24 +406,24 @@ public abstract class ConductorEntity extends TamableAnimal {
                 setOrderedToSit(true);
 
 
-            } else if (itemStack.is(ModItems.BRIEFCASE) && itemStack.getOrDefault(ModDataComponents.OPENED, false)
+            } else if (stack.is(ModItems.BRIEFCASE.get()) && !BriefcaseItem.isOpened(stack)
                     && getOwnerUUID().equals(player.getUUID())) {
-                List<String> animals = itemStack.get(ModDataComponents.BRIEFCASE_ANIMAL_LIST);
+                List<String> animals = BriefcaseItem.getAnimalList(stack);
 
-                if (animals == null) {
+                if (!stack.hasTag()) {
                     // If it's not initialized, we store it
                     animals = new ArrayList<>(6);
-                    itemStack.set(ModDataComponents.BRIEFCASE_ANIMAL_LIST, animals);
+                    BriefcaseItem.setAnimalList(stack, animals);
                 }
 
                 if (animals.size() < 6) {
                     if (!level().isClientSide()) {
                         List<String> newAnimals = new ArrayList<>(animals);
                         newAnimals.add(MusicUtil.musicalAnimalToString(this));
-                        itemStack.set(ModDataComponents.BRIEFCASE_ANIMAL_LIST, newAnimals);
+                        BriefcaseItem.setAnimalList(stack, newAnimals);
 
                         if (newAnimals.size() == 6) {
-                            itemStack.set(ModDataComponents.OPENED, false);
+                            BriefcaseItem.setOpened(stack, false);
                         }
 
                         ((ServerLevel) level()).sendParticles(ParticleTypes.PORTAL,
@@ -421,7 +431,7 @@ public abstract class ConductorEntity extends TamableAnimal {
                                 60, 0.5, 0.5, 0.5, 0F);
                         this.discard();
                     } else {
-                        level().playSound(player, this.blockPosition(), SoundEvents.PLAYER_TELEPORT, SoundSource.BLOCKS);
+                        level().playSound(player, this.blockPosition(), SoundEvents.ENDERMAN_TELEPORT, SoundSource.BLOCKS);
                     }
                     return InteractionResult.SUCCESS;
                 } else {
@@ -442,10 +452,10 @@ public abstract class ConductorEntity extends TamableAnimal {
                 if (isHoldingLegendaryBaton()) {
                     setLegendaryBaton(false);
                     this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(),
-                            new ItemStack((Holder<Item>) ModItems.LEGENDARY_BATON, 1)));
+                            new ItemStack(ModItems.LEGENDARY_BATON.get(), 1)));
                 } else {
                     this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(),
-                            new ItemStack((Holder<Item>) ModItems.BATON, 1)));
+                            new ItemStack(ModItems.BATON.get(), 1)));
                 }
 
             }
@@ -455,17 +465,17 @@ public abstract class ConductorEntity extends TamableAnimal {
     }
 
     private void openCustomMenu(Player player) {
-        if (!this.level().isClientSide()) {
-            ((ServerPlayer) player).openMenu(new SimpleMenuProvider((id, playerInventory, playerEntity) ->
-                    new ConductorMenu(id, playerInventory, this), this.getDisplayName()), buf -> {
-                buf.writeUUID(getUUID());
+        if (!this.level().isClientSide() && player instanceof ServerPlayer serverPlayer) {
+
+            SimpleMenuProvider menuProvider = new SimpleMenuProvider(
+                    (id, playerInventory, playerEntity) -> new ConductorMenu(id, playerInventory, this),
+                    this.getDisplayName()
+            );
+
+            NetworkHooks.openScreen(serverPlayer, menuProvider, buf -> {
+                buf.writeUUID(this.getUUID());
             });
         }
-    }
-
-    @Override
-    public boolean shouldTryTeleportToOwner() {
-        return false;
     }
 
     private float getYRot(Direction facing) {
@@ -578,5 +588,19 @@ public abstract class ConductorEntity extends TamableAnimal {
 
     public void setLegendaryBaton(boolean legendaryBaton) {
         this.entityData.set(IS_LEGENDARY_BATON, legendaryBaton);
+    }
+
+    @Override
+    public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
+        if (cap == ForgeCapabilities.ITEM_HANDLER) {
+            return inventoryOptional.cast();
+        }
+        return super.getCapability(cap, side);
+    }
+
+    @Override
+    public void invalidateCaps() {
+        super.invalidateCaps();
+        inventoryOptional.invalidate();
     }
 }

@@ -13,8 +13,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.providers.EnchantmentProvider;
-import net.minecraft.world.item.trading.ItemCost;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -50,11 +48,11 @@ public class KoalaTrades {
                     },
                     4,
                     new VillagerTrades.ItemListing[]{
-                        new ItemsForEmeralds(ModBlocks.GINGKO_BILOBA_SAPLING.asItem(), 5, 1, 5, 1)
+                        new ItemsForEmeralds(ModBlocks.GINGKO_BILOBA_SAPLING.get(), 5, 1, 5, 1)
                     },
                     5,
                     new VillagerTrades.ItemListing[]{
-                        new ItemsForEmeralds(ModItems.GLOVE.get().getDefaultInstance(), 3, 1, 5, 1, 0.05f, Optional.empty(), ModItems.BOOGIE_FRUIT.get())
+                            new ItemsForEmeralds(ModItems.GLOVE.get().getDefaultInstance(), 3, 1, 5, 1, 0.05f, ModItems.BOOGIE_FRUIT.get())
                     }
             )
     );
@@ -64,13 +62,12 @@ public class KoalaTrades {
     }
 
     static class ItemsForEmeralds implements VillagerTrades.ItemListing {
-        private Item coin = Items.EMERALD;
+        private Item coin = Items.EMERALD; // Moneda por defecto
         private final ItemStack itemStack;
         private final int emeraldCost;
         private final int maxUses;
         private final int villagerXp;
         private final float priceMultiplier;
-        private final Optional<ResourceKey<EnchantmentProvider>> enchantmentProvider;
 
         public ItemsForEmeralds(Block block, int emeraldCost, int numberOfItems, int maxUses, int villagerXp) {
             this(new ItemStack(block), emeraldCost, numberOfItems, maxUses, villagerXp);
@@ -93,23 +90,12 @@ public class KoalaTrades {
         }
 
         public ItemsForEmeralds(
-                Item item, int emeraldCost, int numberOfItems, int maxUses, int villagerXp, float priceMultiplier, ResourceKey<EnchantmentProvider> enchantmentProvider
-        ) {
-            this(new ItemStack(item), emeraldCost, numberOfItems, maxUses, villagerXp, priceMultiplier, Optional.of(enchantmentProvider));
-        }
-
-        public ItemsForEmeralds(ItemStack itemStack, int emeraldCost, int numberOfItems, int maxUses, int villagerXp, float priceMultiplier) {
-            this(itemStack, emeraldCost, numberOfItems, maxUses, villagerXp, priceMultiplier, Optional.empty());
-        }
-
-        public ItemsForEmeralds(
                 ItemStack itemStack,
                 int emeraldCost,
                 int numberOfItems,
                 int maxUses,
                 int villagerXp,
-                float priceMultiplier,
-                Optional<ResourceKey<EnchantmentProvider>> enchantmentProvider
+                float priceMultiplier
         ) {
             this.itemStack = itemStack;
             this.emeraldCost = emeraldCost;
@@ -117,7 +103,6 @@ public class KoalaTrades {
             this.maxUses = maxUses;
             this.villagerXp = villagerXp;
             this.priceMultiplier = priceMultiplier;
-            this.enchantmentProvider = enchantmentProvider;
         }
 
         public ItemsForEmeralds(
@@ -127,7 +112,6 @@ public class KoalaTrades {
                 int maxUses,
                 int villagerXp,
                 float priceMultiplier,
-                Optional<ResourceKey<EnchantmentProvider>> enchantmentProvider,
                 Item coin
         ) {
             this.itemStack = itemStack;
@@ -136,27 +120,18 @@ public class KoalaTrades {
             this.maxUses = maxUses;
             this.villagerXp = villagerXp;
             this.priceMultiplier = priceMultiplier;
-            this.enchantmentProvider = enchantmentProvider;
             this.coin = coin;
         }
 
         @Override
         public MerchantOffer getOffer(Entity trader, RandomSource random) {
-            ItemStack itemstack = this.itemStack.copy();
-            Level level = trader.level();
-            this.enchantmentProvider
-                    .ifPresent(
-                            p_348340_ -> EnchantmentHelper.enchantItemFromProvider(
-                                    itemstack,
-                                    level.registryAccess(),
-                                    (ResourceKey<EnchantmentProvider>)p_348340_,
-                                    level.getCurrentDifficultyAt(trader.blockPosition()),
-                                    random
-                            )
-                    );
-            return new MerchantOffer(new ItemCost(coin, this.emeraldCost), itemstack, this.maxUses, this.villagerXp, this.priceMultiplier);
+            return new MerchantOffer(
+                    new ItemStack(this.coin, this.emeraldCost),
+                    this.itemStack.copy(),
+                    this.maxUses,
+                    this.villagerXp,
+                    this.priceMultiplier
+            );
         }
     }
-
-
 }

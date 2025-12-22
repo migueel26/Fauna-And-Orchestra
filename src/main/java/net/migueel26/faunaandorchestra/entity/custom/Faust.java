@@ -39,6 +39,13 @@ import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.animation.AnimationState;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.*;
@@ -73,11 +80,11 @@ public class Faust extends TravellingMusician implements Npc, GeoEntity, Talkabl
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        super.defineSynchedData(builder);
-        builder.define(DIALOGUE_TIMER, 0);
-        builder.define(CONFIDENCE, 0);
-        builder.define(GOOD_MORNING, true);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(DIALOGUE_TIMER, 0);
+        this.entityData.define(CONFIDENCE, 0);
+        this.entityData.define(GOOD_MORNING, true);
     }
 
     @Override
@@ -146,8 +153,8 @@ public class Faust extends TravellingMusician implements Npc, GeoEntity, Talkabl
     }
 
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
-        return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_146746_, DifficultyInstance p_146747_, MobSpawnType p_146748_, @Nullable SpawnGroupData p_146749_, @Nullable CompoundTag p_146750_) {
+        return super.finalizeSpawn(p_146746_, p_146747_, p_146748_, p_146749_, p_146750_);
     }
 
     @Override
@@ -204,7 +211,7 @@ public class Faust extends TravellingMusician implements Npc, GeoEntity, Talkabl
     }
 
     @Override
-    public boolean canBeLeashed() {
+    public boolean canBeLeashed(Player p_21418_) {
         return false;
     }
 

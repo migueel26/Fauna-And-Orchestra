@@ -4,20 +4,22 @@ import com.mojang.blaze3d.platform.NativeImage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.resources.DefaultPlayerSkin;
-import net.minecraft.client.resources.PlayerSkin;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.util.FastColor;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
-import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Optional;
 
 public abstract class AbstractCanonEntity extends TamableAnimal implements GeoEntity {
     // Client Only
@@ -27,53 +29,62 @@ public abstract class AbstractCanonEntity extends TamableAnimal implements GeoEn
         this.skin = null;
     }
 
-    public void setSkin(PlayerSkin skin) {
+    public void setSkin(ResourceLocation skinLocation) {
         ResourceLocation convertedSkin = null;
-        if (skin != null) {
-            ResourceManager resourceManager = Minecraft.getInstance().getResourceManager();
-            ResourceLocation baseSkin = skin.texture();
 
-            NativeImage gray = null;
-            BufferedImage master;
+        if (skinLocation != null) {
+            Minecraft mc = Minecraft.getInstance();
+            NativeImage master = null;
 
             try {
-                if (resourceManager.getResource(baseSkin).isPresent()) {
-                    master = ImageIO.read(resourceManager.getResource(baseSkin).get().open());
+                Optional<Resource> resource = mc.getResourceManager().getResource(skinLocation);
+                InputStream stream;
+
+                if (resource.isPresent()) {
+                    stream = resource.get().open();
                 } else {
-                    master = ImageIO.read(resourceManager.getResource(DefaultPlayerSkin.getDefaultTexture()).get().open());
+                    ResourceLocation defaultLoc = DefaultPlayerSkin.getDefaultSkin(mc.getUser().getGameProfile().getId());
+                    stream = mc.getResourceManager().getResource(defaultLoc).get().open();
                 }
 
-                gray = new NativeImage(master.getWidth(), master.getHeight(), true);
+                master = NativeImage.read(stream);
+                stream.close();
 
-                int rgb = 0, r = 0, g = 0, b = 0, a = 0;
+                NativeImage gray = new NativeImage(master.getWidth(), master.getHeight(), true);
+
                 for (int y = 0; y < master.getHeight(); y++) {
                     for (int x = 0; x < master.getWidth(); x++) {
-                        rgb = (int) (master.getRGB(x, y));
-                        a = ((rgb >> 24) & 0xFF);
-                        r = ((rgb >> 16) & 0xFF);
-                        g = ((rgb >> 8) & 0xFF);
-                        b = (rgb & 0xFF);
+                        int pixel = master.getPixelRGBA(x, y);
 
-                        if (a == 0) continue;
+                        int a = (pixel >> 24) & 0xFF;
+                        int b = (pixel >> 16) & 0xFF;
+                        int g = (pixel >> 8) & 0xFF;
+                        int r = (pixel & 0xFF);
 
-                        rgb = (int) ((r + g + b) / 3);
-                        rgb = (255 << 24) | (rgb << 16) | (rgb << 8) | rgb;
+                        if (a == 0) {
+                            gray.setPixelRGBA(x, y, 0);
+                            continue;
+                        }
 
-                        gray.setPixelRGBA(x, y, rgb);
+                        int avg = (r + g + b) / 3;
+
+                        int grayPixel = FastColor.ABGR32.color(a, avg, avg, avg);
+
+                        gray.setPixelRGBA(x, y, grayPixel);
                     }
                 }
 
+                master.close();
 
-            } catch (IOException ignored) {
-            }
+                if (gray != null) {
+                    DynamicTexture dynTex = new DynamicTexture(gray);
+                    String dynamicId = "ghost_" + skinLocation.getPath().replace('/', '_');
 
-            if (gray != null) {
-                DynamicTexture dynTex = new DynamicTexture(gray);
+                    convertedSkin = mc.getTextureManager().register(dynamicId, dynTex);
+                }
 
-                convertedSkin = Minecraft.getInstance()
-                        .getTextureManager()
-                        .register("anya_ghost", dynTex);
-
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
 

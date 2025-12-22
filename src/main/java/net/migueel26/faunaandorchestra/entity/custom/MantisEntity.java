@@ -2,6 +2,7 @@ package net.migueel26.faunaandorchestra.entity.custom;
 
 import net.migueel26.faunaandorchestra.entity.custom.variants.MantisVariant;
 import net.migueel26.faunaandorchestra.entity.goals.MusicalEntityPlayingInstrumentGoal;
+import net.migueel26.faunaandorchestra.entity.goals.TamableAnimalPanicGoal;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.minecraft.Util;
@@ -38,13 +39,16 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.registries.DeferredItem;
+import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.*;
-import software.bernie.geckolib.animation.AnimationState;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.UUID;
@@ -60,7 +64,7 @@ public class MantisEntity extends MusicalEntity implements GeoEntity, NeutralMob
     private static final EntityDataAccessor<Integer> REMAINING_ANGER_TIME = SynchedEntityData.defineId(MantisEntity.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(MantisEntity.class, EntityDataSerializers.INT);
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
-    private final AnimationController MANTIS_CONTROLLER =
+    private final AnimationController<MantisEntity> MANTIS_CONTROLLER =
             new AnimationController<>(this, "mantis_controller", 5, this::mantisState)
                     .triggerableAnim("attack", ATTACK);
     @Nullable
@@ -73,7 +77,7 @@ public class MantisEntity extends MusicalEntity implements GeoEntity, NeutralMob
     }
 
     @Override
-    public DeferredItem<Item> getInstrument() {
+    public RegistryObject<Item> getInstrument() {
         return ModItems.VIOLIN;
     }
 
@@ -95,7 +99,7 @@ public class MantisEntity extends MusicalEntity implements GeoEntity, NeutralMob
     private void addOverridenGoals() {
         this.goalSelector.addGoal(5, new MeleeAttackGoal(this, 1.25D, false) {
             @Override
-            protected void checkAndPerformAttack(LivingEntity target) {
+            protected void checkAndPerformAttack(LivingEntity target, double distance) {
                 if (this.canPerformAttack(target)) {
                     ((MantisEntity) this.mob).attack();
                     this.resetAttackCooldown();
@@ -116,7 +120,7 @@ public class MantisEntity extends MusicalEntity implements GeoEntity, NeutralMob
             @Override
             public void start() {
                 super.start();
-                this.mob.makeSound(ModSounds.MANTIS_ANGRY.get());
+                this.mob.playSound(ModSounds.MANTIS_ANGRY.get());
             }
         });
     }
@@ -139,10 +143,10 @@ public class MantisEntity extends MusicalEntity implements GeoEntity, NeutralMob
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        super.defineSynchedData(builder);
-        builder.define(REMAINING_ANGER_TIME, 0);
-        builder.define(VARIANT, 0);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(REMAINING_ANGER_TIME, 0);
+        this.entityData.define(VARIANT, 0);
     }
 
     @Override
@@ -158,7 +162,7 @@ public class MantisEntity extends MusicalEntity implements GeoEntity, NeutralMob
     }
 
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData, CompoundTag tag) {
         MantisVariant variant;
         if (spawnType.equals(MobSpawnType.SPAWN_EGG)) {
             // If spawn egg, random
@@ -174,7 +178,7 @@ public class MantisEntity extends MusicalEntity implements GeoEntity, NeutralMob
         }
 
         this.setVariant(variant);
-        return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
+        return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData, tag);
     }
 
     public static AttributeSupplier.Builder createAttributes() {

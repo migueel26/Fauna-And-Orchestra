@@ -33,14 +33,16 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.common.Tags;
 import org.jetbrains.annotations.Nullable;
 import oshi.util.tuples.Pair;
-import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.*;
-import software.bernie.geckolib.animation.AnimationState;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.List;
@@ -71,19 +73,19 @@ public class WiseTree extends TamableAnimal implements GeoEntity, TalkableEntity
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        builder.define(DIALOGUE_TIMER, 0);
-        builder.define(GOOD_MORNING, true);
-        builder.define(LIFE_STAGE,1);
-        builder.define(LIFE_TIME, 0);
-        builder.define(TIME_WET, 0);
-        builder.define(FRUIT, false);
+    protected void defineSynchedData() {
+        this.entityData.define(DIALOGUE_TIMER, 0);
+        this.entityData.define(GOOD_MORNING, true);
+        this.entityData.define(LIFE_STAGE,1);
+        this.entityData.define(LIFE_TIME, 0);
+        this.entityData.define(TIME_WET, 0);
+        this.entityData.define(FRUIT, false);
 
-        super.defineSynchedData(builder);
+        super.defineSynchedData();
     }
 
     @Override
-    protected EntityDimensions getDefaultDimensions(Pose pose) {
+    public EntityDimensions getDimensions(Pose pose) {
         if (getLifeStage() == 1) {
             return EntityDimensions.scalable(0.6f, 1.0f);
         } else if (getLifeStage() == 2) {
@@ -96,7 +98,7 @@ public class WiseTree extends TamableAnimal implements GeoEntity, TalkableEntity
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack stack = player.getMainHandItem();
-        if (stack.is(ModItems.GLOVE)) {
+        if (stack.is(ModItems.GLOVE.get())) {
             setLifeStage(3);
             refreshDimensions();
         } else if (getLifeStage() == 3 && getDialogueTimer() == 0) {

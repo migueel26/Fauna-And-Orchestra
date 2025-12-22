@@ -22,7 +22,7 @@ public class BatonItem extends Item {
         super(properties);
     }
 
-    public void setMusicianUUID(ItemStack stack, UUID uuid) {
+    public static void setMusicianUUID(ItemStack stack, UUID uuid) {
         stack.getOrCreateTag().putUUID("MusicianUUID", uuid);
     }
 

@@ -2,6 +2,8 @@ package net.migueel26.faunaandorchestra.entity.custom;
 
 import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.item.ModItems;
+import net.migueel26.faunaandorchestra.item.custom.BatonItem;
+import net.migueel26.faunaandorchestra.item.custom.BriefcaseItem;
 import net.migueel26.faunaandorchestra.mixins.client.accessors.ClientLevelAccessor;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.migueel26.faunaandorchestra.util.ModTags;
@@ -26,6 +28,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.Nullable;
 
@@ -52,11 +55,11 @@ public abstract class MusicalEntity extends TamableAnimal {
     public abstract RegistryObject<Item> getInstrument();
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        builder.define(HOLDING_INSTRUMENT, false);
-        builder.define(IS_MUSICAL, false);
-        builder.define(CONDUCTOR_ID, Optional.empty());
-        super.defineSynchedData(builder);
+    protected void defineSynchedData() {
+        this.entityData.define(HOLDING_INSTRUMENT, false);
+        this.entityData.define(IS_MUSICAL, false);
+        this.entityData.define(CONDUCTOR_ID, Optional.empty());
+        super.defineSynchedData();
     }
 
     @Override
@@ -95,7 +98,7 @@ public abstract class MusicalEntity extends TamableAnimal {
                 setHoldingInstrument(false);
                 setInSittingPose(false);
                 this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(),
-                        new ItemStack((Holder<Item>) instrument, 1)));
+                        new ItemStack(instrument.get(), 1)));
             }
         }
         return super.hurt(source, amount);
@@ -103,14 +106,14 @@ public abstract class MusicalEntity extends TamableAnimal {
 
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
-        ItemStack itemStack = player.getItemInHand(hand);
+        ItemStack stack = player.getItemInHand(hand);
         if (isTame() && getOwnerUUID().equals(player.getUUID())) {
-            if (itemStack.is(ModTags.Items.IS_BATON) && !isPlayingInstrument() && itemStack.get(ModDataComponents.MUSICIAN_UUID) == null) {
+            if (stack.is(ModTags.Items.IS_BATON) && !isPlayingInstrument() && stack.hasTag() && BatonItem.getMusicianUUID(stack) == null) {
 
-                itemStack.set(ModDataComponents.MUSICIAN_UUID, this.uuid);
+                BatonItem.setMusicianUUID(stack, this.uuid);
                 return InteractionResult.SUCCESS;
 
-            } else if (itemStack.is(instrument) && !isHoldingInstrument()) {
+            } else if (stack.is(instrument.get()) && !isHoldingInstrument()) {
 
                 setHoldingInstrument(true);
                 player.setItemInHand(hand, ItemStack.EMPTY);
@@ -118,31 +121,31 @@ public abstract class MusicalEntity extends TamableAnimal {
                 setOrderedToSit(true);
                 return InteractionResult.CONSUME;
 
-            } else if (itemStack.isEmpty() && isHoldingInstrument()) {
+            } else if (stack.isEmpty() && isHoldingInstrument()) {
 
                 setHoldingInstrument(false);
                 player.setItemInHand(hand, new ItemStack(instrument.get(), 1));
                 setOrderedToSit(false);
                 return InteractionResult.SUCCESS;
 
-            } else if (itemStack.is(ModItems.BRIEFCASE) && itemStack.getOrDefault(ModDataComponents.OPENED, false)
+            } else if (stack.is(ModItems.BRIEFCASE.get()) && !BriefcaseItem.isOpened(stack)
                         && getOwnerUUID().equals(player.getUUID())) {
-                List<String> animals = itemStack.get(ModDataComponents.BRIEFCASE_ANIMAL_LIST);
+                List<String> animals = BriefcaseItem.getAnimalList(stack);
 
-                if (animals == null) {
+                if (!stack.hasTag()) {
                     // If it's not initialized, we store it
                     animals = new ArrayList<>(6);
-                    itemStack.set(ModDataComponents.BRIEFCASE_ANIMAL_LIST, animals);
+                    BriefcaseItem.setAnimalList(stack, animals);
                 }
 
                 if (animals.size() < 6) {
                     if (!level().isClientSide()) {
                         List<String> newAnimals = new ArrayList<>(animals);
                         newAnimals.add(MusicUtil.musicalAnimalToString(this));
-                        itemStack.set(ModDataComponents.BRIEFCASE_ANIMAL_LIST, newAnimals);
+                        BriefcaseItem.setAnimalList(stack, newAnimals);
 
                         if (newAnimals.size() == 6) {
-                            itemStack.set(ModDataComponents.OPENED, false);
+                            BriefcaseItem.setOpened(stack, false);
                         }
 
                         ((ServerLevel) level()).sendParticles(ParticleTypes.PORTAL,
@@ -155,7 +158,7 @@ public abstract class MusicalEntity extends TamableAnimal {
 
                         this.discard();
                     } else {
-                        level().playSound(player, this.blockPosition(), SoundEvents.PLAYER_TELEPORT, SoundSource.BLOCKS);
+                        level().playSound(player, this.blockPosition(), SoundEvents.ENDERMAN_TELEPORT, SoundSource.BLOCKS);
                     }
                     return InteractionResult.SUCCESS;
                 } else {
@@ -197,7 +200,7 @@ public abstract class MusicalEntity extends TamableAnimal {
     }
 
     public void tryToTame(Player player) {
-        if (level().getRandom().nextInt(3) == 0 && !net.neoforged.neoforge.event.EventHooks.onAnimalTame(this, player)) {
+        if (level().getRandom().nextInt(3) == 0 && !ForgeEventFactory.onAnimalTame(this, player)) {
             this.tame(player);
             this.navigation.stop();
             this.setTarget(null);
@@ -237,11 +240,6 @@ public abstract class MusicalEntity extends TamableAnimal {
         } else {
             return conductorUUID == null ? null : (ConductorEntity) ((ServerLevel) level()).getEntity(conductorUUID);
         }
-    }
-
-    @Override
-    public boolean shouldTryTeleportToOwner() {
-        return false;
     }
 
     public void setConductor(ConductorEntity conductor) {

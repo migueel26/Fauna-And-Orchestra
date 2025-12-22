@@ -1,6 +1,7 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
 import net.migueel26.faunaandorchestra.entity.goals.MusicalEntityPlayingInstrumentGoal;
+import net.migueel26.faunaandorchestra.entity.goals.TamableAnimalPanicGoal;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -27,15 +28,19 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.registries.DeferredItem;
+import net.minecraftforge.registries.RegistryObject;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.*;
-import software.bernie.geckolib.animation.AnimationState;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class MacawEntity extends MusicalEntity implements GeoEntity, FlyingAnimal {
@@ -57,20 +62,20 @@ public class MacawEntity extends MusicalEntity implements GeoEntity, FlyingAnima
     public MacawEntity(EntityType<? extends TamableAnimal> entityType, Level level) {
         super(entityType, level);
         this.moveControl = new FlyingMoveControl(this, 10, false);
-        this.setPathfindingMalus(PathType.DANGER_FIRE, -1.0F);
-        this.setPathfindingMalus(PathType.DAMAGE_FIRE, -1.0F);
+        this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, -1.0F);
+        this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, -1.0F);
 
         addOverridenGoals();
     }
 
     @Override
-    public DeferredItem<Item> getInstrument() {
+    public RegistryObject<Item> getInstrument() {
         return ModItems.DOUBLE_BASS;
     }
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new TamableAnimal.TamableAnimalPanicGoal(1.25D));
+        this.goalSelector.addGoal(0, new TamableAnimalPanicGoal(1.25D));
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new MusicalEntityPlayingInstrumentGoal(this));
         // LookAtPlayerGoal (2)
@@ -166,11 +171,11 @@ public class MacawEntity extends MusicalEntity implements GeoEntity, FlyingAnima
     }
 
     @Override
-    protected EntityDimensions getDefaultDimensions(Pose pose) {
+    public @NotNull EntityDimensions getDimensions(@NotNull Pose pose) {
         if (isHoldingInstrument()) {
-            return super.getDefaultDimensions(pose).scale(1.5F, 2.75F);
+            return super.getDimensions(pose).scale(1.5F, 2.75F);
         } else {
-            return super.getDefaultDimensions(pose);
+            return super.getDimensions(pose);
         }
     }
 

@@ -40,11 +40,14 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
-import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.*;
-import software.bernie.geckolib.animation.AnimationState;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.ArrayList;
@@ -81,10 +84,10 @@ public class KoalaEntity extends AgeableMob implements Merchant, Npc, GeoEntity 
 
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        builder.define(SITTING, false);
-        builder.define(SLEEPING, false);
-        super.defineSynchedData(builder);
+    protected void defineSynchedData() {
+        this.entityData.define(SITTING, false);
+        this.entityData.define(SLEEPING, false);
+        super.defineSynchedData();
     }
 
     @Override
@@ -138,12 +141,12 @@ public class KoalaEntity extends AgeableMob implements Merchant, Npc, GeoEntity 
     }
 
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficultyInstance, MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag compoundTag) {
         float prob = level.getRandom().nextFloat();
         if (prob > 0.5) {
             setSleeping(true);
         }
-        return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
+        return super.finalizeSpawn(level, difficultyInstance, mobSpawnType, spawnGroupData, compoundTag);
     }
 
     private <E extends GeoAnimatable> PlayState koalaState(AnimationState<E> state) {
@@ -262,7 +265,7 @@ public class KoalaEntity extends AgeableMob implements Merchant, Npc, GeoEntity 
             if (!this.level().isClientSide) {
                 if (this.getOffers().isEmpty()) {
                     return InteractionResult.CONSUME;
-                } else if (player.getInventory().contains(item ->item.is(ModItems.BOOGIE_FRUIT))
+                } else if (player.getInventory().hasAnyMatching(item ->item.is(ModItems.BOOGIE_FRUIT.get()))
                     && offers != null && !offers.contains(KoalaTrades.WANDERING_KOALA_TRADES.get(5)[0].getOffer(player, random))) {
                    offers.add(KoalaTrades.WANDERING_KOALA_TRADES.get(5)[0].getOffer(player, random));
                 }
@@ -306,25 +309,24 @@ public class KoalaEntity extends AgeableMob implements Merchant, Npc, GeoEntity 
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
+
+        // CAMBIO: Carga directa usando el constructor que acepta CompoundTag
         if (compound.contains("Offers")) {
-            MerchantOffers.CODEC
-                    .parse(this.registryAccess().createSerializationContext(NbtOps.INSTANCE), compound.get("Offers"))
-                    .resultOrPartial(Util.prefix("Failed to load offers: ", LOGGER::warn))
-                    .ifPresent(p_323775_ -> this.offers = p_323775_);
+            this.offers = new MerchantOffers(compound.getCompound("Offers"));
         }
 
         this.entityData.set(SITTING, compound.getBoolean("IsSitting"));
         this.entityData.set(SLEEPING, compound.getBoolean("IsSleeping"));
     }
+
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
+
         if (!this.level().isClientSide) {
             MerchantOffers merchantoffers = this.getOffers();
             if (!merchantoffers.isEmpty()) {
-                compound.put(
-                        "Offers", MerchantOffers.CODEC.encodeStart(this.registryAccess().createSerializationContext(NbtOps.INSTANCE), merchantoffers).getOrThrow()
-                );
+                compound.put("Offers", merchantoffers.createTag());
             }
         }
 
@@ -383,7 +385,7 @@ public class KoalaEntity extends AgeableMob implements Merchant, Npc, GeoEntity 
     public void notifyTradeUpdated(ItemStack stack) {
         if (!this.level().isClientSide && this.ambientSoundTime > -this.getAmbientSoundInterval() + 20) {
             this.ambientSoundTime = -this.getAmbientSoundInterval();
-            this.makeSound(this.getTradeUpdatedSound(!stack.isEmpty()));
+            this.playSound(this.getTradeUpdatedSound(!stack.isEmpty()));
         }
     }
 
@@ -452,7 +454,7 @@ public class KoalaEntity extends AgeableMob implements Merchant, Npc, GeoEntity 
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "koala_controller", 5, this::koalaState)
+        controllers.add(new AnimationController<GeoAnimatable>(this, "koala_controller", 5, this::koalaState)
                 .triggerableAnim("stand_up", STAND_UP)
                 .triggerableAnim("sit_down", SIT_DOWN)
                 .triggerableAnim("wake_up", WAKE_UP));

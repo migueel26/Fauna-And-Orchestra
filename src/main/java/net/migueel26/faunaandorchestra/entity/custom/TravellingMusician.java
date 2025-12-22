@@ -15,9 +15,9 @@ public abstract class TravellingMusician extends AgeableMob {
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        super.defineSynchedData(builder);
-        builder.define(IS_PLAYING, false);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(IS_PLAYING, false);
     }
 
     public void setPlaying(boolean playing) {

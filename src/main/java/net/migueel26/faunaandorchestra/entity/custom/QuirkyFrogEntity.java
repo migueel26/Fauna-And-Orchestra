@@ -1,10 +1,7 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
 import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
-import net.migueel26.faunaandorchestra.entity.goals.ConductorEntityConductingOrchestraGoal;
-import net.migueel26.faunaandorchestra.entity.goals.FaunaRandomLookAroundGoal;
-import net.migueel26.faunaandorchestra.entity.goals.QuirkyFrogConductingChoirGoal;
-import net.migueel26.faunaandorchestra.entity.goals.QuirkyFrogSingGoal;
+import net.migueel26.faunaandorchestra.entity.goals.*;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.migueel26.faunaandorchestra.util.ModTags;
@@ -32,12 +29,16 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.*;
-import software.bernie.geckolib.animation.AnimationState;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.*;
@@ -182,26 +183,25 @@ public class QuirkyFrogEntity extends ConductorEntity implements GeoEntity {
     }
 
     /////// JUMPING  (from Rabbit class)
-    @Override
     protected float getJumpPower() {
         float f = 0.3F;
-        if (this.horizontalCollision || this.moveControl.hasWanted() && this.moveControl.getWantedY() > this.getY() + 0.5) {
+        if (this.horizontalCollision || this.moveControl.hasWanted() && this.moveControl.getWantedY() > this.getY() + 0.5D) {
             f = 0.5F;
         }
 
         Path path = this.navigation.getPath();
         if (path != null && !path.isDone()) {
             Vec3 vec3 = path.getNextEntityPos(this);
-            if (vec3.y > this.getY() + 0.5) {
+            if (vec3.y > this.getY() + 0.5D) {
                 f = 0.5F;
             }
         }
 
-        if (this.moveControl.getSpeedModifier() <= 0.6) {
+        if (this.moveControl.getSpeedModifier() <= 0.6D) {
             f = 0.2F;
         }
 
-        return super.getJumpPower(f / 0.42F);
+        return f + this.getJumpBoostPower();
     }
 
     @Override
@@ -357,7 +357,7 @@ public class QuirkyFrogEntity extends ConductorEntity implements GeoEntity {
     }
 
     @Override
-    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+    public @NotNull InteractionResult mobInteract(Player player, InteractionHand hand) {
         if (isMusical() && player.getMainHandItem().is(ModTags.Items.IS_BATON) && !isTame()) {
             if (!level().isClientSide()) {
                 ModAdvancements.TAME_FROG.trigger((ServerPlayer) player);

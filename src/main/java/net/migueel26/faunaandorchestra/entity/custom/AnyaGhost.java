@@ -5,9 +5,6 @@ import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.texture.DynamicTexture;
-import net.minecraft.client.resources.PlayerSkin;
-import net.minecraft.core.component.DataComponentPatch;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
@@ -38,10 +35,14 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import oshi.util.tuples.Pair;
-import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.*;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 import vazkii.patchouli.api.PatchouliAPI;
 
@@ -67,9 +68,9 @@ public class AnyaGhost extends AbstractCanonEntity implements GeoEntity {
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        super.defineSynchedData(builder);
-        builder.define(PLAYER_UUID, Optional.empty());
+    protected void defineSynchedData() {
+        this.entityData.define(PLAYER_UUID, Optional.empty());
+        super.defineSynchedData();
     }
 
     @Override
@@ -112,7 +113,7 @@ public class AnyaGhost extends AbstractCanonEntity implements GeoEntity {
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         if (level().isClientSide()) {
-            this.setSkin(((AbstractClientPlayer) player).getSkin());
+            this.setSkin(((AbstractClientPlayer) player).getSkinTextureLocation());
         }
         return InteractionResult.SUCCESS;
     }
@@ -136,15 +137,16 @@ public class AnyaGhost extends AbstractCanonEntity implements GeoEntity {
             if (player != null) {
                 this.setPlayerUUID(player.getUUID());
                 if (level().isClientSide()) {
-                    this.setSkin(((AbstractClientPlayer) player).getSkin());
+                    this.setSkin(((AbstractClientPlayer) player).getSkinTextureLocation());
                 }
 
             }
         }
 
         if (level().isClientSide() && skin == null && playerUUID != null) {
-            if (level().getPlayerByUUID(playerUUID) instanceof Player player) {
-                this.setSkin(((AbstractClientPlayer) player).getSkin());
+            Player player = level().getPlayerByUUID(playerUUID);
+            if (player != null) {
+                this.setSkin(((AbstractClientPlayer) player).getSkinTextureLocation());
                 this.setCustomName(player.getDisplayName());
             }
         }

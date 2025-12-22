@@ -26,13 +26,16 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
-import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.*;
-import software.bernie.geckolib.animation.AnimationState;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
@@ -47,8 +50,8 @@ public class ButterflyEntity extends Animal implements FlyingAnimal, GeoEntity {
     public ButterflyEntity(EntityType<? extends Animal> p_27403_, Level p_27404_) {
         super(p_27403_, p_27404_);
         this.moveControl = new FlyingMoveControl(this, 20, true);
-        this.setPathfindingMalus(PathType.DANGER_FIRE, -1.0F);
-        this.setPathfindingMalus(PathType.DAMAGE_FIRE, -1.0F);
+        this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, -1.0F);
+        this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, -1.0F);
     }
 
     @Override
@@ -80,7 +83,7 @@ public class ButterflyEntity extends Animal implements FlyingAnimal, GeoEntity {
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
-        if (stack.is(ModItems.BUTTERFLY_NET) && scheduleDeath == -1) {
+        if (stack.is(ModItems.BUTTERFLY_NET.get()) && scheduleDeath == -1) {
             if (!level().isClientSide()) {
                 ((ServerLevel) level()).sendParticles(ParticleTypes.CLOUD,
                         getX(), getY(), getZ(),
@@ -88,11 +91,7 @@ public class ButterflyEntity extends Animal implements FlyingAnimal, GeoEntity {
             }
             level().playSound(null, blockPosition(), SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, 1.0f, 0.75f);
 
-            if (hand.equals(InteractionHand.MAIN_HAND)) {
-                stack.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
-            } else {
-                stack.hurtAndBreak(1, player, EquipmentSlot.OFFHAND);
-            }
+            stack.hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(hand));
 
             player.addItem(new ItemStack(ModItems.BUTTERFLY_SPAWN_EGG.get(), 1));
             this.scheduleDeath = 3;
@@ -141,7 +140,7 @@ public class ButterflyEntity extends Animal implements FlyingAnimal, GeoEntity {
     }
 
     @Override
-    public boolean canBeLeashed() {
+    public boolean canBeLeashed(Player player) {
         return false;
     }
 

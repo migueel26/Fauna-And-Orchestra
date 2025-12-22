@@ -41,7 +41,7 @@ public class BriefcaseItem extends Item {
         super(properties);
     }
 
-    public void setOpened(ItemStack stack, boolean opened) {
+    public static void setOpened(ItemStack stack, boolean opened) {
         stack.getOrCreateTag().putBoolean("Opened", opened);
     }
 
@@ -49,7 +49,7 @@ public class BriefcaseItem extends Item {
         return stack.hasTag() && stack.getTag().getBoolean("Opened");
     }
 
-    public void setAnimalList(ItemStack stack, List<String> animals) {
+    public static void setAnimalList(ItemStack stack, List<String> animals) {
         CompoundTag nbt = stack.getOrCreateTag();
         ListTag list = new ListTag();
         for (String s : animals) {
@@ -58,7 +58,7 @@ public class BriefcaseItem extends Item {
         nbt.put("AnimalList", list);
     }
 
-    public List<String> getAnimalList(ItemStack stack) {
+    public static List<String> getAnimalList(ItemStack stack) {
         List<String> animals = new ArrayList<>();
         if (stack.hasTag() && stack.getTag().contains("AnimalList", Tag.TAG_LIST)) {
             ListTag list = stack.getTag().getList("AnimalList", Tag.TAG_STRING);

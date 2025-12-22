@@ -41,10 +41,10 @@ public class WanderingNoteEntity extends AmbientCreature {
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        super.defineSynchedData(builder);
-        builder.define(TEXTURE_INDEX, this.random.nextInt(8));
-        builder.define(LIFETIME, 0);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(TEXTURE_INDEX, this.random.nextInt(8));
+        this.entityData.define(LIFETIME, 0);
     }
 
     @Override
@@ -84,18 +84,14 @@ public class WanderingNoteEntity extends AmbientCreature {
     @Override
     protected InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
-        if (stack.is(ModItems.BUTTERFLY_NET)) {
+        if (stack.is(ModItems.BUTTERFLY_NET.get())) {
             if (!level().isClientSide()) {
                 ((ServerLevel) level()).sendParticles(ParticleTypes.CLOUD,
                         getX(), getY(), getZ(),
                         5, 0, 0, 0, 0.05);
             }
             level().playSound(null, blockPosition(), SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, 1.0f, 0.75f);
-            if (hand.equals(InteractionHand.MAIN_HAND)) {
-                stack.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
-            } else {
-                stack.hurtAndBreak(1, player, EquipmentSlot.OFFHAND);
-            }
+            stack.hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(hand));
             player.addItem(new ItemStack(ModItems.WANDERING_NOTE.get(), 1));
             this.scheduleDeath = 3;
             return InteractionResult.SUCCESS;

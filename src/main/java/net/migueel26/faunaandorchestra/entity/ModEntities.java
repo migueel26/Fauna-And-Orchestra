@@ -9,16 +9,17 @@ import net.migueel26.faunaandorchestra.entity.custom.projectile.PhantomNoteProje
 import net.migueel26.faunaandorchestra.entity.custom.projectile.ThrownBoogieBomb;
 import net.migueel26.faunaandorchestra.entity.custom.projectile.ThrownDiscordBomb;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
 
 public class ModEntities {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES =
-            DeferredRegister.create(BuiltInRegistries.ENTITY_TYPE, FaunaAndOrchestra.MOD_ID);
+            DeferredRegister.create(Registries.ENTITY_TYPE, FaunaAndOrchestra.MOD_ID);
 
     public  static final Supplier<EntityType<MantisEntity>> MANTIS = ENTITY_TYPES.register("mantis",
             () -> EntityType.Builder.of(MantisEntity::new, MobCategory.CREATURE).sized(1f, 2.25f).build("mantis"));
