@@ -342,7 +342,7 @@ public abstract class ConductorEntity extends TamableAnimal {
                     playerCanon.setConductor(this);
                     playerCanon.setOwnerUUID(player.getUUID());
 
-                    ModAdvancements.PLAYER_CANON.get().trigger((ServerPlayer) player);
+                    ModAdvancements.PLAYER_CANON.trigger((ServerPlayer) player);
 
                     level().addFreshEntity(playerCanon);
                 }

@@ -92,7 +92,7 @@ public class ConductorEntityConductingOrchestraGoal extends Goal {
             waitForMoreMusicians = -1;
 
             if (this.conductor.isOrchestraFull() && conductor.getOwner() != null) {
-                ModAdvancements.FULL_ORCHESTRA.get().trigger((ServerPlayer) conductor.getOwner());
+                ModAdvancements.FULL_ORCHESTRA.trigger((ServerPlayer) conductor.getOwner());
             }
 
             List<Player> nearbyPlayers = this.conductor.level().getEntitiesOfClass(

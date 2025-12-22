@@ -1,7 +1,5 @@
 package net.migueel26.faunaandorchestra.item.custom;
 
-import net.migueel26.faunaandorchestra.component.ModDataComponents;
-import net.migueel26.faunaandorchestra.entity.custom.MusicalEntity;
 import net.migueel26.faunaandorchestra.entity.custom.SproutlingEntity;
 import net.migueel26.faunaandorchestra.entity.custom.decorative.HealthFluteEntity;
 import net.migueel26.faunaandorchestra.entity.custom.projectile.PhantomNoteProjectileEntity;
@@ -10,6 +8,10 @@ import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.migueel26.faunaandorchestra.util.PlayerUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.StringTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -21,7 +23,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -29,10 +30,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class PanFluteItem extends Item {
     public static final int PUSH_PARTICLES = 10;
@@ -52,33 +54,63 @@ public class PanFluteItem extends Item {
         super(properties);
     }
 
+    public void setSound(ItemStack stack, int soundId) {
+        stack.getOrCreateTag().putInt("PanFluteSound", soundId);
+    }
+
+    public static int getSound(ItemStack stack) {
+        return stack.hasTag() ? stack.getTag().getInt("PanFluteSound") : 0;
+    }
+
+    public void setSoundList(ItemStack stack, List<String> sounds) {
+        CompoundTag nbt = stack.getOrCreateTag();
+        ListTag list = new ListTag();
+        for (String s : sounds) {
+            list.add(StringTag.valueOf(s));
+        }
+        nbt.put("PanFluteList", list);
+    }
+
+    public static List<Integer> getSoundList(ItemStack stack) {
+        List<Integer> list = new ArrayList<>();
+        if (stack.hasTag() && stack.getTag().contains("PanFluteList")) {
+            int[] arr = stack.getTag().getIntArray("PanFluteList");
+            for (int i : arr) list.add(i);
+        }
+        return list;
+    }
+
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
         ItemStack flute = player.getItemInHand(usedHand);
 
-        List<Integer> powers = flute.get(ModDataComponents.PAN_FLUTE_LIST);
-        Integer currentSound = flute.get(ModDataComponents.PAN_FLUTE_SOUND);
+        if (!flute.hasTag()) {
+            setSound(flute, 0);
+            setSoundList(flute, new ArrayList<>());
+        }
+
+        List<Integer> powers = getSoundList(flute);
+        int currentSound = getSound(flute);
 
         if (player.isShiftKeyDown() && powers != null && !powers.isEmpty()) {
-            if (currentSound != null) {
-                currentSound = (currentSound+1) % powers.size();
+            currentSound = (currentSound+1) % powers.size();
 
-                player.displayClientMessage(
-                        Component.translatable("item.faunaandorchestra.pan_flute." + powersString.get(powers.get(currentSound)-1)), true);
-            }
+            player.displayClientMessage(
+                    Component.translatable("item.faunaandorchestra.pan_flute." + powersString.get(powers.get(currentSound)-1)), true);
 
-            flute.set(ModDataComponents.PAN_FLUTE_SOUND, currentSound);
+            setSound(flute, currentSound);
             level.playSound(player, player.blockPosition(), ModSounds.PAN_FLUTE_CHANGE.get(), SoundSource.PLAYERS, 1.0f, 1.0f);
-            player.getCooldowns().addCooldown(ModItems.PAN_FLUTE.get(), POWERLESS_COOLDOWN);
+            player.getCooldowns().addCooldown(this, POWERLESS_COOLDOWN);
 
             return InteractionResultHolder.consume(flute);
 
-        } else if (currentSound != null && powers != null) {
+        } else if (powers != null && !powers.isEmpty() || currentSound >= 0) {
             SoundEvent fluteSound = ModSounds.PAN_FLUTE_USE.get();
 
             // If it doesn't have powers, we just add the default cooldown with default sound
-            if (powers.isEmpty()) player.getCooldowns().addCooldown(ModItems.PAN_FLUTE.get(), 60);
-            else {
+            if (powers.isEmpty()){
+                player.getCooldowns().addCooldown(this, 60);
+            } else {
                 fluteSound = getFluteSound(player, powers, currentSound, fluteSound);
 
                 // We execute the power
@@ -118,7 +150,7 @@ public class PanFluteItem extends Item {
 
             if (!level.isClientSide()) {
                 // Add wind knock particle
-                ((ServerLevel) level).sendParticles(ParticleTypes.GUST, entity.getX(), entity.getY(), entity.getZ(),
+                ((ServerLevel) level).sendParticles(ParticleTypes.EXPLOSION, entity.getX(), entity.getY(), entity.getZ(),
                         8, 0.4f, 0.4f, 0.4f, 0.1f);
 
                 Vec3 start = player.position().add(0, player.getEyeHeight(), 0); // from eyes
@@ -171,7 +203,7 @@ public class PanFluteItem extends Item {
         }
 
         player.setDeltaMovement(lookAngle.normalize().scale(2.0));
-        player.setIgnoreFallDamageFromCurrentImpulse(true);
+        player.stopFallFlying();
 
         player.getCooldowns().addCooldown(ModItems.PAN_FLUTE.get(), DEFAULT_COOLDOWN);
     }
@@ -180,7 +212,7 @@ public class PanFluteItem extends Item {
         List<SproutlingEntity> sproutlings = level.getEntitiesOfClass(SproutlingEntity.class, player.getBoundingBox().inflate(6.0)).stream().limit(6).toList();
         if (sproutlings.size() >= 6) {
             List<SproutlingEntity> choir = sproutlings.stream().limit(6).toList();
-            SproutlingEntity director = choir.getFirst();
+            SproutlingEntity director = choir.get(0);
             director.setDirSproutlings(new ArrayList<>(sproutlings));
             director.setDirCentroid(getCentroid(sproutlings));
             director.setDirOwnerUUID(player.getUUID());
@@ -189,8 +221,11 @@ public class PanFluteItem extends Item {
 
     @Override
     public void onUseTick(Level level, LivingEntity livingEntity, ItemStack stack, int remainingUseDuration) {
+        Integer powerObj = getPower(stack);
+        int power = (powerObj != null) ? powerObj : 0;
+
         // Future upgrades (charge, hold...)
-        switch (getPower(stack)) {
+        switch (power) {
             case 1 -> {
                     if (remainingUseDuration % 5 == 0) {
                     Player player = (Player) livingEntity;
@@ -221,16 +256,19 @@ public class PanFluteItem extends Item {
                     }
                 }
             }
-            case null, default -> {}
+            default -> {}
         }
         super.onUseTick(level, livingEntity, stack, remainingUseDuration);
     }
 
     @Override
-    public void releaseUsing(ItemStack stack, Level level, LivingEntity livingEntity, int timeCharged) {
+    public void releaseUsing(@NotNull ItemStack stack, Level level, LivingEntity livingEntity, int timeCharged) {
         Player player = ((Player) livingEntity);
 
-        switch (getPower(stack)) {
+        Integer powerObj = getPower(stack);
+        int power = (powerObj != null) ? powerObj : 0;
+
+        switch (power) {
             case 1 -> player.getCooldowns().addCooldown(ModItems.PAN_FLUTE.get(), DEFAULT_COOLDOWN);
             default -> player.getCooldowns().addCooldown(ModItems.PAN_FLUTE.get(), POWERLESS_COOLDOWN);
         }
@@ -238,15 +276,26 @@ public class PanFluteItem extends Item {
     }
 
     @Override
-    public int getUseDuration(ItemStack stack, LivingEntity entity) {
-        if (stack.get(ModDataComponents.PAN_FLUTE_LIST) == null || stack.get(ModDataComponents.PAN_FLUTE_LIST).isEmpty()) return 0;
-        return switch (getPower(stack)) {
+    public int getUseDuration(ItemStack stack) {
+        List<Integer> powers = getSoundList(stack);
+
+        if (powers.isEmpty()) return 0;
+
+        Integer power = getPower(stack);
+
+        if (power == null) return 0;
+
+        return switch (power) {
             case 1 -> 25;
-            case null, default -> 0;
+            default -> 0;
         };
     }
 
     private static SoundEvent getFluteSound(Player player, List<Integer> powers, Integer currentSound, SoundEvent fluteSound) {
+        if (currentSound == null || currentSound < 0 || currentSound >= powers.size()) {
+            return ModSounds.PAN_FLUTE_USE.get();
+        }
+
         return switch (powers.get(currentSound)) {
             case 1 -> ModSounds.PAN_FLUTE_NOTES.get();
             case 2 -> ModSounds.PAN_FLUTE_PUSH.get();
@@ -258,9 +307,14 @@ public class PanFluteItem extends Item {
     }
 
     public static Integer getPower(ItemStack stack) {
-        List<Integer> powers = stack.get(ModDataComponents.PAN_FLUTE_LIST);
-        Integer currentSound = stack.get(ModDataComponents.PAN_FLUTE_SOUND);
-        return powers == null || currentSound == null ? null : powers.get(currentSound);
+        List<Integer> powers = getSoundList(stack);
+        int currentSound = getSound(stack);
+
+        if (powers.isEmpty() || currentSound < 0 || currentSound >= powers.size()) {
+            return null;
+        }
+
+        return powers.get(currentSound);
     }
 
     private Vec3 getCentroid(List<SproutlingEntity> sproutlingEntities) {
@@ -268,28 +322,26 @@ public class PanFluteItem extends Item {
 
             return new Vec3(
                     sproutlingEntities.stream().map(Entity::getX).reduce(0.0, Double::sum)/n,
-                    sproutlingEntities.getFirst().getY(),
+                    sproutlingEntities.get(0).getY(),
                     sproutlingEntities.stream().map(Entity::getZ).reduce(0.0, Double::sum)/n);
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        List<Integer> powers = stack.get(ModDataComponents.PAN_FLUTE_LIST);
-        Integer sound = stack.get(ModDataComponents.PAN_FLUTE_SOUND);
+    public void appendHoverText(@NotNull ItemStack stack, @Nullable Level level, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+        List<Integer> powers = getSoundList(stack);
+        int sound = getSound(stack);
 
-        if (powers != null && sound != null) {
-            for (int i = 0; i < powers.size(); i++) {
-                ChatFormatting color = ChatFormatting.GRAY;
-                if (sound == i) {
-                    color = ChatFormatting.GOLD;
-                }
-
-                tooltipComponents.add(
-                        Component.translatable("item.faunaandorchestra.pan_flute." + powersString.get(powers.get(i)-1))
-                                .withStyle(color));
+        for (int i = 0; i < powers.size(); i++) {
+            ChatFormatting color = ChatFormatting.GRAY;
+            if (sound == i) {
+                color = ChatFormatting.GOLD;
             }
+
+            tooltipComponents.add(
+                    Component.translatable("item.faunaandorchestra.pan_flute." + powersString.get(powers.get(i) - 1))
+                            .withStyle(color));
         }
 
-        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+        super.appendHoverText(stack, level, tooltipComponents, tooltipFlag);
     }
 }

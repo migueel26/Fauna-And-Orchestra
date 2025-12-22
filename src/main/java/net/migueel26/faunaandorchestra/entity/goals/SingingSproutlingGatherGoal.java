@@ -111,7 +111,7 @@ public class SingingSproutlingGatherGoal extends Goal {
             if (player != null && player.isAlive()) {
                 wiseTree.lookAt(EntityAnchorArgument.Anchor.FEET, player.position());
                 if (!director.level().isClientSide()) {
-                    ModAdvancements.WISE_TREE.get().trigger((ServerPlayer) player);
+                    ModAdvancements.WISE_TREE.trigger((ServerPlayer) player);
                 }
             }
 

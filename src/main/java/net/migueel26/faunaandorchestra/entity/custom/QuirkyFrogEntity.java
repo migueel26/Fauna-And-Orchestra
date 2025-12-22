@@ -360,7 +360,7 @@ public class QuirkyFrogEntity extends ConductorEntity implements GeoEntity {
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         if (isMusical() && player.getMainHandItem().is(ModTags.Items.IS_BATON) && !isTame()) {
             if (!level().isClientSide()) {
-                ModAdvancements.TAME_FROG.get().trigger((ServerPlayer) player);
+                ModAdvancements.TAME_FROG.trigger((ServerPlayer) player);
             }
             this.tame(player);
             this.playSound(ModSounds.SUCCESSFUL_TAME.get());

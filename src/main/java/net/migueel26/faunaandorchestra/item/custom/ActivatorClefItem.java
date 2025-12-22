@@ -46,7 +46,7 @@ public class ActivatorClefItem extends Item {
                 ((ServerLevel) level).sendParticles(ParticleTypes.SOUL_FIRE_FLAME, pos.above().getCenter().x, pos.above().above().getY(), pos.above().getCenter().z, 20, 0.2, 0.2, 0.2, 0.01);
                 ((ServerLevel) level).sendParticles(ModParticleTypes.BASS_CLEF.get(), pos.above().getCenter().x, pos.above().above().getY(), pos.above().getCenter().z, 1, 0, 0, 0, 0);
 
-                ModAdvancements.DISCORD_NUCLEI.get().trigger((ServerPlayer) context.getPlayer());
+                ModAdvancements.DISCORD_NUCLEI.trigger((ServerPlayer) context.getPlayer());
             }
 
             stack.consume(1, context.getPlayer());

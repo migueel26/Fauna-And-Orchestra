@@ -862,7 +862,7 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
         } else if (state == ComposerBossState.DYING) {
             if (stateTime == 1) {
                 for (ServerPlayer player : bossEvent.getPlayers()) {
-                    ModAdvancements.KILL_COMPOSER.get().trigger(player);
+                    ModAdvancements.KILL_COMPOSER.trigger(player);
                 }
 
                 this.diePos = blockPosition();

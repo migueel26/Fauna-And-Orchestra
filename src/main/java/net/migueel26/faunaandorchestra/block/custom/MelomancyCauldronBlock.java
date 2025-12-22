@@ -96,7 +96,7 @@ public class MelomancyCauldronBlock extends HorizontalDirectionalBlock implement
                     player.addItem(melomancyCauldronBE.getResult());
                     stack.consume(1, player);
                     if (!level.isClientSide()) {
-                        ModAdvancements.USE_MELOMANCY_CAULDRON.get().trigger((ServerPlayer) player);
+                        ModAdvancements.USE_MELOMANCY_CAULDRON.trigger((ServerPlayer) player);
                     }
 
                     if (melomancyCauldronBE.getMixResult().equalsIgnoreCase("resurrection")) {

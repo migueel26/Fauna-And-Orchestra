@@ -2,36 +2,39 @@ package net.migueel26.faunaandorchestra.advancements;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.advancements.CriterionTrigger;
-import net.minecraft.advancements.critereon.PlayerTrigger;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import net.minecraft.resources.ResourceLocation;
 
 public class ModAdvancements {
-    public static final DeferredRegister<CriterionTrigger<?>> TRIGGERS =
-            DeferredRegister.create(BuiltInRegistries.TRIGGER_TYPES, FaunaAndOrchestra.MOD_ID);
+    public static final CustomSimpleTrigger FULL_ORCHESTRA = new CustomSimpleTrigger(ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "full_orchestra"));
+    public static final CustomSimpleTrigger MEET_RINGTAILS = new CustomSimpleTrigger(ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "meet_ringtails"));
+    public static final CustomSimpleTrigger BEFRIEND_ORION = new CustomSimpleTrigger(ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "befriend_orion"));
+    public static final CustomSimpleTrigger BEFRIEND_FAUST = new CustomSimpleTrigger(ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "befriend_faust"));
+    public static final CustomSimpleTrigger USE_MELOMANCY_CAULDRON = new CustomSimpleTrigger(ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "use_melomancy_cauldron"));
+    public static final CustomSimpleTrigger WISE_TREE = new CustomSimpleTrigger(ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "wise_tree"));
+    public static final CustomSimpleTrigger DISCORD_NUCLEI = new CustomSimpleTrigger(ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "discord_nuclei"));
+    public static final CustomSimpleTrigger USE_DISCORD_BOMB = new CustomSimpleTrigger(ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "use_discord_bomb"));
+    public static final CustomSimpleTrigger PAN_FLUTE = new CustomSimpleTrigger(ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "pan_flute"));
+    public static final CustomSimpleTrigger PAN_FLUTE_COMPLETE = new CustomSimpleTrigger(ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "pan_flute_complete"));
+    public static final CustomSimpleTrigger KILL_COMPOSER = new CustomSimpleTrigger(ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "kill_composer"));
+    public static final CustomSimpleTrigger PLAYER_CANON = new CustomSimpleTrigger(ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "player_canon"));
+    public static final CustomSimpleTrigger TAME_MUSICIAN = new CustomSimpleTrigger(ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "tame_musician"));
+    public static final CustomSimpleTrigger TAME_FROG = new CustomSimpleTrigger(ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "tame_frog"));
 
-    public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> FULL_ORCHESTRA = register("full_orchestra");
-    public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> MEET_RINGTAILS = register("meet_ringtails");
-    public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> BEFRIEND_ORION = register("befriend_orion");
-    public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> BEFRIEND_FAUST = register("befriend_faust");
-    public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> USE_MELOMANCY_CAULDRON = register("use_melomancy_cauldron");
-    public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> WISE_TREE = register("wise_tree");
-    public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> DISCORD_NUCLEI = register("discord_nuclei");
-    public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> USE_DISCORD_BOMB = register("use_discord_bomb");
-    public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> PAN_FLUTE = register("pan_flute");
-    public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> PAN_FLUTE_COMPLETE = register("pan_flute_complete");
-    public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> KILL_COMPOSER = register("kill_composer");
-    public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> PLAYER_CANON = register("player_canon");
-    public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> TAME_MUSICIAN = register("tame_musician");
-    public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> TAME_FROG = register("tame_frog");
-    public static <T extends CriterionTrigger<?>> DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> register(String name) {
-        return TRIGGERS.register(name, CustomSimpleTrigger::new);
-    }
-
-    public static void register(IEventBus eventBus) {
-        TRIGGERS.register(eventBus);
+    // Método para registrar todo manualmente
+    public static void register() {
+        CriteriaTriggers.register(FULL_ORCHESTRA);
+        CriteriaTriggers.register(MEET_RINGTAILS);
+        CriteriaTriggers.register(BEFRIEND_ORION);
+        CriteriaTriggers.register(BEFRIEND_FAUST);
+        CriteriaTriggers.register(USE_MELOMANCY_CAULDRON);
+        CriteriaTriggers.register(WISE_TREE);
+        CriteriaTriggers.register(DISCORD_NUCLEI);
+        CriteriaTriggers.register(USE_DISCORD_BOMB);
+        CriteriaTriggers.register(PAN_FLUTE);
+        CriteriaTriggers.register(PAN_FLUTE_COMPLETE);
+        CriteriaTriggers.register(KILL_COMPOSER);
+        CriteriaTriggers.register(PLAYER_CANON);
+        CriteriaTriggers.register(TAME_MUSICIAN);
+        CriteriaTriggers.register(TAME_FROG);
     }
 }

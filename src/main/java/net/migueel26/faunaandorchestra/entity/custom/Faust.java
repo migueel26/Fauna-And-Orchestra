@@ -107,7 +107,7 @@ public class Faust extends TravellingMusician implements Npc, GeoEntity, Talkabl
                 this.confidence = ModSavedData.getConfidence((ServerLevel) level(), this, player.getUUID());
                 setConfidence(confidence);
                 if (this.confidence >= COOL_CONFIDENCE) {
-                    ModAdvancements.BEFRIEND_FAUST.get().trigger((ServerPlayer) player);
+                    ModAdvancements.BEFRIEND_FAUST.trigger((ServerPlayer) player);
                 }
                 ModSavedData.saveConfidence((ServerLevel) level(), this, player.getUUID(), this.confidence + 1);
             }
@@ -171,7 +171,7 @@ public class Faust extends TravellingMusician implements Npc, GeoEntity, Talkabl
 
             for (Player player : newPlayers) {
                 PacketDistributor.sendToPlayer((ServerPlayer) player, new StartAmbientMusicS2CPayload(this.uuid));
-                ModAdvancements.MEET_RINGTAILS.get().trigger((ServerPlayer) player);
+                ModAdvancements.MEET_RINGTAILS.trigger((ServerPlayer) player);
             }
 
             for (Player player : exitPlayers) {

@@ -37,7 +37,7 @@ public class DiscordBombItem extends Item implements ProjectileItem {
             thrownpotion.shootFromRotation(player, player.getXRot(), player.getYRot(), -20.0F, 0.5F, 1.0F);
             level.addFreshEntity(thrownpotion);
 
-            ModAdvancements.USE_DISCORD_BOMB.get().trigger((ServerPlayer) player);
+            ModAdvancements.USE_DISCORD_BOMB.trigger((ServerPlayer) player);
         }
 
         itemstack.consume(1, player);

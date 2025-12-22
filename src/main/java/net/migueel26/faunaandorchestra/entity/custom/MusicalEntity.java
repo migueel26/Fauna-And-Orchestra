@@ -205,7 +205,7 @@ public abstract class MusicalEntity extends TamableAnimal {
             this.playSound(ModSounds.SUCCESSFUL_TAME.get());
             this.level().broadcastEntityEvent(this, (byte) 7);
             if (!level().isClientSide()) {
-                ModAdvancements.TAME_MUSICIAN.get().trigger((ServerPlayer) player);
+                ModAdvancements.TAME_MUSICIAN.trigger((ServerPlayer) player);
             }
         } else {
             this.level().broadcastEntityEvent(this, (byte) 6);

@@ -103,7 +103,7 @@ public class Orion extends TravellingMusician implements Npc, GeoEntity, Talkabl
                 this.confidence = ModSavedData.getConfidence((ServerLevel) level(), this, player.getUUID());
                 setConfidence(confidence);
                 if (this.confidence >= COOL_CONFIDENCE) {
-                    ModAdvancements.BEFRIEND_ORION.get().trigger((ServerPlayer) player);
+                    ModAdvancements.BEFRIEND_ORION.trigger((ServerPlayer) player);
                 }
                 ModSavedData.saveConfidence((ServerLevel) level(), this, player.getUUID(), this.confidence + 1);
             }
