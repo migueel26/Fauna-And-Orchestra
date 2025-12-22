@@ -3,7 +3,6 @@ package net.migueel26.faunaandorchestra.entity.custom;
 import net.migueel26.faunaandorchestra.entity.goals.BeaverBuildsDamGoal;
 import net.migueel26.faunaandorchestra.entity.goals.FaunaRandomLookAroundGoal;
 import net.migueel26.faunaandorchestra.entity.goals.MusicalEntityPlayingInstrumentGoal;
-import net.migueel26.faunaandorchestra.entity.goals.TamableAnimalPanicGoal;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.minecraft.network.syncher.EntityDataAccessor;

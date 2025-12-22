@@ -59,7 +59,7 @@ public class BeaverBuildsDamGoal extends Goal {
 
     @Override
     public void start() {
-        beaver.getNavigation().moveTo(wantedPathBlock.x, wantedPathBlock.y, wantedPathBlock.z, 0, 1.0D);
+        beaver.getNavigation().moveTo(wantedPathBlock.x, wantedPathBlock.y, wantedPathBlock.z, 1.0D);
         this.tick = -1;
         this.finish = false;
     }

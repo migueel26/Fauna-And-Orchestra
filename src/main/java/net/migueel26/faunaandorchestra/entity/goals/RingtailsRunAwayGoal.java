@@ -61,7 +61,7 @@ public class RingtailsRunAwayGoal extends PanicGoal {
 
         if (tipCasePos != null) state = mob.level().getBlockState(tipCasePos);
 
-        if (tipCasePos != null && state.is(ModBlocks.TIP_CASE)) {
+        if (tipCasePos != null && state.is(ModBlocks.TIP_CASE.get())) {
             mob.level().setBlock(tipCasePos, Blocks.AIR.defaultBlockState(), 3);
         }
 

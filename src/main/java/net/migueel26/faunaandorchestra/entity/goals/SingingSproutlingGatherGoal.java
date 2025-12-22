@@ -106,7 +106,7 @@ public class SingingSproutlingGatherGoal extends Goal {
             WiseTree wiseTree = new WiseTree(ModEntities.WISE_TREE.get(), director.level());
             wiseTree.setOwnerUUID(director.getDirOwnerUUID());
             wiseTree.setPos(director.getDirCentroid());
-            wiseTree.setTame(true, false);
+            wiseTree.setTame(true);
             Player player = director.level().getPlayerByUUID(director.getDirOwnerUUID());
             if (player != null && player.isAlive()) {
                 wiseTree.lookAt(EntityAnchorArgument.Anchor.FEET, player.position());

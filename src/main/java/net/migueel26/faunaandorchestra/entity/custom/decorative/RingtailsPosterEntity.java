@@ -30,12 +30,12 @@ public class RingtailsPosterEntity extends Painting {
             this.playSound(SoundEvents.PAINTING_BREAK, 1.0F, 1.0F);
             if (brokenEntity instanceof Player) {
                 Player player = (Player)brokenEntity;
-                if (player.hasInfiniteMaterials()) {
+                if (player.isCreative()) {
                     return;
                 }
             }
 
-            this.spawnAtLocation(ModItems.RINGTAILS_POSTER);
+            this.spawnAtLocation(ModItems.RINGTAILS_POSTER.get());
         }
 
     }
