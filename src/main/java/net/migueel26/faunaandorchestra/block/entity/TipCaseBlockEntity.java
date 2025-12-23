@@ -1,7 +1,8 @@
 package net.migueel26.faunaandorchestra.block.entity;
 
 import net.migueel26.faunaandorchestra.block.ModBlockEntities;
-import net.migueel26.faunaandorchestra.networking.SyncTipCaseOwnerPayloadS2C;
+import net.migueel26.faunaandorchestra.networking.ModNetwork;
+import net.migueel26.faunaandorchestra.networking.packets.SyncTipCaseOwnerS2CPacket;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -46,7 +47,7 @@ public class TipCaseBlockEntity extends BlockEntity implements GeoBlockEntity {
 
     public void setOwner(@Nullable UUID owner) {
         this.owner = owner;
-        PacketDistributor.sendToAllPlayers(new SyncTipCaseOwnerPayloadS2C(
+        ModNetwork.sendToClients(new SyncTipCaseOwnerS2CPacket(
                 worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(),
                 owner));
         markUpdated();

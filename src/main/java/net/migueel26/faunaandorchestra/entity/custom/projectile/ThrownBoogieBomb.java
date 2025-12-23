@@ -6,12 +6,12 @@ import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.minecraft.core.Holder;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -47,8 +47,8 @@ public class ThrownBoogieBomb extends ThrowableItemProjectile implements ItemSup
     }
 
     @Override
-    protected double getDefaultGravity() {
-        return 0.05;
+    protected float getGravity() {
+        return 0.05f;
     }
 
     @Override
@@ -61,7 +61,7 @@ public class ThrownBoogieBomb extends ThrowableItemProjectile implements ItemSup
             ((ServerLevel) level()).sendParticles(ModParticleTypes.MAGICAL_NOTE.get(), vec3.x, vec3.y, vec3.z, 50, 1.5, 1.5, 1.5, 0.1);
             ((ServerLevel) level()).sendParticles(ModParticleTypes.MAGICAL_NOTE.get(), vec3.x, vec3.y, vec3.z, 30, 0.1, 0.1, 0.1, 0.05);
             this.applySplash(
-                    new MobEffectInstance(ModEffects.BOOGIE, 160), result.getType() == HitResult.Type.ENTITY ? ((EntityHitResult) result).getEntity() : null
+                    new MobEffectInstance(ModEffects.BOOGIE.get(), 160), result.getType() == HitResult.Type.ENTITY ? ((EntityHitResult) result).getEntity() : null
             );
 
             this.discard();
@@ -85,9 +85,9 @@ public class ThrownBoogieBomb extends ThrowableItemProjectile implements ItemSup
                             d1 = 1.0 - Math.sqrt(d0) / 4.0;
                         }
 
-                        Holder<MobEffect> holder = effect.getEffect();
-                        if (holder.value().isInstantenous()) {
-                            holder.value().applyInstantenousEffect(this, this.getOwner(), livingentity, effect.getAmplifier(), d1);
+                        MobEffect holder = effect.getEffect();
+                        if (holder.isInstantenous()) {
+                            holder.applyInstantenousEffect(this, this.getOwner(), livingentity, effect.getAmplifier(), d1);
                         } else {
                             int i = effect.mapDuration(p_267930_ -> (int) (d1 * (double) p_267930_ + 0.5));
                             MobEffectInstance mobeffectinstance1 = new MobEffectInstance(

@@ -11,7 +11,9 @@ import net.migueel26.faunaandorchestra.potion.ModPotions;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -44,7 +46,7 @@ public class ModEventBusEvents {
     @SubscribeEvent
     public static void addPotionsToCreativeTab(BuildCreativeModeTabContentsEvent event) {
         if (event.getTab().equals(ModCreativeModeTabs.FAUNA_AND_ORCHESTRA.get())) {
-            event.accept(PotionContents.createItemStack(Items.POTION, ModPotions.ABSOLUTE_HEARING_POTION), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+            event.accept(PotionUtils.setPotion(Items.POTION.getDefaultInstance(), ModPotions.ABSOLUTE_HEARING_POTION.get()), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         }
     }
 

@@ -30,15 +30,15 @@ public class PhantomNoteProjectileEntity extends AbstractHurtingProjectile {
     }
 
     public PhantomNoteProjectileEntity(LivingEntity owner, Vec3 movement, Level level) {
-        super(ModEntities.PHANTOM_NOTE_PROJECTILE.get(), owner, movement, level);
+        super(ModEntities.PHANTOM_NOTE_PROJECTILE.get(), owner, movement.x, movement.y, movement.z, level);
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        super.defineSynchedData(builder);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
 
-        builder.define(TEXTURE_INDEX, this.random.nextInt(8));
-        builder.define(GOOD, false);
+        this.entityData.define(TEXTURE_INDEX, this.random.nextInt(8));
+        this.entityData.define(GOOD, false);
     }
 
     @Override
@@ -71,7 +71,9 @@ public class PhantomNoteProjectileEntity extends AbstractHurtingProjectile {
             Entity owner = this.getOwner();
             DamageSource source = this.damageSources().magic();
             entity1.hurt(source, 6.0F);
-            EnchantmentHelper.doPostAttackEffects(serverlevel, entity1, source);
+            if (entity1 instanceof LivingEntity livingTarget) {
+                EnchantmentHelper.doPostHurtEffects(livingTarget, owner);
+            }
         }
     }
 

@@ -23,6 +23,8 @@ import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.event.ForgeEventFactory;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Iterator;
@@ -34,7 +36,7 @@ public class MusicNoteProjectileEntity extends AbstractHurtingProjectile {
     }
 
     public MusicNoteProjectileEntity(LivingEntity owner, Vec3 movement, Level level) {
-        super(ModEntities.MUSIC_NOTE_PROJECTILE.get(), owner, movement, level);
+        super(ModEntities.MUSIC_NOTE_PROJECTILE.get(), owner, movement.x, movement.y, movement.z, level);
     }
 
     @Override
@@ -49,7 +51,7 @@ public class MusicNoteProjectileEntity extends AbstractHurtingProjectile {
 
         if (!this.level().isClientSide) {
             if (!isComposer) {
-                boolean flag = net.neoforged.neoforge.event.EventHooks.canEntityGrief(this.level(), this.getOwner());
+                boolean flag = ForgeEventFactory.getMobGriefingEvent(this.level(), this.getOwner());
                 this.level().explode(this, this.getX(), this.getY(), this.getZ(), (float)1, flag, Level.ExplosionInteraction.MOB);
 
                 Iterator<BlockPos> iterator = BlockPos.betweenClosed(new BlockPos(this.getBlockX() + 2, this.getBlockY() + 1, this.getBlockZ() + 2),
@@ -77,22 +79,11 @@ public class MusicNoteProjectileEntity extends AbstractHurtingProjectile {
                 greatComposer.trigger("repel", true);
                 level().playSound(null, blockPosition(), ModSounds.REPEL.get(), SoundSource.NEUTRAL);
                 if (this.getOwner() != null) {
-
-                    /*
-                    Vec3 vec3 = greatComposer.getViewVector(1.0F);
-                    double d2 = getOwner().getX() - (greatComposer.getX() + vec3.x * 4.0);
-                    double d3 = getOwner().getY(1) - (0.5 + greatComposer.getY(0.5));
-                    double d4 = getOwner().getZ() - (greatComposer.getZ() + vec3.z * 4.0);
-                    Vec3 vec31 = new Vec3(d2, d3, d4);
-
-                    this.setPos(greatComposer.getX() + vec3.x * 1.25, greatComposer.getY(0.5), this.getZ() + vec3.z * 1.25);
-                    this.setDeltaMovement(vec31.normalize());
-
-                    greatComposer.getLookControl().setLookAt(getOwner().getX(), getOwner().getY(), getOwner().getZ());
-                    */
-
-                    this.deflect(ProjectileDeflection.REVERSE, this, greatComposer, false);
+                    this.deflectToOwner(greatComposer, this.getOwner());
                     this.inertia += 0.06f;
+
+                    this.level().playSound(null, this.blockPosition(), SoundEvents.VEX_HURT, SoundSource.NEUTRAL, 2.0f, 1.0f);
+                    this.setOwner(greatComposer);
                 }
             } else {
                 this.discard();
@@ -105,17 +96,35 @@ public class MusicNoteProjectileEntity extends AbstractHurtingProjectile {
                 Entity owner = this.getOwner();
                 DamageSource source = this.damageSources().magic();
                 entity1.hurt(source, 8.0F);
-                EnchantmentHelper.doPostAttackEffects(serverlevel, entity1, source);
+                if (entity1 instanceof LivingEntity livingTarget) {
+                    EnchantmentHelper.doPostHurtEffects(livingTarget, owner);
+                }
             }
         }
     }
 
-    @Override
-    protected void onDeflection(@Nullable Entity entity, boolean deflectedByPlayer) {
-        if (entity != null) {
-            entity.level().playSound(null, entity.blockPosition(), SoundEvents.VEX_HURT, SoundSource.NEUTRAL, 2.0f, 1.0f);
+    private void deflectToOwner(Entity deflector, Entity targetOwner) {
+        double dX = targetOwner.getX() - this.getX();
+        double dY = targetOwner.getBoundingBox().getCenter().y - this.getY();
+        double dZ = targetOwner.getZ() - this.getZ();
+
+        double distance = Math.sqrt(dX * dX + dY * dY + dZ * dZ);
+
+        if (distance != 0) {
+            dX /= distance;
+            dY /= distance;
+            dZ /= distance;
         }
-        super.onDeflection(entity, deflectedByPlayer);
+
+        double speed = 0.1D + (this.inertia * 0.05D);
+
+        this.xPower = dX * speed;
+        this.yPower = dY * speed;
+        this.zPower = dZ * speed;
+
+        this.setDeltaMovement(this.getDeltaMovement().reverse());
+
+        this.hasImpulse = true;
     }
 
     @Override
@@ -123,9 +132,13 @@ public class MusicNoteProjectileEntity extends AbstractHurtingProjectile {
         return false;
     }
 
-    @Nullable
     @Override
-    protected ParticleOptions getTrailParticle() {
+    public boolean isOnFire() {
+        return false;
+    }
+
+    @Override
+    protected @NotNull ParticleOptions getTrailParticle() {
         return ParticleTypes.SOUL_FIRE_FLAME;
     }
 
