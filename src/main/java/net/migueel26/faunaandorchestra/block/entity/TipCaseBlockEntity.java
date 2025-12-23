@@ -10,11 +10,10 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.UUID;
@@ -28,17 +27,17 @@ public class TipCaseBlockEntity extends BlockEntity implements GeoBlockEntity {
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+    public void load(CompoundTag tag) {
         if (tag.hasUUID("Owner")) {
             this.owner = tag.getUUID("Owner");
         }
-        super.loadAdditional(tag, registries);
+        super.load(tag);
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+    public void saveAdditional(CompoundTag tag) {
         if (owner != null) tag.putUUID("Owner", owner);
-        super.saveAdditional(tag, registries);
+        super.saveAdditional(tag);
     }
 
     public UUID getOwner() {
@@ -60,7 +59,7 @@ public class TipCaseBlockEntity extends BlockEntity implements GeoBlockEntity {
     }
 
     @Override
-    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+    public CompoundTag getUpdateTag() {
         CompoundTag compoundTag = new CompoundTag();
         compoundTag.putUUID("Owner", owner);
         return compoundTag;

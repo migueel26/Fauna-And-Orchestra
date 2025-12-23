@@ -3,6 +3,7 @@ package net.migueel26.faunaandorchestra.block.entity;
 import net.migueel26.faunaandorchestra.block.ModBlockEntities;
 import net.migueel26.faunaandorchestra.block.custom.DiscordNucleiBlock;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -15,10 +16,19 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
+import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.*;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
@@ -36,6 +46,11 @@ public class DiscordNucleiBlockEntity extends BlockEntity implements GeoBlockEnt
         }
 
         @Override
+        public int getSlotLimit(int slot) {
+            return 1;
+        }
+
+        @Override
         protected void onContentsChanged(int slot) {
             setChanged();
             if(!level.isClientSide()) {
@@ -43,6 +58,7 @@ public class DiscordNucleiBlockEntity extends BlockEntity implements GeoBlockEnt
             }
         }
     };
+    private final LazyOptional<IItemHandler> inventoryOptional = LazyOptional.of(() -> this.inventory);
     private float rotation;
 
     public DiscordNucleiBlockEntity(BlockPos pos, BlockState blockState) {
@@ -70,15 +86,17 @@ public class DiscordNucleiBlockEntity extends BlockEntity implements GeoBlockEnt
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
-        tag.put("Inventory", inventory.serializeNBT(registries));
+    public void saveAdditional(CompoundTag tag) {
+        super.saveAdditional(tag);
+        tag.put("Inventory", inventory.serializeNBT());
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
-        inventory.deserializeNBT(registries, tag.getCompound("Inventory"));
+    public void load(CompoundTag tag) {
+        super.load(tag);
+        if (tag.contains("Inventory")) {
+            this.inventory.deserializeNBT(tag.getCompound("Inventory"));
+        }
     }
 
     @Nullable
@@ -88,8 +106,24 @@ public class DiscordNucleiBlockEntity extends BlockEntity implements GeoBlockEnt
     }
 
     @Override
-    public CompoundTag getUpdateTag(HolderLookup.Provider pRegistries) {
-        return saveWithoutMetadata(pRegistries);
+    public CompoundTag getUpdateTag() {
+        CompoundTag tag = new CompoundTag();
+        this.saveAdditional(tag);
+        return tag;
+    }
+
+    @Override
+    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
+        if (cap == ForgeCapabilities.ITEM_HANDLER) {
+            return inventoryOptional.cast();
+        }
+        return super.getCapability(cap, side);
+    }
+
+    @Override
+    public void invalidateCaps() {
+        super.invalidateCaps();
+        inventoryOptional.invalidate();
     }
 
     @Override

@@ -12,6 +12,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -26,17 +27,17 @@ public class AltarOfThePanFluteBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+    public void load(CompoundTag tag) {
         if (tag.contains("Powers")) {
             this.powers = intArrayToList(tag.getIntArray("Powers"));
         }
-        super.loadAdditional(tag, registries);
+        super.load(tag);
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+    public void saveAdditional(CompoundTag tag) {
         tag.putIntArray("Powers", this.powers);
-        super.saveAdditional(tag, registries);
+        super.saveAdditional(tag);
     }
 
     @Nullable
@@ -46,7 +47,7 @@ public class AltarOfThePanFluteBlockEntity extends BlockEntity {
     }
 
     @Override
-    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+    public @NotNull CompoundTag getUpdateTag() {
         CompoundTag compoundTag = new CompoundTag();
         compoundTag.putIntArray("Powers", powers);
         return compoundTag;

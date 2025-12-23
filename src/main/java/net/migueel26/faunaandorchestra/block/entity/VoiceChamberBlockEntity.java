@@ -11,11 +11,15 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.*;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class VoiceChamberBlockEntity extends BlockEntity implements GeoBlockEntity {
@@ -33,20 +37,20 @@ public class VoiceChamberBlockEntity extends BlockEntity implements GeoBlockEnti
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+    public void load(CompoundTag tag) {
         if (tag.contains("Voice")) {
             this.voice = tag.getString("Voice");
         }
         if (tag.contains("Locked")) {
             this.locked = tag.getBoolean("Locked");
         }
-        super.loadAdditional(tag, registries);
+        super.load(tag);
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+    public void saveAdditional(CompoundTag tag) {
         tag.putString("Voice", this.voice);
-        super.saveAdditional(tag, registries);
+        super.saveAdditional(tag);
     }
 
     @Nullable
@@ -56,7 +60,7 @@ public class VoiceChamberBlockEntity extends BlockEntity implements GeoBlockEnti
     }
 
     @Override
-    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+    public @NotNull CompoundTag getUpdateTag() {
         CompoundTag compoundTag = new CompoundTag();
         compoundTag.putString("Voice", voice);
         compoundTag.putBoolean("Locked", locked);
