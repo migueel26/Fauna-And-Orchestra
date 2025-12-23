@@ -1,11 +1,7 @@
 package net.migueel26.faunaandorchestra.util;
 
-import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.item.ModItems;
-import net.minecraft.core.component.DataComponentPatch;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
@@ -21,7 +17,7 @@ import java.util.Set;
 public class VesselUtil {
     public static int LIFETIME = 100;
     public static final List<? extends EntityType<?>> APT_ENTITIES = List.of(
-            EntityType.BREEZE,
+            EntityType.SNOW_GOLEM,
             EntityType.PARROT,
             EntityType.PHANTOM,
             ModEntities.MACAW.get(),
@@ -34,7 +30,7 @@ public class VesselUtil {
             EntityType.PIGLIN_BRUTE,
             EntityType.GOAT,
             EntityType.IRON_GOLEM,
-            EntityType.BREEZE,
+            EntityType.RABBIT,
             EntityType.MOOSHROOM,
             EntityType.CAVE_SPIDER,
             EntityType.DOLPHIN,
@@ -53,11 +49,11 @@ public class VesselUtil {
                     EntityType.PIGLIN_BRUTE, 1), 1,
             Map.of(EntityType.GOAT,2,
                     EntityType.IRON_GOLEM, 2,
-                    EntityType.BREEZE, 1), 2,
+                    EntityType.SNOW_GOLEM, 1), 2,
             Map.of(EntityType.VEX,4,
                     EntityType.WITCH, 1,
                     EntityType.EVOKER, 1), 3,
-            Map.of(EntityType.BREEZE, 2,
+            Map.of(EntityType.RABBIT, 2,
                     ModEntities.MACAW.get(), 1,
                     EntityType.PARROT, 2,
                     EntityType.PHANTOM,1), 4,

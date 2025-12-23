@@ -501,7 +501,7 @@
   "symphonia.page.sound_burst1": "¡Si (o)mantienes el click derecho$() lanzarás una ráfaga de notas llameantes!",
 
   "symphonia.entry.sound_gust": "Sonido del Soplo",
-  "symphonia.page.sound_gust0": "¡El $(l)Sonido del Soplo$() toma la fuerza de distintas criaturas en este $(thing)sonido$() para liberar un gran soplo de viento que $(o)empuja a las entidades lejos$()! Como cualquier otro $(o)ritual$(), necesitas colocar estas $(item)voces$() en las $(music)Cámaras$(): $(li)$(item)2x Voces de Cabra $(li)2x Voces de Gólem de hierro $(li)1x Voz de Breeze",
+  "symphonia.page.sound_gust0": "¡El $(l)Sonido del Soplo$() toma la fuerza de distintas criaturas en este $(thing)sonido$() para liberar un gran soplo de viento que $(o)empuja a las entidades lejos$()! Como cualquier otro $(o)ritual$(), necesitas colocar estas $(item)voces$() en las $(music)Cámaras$(): $(li)$(item)2x Voces de Cabra $(li)2x Voces de Gólem de hierro $(li)1x Voz de Gólem de nieve",
   "symphonia.page.sound_gust1": "¡Haz $(o)click derecho$() cerca a otras entidades para empujarlas!",
 
   "symphonia.entry.sound_vigour": "Sonido del Vigor",
@@ -509,7 +509,7 @@
   "symphonia.page.sound_vigour1": "¡Haz $(o)click derecho$() y en unos pocos segundos todos los aliados se curarán!",
 
   "symphonia.entry.sound_zephyr": "Sonido del Céfiro",
-  "symphonia.page.sound_zephyr0": "El $(l)Sonido del Céfiro$() usa las voces de animales de viento. Si tocas este $(thing)sonido$(), podrás impulsarte en cualquier dirección: ¡muy útil para llegar a sitios aparentemente $(o)inalcanzables$()! Necesitarás colocar estas $(item)Voces$() en las $(music)Cámaras$():$(li)$(item)2x Voces de Loro $(li)2x Voces de Breeze $(li)1x Voz de Guacamayo $(li)1x Voz de Fantasma$()",
+  "symphonia.page.sound_zephyr0": "El $(l)Sonido del Céfiro$() usa las voces de animales de viento. Si tocas este $(thing)sonido$(), podrás impulsarte en cualquier dirección: ¡muy útil para llegar a sitios aparentemente $(o)inalcanzables$()! Necesitarás colocar estas $(item)Voces$() en las $(music)Cámaras$():$(li)$(item)2x Voces de Loro $(li)2x Voces de Conejo $(li)1x Voz de Guacamayo $(li)1x Voz de Fantasma$()",
   "symphonia.page.sound_zephyr1": "¡Con $(o)click derecho$() te impulsarás hacia donde mires!",
 
   "symphonia.entry.sound_species": "Sonido de las Especies",

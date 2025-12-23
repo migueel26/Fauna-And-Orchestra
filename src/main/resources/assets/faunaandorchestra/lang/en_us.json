@@ -501,7 +501,7 @@
   "symphonia.page.sound_burst1": "If you (o)hold right-click$() you'll throw a burst of flaming notes!",
 
   "symphonia.entry.sound_gust": "Sound of Gust",
-  "symphonia.page.sound_gust0": "The $(l)Sound of Gust$() takes the strength and force of several creatures into this $(thing)sound$() to release a great gust of wind that $(o)pushes entities away$()! Just like any other $(o)ritual$(), you need to place these $(item)voices$() in the $(music)Voice Chambers$(): $(li)$(item)2x Voices of Goat $(li)2x Voices of Iron Golem $(li)1x Voice of Breeze",
+  "symphonia.page.sound_gust0": "The $(l)Sound of Gust$() takes the strength and force of several creatures into this $(thing)sound$() to release a great gust of wind that $(o)pushes entities away$()! Just like any other $(o)ritual$(), you need to place these $(item)voices$() in the $(music)Voice Chambers$(): $(li)$(item)2x Voices of Goat $(li)2x Voices of Iron Golem $(li)1x Voice of Snow Golem",
   "symphonia.page.sound_gust1": "$(o)Right-click$() near some entities and you'll send them away!",
 
   "symphonia.entry.sound_vigour": "Sound of Vigour",
@@ -509,7 +509,7 @@
   "symphonia.page.sound_vigour1": "$(o)Right-click$() and in a few seconds every ally nearby will be healed!",
 
   "symphonia.entry.sound_zephyr": "Sound of Zephyr",
-  "symphonia.page.sound_zephyr0": "The $(l)Sound of Zephyr$() makes use of the voices of wind-related creatures. If you play this $(thing)sound$(), you'll be able to impulse yourself in any direction: very useful for getting to places otherwise $(o)unreachable$()! You'll need to place these $(item)voices$() in the $(music)Voice Chambers$():$(li)$(item)2x Voices of Parrot $(li)2x Voices of Breeze $(li)1x Voice of Macaw $(li)1x Voice of Phantom$()",
+  "symphonia.page.sound_zephyr0": "The $(l)Sound of Zephyr$() makes use of the voices of wind-related creatures. If you play this $(thing)sound$(), you'll be able to impulse yourself in any direction: very useful for getting to places otherwise $(o)unreachable$()! You'll need to place these $(item)voices$() in the $(music)Voice Chambers$():$(li)$(item)2x Voices of Parrot $(li)2x Voices of Rabbit $(li)1x Voice of Macaw $(li)1x Voice of Phantom$()",
   "symphonia.page.sound_zephyr1": "$(o)Right-click$() and you'll be impulsed wherever you're facing!",
 
   "symphonia.entry.sound_species": "Sound of the Species",
