@@ -5,9 +5,10 @@ import net.migueel26.faunaandorchestra.entity.custom.LemurEntity;
 import net.migueel26.faunaandorchestra.entity.custom.boss.TheGreatComposer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.constant.DataTickets;
+import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
+import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
@@ -33,7 +34,7 @@ public class TheGreatComposerModel extends GeoModel<TheGreatComposer> {
 
     @Override
     public void setCustomAnimations(TheGreatComposer theGreatComposer, long instanceId, AnimationState<TheGreatComposer> animationState) {
-        GeoBone head = getAnimationProcessor().getBone("head");
+        CoreGeoBone head = getAnimationProcessor().getBone("head");
 
         if (head != null && !theGreatComposer.isBusy() && !theGreatComposer.isSpawning()) {
             EntityModelData entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
@@ -42,7 +43,7 @@ public class TheGreatComposerModel extends GeoModel<TheGreatComposer> {
             head.setRotY(entityData.netHeadYaw() * Mth.DEG_TO_RAD);
         }
 
-        GeoBone chest = getAnimationProcessor().getBone("chest");
+        CoreGeoBone chest = getAnimationProcessor().getBone("chest");
 
         if (theGreatComposer.isFinalPhase() && theGreatComposer.getState() != TheGreatComposer.ComposerBossState.RESURRECTING) {
             chest.setHidden(true);
