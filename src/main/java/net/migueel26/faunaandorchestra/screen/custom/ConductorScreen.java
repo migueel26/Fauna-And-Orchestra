@@ -3,7 +3,9 @@ package net.migueel26.faunaandorchestra.screen.custom;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.entity.custom.ConductorEntity;
+import net.migueel26.faunaandorchestra.networking.ModNetwork;
 import net.migueel26.faunaandorchestra.networking.RestartOrchestraMusicC2SPayload;
+import net.migueel26.faunaandorchestra.networking.packets.RestartOrchestraMusicC2SPacket;
 import net.migueel26.faunaandorchestra.screen.ParticleButton;
 import net.migueel26.faunaandorchestra.util.MusicUtil;
 import net.minecraft.client.gui.GuiGraphics;
@@ -66,7 +68,10 @@ public class ConductorScreen extends AbstractContainerScreen<ConductorMenu> {
         Item currentSheetMusic = MusicUtil.getSheet(conductor.getUUID());
         if (newSheetMusic != currentSheetMusic || currentVolume != volume) {
             volume = currentVolume;
-            PacketDistributor.sendToServer(new RestartOrchestraMusicC2SPayload(conductor.getUUID(), volume));
+            ModNetwork.sendToServer(new RestartOrchestraMusicC2SPacket(
+                    conductor.getUUID(),
+                    this.volume
+            ));
         }
         return super.mouseReleased(mouseX, mouseY, button);
     }

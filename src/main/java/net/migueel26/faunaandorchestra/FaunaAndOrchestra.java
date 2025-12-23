@@ -10,7 +10,6 @@ import net.migueel26.faunaandorchestra.client.entity.boss.TheGreatComposerRender
 import net.migueel26.faunaandorchestra.client.entity.projectile.MusicNoteProjectileRenderer;
 import net.migueel26.faunaandorchestra.client.entity.projectile.PhantomNoteProjectileRenderer;
 import net.migueel26.faunaandorchestra.client.entity.projectile.WanderingNoteRenderer;
-import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.effect.ModEffects;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.entity.custom.projectile.ThrownBoogieBomb;
@@ -18,6 +17,7 @@ import net.migueel26.faunaandorchestra.entity.custom.projectile.ThrownDiscordBom
 import net.migueel26.faunaandorchestra.item.ModCreativeModeTabs;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.loot_tables.ModLootTables;
+import net.migueel26.faunaandorchestra.networking.ModNetwork;
 import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
 import net.migueel26.faunaandorchestra.particles.custom.*;
 import net.migueel26.faunaandorchestra.potion.ModPotions;
@@ -79,7 +79,6 @@ public class FaunaAndOrchestra {
         ModLootTables.register(modEventBus);
         ModBlocks.register(modEventBus);
         ModBlockEntities.register(modEventBus);
-        ModAdvancements.register(modEventBus);
         ModEffects.register(modEventBus);
         ModPotions.register(modEventBus);
     }
@@ -88,6 +87,7 @@ public class FaunaAndOrchestra {
         event.enqueueWork(() -> {
             // REGISTERS
             ModAdvancements.register();
+            ModNetwork.register();
             // PROJECTILES
             DispenserBlock.registerBehavior(ModItems.BOOGIE_BOMB.get(), new AbstractProjectileDispenseBehavior() {
                 @Override

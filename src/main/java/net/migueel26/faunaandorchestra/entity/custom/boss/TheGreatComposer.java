@@ -8,9 +8,13 @@ import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.entity.custom.projectile.MusicNoteProjectileEntity;
 import net.migueel26.faunaandorchestra.entity.custom.projectile.PhantomNoteProjectileEntity;
 import net.migueel26.faunaandorchestra.item.ModItems;
+import net.migueel26.faunaandorchestra.networking.ModNetwork;
 import net.migueel26.faunaandorchestra.networking.ShowTitlePlayerS2CPayload;
 import net.migueel26.faunaandorchestra.networking.StartAmbientMusicS2CPayload;
 import net.migueel26.faunaandorchestra.networking.StopMusicS2CPayload;
+import net.migueel26.faunaandorchestra.networking.packets.ShowTitlePlayerS2CPacket;
+import net.migueel26.faunaandorchestra.networking.packets.StartAmbientMusicS2CPacket;
+import net.migueel26.faunaandorchestra.networking.packets.StopMusicS2CPacket;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -315,11 +319,15 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
                 newPlayers.removeAll(playersListening);
 
                 for (Player player : newPlayers) {
-                    PacketDistributor.sendToPlayer((ServerPlayer) player, new StartAmbientMusicS2CPayload(this.uuid));
+                    if (player instanceof  ServerPlayer serverPlayer) {
+                        ModNetwork.sendToPlayer(new StartAmbientMusicS2CPacket(this.uuid), serverPlayer);
+                    }
                 }
 
                 for (Player player : exitPlayers) {
-                    PacketDistributor.sendToPlayer((ServerPlayer) player, new StopMusicS2CPayload(this.uuid));
+                    if (player instanceof  ServerPlayer serverPlayer) {
+                        ModNetwork.sendToPlayer(new StopMusicS2CPacket(this.uuid), serverPlayer);
+                    }
                 }
 
                 playersListening = nearbyPlayers;
@@ -426,7 +434,7 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
                 String nickname = fullName[1].substring(1);
 
                 for (ServerPlayer player : bossEvent.getPlayers()) {
-                    PacketDistributor.sendToPlayer(player, new ShowTitlePlayerS2CPayload(name, nickname));
+                    ModNetwork.sendToPlayer(new ShowTitlePlayerS2CPacket(name, nickname), player);
                 }
 
             }

@@ -4,8 +4,11 @@ import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.entity.custom.ConductorEntity;
 import net.migueel26.faunaandorchestra.entity.custom.MusicalEntity;
 import net.migueel26.faunaandorchestra.item.ModItems;
+import net.migueel26.faunaandorchestra.networking.ModNetwork;
 import net.migueel26.faunaandorchestra.networking.RestartOrchestraMusicS2CPayload;
 import net.migueel26.faunaandorchestra.networking.StopOrchestraMusicS2CPayload;
+import net.migueel26.faunaandorchestra.networking.packets.RestartOrchestraMusicS2CPacket;
+import net.migueel26.faunaandorchestra.networking.packets.StopOrchestraMusicS2CPacket;
 import net.migueel26.faunaandorchestra.util.MusicUtil;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerPlayer;
@@ -103,12 +106,15 @@ public class ConductorEntityConductingOrchestraGoal extends Goal {
             conductor.level().levelEvent(null, 4005, this.conductor.blockPosition(), data);
 
             for (Player player : nearbyPlayers) {
-                PacketDistributor.sendToPlayer((ServerPlayer) player, new RestartOrchestraMusicS2CPayload(
-                        conductor.getUUID(),
-                        conductor.getOrchestra().stream().map(Entity::getUUID).toList(),
-                        conductor.getTicksPlaying(),
-                        conductor.getCurrentVolume(),
-                        conductor.getSheetMusic().toString()));
+                if (player instanceof  ServerPlayer serverPlayer) {
+                    ModNetwork.sendToPlayer(new RestartOrchestraMusicS2CPacket(
+                                conductor.getUUID(),
+                                conductor.getOrchestra().stream().map(Entity::getUUID).toList(),
+                                conductor.getTicksPlaying(),
+                                conductor.getCurrentVolume(),
+                                conductor.getSheetMusic().toString()),
+                            serverPlayer);
+                }
             }
         }
 
@@ -121,18 +127,23 @@ public class ConductorEntityConductingOrchestraGoal extends Goal {
         exitPlayers.removeAll(nearbyPlayers);
         newPlayers.removeAll(playersListening);
         for (Player player : newPlayers) {
-            PacketDistributor.sendToPlayer((ServerPlayer) player, new RestartOrchestraMusicS2CPayload(
-                    conductor.getUUID(),
-                    conductor.getOrchestra().stream().map(Entity::getUUID).toList(),
-                    conductor.getTicksPlaying(),
-                    conductor.getCurrentVolume(),
-                    conductor.getSheetMusic().toString()));
+            if (player instanceof  ServerPlayer serverPlayer) {
+                ModNetwork.sendToPlayer(new RestartOrchestraMusicS2CPacket(
+                                conductor.getUUID(),
+                                conductor.getOrchestra().stream().map(Entity::getUUID).toList(),
+                                conductor.getTicksPlaying(),
+                                conductor.getCurrentVolume(),
+                                conductor.getSheetMusic().toString()),
+                        serverPlayer);
+            }
         }
 
         for (Player player : exitPlayers) {
-            PacketDistributor.sendToPlayer((ServerPlayer) player, new StopOrchestraMusicS2CPayload(
-                    conductor.getOrchestra().stream().map(Entity::getUUID).toList()
-            ));
+            if (player instanceof ServerPlayer serverPlayer) {
+                ModNetwork.sendToPlayer(new StopOrchestraMusicS2CPacket(
+                            conductor.getOrchestra().stream().map(Entity::getUUID).toList()),
+                        serverPlayer);
+            }
         }
 
         playersListening = nearbyPlayers;

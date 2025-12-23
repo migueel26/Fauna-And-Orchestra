@@ -5,7 +5,9 @@ import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.entity.custom.ConductorEntity;
 import net.migueel26.faunaandorchestra.entity.custom.MusicalEntity;
 import net.migueel26.faunaandorchestra.item.ModItems;
+import net.migueel26.faunaandorchestra.networking.ModNetwork;
 import net.migueel26.faunaandorchestra.networking.StartOrchestraMusicS2CPayload;
+import net.migueel26.faunaandorchestra.networking.packets.StartOrchestraMusicS2CPacket;
 import net.migueel26.faunaandorchestra.util.MusicUtil;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -74,10 +76,10 @@ public class MusicalEntityPlayingInstrumentGoal extends Goal {
         // Start the musician's part if it's a new musician
         if (!conductor.isReady() && !nearbyPlayers.isEmpty()) {
             for (Player player : nearbyPlayers) {
-                PacketDistributor.sendToPlayer((ServerPlayer) player, new StartOrchestraMusicS2CPayload(musician.getUUID(),
+                ModNetwork.sendToPlayer(new StartOrchestraMusicS2CPacket(musician.getUUID(),
                         ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID,
                                 MusicUtil.getLocation(conductor.getSheetMusic(), musician.getInstrument().get())),
-                        ticksOffset));
+                        ticksOffset), (ServerPlayer) player);
             }
 
         }

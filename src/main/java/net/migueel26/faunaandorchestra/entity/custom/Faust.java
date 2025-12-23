@@ -8,6 +8,8 @@ import net.migueel26.faunaandorchestra.block.entity.TipCaseBlockEntity;
 import net.migueel26.faunaandorchestra.entity.goals.FaustFindOrionGoal;
 import net.migueel26.faunaandorchestra.entity.goals.RingtailsRunAwayGoal;
 import net.migueel26.faunaandorchestra.networking.*;
+import net.migueel26.faunaandorchestra.networking.packets.StartAmbientMusicS2CPacket;
+import net.migueel26.faunaandorchestra.networking.packets.StopMusicS2CPacket;
 import net.migueel26.faunaandorchestra.util.ModSavedData;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
@@ -172,12 +174,16 @@ public class Faust extends TravellingMusician implements Npc, GeoEntity, Talkabl
             newPlayers.removeAll(playersListening);
 
             for (Player player : newPlayers) {
-                PacketDistributor.sendToPlayer((ServerPlayer) player, new StartAmbientMusicS2CPayload(this.uuid));
-                ModAdvancements.MEET_RINGTAILS.trigger((ServerPlayer) player);
+                if (player instanceof ServerPlayer serverPlayer) {
+                    ModNetwork.sendToPlayer(new StartAmbientMusicS2CPacket(this.getUUID()), serverPlayer);
+                    ModAdvancements.MEET_RINGTAILS.trigger(serverPlayer);
+                }
             }
 
             for (Player player : exitPlayers) {
-                PacketDistributor.sendToPlayer((ServerPlayer) player, new StopMusicS2CPayload(this.uuid));
+                if (player instanceof ServerPlayer serverPlayer) {
+                    ModNetwork.sendToPlayer(new StopMusicS2CPacket(this.uuid), serverPlayer);
+                };
             }
 
             playersListening = nearbyPlayers;
