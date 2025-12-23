@@ -5,10 +5,8 @@ import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.block.custom.ComposerGravestoneBlock;
 import net.migueel26.faunaandorchestra.block.entity.ComposerGravestoneBlockEntity;
 import net.migueel26.faunaandorchestra.block.entity.MelomancyCauldronBlockEntity;
-import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
@@ -19,6 +17,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.properties.BedPart;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.minecraftforge.client.gui.overlay.ForgeGui;
+import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
 import java.util.StringJoiner;
 
@@ -26,8 +26,8 @@ public class ComposerGravestoneScreen {
     private static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/gui/block/composer_gravestone_gui.png");
     public static int MY_COUNTER = 0;
     public static final int DEFAULT_TEXT_WIDTH = 80;
-    public static final LayeredDraw.Layer OVERLAY = ComposerGravestoneScreen::renderOverlay;
-    public static void renderOverlay(GuiGraphics guiGraphics, DeltaTracker tracker) {
+    public static final IGuiOverlay OVERLAY = ComposerGravestoneScreen::renderOverlay;
+    public static void renderOverlay(ForgeGui gui, GuiGraphics guiGraphics, float partialTick, int screenWidth, int screenHeight) {
         Minecraft minecraft = Minecraft.getInstance();
         HitResult hitResult = minecraft.hitResult;
         ClientLevel level = minecraft.level;
@@ -37,7 +37,7 @@ public class ComposerGravestoneScreen {
         if (level != null && hitResult instanceof BlockHitResult blockHitResult) {
             BlockPos pos = blockHitResult.getBlockPos();
             if (level.getBlockEntity(pos) instanceof ComposerGravestoneBlockEntity composerGravestoneBE &&
-                    level.getBlockState(pos).is(ModBlocks.COMPOSER_GRAVESTONE) &&
+                    level.getBlockState(pos).is(ModBlocks.COMPOSER_GRAVESTONE.get()) &&
                     !composerGravestoneBE.getBlockState().getValue(ComposerGravestoneBlock.OPENED) &&
                     composerGravestoneBE.getBlockState().getValue(ComposerGravestoneBlock.PART).equals(BedPart.HEAD)) {
                 String text = Component.translatable("block.faunaandorchestra.composer_gravestone.gui").getString();

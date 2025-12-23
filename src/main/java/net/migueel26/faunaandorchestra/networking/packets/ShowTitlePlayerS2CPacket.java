@@ -1,7 +1,6 @@
 package net.migueel26.faunaandorchestra.networking.packets;
 
 import net.migueel26.faunaandorchestra.networking.ClientPacketHandler;
-import net.migueel26.faunaandorchestra.networking.ShowTitlePlayerS2CPayload;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;

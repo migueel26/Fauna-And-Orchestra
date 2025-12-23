@@ -6,25 +6,25 @@ import net.migueel26.faunaandorchestra.screen.custom.ConductorScreen;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
-import net.neoforged.neoforge.network.IContainerFactory;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import net.minecraftforge.common.extensions.IForgeMenuType;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.network.IContainerFactory;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 public class ModMenuTypes {
     public static final DeferredRegister<MenuType<?>> MENUS =
-            DeferredRegister.create(Registries.MENU, FaunaAndOrchestra.MOD_ID);
+            DeferredRegister.create(ForgeRegistries.MENU_TYPES, FaunaAndOrchestra.MOD_ID);
 
-    public static final DeferredHolder<MenuType<?>, MenuType<ConductorMenu>> CONDUCTOR_MENU = registerMenuType(
-            "conductor_menu", ConductorMenu::create);
+    public static final RegistryObject<MenuType<ConductorMenu>> CONDUCTOR_MENU =
+            registerMenuType("conductor_menu", ConductorMenu::create);
 
-    private static <T extends AbstractContainerMenu> DeferredHolder<MenuType<?>, MenuType<T>> registerMenuType(String name,
-                                                                                                               IContainerFactory<T> factory) {
-        return MENUS.register(name, () -> IMenuTypeExtension.create(factory));
+    private static <T extends AbstractContainerMenu> RegistryObject<MenuType<T>> registerMenuType(String name, IContainerFactory<T> factory) {
+        return MENUS.register(name, () -> IForgeMenuType.create(factory));
     }
 
-    public static void register (IEventBus eventBus) {
+    public static void register(IEventBus eventBus) {
         MENUS.register(eventBus);
     }
 }

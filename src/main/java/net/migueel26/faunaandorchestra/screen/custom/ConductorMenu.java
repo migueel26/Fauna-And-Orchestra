@@ -11,7 +11,7 @@ import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.items.SlotItemHandler;
+import net.minecraftforge.items.SlotItemHandler;
 
 import java.util.UUID;
 
@@ -28,6 +28,8 @@ public class ConductorMenu extends AbstractContainerMenu {
         super(ModMenuTypes.CONDUCTOR_MENU.get(), id);
         this.conductor = conductor;
         this.level = inventory.player.level();
+
+        checkContainerSize(inventory, 1);
 
         addPlayerInventory(inventory);
         addPlayerHotbar(inventory);
@@ -79,7 +81,7 @@ public class ConductorMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player player) {
-        return player.canInteractWithEntity(conductor, 4.0);
+        return this.conductor != null && this.conductor.isAlive() && this.conductor.distanceToSqr(player) < 32.0D;
     }
 
 

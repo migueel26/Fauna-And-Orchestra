@@ -5,7 +5,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.food.FoodProperties;
 
 public class ModFoodProperties {
-    public static final FoodProperties BOOGIE_FRUIT = new FoodProperties.Builder().nutrition(3).saturationModifier(0.15f)
-            .effect(() -> new MobEffectInstance(ModEffects.BOOGIE, 100), 1.0f).build();
+    public static final FoodProperties BOOGIE_FRUIT = new FoodProperties.Builder().nutrition(3).saturationMod(0.15f)
+            .effect(() -> new MobEffectInstance(ModEffects.BOOGIE.get(), 100), 1.0f).build();
 
 }

@@ -9,11 +9,12 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class ModPotions {
     public static DeferredRegister<Potion> POTIONS =
-            DeferredRegister.create(Registries.POTION, FaunaAndOrchestra.MOD_ID);
+            DeferredRegister.create(ForgeRegistries.POTIONS, FaunaAndOrchestra.MOD_ID);
 
     public static RegistryObject<Potion> ABSOLUTE_HEARING_POTION = POTIONS.register("absolute_hearing_potion",
             () -> new Potion(new MobEffectInstance(ModEffects.ABSOLUTE_HEARING.get(), 600)));

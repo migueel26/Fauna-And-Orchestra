@@ -1,10 +1,8 @@
 package net.migueel26.faunaandorchestra.screen.custom;
 
 import net.migueel26.faunaandorchestra.block.entity.MelomancyCauldronBlockEntity;
-import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
@@ -14,6 +12,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.minecraftforge.client.gui.overlay.ForgeGui;
+import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
 import java.util.StringJoiner;
 import java.util.logging.Level;
@@ -21,8 +21,8 @@ import java.util.logging.Level;
 public class MelomancyCauldronScreen {
     public static int MY_COUNTER = 0;
     public static final int DEFAULT_TEXT_WIDTH = 160;
-    public static final LayeredDraw.Layer OVERLAY = MelomancyCauldronScreen::renderOverlay;
-    public static void renderOverlay(GuiGraphics guiGraphics, DeltaTracker tracker) {
+    public static final IGuiOverlay OVERLAY = MelomancyCauldronScreen::renderOverlay;
+    public static void renderOverlay(ForgeGui gui, GuiGraphics guiGraphics, float partialTick, int screenWidth, int screenHeight) {
         Minecraft minecraft = Minecraft.getInstance();
         HitResult hitResult = minecraft.hitResult;
         ClientLevel level = minecraft.level;

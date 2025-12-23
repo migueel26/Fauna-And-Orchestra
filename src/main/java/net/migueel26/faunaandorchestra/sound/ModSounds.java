@@ -8,12 +8,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.function.Supplier;
 
 public class ModSounds {
     public static final DeferredRegister<SoundEvent> SOUND_EVENTS =
-            DeferredRegister.create(Registries.SOUND_EVENT, FaunaAndOrchestra.MOD_ID);
+            DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, FaunaAndOrchestra.MOD_ID);
 
     public static final Supplier<SoundEvent> VIOLIN_USE = registerSoundEvent("violin_use");
     public static final Supplier<SoundEvent> FLUTE_USE = registerSoundEvent("flute_use");

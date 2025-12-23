@@ -4,10 +4,8 @@ import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.entity.custom.AnyaGhost;
 import net.migueel26.faunaandorchestra.entity.custom.boss.TheGreatComposer;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
-import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
@@ -15,6 +13,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.client.gui.overlay.ForgeGui;
+import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import oshi.util.tuples.Pair;
 
 import java.util.List;
@@ -33,16 +33,16 @@ public class AnyaScreen {
     public static final double My = 245.0 / 251.0;
     public static final double Ny = -58800.0 / 251.0;
 
-    public static final LayeredDraw.Layer OVERLAY = AnyaScreen::renderOverlay;
+    public static final IGuiOverlay OVERLAY = AnyaScreen::renderOverlay;
     public static final int POP_UP_TIME = 160;
-    public static void renderOverlay(GuiGraphics guiGraphics, DeltaTracker tracker) {
+    public static void renderOverlay(ForgeGui gui, GuiGraphics guiGraphics, float partialTick, int screenWidth, int screenHeight) {
         Minecraft minecraft = Minecraft.getInstance();
         Level level = minecraft.level;
         LocalPlayer player = minecraft.player;
 
         if (level != null && player != null) {
             List<AnyaGhost> candidates = level.getEntitiesOfClass(AnyaGhost.class, player.getBoundingBox().inflate(30));
-            AnyaGhost anya = candidates.isEmpty() ? null : candidates.getFirst();
+            AnyaGhost anya = candidates.isEmpty() ? null : candidates.get(0);
             if (anya != null && anya.tickCount >= 60) {
                 int spawnTime = anya.tickCount - 60;
                 int normalizedSpawnTime = spawnTime > POP_UP_TIME ? spawnTime - POP_UP_TIME : spawnTime;

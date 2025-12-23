@@ -4,10 +4,8 @@ import net.migueel26.faunaandorchestra.block.custom.DiscordNucleiBlock;
 import net.migueel26.faunaandorchestra.block.entity.DiscordNucleiBlockEntity;
 import net.migueel26.faunaandorchestra.block.entity.MelomancyCauldronBlockEntity;
 import net.migueel26.faunaandorchestra.util.RecipesUtil;
-import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
@@ -16,13 +14,15 @@ import net.minecraft.network.chat.FormattedText;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.minecraftforge.client.gui.overlay.ForgeGui;
+import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
 import java.util.StringJoiner;
 
 public class DiscordNucleiScreen {
     public static final int DEFAULT_TEXT_WIDTH = 160;
-    public static final LayeredDraw.Layer OVERLAY = DiscordNucleiScreen::renderOverlay;
-    public static void renderOverlay(GuiGraphics guiGraphics, DeltaTracker tracker) {
+    public static final IGuiOverlay OVERLAY = DiscordNucleiScreen::renderOverlay;
+    public static void renderOverlay(ForgeGui gui, GuiGraphics guiGraphics, float partialTick, int screenWidth, int screenHeight) {
         Minecraft minecraft = Minecraft.getInstance();
         HitResult hitResult = minecraft.hitResult;
         ClientLevel level = minecraft.level;

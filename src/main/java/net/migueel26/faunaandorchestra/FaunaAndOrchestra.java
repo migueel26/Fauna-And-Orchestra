@@ -16,7 +16,6 @@ import net.migueel26.faunaandorchestra.entity.custom.projectile.ThrownBoogieBomb
 import net.migueel26.faunaandorchestra.entity.custom.projectile.ThrownDiscordBomb;
 import net.migueel26.faunaandorchestra.item.ModCreativeModeTabs;
 import net.migueel26.faunaandorchestra.item.ModItems;
-import net.migueel26.faunaandorchestra.loot_tables.ModLootTables;
 import net.migueel26.faunaandorchestra.networking.ModNetwork;
 import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
 import net.migueel26.faunaandorchestra.particles.custom.*;
@@ -26,6 +25,7 @@ import net.migueel26.faunaandorchestra.screen.custom.*;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.migueel26.faunaandorchestra.util.ModItemProperties;
 import net.migueel26.faunaandorchestra.worldgen.structures.ModStructures;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.particle.SculkChargePopParticle;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
@@ -38,7 +38,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
+import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
@@ -76,7 +78,6 @@ public class FaunaAndOrchestra {
         ModSounds.register(modEventBus);
         ModMenuTypes.register(modEventBus);
         ModParticleTypes.register(modEventBus);
-        ModLootTables.register(modEventBus);
         ModBlocks.register(modEventBus);
         ModBlockEntities.register(modEventBus);
         ModEffects.register(modEventBus);
@@ -121,6 +122,7 @@ public class FaunaAndOrchestra {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
             ModItemProperties.addCustomItemProperties();
+            MenuScreens.register(ModMenuTypes.CONDUCTOR_MENU.get(), ConductorScreen::new);
 
             EntityRenderers.register(ModEntities.MANTIS.get(), MantisRenderer::new);
             EntityRenderers.register(ModEntities.QUIRKY_FROG.get(), QuirkyFrogRenderer::new);
@@ -161,18 +163,13 @@ public class FaunaAndOrchestra {
         }
 
         @SubscribeEvent
-        public static void registerScreens(RegisterMenuScreensEvent event) {
-            event.register(ModMenuTypes.CONDUCTOR_MENU.get(), ConductorScreen::new);
-        }
-
-        @SubscribeEvent
-        public static void registerOverlays(final RegisterGuiLayersEvent event) {
-            event.registerBelow(VanillaGuiLayers.HOTBAR, ResourceLocation.fromNamespaceAndPath(MOD_ID, "dialogue"), DialogueScreen.OVERLAY);
-            event.registerBelow(VanillaGuiLayers.HOTBAR, ResourceLocation.fromNamespaceAndPath(MOD_ID, "dialogue_composer"), TheGreatComposerScreen.OVERLAY);
-            event.registerBelow(VanillaGuiLayers.HOTBAR, ResourceLocation.fromNamespaceAndPath(MOD_ID, "dialogue_anya"), AnyaScreen.OVERLAY);
-            event.registerAbove(VanillaGuiLayers.CROSSHAIR, ResourceLocation.fromNamespaceAndPath(MOD_ID, "melomancy_hottip"), MelomancyCauldronScreen.OVERLAY);
-            event.registerAbove(VanillaGuiLayers.CROSSHAIR, ResourceLocation.fromNamespaceAndPath(MOD_ID, "discord_nuclei_hottip"), DiscordNucleiScreen.OVERLAY);
-            event.registerAbove(VanillaGuiLayers.CROSSHAIR, ResourceLocation.fromNamespaceAndPath(MOD_ID, "composer_gravestone_gui"), ComposerGravestoneScreen.OVERLAY);
+        public static void registerOverlays(final RegisterGuiOverlaysEvent event) {
+            event.registerBelow(VanillaGuiOverlay.HOTBAR.id(), "dialogue", DialogueScreen.OVERLAY);
+            event.registerBelow(VanillaGuiOverlay.HOTBAR.id(), "dialogue_composer", TheGreatComposerScreen.OVERLAY);
+            event.registerBelow(VanillaGuiOverlay.HOTBAR.id(), "dialogue_anya", AnyaScreen.OVERLAY);
+            event.registerAbove(VanillaGuiOverlay.CROSSHAIR.id(), "melomancy_hottip", MelomancyCauldronScreen.OVERLAY);
+            event.registerAbove(VanillaGuiOverlay.CROSSHAIR.id(), "discord_nuclei_hottip", DiscordNucleiScreen.OVERLAY);
+            event.registerAbove(VanillaGuiOverlay.CROSSHAIR.id(), "composer_gravestone_gui", ComposerGravestoneScreen.OVERLAY);
         }
 
         @SubscribeEvent

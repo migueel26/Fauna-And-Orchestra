@@ -9,11 +9,9 @@ import net.migueel26.faunaandorchestra.entity.custom.Orion;
 import net.migueel26.faunaandorchestra.entity.custom.TalkableEntity;
 import net.migueel26.faunaandorchestra.mixins.client.accessors.ClientLevelAccessor;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
-import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
@@ -26,6 +24,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.minecraftforge.client.gui.overlay.ForgeGui;
+import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import oshi.util.tuples.Pair;
 
 public class DialogueScreen {
@@ -45,10 +45,10 @@ public class DialogueScreen {
     protected static int prizeTimer = 0;
     protected static int prize = -1;
 
-    public static final LayeredDraw.Layer OVERLAY = DialogueScreen::renderOverlay;
+    public static final IGuiOverlay OVERLAY = DialogueScreen::renderOverlay;
 
 
-    public static void renderOverlay(GuiGraphics guiGraphics, DeltaTracker tracker) {
+    public static void renderOverlay(ForgeGui gui, GuiGraphics guiGraphics, float partialTick, int screenWidth, int screenHeight) {
         Minecraft minecraft = Minecraft.getInstance();
         HitResult hitResult = minecraft.hitResult;
 

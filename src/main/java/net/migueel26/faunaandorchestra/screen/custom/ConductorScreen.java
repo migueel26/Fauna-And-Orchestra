@@ -4,7 +4,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.entity.custom.ConductorEntity;
 import net.migueel26.faunaandorchestra.networking.ModNetwork;
-import net.migueel26.faunaandorchestra.networking.RestartOrchestraMusicC2SPayload;
 import net.migueel26.faunaandorchestra.networking.packets.RestartOrchestraMusicC2SPacket;
 import net.migueel26.faunaandorchestra.screen.ParticleButton;
 import net.migueel26.faunaandorchestra.util.MusicUtil;
@@ -16,15 +15,14 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.Item;
-import net.neoforged.neoforge.client.gui.widget.ExtendedSlider;
-import net.neoforged.neoforge.network.PacketDistributor;
+import net.minecraftforge.client.gui.widget.ForgeSlider;
 
 public class ConductorScreen extends AbstractContainerScreen<ConductorMenu> {
     public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/gui/entity/conductor_gui.png");
     private final ConductorEntity conductor;
     private float xMouse;
     private float yMouse;
-    private ExtendedSlider volumeSlider;
+    private ForgeSlider volumeSlider;
     private ParticleButton button;
     private boolean particlesActivated;
     private float volume;
@@ -43,7 +41,7 @@ public class ConductorScreen extends AbstractContainerScreen<ConductorMenu> {
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
-        this.volumeSlider = new ExtendedSlider(x + 86, y + 57, 80, 13, Component.translatable("screen.faunaandorchestra.conductor_screen"), Component.empty(), 0, 100, 100, true);
+        this.volumeSlider = new ForgeSlider(x + 86, y + 57, 80, 13, Component.translatable("screen.faunaandorchestra.conductor_screen"), Component.empty(), 0, 100, 100, true);
         this.volumeSlider.setValue(conductor.getCurrentVolume() * 100);
         this.button = new ParticleButton(x + 159, y + 5, Component.empty(), button -> {
             conductor.activateParticles(!((ParticleButton) button).isPressed());
@@ -77,41 +75,6 @@ public class ConductorScreen extends AbstractContainerScreen<ConductorMenu> {
     }
 
     @Override
-    public void afterMouseAction() {
-        // Mouse released? Mouse dragged?
-        super.afterMouseAction();
-        /*float currentVolume = (float) volumeSlider.getValue() / 100.0F;
-        Item newSheetMusic = conductor.getSheetMusic();
-        Item currentSheetMusic = MusicUtil.getSheet(conductor.getUUID());
-
-        if (newSheetMusic != currentSheetMusic || currentVolume != volume) {
-            volume = currentVolume;
-            System.out.println("Sending!");
-            PacketDistributor.sendToServer(new RestartOrchestraMusicC2SPayload(conductor.getUUID(), volume));
-        }
-        if (!conductor.isOrchestraEmpty() && volume != currentVolume) {
-            volume = currentVolume;
-            int ticksPlaying = conductor.getTicksPlaying();
-            System.out.println(ticksPlaying);
-
-            for (MusicalEntity entity : conductor.getOrchestra()) {
-                ResourceLocation musician_song = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID,
-                        MusicUtil.getLocation(conductor.getSheetMusic(), entity.getInstrument().get()));
-
-                // We stop all current instrument sounds
-                ((ISoundManagerMixin) Minecraft.getInstance().getSoundManager()).faunaStopMusic(entity.getUUID());
-
-                // We play them with the new volume / sheet music
-                Minecraft.getInstance().getSoundManager().play(
-                        new InstrumentSoundInstance(
-                                entity,
-                                BuiltInRegistries.SOUND_EVENT.get(musician_song),
-                                volume, ticksPlaying));
-            }
-        }*/
-    }
-
-    @Override
     protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
@@ -122,8 +85,18 @@ public class ConductorScreen extends AbstractContainerScreen<ConductorMenu> {
 
         guiGraphics.blit(TEXTURE, x , y, 0,0, imageWidth, imageHeight);
 
-        InventoryScreen.renderEntityInInventoryFollowsMouse(guiGraphics, x + 26, y + 22, x + 78, y + 70, 30, 0.25F,
-                this.xMouse, this.yMouse, this.conductor);
+        int entityX = x + 52;
+        int entityY = y + 70;
+
+        InventoryScreen.renderEntityInInventoryFollowsMouse(
+                guiGraphics,
+                entityX,
+                entityY,
+                30,
+                (float)entityX - this.xMouse,
+                (float)(entityY - 50) - this.yMouse, // Ajuste vertical del lookAt
+                this.conductor
+        );
     }
 
     @Override
@@ -131,7 +104,7 @@ public class ConductorScreen extends AbstractContainerScreen<ConductorMenu> {
         this.xMouse = (float)mouseX;
         this.yMouse = (float)mouseY;
 
-        renderBackground(guiGraphics, mouseX, mouseY, partialTick);
+        renderBackground(guiGraphics);
         super.render(guiGraphics, mouseX, mouseY, partialTick);
         renderTooltip(guiGraphics, mouseX, mouseY);
     }

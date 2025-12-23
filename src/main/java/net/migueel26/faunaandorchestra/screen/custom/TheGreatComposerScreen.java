@@ -4,10 +4,8 @@ import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.entity.custom.Orion;
 import net.migueel26.faunaandorchestra.entity.custom.boss.TheGreatComposer;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
-import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
@@ -15,6 +13,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.client.gui.overlay.ForgeGui;
+import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import oshi.util.tuples.Pair;
 
 import java.util.List;
@@ -33,17 +33,17 @@ public class TheGreatComposerScreen {
     public static final double My = 245.0 / 251.0;
     public static final double Ny = -58800.0 / 251.0;
 
-    public static final LayeredDraw.Layer OVERLAY = TheGreatComposerScreen::renderOverlay;
+    public static final IGuiOverlay OVERLAY = TheGreatComposerScreen::renderOverlay;
     public static final int POP_UP_TIME = 160;
 
-    public static void renderOverlay(GuiGraphics guiGraphics, DeltaTracker tracker) {
+    public static void renderOverlay(ForgeGui gui, GuiGraphics guiGraphics, float partialTick, int screenWidth, int screenHeight) {
         Minecraft minecraft = Minecraft.getInstance();
         Level level = minecraft.level;
         LocalPlayer player = minecraft.player;
 
         if (level != null && player != null) {
             List<TheGreatComposer> candidates = level.getEntitiesOfClass(TheGreatComposer.class, player.getBoundingBox().inflate(30));
-            TheGreatComposer composer = candidates.isEmpty() ? null : candidates.getFirst();
+            TheGreatComposer composer = candidates.isEmpty() ? null : candidates.get(0);
             if (composer != null && composer.shouldDisplayDialogue() && composer.getSpawnTime() > -1) {
                 int spawnTime = composer.getSpawnTime();
                 int normalizedSpawnTime = spawnTime > POP_UP_TIME ? spawnTime - POP_UP_TIME : spawnTime;

@@ -14,12 +14,13 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.function.Supplier;
 
 public class ModEntities {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES =
-            DeferredRegister.create(Registries.ENTITY_TYPE, FaunaAndOrchestra.MOD_ID);
+            DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, FaunaAndOrchestra.MOD_ID);
 
     public  static final Supplier<EntityType<MantisEntity>> MANTIS = ENTITY_TYPES.register("mantis",
             () -> EntityType.Builder.of(MantisEntity::new, MobCategory.CREATURE).sized(1f, 2.25f).build("mantis"));
