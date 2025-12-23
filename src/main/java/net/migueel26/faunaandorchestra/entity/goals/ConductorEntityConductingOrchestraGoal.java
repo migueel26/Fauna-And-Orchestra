@@ -5,8 +5,6 @@ import net.migueel26.faunaandorchestra.entity.custom.ConductorEntity;
 import net.migueel26.faunaandorchestra.entity.custom.MusicalEntity;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.networking.ModNetwork;
-import net.migueel26.faunaandorchestra.networking.RestartOrchestraMusicS2CPayload;
-import net.migueel26.faunaandorchestra.networking.StopOrchestraMusicS2CPayload;
 import net.migueel26.faunaandorchestra.networking.packets.RestartOrchestraMusicS2CPacket;
 import net.migueel26.faunaandorchestra.networking.packets.StopOrchestraMusicS2CPacket;
 import net.migueel26.faunaandorchestra.util.MusicUtil;

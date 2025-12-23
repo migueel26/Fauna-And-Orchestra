@@ -6,7 +6,6 @@ import net.migueel26.faunaandorchestra.entity.custom.ConductorEntity;
 import net.migueel26.faunaandorchestra.entity.custom.MusicalEntity;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.networking.ModNetwork;
-import net.migueel26.faunaandorchestra.networking.StartOrchestraMusicS2CPayload;
 import net.migueel26.faunaandorchestra.networking.packets.StartOrchestraMusicS2CPacket;
 import net.migueel26.faunaandorchestra.util.MusicUtil;
 import net.minecraft.resources.ResourceLocation;

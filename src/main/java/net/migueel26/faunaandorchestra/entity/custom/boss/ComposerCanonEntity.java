@@ -25,10 +25,16 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
-import software.bernie.geckolib.animatable.GeoAnimatable;
+import net.minecraftforge.event.ForgeEventFactory;
+import net.minecraftforge.event.entity.EntityTeleportEvent;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.*;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class ComposerCanonEntity extends Monster implements GeoEntity {
@@ -58,8 +64,10 @@ public class ComposerCanonEntity extends Monster implements GeoEntity {
     protected void registerGoals() {
         goalSelector.addGoal(0, new MeleeAttackGoal(this, 1.0f, true) {
             @Override
-            protected void checkAndPerformAttack(LivingEntity target) {
-                if (this.canPerformAttack(target)) {
+            protected void checkAndPerformAttack(LivingEntity target, double distToEnemySqr) {
+                double reach = this.getAttackReachSqr(target);
+
+                if (distToEnemySqr <= reach && this.isTimeToAttack()) {
                     ((ComposerCanonEntity) this.mob).triggerAnim("composer_canon_controller", "canon_attack");
                     this.resetAttackCooldown();
                     this.mob.doHurtTarget(target);
@@ -143,7 +151,7 @@ public class ComposerCanonEntity extends Monster implements GeoEntity {
         boolean flag = blockstate.blocksMotion();
         boolean flag1 = blockstate.getFluidState().is(FluidTags.WATER);
         if (flag && !flag1) {
-            net.neoforged.neoforge.event.entity.EntityTeleportEvent.EnderEntity event = net.neoforged.neoforge.event.EventHooks.onEnderTeleport(this, x, y, z);
+            EntityTeleportEvent.EnderEntity event = ForgeEventFactory.onEnderTeleport(this, x, y, z);
             if (event.isCanceled()) return false;
             Vec3 vec3 = this.position();
             boolean flag2 = this.randomTeleport(event.getTargetX(), event.getTargetY(), event.getTargetZ(), true);
