@@ -4,9 +4,10 @@ import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.entity.custom.QuirkyFrogEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.constant.DataTickets;
+import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
+import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
@@ -32,7 +33,7 @@ public class QuirkyFrogModel extends GeoModel<QuirkyFrogEntity> {
 
     @Override
     public void setCustomAnimations(QuirkyFrogEntity entity, long instanceId, AnimationState<QuirkyFrogEntity> animationState) {
-        GeoBone head = getAnimationProcessor().getBone("frog_head");
+        CoreGeoBone head = getAnimationProcessor().getBone("frog_head");
 
         if (head != null && !entity.isConducting()) {
             EntityModelData entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
@@ -46,8 +47,8 @@ public class QuirkyFrogModel extends GeoModel<QuirkyFrogEntity> {
             }
         }
 
-        GeoBone baton = getAnimationProcessor().getBone("baton");
-        GeoBone legendaryBaton = getAnimationProcessor().getBone("legendary_baton");
+        CoreGeoBone baton = getAnimationProcessor().getBone("baton");
+        CoreGeoBone legendaryBaton = getAnimationProcessor().getBone("legendary_baton");
         if (entity.isHoldingBaton()) {
             if (entity.isHoldingLegendaryBaton()) {
                 baton.setHidden(true);

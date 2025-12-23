@@ -20,7 +20,7 @@ public class ListenerContainerBlockEntityRenderer extends GeoBlockRenderer<Liste
     }
 
     @Override
-    public void actuallyRender(PoseStack poseStack, ListenerContainerBlockEntity listener, BakedGeoModel model, @Nullable RenderType renderType, MultiBufferSource bufferSource, @Nullable VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, int colour) {
+    public void actuallyRender(PoseStack poseStack, ListenerContainerBlockEntity listener, BakedGeoModel model, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         BlockState state = listener.getBlockState();
         GeoBone bottle = model.getBone("bottle").get();
         GeoBone tap = model.getBone("tap").get();
@@ -42,7 +42,6 @@ public class ListenerContainerBlockEntityRenderer extends GeoBlockRenderer<Liste
                 tap.setHidden(false);
             }
         }
-
-        super.actuallyRender(poseStack, listener, model, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, colour);
+        super.actuallyRender(poseStack, animatable, model, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
     }
 }

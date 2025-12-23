@@ -4,7 +4,7 @@ import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.block.entity.SingingCropBlockEntity;
 import net.migueel26.faunaandorchestra.block.entity.TheGreatHeadBlockEntity;
 import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib.animation.AnimationState;
+import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 
 public class SingingCropModel extends GeoModel<SingingCropBlockEntity> {

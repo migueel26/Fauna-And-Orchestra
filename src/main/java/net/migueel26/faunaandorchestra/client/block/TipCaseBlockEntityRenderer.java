@@ -23,7 +23,7 @@ public class TipCaseBlockEntityRenderer extends GeoBlockRenderer<TipCaseBlockEnt
     }
 
     @Override
-    public void actuallyRender(PoseStack poseStack, TipCaseBlockEntity tipCase, BakedGeoModel model, @Nullable RenderType renderType, MultiBufferSource bufferSource, @Nullable VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, int colour) {
+    public void actuallyRender(PoseStack poseStack, TipCaseBlockEntity tipCase, BakedGeoModel model, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         BlockState state = tipCase.getBlockState();
 
         GeoBone coins1 = model.getBone("coins1").get();
@@ -45,7 +45,6 @@ public class TipCaseBlockEntityRenderer extends GeoBlockRenderer<TipCaseBlockEnt
         if (state.getValue(TipCaseBlock.TIPS) >= TipCaseBlock.THIRD_REWARD) {
             coins3.setHidden(false);
         }
-
-        super.actuallyRender(poseStack, tipCase, model, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, colour);
+        super.actuallyRender(poseStack, animatable, model, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
     }
 }

@@ -4,8 +4,9 @@ import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.block.custom.MelomancyCauldronBlock;
 import net.migueel26.faunaandorchestra.block.entity.MelomancyCauldronBlockEntity;
 import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.cache.object.GeoBone;
+import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
+import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 
 public class MelomancyCauldronModel extends GeoModel<MelomancyCauldronBlockEntity> {
@@ -24,13 +25,19 @@ public class MelomancyCauldronModel extends GeoModel<MelomancyCauldronBlockEntit
 
     @Override
     public ResourceLocation getTextureResource(MelomancyCauldronBlockEntity animatable) {
-        return switch (animatable.getMixResult()) {
-            case String item when item.startsWith("discord") -> DISCORD_TEXTURE;
+        String result = animatable.getMixResult();
+
+        if (result == null) return DEFAULT_TEXTURE;
+
+        if (result.startsWith("discord") || result.equals("resurrection")) {
+            return DISCORD_TEXTURE;
+        }
+
+        return switch (result) {
             case "musical_ink", "steelsonic", "boogie_bomb", "amplifier_crystal" -> INK_TEXTURE;
             case "offering" -> OFFERING_TEXTURE;
             case "absolute_hearing" -> HEARING_TEXTURE;
             case "singing_seed" -> SEED_TEXTURE;
-            case "resurrection" -> DISCORD_TEXTURE;
             default -> DEFAULT_TEXTURE;
         };
     }
@@ -43,7 +50,7 @@ public class MelomancyCauldronModel extends GeoModel<MelomancyCauldronBlockEntit
     @Override
     public void setCustomAnimations(MelomancyCauldronBlockEntity animatable, long instanceId, AnimationState<MelomancyCauldronBlockEntity> animationState) {
         int liquid = animatable.getBlockState().getValue(MelomancyCauldronBlock.LIQUID);
-        GeoBone liquidBone = getAnimationProcessor().getBone("liquid");
+        CoreGeoBone liquidBone = getAnimationProcessor().getBone("liquid");
 
         if (!animationState.isCurrentAnimation(MelomancyCauldronBlockEntity.EMPTY)) {
             if (liquid == 0) {

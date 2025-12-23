@@ -11,6 +11,7 @@ import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.phys.AABB;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -56,6 +57,11 @@ public class ComposerGravestoneBlockEntity extends BlockEntity implements GeoBlo
 
     public void close() {
         triggerAnim("gravestone_controller", "gravestone_close");
+    }
+
+    @Override
+    public AABB getRenderBoundingBox() {
+        return new AABB(this.worldPosition).inflate(16);
     }
 
     @Override

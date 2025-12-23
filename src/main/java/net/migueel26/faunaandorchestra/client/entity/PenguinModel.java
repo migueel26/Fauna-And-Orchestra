@@ -4,9 +4,10 @@ import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.entity.custom.PenguinEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.constant.DataTickets;
+import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
+import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
@@ -32,7 +33,7 @@ public class PenguinModel extends GeoModel<PenguinEntity> {
 
     @Override
     public void setCustomAnimations(PenguinEntity penguin, long instanceId, AnimationState<PenguinEntity> animationState) {
-        GeoBone head = getAnimationProcessor().getBone("head");
+        CoreGeoBone head = getAnimationProcessor().getBone("head");
 
         if (head != null && !penguin.isPlayingInstrument() && !animationState.isMoving()) {
             EntityModelData entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
@@ -41,7 +42,7 @@ public class PenguinModel extends GeoModel<PenguinEntity> {
             head.setRotY(entityData.netHeadYaw() * Mth.DEG_TO_RAD);
         }
 
-        GeoBone flute = getAnimationProcessor().getBone("long_flute");
+        CoreGeoBone flute = getAnimationProcessor().getBone("long_flute");
 
         flute.setHidden(!penguin.isHoldingInstrument());
     }

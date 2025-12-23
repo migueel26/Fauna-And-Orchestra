@@ -30,7 +30,7 @@ public class DiscordNucleiBlockEntityRenderer extends GeoBlockRenderer<DiscordNu
     }
 
     @Override
-    public void actuallyRender(PoseStack poseStack, DiscordNucleiBlockEntity blockEntity, BakedGeoModel model, @Nullable RenderType renderType, MultiBufferSource bufferSource, @Nullable VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, int colour) {
+    public void actuallyRender(PoseStack poseStack, DiscordNucleiBlockEntity blockEntity, BakedGeoModel model, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
         ItemStack stack = blockEntity.inventory.getStackInSlot(0);
 
@@ -39,11 +39,13 @@ public class DiscordNucleiBlockEntityRenderer extends GeoBlockRenderer<DiscordNu
         poseStack.scale(0.5f, 0.5f, 0.5f);
         poseStack.mulPose(Axis.YP.rotationDegrees(blockEntity.getRenderingRotation()));
 
-        itemRenderer.renderStatic(stack, ItemDisplayContext.FIXED, getLightLevel(blockEntity.getLevel(),
-                blockEntity.getBlockPos()), OverlayTexture.NO_OVERLAY, poseStack, bufferSource, blockEntity.getLevel(), 1);
-        poseStack.popPose();
+        if (blockEntity.getLevel() != null) {
+            itemRenderer.renderStatic(stack, ItemDisplayContext.FIXED, getLightLevel(blockEntity.getLevel(),
+                    blockEntity.getBlockPos()), OverlayTexture.NO_OVERLAY, poseStack, bufferSource, blockEntity.getLevel(), 1);
+            poseStack.popPose();
+        }
 
-        super.actuallyRender(poseStack, blockEntity, model, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, colour);
+        super.actuallyRender(poseStack, animatable, model, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
     }
 
     private int getLightLevel(Level level, BlockPos pos) {

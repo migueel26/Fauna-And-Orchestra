@@ -19,17 +19,17 @@ public class SingingCropBlockEntityRenderer extends GeoBlockRenderer<SingingCrop
     }
 
     @Override
-    public void renderRecursively(PoseStack poseStack, SingingCropBlockEntity animatable, GeoBone bone, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, int colour) {
+    public void renderRecursively(PoseStack poseStack, SingingCropBlockEntity animatable, GeoBone bone, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         int age = animatable.getBlockState().getValue(SingingCropBlock.AGE);
         if (bone.getName().startsWith("age_")) {
             bone.setHidden(!bone.getName().equals("age_" + age));
         }
-        super.renderRecursively(poseStack, animatable, bone, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, colour);
+        super.renderRecursively(poseStack, animatable, bone, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
     }
 
     @Override
-    public void actuallyRender(PoseStack poseStack, SingingCropBlockEntity animatable, BakedGeoModel model, @Nullable RenderType renderType, MultiBufferSource bufferSource, @Nullable VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, int colour) {
-        super.actuallyRender(poseStack, animatable, model, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, colour);
+    public void actuallyRender(PoseStack poseStack, SingingCropBlockEntity animatable, BakedGeoModel model, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+        super.actuallyRender(poseStack, animatable, model, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
         int age = animatable.getBlockState().getValue(SingingCropBlock.AGE);
         if (age == 0) {
             model.getBone("age_0").get().setHidden(false);

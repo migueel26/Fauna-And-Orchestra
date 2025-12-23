@@ -17,8 +17,8 @@ public class VoiceChamberBlockEntityRenderer extends GeoBlockRenderer<VoiceChamb
     }
 
     @Override
-    public void actuallyRender(PoseStack poseStack, VoiceChamberBlockEntity animatable, BakedGeoModel model, @Nullable RenderType renderType, MultiBufferSource bufferSource, @Nullable VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, int colour) {
+    public void actuallyRender(PoseStack poseStack, VoiceChamberBlockEntity animatable, BakedGeoModel model, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         model.getBone("floating_voice").get().setHidden(animatable.getVoice().isEmpty());
-        super.actuallyRender(poseStack, animatable, model, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, colour);
+        super.actuallyRender(poseStack, animatable, model, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
     }
 }

@@ -4,8 +4,9 @@ import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.entity.custom.Orion;
 import net.migueel26.faunaandorchestra.entity.custom.WiseTree;
 import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.cache.object.GeoBone;
+import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
+import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 
 public class WiseTreeModel extends GeoModel<WiseTree> {
@@ -39,7 +40,7 @@ public class WiseTreeModel extends GeoModel<WiseTree> {
     @Override
     public void setCustomAnimations(WiseTree wiseTree, long instanceId, AnimationState<WiseTree> animationState) {
         if (wiseTree.getLifeStage() == 3) {
-            GeoBone fruit = getAnimationProcessor().getBone("fruit");
+            CoreGeoBone fruit = getAnimationProcessor().getBone("fruit");
             fruit.setHidden(!animationState.isCurrentAnimation(WiseTree.DROP));
         }
     }

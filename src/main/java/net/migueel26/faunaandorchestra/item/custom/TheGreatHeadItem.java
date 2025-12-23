@@ -63,6 +63,8 @@ public class TheGreatHeadItem extends BlockItem implements GeoItem {
         });
     }
 
+
+
     @Override
     public void appendHoverText(ItemStack stack, Level level, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         tooltipComponents.add(Component.translatable("item.faunaandorchestra.the_great_head.desc")

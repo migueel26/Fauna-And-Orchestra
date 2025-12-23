@@ -5,9 +5,10 @@ import net.migueel26.faunaandorchestra.entity.custom.BeaverEntity;
 import net.migueel26.faunaandorchestra.entity.custom.MacawEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.constant.DataTickets;
+import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
+import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
@@ -33,7 +34,7 @@ public class BeaverModel extends GeoModel<BeaverEntity> {
 
     @Override
     public void setCustomAnimations(BeaverEntity beaver, long instanceId, AnimationState<BeaverEntity> animationState) {
-        GeoBone head = getAnimationProcessor().getBone("head");
+        CoreGeoBone head = getAnimationProcessor().getBone("head");
 
         if (head != null && !beaver.isPlayingInstrument()) {
             EntityModelData entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
@@ -48,7 +49,7 @@ public class BeaverModel extends GeoModel<BeaverEntity> {
 
         }
 
-        GeoBone saxophone = getAnimationProcessor().getBone("saxophone");
+        CoreGeoBone saxophone = getAnimationProcessor().getBone("saxophone");
 
         saxophone.setHidden(!beaver.isHoldingInstrument());
     }

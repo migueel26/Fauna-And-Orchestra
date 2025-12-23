@@ -5,8 +5,9 @@ import net.migueel26.faunaandorchestra.block.custom.DiscordNucleiBlock;
 import net.migueel26.faunaandorchestra.block.entity.DiscordNucleiBlockEntity;
 import net.migueel26.faunaandorchestra.block.entity.ListenerContainerBlockEntity;
 import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.cache.object.GeoBone;
+import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
+import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 
 public class DiscordNucleiModel extends GeoModel<DiscordNucleiBlockEntity> {
@@ -31,10 +32,10 @@ public class DiscordNucleiModel extends GeoModel<DiscordNucleiBlockEntity> {
     @Override
     public void setCustomAnimations(DiscordNucleiBlockEntity animatable, long instanceId, AnimationState<DiscordNucleiBlockEntity> animationState) {
         super.setCustomAnimations(animatable, instanceId, animationState);
-        GeoBone cube1 = getAnimationProcessor().getBone("cube1");
-        GeoBone cube2 = getAnimationProcessor().getBone("cube2");
-        GeoBone cube3 = getAnimationProcessor().getBone("cube3");
-        GeoBone cube4 = getAnimationProcessor().getBone("cube4");
+        CoreGeoBone cube1 = getAnimationProcessor().getBone("cube1");
+        CoreGeoBone cube2 = getAnimationProcessor().getBone("cube2");
+        CoreGeoBone cube3 = getAnimationProcessor().getBone("cube3");
+        CoreGeoBone cube4 = getAnimationProcessor().getBone("cube4");
 
         int essence = animatable.getBlockState().getValue(DiscordNucleiBlock.ESSENCE);
 

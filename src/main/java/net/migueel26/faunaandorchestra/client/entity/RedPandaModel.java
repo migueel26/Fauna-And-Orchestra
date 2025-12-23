@@ -4,9 +4,10 @@ import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.entity.custom.RedPandaEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.constant.DataTickets;
+import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
+import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
@@ -31,7 +32,7 @@ public class RedPandaModel extends GeoModel<RedPandaEntity> {
 
     @Override
     public void setCustomAnimations(RedPandaEntity redPanda, long instanceId, AnimationState<RedPandaEntity> animationState) {
-        GeoBone head = getAnimationProcessor().getBone("head");
+        CoreGeoBone head = getAnimationProcessor().getBone("head");
 
 
         if (head != null && !redPanda.isPlayingInstrument() && !animationState.isMoving() && redPanda.isCurrentlyNotChangingStances()) {
@@ -46,7 +47,7 @@ public class RedPandaModel extends GeoModel<RedPandaEntity> {
             }
         }
 
-        GeoBone keytar = getAnimationProcessor().getBone("keytar");
+        CoreGeoBone keytar = getAnimationProcessor().getBone("keytar");
 
         keytar.setHidden(!redPanda.isHoldingInstrument());
     }
