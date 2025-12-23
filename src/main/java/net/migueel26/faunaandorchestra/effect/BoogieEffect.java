@@ -1,9 +1,7 @@
 package net.migueel26.faunaandorchestra.effect;
 
-import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.player.Player;
@@ -15,7 +13,8 @@ public class BoogieEffect extends MobEffect {
     }
 
     @Override
-    public boolean applyEffectTick(LivingEntity livingEntity, int amplifier) {
+    public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
+        tick = livingEntity.tickCount;
         if (livingEntity instanceof Player) {
 
             float i = (float) ((float) 8*asymmetricSine(tick*0.1, 0.5, 6, 4.0));
@@ -25,15 +24,16 @@ public class BoogieEffect extends MobEffect {
             float i = (float) ((float) 100 * asymmetricSine(tick*0.2, 0.5, 6));
 
             mob.setXRot(i - 40);
-            mob.setNoAi(true);
+            if (!mob.isNoAi()) {
+                mob.setNoAi(true);
+            }
         }
 
         tick++;
-        return super.applyEffectTick(livingEntity, amplifier);
     }
 
     @Override
-    public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
+    public boolean isDurationEffectTick(int p_19455_, int p_19456_) {
         return true;
     }
 

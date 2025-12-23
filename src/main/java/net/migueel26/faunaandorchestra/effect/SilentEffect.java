@@ -11,13 +11,9 @@ public class SilentEffect extends MobEffect {
     }
 
     @Override
-    public boolean applyEffectTick(LivingEntity livingEntity, int amplifier) {
-        ((Mob) livingEntity).stopInPlace();
-        return super.applyEffectTick(livingEntity, amplifier);
-    }
-
-    @Override
-    public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
-        return super.shouldApplyEffectTickThisTick(duration, amplifier);
+    public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
+        if (livingEntity instanceof Mob mob) {
+            mob.getNavigation().stop();
+        }
     }
 }
