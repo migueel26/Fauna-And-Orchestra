@@ -3,16 +3,17 @@ package net.migueel26.faunaandorchestra.sound;
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.minecraft.client.resources.sounds.Sound;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
 
 public class ModSounds {
     public static final DeferredRegister<SoundEvent> SOUND_EVENTS =
-            DeferredRegister.create(BuiltInRegistries.SOUND_EVENT, FaunaAndOrchestra.MOD_ID);
+            DeferredRegister.create(Registries.SOUND_EVENT, FaunaAndOrchestra.MOD_ID);
 
     public static final Supplier<SoundEvent> VIOLIN_USE = registerSoundEvent("violin_use");
     public static final Supplier<SoundEvent> FLUTE_USE = registerSoundEvent("flute_use");

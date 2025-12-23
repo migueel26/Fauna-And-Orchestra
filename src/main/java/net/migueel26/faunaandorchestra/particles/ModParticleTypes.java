@@ -4,14 +4,15 @@ import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import net.minecraft.core.registries.Registries;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
 
 public class ModParticleTypes {
     public static DeferredRegister<ParticleType<?>> PARTICLE_TYPES = DeferredRegister.create(
-            BuiltInRegistries.PARTICLE_TYPE, FaunaAndOrchestra.MOD_ID
+            Registries.PARTICLE_TYPE, FaunaAndOrchestra.MOD_ID
     );
 
     public static final Supplier<SimpleParticleType> FAUNA_NOTES =
