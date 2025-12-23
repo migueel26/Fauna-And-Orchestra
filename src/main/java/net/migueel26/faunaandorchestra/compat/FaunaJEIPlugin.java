@@ -28,26 +28,26 @@ public class FaunaJEIPlugin implements IModPlugin {
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
         //TODO: IMPROVE
-        registration.addIngredientInfo(ModItems.MUSIC_BOTTLE, symphoniaComponent("music_bottle"));
-        registration.addIngredientInfo(ModItems.DISCORD_ESSENCE, symphoniaComponent("discord_essence"));
-        registration.addIngredientInfo(ModItems.AMPLIFIER_CRYSTAL, melomancyComponent("amplifier_crystal"));
-        registration.addIngredientInfo(ModItems.OFFERING, melomancyComponent("offering"));
-        registration.addIngredientInfo(ModItems.STEELSONIC_INGOT, melomancyComponent("steelsonic_ingot"));
-        registration.addIngredientInfo(ModItems.MUSICAL_INK, melomancyComponent("musical_ink"));
-        registration.addIngredientInfo(ModItems.SINGING_SEED, melomancyComponent("singing_seed"));
-        registration.addIngredientInfo(ModItems.BOOGIE_BOMB, melomancyComponent("boogie_bomb"));
-        registration.addIngredientInfo(ModItems.RESURRECTION_SONG, melomancyComponent("resurrection_song"));
+        registration.addIngredientInfo(ModItems.MUSIC_BOTTLE.get(), symphoniaComponent("music_bottle"));
+        registration.addIngredientInfo(ModItems.DISCORD_ESSENCE.get(), symphoniaComponent("discord_essence"));
+        registration.addIngredientInfo(ModItems.AMPLIFIER_CRYSTAL.get(), melomancyComponent("amplifier_crystal"));
+        registration.addIngredientInfo(ModItems.OFFERING.get(), melomancyComponent("offering"));
+        registration.addIngredientInfo(ModItems.STEELSONIC_INGOT.get(), melomancyComponent("steelsonic_ingot"));
+        registration.addIngredientInfo(ModItems.MUSICAL_INK.get(), melomancyComponent("musical_ink"));
+        registration.addIngredientInfo(ModItems.SINGING_SEED.get(), melomancyComponent("singing_seed"));
+        registration.addIngredientInfo(ModItems.BOOGIE_BOMB.get(), melomancyComponent("boogie_bomb"));
+        registration.addIngredientInfo(ModItems.RESURRECTION_SONG.get(), melomancyComponent("resurrection_song"));
 
-        registration.addIngredientInfo(ModItems.TRANSMUTED_VOICE, symphoniaComponent("transmuted_voice"));
-        registration.addIngredientInfo(ModItems.DISCORD_BOMB, symphoniaComponent("discord_bomb"));
-        registration.addIngredientInfo(ModBlocks.DISCORDED_FLOWER.asItem(), symphoniaComponent("discorded_flower"));
+        registration.addIngredientInfo(ModItems.TRANSMUTED_VOICE.get(), symphoniaComponent("transmuted_voice"));
+        registration.addIngredientInfo(ModItems.DISCORD_BOMB.get(), symphoniaComponent("discord_bomb"));
+        registration.addIngredientInfo(ModBlocks.DISCORDED_FLOWER.get().asItem(), symphoniaComponent("discorded_flower"));
 
-        registration.addIngredientInfo(ModItems.DISCORD_NUCLEI_ITEM, symphoniaDefaultText());
-        registration.addIngredientInfo(ModItems.WANDERING_NOTE, symphoniaDefaultText());
-        registration.addIngredientInfo(ModItems.FRUIT_OF_LIFE, symphoniaDefaultText());
-        registration.addIngredientInfo(ModItems.PETALS_OF_DEATH, symphoniaDefaultText());
-        registration.addIngredientInfo(ModItems.GLOVE, symphoniaDefaultText());
-        registration.addIngredientInfo(ModItems.GINKGO_BILOBA, symphoniaDefaultText());
+        registration.addIngredientInfo(ModItems.DISCORD_NUCLEI_ITEM.get(), symphoniaDefaultText());
+        registration.addIngredientInfo(ModItems.WANDERING_NOTE.get(), symphoniaDefaultText());
+        registration.addIngredientInfo(ModItems.FRUIT_OF_LIFE.get(), symphoniaDefaultText());
+        registration.addIngredientInfo(ModItems.PETALS_OF_DEATH.get(), symphoniaDefaultText());
+        registration.addIngredientInfo(ModItems.GLOVE.get(), symphoniaDefaultText());
+        registration.addIngredientInfo(ModItems.GINKGO_BILOBA.get(), symphoniaDefaultText());
     }
 
     public static Component melomancyComponent(String item) {
