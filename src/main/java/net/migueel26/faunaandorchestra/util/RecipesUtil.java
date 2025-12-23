@@ -8,7 +8,7 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.alchemy.PotionContents;
+import net.minecraft.world.item.alchemy.PotionUtils;
 import oshi.util.tuples.Pair;
 
 import java.util.*;
@@ -64,11 +64,15 @@ public class RecipesUtil {
     ));
 
     // DISCORD NUCLEI
-    public static Map<Item, Pair<Integer, Item>> DISCORD_NUCLEI = Map.of(
-            Items.OXEYE_DAISY, new Pair<>(50, ModBlocks.DISCORDED_FLOWER.asItem()),
-            ModItems.BOOGIE_FRUIT.get(), new Pair<>(30, ModItems.DISCORD_BOMB.asItem()),
-            ModItems.VOICE.get(), new Pair<>(30, ModItems.TRANSMUTED_VOICE.asItem())
-    );
+    public static Map<Item, Pair<Integer, Item>> DISCORD_NUCLEI;
+
+    static {
+        DISCORD_NUCLEI = Map.of(
+                Items.OXEYE_DAISY, new Pair<>(50, ModBlocks.DISCORDED_FLOWER.get().asItem()),
+                ModItems.BOOGIE_FRUIT.get(), new Pair<>(30, ModItems.DISCORD_BOMB.get()),
+                ModItems.VOICE.get(), new Pair<>(30, ModItems.TRANSMUTED_VOICE.get())
+        );
+    }
 
     // ( BASE UNSTABILITY, EXTRA PROPORTION )
     public static Map<Item, Pair<Integer, Float>> UNSTABILITY_INDEXES = Map.of(
@@ -122,7 +126,7 @@ public class RecipesUtil {
         for (ItemStack item1 : ingredients) {
             boolean found = false;
             for (ItemStack item2 : recipe) {
-                if ((ItemStack.isSameItemSameComponents(item1, item2) && item1.getCount() == item2.getCount()) || item1.isEmpty()) {
+                if ((ItemStack.isSameItemSameTags(item1, item2) && item1.getCount() == item2.getCount()) || item1.isEmpty()) {
                     found = true;
                     if (!item1.isEmpty()) copy2.remove(item2);
                     break;
@@ -138,7 +142,7 @@ public class RecipesUtil {
         return switch (mixResult) {
             case "musical_ink" -> new ItemStack(ModItems.MUSICAL_INK.get(), 3);
             case "offering" -> new ItemStack(ModItems.OFFERING.get());
-            case "absolute_hearing" -> PotionContents.createItemStack(Items.POTION, ModPotions.ABSOLUTE_HEARING_POTION);
+            case "absolute_hearing" -> PotionUtils.setPotion(new ItemStack(Items.POTION), ModPotions.ABSOLUTE_HEARING_POTION.get());
             case "steelsonic" -> new ItemStack(ModItems.STEELSONIC_INGOT.get(), 2);
             case "singing_seed" -> new ItemStack(ModItems.SINGING_SEED.get(), 1);
             case "boogie_bomb" -> new ItemStack(ModItems.BOOGIE_BOMB.get(), 1);

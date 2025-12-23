@@ -10,7 +10,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.saveddata.SavedData;
-import net.neoforged.fml.common.EventBusSubscriber;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
@@ -21,7 +20,7 @@ public class ModSavedData extends SavedData {
         return new ModSavedData();
     }
 
-    public static ModSavedData load(CompoundTag tag, HolderLookup.Provider lookupProvider) {
+    public static ModSavedData load(CompoundTag tag) {
         ModSavedData data = ModSavedData.create();
         ListTag listTag = tag.getList("TalkingEntityList",10);
         for (int i = 0; i < listTag.size(); i++) {
@@ -38,7 +37,7 @@ public class ModSavedData extends SavedData {
         return data;
     }
     @Override
-    public CompoundTag save(CompoundTag tag, HolderLookup.Provider registries) {
+    public CompoundTag save(CompoundTag tag) {
         ListTag listTag = new ListTag();
         for (List<Entry> entries : ANIMAL_MAP.values()) {
             for (Entry entry : entries) {
@@ -50,8 +49,11 @@ public class ModSavedData extends SavedData {
     }
 
     public static ModSavedData from(ServerLevel level) {
-        return level.getDataStorage()
-                .computeIfAbsent(new Factory<>(ModSavedData::create, ModSavedData::load), "talking_entity_data");
+        return level.getDataStorage().computeIfAbsent(
+                ModSavedData::load,
+                ModSavedData::create,
+                "talking_entity_data"
+        );
     }
 
     public static int getConfidence(ServerLevel level, TalkableEntity entity, UUID player) {
@@ -80,7 +82,9 @@ public class ModSavedData extends SavedData {
 
         if (name != null) {
             if (entryList == null || entryList.isEmpty()) {
-                map.put(player, List.of(new Entry(player, name, confidence)));
+                List<Entry> newList = new ArrayList<>();
+                newList.add(new Entry(player, name, confidence));
+                map.put(player, newList);
             } else {
                 boolean found = false;
                 for (Entry entry : entryList) {
@@ -103,14 +107,12 @@ public class ModSavedData extends SavedData {
 
     @Nullable
     private static String getTalkableEntityName(TalkableEntity entity) {
-        String name = null;
-        switch (entity) {
-            case Faust faust -> name = "faust";
-            case Orion orion -> name = "orion";
-            case null, default -> {
-            }
+        if (entity instanceof Faust) {
+            return "faust";
+        } else if (entity instanceof Orion) {
+            return "orion";
         }
-        return name;
+        return null;
     }
 
     public static class Entry {
