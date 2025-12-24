@@ -46,7 +46,9 @@ import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -62,13 +64,13 @@ public class FaunaAndOrchestra {
 
     // The constructor for the mod class is the first code that is run when your mod is loaded.
     // FML will recognize some parameter types like IEventBus or ModContainer and pass them in automatically.
-    public FaunaAndOrchestra(IEventBus modEventBus) {
+    public FaunaAndOrchestra(IEventBus modEventBus, ModLoadingContext context) {
 
         modEventBus.addListener(this::commonSetup);
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
-        // Register our mod's ModConfigSpec so that FML can create and load the config file for us
+        context.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
         MinecraftForge.EVENT_BUS.register(this);
 
         ModStructures.register(modEventBus);
@@ -123,30 +125,6 @@ public class FaunaAndOrchestra {
         public static void onClientSetup(FMLClientSetupEvent event) {
             ModItemProperties.addCustomItemProperties();
             MenuScreens.register(ModMenuTypes.CONDUCTOR_MENU.get(), ConductorScreen::new);
-
-            EntityRenderers.register(ModEntities.MANTIS.get(), MantisRenderer::new);
-            EntityRenderers.register(ModEntities.QUIRKY_FROG.get(), QuirkyFrogRenderer::new);
-            EntityRenderers.register(ModEntities.PENGUIN.get(), PenguinRenderer::new);
-            EntityRenderers.register(ModEntities.RED_PANDA.get(), RedPandaRenderer::new);
-            EntityRenderers.register(ModEntities.MACAW.get(), MacawRenderer::new);
-            EntityRenderers.register(ModEntities.BEAVER.get(), BeaverRenderer::new);
-            EntityRenderers.register(ModEntities.LEMUR.get(), LemurRenderer::new);
-            EntityRenderers.register(ModEntities.MADAME_BUTTERFLY.get(), MadameButterflyRenderer::new);
-            EntityRenderers.register(ModEntities.WANDERING_KOALA.get(), KoalaRenderer::new);
-            EntityRenderers.register(ModEntities.FAUST.get(), FaustRenderer::new);
-            EntityRenderers.register(ModEntities.ORION.get(), OrionRenderer::new);
-            EntityRenderers.register(ModEntities.ANYA_GHOST.get(), CanonEntityRenderer::new);
-            EntityRenderers.register(ModEntities.WISE_TREE.get(), WiseTreeRenderer::new);
-            EntityRenderers.register(ModEntities.SINGING_SPROUTLING.get(), SproutlingRenderer::new);
-            EntityRenderers.register(ModEntities.BUTTERFLY.get(), ButterflyRenderer::new);
-            EntityRenderers.register(ModEntities.WANDERING_NOTE.get(), WanderingNoteRenderer::new);
-            EntityRenderers.register(ModEntities.THE_GREAT_COMPOSER.get(), TheGreatComposerRenderer::new);
-            EntityRenderers.register(ModEntities.MUSIC_NOTE_PROJECTILE.get(), MusicNoteProjectileRenderer::new);
-            EntityRenderers.register(ModEntities.THE_GREAT_COMPOSER_CANON.get(), ComposerCanonRenderer::new);
-            EntityRenderers.register(ModEntities.PLAYER_CANON.get(), CanonEntityRenderer::new);
-            EntityRenderers.register(ModEntities.PHANTOM_NOTE_PROJECTILE.get(), PhantomNoteProjectileRenderer::new);
-            EntityRenderers.register(ModEntities.THROWN_BOOGIE_BOMB.get(), ThrownItemRenderer::new);
-            EntityRenderers.register(ModEntities.THROWN_DISCORD_BOMB.get(), ThrownItemRenderer::new);
         }
 
         @SubscribeEvent
@@ -160,6 +138,30 @@ public class FaunaAndOrchestra {
             event.registerBlockEntityRenderer(ModBlockEntities.SINGING_CROP_BE.get(), SingingCropBlockEntityRenderer::new);
             event.registerBlockEntityRenderer(ModBlockEntities.VOICE_CHAMBER_BE.get(), VoiceChamberBlockEntityRenderer::new);
             event.registerBlockEntityRenderer(ModBlockEntities.DISCORD_NUCLEI_BE.get(), DiscordNucleiBlockEntityRenderer::new);
+
+            event.registerEntityRenderer(ModEntities.MANTIS.get(), MantisRenderer::new);
+            event.registerEntityRenderer(ModEntities.QUIRKY_FROG.get(), QuirkyFrogRenderer::new);
+            event.registerEntityRenderer(ModEntities.PENGUIN.get(), PenguinRenderer::new);
+            event.registerEntityRenderer(ModEntities.RED_PANDA.get(), RedPandaRenderer::new);
+            event.registerEntityRenderer(ModEntities.MACAW.get(), MacawRenderer::new);
+            event.registerEntityRenderer(ModEntities.BEAVER.get(), BeaverRenderer::new);
+            event.registerEntityRenderer(ModEntities.LEMUR.get(), LemurRenderer::new);
+            event.registerEntityRenderer(ModEntities.MADAME_BUTTERFLY.get(), MadameButterflyRenderer::new);
+            event.registerEntityRenderer(ModEntities.WANDERING_KOALA.get(), KoalaRenderer::new);
+            event.registerEntityRenderer(ModEntities.FAUST.get(), FaustRenderer::new);
+            event.registerEntityRenderer(ModEntities.ORION.get(), OrionRenderer::new);
+            event.registerEntityRenderer(ModEntities.ANYA_GHOST.get(), CanonEntityRenderer::new);
+            event.registerEntityRenderer(ModEntities.WISE_TREE.get(), WiseTreeRenderer::new);
+            event.registerEntityRenderer(ModEntities.SINGING_SPROUTLING.get(), SproutlingRenderer::new);
+            event.registerEntityRenderer(ModEntities.BUTTERFLY.get(), ButterflyRenderer::new);
+            event.registerEntityRenderer(ModEntities.WANDERING_NOTE.get(), WanderingNoteRenderer::new);
+            event.registerEntityRenderer(ModEntities.THE_GREAT_COMPOSER.get(), TheGreatComposerRenderer::new);
+            event.registerEntityRenderer(ModEntities.MUSIC_NOTE_PROJECTILE.get(), MusicNoteProjectileRenderer::new);
+            event.registerEntityRenderer(ModEntities.THE_GREAT_COMPOSER_CANON.get(), ComposerCanonRenderer::new);
+            event.registerEntityRenderer(ModEntities.PLAYER_CANON.get(), CanonEntityRenderer::new);
+            event.registerEntityRenderer(ModEntities.PHANTOM_NOTE_PROJECTILE.get(), PhantomNoteProjectileRenderer::new);
+            event.registerEntityRenderer(ModEntities.THROWN_BOOGIE_BOMB.get(), ThrownItemRenderer::new);
+            event.registerEntityRenderer(ModEntities.THROWN_DISCORD_BOMB.get(), ThrownItemRenderer::new);
         }
 
         @SubscribeEvent

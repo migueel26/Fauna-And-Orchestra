@@ -11,6 +11,8 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import org.joml.Matrix3f;
+import org.joml.Matrix4f;
 
 public class MusicNoteProjectileRenderer extends EntityRenderer<MusicNoteProjectileEntity> {
     private int tick = 0;
@@ -63,12 +65,16 @@ public class MusicNoteProjectileRenderer extends EntityRenderer<MusicNoteProject
     }
 
     private static void vertex(VertexConsumer consumer, PoseStack.Pose pose, int packedLight, float x, int y, int u, int v, int alpha) {
-        consumer.addVertex(pose, x - 0.5F, (float)y - 0.25F, 0.0F)
-                .setColor(255, 255, 255, alpha)
-                .setUv((float)u, (float)v)
-                .setOverlay(OverlayTexture.NO_OVERLAY)
-                .setLight(packedLight)
-                .setNormal(pose, 0.0F, 1.0F, 0.0F);
+        Matrix4f matrix4f = pose.pose();
+        Matrix3f matrix3f = pose.normal();
+
+        consumer.vertex(matrix4f, x - 0.5F, (float)y - 0.25F, 0.0F)
+                .color(255, 255, 255, alpha)
+                .uv((float)u, (float)v)
+                .overlayCoords(OverlayTexture.NO_OVERLAY)
+                .uv2(packedLight)
+                .normal(matrix3f, 0.0F, 1.0F, 0.0F)
+                .endVertex();
     }
 
     /**

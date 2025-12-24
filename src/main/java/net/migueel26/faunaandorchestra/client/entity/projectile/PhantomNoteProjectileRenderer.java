@@ -13,6 +13,8 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.projectile.DragonFireball;
+import org.joml.Matrix3f;
+import org.joml.Matrix4f;
 
 public class PhantomNoteProjectileRenderer extends EntityRenderer<PhantomNoteProjectileEntity> {
     private static final ResourceLocation DEFAULT_TEXTURE_LOCATION = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/phantom_note.png");
@@ -21,7 +23,8 @@ public class PhantomNoteProjectileRenderer extends EntityRenderer<PhantomNotePro
         super(context);
     }
 
-    protected int getBlockLightLevel(DragonFireball entity, BlockPos pos) {
+    @Override
+    protected int getBlockLightLevel(PhantomNoteProjectileEntity entity, BlockPos pos) {
         return 15;
     }
 
@@ -43,12 +46,16 @@ public class PhantomNoteProjectileRenderer extends EntityRenderer<PhantomNotePro
     }
 
     private static void vertex(VertexConsumer consumer, PoseStack.Pose pose, int packedLight, float x, int y, int u, int v) {
-        consumer.addVertex(pose, x - 0.5F, (float)y - 0.25F, 0.0F)
-                .setColor(-1)
-                .setUv((float)u, (float)v)
-                .setOverlay(OverlayTexture.NO_OVERLAY)
-                .setLight(packedLight)
-                .setNormal(pose, 0.0F, 1.0F, 0.0F);
+        Matrix4f matrix4f = pose.pose();
+        Matrix3f matrix3f = pose.normal();
+
+        consumer.vertex(matrix4f, x - 0.5F, (float)y - 0.25F, 0.0F)
+                .color(255, 255, 255, 255) // -1 equivale a blanco puro (255, 255, 255, 255)
+                .uv((float)u, (float)v)
+                .overlayCoords(OverlayTexture.NO_OVERLAY)
+                .uv2(packedLight)
+                .normal(matrix3f, 0.0F, 1.0F, 0.0F)
+                .endVertex(); // Importante cerrar
     }
 
     /**

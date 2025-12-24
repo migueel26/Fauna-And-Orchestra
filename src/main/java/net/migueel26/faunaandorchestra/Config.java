@@ -1,32 +1,28 @@
 package net.migueel26.faunaandorchestra;
 
-import java.util.Set;
+import net.minecraftforge.common.ForgeConfigSpec; // <--- Cambio importante
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.config.ModConfigEvent;
 
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.event.config.ModConfigEvent;
-import net.neoforged.neoforge.common.ModConfigSpec;
-
-// An example config class. This is not required, but it's a good idea to have one to keep your config organized.
-// Demonstrates how to use Neo's config APIs
-@EventBusSubscriber(modid = FaunaAndOrchestra.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = FaunaAndOrchestra.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class Config
 {
-    private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
+    private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
 
-    private static final ModConfigSpec.BooleanValue ANYA_SPAWN = BUILDER
+    private static final ForgeConfigSpec.BooleanValue ANYA_SPAWN = BUILDER
             .comment("Should the mysterious character appear at the beginning?")
             .define("character_spawn", true);
 
-    static final ModConfigSpec SPEC = BUILDER.build();
+    public static final ForgeConfigSpec SPEC = BUILDER.build();
+
     public static boolean anyaSpawn;
 
     @SubscribeEvent
     static void onLoad(final ModConfigEvent event)
     {
-        anyaSpawn = ANYA_SPAWN.get();
+        if (event.getConfig().getSpec() == SPEC) {
+            anyaSpawn = ANYA_SPAWN.get();
+        }
     }
 }
