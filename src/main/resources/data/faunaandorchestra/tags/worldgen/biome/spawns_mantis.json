@@ -1,7 +1,7 @@
 {
   "values": [
-    "#c:is_jungle",
-    "#c:is_lush",
+    "#forge:is_jungle",
+    "#forge:is_lush",
     "minecraft:cherry_grove"
   ]
 }

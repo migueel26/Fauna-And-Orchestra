@@ -12,10 +12,8 @@
     }
   ],
   "result": {
-    "id": "patchouli:guide_book",
-    "components": {
-      "patchouli:book": "faunaandorchestra:symphonia"
-    },
+    "item": "patchouli:guide_book",
+    "nbt": "{\"patchouli:book\": \"faunaandorchestra:symphonia\"}",
     "count": 1
   }
 }
