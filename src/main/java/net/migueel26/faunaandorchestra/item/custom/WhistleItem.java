@@ -38,7 +38,10 @@ public class WhistleItem extends Item {
     }
 
     public static UUID getMusicianUUID(ItemStack stack) {
-        return stack.hasTag() ? stack.getTag().getUUID("MusicianUUID") : null;
+        if (stack.hasTag() && stack.getTag().contains("MusicianUUID")) {
+            return stack.getTag().getUUID("MusicianUUID");
+        }
+        return null;
     }
 
     public void setMusicianCustomName(ItemStack stack, String name) {
@@ -46,7 +49,10 @@ public class WhistleItem extends Item {
     }
 
     public static String getMusicianCustomName(ItemStack stack) {
-        return stack.hasTag() ? stack.getTag().getString("MusicianCustomName") : null;
+        if (stack.hasTag() && stack.getTag().contains("MusicianCustomName")) {
+            return stack.getTag().getString("MusicianCustomName");
+        }
+        return null;
     }
 
     @Override

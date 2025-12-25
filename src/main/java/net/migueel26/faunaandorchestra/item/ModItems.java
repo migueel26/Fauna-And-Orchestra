@@ -159,12 +159,12 @@ public class ModItems {
             () -> new ForgeSpawnEggItem(ModEntities.SINGING_SPROUTLING, 0xd1793a, 0x33a03e,
                     new Item.Properties()));
     public static final RegistryObject<Item> BUTTERFLY_SPAWN_EGG = ITEMS.register("butterfly_spawn_egg",
-            () -> new CustomSpawnEggItem(new Item.Properties(), ModEntities.BUTTERFLY.get()));
+            () -> new CustomSpawnEggItem(new Item.Properties(), ModEntities.BUTTERFLY));
     public static final RegistryObject<Item> WISE_TREE_SPAWN_EGG = ITEMS.register("wise_tree_spawn_egg",
             () -> new ForgeSpawnEggItem(ModEntities.WISE_TREE, 0x5f4a2b, 0x567e22,
                     new Item.Properties()));
     public static final RegistryObject<Item> RINGTAILS_SPAWN_EGG = ITEMS.register("ringtails_spawn_egg",
-            () -> new CustomSpawnEggItem(new Item.Properties(), ModEntities.FAUST.get(), ModEntities.ORION.get()) {
+            () -> new CustomSpawnEggItem(new Item.Properties(), ModEntities.FAUST, ModEntities.ORION) {
                 @Override
                 public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
                     tooltipComponents.add(Component.translatable("entity.faunaandorchestra.faust")

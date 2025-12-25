@@ -25,15 +25,17 @@ import net.minecraft.world.phys.HitResult;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Supplier;
 
 public class CustomSpawnEggItem extends Item {
-    List<EntityType<? extends AgeableMob>> musicians;
-    @SafeVarargs
-    public CustomSpawnEggItem(Item.Properties properties, EntityType<? extends AgeableMob>... musicians) {
-        super(properties);
-        this.musicians = Arrays.stream(musicians).toList();
-    }
+    private final List<Supplier<? extends EntityType<? extends AgeableMob>>> musicians;
 
+    @SafeVarargs
+    // CAMBIO 2: El constructor ahora acepta Suppliers (o RegistryObjects)
+    public CustomSpawnEggItem(Item.Properties properties, Supplier<? extends EntityType<? extends AgeableMob>>... musicians) {
+        super(properties);
+        this.musicians = Arrays.asList(musicians);
+    }
     @Override
     public InteractionResult useOn(UseOnContext context) {
         Level level = context.getLevel();
@@ -52,8 +54,8 @@ public class CustomSpawnEggItem extends Item {
                 blockpos1 = blockpos.relative(direction);
             }
 
-            for (EntityType<? extends AgeableMob> entityType : musicians) {
-                entityType.spawn(
+            for (Supplier<? extends EntityType<? extends AgeableMob>> entityType : musicians) {
+                entityType.get().spawn(
                         (ServerLevel) level,
                         itemstack,
                         context.getPlayer(),
@@ -85,8 +87,8 @@ public class CustomSpawnEggItem extends Item {
             if (!(level.getBlockState(blockpos).getBlock() instanceof LiquidBlock)) {
                 return InteractionResultHolder.pass(itemstack);
             } else if (level.mayInteract(player, blockpos) && player.mayUseItemAt(blockpos, blockhitresult.getDirection(), itemstack)) {
-                for (EntityType<? extends AgeableMob> entitytype : musicians) {
-                    entitytype.spawn((ServerLevel)level, itemstack, player, blockpos, MobSpawnType.SPAWN_EGG, false, false);
+                for (Supplier<? extends EntityType<? extends AgeableMob>> entitytype : musicians) {
+                    entitytype.get().spawn((ServerLevel)level, itemstack, player, blockpos, MobSpawnType.SPAWN_EGG, false, false);
                 }
 
                 itemstack.shrink(1);

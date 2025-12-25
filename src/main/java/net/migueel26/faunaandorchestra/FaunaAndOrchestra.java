@@ -64,13 +64,15 @@ public class FaunaAndOrchestra {
 
     // The constructor for the mod class is the first code that is run when your mod is loaded.
     // FML will recognize some parameter types like IEventBus or ModContainer and pass them in automatically.
-    public FaunaAndOrchestra(IEventBus modEventBus, ModLoadingContext context) {
+    public FaunaAndOrchestra() {
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+
 
         modEventBus.addListener(this::commonSetup);
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
-        context.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
         MinecraftForge.EVENT_BUS.register(this);
 
         ModStructures.register(modEventBus);

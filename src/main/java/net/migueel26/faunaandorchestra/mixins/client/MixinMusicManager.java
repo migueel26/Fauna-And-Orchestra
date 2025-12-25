@@ -18,7 +18,7 @@ public class MixinMusicManager {
     @Shadow SoundInstance currentMusic;
     @Shadow public void stopPlaying() {}
 
-    @Inject(method = "tick", at = @At(value = "RETURN", ordinal = 1))
+    @Inject(method = "tick", at = @At(value = "RETURN"))
     private void onTick(CallbackInfo ci) {
         if (((ISoundManagerMixin) minecraft.getSoundManager()).faunaIsThereAnOrchestra()) {
             this.stopPlaying();
