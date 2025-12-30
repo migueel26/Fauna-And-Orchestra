@@ -27,6 +27,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.entity.EntityTeleportEvent;
+import org.w3c.dom.Attr;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -175,7 +176,8 @@ public class ComposerCanonEntity extends Monster implements GeoEntity {
                 .add(Attributes.MAX_HEALTH, 35d)
                 .add(Attributes.MOVEMENT_SPEED, 0.45D)
                 .add(Attributes.FOLLOW_RANGE, 24D)
-                .add(Attributes.ATTACK_DAMAGE, 12.0);
+                .add(Attributes.ATTACK_DAMAGE, 12.0)
+                .add(Attributes.ATTACK_KNOCKBACK, Attributes.ATTACK_KNOCKBACK.getDefaultValue());
     }
 
     public boolean canAttack() {

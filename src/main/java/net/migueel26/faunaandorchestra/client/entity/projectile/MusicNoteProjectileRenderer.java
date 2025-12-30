@@ -29,38 +29,43 @@ public class MusicNoteProjectileRenderer extends EntityRenderer<MusicNoteProject
         return 15;
     }
 
+    @Override
     public void render(MusicNoteProjectileEntity entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
         poseStack.pushPose();
+
         poseStack.mulPose(this.entityRenderDispatcher.cameraOrientation());
 
-        // Back image (50% transparent)
-        poseStack.pushPose();
+        float ageInTicks = entity.tickCount + partialTicks;
+        float scalePulse = (float) (0.25 * Math.sin(ageInTicks * 0.075) + 1.75f);
 
-        float i = (float) (0.25 * Math.sin(tick * 0.075) + 1.75f);
-
-        poseStack.scale(i, i, i);
-        poseStack.translate(0.0D, -0.05D, -0.001D);
-        PoseStack.Pose backPose = poseStack.last();
-        VertexConsumer backConsumer = buffer.getBuffer(BACK_RENDER_TYPE);
-        vertex(backConsumer, backPose, packedLight, 0.0F, 0, 0, 1, 128);
-        vertex(backConsumer, backPose, packedLight, 1.0F, 0, 1, 1, 128);
-        vertex(backConsumer, backPose, packedLight, 1.0F, 1, 1, 0, 128);
-        vertex(backConsumer, backPose, packedLight, 0.0F, 1, 0, 0, 128);
-        poseStack.popPose();
-
-        // Main image (opaque)
         poseStack.pushPose();
         poseStack.scale(1.5F, 1.5F, 1.5F);
+
         PoseStack.Pose mainPose = poseStack.last();
         VertexConsumer mainConsumer = buffer.getBuffer(MAIN_RENDER_TYPE);
-        vertex(mainConsumer, mainPose, packedLight, 0.0F, 0, 0, 1, 255);
-        vertex(mainConsumer, mainPose, packedLight, 1.0F, 0, 1, 1, 255);
-        vertex(mainConsumer, mainPose, packedLight, 1.0F, 1, 1, 0, 255);
-        vertex(mainConsumer, mainPose, packedLight, 0.0F, 1, 0, 0, 255);
+
+        vertex(mainConsumer, mainPose, packedLight, 0.0F, 0, 1, 1, 255);
+        vertex(mainConsumer, mainPose, packedLight, 1.0F, 0, 0, 1, 255);
+        vertex(mainConsumer, mainPose, packedLight, 1.0F, 1, 0, 0, 255);
+        vertex(mainConsumer, mainPose, packedLight, 0.0F, 1, 1, 0, 255);
+        poseStack.popPose();
+
+        poseStack.pushPose();
+        poseStack.scale(scalePulse, scalePulse, scalePulse);
+
+        poseStack.translate(0.0D, -0.05D, -0.03D);
+
+        PoseStack.Pose backPose = poseStack.last();
+        VertexConsumer backConsumer = buffer.getBuffer(BACK_RENDER_TYPE);
+
+        vertex(backConsumer, backPose, packedLight, 0.0F, 0, 1, 1, 128);
+        vertex(backConsumer, backPose, packedLight, 1.0F, 0, 0, 1, 128);
+        vertex(backConsumer, backPose, packedLight, 1.0F, 1, 0, 0, 128);
+        vertex(backConsumer, backPose, packedLight, 0.0F, 1, 1, 0, 128);
         poseStack.popPose();
 
         poseStack.popPose();
-        tick++;
+
         super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
     }
 
@@ -77,9 +82,7 @@ public class MusicNoteProjectileRenderer extends EntityRenderer<MusicNoteProject
                 .endVertex();
     }
 
-    /**
-     * Returns the location of an entity's texture.
-     */
+    @Override
     public ResourceLocation getTextureLocation(MusicNoteProjectileEntity entity) {
         return MAIN_TEXTURE_LOCATION;
     }

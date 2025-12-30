@@ -191,7 +191,9 @@ public class MantisEntity extends MusicalEntity implements GeoEntity, NeutralMob
                 .add(Attributes.MAX_HEALTH, 15d)
                 .add(Attributes.MOVEMENT_SPEED, 0.25D)
                 .add(Attributes.FOLLOW_RANGE, 24D)
-                .add(Attributes.ATTACK_DAMAGE, 4.0);
+                .add(Attributes.ATTACK_DAMAGE, 4.0)
+                .add(Attributes.ATTACK_KNOCKBACK, Attributes.ATTACK_KNOCKBACK.getDefaultValue());
+
     }
 
     @Override

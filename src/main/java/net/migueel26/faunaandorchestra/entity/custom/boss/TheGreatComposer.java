@@ -1111,7 +1111,7 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
         BlockState blockstate = this.level().getBlockState(mutableBlockPos);
         boolean flag1 = blockstate.getFluidState().is(FluidTags.WATER);
         if (!flag1) {
-            this.moveTo(mutableBlockPos.getX(), mutableBlockPos.getY(), mutableBlockPos.getZ());
+            this.moveTo(mutableBlockPos.getCenter().x, mutableBlockPos.getY(), mutableBlockPos.getCenter().z);
             this.level().playSound(null, this.xo, this.yo, this.zo, SoundEvents.ENDERMAN_TELEPORT, this.getSoundSource(), 1.0F, 1.0F);
             this.playSound(SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F);
             return true;

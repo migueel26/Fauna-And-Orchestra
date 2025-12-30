@@ -80,7 +80,7 @@ public class MusicNoteProjectileEntity extends AbstractHurtingProjectile {
                 level().playSound(null, blockPosition(), ModSounds.REPEL.get(), SoundSource.NEUTRAL);
                 if (this.getOwner() != null) {
                     this.deflectToOwner(greatComposer, this.getOwner());
-                    this.inertia += 0.06f;
+                    this.inertia += 0.04f;
 
                     this.level().playSound(null, this.blockPosition(), SoundEvents.VEX_HURT, SoundSource.NEUTRAL, 2.0f, 1.0f);
                     this.setOwner(greatComposer);

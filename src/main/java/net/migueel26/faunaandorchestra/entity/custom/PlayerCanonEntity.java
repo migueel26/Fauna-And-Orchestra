@@ -63,7 +63,7 @@ public class PlayerCanonEntity extends AbstractCanonEntity {
                 double reach = this.getAttackReachSqr(target);
 
                 if (distToEnemySqr <= reach && this.isTimeToAttack()) {
-                    ((MantisEntity) this.mob).attack();
+                    ((PlayerCanonEntity) this.mob).triggerAnim("player_canon_controller", "attack");
                     this.resetAttackCooldown();
                     this.mob.doHurtTarget(target);
                 }
@@ -163,7 +163,8 @@ public class PlayerCanonEntity extends AbstractCanonEntity {
                 .add(Attributes.MAX_HEALTH, 50d)
                 .add(Attributes.MOVEMENT_SPEED, 0.25D)
                 .add(Attributes.FOLLOW_RANGE, 24D)
-                .add(Attributes.ATTACK_DAMAGE, 7.0);
+                .add(Attributes.ATTACK_DAMAGE, 7.0)
+                .add(Attributes.ATTACK_KNOCKBACK, Attributes.ATTACK_KNOCKBACK.getDefaultValue());
     }
 
     @Nullable

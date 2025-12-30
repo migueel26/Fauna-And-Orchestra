@@ -3,7 +3,7 @@
     "announce_to_chat": true,
     "show_toast": true,
     "icon": {
-      "id": "faunaandorchestra:fruit_of_life"
+      "item": "faunaandorchestra:fruit_of_life"
     },
     "title": {
       "translate": "advancements.faunaandorchestra.fruit_of_life"
