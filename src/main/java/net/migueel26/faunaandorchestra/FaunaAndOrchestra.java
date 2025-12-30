@@ -29,6 +29,7 @@ import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.particle.SculkChargePopParticle;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.Position;
 import net.minecraft.core.dispenser.AbstractProjectileDispenseBehavior;
 import net.minecraft.resources.ResourceLocation;
@@ -127,6 +128,13 @@ public class FaunaAndOrchestra {
         public static void onClientSetup(FMLClientSetupEvent event) {
             ModItemProperties.addCustomItemProperties();
             MenuScreens.register(ModMenuTypes.CONDUCTOR_MENU.get(), ConductorScreen::new);
+            ItemProperties.register(ModItems.BRIEFCASE.get(), ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "opened"),
+                    (stack, level, entity, seed) -> {
+                        if (stack.hasTag() && stack.getTag().contains("Opened")) {
+                            return stack.getTag().getBoolean("Opened") ? 1.0F : 0.0F;
+                        }
+                        return 0.0F;
+            });
         }
 
         @SubscribeEvent

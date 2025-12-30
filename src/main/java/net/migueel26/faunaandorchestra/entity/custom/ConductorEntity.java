@@ -406,7 +406,7 @@ public abstract class ConductorEntity extends TamableAnimal {
                 setOrderedToSit(true);
 
 
-            } else if (stack.is(ModItems.BRIEFCASE.get()) && !BriefcaseItem.isOpened(stack)
+            } else if (stack.is(ModItems.BRIEFCASE.get()) && BriefcaseItem.isOpened(stack)
                     && getOwnerUUID().equals(player.getUUID())) {
                 List<String> animals = BriefcaseItem.getAnimalList(stack);
 

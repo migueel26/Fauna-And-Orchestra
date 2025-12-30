@@ -128,7 +128,7 @@ public abstract class MusicalEntity extends TamableAnimal {
                 setOrderedToSit(false);
                 return InteractionResult.SUCCESS;
 
-            } else if (stack.is(ModItems.BRIEFCASE.get()) && !BriefcaseItem.isOpened(stack)
+            } else if (stack.is(ModItems.BRIEFCASE.get()) && BriefcaseItem.isOpened(stack)
                         && getOwnerUUID().equals(player.getUUID())) {
                 List<String> animals = BriefcaseItem.getAnimalList(stack);
 
