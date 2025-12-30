@@ -2,6 +2,7 @@
   "type": "minecraft:block",
   "pools": [
     {
+      "rolls": 1.0,
       "bonus_rolls": 0.0,
       "entries": [
         {
@@ -11,12 +12,30 @@
               "type": "minecraft:item",
               "conditions": [
                 {
-                  "condition": "minecraft:match_tool",
-                  "predicate": {
-                    "items": [
-                      "minecraft:shears"
-                    ]
-                  }
+                  "condition": "minecraft:any_of",
+                  "terms": [
+                    {
+                      "condition": "minecraft:match_tool",
+                      "predicate": {
+                        "items": [
+                          "minecraft:shears"
+                        ]
+                      }
+                    },
+                    {
+                      "condition": "minecraft:match_tool",
+                      "predicate": {
+                        "enchantments": [
+                          {
+                            "enchantment": "minecraft:silk_touch",
+                            "levels": {
+                              "min": 1
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
                 }
               ],
               "name": "faunaandorchestra:dam_block"
@@ -25,13 +44,13 @@
               "type": "minecraft:item",
               "functions": [
                 {
-                  "add": false,
+                  "function": "minecraft:set_count",
                   "count": {
                     "type": "minecraft:uniform",
-                    "max": 5.0,
-                    "min": 3.0
+                    "min": 3.0,
+                    "max": 5.0
                   },
-                  "function": "minecraft:set_count"
+                  "add": false
                 },
                 {
                   "function": "minecraft:explosion_decay"
@@ -41,8 +60,7 @@
             }
           ]
         }
-      ],
-      "rolls": 1.0
+      ]
     }
   ],
   "random_sequence": "faunaandorchestra:blocks/dam_block"

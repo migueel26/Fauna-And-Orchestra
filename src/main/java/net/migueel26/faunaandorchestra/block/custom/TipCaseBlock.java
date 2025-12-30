@@ -166,7 +166,9 @@ public class TipCaseBlock extends HorizontalDirectionalBlock implements EntityBl
 
         if (stack.is(Items.GOLD_INGOT) && state.getValue(TIPS) < THIRD_REWARD) {
             // Tip gold
-            stack.shrink(1);
+            if (!player.getAbilities().instabuild) {
+                stack.shrink(1);
+            }
             int tips = state.getValue(TIPS) + 1;
             level.setBlock(pos, state.setValue(TIPS, tips), 3);
 

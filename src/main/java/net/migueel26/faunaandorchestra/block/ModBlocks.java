@@ -33,12 +33,14 @@ public class ModBlocks {
             () -> new ComposerGravestoneBlock(BlockBehaviour.Properties.of()
                     .noOcclusion()
                     .strength(-1.0F, 3600000.0F)
-                    .noLootTable()));
+                    .noLootTable()
+                    .mapColor(MapColor.STONE)));
 
     public static final RegistryObject<Block> GRAVESTONE = registerBlock("gravestone",
             () -> new RegularGravestoneBlock(BlockBehaviour.Properties.of()
                     .noOcclusion()
-                    .strength(2.0F, 6.0F)));
+                    .strength(2.0F, 6.0F)
+                    .mapColor(MapColor.STONE)));
 
     public static final RegistryObject<Block> TIP_CASE = registerBlock("tip_case",
             () -> new TipCaseBlock(BlockBehaviour.Properties.of()
@@ -51,26 +53,30 @@ public class ModBlocks {
     public static final RegistryObject<Block> LISTENER = registerBlock("listener",
             () -> new ListenerBlock(BlockBehaviour.Properties.of()
                     .strength(2.0F)
-                    .sound(SoundType.WOOD)));
+                    .sound(SoundType.WOOD)
+                    .mapColor(MapColor.GOLD)));
 
     public static final RegistryObject<Block> LISTENER_CONTAINER = registerBlock("listener_container",
             () -> new ListenerContainerBlock(BlockBehaviour.Properties.of()
                     .strength(2.0F)
-                    .sound(SoundType.WOOD)));
+                    .sound(SoundType.WOOD)
+                    .mapColor(MapColor.WOOD)));
 
     public static final RegistryObject<Block> MELOMANCY_CAULDRON = registerBlock("melomancy_cauldron",
             () -> new MelomancyCauldronBlock(BlockBehaviour.Properties.of()
                     .requiresCorrectToolForDrops()
                     .strength(2.0F)
                     .noOcclusion()
-                    .sound(SoundType.STONE)));
+                    .sound(SoundType.STONE)
+                    .mapColor(MapColor.STONE)));
 
     public static final RegistryObject<Block> ALTAR = registerBlock("altar",
             () -> new AltarBlock(BlockBehaviour.Properties.of()
                     .requiresCorrectToolForDrops()
                     .strength(2.0F)
                     .noOcclusion()
-                    .sound(SoundType.STONE)));
+                    .sound(SoundType.STONE)
+                    .mapColor(MapColor.STONE)));
 
     public static final RegistryObject<Block> ALTAR_OF_THE_BUTTERFLIES = registerBlock("altar_of_the_butterflies",
             () -> new AltarOfTheButterfliesBlock(BlockBehaviour.Properties.of()
@@ -78,14 +84,16 @@ public class ModBlocks {
                     .strength(2.0F)
                     .noOcclusion()
                     .sound(SoundType.STONE)
-                    .randomTicks()));
+                    .randomTicks()
+                    .mapColor(MapColor.STONE)));
 
     public static final RegistryObject<Block> ALTAR_OF_THE_PAN_FLUTE = registerBlock("altar_of_the_pan_flute",
             () -> new AltarOfThePanFluteBlock(BlockBehaviour.Properties.of()
                     .requiresCorrectToolForDrops()
                     .strength(2.0F)
                     .noOcclusion()
-                    .sound(SoundType.STONE)));
+                    .sound(SoundType.STONE)
+                    .mapColor(MapColor.STONE)));
 
     public static final RegistryObject<Block> VOICE_CHAMBER = registerBlock("voice_chamber",
             () -> new VoiceChamberBlock(BlockBehaviour.Properties.of()
@@ -95,7 +103,8 @@ public class ModBlocks {
     public static final RegistryObject<Block> CRAWLING_DISCORD = registerBlock("crawling_discord",
             () -> new CrawlingDiscordBlock(BlockBehaviour.Properties.of()
                     .strength(2.0f, 6.0f)
-                    .sound(SoundType.SCULK)));
+                    .sound(SoundType.SCULK)
+                    .mapColor(MapColor.COLOR_BLACK)));
 
     public static final RegistryObject<Block> FLOWER_DISCORD_BLOCK = registerBlock("flower_discord_block",
             () -> new FlowerGrowerDiscordBlock(BlockBehaviour.Properties.copy(CRAWLING_DISCORD.get())));
@@ -122,7 +131,8 @@ public class ModBlocks {
                     .sound(SoundType.SCULK_VEIN)
                     .offsetType(BlockBehaviour.OffsetType.XZ)
                     .pushReaction(PushReaction.DESTROY)
-                    .randomTicks()));
+                    .randomTicks()
+                    .mapColor(MapColor.PLANT)));
 
     public static final RegistryObject<Block> DISCORD_NUCLEI = registerBlock("discord_nuclei",
             () -> new DiscordNucleiBlock(BlockBehaviour.Properties.copy(Blocks.SCULK_SHRIEKER)));
@@ -133,6 +143,7 @@ public class ModBlocks {
                             .sound(SoundType.MANGROVE_ROOTS)
                             .noOcclusion()
                             .ignitedByLava()
+                            .mapColor(MapColor.TERRACOTTA_BROWN)
             ));
 
     public static final RegistryObject<Block> SINGING_CROP = registerBlock("singing_crop",

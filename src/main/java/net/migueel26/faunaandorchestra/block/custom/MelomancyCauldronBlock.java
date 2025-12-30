@@ -124,7 +124,9 @@ public class MelomancyCauldronBlock extends HorizontalDirectionalBlock implement
                 // If it's NOT cooking
                 if (stack.is(ModItems.MUSIC_BOTTLE.get()) && liquid < 3) {
                     // If the player wants to fill the cauldron
-                    stack.shrink(1);
+                    if (!player.getAbilities().instabuild) {
+                        stack.shrink(1);
+                    }
                     player.addItem(new ItemStack(Items.GLASS_BOTTLE));
                     level.setBlock(pos, state.setValue(LIQUID, liquid + 1), 3);
                     level.playSound(null,

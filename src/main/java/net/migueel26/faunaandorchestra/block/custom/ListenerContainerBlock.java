@@ -172,7 +172,9 @@ public class ListenerContainerBlock extends Block implements EntityBlock {
         ItemStack item = player.getItemInHand(hand);
         if (item.is(Items.GLASS_BOTTLE)) {
             if (isFull(state)) {
-                item.shrink(1);
+                if (!player.getAbilities().instabuild) {
+                    item.shrink(1);
+                }
                 player.addItem(new ItemStack(ModItems.MUSIC_BOTTLE.get(), 1));
                 level.setBlock(pos, state.setValue(DROPLETS, 0), 3);
                 return InteractionResult.SUCCESS;
