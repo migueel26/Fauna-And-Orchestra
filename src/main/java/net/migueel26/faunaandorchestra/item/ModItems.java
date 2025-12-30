@@ -58,8 +58,8 @@ public class ModItems {
                 public ItemStack getDefaultInstance() {
                     ItemStack stack = super.getDefaultInstance();
 
-                    stack.getOrCreateTag().putIntArray("PanFluteList", new int[]{1, 2, 3, 4, 5});
-                    stack.getOrCreateTag().putInt("PanFluteSound", 0);
+                    PanFluteItem.setSoundList(stack, new ArrayList<>(List.of(1,2,3,4,5)));
+                    PanFluteItem.setSound(stack, 0);
 
                     return stack;
                 }

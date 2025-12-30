@@ -112,13 +112,8 @@ public class AltarOfThePanFluteBlock extends AltarBlock implements EntityBlock {
                 } else {
                     // We add the flute
                     ItemStack flute = new ItemStack(ModItems.PAN_FLUTE.get(), 1);
-                    CompoundTag tag = flute.getOrCreateTag();
-                    ListTag powerListTag = new ListTag();
+                    PanFluteItem.setSoundList(flute, altar.getPowers());
 
-                    for (Integer power : altar.getPowers()) {
-                        powerListTag.add(IntTag.valueOf(power));
-                    }
-                    tag.put("Powers", powerListTag);
                     player.setItemInHand(hand, flute);
                     //
 

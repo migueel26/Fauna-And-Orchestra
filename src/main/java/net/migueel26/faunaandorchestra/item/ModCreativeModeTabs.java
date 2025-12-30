@@ -27,7 +27,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.OBOE.get());
                         output.accept(ModItems.CELLO.get());
                         output.accept(ModItems.PAN_FLUTE.get());
-                        output.accept(ModItems.PAN_FLUTE_CREATIVE.get());
+                        output.accept(ModItems.PAN_FLUTE_CREATIVE.get().getDefaultInstance());
                         output.accept(ModItems.BATON.get());
                         output.accept(ModItems.LEGENDARY_BATON.get());
                         output.accept(ModItems.BRIEFCASE.get());

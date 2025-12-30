@@ -68,7 +68,9 @@ public class VoiceChamberBlock extends Block implements EntityBlock {
                 }
 
                 blockEntity.setVoice(voice);
-                stack.shrink(1);
+                if (!player.getAbilities().instabuild) {
+                    stack.shrink(1);
+                }
                 level.setBlock(pos, state.setValue(VOICE, true), 3);
                 return InteractionResult.SUCCESS;
 
