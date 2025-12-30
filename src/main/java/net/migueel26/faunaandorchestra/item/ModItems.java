@@ -53,7 +53,17 @@ public class ModItems {
     public static final RegistryObject<Item> PAN_FLUTE_CREATIVE = ITEMS.register("pan_flute_creative",
             () -> new PanFluteItem(new Item.Properties()
                     .stacksTo(1)
-                    .rarity(Rarity.EPIC)));
+                    .rarity(Rarity.EPIC)) {
+                @Override
+                public ItemStack getDefaultInstance() {
+                    ItemStack stack = super.getDefaultInstance();
+
+                    stack.getOrCreateTag().putIntArray("PanFluteList", new int[]{1, 2, 3, 4, 5});
+                    stack.getOrCreateTag().putInt("PanFluteSound", 0);
+
+                    return stack;
+                }
+            });
     public static final RegistryObject<Item> BATON = ITEMS.register("baton",
             () -> new BatonItem(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> LEGENDARY_BATON = ITEMS.register("legendary_baton",

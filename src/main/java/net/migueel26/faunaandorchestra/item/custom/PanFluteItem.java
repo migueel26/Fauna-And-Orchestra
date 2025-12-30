@@ -62,13 +62,11 @@ public class PanFluteItem extends Item {
         return stack.hasTag() ? stack.getTag().getInt("PanFluteSound") : 0;
     }
 
-    public void setSoundList(ItemStack stack, List<String> sounds) {
+    // CHANGE THIS METHOD
+    public void setSoundList(ItemStack stack, List<Integer> sounds) { // Change input to List<Integer>
         CompoundTag nbt = stack.getOrCreateTag();
-        ListTag list = new ListTag();
-        for (String s : sounds) {
-            list.add(StringTag.valueOf(s));
-        }
-        nbt.put("PanFluteList", list);
+        int[] array = sounds.stream().mapToInt(i -> i).toArray();
+        nbt.putIntArray("PanFluteList", array);
     }
 
     public static List<Integer> getSoundList(ItemStack stack) {
