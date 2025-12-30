@@ -1,8 +1,9 @@
 {
   "display": {
+    "announce_to_chat": true,
+    "show_toast": true,
     "icon": {
-      "count": 1,
-      "id": "minecraft:oak_log"
+      "item": "minecraft:oak_log"
     },
     "title": {
       "translate": "advancements.faunaandorchestra.wise_tree"

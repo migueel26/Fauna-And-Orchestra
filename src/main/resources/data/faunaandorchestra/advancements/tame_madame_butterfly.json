@@ -1,8 +1,9 @@
 {
   "display": {
+    "announce_to_chat": true,
+    "show_toast": true,
     "icon": {
-      "count": 1,
-      "id": "faunaandorchestra:butterfly_spawn_egg"
+      "item": "faunaandorchestra:butterfly_spawn_egg"
     },
     "title": {
       "translate": "advancements.faunaandorchestra.tame_madame_butterfly"

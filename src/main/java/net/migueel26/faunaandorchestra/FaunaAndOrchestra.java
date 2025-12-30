@@ -92,8 +92,8 @@ public class FaunaAndOrchestra {
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             // REGISTERS
-            ModAdvancements.register();
             ModNetwork.register();
+            ModAdvancements.register();
             // PROJECTILES
             DispenserBlock.registerBehavior(ModItems.BOOGIE_BOMB.get(), new AbstractProjectileDispenseBehavior() {
                 @Override

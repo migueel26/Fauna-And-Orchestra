@@ -1,14 +1,15 @@
 {
   "display": {
+    "announce_to_chat": true,
+    "show_toast": true,
     "icon": {
-      "count": 1,
-      "id": "minecraft:acacia_sapling"
+      "item": "minecraft:bamboo"
     },
     "title": {
-      "translate": "advancements.faunaandorchestra.befriend_orion"
+      "translate": "advancements.faunaandorchestra.befriend_faust"
     },
     "description": {
-      "translate": "advancements.faunaandorchestra.befriend_orion.desc"
+      "translate": "advancements.faunaandorchestra.befriend_faust.desc"
     },
     "frame": "task",
     "hidden": true
@@ -16,14 +17,16 @@
   "parent": "faunaandorchestra:meet_ringtails",
   "criteria": {
     "befriend": {
-      "trigger": "faunaandorchestra:befriend_orion"
+      "trigger": "faunaandorchestra:befriend_faust"
     },
     "poster": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "items": "faunaandorchestra:ringtails_poster"
+            "items": [
+              "faunaandorchestra:ringtails_poster"
+            ]
           }
         ]
       }

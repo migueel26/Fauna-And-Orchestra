@@ -1,8 +1,9 @@
 {
   "display": {
+    "announce_to_chat": true,
+    "show_toast": true,
     "icon": {
-      "count": 1,
-      "id": "faunaandorchestra:pan_flute"
+      "item": "faunaandorchestra:pan_flute"
     },
     "title": {
       "translate": "advancements.faunaandorchestra.pan_flute_complete"

@@ -1,8 +1,9 @@
 {
   "display": {
+    "announce_to_chat": true,
+    "show_toast": true,
     "icon": {
-      "count": 1,
-      "id": "faunaandorchestra:bach_air_sheet_music"
+      "item": "faunaandorchestra:bach_air_sheet_music"
     },
     "title": {
       "translate": "advancements.faunaandorchestra.full_orchestra"

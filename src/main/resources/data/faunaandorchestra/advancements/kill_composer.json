@@ -1,8 +1,9 @@
 {
   "display": {
+    "announce_to_chat": true,
+    "show_toast": true,
     "icon": {
-      "count": 1,
-      "id": "faunaandorchestra:the_great_head_item"
+      "item": "faunaandorchestra:the_great_head_item"
     },
     "title": {
       "translate": "advancements.faunaandorchestra.kill_composer"

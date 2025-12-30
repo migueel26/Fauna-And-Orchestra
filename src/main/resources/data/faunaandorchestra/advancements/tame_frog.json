@@ -1,8 +1,9 @@
 {
   "display": {
+    "announce_to_chat": true,
+    "show_toast": true,
     "icon": {
-      "count": 1,
-      "id": "faunaandorchestra:baton"
+      "item": "faunaandorchestra:baton"
     },
     "title": {
       "translate": "advancements.faunaandorchestra.tame_frog"

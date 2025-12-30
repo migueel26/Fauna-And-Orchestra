@@ -17,7 +17,9 @@
                     {
                       "condition": "minecraft:match_tool",
                       "predicate": {
-                        "items": "minecraft:shears"
+                        "items": [
+                          "minecraft:shears"
+                        ]
                       }
                     },
                     {
@@ -26,7 +28,7 @@
                         "predicates": {
                           "minecraft:enchantments": [
                             {
-                              "enchantments": "minecraft:silk_touch",
+                              "enchantment": "minecraft:silk_touch",
                               "levels": {
                                 "min": 1
                               }
@@ -70,7 +72,9 @@
               {
                 "condition": "minecraft:match_tool",
                 "predicate": {
-                  "items": "minecraft:shears"
+                  "items": [
+                    "minecraft:shears"
+                  ]
                 }
               },
               {
@@ -79,7 +83,7 @@
                   "predicates": {
                     "minecraft:enchantments": [
                       {
-                        "enchantments": "minecraft:silk_touch",
+                        "enchantment": "minecraft:silk_touch",
                         "levels": {
                           "min": 1
                         }
@@ -102,7 +106,7 @@
             {
               "condition": "minecraft:table_bonus",
               "enchantment": "minecraft:fortune",
-              "chances": [0.035, 0.055, 0.075, 0.95]
+              "chances": [0.035, 0.055, 0.075, 0.095]
             }
           ],
           "name": "faunaandorchestra:gingko_biloba"

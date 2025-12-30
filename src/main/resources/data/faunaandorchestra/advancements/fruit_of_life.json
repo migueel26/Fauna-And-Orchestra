@@ -1,7 +1,8 @@
 {
   "display": {
+    "announce_to_chat": true,
+    "show_toast": true,
     "icon": {
-      "count": 1,
       "id": "faunaandorchestra:fruit_of_life"
     },
     "title": {
@@ -19,7 +20,9 @@
       "conditions": {
         "items": [
           {
-            "items": "faunaandorchestra:fruit_of_life"
+            "items": [
+              "faunaandorchestra:fruit_of_life"
+            ]
           }
         ]
       }

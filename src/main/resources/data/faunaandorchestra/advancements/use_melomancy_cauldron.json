@@ -1,8 +1,9 @@
 {
   "display": {
+    "announce_to_chat": true,
+    "show_toast": true,
     "icon": {
-      "count": 1,
-      "id": "faunaandorchestra:melomancy_cauldron_item"
+      "item": "faunaandorchestra:melomancy_cauldron_item"
     },
     "title": {
       "translate": "advancements.faunaandorchestra.use_melomancy_cauldron"

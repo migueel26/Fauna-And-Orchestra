@@ -1,14 +1,15 @@
 {
   "display": {
+    "announce_to_chat": true,
+    "show_toast": true,
     "icon": {
-      "count": 1,
-      "id": "faunaandorchestra:sheet_fragments"
+      "item": "faunaandorchestra:music_bottle"
     },
     "title": {
-      "translate": "advancements.faunaandorchestra.fragments"
+      "translate": "advancements.faunaandorchestra.music_bottle"
     },
     "description": {
-      "translate": "advancements.faunaandorchestra.fragments.desc"
+      "translate": "advancements.faunaandorchestra.music_bottle.desc"
     },
     "frame": "task"
   },
@@ -19,7 +20,9 @@
       "conditions": {
         "items": [
           {
-            "items": "faunaandorchestra:sheet_fragments"
+            "items": [
+              "faunaandorchestra:music_bottle"
+            ]
           }
         ]
       }

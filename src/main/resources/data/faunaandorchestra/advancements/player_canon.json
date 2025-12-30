@@ -1,8 +1,9 @@
 {
   "display": {
+    "announce_to_chat": true,
+    "show_toast": true,
     "icon": {
-      "count": 1,
-      "id": "faunaandorchestra:legendary_baton"
+      "item": "faunaandorchestra:legendary_baton"
     },
     "title": {
       "translate": "advancements.faunaandorchestra.player_canon"

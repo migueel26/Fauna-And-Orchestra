@@ -1,8 +1,9 @@
 {
   "display": {
+    "announce_to_chat": true,
+    "show_toast": true,
     "icon": {
-      "count": 1,
-      "id": "faunaandorchestra:boogie_fruit"
+      "item": "faunaandorchestra:boogie_fruit"
     },
     "title": {
       "translate": "advancements.faunaandorchestra.boogie_fruit"
@@ -19,7 +20,9 @@
       "conditions": {
         "items": [
           {
-            "items": "faunaandorchestra:boogie_fruit"
+            "items": [
+              "faunaandorchestra:boogie_fruit"
+            ]
           }
         ]
       }

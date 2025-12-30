@@ -1,8 +1,9 @@
 {
   "display": {
+    "announce_to_chat": true,
+    "show_toast": true,
     "icon": {
-      "count": 1,
-      "id": "faunaandorchestra:discord_bomb"
+      "item": "faunaandorchestra:discord_bomb"
     },
     "title": {
       "translate": "advancements.faunaandorchestra.discord_bomb"

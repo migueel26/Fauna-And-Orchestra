@@ -23,11 +23,20 @@ public class BatonItem extends Item {
     }
 
     public static void setMusicianUUID(ItemStack stack, UUID uuid) {
-        stack.getOrCreateTag().putUUID("MusicianUUID", uuid);
+        if (uuid == null) {
+            if (stack.hasTag()) {
+                stack.getTag().remove("MusicianUUID");
+            }
+        } else {
+            stack.getOrCreateTag().putUUID("MusicianUUID", uuid);
+        }
     }
 
     public static UUID getMusicianUUID(ItemStack stack) {
-        return stack.hasTag() ? stack.getTag().getUUID("MusicianUUID") : null;
+        if (stack.hasTag() && stack.getTag().contains("MusicianUUID")) {
+            return stack.getTag().getUUID("MusicianUUID");
+        }
+        return null;
     }
 
     @Override

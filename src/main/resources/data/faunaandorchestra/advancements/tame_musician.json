@@ -1,8 +1,9 @@
 {
   "display": {
+    "announce_to_chat": true,
+    "show_toast": true,
     "icon": {
-      "count": 1,
-      "id": "faunaandorchestra:violin"
+      "item": "faunaandorchestra:violin"
     },
     "title": {
       "translate": "advancements.faunaandorchestra.tame_musician"

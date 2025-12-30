@@ -1,16 +1,17 @@
 {
   "display": {
+    "announce_to_chat": true,
+    "show_toast": true,
     "icon": {
-      "count": 1,
-      "id": "faunaandorchestra:resurrection_song"
+      "item": "faunaandorchestra:voice"
     },
     "title": {
-      "translate": "advancements.faunaandorchestra.resurrection_song"
+      "translate": "advancements.faunaandorchestra.voice"
     },
     "description": {
-      "translate": "advancements.faunaandorchestra.resurrection_song.desc"
+      "translate": "advancements.faunaandorchestra.voice.desc"
     },
-    "frame": "goal"
+    "frame": "task"
   },
   "parent": "faunaandorchestra:fragments",
   "criteria": {
@@ -19,7 +20,9 @@
       "conditions": {
         "items": [
           {
-            "items": "faunaandorchestra:resurrection_song"
+            "items": [
+              "faunaandorchestra:voice"
+            ]
           }
         ]
       }

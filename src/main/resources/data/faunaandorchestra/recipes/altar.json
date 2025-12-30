@@ -3,8 +3,6 @@
   "ingredient": {
     "item": "minecraft:stone_bricks"
   },
-  "result": {
-    "count": 1,
-    "item": "faunaandorchestra:altar"
-  }
+  "result": "faunaandorchestra:altar",
+  "count": 1
 }

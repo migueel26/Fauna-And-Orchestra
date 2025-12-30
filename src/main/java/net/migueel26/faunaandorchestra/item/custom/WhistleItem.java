@@ -34,7 +34,13 @@ public class WhistleItem extends Item {
     }
 
     public void setMusicianUUID(ItemStack stack, UUID uuid) {
-        stack.getOrCreateTag().putUUID("MusicianUUID", uuid);
+        if (uuid == null) {
+            if (stack.hasTag()) {
+                stack.getTag().remove("MusicianUUID");
+            }
+        } else {
+            stack.getOrCreateTag().putUUID("MusicianUUID", uuid);
+        }
     }
 
     public static UUID getMusicianUUID(ItemStack stack) {
