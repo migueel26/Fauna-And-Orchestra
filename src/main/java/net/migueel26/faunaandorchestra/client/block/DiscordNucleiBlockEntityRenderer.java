@@ -31,6 +31,8 @@ public class DiscordNucleiBlockEntityRenderer extends GeoBlockRenderer<DiscordNu
 
     @Override
     public void actuallyRender(PoseStack poseStack, DiscordNucleiBlockEntity blockEntity, BakedGeoModel model, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+        super.actuallyRender(poseStack, animatable, model, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
+
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
         ItemStack stack = blockEntity.inventory.getStackInSlot(0);
 
@@ -44,8 +46,6 @@ public class DiscordNucleiBlockEntityRenderer extends GeoBlockRenderer<DiscordNu
                     blockEntity.getBlockPos()), OverlayTexture.NO_OVERLAY, poseStack, bufferSource, blockEntity.getLevel(), 1);
             poseStack.popPose();
         }
-
-        super.actuallyRender(poseStack, animatable, model, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
     }
 
     private int getLightLevel(Level level, BlockPos pos) {

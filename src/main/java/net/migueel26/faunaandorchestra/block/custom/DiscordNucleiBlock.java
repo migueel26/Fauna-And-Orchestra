@@ -56,7 +56,10 @@ public class DiscordNucleiBlock extends Block implements EntityBlock {
                     if (!level.isClientSide()) {
                         ((ServerLevel) level).sendParticles(ParticleTypes.SCULK_SOUL, pos.getCenter().x, pos.getY()+0.75f, pos.getCenter().z, 20, 0.2, 0.2, 0.2, 0.01);
                     }
-                    stack.shrink(1);
+
+                    if (!player.getAbilities().instabuild) {
+                        stack.shrink(1);
+                    }
 
                     applyEffect(stackInSlot, level, state, pos, discordNucleiBE, essence ,instability);
 
@@ -70,7 +73,11 @@ public class DiscordNucleiBlock extends Block implements EntityBlock {
                         ((ServerLevel) level).sendParticles(ParticleTypes.WAX_OFF, pos.getCenter().x, pos.getY()+0.75f, pos.getZ(), 10, 0.2, 0.2, 0.2, 0);
                     }
                     level.playSound(player, pos, SoundEvents.BEACON_DEACTIVATE, SoundSource.BLOCKS, 1.0f, 1.0f);
-                    stack.shrink(1);
+
+                    if (!player.getAbilities().instabuild) {
+                        stack.shrink(1);
+                    }
+
                     return InteractionResult.SUCCESS;
                 }
             } else if (RecipesUtil.isDiscordNucleiIngredient(stack)) {

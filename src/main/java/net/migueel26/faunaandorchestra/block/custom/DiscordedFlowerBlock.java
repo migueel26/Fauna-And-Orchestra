@@ -95,7 +95,9 @@ public class DiscordedFlowerBlock extends Block {
             if (!level.isClientSide()) {
                 ((ServerLevel) level).sendParticles(ParticleTypes.SCULK_SOUL, pos.getCenter().x, pos.getCenter().y, pos.getCenter().z, 10, 0.25f, 0.25f, 0.25f, 0.05);
             }
-            stack.shrink(1);
+            if (!player.getAbilities().instabuild) {
+                stack.shrink(1);
+            }
             feed(state, level, pos, food);
             return InteractionResult.SUCCESS;
         }
