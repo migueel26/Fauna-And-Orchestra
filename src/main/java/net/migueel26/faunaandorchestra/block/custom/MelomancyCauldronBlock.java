@@ -1,6 +1,5 @@
 package net.migueel26.faunaandorchestra.block.custom;
 
-import com.mojang.serialization.MapCodec;
 import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.block.ModBlockEntities;
 import net.migueel26.faunaandorchestra.block.entity.MelomancyCauldronBlockEntity;
@@ -15,7 +14,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.stats.Stats;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -32,7 +30,6 @@ import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.entity.CampfireBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
@@ -42,8 +39,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Optional;
 
 public class MelomancyCauldronBlock extends HorizontalDirectionalBlock implements EntityBlock {
     public static final IntegerProperty LIQUID = IntegerProperty.create("liquid", 0, 3);
@@ -92,7 +87,9 @@ public class MelomancyCauldronBlock extends HorizontalDirectionalBlock implement
                 // If the player wants to take the item
                 if (RecipesUtil.isCorrectItem(stack, melomancyCauldronBE)) {
                     player.addItem(melomancyCauldronBE.getResult());
-                    stack.shrink(1);
+                    if (RecipesUtil.needsItem(melomancyCauldronBE)) {
+                        stack.shrink(1);
+                    }
                     if (!level.isClientSide()) {
                         ModAdvancements.USE_MELOMANCY_CAULDRON.trigger((ServerPlayer) player);
                     }

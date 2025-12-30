@@ -152,6 +152,17 @@ public class RecipesUtil {
         };
     }
 
+    public static boolean needsItem(MelomancyCauldronBlockEntity blockEntity) {
+        return needsItem(blockEntity.getMixResult());
+    }
+
+    public static boolean needsItem(String result) {
+        return switch (result) {
+            case "steelsonic" -> false;
+            default -> true;
+        };
+    }
+
     public static boolean isDiscordNucleiIngredient(ItemStack stack) {
         return DISCORD_NUCLEI.containsKey(stack.getItem());
     }
