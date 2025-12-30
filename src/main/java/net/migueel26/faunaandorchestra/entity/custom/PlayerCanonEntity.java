@@ -51,6 +51,7 @@ public class PlayerCanonEntity extends AbstractCanonEntity {
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
     public PlayerCanonEntity(EntityType<? extends TamableAnimal> entityType, Level level) {
         super(entityType, level);
+        this.skin = null;
     }
 
     @Override
@@ -147,6 +148,14 @@ public class PlayerCanonEntity extends AbstractCanonEntity {
                 // If the conductor is dying / has stopped conducting
                 this.scheduleDeath = 3;
                 ((ServerLevel) level()).sendParticles(ParticleTypes.CLOUD, position().x, blockPosition().getCenter().y, position().z, 30, 0.1, 0.1, 0.1, 0.2);
+            }
+
+            if (level().isClientSide() && skin == null && getOwnerUUID() != null) {
+                Player player = level().getPlayerByUUID(getOwnerUUID());
+                if (player != null) {
+                    this.setSkin(((AbstractClientPlayer) player).getSkinTextureLocation());
+                    this.setCustomName(player.getDisplayName());
+                }
             }
         }
 

@@ -40,7 +40,7 @@
 				{
 					"name": "iron_sword",
 					"parent": "Right Arm",
-					"pivot": [0, 0, 1],
+					"pivot": [-8, 14.7, -2],
 					"cubes": [
 						{
 							"origin": [-19.8, 24.15, 1],

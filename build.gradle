@@ -201,4 +201,12 @@ tasks.register('copyRefmap', Copy) {
 
 classes.finalizedBy(copyRefmap)
 
+tasks.named('jar', Jar).configure {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    if (project.tasks.findByName('copyRefmap')) {
+        dependsOn 'copyRefmap'
+    }
+}
+
 
