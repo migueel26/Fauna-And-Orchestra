@@ -16,6 +16,7 @@ import net.migueel26.faunaandorchestra.entity.custom.projectile.ThrownBoogieBomb
 import net.migueel26.faunaandorchestra.entity.custom.projectile.ThrownDiscordBomb;
 import net.migueel26.faunaandorchestra.item.ModCreativeModeTabs;
 import net.migueel26.faunaandorchestra.item.ModItems;
+import net.migueel26.faunaandorchestra.item.ModPaintings;
 import net.migueel26.faunaandorchestra.networking.ModNetwork;
 import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
 import net.migueel26.faunaandorchestra.particles.custom.*;
@@ -87,6 +88,7 @@ public class FaunaAndOrchestra {
         ModBlockEntities.register(modEventBus);
         ModEffects.register(modEventBus);
         ModPotions.register(modEventBus);
+        ModPaintings.register(modEventBus);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

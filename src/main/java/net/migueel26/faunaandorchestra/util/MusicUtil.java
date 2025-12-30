@@ -74,13 +74,13 @@ public class MusicUtil {
     );
 
     private static final Map<String, Item> STRING_TO_SHEET = Map.of(
-            "faunaandorchestra:bach_air_sheet_music", ModItems.BACH_AIR_SHEET_MUSIC.get(),
-            "faunaandorchestra:greensleeves_sheet_music", ModItems.GREENSLEEVES_SHEET_MUSIC.get(),
-            "faunaandorchestra:blues_sheet_music", ModItems.BLUES_SHEET_MUSIC.get(),
-            "faunaandorchestra:jazzy_fur_elise_sheet_music", ModItems.JAZZY_FUR_ELISE_SHEET_MUSIC.get(),
-            "faunaandorchestra:dance_of_the_little_swans_sheet_music", ModItems.DANCE_OF_THE_LITTLE_SWANS.get(),
-            "faunaandorchestra:la_bamba_sheet_music", ModItems.LA_BAMBA_SHEET_MUSIC.get(),
-            "faunaandorchestra:resurrection_song", ModItems.RESURRECTION_SONG.get()
+            "bach_air_sheet_music", ModItems.BACH_AIR_SHEET_MUSIC.get(),
+            "greensleeves_sheet_music", ModItems.GREENSLEEVES_SHEET_MUSIC.get(),
+            "blues_sheet_music", ModItems.BLUES_SHEET_MUSIC.get(),
+            "jazzy_fur_elise_sheet_music", ModItems.JAZZY_FUR_ELISE_SHEET_MUSIC.get(),
+            "dance_of_the_little_swans_sheet_music", ModItems.DANCE_OF_THE_LITTLE_SWANS.get(),
+            "la_bamba_sheet_music", ModItems.LA_BAMBA_SHEET_MUSIC.get(),
+            "resurrection_song", ModItems.RESURRECTION_SONG.get()
     );
 
     private static final Map<Item, Integer> DURATION = Map.of(

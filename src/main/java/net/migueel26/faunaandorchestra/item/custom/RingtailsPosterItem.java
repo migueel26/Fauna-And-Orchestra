@@ -2,6 +2,7 @@ package net.migueel26.faunaandorchestra.item.custom;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.entity.custom.decorative.RingtailsPosterEntity;
+import net.migueel26.faunaandorchestra.item.ModPaintings;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -21,9 +22,6 @@ import net.minecraft.world.level.Level;
 import java.util.List;
 
 public class RingtailsPosterItem extends Item {
-    public static ResourceKey<PaintingVariant> variantKey = ResourceKey.create(
-            Registries.PAINTING_VARIANT,
-            ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "ringtails_poster"));
     public RingtailsPosterItem(Properties properties) {
         super(properties);
     }
@@ -48,9 +46,7 @@ public class RingtailsPosterItem extends Item {
         if (!level.isClientSide) {
             // The variant we want to spawn
             RingtailsPosterEntity painting = new RingtailsPosterEntity(level, pos, facing,
-                    level.registryAccess()
-                            .registryOrThrow(Registries.PAINTING_VARIANT)
-                            .getHolderOrThrow(variantKey));
+                    ModPaintings.RINGTAILS_POSTER.getHolder().get());
 
             if (painting.survives()) {
                 level.addFreshEntity(painting);

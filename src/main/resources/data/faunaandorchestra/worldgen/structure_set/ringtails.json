@@ -7,7 +7,7 @@
   ],
   "placement": {
     "type": "minecraft:random_spread",
-    "spacing": 50,
+    "spacing": 40,
     "separation": 20,
     "salt": 584762395,
     "exclude_biomes": [
