@@ -67,7 +67,16 @@ public class ModItems {
             () -> new BriefcaseItem(new Item.Properties().stacksTo(1)));
     public static final DeferredItem<Item> SINGING_SEED = ITEMS.register("singing_seed",
             () -> new ItemNameBlockItem(ModBlocks.SINGING_CROP.get(), new Item.Properties()));
-    public static final DeferredItem<Item> BOOGIE_FRUIT = createRegularDescriptionItem("boogie_fruit");
+    public static final DeferredItem<Item> BOOGIE_FRUIT = ITEMS.register("boogie_fruit",
+            () -> new Item(new Item.Properties().food(ModFoodProperties.BOOGIE_FRUIT)) {
+                @Override
+                public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+                    tooltipComponents.add(Component.translatable("item.faunaandorchestra.boogie_fruit.desc")
+                            .withStyle(ChatFormatting.GRAY));
+                    super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+                }
+            });
+
     public static final DeferredItem<Item> OFFERING = createRegularDescriptionItem("offering");
     public static final DeferredItem<Item> WANDERING_NOTE = ITEMS.register("wandering_note",
             () -> new Item(new Item.Properties()));

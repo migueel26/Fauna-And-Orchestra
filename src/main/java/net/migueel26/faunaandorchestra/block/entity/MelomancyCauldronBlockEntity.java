@@ -69,25 +69,27 @@ public class MelomancyCauldronBlockEntity extends BlockEntity implements GeoBloc
     public boolean addIngredient(Player player, ItemStack originalStack, InteractionHand usedHand) {
         int i = 0;
         boolean found = false;
+        ItemStack newIngredient =  originalStack.copy();
+        newIngredient.setCount(1);
+
         while (i < ingredients.size() && !found) {
             ItemStack itemStack = ingredients.get(i);
             if (itemStack.is(originalStack.getItem())) {
                 // It's already placed, so we increment by 1
                 itemStack.setCount(itemStack.getCount() + 1);
                 ingredients.set(i, itemStack);
-                if (originalStack.is(Items.LAVA_BUCKET) || originalStack.is(Items.WATER_BUCKET) || originalStack.is(Items.POWDER_SNOW_BUCKET)) {
-                    player.setItemInHand(usedHand, Items.BUCKET.getDefaultInstance());
-                }
-                originalStack.consume(1, player);
+
+                // We return the item leftover
+                handlePlayerCost(player, usedHand, originalStack);
+
                 found = true;
                 triggerAnim("melomancy_cauldron_controller", "mix");
                 this.markUpdated();
             } else if (itemStack.isEmpty()) {
-                // It's not placed, so we introduce it
-                if (originalStack.is(Items.LAVA_BUCKET) || originalStack.is(Items.WATER_BUCKET) || originalStack.is(Items.POWDER_SNOW_BUCKET)) {
-                    player.setItemInHand(usedHand, Items.BUCKET.getDefaultInstance());
-                }
-                this.ingredients.set(i, originalStack.consumeAndReturn(1, player));
+                this.ingredients.set(i, newIngredient);
+
+                handlePlayerCost(player, usedHand, originalStack);
+
                 found = true;
                 triggerAnim("melomancy_cauldron_controller", "mix");
                 this.markUpdated();
@@ -97,6 +99,17 @@ public class MelomancyCauldronBlockEntity extends BlockEntity implements GeoBloc
 
         return found;
     }
+
+    private void handlePlayerCost(Player player, InteractionHand hand, ItemStack originalStack) {
+        if (originalStack.hasCraftingRemainingItem()) {
+            player.setItemInHand(hand, originalStack.getCraftingRemainingItem());
+        } else {
+            if (!player.getAbilities().instabuild) {
+                originalStack.shrink(1);
+            }
+        }
+    }
+
 
     public static void cookTick(Level level, BlockPos pos, BlockState state, MelomancyCauldronBlockEntity blockEntity) {
         boolean flag = false;

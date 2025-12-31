@@ -92,7 +92,7 @@ public class MusicNoteProjectileEntity extends AbstractHurtingProjectile {
                     */
 
                     this.deflect(ProjectileDeflection.REVERSE, this, greatComposer, false);
-                    this.inertia += 0.06f;
+                    this.inertia += 0.04f;
                 }
             } else {
                 this.discard();

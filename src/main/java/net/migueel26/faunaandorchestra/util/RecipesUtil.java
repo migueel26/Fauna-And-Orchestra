@@ -116,6 +116,17 @@ public class RecipesUtil {
         );
     }
 
+    public static boolean needsItem(MelomancyCauldronBlockEntity blockEntity) {
+        return needsItem(blockEntity.getMixResult());
+    }
+
+    public static boolean needsItem(String result) {
+        return switch (result) {
+            case "steelsonic" -> false;
+            default -> true;
+        };
+    }
+
     private static boolean sameIngredients(Collection<ItemStack> ingredients, Collection<ItemStack> recipe) {
         ArrayList<ItemStack> copy2 = new ArrayList<>(recipe);
 

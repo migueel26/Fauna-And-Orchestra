@@ -61,7 +61,7 @@ public class ThrownBoogieBomb extends ThrowableItemProjectile implements ItemSup
             ((ServerLevel) level()).sendParticles(ModParticleTypes.MAGICAL_NOTE.get(), vec3.x, vec3.y, vec3.z, 50, 1.5, 1.5, 1.5, 0.1);
             ((ServerLevel) level()).sendParticles(ModParticleTypes.MAGICAL_NOTE.get(), vec3.x, vec3.y, vec3.z, 30, 0.1, 0.1, 0.1, 0.05);
             this.applySplash(
-                    new MobEffectInstance(ModEffects.BOOGIE, 160), result.getType() == HitResult.Type.ENTITY ? ((EntityHitResult) result).getEntity() : null
+                    new MobEffectInstance(ModEffects.BOOGIE, 180), result.getType() == HitResult.Type.ENTITY ? ((EntityHitResult) result).getEntity() : null
             );
 
             this.discard();

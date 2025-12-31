@@ -94,7 +94,11 @@ public class MelomancyCauldronBlock extends HorizontalDirectionalBlock implement
                 // If the player wants to take the item
                 if (RecipesUtil.isCorrectItem(stack, melomancyCauldronBE)) {
                     player.addItem(melomancyCauldronBE.getResult());
-                    stack.consume(1, player);
+
+                    if (RecipesUtil.needsItem(melomancyCauldronBE)) {
+                        stack.consume(1, player);
+                    }
+
                     if (!level.isClientSide()) {
                         ModAdvancements.USE_MELOMANCY_CAULDRON.get().trigger((ServerPlayer) player);
                     }

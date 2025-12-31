@@ -17,6 +17,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -32,6 +33,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.Tags;
 import org.jetbrains.annotations.Nullable;
@@ -95,17 +97,19 @@ public class WiseTree extends TamableAnimal implements GeoEntity, TalkableEntity
 
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
-        ItemStack stack = player.getMainHandItem();
-        if (stack.is(ModItems.GLOVE)) {
-            setLifeStage(3);
-            refreshDimensions();
-        } else if (getLifeStage() == 3 && getDialogueTimer() == 0) {
+        if (getLifeStage() == 3 && getDialogueTimer() == 0) {
             if (level().isClientSide()) {
                 increaseDialogueTimer();
             }
             return InteractionResult.SUCCESS;
         }
         return InteractionResult.FAIL;
+    }
+
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+        if (spawnType.equals(MobSpawnType.SPAWN_EGG)) this.setOwnerUUID(level.getNearestPlayer(this, 10.D).getUUID());
+        return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
     }
 
     @Override
@@ -151,7 +155,7 @@ public class WiseTree extends TamableAnimal implements GeoEntity, TalkableEntity
             }
         }
 
-        if (getLifeTime() == DEFAULT_WET_TIME * 3) {
+        if (getLifeTime() >= DEFAULT_WET_TIME * 3) {
             // Sprout -> Young
             if (!level().isClientSide()) {
                 level().playSound(null, blockPosition(), ModSounds.SUCCESSFUL_TAME.get(), SoundSource.NEUTRAL);

@@ -1060,7 +1060,7 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
             // If phase one or two, dodge
             composerController.transitionLength(1);
             trigger("dodge", true);
-            if (source.getEntity() instanceof Player player) {
+            if (source.getEntity() instanceof Player player && this.entityData.get(PHASE) < 3) {
                 player.displayClientMessage(Component.translatable("dialogue.faunaandorchestra.the_great_composer3"), true);
             }
 
@@ -1099,7 +1099,7 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
         BlockState blockstate = this.level().getBlockState(mutableBlockPos);
         boolean flag1 = blockstate.getFluidState().is(FluidTags.WATER);
         if (!flag1) {
-            this.moveTo(mutableBlockPos.getX(), mutableBlockPos.getY(), mutableBlockPos.getZ());
+            this.moveTo(mutableBlockPos.getCenter().x, mutableBlockPos.getY(), mutableBlockPos.getCenter().z);
             this.level().playSound(null, this.xo, this.yo, this.zo, SoundEvents.ENDERMAN_TELEPORT, this.getSoundSource(), 1.0F, 1.0F);
             this.playSound(SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F);
             return true;
