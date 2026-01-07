@@ -18,14 +18,14 @@ public class ModTags {
         public static final TagKey<Item> IS_INSTRUMENT = registerTag("is_instrument");
 
         private static TagKey<Item> registerTag(String name) {
-            return ItemTags.create(ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, name));
+            return ItemTags.create(new ResourceLocation(FaunaAndOrchestra.MOD_ID, name));
         }
     }
 
     public static class Blocks {
         public static final TagKey<Block> REPLACEABLE_BY_DISCORD = registerTag("replaceable_by_discord");
         private static TagKey<Block> registerTag(String name) {
-            return BlockTags.create(ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, name));
+            return BlockTags.create(new ResourceLocation(FaunaAndOrchestra.MOD_ID, name));
         }
     }
 
@@ -40,7 +40,7 @@ public class ModTags {
         public static final TagKey<Biome> SPAWNS_QUIRKY_FROG = registerTag("spawns_quirky_frog");
 
         private static TagKey<Biome> registerTag(String name) {
-            return TagKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, name));
+            return TagKey.create(Registries.BIOME, new ResourceLocation(FaunaAndOrchestra.MOD_ID, name));
         }
     }
 }

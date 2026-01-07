@@ -10,14 +10,14 @@ import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 
 public class MelomancyCauldronModel extends GeoModel<MelomancyCauldronBlockEntity> {
-    private static final ResourceLocation DEFAULT_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/block/melomancy_cauldron.png");
-    private static final ResourceLocation INK_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/block/melomancy_cauldron_ink.png");
-    private static final ResourceLocation DISCORD_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/block/melomancy_cauldron_discord.png");
-    private static final ResourceLocation OFFERING_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/block/melomancy_cauldron_offering.png");
-    private static final ResourceLocation HEARING_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/block/melomancy_cauldron_hearing.png");
-    private static final ResourceLocation SEED_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/block/melomancy_cauldron_seed.png");
-    private static final ResourceLocation ANIMATIONS = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "animations/block/melomancy_cauldron.animation.json");
-    private static final ResourceLocation MODEL = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "geo/block/melomancy_cauldron.geo.json");
+    private static final ResourceLocation DEFAULT_TEXTURE = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/block/melomancy_cauldron.png");
+    private static final ResourceLocation INK_TEXTURE = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/block/melomancy_cauldron_ink.png");
+    private static final ResourceLocation DISCORD_TEXTURE = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/block/melomancy_cauldron_discord.png");
+    private static final ResourceLocation OFFERING_TEXTURE = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/block/melomancy_cauldron_offering.png");
+    private static final ResourceLocation HEARING_TEXTURE = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/block/melomancy_cauldron_hearing.png");
+    private static final ResourceLocation SEED_TEXTURE = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/block/melomancy_cauldron_seed.png");
+    private static final ResourceLocation ANIMATIONS = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "animations/block/melomancy_cauldron.animation.json");
+    private static final ResourceLocation MODEL = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "geo/block/melomancy_cauldron.geo.json");
     @Override
     public ResourceLocation getModelResource(MelomancyCauldronBlockEntity animatable) {
         return MODEL;

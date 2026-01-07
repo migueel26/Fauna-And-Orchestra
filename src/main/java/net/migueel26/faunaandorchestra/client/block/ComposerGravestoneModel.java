@@ -7,10 +7,10 @@ import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.GeoModel;
 
 public class ComposerGravestoneModel extends GeoModel<ComposerGravestoneBlockEntity> {
-    private static final ResourceLocation COMPOSER_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/block/composer_gravestone.png");
-    private static final ResourceLocation REGULAR_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/block/composer_gravestone_clean.png");
-    private static final ResourceLocation ANIMATIONS = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "animations/block/composer_gravestone.animation.json");
-    private static final ResourceLocation MODEL = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "geo/block/composer_gravestone.geo.json");
+    private static final ResourceLocation COMPOSER_TEXTURE = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/block/composer_gravestone.png");
+    private static final ResourceLocation REGULAR_TEXTURE = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/block/composer_gravestone_clean.png");
+    private static final ResourceLocation ANIMATIONS = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "animations/block/composer_gravestone.animation.json");
+    private static final ResourceLocation MODEL = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "geo/block/composer_gravestone.geo.json");
     @Override
     public ResourceLocation getModelResource(ComposerGravestoneBlockEntity animatable) {
         return MODEL;

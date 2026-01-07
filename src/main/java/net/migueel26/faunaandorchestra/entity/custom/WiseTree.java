@@ -64,7 +64,7 @@ public class WiseTree extends TamableAnimal implements GeoEntity, TalkableEntity
     protected static final EntityDataAccessor<Integer> LIFE_TIME = SynchedEntityData.defineId(WiseTree.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> TIME_WET = SynchedEntityData.defineId(WiseTree.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Boolean> FRUIT = SynchedEntityData.defineId(WiseTree.class, EntityDataSerializers.BOOLEAN);
-    public static final ResourceLocation ICON = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/gui/entity/wise_tree_icon.png");
+    public static final ResourceLocation ICON = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/gui/entity/wise_tree_icon.png");
     public String currentDialogue;
     public static final String RESOURCE = "dialogue.faunaandorchestra.wise_tree";
     private final AnimationController<WiseTree> wiseTreeController = new AnimationController<>(this, "wise_tree_controller", 5, this::wiseTreeState)

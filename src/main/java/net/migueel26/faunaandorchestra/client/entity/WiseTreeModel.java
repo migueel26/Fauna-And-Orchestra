@@ -10,13 +10,13 @@ import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 
 public class WiseTreeModel extends GeoModel<WiseTree> {
-    private static final ResourceLocation WISE_TREE_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/wise_tree.png");
-    private static final ResourceLocation WISE_TREE_SPROUT_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/wise_tree_sprout.png");
-    private static final ResourceLocation WISE_TREE_ANIMATIONS = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "animations/entity/wise_tree.animation.json");
-    private static final ResourceLocation WISE_TREE_SPROUT_ANIMATIONS = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "animations/entity/wise_tree_sprout.animation.json");
-    private static final ResourceLocation WISE_TREE_MODEL = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "geo/entity/wise_tree.geo.json");
-    private static final ResourceLocation WISE_TREE_SPROUT_MODEL = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "geo/entity/wise_tree_sprout.geo.json");
-    private static final ResourceLocation WISE_TREE_YOUNG_MODEL = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "geo/entity/wise_tree_young.geo.json");
+    private static final ResourceLocation WISE_TREE_TEXTURE = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/entity/wise_tree.png");
+    private static final ResourceLocation WISE_TREE_SPROUT_TEXTURE = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/entity/wise_tree_sprout.png");
+    private static final ResourceLocation WISE_TREE_ANIMATIONS = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "animations/entity/wise_tree.animation.json");
+    private static final ResourceLocation WISE_TREE_SPROUT_ANIMATIONS = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "animations/entity/wise_tree_sprout.animation.json");
+    private static final ResourceLocation WISE_TREE_MODEL = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "geo/entity/wise_tree.geo.json");
+    private static final ResourceLocation WISE_TREE_SPROUT_MODEL = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "geo/entity/wise_tree_sprout.geo.json");
+    private static final ResourceLocation WISE_TREE_YOUNG_MODEL = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "geo/entity/wise_tree_young.geo.json");
     @Override
     public ResourceLocation getModelResource(WiseTree animatable) {
         return switch (animatable.getLifeStage()) {

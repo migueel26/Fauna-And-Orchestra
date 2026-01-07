@@ -16,8 +16,8 @@ import org.joml.Matrix4f;
 
 public class MusicNoteProjectileRenderer extends EntityRenderer<MusicNoteProjectileEntity> {
     private int tick = 0;
-    private static final ResourceLocation MAIN_TEXTURE_LOCATION = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/music_note_projectile.png");
-    private static final ResourceLocation BACK_TEXTURE_LOCATION = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/music_note_projectile_back.png");
+    private static final ResourceLocation MAIN_TEXTURE_LOCATION = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/entity/music_note_projectile.png");
+    private static final ResourceLocation BACK_TEXTURE_LOCATION = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/entity/music_note_projectile_back.png");
     private static final RenderType MAIN_RENDER_TYPE = RenderType.entityCutoutNoCull(MAIN_TEXTURE_LOCATION);
     private static final RenderType BACK_RENDER_TYPE = RenderType.entityTranslucent(BACK_TEXTURE_LOCATION);
 

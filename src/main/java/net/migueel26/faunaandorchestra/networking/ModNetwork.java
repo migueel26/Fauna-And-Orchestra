@@ -19,7 +19,7 @@ public class ModNetwork {
 
     public static void register() {
         SimpleChannel net = NetworkRegistry.ChannelBuilder
-                .named(ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "messages"))
+                .named(new ResourceLocation(FaunaAndOrchestra.MOD_ID, "messages"))
                 .networkProtocolVersion(() -> "1.0")
                 .clientAcceptedVersions(s -> true)
                 .serverAcceptedVersions(s -> true)

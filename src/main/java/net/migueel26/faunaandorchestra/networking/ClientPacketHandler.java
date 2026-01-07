@@ -85,7 +85,7 @@ public class ClientPacketHandler {
                 List<MusicalEntity> orchestra = UUIDorchestra.stream().map(uuid -> (MusicalEntity) level.callGetEntities().get(uuid)).toList();
                 for (MusicalEntity musician : orchestra) {
                     // For each musician, we get the location of its song
-                    ResourceLocation musician_song = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID,
+                    ResourceLocation musician_song = new ResourceLocation(FaunaAndOrchestra.MOD_ID,
                             MusicUtil.getLocation(newSheetMusic, musician.getInstrument().get()));
 
                     // We stop all current instrument sounds

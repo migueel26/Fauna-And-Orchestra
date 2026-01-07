@@ -46,10 +46,10 @@ public class ParticleButton extends Button {
 
     @OnlyIn(Dist.CLIENT)
     static enum Icon {
-        UNPRESSED(ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/widget/particle_button.png")),
-        UNPRESSED_HOVER(ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/widget/particle_button_highlighted.png")),
-        PRESSED(ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/widget/particle_button_deactivated.png")),
-        PRESSED_HOVER(ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/widget/particle_button_deactivated_highlighted.png"));
+        UNPRESSED(new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/widget/particle_button.png")),
+        UNPRESSED_HOVER(new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/widget/particle_button_highlighted.png")),
+        PRESSED(new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/widget/particle_button_deactivated.png")),
+        PRESSED_HOVER(new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/widget/particle_button_deactivated_highlighted.png"));
 
         final ResourceLocation sprite;
 

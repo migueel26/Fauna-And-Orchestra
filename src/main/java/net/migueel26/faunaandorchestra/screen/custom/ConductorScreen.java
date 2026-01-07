@@ -18,7 +18,7 @@ import net.minecraft.world.item.Item;
 import net.minecraftforge.client.gui.widget.ForgeSlider;
 
 public class ConductorScreen extends AbstractContainerScreen<ConductorMenu> {
-    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/gui/entity/conductor_gui.png");
+    public static final ResourceLocation TEXTURE = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/gui/entity/conductor_gui.png");
     private final ConductorEntity conductor;
     private float xMouse;
     private float yMouse;

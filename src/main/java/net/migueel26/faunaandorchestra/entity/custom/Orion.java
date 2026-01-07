@@ -41,7 +41,7 @@ public class Orion extends TravellingMusician implements Npc, GeoEntity, Talkabl
     protected static final EntityDataAccessor<Integer> DIALOGUE_TIMER = SynchedEntityData.defineId(Orion.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> CONFIDENCE = SynchedEntityData.defineId(Orion.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Boolean> GOOD_MORNING = SynchedEntityData.defineId(Orion.class, EntityDataSerializers.BOOLEAN);
-    public static final ResourceLocation ICON = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/gui/entity/orion_icon.png");
+    public static final ResourceLocation ICON = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/gui/entity/orion_icon.png");
     public static final int COOL_CONFIDENCE = 35;
     public static final String RESOURCE = "dialogue.faunaandorchestra.orion";
     public String currentDialogue;

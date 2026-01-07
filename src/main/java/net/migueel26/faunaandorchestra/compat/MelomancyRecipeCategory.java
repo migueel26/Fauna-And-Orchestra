@@ -21,7 +21,7 @@ import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.Nullable;
 
 public class MelomancyRecipeCategory implements IRecipeCategory<MelomancyRecipeWrapper> {
-    public static final ResourceLocation UID = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "melomancy_display");
+    public static final ResourceLocation UID = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "melomancy_display");
     public static final RecipeType<MelomancyRecipeWrapper> TYPE =
             new RecipeType<>(UID, MelomancyRecipeWrapper.class);
     private final IDrawable background;

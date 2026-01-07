@@ -12,12 +12,12 @@ import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
 public class MantisModel extends GeoModel<MantisEntity> {
-    private static final ResourceLocation NORMAL_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/mantis.png");
-    private static final ResourceLocation NORMAL_ANIMATIONS = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "animations/entity/mantis.animation.json");
-    private static final ResourceLocation NORMAL_MODEL = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "geo/entity/mantis.geo.json");
-    private static final ResourceLocation ORCHID_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/orchid_mantis.png");
-    private static final ResourceLocation ORCHID_ANIMATIONS = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "animations/entity/orchid_mantis.animation.json");
-    private static final ResourceLocation ORCHID_MODEL = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "geo/entity/orchid_mantis.geo.json");
+    private static final ResourceLocation NORMAL_TEXTURE = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/entity/mantis.png");
+    private static final ResourceLocation NORMAL_ANIMATIONS = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "animations/entity/mantis.animation.json");
+    private static final ResourceLocation NORMAL_MODEL = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "geo/entity/mantis.geo.json");
+    private static final ResourceLocation ORCHID_TEXTURE = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/entity/orchid_mantis.png");
+    private static final ResourceLocation ORCHID_ANIMATIONS = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "animations/entity/orchid_mantis.animation.json");
+    private static final ResourceLocation ORCHID_MODEL = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "geo/entity/orchid_mantis.geo.json");
 
     @Override
     public ResourceLocation getModelResource(MantisEntity mantis) {

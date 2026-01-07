@@ -76,7 +76,7 @@ public class MusicalEntityPlayingInstrumentGoal extends Goal {
         if (!conductor.isReady() && !nearbyPlayers.isEmpty()) {
             for (Player player : nearbyPlayers) {
                 ModNetwork.sendToPlayer(new StartOrchestraMusicS2CPacket(musician.getUUID(),
-                        ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID,
+                        new ResourceLocation(FaunaAndOrchestra.MOD_ID,
                                 MusicUtil.getLocation(conductor.getSheetMusic(), musician.getInstrument().get())),
                         ticksOffset), (ServerPlayer) player);
             }

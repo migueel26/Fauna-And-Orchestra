@@ -23,7 +23,7 @@ import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import java.util.StringJoiner;
 
 public class ComposerGravestoneScreen {
-    private static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/gui/block/composer_gravestone_gui.png");
+    private static final ResourceLocation BACKGROUND = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/gui/block/composer_gravestone_gui.png");
     public static int MY_COUNTER = 0;
     public static final int DEFAULT_TEXT_WIDTH = 80;
     public static final IGuiOverlay OVERLAY = ComposerGravestoneScreen::renderOverlay;

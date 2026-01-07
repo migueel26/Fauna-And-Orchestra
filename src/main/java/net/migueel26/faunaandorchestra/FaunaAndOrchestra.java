@@ -130,7 +130,7 @@ public class FaunaAndOrchestra {
         public static void onClientSetup(FMLClientSetupEvent event) {
             ModItemProperties.addCustomItemProperties();
             MenuScreens.register(ModMenuTypes.CONDUCTOR_MENU.get(), ConductorScreen::new);
-            ItemProperties.register(ModItems.BRIEFCASE.get(), ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "opened"),
+            ItemProperties.register(ModItems.BRIEFCASE.get(), new ResourceLocation(FaunaAndOrchestra.MOD_ID, "opened"),
                     (stack, level, entity, seed) -> {
                         if (stack.hasTag() && stack.getTag().contains("Opened")) {
                             return stack.getTag().getBoolean("Opened") ? 1.0F : 0.0F;

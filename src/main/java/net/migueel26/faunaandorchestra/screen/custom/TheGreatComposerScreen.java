@@ -20,7 +20,7 @@ import oshi.util.tuples.Pair;
 import java.util.List;
 
 public class TheGreatComposerScreen {
-    public static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/gui/entity/dialogue.png");
+    public static final ResourceLocation BACKGROUND = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/gui/entity/dialogue.png");
     public static final int DEFAULT_OFFSET = 80;
     public static final int DEFAULT_BACKGROUND_Y = 160;
     public static final int DEFAULT_BACKGROUND_X = 100;
@@ -55,11 +55,11 @@ public class TheGreatComposerScreen {
                 String text;
 
                 if (spawnTime < POP_UP_TIME) {
-                    icon = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/gui/entity/composer_spawn_icon.png");
+                    icon = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/gui/entity/composer_spawn_icon.png");
                     text = Component.translatable("dialogue.faunaandorchestra.the_great_composer0").getString();
 
                 } else {
-                    icon = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/gui/entity/composer_default_icon.png");
+                    icon = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/gui/entity/composer_default_icon.png");
                     text = Component.translatable("dialogue.faunaandorchestra.the_great_composer1").getString();
                 }
 

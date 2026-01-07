@@ -29,7 +29,7 @@ import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import oshi.util.tuples.Pair;
 
 public class DialogueScreen {
-    public static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/gui/entity/dialogue.png");
+    public static final ResourceLocation BACKGROUND = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/gui/entity/dialogue.png");
     public static final int DEFAULT_OFFSET = 80;
     public static final int DEFAULT_BACKGROUND_Y = 160;
     public static final int DEFAULT_BACKGROUND_X = 100;
@@ -127,8 +127,8 @@ public class DialogueScreen {
         // We show the dialogue associated with the prize
         if (prizeTimer >= 1) {
             ResourceLocation icon;
-            ResourceLocation faust = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/gui/entity/faust_icon.png");
-            ResourceLocation orion = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/gui/entity/orion_icon.png");
+            ResourceLocation faust = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/gui/entity/faust_icon.png");
+            ResourceLocation orion = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/gui/entity/orion_icon.png");
             Pair<Integer, Integer> size = new Pair<>(49, 60);
             Pair<Integer, Integer> location = new Pair<>(107, 136);
             String text = Component.translatable("dialogue.faunaandorchestra.ringtails_prize" + prize).getString();

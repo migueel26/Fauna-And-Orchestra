@@ -20,7 +20,7 @@ import oshi.util.tuples.Pair;
 import java.util.List;
 
 public class AnyaScreen {
-    public static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/gui/entity/dialogue.png");
+    public static final ResourceLocation BACKGROUND = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/gui/entity/dialogue.png");
     public static final int DEFAULT_OFFSET = 80;
     public static final int DEFAULT_BACKGROUND_Y = 160;
     public static final int DEFAULT_BACKGROUND_X = 100;

@@ -17,7 +17,7 @@ import java.util.List;
 public class FaunaJEIPlugin implements IModPlugin {
     @Override
     public ResourceLocation getPluginUid() {
-        return ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "jei_plugin");
+        return new ResourceLocation(FaunaAndOrchestra.MOD_ID, "jei_plugin");
     }
 
     @Override
