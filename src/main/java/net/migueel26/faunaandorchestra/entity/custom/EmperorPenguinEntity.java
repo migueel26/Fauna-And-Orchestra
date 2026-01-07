@@ -83,8 +83,8 @@ public class EmperorPenguinEntity extends MusicalEntity implements GeoEntity, Ne
         this.goalSelector.addGoal(1, new MusicalEntityPlayingInstrumentGoal(this));
         this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(3, new HurtByTargetGoal(this).setAlertOthers());
-        this.goalSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, true, this::isAngryAt));
-        // LookAtPlayerGoal(4)
+        // NearestAttackableTargetGoal (4)
+        // LookAtPlayerGoal (4)
         // MeleeAttackGoal (5)
         // RandomStrollGoal(5)
         this.goalSelector.addGoal(6, new FaunaRandomLookAroundGoal(this));
@@ -93,6 +93,27 @@ public class EmperorPenguinEntity extends MusicalEntity implements GeoEntity, Ne
 
     private void addOverriddenGoals() {
         this.goalSelector.addGoal(0, new TamableAnimalPanicGoal(2.0D, DamageTypeTags.PANIC_CAUSES) {
+            final EmperorPenguinEntity penguin = (EmperorPenguinEntity) super.mob;
+
+            @Override
+            public boolean canUse() {
+                return super.canUse() && !penguin.isAngry();
+            }
+
+            @Override
+            public void start() {
+                penguin.setRunning(true);
+                super.start();
+            }
+
+            @Override
+            public void stop() {
+                penguin.setRunning(false);
+                super.stop();
+            }
+        });
+
+        this.goalSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, true, this::isAngryAt) {
             final EmperorPenguinEntity penguin = (EmperorPenguinEntity) super.mob;
             @Override
             public void start() {
@@ -137,6 +158,8 @@ public class EmperorPenguinEntity extends MusicalEntity implements GeoEntity, Ne
             protected void checkAndPerformAttack(LivingEntity target) {
                 if (this.canPerformAttack(target)) {
                     ((EmperorPenguinEntity) this.mob).attack();
+                    mob.playSound(SoundEvents.PARROT_EAT, 1.5F, 1.25F);
+
                     this.resetAttackCooldown();
                     this.mob.doHurtTarget(target);
 
