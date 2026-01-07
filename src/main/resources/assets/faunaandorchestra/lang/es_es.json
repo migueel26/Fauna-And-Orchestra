@@ -116,6 +116,7 @@
 
   "item.faunaandorchestra.mantis_spawn_egg": "Generar Mantis",
   "item.faunaandorchestra.penguin_spawn_egg": "Generar Bebé Pingüino",
+  "item.faunaandorchestra.emperor_penguin_spawn_egg": "Generar Pingüino Emperador",
   "item.faunaandorchestra.red_panda_spawn_egg": "Generar Panda Rojo",
   "item.faunaandorchestra.macaw_spawn_egg": "Generar Guacamayo",
   "item.faunaandorchestra.quirky_frog_spawn_egg": "Generar Rana Talentosa",
@@ -153,6 +154,7 @@
 
   "entity.faunaandorchestra.mantis": "Mantis",
   "entity.faunaandorchestra.penguin": "Bebé Pingüino",
+  "entity.faunaandorchestra.emperor_penguin": "Pingüino Emperador",
   "entity.faunaandorchestra.red_panda": "Panda Rojo",
   "entity.faunaandorchestra.macaw": "Guacamayo",
   "entity.faunaandorchestra.quirky_frog": "Rana Talentosa",

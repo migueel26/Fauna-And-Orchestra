@@ -146,6 +146,9 @@ public class ModItems {
     public static final DeferredItem<Item> PENGUIN_SPAWN_EGG = ITEMS.register("penguin_spawn_egg",
             () -> new DeferredSpawnEggItem(ModEntities.PENGUIN, 0xd7d7d9, 0x0e0e1a,
                     new Item.Properties()));
+    public static final DeferredItem<Item> EMPEROR_PENGUIN_SPAWN_EGG = ITEMS.register("emperor_penguin_spawn_egg",
+            () -> new DeferredSpawnEggItem(ModEntities.EMPEROR_PENGUIN, 0x0e0e1a, 0xd7d7d9,
+                    new Item.Properties()));
     public static final DeferredItem<Item> RED_PANDA_SPAWN_EGG = ITEMS.register("red_panda_spawn_egg",
             () -> new DeferredSpawnEggItem(ModEntities.RED_PANDA, 0xd63200, 0xd1d0cf,
                     new Item.Properties()));

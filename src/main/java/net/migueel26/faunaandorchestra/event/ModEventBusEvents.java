@@ -30,6 +30,7 @@ public class ModEventBusEvents {
         event.put(ModEntities.MANTIS.get(), MantisEntity.createAttributes().build());
         event.put(ModEntities.QUIRKY_FROG.get(), QuirkyFrogEntity.createAttributes().build());
         event.put(ModEntities.PENGUIN.get(), PenguinEntity.createAttributes().build());
+        event.put(ModEntities.EMPEROR_PENGUIN.get(), EmperorPenguinEntity.createAttributes().build());
         event.put(ModEntities.RED_PANDA.get(), RedPandaEntity.createAttributes().build());
         event.put(ModEntities.MACAW.get(), MacawEntity.createAttributes().build());
         event.put(ModEntities.BEAVER.get(), BeaverEntity.createAttributes().build());
@@ -60,6 +61,8 @@ public class ModEventBusEvents {
         event.register(ModEntities.MANTIS.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 MantisEntity::checkMantisSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
         event.register(ModEntities.PENGUIN.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                Goat::checkGoatSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        event.register(ModEntities.EMPEROR_PENGUIN.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 Goat::checkGoatSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
         event.register(ModEntities.RED_PANDA.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 Animal::checkAnimalSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);

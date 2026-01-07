@@ -116,6 +116,7 @@
 
   "item.faunaandorchestra.mantis_spawn_egg": "Mantis Spawn Egg",
   "item.faunaandorchestra.penguin_spawn_egg": "Baby Penguin Spawn Egg",
+  "item.faunaandorchestra.emperor_penguin_spawn_egg": "Emperor Penguin Spawn Egg",
   "item.faunaandorchestra.red_panda_spawn_egg": "Red Panda Spawn Egg",
   "item.faunaandorchestra.macaw_spawn_egg": "Macaw Spawn Egg",
   "item.faunaandorchestra.quirky_frog_spawn_egg": "Quirky Frog Spawn Egg",
@@ -153,6 +154,7 @@
 
   "entity.faunaandorchestra.mantis": "Mantis",
   "entity.faunaandorchestra.penguin": "Baby Penguin",
+  "entity.faunaandorchestra.emperor_penguin": "Emperor Penguin",
   "entity.faunaandorchestra.red_panda": "Red Panda",
   "entity.faunaandorchestra.macaw": "Macaw",
   "entity.faunaandorchestra.quirky_frog": "Quirky Frog",

@@ -99,6 +99,7 @@ public class BriefcaseItem extends Item {
         switch (elements[0]) {
             case "MantisEntity" -> musicalEntityType = ModEntities.MANTIS.get();
             case "PenguinEntity" -> musicalEntityType = ModEntities.PENGUIN.get();
+            case "EmperorPenguinEntity" -> musicalEntityType = ModEntities.EMPEROR_PENGUIN.get();
             case "RedPandaEntity" -> musicalEntityType = ModEntities.RED_PANDA.get();
             case "MacawEntity" -> musicalEntityType = ModEntities.MACAW.get();
             case "BeaverEntity" -> musicalEntityType = ModEntities.BEAVER.get();
@@ -171,6 +172,7 @@ public class BriefcaseItem extends Item {
             switch (elements[0]) {
                 case "MantisEntity" -> typeName = Component.translatable("entity.faunaandorchestra.mantis");
                 case "PenguinEntity" -> typeName = Component.translatable("entity.faunaandorchestra.penguin");
+                case "EmperorPenguinEntity" -> typeName = Component.translatable("entity.faunaandorchestra.emperor_penguin");
                 case "RedPandaEntity" -> typeName = Component.translatable("entity.faunaandorchestra.red_panda");
                 case "MacawEntity" -> typeName = Component.translatable("entity.faunaandorchestra.macaw");
                 case "QuirkyFrogEntity" -> typeName = Component.translatable("entity.faunaandorchestra.quirky_frog");

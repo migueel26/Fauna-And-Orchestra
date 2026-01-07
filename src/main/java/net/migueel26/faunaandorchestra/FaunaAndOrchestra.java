@@ -110,6 +110,7 @@ public class FaunaAndOrchestra {
             EntityRenderers.register(ModEntities.MANTIS.get(), MantisRenderer::new);
             EntityRenderers.register(ModEntities.QUIRKY_FROG.get(), QuirkyFrogRenderer::new);
             EntityRenderers.register(ModEntities.PENGUIN.get(), PenguinRenderer::new);
+            EntityRenderers.register(ModEntities.EMPEROR_PENGUIN.get(), EmperorPenguinRenderer::new);
             EntityRenderers.register(ModEntities.RED_PANDA.get(), RedPandaRenderer::new);
             EntityRenderers.register(ModEntities.MACAW.get(), MacawRenderer::new);
             EntityRenderers.register(ModEntities.BEAVER.get(), BeaverRenderer::new);

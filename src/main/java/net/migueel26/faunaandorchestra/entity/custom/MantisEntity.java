@@ -179,7 +179,7 @@ public class MantisEntity extends MusicalEntity implements GeoEntity, NeutralMob
 
     public static AttributeSupplier.Builder createAttributes() {
         return Animal.createLivingAttributes()
-                .add(Attributes.MAX_HEALTH, 15d)
+                .add(Attributes.MAX_HEALTH, 25d)
                 .add(Attributes.MOVEMENT_SPEED, 0.25D)
                 .add(Attributes.FOLLOW_RANGE, 24D)
                 .add(Attributes.ATTACK_DAMAGE, 4.0);
