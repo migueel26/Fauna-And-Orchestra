@@ -18,7 +18,7 @@ public class ModCreativeModeTabs {
 
     public static final Supplier<CreativeModeTab> FAUNA_AND_ORCHESTRA = CREATIVE_MODE_TAB.register("fauna_and_orchestra",
             () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.ICON.get()))
-                    .title(Component.literal("Fauna and Orchestra"))
+                    .title(Component.literal("Fauna & Orchestra"))
                     .displayItems((itemDisplayParameters, output) -> {
                         output.accept(ModItems.VIOLIN);
                         output.accept(ModItems.FLUTE);
@@ -93,6 +93,10 @@ public class ModCreativeModeTabs {
                         output.accept(ModBlocks.GINGKO_BILOBA_SAPLING);
                         output.accept(ModItems.FRUIT_OF_LIFE);
                         output.accept(ModItems.OFFERING);
+                        output.accept(ModItems.PROP_CASE);
+                        output.accept(ModItems.TUXEDO);
+                        output.accept(ModItems.TAILCOAT);
+                        output.accept(ModItems.SILVER_TINT);
                         output.acceptAll(VesselUtil.getAllVoiceItems());
                         output.accept(ModItems.UNLOCKER);
                     }).build());

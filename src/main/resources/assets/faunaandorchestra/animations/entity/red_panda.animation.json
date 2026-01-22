@@ -82,7 +82,7 @@
 						},
 						"3.0": {
 							"vector": [-32.98333, 9.26069, -5.96238],
-							"easing": "easeInSine"
+							"easing": "easeInOutSine"
 						}
 					}
 				},

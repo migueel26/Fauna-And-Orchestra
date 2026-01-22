@@ -49,6 +49,12 @@
   "item.faunaandorchestra.transmuted_voice": "Voz transmutada",
   "item.faunaandorchestra.voice": "Voz de ",
 
+  "item.faunaandorchestra.prop_case": "Neceser",
+  "item.faunaandorchestra_clothing.desc": "Ropa para Animales",
+  "item.faunaandorchestra.tuxedo": "Esmoquin",
+  "item.faunaandorchestra.tailcoat": "Frac",
+  "item.faunaandorchestra.silver_tint": "Tinte plateado",
+
   "item.faunaandorchestra.discord_essence.desc": "Cuando alguien intenta entrometerse con la naturaleza del sonido, crea una discordia en sus alrededores",
   "item.faunaandorchestra.activator_clef.desc": "Clave inestable con capacidad de excitar el terreno y manifestar discordia",
   "item.faunaandorchestra.petals_of_death.desc": "Producto del hambre voraz de una flor discórdica",
@@ -69,6 +75,7 @@
   "item.faunaandorchestra.whistle.tooltip": "Haz §eclick §ra una mascota para enlazarla. ¡Después podrás llamarla cuando quieras!",
   "item.faunaandorchestra.voice_vessel.tooltip": "Haz §eclick derecho §rpara absorber las voces en la vasija",
   "item.faunaandorchestra.transmuted_voice.tooltip": "Haz §eclick derecho §ra una criatura sin voz para devolvérsela",
+  "item.faunaandorchestra.prop_case.desc": "Haz §eclick derecho §r a un músico para cambiarlo de ropa",
   "item.faunaandorchestra.whistle.desc": "Enlazado con: ",
   "item.faunaandorchestra.ringtails_poster.desc": "2x2",
   "item.faunaandorchestra.whistle.far_message": "¡Está muy lejos!",

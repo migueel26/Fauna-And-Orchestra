@@ -3,6 +3,7 @@ package net.migueel26.faunaandorchestra.screen;
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.screen.custom.ConductorMenu;
 import net.migueel26.faunaandorchestra.screen.custom.ConductorScreen;
+import net.migueel26.faunaandorchestra.screen.custom.MusicianMenu;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
@@ -18,6 +19,8 @@ public class ModMenuTypes {
 
     public static final DeferredHolder<MenuType<?>, MenuType<ConductorMenu>> CONDUCTOR_MENU = registerMenuType(
             "conductor_menu", ConductorMenu::create);
+    public static final DeferredHolder<MenuType<?>, MenuType<MusicianMenu>> MUSICIAN_MENU = registerMenuType(
+            "musician_menu", MusicianMenu::create);
 
     private static <T extends AbstractContainerMenu> DeferredHolder<MenuType<?>, MenuType<T>> registerMenuType(String name,
                                                                                                                IContainerFactory<T> factory) {

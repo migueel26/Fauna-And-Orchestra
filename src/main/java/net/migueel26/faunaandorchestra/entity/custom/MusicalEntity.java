@@ -1,24 +1,32 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
+import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.mixins.client.accessors.ClientLevelAccessor;
+import net.migueel26.faunaandorchestra.screen.custom.ConductorMenu;
+import net.migueel26.faunaandorchestra.screen.custom.MusicianMenu;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.migueel26.faunaandorchestra.util.ModTags;
 import net.migueel26.faunaandorchestra.util.MusicUtil;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.TamableAnimal;
@@ -27,6 +35,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.jetbrains.annotations.Nullable;
 
@@ -37,11 +46,40 @@ public abstract class MusicalEntity extends TamableAnimal {
     protected static final EntityDataAccessor<Boolean> HOLDING_INSTRUMENT = SynchedEntityData.defineId(MusicalEntity.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Optional<UUID>> CONDUCTOR_ID = SynchedEntityData.defineId(MusicalEntity.class, EntityDataSerializers.OPTIONAL_UUID);
     protected static final EntityDataAccessor<Boolean> IS_MUSICAL = SynchedEntityData.defineId(MusicalEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<ItemStack> COSTUME_ITEM = SynchedEntityData.defineId(MusicalEntity.class, EntityDataSerializers.ITEM_STACK);
+    private static final EntityDataAccessor<ItemStack> HAT_ITEM = SynchedEntityData.defineId(MusicalEntity.class, EntityDataSerializers.ITEM_STACK);
     protected boolean isHoldingInstrument;
     protected UUID conductorUUID;
     private int ticksSinceLoaded;
-    //private Integer count = null;
-    //private Player lastAttempt;
+    // Costumes
+    public ItemStackHandler inventory = new ItemStackHandler(2) {
+        @Override
+        public boolean isItemValid(int slot, ItemStack stack) {
+            // Checks if this entity can wear the clothing item via tag
+            if (getType().is(TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "wears_" + stack.getItem().getDescriptionId().split("\\.")[2])))) {
+                return stack.is(slot == 0 ? ModTags.Items.IS_HAT : ModTags.Items.IS_COSTUME);
+            }
+            return false;
+        }
+
+        @Override
+        protected int getStackLimit(int slot, ItemStack stack) {
+            return 1;
+        }
+
+        @Override
+        protected void onContentsChanged(int slot) {
+            playSound(SoundEvents.ARMOR_EQUIP_LEATHER.value(), 1.0F, 1.0F + ((random.nextFloat()/2)-0.25F));
+
+            if (slot == 0) {
+                entityData.set(HAT_ITEM, getStackInSlot(0));
+            } else {
+                entityData.set(COSTUME_ITEM, getStackInSlot(1));
+            }
+
+            super.onContentsChanged(slot);
+        }
+    };
 
     protected MusicalEntity(EntityType<? extends TamableAnimal> entityType, Level level) {
         super(entityType, level);
@@ -57,6 +95,8 @@ public abstract class MusicalEntity extends TamableAnimal {
         builder.define(HOLDING_INSTRUMENT, false);
         builder.define(IS_MUSICAL, false);
         builder.define(CONDUCTOR_ID, Optional.empty());
+        builder.define(COSTUME_ITEM, ItemStack.EMPTY);
+        builder.define(HAT_ITEM, ItemStack.EMPTY);
         super.defineSynchedData(builder);
     }
 
@@ -79,6 +119,8 @@ public abstract class MusicalEntity extends TamableAnimal {
 
         compound.putBoolean("HoldingInstrument", this.isHoldingInstrument());
         compound.putBoolean("IsMusical", this.isMusical());
+
+        compound.put("Inventory", this.inventory.serializeNBT(this.registryAccess()));
     }
 
     @Override
@@ -87,6 +129,12 @@ public abstract class MusicalEntity extends TamableAnimal {
 
         this.entityData.set(HOLDING_INSTRUMENT, compound.getBoolean("HoldingInstrument"));
         this.entityData.set(IS_MUSICAL, compound.getBoolean("IsMusical"));
+
+        if (compound.contains("Inventory")) {
+            this.inventory.deserializeNBT(this.registryAccess(), compound.getCompound("Inventory"));
+            this.entityData.set(HAT_ITEM, this.inventory.getStackInSlot(0));
+            this.entityData.set(COSTUME_ITEM, this.inventory.getStackInSlot(1));
+        }
     }
 
     @Override
@@ -106,7 +154,12 @@ public abstract class MusicalEntity extends TamableAnimal {
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
         if (isTame() && getOwnerUUID().equals(player.getUUID())) {
-            if (itemStack.is(ModTags.Items.IS_BATON) && !isPlayingInstrument() && itemStack.get(ModDataComponents.MUSICIAN_UUID) == null) {
+            if (itemStack.is(ModItems.PROP_CASE)) {
+
+                this.openCustomMenu(player);
+                return InteractionResult.SUCCESS;
+
+            } else if (itemStack.is(ModTags.Items.IS_BATON) && !isPlayingInstrument() && itemStack.get(ModDataComponents.MUSICIAN_UUID) == null) {
 
                 itemStack.set(ModDataComponents.MUSICIAN_UUID, this.uuid);
                 return InteractionResult.SUCCESS;
@@ -169,25 +222,14 @@ public abstract class MusicalEntity extends TamableAnimal {
         return InteractionResult.FAIL;
     }
 
-    /*
-    @Override
-    public void tick() {
-        if (count != null) {
-            count++;
-            if (count == 15) {
-                count = null;
-                tryToTame(lastAttempt);
-            }
+    private void openCustomMenu(Player player) {
+        if (!this.level().isClientSide()) {
+            ((ServerPlayer) player).openMenu(new SimpleMenuProvider((id, playerInventory, playerEntity) ->
+                    new MusicianMenu(id, playerInventory, this), this.getDisplayName()), buf -> {
+                buf.writeUUID(getUUID());
+            });
         }
-
-        super.tick();
     }
-
-    public void tameEvent(Player player) {
-        count = 0;
-        lastAttempt = player;
-    }
-    */
 
     @Override
     public void tick() {
@@ -253,5 +295,13 @@ public abstract class MusicalEntity extends TamableAnimal {
 
     public int getTicksSinceLoaded() {
         return ticksSinceLoaded;
+    }
+
+    public Item getHat() {
+        return this.entityData.get(HAT_ITEM).getItem();
+    }
+
+    public Item getCostume() {
+        return this.entityData.get(COSTUME_ITEM).getItem();
     }
 }

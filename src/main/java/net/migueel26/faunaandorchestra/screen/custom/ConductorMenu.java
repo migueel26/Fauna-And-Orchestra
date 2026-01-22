@@ -32,7 +32,8 @@ public class ConductorMenu extends AbstractContainerMenu {
         addPlayerInventory(inventory);
         addPlayerHotbar(inventory);
 
-        this.addSlot(new SlotItemHandler(this.conductor.inventory, 0, 116, 30));
+        this.addSlot(new SlotItemHandler(this.conductor.inventory, 0, 107, 30));
+        this.addSlot(new SlotItemHandler(this.conductor.inventory, 1, 125, 30));
     }
 
     // CREDIT GOES TO: diesieben07 | https://github.com/diesieben07/SevenCommons
@@ -43,7 +44,7 @@ public class ConductorMenu extends AbstractContainerMenu {
     private static final int VANILLA_SLOT_COUNT = HOTBAR_SLOT_COUNT + PLAYER_INVENTORY_SLOT_COUNT;
     private static final int VANILLA_FIRST_SLOT_INDEX = 0;
     private static final int TE_INVENTORY_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT;
-    private static final int TE_INVENTORY_SLOT_COUNT = 1;
+    private static final int TE_INVENTORY_SLOT_COUNT = 2;
     @Override
     public ItemStack quickMoveStack(Player playerIn, int pIndex) {
         Slot sourceSlot = slots.get(pIndex);

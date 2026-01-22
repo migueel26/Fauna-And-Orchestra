@@ -8,13 +8,18 @@ import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.item.custom.*;
 import net.migueel26.faunaandorchestra.item.custom.InstrumentItem;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
+import net.migueel26.faunaandorchestra.util.ModTags;
 import net.migueel26.faunaandorchestra.util.MusicUtil;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
@@ -22,7 +27,6 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import vazkii.patchouli.api.PatchouliAPI;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -139,6 +143,11 @@ public class ModItems {
             () -> new MusicalInkItem(new Item.Properties()));
     public static final DeferredItem<Item> GLOVE = ITEMS.register("glove",
             () -> new Item(new Item.Properties().durability(3)));
+    public static final DeferredItem<Item> PROP_CASE = ITEMS.register("prop_case",
+            () -> new Item(new Item.Properties().stacksTo(1)));
+    public static final DeferredItem<Item> TUXEDO = createClothingItem("tuxedo", ModTags.EntityTypes.WEARS_TUXEDO);
+    public static final DeferredItem<Item> TAILCOAT = createClothingItem("tailcoat", ModTags.EntityTypes.WEARS_TAILCOAT);
+    public static final DeferredItem<Item> SILVER_TINT = createClothingItem("silver_tint", ModTags.EntityTypes.WEARS_SILVER_TINT);
 
     public static final DeferredItem<Item> MANTIS_SPAWN_EGG = ITEMS.register("mantis_spawn_egg",
             () -> new DeferredSpawnEggItem(ModEntities.MANTIS, 0x46eb4c, 0x23a628,
@@ -294,6 +303,28 @@ public class ModItems {
                         tooltipComponents.add(Component.translatable("item.faunaandorchestra." + name + ".desc")
                                 .withStyle(ChatFormatting.GRAY));
                         super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+                    }
+                });
+    }
+
+    private static DeferredItem<Item> createClothingItem(String name, TagKey<EntityType<?>> tag) {
+        return ITEMS.register(name,
+                () -> new Item(new Item.Properties()) {
+                    @Override
+                    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+                        tooltipComponents.add(Component.translatable("item.faunaandorchestra_clothing.desc").withStyle(ChatFormatting.LIGHT_PURPLE));
+
+                        MutableComponent musicians = Component.empty();
+
+                        Iterator<Holder<EntityType<?>>> iterator = BuiltInRegistries.ENTITY_TYPE.getTagOrEmpty(tag).iterator();
+                        while (iterator.hasNext()) {
+                            musicians.append(Component.translatable(iterator.next().value().getDescriptionId()));
+                            if (iterator.hasNext()) {
+                                musicians.append(Component.literal(", "));
+                            }
+                        }
+
+                        tooltipComponents.add(musicians.withStyle(ChatFormatting.DARK_GRAY));
                     }
                 });
     }

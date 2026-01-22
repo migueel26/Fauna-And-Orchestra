@@ -149,6 +149,7 @@ public class FaunaAndOrchestra {
         @SubscribeEvent
         public static void registerScreens(RegisterMenuScreensEvent event) {
             event.register(ModMenuTypes.CONDUCTOR_MENU.get(), ConductorScreen::new);
+            event.register(ModMenuTypes.MUSICIAN_MENU.get(), MusicianScreen::new);
         }
 
         @SubscribeEvent

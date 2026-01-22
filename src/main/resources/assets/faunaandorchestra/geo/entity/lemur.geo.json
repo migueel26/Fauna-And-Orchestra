@@ -4,9 +4,9 @@
 		{
 			"description": {
 				"identifier": "geometry.lemur",
-				"texture_width": 64,
-				"texture_height": 64,
-				"visible_bounds_width": 4,
+				"texture_width": 128,
+				"texture_height": 128,
+				"visible_bounds_width": 5,
 				"visible_bounds_height": 2.5,
 				"visible_bounds_offset": [0, 0.75, 0]
 			},
@@ -107,6 +107,20 @@
 					"parent": "body",
 					"pivot": [0, 8, -7],
 					"cubes": [
+						{
+							"origin": [-0.95, 4.45, -7.3],
+							"size": [1.9, 1.5, 2.5],
+							"pivot": [0, 5.45, -5.3],
+							"rotation": [-4, 0, 0],
+							"uv": {
+								"north": {"uv": [46, 2], "uv_size": [2, 2]},
+								"east": {"uv": [44, 2], "uv_size": [2, 2]},
+								"south": {"uv": [50, 2], "uv_size": [2, 2]},
+								"west": {"uv": [48, 2], "uv_size": [2, 2]},
+								"up": {"uv": [46, 0], "uv_size": [2, 2]},
+								"down": {"uv": [48, 2], "uv_size": [2, -2]}
+							}
+						},
 						{
 							"origin": [-3.5, 5, -7],
 							"size": [7, 5, 7],

@@ -1110,14 +1110,12 @@
 				},
 				"left_pupil": {
 					"scale": {
-						"vector": [1, 0.3, 1],
-						"easing": "easeOutQuart"
+						"vector": [1, 0.3, 1]
 					}
 				},
 				"right_pupil": {
 					"scale": {
-						"vector": [1, 0.3, 1],
-						"easing": "easeOutQuart"
+						"vector": [1, 0.3, 1]
 					}
 				},
 				"long_flute": {

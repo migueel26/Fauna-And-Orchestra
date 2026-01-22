@@ -3,8 +3,10 @@ package net.migueel26.faunaandorchestra.client.entity;
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.entity.custom.BeaverEntity;
 import net.migueel26.faunaandorchestra.entity.custom.MacawEntity;
+import net.migueel26.faunaandorchestra.item.ModItems;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.world.item.Item;
 import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.constant.DataTickets;
@@ -12,17 +14,21 @@ import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
 public class BeaverModel extends GeoModel<BeaverEntity> {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/beaver.png");
+    private static final ResourceLocation NORMAL_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/beaver.png");
+    private static final ResourceLocation TUXEDO_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/beaver_tuxedo.png");
     private static final ResourceLocation ANIMATIONS = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "animations/entity/beaver.animation.json");
     private static final ResourceLocation MODEL = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "geo/entity/beaver.geo.json");
     @Override
-    public ResourceLocation getModelResource(BeaverEntity animatable) {
+    public ResourceLocation getModelResource(BeaverEntity beaver) {
         return MODEL;
     }
 
     @Override
-    public ResourceLocation getTextureResource(BeaverEntity animatable) {
-        return TEXTURE;
+    public ResourceLocation getTextureResource(BeaverEntity beaver) {
+        return switch (beaver.getCostume()) {
+            case Item costume when costume == ModItems.TUXEDO.get() -> TUXEDO_TEXTURE;
+            default -> NORMAL_TEXTURE;
+        };
     }
 
     @Override

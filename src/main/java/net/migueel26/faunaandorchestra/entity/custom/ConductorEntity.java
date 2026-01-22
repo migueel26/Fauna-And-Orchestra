@@ -1,5 +1,6 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
+import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.block.custom.ComposerGravestoneBlock;
@@ -21,14 +22,17 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
@@ -59,6 +63,7 @@ public abstract class ConductorEntity extends TamableAnimal {
     protected static final EntityDataAccessor<Boolean> IS_MUSICAL = SynchedEntityData.defineId(ConductorEntity.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Boolean> IS_CONDUCTING = SynchedEntityData.defineId(ConductorEntity.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Boolean> IS_READY = SynchedEntityData.defineId(ConductorEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<ItemStack> COSTUME_ITEM = SynchedEntityData.defineId(ConductorEntity.class, EntityDataSerializers.ITEM_STACK);
     protected static final EntityDataAccessor<Float> VOLUME = SynchedEntityData.defineId(ConductorEntity.class, EntityDataSerializers.FLOAT);
     protected boolean holdingBaton = false;
     protected boolean isConducting = false;
@@ -70,15 +75,29 @@ public abstract class ConductorEntity extends TamableAnimal {
 
     // Client
     private boolean particlesActivated;
-    public ItemStackHandler inventory = new ItemStackHandler(1) {
+    public ItemStackHandler inventory = new ItemStackHandler(2) {
         @Override
         public boolean isItemValid(int slot, ItemStack stack) {
-            return stack.is(ModTags.Items.SHEET_MUSIC);
+            // Slot 0 -> SheetMusic
+            // Slot 1 -> Is_Costume ItemTag and Wears_ITEMSTACK EntityTypeTag
+            return (slot == 0 && stack.is(ModTags.Items.SHEET_MUSIC) ||
+                    (slot == 1 && stack.is(ModTags.Items.IS_COSTUME) && (getType().is(TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "wears_" + stack.getItem().getDescriptionId().split("\\.")[2]))))));
         }
 
         @Override
         protected int getStackLimit(int slot, ItemStack stack) {
             return 1;
+        }
+
+        @Override
+        protected void onContentsChanged(int slot) {
+
+            if (slot == 1) {
+                entityData.set(COSTUME_ITEM, getStackInSlot(1));
+                playSound(SoundEvents.ARMOR_EQUIP_LEATHER.value(), 1.0F, 1.0F + ((random.nextFloat() / 2) - 0.25F));
+            }
+
+            super.onContentsChanged(slot);
         }
     };
     protected int ticksPlaying = 0;
@@ -100,6 +119,7 @@ public abstract class ConductorEntity extends TamableAnimal {
         builder.define(IS_READY, false);
         builder.define(IS_MUSICAL, false);
         builder.define(VOLUME, 1.0F);
+        builder.define(COSTUME_ITEM, ItemStack.EMPTY);
     }
 
     @Override
@@ -132,11 +152,9 @@ public abstract class ConductorEntity extends TamableAnimal {
         this.entityData.set(IS_READY, compound.getBoolean("IsReady"));
         this.entityData.set(VOLUME, compound.getFloat("Volume"));
 
-        if (compound.contains("SheetMusic")) {
-            ItemStack itemstack = ItemStack.parse(this.registryAccess(), compound.getCompound("SheetMusic")).orElse(ItemStack.EMPTY);
-            if (itemstack.is(ModTags.Items.SHEET_MUSIC)) {
-                this.inventory.setStackInSlot(0, itemstack);
-            }
+        if (compound.contains("Inventory")) {
+            this.inventory.deserializeNBT(this.registryAccess(), compound.getCompound("Inventory"));
+            this.entityData.set(COSTUME_ITEM, this.inventory.getStackInSlot(1));
         }
     }
 
@@ -149,9 +167,7 @@ public abstract class ConductorEntity extends TamableAnimal {
         compound.putBoolean("IsReady", isConducting());
         compound.putFloat("Volume", currentVolume);
 
-        if (!this.inventory.getStackInSlot(0).isEmpty()) {
-            compound.put("SheetMusic", this.inventory.getStackInSlot(0).save(this.registryAccess()));
-        }
+        compound.put("Inventory", this.inventory.serializeNBT(this.registryAccess()));
     }
 
     @Override
@@ -521,6 +537,9 @@ public abstract class ConductorEntity extends TamableAnimal {
 
     public Item getSheetMusic() {
         return inventory.getStackInSlot(0).getItem();
+    }
+    public Item getCostume() {
+        return this.entityData.get(COSTUME_ITEM).getItem();
     }
 
     public boolean isHoldingASheetMusic() {
