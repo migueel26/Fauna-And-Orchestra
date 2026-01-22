@@ -3,10 +3,12 @@ package net.migueel26.faunaandorchestra.item;
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
+import net.migueel26.faunaandorchestra.client.item.SantaHatItemRenderer;
 import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.item.custom.*;
 import net.migueel26.faunaandorchestra.item.custom.InstrumentItem;
+import net.migueel26.faunaandorchestra.item.custom.clothing.CosmeticItem;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.migueel26.faunaandorchestra.util.ModTags;
 import net.migueel26.faunaandorchestra.util.MusicUtil;
@@ -27,10 +29,12 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import software.bernie.geckolib.renderer.GeoItemRenderer;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.Supplier;
 
 public class ModItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(FaunaAndOrchestra.MOD_ID);
@@ -144,9 +148,17 @@ public class ModItems {
     public static final DeferredItem<Item> GLOVE = ITEMS.register("glove",
             () -> new Item(new Item.Properties().durability(3)));
     public static final DeferredItem<Item> PROP_CASE = ITEMS.register("prop_case",
-            () -> new Item(new Item.Properties().stacksTo(1)));
+            () -> new Item(new Item.Properties().stacksTo(1)) {
+                @Override
+                public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+                    tooltipComponents.add(Component.translatable("item.faunaandorchestra.prop_case.desc")
+                            .withStyle(ChatFormatting.GRAY));
+                    super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+                }
+            });
     public static final DeferredItem<Item> TUXEDO = createClothingItem("tuxedo", ModTags.EntityTypes.WEARS_TUXEDO);
     public static final DeferredItem<Item> TAILCOAT = createClothingItem("tailcoat", ModTags.EntityTypes.WEARS_TAILCOAT);
+    public static final DeferredItem<Item> SANTA_HAT = createHeadwearItem("santa_hat", ModTags.EntityTypes.WEARS_SANTA_HAT, SantaHatItemRenderer::new);
     public static final DeferredItem<Item> SILVER_TINT = createClothingItem("silver_tint", ModTags.EntityTypes.WEARS_SILVER_TINT);
 
     public static final DeferredItem<Item> MANTIS_SPAWN_EGG = ITEMS.register("mantis_spawn_egg",
@@ -313,6 +325,28 @@ public class ModItems {
                     @Override
                     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
                         tooltipComponents.add(Component.translatable("item.faunaandorchestra_clothing.desc").withStyle(ChatFormatting.LIGHT_PURPLE));
+
+                        MutableComponent musicians = Component.empty();
+
+                        Iterator<Holder<EntityType<?>>> iterator = BuiltInRegistries.ENTITY_TYPE.getTagOrEmpty(tag).iterator();
+                        while (iterator.hasNext()) {
+                            musicians.append(Component.translatable(iterator.next().value().getDescriptionId()));
+                            if (iterator.hasNext()) {
+                                musicians.append(Component.literal(", "));
+                            }
+                        }
+
+                        tooltipComponents.add(musicians.withStyle(ChatFormatting.DARK_GRAY));
+                    }
+                });
+    }
+
+    private static DeferredItem<Item> createHeadwearItem(String name, TagKey<EntityType<?>> tag, Supplier<? extends GeoItemRenderer<?>> renderer) {
+        return ITEMS.register(name,
+                () -> new CosmeticItem(new Item.Properties(), renderer) {
+                    @Override
+                    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+                        tooltipComponents.add(Component.translatable("item.faunaandorchestra_headwear.desc").withStyle(ChatFormatting.LIGHT_PURPLE));
 
                         MutableComponent musicians = Component.empty();
 

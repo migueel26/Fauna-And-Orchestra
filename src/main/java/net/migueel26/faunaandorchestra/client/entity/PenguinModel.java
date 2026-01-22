@@ -49,7 +49,8 @@ public class PenguinModel extends GeoModel<PenguinEntity> {
         }
 
         GeoBone flute = getAnimationProcessor().getBone("long_flute");
-        getAnimationProcessor().getBone("santa_hat").setHidden(true);
+
+        getAnimationProcessor().getBone("santa_hat").setHidden(penguin.getHat() != ModItems.SANTA_HAT.get());
 
         flute.setHidden(!penguin.isHoldingInstrument());
     }

@@ -40,7 +40,7 @@ import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class MadameButterflyEntity extends MusicalEntity implements GeoEntity, FlyingAnimal {
+public class MadameButterflyEntity extends MusicalEntity implements FlyingAnimal {
     protected static final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
     protected static final RawAnimation IDLE_CELLO = RawAnimation.begin().thenPlay("idle_cello");
     protected static final RawAnimation PLAYING_CELLO = RawAnimation.begin().thenPlay("playing_cello");

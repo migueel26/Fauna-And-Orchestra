@@ -39,7 +39,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.UUID;
 
-public class EmperorPenguinEntity extends MusicalEntity implements GeoEntity, NeutralMob {
+public class EmperorPenguinEntity extends MusicalEntity implements NeutralMob {
     protected static final RawAnimation RUN = RawAnimation.begin().thenPlay("run");
     protected static final RawAnimation WADDLE = RawAnimation.begin().thenPlay("waddle");
     protected static final RawAnimation WADDLE_FLUTE = RawAnimation.begin().thenPlay("waddle_flute");

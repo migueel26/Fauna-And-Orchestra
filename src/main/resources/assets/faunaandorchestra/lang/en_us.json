@@ -51,8 +51,10 @@
 
   "item.faunaandorchestra.prop_case": "Prop Case",
   "item.faunaandorchestra_clothing.desc": "Clothing Item",
+  "item.faunaandorchestra_headwear.desc": "Headwear Item",
   "item.faunaandorchestra.tuxedo": "Tuxedo",
   "item.faunaandorchestra.tailcoat": "Tailcoat",
+  "item.faunaandorchestra.santa_hat": "Santa Hat",
   "item.faunaandorchestra.silver_tint": "Silver Tint",
 
   "item.faunaandorchestra.discord_essence.desc": "When somebody tries to meddle with the nature of sound, it causes a discord to its surroundings",

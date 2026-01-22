@@ -38,7 +38,7 @@ import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class MacawEntity extends MusicalEntity implements GeoEntity, FlyingAnimal {
+public class MacawEntity extends MusicalEntity implements FlyingAnimal {
     protected static final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
     protected static final RawAnimation ROTATING = RawAnimation.begin().thenPlay("rotating");
     protected static final RawAnimation FLYING = RawAnimation.begin().thenPlay("flying");

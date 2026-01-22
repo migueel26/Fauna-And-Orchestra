@@ -1,0 +1,78 @@
+{
+  "credit": "Made with Blockbench",
+  "parent": "builtin/entity",
+  "texture_size": [
+    32,
+    32
+  ],
+  "display": {
+    "ground": {
+      "translation": [
+        0,
+        -3,
+        0
+      ],
+      "scale": [
+        0.75,
+        0.75,
+        0.75
+      ]
+    },
+    "gui": {
+      "rotation": [
+        14,
+        -180,
+        0
+      ],
+      "translation": [
+        0.5,
+        -4.25,
+        0
+      ],
+      "scale": [
+        1.25,
+        1.25,
+        1.25
+      ]
+    },
+    "head": {
+      "translation": [
+        -2.75,
+        1.25,
+        0.25
+      ],
+      "scale": [
+        1.85,
+        1.85,
+        1.85
+      ]
+    },
+    "fixed": {
+      "translation": [
+        -0.25,
+        -4.25,
+        0
+      ],
+      "scale": [
+        1.25,
+        1.25,
+        1.25
+      ]
+    },
+    "on_shelf": {
+      "translation": [
+        -0.25,
+        -4.25,
+        0
+      ],
+      "scale": [
+        1.25,
+        1.25,
+        1.25
+      ]
+    }
+  },
+  "textures": {
+    "particle": "faunaandorchestra:item/santa_hat"
+  }
+}

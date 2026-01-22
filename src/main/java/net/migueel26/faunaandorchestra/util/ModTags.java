@@ -53,6 +53,7 @@ public class ModTags {
     public static class EntityTypes {
         public static final TagKey<EntityType<?>> WEARS_TUXEDO = registerTag("wears_tuxedo");
         public static final TagKey<EntityType<?>> WEARS_TAILCOAT = registerTag("wears_tailcoat");
+        public static final TagKey<EntityType<?>> WEARS_SANTA_HAT = registerTag("wears_santa_hat");
         public static final TagKey<EntityType<?>> WEARS_SILVER_TINT = registerTag("wears_silver_tint");
 
         private static TagKey<EntityType<?>> registerTag(String name) {

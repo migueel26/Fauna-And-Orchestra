@@ -28,7 +28,7 @@ import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class LemurEntity extends MusicalEntity implements GeoEntity {
+public class LemurEntity extends MusicalEntity {
     protected static final RawAnimation WALK = RawAnimation.begin().thenPlay("walk");
     public static final RawAnimation WALK_OBOE = RawAnimation.begin().thenPlay("walk_oboe");
     protected static final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");

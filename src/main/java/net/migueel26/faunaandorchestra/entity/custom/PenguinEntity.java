@@ -34,7 +34,7 @@ import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class PenguinEntity extends MusicalEntity implements GeoEntity {
+public class PenguinEntity extends MusicalEntity {
     protected static final RawAnimation RUN = RawAnimation.begin().thenPlay("run");
     protected static final RawAnimation WADDLE = RawAnimation.begin().thenPlay("waddle");
     protected static final RawAnimation WADDLE_FLUTE = RawAnimation.begin().thenPlay("waddle_flute");

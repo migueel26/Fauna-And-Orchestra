@@ -33,7 +33,7 @@ import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class RedPandaEntity extends MusicalEntity implements GeoEntity {
+public class RedPandaEntity extends MusicalEntity {
     // Gotta change the names to match de other entities
     protected static final RawAnimation WALK = RawAnimation.begin().thenPlay("walking");
     protected static final RawAnimation WALK_STANDING = RawAnimation.begin().thenPlay("walking_standing");
