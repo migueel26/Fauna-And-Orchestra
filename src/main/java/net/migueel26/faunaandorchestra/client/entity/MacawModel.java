@@ -2,7 +2,6 @@ package net.migueel26.faunaandorchestra.client.entity;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.entity.custom.MacawEntity;
-import net.migueel26.faunaandorchestra.entity.custom.MantisEntity;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -50,6 +49,9 @@ public class MacawModel extends GeoModel<MacawEntity> {
         }
 
         GeoBone double_bass = getAnimationProcessor().getBone("double_bass");
+
+        getAnimationProcessor().getBone("right_monocle").setHidden(macaw.getHat() != ModItems.RIGHT_MONOCLE.get());
+        getAnimationProcessor().getBone("left_monocle").setHidden(macaw.getHat() != ModItems.LEFT_MONOCLE.get());
 
         double_bass.setHidden(!macaw.isHoldingInstrument());
     }

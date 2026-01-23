@@ -13,6 +13,7 @@ import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.migueel26.faunaandorchestra.util.ModTags;
 import net.migueel26.faunaandorchestra.util.MusicUtil;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -151,13 +152,19 @@ public class ModItems {
             () -> new Item(new Item.Properties().stacksTo(1)) {
                 @Override
                 public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-                    tooltipComponents.add(Component.translatable("item.faunaandorchestra.prop_case.desc")
-                            .withStyle(ChatFormatting.GRAY));
+                    if (Screen.hasShiftDown()) {
+                        tooltipComponents.add(Component.translatable("item.faunaandorchestra.prop_case.desc"));
+                    } else {
+                        tooltipComponents.add(Component.translatable("tooltip.faunaandorchestra.shift"));
+                    }
+
                     super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
                 }
             });
     public static final DeferredItem<Item> TUXEDO = createClothingItem("tuxedo", ModTags.EntityTypes.WEARS_TUXEDO);
     public static final DeferredItem<Item> TAILCOAT = createClothingItem("tailcoat", ModTags.EntityTypes.WEARS_TAILCOAT);
+    public static final DeferredItem<Item> RIGHT_MONOCLE = createHeadwearItem("right_monocle", ModTags.EntityTypes.WEARS_RIGHT_MONOCLE);
+    public static final DeferredItem<Item> LEFT_MONOCLE = createHeadwearItem("left_monocle", ModTags.EntityTypes.WEARS_LEFT_MONOCLE);
     public static final DeferredItem<Item> SANTA_HAT = createHeadwearItem("santa_hat", ModTags.EntityTypes.WEARS_SANTA_HAT, SantaHatItemRenderer::new);
     public static final DeferredItem<Item> SILVER_TINT = createClothingItem("silver_tint", ModTags.EntityTypes.WEARS_SILVER_TINT);
 
@@ -344,6 +351,28 @@ public class ModItems {
     private static DeferredItem<Item> createHeadwearItem(String name, TagKey<EntityType<?>> tag, Supplier<? extends GeoItemRenderer<?>> renderer) {
         return ITEMS.register(name,
                 () -> new CosmeticItem(new Item.Properties(), renderer) {
+                    @Override
+                    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+                        tooltipComponents.add(Component.translatable("item.faunaandorchestra_headwear.desc").withStyle(ChatFormatting.LIGHT_PURPLE));
+
+                        MutableComponent musicians = Component.empty();
+
+                        Iterator<Holder<EntityType<?>>> iterator = BuiltInRegistries.ENTITY_TYPE.getTagOrEmpty(tag).iterator();
+                        while (iterator.hasNext()) {
+                            musicians.append(Component.translatable(iterator.next().value().getDescriptionId()));
+                            if (iterator.hasNext()) {
+                                musicians.append(Component.literal(", "));
+                            }
+                        }
+
+                        tooltipComponents.add(musicians.withStyle(ChatFormatting.DARK_GRAY));
+                    }
+                });
+    }
+
+    private static DeferredItem<Item> createHeadwearItem(String name, TagKey<EntityType<?>> tag) {
+        return ITEMS.register(name,
+                () -> new Item(new Item.Properties()) {
                     @Override
                     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
                         tooltipComponents.add(Component.translatable("item.faunaandorchestra_headwear.desc").withStyle(ChatFormatting.LIGHT_PURPLE));

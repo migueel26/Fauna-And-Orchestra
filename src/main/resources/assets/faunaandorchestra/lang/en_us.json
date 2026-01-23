@@ -54,6 +54,8 @@
   "item.faunaandorchestra_headwear.desc": "Headwear Item",
   "item.faunaandorchestra.tuxedo": "Tuxedo",
   "item.faunaandorchestra.tailcoat": "Tailcoat",
+  "item.faunaandorchestra.right_monocle": "Right Monocle",
+  "item.faunaandorchestra.left_monocle": "Left Monocle",
   "item.faunaandorchestra.santa_hat": "Santa Hat",
   "item.faunaandorchestra.silver_tint": "Silver Tint",
 
@@ -77,7 +79,7 @@
   "item.faunaandorchestra.whistle.tooltip": "§eClick §ra tamed entity to link it. After that you can call it anytime!",
   "item.faunaandorchestra.voice_vessel.tooltip": "§eRight-click §rto absorb the voices nearby into the vessel",
   "item.faunaandorchestra.transmuted_voice.tooltip": "§eRight-click §ra voiceless entity to give it back",
-  "item.faunaandorchestra.prop_case.desc": "§eRight-click §r a musical entity to dress it up!",
+  "item.faunaandorchestra.prop_case.desc": "§eRight-click §ra musical entity to dress it up!",
   "item.faunaandorchestra.whistle.desc": "Linked to: ",
   "item.faunaandorchestra.ringtails_poster.desc": "2x2",
   "item.faunaandorchestra.whistle.far_message": "It's too far away!",

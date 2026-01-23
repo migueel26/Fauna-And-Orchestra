@@ -1,10 +1,8 @@
 package net.migueel26.faunaandorchestra.util;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
@@ -12,8 +10,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
-
-import java.util.List;
 
 public class ModTags {
     public static class Items {
@@ -51,9 +47,14 @@ public class ModTags {
     }
 
     public static class EntityTypes {
+        // CLOTHING
         public static final TagKey<EntityType<?>> WEARS_TUXEDO = registerTag("wears_tuxedo");
         public static final TagKey<EntityType<?>> WEARS_TAILCOAT = registerTag("wears_tailcoat");
+        // HEADWEAR
+        public static final TagKey<EntityType<?>> WEARS_RIGHT_MONOCLE = registerTag("wears_right_monocle");
+        public static final TagKey<EntityType<?>> WEARS_LEFT_MONOCLE = registerTag("wears_left_monocle");
         public static final TagKey<EntityType<?>> WEARS_SANTA_HAT = registerTag("wears_santa_hat");
+        // TINTS
         public static final TagKey<EntityType<?>> WEARS_SILVER_TINT = registerTag("wears_silver_tint");
 
         private static TagKey<EntityType<?>> registerTag(String name) {

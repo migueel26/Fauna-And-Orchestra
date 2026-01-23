@@ -72,20 +72,29 @@
 					]
 				},
 				{
-					"name": "crest",
+					"name": "left_monocle",
 					"parent": "head",
-					"pivot": [0.0349, 12, -0.9997],
+					"pivot": [0.0349, 9, -0.2497],
 					"cubes": [
 						{
-							"origin": [-0.7151, 12, -1.9997],
-							"size": [1.5, 4, 6],
+							"origin": [1.8849, 8.25, -2.9497],
+							"size": [0, 4, 4],
 							"uv": {
-								"north": {"uv": [26, 25], "uv_size": [2, 4]},
-								"east": {"uv": [24, 7], "uv_size": [6, 4]},
-								"south": {"uv": [26, 25], "uv_size": [2, 4]},
-								"west": {"uv": [24, 11], "uv_size": [6, 4]},
-								"up": {"uv": [24, 15], "uv_size": [2, 6]},
-								"down": {"uv": [26, 21], "uv_size": [2, -6]}
+								"east": {"uv": [30, 0], "uv_size": [12, 12]}
+							}
+						}
+					]
+				},
+				{
+					"name": "right_monocle",
+					"parent": "head",
+					"pivot": [-0.0349, 9, -0.2497],
+					"cubes": [
+						{
+							"origin": [-1.8849, 8.25, -2.9497],
+							"size": [0, 4, 4],
+							"uv": {
+								"west": {"uv": [42, 0], "uv_size": [-12, 12]}
 							}
 						}
 					]

@@ -96,6 +96,8 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.PROP_CASE);
                         output.accept(ModItems.TUXEDO);
                         output.accept(ModItems.TAILCOAT);
+                        output.accept(ModItems.RIGHT_MONOCLE);
+                        output.accept(ModItems.LEFT_MONOCLE);
                         output.accept(ModItems.SANTA_HAT);
                         output.accept(ModItems.SILVER_TINT);
                         output.acceptAll(VesselUtil.getAllVoiceItems());
