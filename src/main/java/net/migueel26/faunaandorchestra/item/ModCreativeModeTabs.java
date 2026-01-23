@@ -96,6 +96,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.PROP_CASE);
                         output.accept(ModItems.TUXEDO);
                         output.accept(ModItems.TAILCOAT);
+                        output.accept(ModItems.SANTA_COSTUME);
                         output.accept(ModItems.RIGHT_MONOCLE);
                         output.accept(ModItems.LEFT_MONOCLE);
                         output.accept(ModItems.SANTA_HAT);

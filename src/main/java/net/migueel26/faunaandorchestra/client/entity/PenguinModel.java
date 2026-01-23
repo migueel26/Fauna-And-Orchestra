@@ -16,6 +16,7 @@ import software.bernie.geckolib.model.data.EntityModelData;
 public class PenguinModel extends GeoModel<PenguinEntity> {
     private static final ResourceLocation NORMAL_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/penguin.png");
     private static final ResourceLocation TUXEDO_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/penguin_tuxedo.png");
+    private static final ResourceLocation SANTA_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/penguin_santa.png");
     private static final ResourceLocation ANIMATIONS = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "animations/entity/penguin.animation.json");
     private static final ResourceLocation MODEL = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "geo/entity/penguin.geo.json");
 
@@ -28,6 +29,7 @@ public class PenguinModel extends GeoModel<PenguinEntity> {
     public ResourceLocation getTextureResource(PenguinEntity penguin) {
         return switch (penguin.getCostume()) {
             case Item costume when costume == ModItems.TUXEDO.get() -> TUXEDO_TEXTURE;
+            case Item costume when costume == ModItems.SANTA_COSTUME.get() -> SANTA_TEXTURE;
             default -> NORMAL_TEXTURE;
         };
     }
