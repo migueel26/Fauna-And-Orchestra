@@ -85,5 +85,7 @@ public class MantisModel extends GeoModel<MantisEntity> {
             violin.setHidden(true);
             bow.setHidden(true);
         }
+
+        getAnimationProcessor().getBone("fake_moustache").setHidden(mantis.getHat() != ModItems.FAKE_MOUSTACHE.get());
     }
 }

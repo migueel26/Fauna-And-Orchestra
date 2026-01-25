@@ -166,6 +166,7 @@ public class ModItems {
     public static final DeferredItem<Item> SANTA_COSTUME = createClothingItem("santa_costume", ModTags.EntityTypes.WEARS_SANTA_COSTUME);
     public static final DeferredItem<Item> RIGHT_MONOCLE = createHeadwearItem("right_monocle", ModTags.EntityTypes.WEARS_RIGHT_MONOCLE);
     public static final DeferredItem<Item> LEFT_MONOCLE = createHeadwearItem("left_monocle", ModTags.EntityTypes.WEARS_LEFT_MONOCLE);
+    public static final DeferredItem<Item> FAKE_MOUSTACHE = createHeadwearItem("fake_moustache", ModTags.EntityTypes.WEARS_FAKE_MOUSTACHE);
     public static final DeferredItem<Item> SANTA_HAT = createHeadwearItem("santa_hat", ModTags.EntityTypes.WEARS_SANTA_HAT, SantaHatItemRenderer::new);
     public static final DeferredItem<Item> SILVER_TINT = createClothingItem("silver_tint", ModTags.EntityTypes.WEARS_SILVER_TINT);
 
