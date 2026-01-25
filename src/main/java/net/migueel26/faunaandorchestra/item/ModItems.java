@@ -4,6 +4,7 @@ import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.client.item.SantaHatItemRenderer;
+import net.migueel26.faunaandorchestra.client.item.TopHatItemRenderer;
 import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.item.custom.*;
@@ -167,6 +168,7 @@ public class ModItems {
     public static final DeferredItem<Item> RIGHT_MONOCLE = createHeadwearItem("right_monocle", ModTags.EntityTypes.WEARS_RIGHT_MONOCLE);
     public static final DeferredItem<Item> LEFT_MONOCLE = createHeadwearItem("left_monocle", ModTags.EntityTypes.WEARS_LEFT_MONOCLE);
     public static final DeferredItem<Item> FAKE_MOUSTACHE = createHeadwearItem("fake_moustache", ModTags.EntityTypes.WEARS_FAKE_MOUSTACHE);
+    public static final DeferredItem<Item> TOP_HAT = createHeadwearItem("top_hat", ModTags.EntityTypes.WEARS_TOP_HAT, TopHatItemRenderer::new);
     public static final DeferredItem<Item> SANTA_HAT = createHeadwearItem("santa_hat", ModTags.EntityTypes.WEARS_SANTA_HAT, SantaHatItemRenderer::new);
     public static final DeferredItem<Item> SILVER_TINT = createClothingItem("silver_tint", ModTags.EntityTypes.WEARS_SILVER_TINT);
 

@@ -55,6 +55,7 @@ public class ModTags {
         public static final TagKey<EntityType<?>> WEARS_RIGHT_MONOCLE = registerTag("wears_right_monocle");
         public static final TagKey<EntityType<?>> WEARS_LEFT_MONOCLE = registerTag("wears_left_monocle");
         public static final TagKey<EntityType<?>> WEARS_FAKE_MOUSTACHE = registerTag("wears_fake_moustache");
+        public static final TagKey<EntityType<?>> WEARS_TOP_HAT = registerTag("wears_top_hat");
         public static final TagKey<EntityType<?>> WEARS_SANTA_HAT = registerTag("wears_santa_hat");
         // TINTS
         public static final TagKey<EntityType<?>> WEARS_SILVER_TINT = registerTag("wears_silver_tint");
