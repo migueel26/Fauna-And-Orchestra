@@ -54,6 +54,8 @@ public class RedPandaModel extends GeoModel<RedPandaEntity> {
 
         GeoBone keytar = getAnimationProcessor().getBone("keytar");
 
+        getAnimationProcessor().getBone("fake_moustache").setHidden(redPanda.getHat() != ModItems.FAKE_MOUSTACHE.get());
+
         keytar.setHidden(!redPanda.isHoldingInstrument());
     }
 }

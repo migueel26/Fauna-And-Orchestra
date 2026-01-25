@@ -51,6 +51,9 @@ public class LemurModel extends GeoModel<LemurEntity> {
         GeoBone secondary_oboe = getAnimationProcessor().getBone("secondary_oboe");
 
         oboe.setHidden(!lemur.isHoldingInstrument());
+
+        getAnimationProcessor().getBone("fake_moustache").setHidden(lemur.getHat() != ModItems.FAKE_MOUSTACHE.get());
+
         secondary_oboe.setHidden(!animationState.isCurrentAnimation(LemurEntity.WALK_OBOE));
     }
 }
