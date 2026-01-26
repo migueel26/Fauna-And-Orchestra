@@ -2,7 +2,6 @@ package net.migueel26.faunaandorchestra.client.entity;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.entity.custom.BeaverEntity;
-import net.migueel26.faunaandorchestra.entity.custom.MacawEntity;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -57,6 +56,8 @@ public class BeaverModel extends GeoModel<BeaverEntity> {
         GeoBone saxophone = getAnimationProcessor().getBone("saxophone");
 
         getAnimationProcessor().getBone("top_hat").setHidden(beaver.getHat() != ModItems.TOP_HAT.get());
+        getAnimationProcessor().getBone("right_monocle").setHidden(beaver.getHat() != ModItems.RIGHT_MONOCLE.get());
+        getAnimationProcessor().getBone("left_monocle").setHidden(beaver.getHat() != ModItems.LEFT_MONOCLE.get());
 
         saxophone.setHidden(!beaver.isHoldingInstrument());
     }

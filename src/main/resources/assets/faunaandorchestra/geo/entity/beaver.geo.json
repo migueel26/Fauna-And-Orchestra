@@ -119,6 +119,34 @@
 					]
 				},
 				{
+					"name": "left_monocle",
+					"parent": "head",
+					"pivot": [2.0349, 9, -0.2497],
+					"cubes": [
+						{
+							"origin": [3.03109, 1.224, -11.53966],
+							"size": [0, 4.48, 4.48],
+							"uv": {
+								"east": {"uv": [44, 17], "uv_size": [12, 12]}
+							}
+						}
+					]
+				},
+				{
+					"name": "right_monocle",
+					"parent": "head",
+					"pivot": [-2.0349, 9, -0.2497],
+					"cubes": [
+						{
+							"origin": [-3.03109, 1.224, -11.53966],
+							"size": [0, 4.48, 4.48],
+							"uv": {
+								"west": {"uv": [56, 17], "uv_size": [-12, 12]}
+							}
+						}
+					]
+				},
+				{
 					"name": "tail",
 					"parent": "chest",
 					"pivot": [0.5, 4, 6],
