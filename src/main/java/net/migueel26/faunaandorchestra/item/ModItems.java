@@ -3,6 +3,7 @@ package net.migueel26.faunaandorchestra.item;
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
+import net.migueel26.faunaandorchestra.client.item.PropellerHatItemRenderer;
 import net.migueel26.faunaandorchestra.client.item.SantaHatItemRenderer;
 import net.migueel26.faunaandorchestra.client.item.TopHatItemRenderer;
 import net.migueel26.faunaandorchestra.component.ModDataComponents;
@@ -172,6 +173,7 @@ public class ModItems {
     public static final DeferredItem<Item> LEFT_MONOCLE = createHeadwearItem("left_monocle", ModTags.EntityTypes.WEARS_LEFT_MONOCLE);
     public static final DeferredItem<Item> FAKE_MOUSTACHE = createHeadwearItem("fake_moustache", ModTags.EntityTypes.WEARS_FAKE_MOUSTACHE);
     public static final DeferredItem<Item> IMAGINAL_DISK = createHeadwearItem("imaginal_disk", ModTags.EntityTypes.WEARS_IMAGINAL_DISK, Rarity.RARE);
+    public static final DeferredItem<Item> PROPELLER_HAT = createHeadwearItem("propeller_hat", ModTags.EntityTypes.WEARS_PROPELLER_HAT, Rarity.RARE, PropellerHatItemRenderer::new);
     public static final DeferredItem<Item> TOP_HAT = createHeadwearItem("top_hat", ModTags.EntityTypes.WEARS_TOP_HAT, TopHatItemRenderer::new);
     public static final DeferredItem<Item> SANTA_HAT = createHeadwearItem("santa_hat", ModTags.EntityTypes.WEARS_SANTA_HAT, SantaHatItemRenderer::new);
     public static final DeferredItem<Item> SILVER_TINT = createClothingItem("silver_tint", ModTags.EntityTypes.WEARS_SILVER_TINT);
@@ -426,6 +428,28 @@ public class ModItems {
                         return super.canEquip(stack, armorType, entity);
                     }
         });
+    }
+
+    private static DeferredItem<Item> createHeadwearItem(String name, TagKey<EntityType<?>> tag, Rarity rarity, Supplier<? extends GeoItemRenderer<?>> renderer) {
+        return ITEMS.register(name,
+                () -> new CosmeticItem(new Item.Properties().rarity(rarity), renderer) {
+                    @Override
+                    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+                        tooltipComponents.add(Component.translatable("item.faunaandorchestra_headwear.desc").withStyle(ChatFormatting.LIGHT_PURPLE));
+
+                        MutableComponent musicians = Component.empty();
+
+                        Iterator<Holder<EntityType<?>>> iterator = BuiltInRegistries.ENTITY_TYPE.getTagOrEmpty(tag).iterator();
+                        while (iterator.hasNext()) {
+                            musicians.append(Component.translatable(iterator.next().value().getDescriptionId()));
+                            if (iterator.hasNext()) {
+                                musicians.append(Component.literal(", "));
+                            }
+                        }
+
+                        tooltipComponents.add(musicians.withStyle(ChatFormatting.DARK_GRAY));
+                    }
+                });
     }
 
     public static void register(IEventBus eventBus) {

@@ -101,6 +101,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.LEFT_MONOCLE);
                         output.accept(ModItems.FAKE_MOUSTACHE);
                         output.accept(ModItems.IMAGINAL_DISK);
+                        output.accept(ModItems.PROPELLER_HAT);
                         output.accept(ModItems.TOP_HAT);
                         output.accept(ModItems.SANTA_HAT);
                         output.accept(ModItems.SILVER_TINT);

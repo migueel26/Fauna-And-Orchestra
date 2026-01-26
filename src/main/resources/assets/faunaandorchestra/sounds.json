@@ -440,6 +440,12 @@
       "faunaandorchestra:sfx/insert_disk"
     ]
   },
+  "propel": {
+    "subtitles": "sounds.faunaandorchestra.propel",
+    "sounds": [
+      "faunaandorchestra:sfx/propel"
+    ]
+  },
   "dialogue": {
     "subtitles": "sounds.faunaandorchestra.dialogue",
     "sounds": [

@@ -42,12 +42,15 @@ public class PenguinEntity extends MusicalEntity {
     protected static final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
     protected static final RawAnimation IDLE_FLUTE = RawAnimation.begin().thenPlay("holding_flute");
     protected static final RawAnimation PLAYING = RawAnimation.begin().thenPlay("playing");
+    protected static final RawAnimation PLAYING_PROPELLER_HAT = RawAnimation.begin().thenPlay("playing_propeller_hat");
+    protected static final RawAnimation PROPEL = RawAnimation.begin().thenPlay("propel");
     private static final EntityDataAccessor<Boolean> IS_RUNNING = SynchedEntityData.defineId(PenguinEntity.class, EntityDataSerializers.BOOLEAN);
     private boolean isRunning = false;
 
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
     private final AnimationController<PenguinEntity> penguinController = new AnimationController<>(this, "penguin_controller", 5, this::penguinState)
-            .triggerableAnim("wave", WAVE);
+            .triggerableAnim("wave", WAVE)
+            .triggerableAnim("propel", PROPEL);
     public PenguinEntity(EntityType<? extends TamableAnimal> entityType, Level level) {
         super(entityType, level);
 
@@ -73,7 +76,13 @@ public class PenguinEntity extends MusicalEntity {
 
     private <E extends GeoAnimatable> PlayState penguinState(AnimationState<E> state) {
         if (isPlayingInstrument()) {
-            state.getController().setAnimation(PLAYING);
+
+            if (getHat() == ModItems.PROPELLER_HAT.get()) {
+                state.getController().setAnimation(PLAYING_PROPELLER_HAT);
+            } else {
+                state.getController().setAnimation(PLAYING);
+            }
+
         } else if (state.isMoving() && isRunning()) {
             state.getController().setAnimation(RUN);
         } else if (isHoldingInstrument()) {
@@ -215,6 +224,14 @@ public class PenguinEntity extends MusicalEntity {
 
     public boolean isRunning() {
         return isRunning;
+    }
+
+    @Override
+    public void playSpecialClothingAnimation(ItemStack stack) {
+        if (stack.is(ModItems.PROPELLER_HAT)) {
+            triggerAnim("penguin_controller", "propel");
+            playSound(ModSounds.PROPEL.get());
+        }
     }
 
     @Override
