@@ -434,6 +434,12 @@
       "faunaandorchestra:sfx/discorded_flower1"
     ]
   },
+  "insert_disk": {
+    "subtitles": "sounds.faunaandorchestra.insert_disk",
+    "sounds": [
+      "faunaandorchestra:sfx/insert_disk"
+    ]
+  },
   "dialogue": {
     "subtitles": "sounds.faunaandorchestra.dialogue",
     "sounds": [

@@ -24,6 +24,8 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
@@ -31,6 +33,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.renderer.GeoItemRenderer;
 
 import java.util.ArrayList;
@@ -168,6 +171,7 @@ public class ModItems {
     public static final DeferredItem<Item> RIGHT_MONOCLE = createHeadwearItem("right_monocle", ModTags.EntityTypes.WEARS_RIGHT_MONOCLE);
     public static final DeferredItem<Item> LEFT_MONOCLE = createHeadwearItem("left_monocle", ModTags.EntityTypes.WEARS_LEFT_MONOCLE);
     public static final DeferredItem<Item> FAKE_MOUSTACHE = createHeadwearItem("fake_moustache", ModTags.EntityTypes.WEARS_FAKE_MOUSTACHE);
+    public static final DeferredItem<Item> IMAGINAL_DISK = createHeadwearItem("imaginal_disk", ModTags.EntityTypes.WEARS_IMAGINAL_DISK, Rarity.RARE);
     public static final DeferredItem<Item> TOP_HAT = createHeadwearItem("top_hat", ModTags.EntityTypes.WEARS_TOP_HAT, TopHatItemRenderer::new);
     public static final DeferredItem<Item> SANTA_HAT = createHeadwearItem("santa_hat", ModTags.EntityTypes.WEARS_SANTA_HAT, SantaHatItemRenderer::new);
     public static final DeferredItem<Item> SILVER_TINT = createClothingItem("silver_tint", ModTags.EntityTypes.WEARS_SILVER_TINT);
@@ -394,6 +398,34 @@ public class ModItems {
                         tooltipComponents.add(musicians.withStyle(ChatFormatting.DARK_GRAY));
                     }
                 });
+    }
+
+    private static DeferredItem<Item> createHeadwearItem(String name, TagKey<EntityType<?>> tag, Rarity rarity) {
+        return ITEMS.register(name,
+                () -> new Item(new Item.Properties().rarity(rarity)) {
+                    @Override
+                    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+                        tooltipComponents.add(Component.translatable("item.faunaandorchestra_headwear.desc").withStyle(ChatFormatting.LIGHT_PURPLE));
+
+                        MutableComponent musicians = Component.empty();
+
+                        Iterator<Holder<EntityType<?>>> iterator = BuiltInRegistries.ENTITY_TYPE.getTagOrEmpty(tag).iterator();
+                        while (iterator.hasNext()) {
+                            musicians.append(Component.translatable(iterator.next().value().getDescriptionId()));
+                            if (iterator.hasNext()) {
+                                musicians.append(Component.literal(", "));
+                            }
+                        }
+
+                        tooltipComponents.add(musicians.withStyle(ChatFormatting.DARK_GRAY));
+                    }
+
+                    @Override
+                    public boolean canEquip(ItemStack stack, EquipmentSlot armorType, LivingEntity entity) {
+                        if (armorType == EquipmentSlot.HEAD) return true;
+                        return super.canEquip(stack, armorType, entity);
+                    }
+        });
     }
 
     public static void register(IEventBus eventBus) {

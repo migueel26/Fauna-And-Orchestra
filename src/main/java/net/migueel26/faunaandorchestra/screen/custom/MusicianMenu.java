@@ -1,9 +1,13 @@
 package net.migueel26.faunaandorchestra.screen.custom;
 
 import net.migueel26.faunaandorchestra.entity.custom.MusicalEntity;
+import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.mixins.client.accessors.ClientLevelAccessor;
 import net.migueel26.faunaandorchestra.screen.ModMenuTypes;
+import net.migueel26.faunaandorchestra.util.ModTags;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -17,6 +21,8 @@ import java.util.UUID;
 public class MusicianMenu extends AbstractContainerMenu {
     public final MusicalEntity musician;
     private final Level level;
+    private Player player;
+
     public static MusicianMenu create(int id, Inventory inventory, FriendlyByteBuf buf) {
         UUID uuid = buf.readUUID();
         MusicalEntity musician = (MusicalEntity) ((ClientLevelAccessor) inventory.player.level()).callGetEntities().get(uuid);
@@ -27,6 +33,7 @@ public class MusicianMenu extends AbstractContainerMenu {
         super(ModMenuTypes.MUSICIAN_MENU.get(), id);
         this.musician = musician;
         this.level = inventory.player.level();
+        this.player = inventory.player;
 
         addPlayerInventory(inventory);
         addPlayerHotbar(inventory);
@@ -44,6 +51,7 @@ public class MusicianMenu extends AbstractContainerMenu {
     private static final int VANILLA_FIRST_SLOT_INDEX = 0;
     private static final int TE_INVENTORY_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT;
     private static final int TE_INVENTORY_SLOT_COUNT = 2;
+
     @Override
     public ItemStack quickMoveStack(Player playerIn, int pIndex) {
         Slot sourceSlot = slots.get(pIndex);
@@ -96,4 +104,5 @@ public class MusicianMenu extends AbstractContainerMenu {
             this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
         }
     }
+
 }

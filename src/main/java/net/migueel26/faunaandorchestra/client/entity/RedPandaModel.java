@@ -56,6 +56,7 @@ public class RedPandaModel extends GeoModel<RedPandaEntity> {
 
         getAnimationProcessor().getBone("fake_moustache").setHidden(redPanda.getHat() != ModItems.FAKE_MOUSTACHE.get());
         getAnimationProcessor().getBone("top_hat").setHidden(redPanda.getHat() != ModItems.TOP_HAT.get());
+        getAnimationProcessor().getBone("imaginal_disk").setHidden(redPanda.getHat() != ModItems.IMAGINAL_DISK.get());
 
         keytar.setHidden(!redPanda.isHoldingInstrument());
     }

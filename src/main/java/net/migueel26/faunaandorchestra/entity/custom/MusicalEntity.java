@@ -74,8 +74,15 @@ public abstract class MusicalEntity extends TamableAnimal implements GeoEntity {
 
             if (slot == 0) {
                 entityData.set(HAT_ITEM, getStackInSlot(0));
+                if (!level().isClientSide()) {
+                    playSpecialClothingAnimation(getStackInSlot(0));
+                }
+
             } else {
                 entityData.set(COSTUME_ITEM, getStackInSlot(1));
+                if (!level().isClientSide()) {
+                    playSpecialClothingAnimation(getStackInSlot(1));
+                }
             }
 
             super.onContentsChanged(slot);
@@ -304,5 +311,9 @@ public abstract class MusicalEntity extends TamableAnimal implements GeoEntity {
 
     public Item getCostume() {
         return this.entityData.get(COSTUME_ITEM).getItem();
+    }
+
+    public void playSpecialClothingAnimation(ItemStack stack) {
+
     }
 }

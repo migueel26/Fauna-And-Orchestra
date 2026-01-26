@@ -141,6 +141,50 @@
 					]
 				},
 				{
+					"name": "imaginal_disk",
+					"parent": "head",
+					"pivot": [0, 10, -7]
+				},
+				{
+					"name": "disk",
+					"parent": "imaginal_disk",
+					"pivot": [0.02179, 11.28014, -12.32608],
+					"rotation": [-6, 0, 0],
+					"cubes": [
+						{
+							"origin": [-3.47821, 11.23014, -15.97608],
+							"size": [7, 0, 7],
+							"uv": {
+								"up": {"uv": [55, 11], "uv_size": [12, 12]}
+							}
+						}
+					]
+				},
+				{
+					"name": "paint",
+					"parent": "imaginal_disk",
+					"pivot": [0, 7, -13],
+					"cubes": [
+						{
+							"origin": [-3.5, 6, -12],
+							"size": [7, 6, 0],
+							"inflate": -0.01,
+							"uv": {
+								"south": {"uv": [57, 24], "uv_size": [7, 6]}
+							}
+						}
+					]
+				},
+				{
+					"name": "pupils",
+					"parent": "imaginal_disk",
+					"pivot": [-1.75, 10.1, -14.1],
+					"cubes": [
+						{"origin": [-2.5, 8, -12.13], "size": [1, 1.75, 0], "inflate": -0.01, "uv": [63, 29], "mirror": true},
+						{"origin": [1.5, 8, -12.13], "size": [1, 1.75, 0], "inflate": -0.01, "uv": [63, 29]}
+					]
+				},
+				{
 					"name": "tail",
 					"parent": "chest",
 					"pivot": [0, 10, 7],

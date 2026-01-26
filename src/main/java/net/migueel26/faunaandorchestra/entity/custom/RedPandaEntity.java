@@ -3,6 +3,7 @@ package net.migueel26.faunaandorchestra.entity.custom;
 import net.migueel26.faunaandorchestra.entity.goals.MusicalEntityPlayingInstrumentGoal;
 import net.migueel26.faunaandorchestra.entity.goals.RedPandaRandomChangeStanceGoal;
 import net.migueel26.faunaandorchestra.item.ModItems;
+import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -43,12 +44,15 @@ public class RedPandaEntity extends MusicalEntity {
     protected static final RawAnimation STAND_UP = RawAnimation.begin().thenPlay("stand_up");
     protected static final RawAnimation SIT_DOWN = RawAnimation.begin().thenPlay("sit_down");
     protected static final RawAnimation PLAYING = RawAnimation.begin().thenPlay("playing");
+    protected static final RawAnimation PLAYING_IMAGINAL_DISK = RawAnimation.begin().thenPlay("playing_imaginal_disk");
+    protected static final RawAnimation INSERT_DISK = RawAnimation.begin().thenPlay("insert_disk");
     protected static final RawAnimation IDLE_KEYTAR = RawAnimation.begin().thenPlay("holding_keytar");
     private static final EntityDataAccessor<Boolean> IS_STANDING = SynchedEntityData.defineId(RedPandaEntity.class, EntityDataSerializers.BOOLEAN);
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
     private final AnimationController<RedPandaEntity> redPandaController = new AnimationController<>(this, "red_panda_controller", 5, this::redPandaState)
             .triggerableAnim("stand_up_animation", STAND_UP)
-            .triggerableAnim("sit_down_animation", SIT_DOWN);
+            .triggerableAnim("sit_down_animation", SIT_DOWN)
+            .triggerableAnim("insert_disk", INSERT_DISK);
     public RedPandaEntity(EntityType<? extends TamableAnimal> entityType, Level level) {
         super(entityType, level);
 
@@ -81,7 +85,13 @@ public class RedPandaEntity extends MusicalEntity {
                 state.getController().setAnimation(isStanding() ? WALK_STANDING : WALK);
             };
         } else if (isPlayingInstrument()) {
-            state.getController().setAnimation(PLAYING);
+
+            if (getHat() == ModItems.IMAGINAL_DISK.get()) {
+                state.getController().setAnimation(PLAYING_IMAGINAL_DISK);
+            } else {
+                state.getController().setAnimation(PLAYING);
+            }
+
         } else if (isHoldingInstrument()) {
             state.getController().setAnimation(IDLE_KEYTAR);
         } else {
@@ -180,6 +190,14 @@ public class RedPandaEntity extends MusicalEntity {
     public void setHoldingInstrument(boolean holdingInstrument) {
         standUp(true);
         super.setHoldingInstrument(holdingInstrument);
+    }
+
+    @Override
+    public void playSpecialClothingAnimation(ItemStack stack) {
+        if (stack.is(ModItems.IMAGINAL_DISK)) {
+            triggerAnim("red_panda_controller", "insert_disk");
+            playSound(ModSounds.INSERT_DISK.get());
+        }
     }
 
     @Nullable

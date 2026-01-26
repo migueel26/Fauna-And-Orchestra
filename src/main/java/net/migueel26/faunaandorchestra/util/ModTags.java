@@ -18,6 +18,7 @@ public class ModTags {
         public static final TagKey<Item> IS_INSTRUMENT = registerTag("is_instrument");
         public static final TagKey<Item> IS_HAT = registerTag("is_hat");
         public static final TagKey<Item> IS_COSTUME = registerTag("is_costume");
+        public static final TagKey<Item> IS_LEGENDARY_CLOTHING = registerTag("is_legendary_clothing");
 
         private static TagKey<Item> registerTag(String name) {
             return ItemTags.create(ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, name));
@@ -55,6 +56,7 @@ public class ModTags {
         public static final TagKey<EntityType<?>> WEARS_RIGHT_MONOCLE = registerTag("wears_right_monocle");
         public static final TagKey<EntityType<?>> WEARS_LEFT_MONOCLE = registerTag("wears_left_monocle");
         public static final TagKey<EntityType<?>> WEARS_FAKE_MOUSTACHE = registerTag("wears_fake_moustache");
+        public static final TagKey<EntityType<?>> WEARS_IMAGINAL_DISK = registerTag("wears_imaginal_disk");
         public static final TagKey<EntityType<?>> WEARS_TOP_HAT = registerTag("wears_top_hat");
         public static final TagKey<EntityType<?>> WEARS_SANTA_HAT = registerTag("wears_santa_hat");
         // TINTS
