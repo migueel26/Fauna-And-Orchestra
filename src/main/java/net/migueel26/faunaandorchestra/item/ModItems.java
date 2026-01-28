@@ -172,6 +172,7 @@ public class ModItems {
     public static final DeferredItem<Item> RIGHT_MONOCLE = createHeadwearItem("right_monocle", ModTags.EntityTypes.WEARS_RIGHT_MONOCLE);
     public static final DeferredItem<Item> LEFT_MONOCLE = createHeadwearItem("left_monocle", ModTags.EntityTypes.WEARS_LEFT_MONOCLE);
     public static final DeferredItem<Item> FAKE_MOUSTACHE = createHeadwearItem("fake_moustache", ModTags.EntityTypes.WEARS_FAKE_MOUSTACHE);
+    public static final DeferredItem<Item> ROSE = createHeadwearItem("rose", ModTags.EntityTypes.WEARS_ROSE);
     public static final DeferredItem<Item> IMAGINAL_DISK = createHeadwearItem("imaginal_disk", ModTags.EntityTypes.WEARS_IMAGINAL_DISK, Rarity.RARE);
     public static final DeferredItem<Item> PROPELLER_HAT = createHeadwearItem("propeller_hat", ModTags.EntityTypes.WEARS_PROPELLER_HAT, Rarity.RARE, PropellerHatItemRenderer::new);
     public static final DeferredItem<Item> TOP_HAT = createHeadwearItem("top_hat", ModTags.EntityTypes.WEARS_TOP_HAT, TopHatItemRenderer::new);

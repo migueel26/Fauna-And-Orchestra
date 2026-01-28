@@ -283,6 +283,20 @@
 					]
 				},
 				{
+					"name": "rose",
+					"parent": "head",
+					"pivot": [-0.6, 27.4, -10.7],
+					"cubes": [
+						{
+							"origin": [-8.1, 26.6, -13.7],
+							"size": [14, 5, 0],
+							"uv": {
+								"north": {"uv": [111, 26], "uv_size": [17, 6.15385]}
+							}
+						}
+					]
+				},
+				{
 					"name": "violin",
 					"parent": "spine",
 					"pivot": [-16, 11.2, 2],

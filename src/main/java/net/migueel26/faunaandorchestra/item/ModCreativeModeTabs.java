@@ -100,6 +100,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.RIGHT_MONOCLE);
                         output.accept(ModItems.LEFT_MONOCLE);
                         output.accept(ModItems.FAKE_MOUSTACHE);
+                        output.accept(ModItems.ROSE);
                         output.accept(ModItems.IMAGINAL_DISK);
                         output.accept(ModItems.PROPELLER_HAT);
                         output.accept(ModItems.TOP_HAT);
