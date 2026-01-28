@@ -297,6 +297,63 @@
 					]
 				},
 				{
+					"name": "mask_of_the_enlightened",
+					"parent": "head",
+					"pivot": [0, 27.6537, -14.43793],
+					"rotation": [-12.5, 0, 0],
+					"cubes": [
+						{
+							"origin": [-5.5, 25.6537, -14.43793],
+							"size": [11, 13, 0],
+							"uv": {
+								"north": {"uv": [68, 50], "uv_size": [11, 13]}
+							}
+						}
+					]
+				},
+				{
+					"name": "first_eye",
+					"parent": "mask_of_the_enlightened",
+					"pivot": [0, 32.1537, -15.43793],
+					"cubes": [
+						{
+							"origin": [-5.5, 26.6537, -16.43793],
+							"size": [11, 11, 0],
+							"uv": {
+								"north": {"uv": [79, 50], "uv_size": [13, 13]}
+							}
+						}
+					]
+				},
+				{
+					"name": "second_eye",
+					"parent": "mask_of_the_enlightened",
+					"pivot": [0, 32.1537, -15.43793],
+					"cubes": [
+						{
+							"origin": [-7.5, 24.6537, -15.63793],
+							"size": [15, 15, 0],
+							"uv": {
+								"north": {"uv": [93, 50], "uv_size": [13, 13]}
+							}
+						}
+					]
+				},
+				{
+					"name": "third_eye",
+					"parent": "mask_of_the_enlightened",
+					"pivot": [0, 32.1537, -14.73793],
+					"cubes": [
+						{
+							"origin": [-8.5, 23.6537, -14.73793],
+							"size": [17, 17, 0],
+							"uv": {
+								"north": {"uv": [107, 49], "uv_size": [15, 15]}
+							}
+						}
+					]
+				},
+				{
 					"name": "violin",
 					"parent": "spine",
 					"pivot": [-16, 11.2, 2],

@@ -56,13 +56,16 @@ public class MantisEntity extends MusicalEntity implements NeutralMob {
     protected static final RawAnimation ATTACK = RawAnimation.begin().thenPlay("attack");
     protected static final RawAnimation PLAYING = RawAnimation.begin().thenPlay("playing");
     protected static final RawAnimation IDLE_VIOLIN = RawAnimation.begin().thenPlay("idle_violin");
+    protected static final RawAnimation PLAYING_ENLIGHTEN = RawAnimation.begin().thenPlay("playing_enlighten");
+    protected static final RawAnimation ENLIGHTEN = RawAnimation.begin().thenPlay("enlighten");
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
     private static final EntityDataAccessor<Integer> REMAINING_ANGER_TIME = SynchedEntityData.defineId(MantisEntity.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(MantisEntity.class, EntityDataSerializers.INT);
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
-    private final AnimationController MANTIS_CONTROLLER =
+    private final AnimationController<MantisEntity> MANTIS_CONTROLLER =
             new AnimationController<>(this, "mantis_controller", 5, this::mantisState)
-                    .triggerableAnim("attack", ATTACK);
+                    .triggerableAnim("attack", ATTACK)
+                    .triggerableAnim("enlighten", ENLIGHTEN);
     @Nullable
     private UUID persistentAngerTarget;
 
@@ -126,11 +129,21 @@ public class MantisEntity extends MusicalEntity implements NeutralMob {
             state.getController().transitionLength(5);
             state.getController().setAnimation(isHoldingInstrument() ? WALK_VIOLIN : WALK);
         } else if (isPlayingInstrument()) {
+
             state.getController().transitionLength(5);
-            state.getController().setAnimation(PLAYING);
+            if (getHat() == ModItems.MASK_OF_THE_ENLIGHTENED.get()) {
+                state.getController().setAnimation(PLAYING_ENLIGHTEN);
+            } else {
+                state.getController().setAnimation(PLAYING);
+            }
             state.getController().transitionLength(0);
+
         } else if (isHoldingInstrument()) {
-            state.getController().transitionLength(0);
+            if (getHat() == ModItems.MASK_OF_THE_ENLIGHTENED.get()) {
+                state.getController().transitionLength(5);
+            } else {
+                state.getController().transitionLength(0);
+            }
             state.getController().setAnimation(IDLE_VIOLIN);
         } else {
             state.getController().setAnimation(IDLE);
@@ -273,6 +286,14 @@ public class MantisEntity extends MusicalEntity implements NeutralMob {
             EntityType<? extends Animal> animal, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random
     ) {
         return level.getBlockState(pos.below()).is(BlockTags.FROGS_SPAWNABLE_ON);
+    }
+
+    @Override
+    public void playSpecialClothingAnimation(ItemStack stack) {
+        if (stack.is(ModItems.MASK_OF_THE_ENLIGHTENED)) {
+            triggerAnim("mantis_controller", "enlighten");
+            playSound(ModSounds.ENLIGHTEN.get());
+        }
     }
 
     @Nullable

@@ -446,6 +446,12 @@
       "faunaandorchestra:sfx/propel"
     ]
   },
+  "enlighten": {
+    "subtitles": "sounds.faunaandorchestra.enlighten",
+    "sounds": [
+      "faunaandorchestra:sfx/enlighten"
+    ]
+  },
   "dialogue": {
     "subtitles": "sounds.faunaandorchestra.dialogue",
     "sounds": [
