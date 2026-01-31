@@ -90,7 +90,7 @@
   "item.faunaandorchestra.prop_case.desc": "§eRight-click §ra musical entity to dress it up!",
   "item.faunaandorchestra.whistle.desc": "Linked to: ",
   "item.faunaandorchestra.sound_sensor.tooltip1": "§eRight-click §rto find the biome where a musical animal might be found",
-  "item.faunaandorchestra.sound_sensor.tooltip2": "Shift and §eRight-click §rto switch between instruments",
+  "item.faunaandorchestra.sound_sensor.tooltip2": "Shift and §eright-click §rto switch between instruments",
   "item.faunaandorchestra.sound_sensor.desc": "Scanning... ",
   "item.faunaandorchestra.sound_sensor.not_found": "No biomes found",
   "item.faunaandorchestra.ringtails_poster.desc": "2x2",

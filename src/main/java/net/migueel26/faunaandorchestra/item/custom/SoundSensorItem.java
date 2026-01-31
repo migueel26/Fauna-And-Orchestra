@@ -19,6 +19,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EntityType;
@@ -112,7 +113,10 @@ public class SoundSensorItem extends Item implements GeoItem {
                     SensorNote sensorNote = new SensorNote(level, player.getX(), player.getY(0.5), player.getZ());
                     sensorNote.signalTo(pos);
                     level.gameEvent(GameEvent.PROJECTILE_SHOOT, sensorNote.position(), GameEvent.Context.of(player));
+                    float f = Mth.lerp(level.random.nextFloat(), 0.33F, 0.5F);
+                    level.playSound(null, player.blockPosition(), SoundEvents.ENDER_PEARL_THROW, SoundSource.NEUTRAL, 1.0F, f);
                     level.playSound(null, player.blockPosition(), ((InstrumentItem)((MusicalEntity) targetEntity.create(level)).getInstrument().get()).getSound(), SoundSource.NEUTRAL);
+                    stack.hurtAndBreak(1, player, getEquipmentSlot(stack));
                     level.addFreshEntity(sensorNote);
                 } else {
                     player.displayClientMessage(Component.translatable("item.faunaandorchestra.sound_sensor.not_found").withStyle(ChatFormatting.RED), true);

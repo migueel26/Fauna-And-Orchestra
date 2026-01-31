@@ -90,6 +90,8 @@
   "item.faunaandorchestra.whistle.desc": "Enlazado con: ",
   "item.faunaandorchestra.sound_sensor.desc": "Escaneando... ",
   "item.faunaandorchestra.sound_sensor.not_found": "No se han encontrado biomas",
+  "item.faunaandorchestra.sound_sensor.tooltip1": "Haz §eclick derecho §rpara encontrar el bioma del animal musical buscado",
+  "item.faunaandorchestra.sound_sensor.tooltip2": "Haz shift y §elick derecho §rpara cambiar entre distintos instrumentos",
   "item.faunaandorchestra.ringtails_poster.desc": "2x2",
   "item.faunaandorchestra.whistle.far_message": "¡Está muy lejos!",
   "item.faunaandorchestra.the_great_composer_spawn_egg.desc": "Boss",
