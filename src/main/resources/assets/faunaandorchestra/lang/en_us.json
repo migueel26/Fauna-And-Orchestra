@@ -24,6 +24,7 @@
   "item.faunaandorchestra.briefcase": "Briefcase",
   "item.faunaandorchestra.butterfly_net": "Butterfly Net",
   "item.faunaandorchestra.sound_sensor": "Sound Sensor",
+  "item.faunaandorchestra.frog_flute": "Frog Flute",
   "item.faunaandorchestra.music_bottle": "Liquid Music",
   "item.faunaandorchestra.wandering_note": "Wandering Note",
   "item.faunaandorchestra.gingko_biloba": "Ginkgo Biloba",
@@ -93,6 +94,7 @@
   "item.faunaandorchestra.sound_sensor.tooltip2": "Shift and §eright-click §rto switch between instruments",
   "item.faunaandorchestra.sound_sensor.desc": "Scanning... ",
   "item.faunaandorchestra.sound_sensor.not_found": "No biomes found",
+  "item.faunaandorchestra.frog_flute.desc": "§eRight-click §rto reunite all the quirky frogs nearby!",
   "item.faunaandorchestra.ringtails_poster.desc": "2x2",
   "item.faunaandorchestra.whistle.far_message": "It's too far away!",
   "item.faunaandorchestra.the_great_composer_spawn_egg.desc": "Boss",
@@ -425,6 +427,10 @@
   "symphonia.entry.butterfly_net": "Butterfly Net",
   "symphonia.page.butterfly_net0": "$(o)Butterflies$() don't seem to be all that interesting, don't they? Well, don't judge too soon! You can now craft a $(l)Butterfly Net$() to take them home. It's as easy as $(o)right-clicking$() them with great precision and you'll be able to transport them anywhere.",
   "symphonia.page.butterfly_net1": "$(item)Butterfly Nets$() are more useful than you might think. What else could you catch?",
+
+  "symphonia.entry.frog_flute": "Frog Flute",
+  "symphonia.page.frog_flute0": "The $(l)Frog Flute$() is an useful item if you can't find $(music)Quirky Frogs$() nearby. Once you've crafted this item, $(o)right-click$() with the flute in hand to play a $(music)soothing$() tune that will attract and reunite frogs nearby. Just be patient, they're some slow leapers!",
+  "symphonia.page.frog_flute1": "Quirky Frogs are naturally drawn to music, hence their impulse to follow the sweet sound coming out of the flute.",
 
   "symphonia.entry.music_bottle": "Liquid Music",
   "symphonia.page.music_bottle0": "It seems like you have finally obtained $(l)liquid music$(), the core ingredient in all $(o)melomantic recipes$(). As you might already know, this is the physical manifestation of superb music, whose main form of obtention is through $(music)Listeners$() $(o)(more on the next chapter)$(). For the time being, know that the harvest of this ingredient is fundamental",

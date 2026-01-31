@@ -107,6 +107,8 @@ public class ModItems {
             });
     public static final DeferredItem<Item> SOUND_SENSOR = ITEMS.register("sound_sensor",
             () -> new SoundSensorItem(new Item.Properties().stacksTo(1).durability(64)));
+    public static final DeferredItem<Item> FROG_FLUTE = ITEMS.register("frog_flute",
+            () -> new FrogFluteItem(new Item.Properties().stacksTo(1)));
     public static final DeferredItem<Item> WHISTLE = ITEMS.register("whistle",
             () -> new WhistleItem(new Item.Properties().stacksTo(1).durability(20)));
     public static final DeferredItem<Item> BOOGIE_BOMB = ITEMS.register("boogie_bomb",

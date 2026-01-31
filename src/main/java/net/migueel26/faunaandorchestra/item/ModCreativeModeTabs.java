@@ -34,6 +34,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.BRIEFCASE);
                         output.accept(ModItems.BUTTERFLY_NET);
                         output.accept(ModItems.SOUND_SENSOR);
+                        output.accept(ModItems.FROG_FLUTE);
                         output.accept(ModItems.BUTTERFLY_SPAWN_EGG);
                         output.accept(ModItems.MANTIS_SPAWN_EGG);
                         output.accept(ModItems.PENGUIN_SPAWN_EGG);

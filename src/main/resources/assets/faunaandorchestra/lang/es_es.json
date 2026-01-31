@@ -24,6 +24,7 @@
   "item.faunaandorchestra.briefcase": "Maletín",
   "item.faunaandorchestra.butterfly_net": "Cazamariposas",
   "item.faunaandorchestra.sound_sensor": "Sensor de sonidos",
+  "item.faunaandorchestra.frog_flute": "Flauta de ranas",
   "item.faunaandorchestra.music_bottle": "Música líquida",
   "item.faunaandorchestra.wandering_note": "Nota ambulante",
   "item.faunaandorchestra.gingko_biloba": "Gingko biloba",
@@ -92,6 +93,7 @@
   "item.faunaandorchestra.sound_sensor.not_found": "No se han encontrado biomas",
   "item.faunaandorchestra.sound_sensor.tooltip1": "Haz §eclick derecho §rpara encontrar el bioma del animal musical buscado",
   "item.faunaandorchestra.sound_sensor.tooltip2": "Haz shift y §elick derecho §rpara cambiar entre distintos instrumentos",
+  "item.faunaandorchestra.frog_flute.desc": "Haz §eclick derecho §rpara reunir a todas las ranas talentosas cercanas",
   "item.faunaandorchestra.ringtails_poster.desc": "2x2",
   "item.faunaandorchestra.whistle.far_message": "¡Está muy lejos!",
   "item.faunaandorchestra.the_great_composer_spawn_egg.desc": "Boss",
@@ -424,6 +426,10 @@
   "symphonia.entry.butterfly_net": "Cazamariposas",
   "symphonia.page.butterfly_net0": "Las $(o)mariposas$() no parecen ser nada interesantes, ¿verdad? Bueno, ¡no las juzgues tan pronto! Ahora puedes craftear un $(l)cazamariposas$() para llevártelas. Es tan fácil como hacerles $(o)click derecho$() con gran precisión y podrás llevártelas a donde quieras.",
   "symphonia.page.butterfly_net1": "Los $(item)cazamariposas$() son más útiles de lo que crees. ¿Qué más podrás cazar?",
+
+  "symphonia.entry.frog_flute": "Flauta de ranas",
+  "symphonia.page.frog_flute0": "La $(l)flauta de ranas$() es un útil objeto si no puedes encontrar $(music)ranas talentosas$() cerca tuya. Una vez crafteado, haz $(o)click derecho$() con la flauta en la mano para tocar una $(music)agradable$() melodía que atraerá y reunirá las ranas cercanas. Sólo sé paciente, ¡son unos lentos saltarines!",
+  "symphonia.page.frog_flute1": "Las ranas talentosas se ven atraídas naturalmente por la música, de ahí sus impulsos de seguir la dulce melodía de la flauta.",
 
   "symphonia.entry.music_bottle": "Música líquida",
   "symphonia.page.music_bottle0": "Parece que finalmente has obtenido $(l)música líquida$(), la base de todas las $(o)recetas melománticas$(). Como quizás sepas, esta es la manifestación física de música sublime, cuya principal forma de obtención es por $(music)Escuchadores$() $(o)(más sobre éstos próximamente)$(). Por ahora, debes saber que la recolecta de este ingrediente es $(o)fundamental$().",

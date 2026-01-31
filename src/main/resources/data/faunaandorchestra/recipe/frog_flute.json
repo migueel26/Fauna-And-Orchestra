@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "LSL",
+    "SFS",
+    "LSL"
+  ],
+  "key": {
+    "F": {
+      "item": "faunaandorchestra:flute"
+    },
+    "S": {
+      "item": "minecraft:iron_ingot"
+    },
+    "L": {
+      "item": "minecraft:lily_pad"
+    }
+  },
+  "result": {
+    "id": "faunaandorchestra:frog_flute",
+    "count": 1
+  }
+}
