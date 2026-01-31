@@ -33,7 +33,7 @@ public class ModDataComponents {
         public static final DeferredHolder<DataComponentType<?>, DataComponentType<List<Integer>>> PAN_FLUTE_LIST = register("pan_flute_list",
                 builder -> builder.persistent(Codec.list(Codec.INT)));
 
-        public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> PAN_FLUTE_SOUND = register("pan_flute_sound",
+        public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> LIST_INDEX = register("index_list",
                 builder -> builder.persistent(Codec.INT));
 
     private static <T> DeferredHolder<DataComponentType<?>, DataComponentType<T>> register(String name, UnaryOperator<DataComponentType.Builder<T>> builderOperator) {

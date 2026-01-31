@@ -1,7 +1,6 @@
 package net.migueel26.faunaandorchestra.item.custom;
 
 import net.migueel26.faunaandorchestra.component.ModDataComponents;
-import net.migueel26.faunaandorchestra.entity.custom.MusicalEntity;
 import net.migueel26.faunaandorchestra.entity.custom.SproutlingEntity;
 import net.migueel26.faunaandorchestra.entity.custom.decorative.HealthFluteEntity;
 import net.migueel26.faunaandorchestra.entity.custom.projectile.PhantomNoteProjectileEntity;
@@ -21,7 +20,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -32,7 +30,6 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class PanFluteItem extends Item {
     public static final int PUSH_PARTICLES = 10;
@@ -57,7 +54,7 @@ public class PanFluteItem extends Item {
         ItemStack flute = player.getItemInHand(usedHand);
 
         List<Integer> powers = flute.get(ModDataComponents.PAN_FLUTE_LIST);
-        Integer currentSound = flute.get(ModDataComponents.PAN_FLUTE_SOUND);
+        Integer currentSound = flute.get(ModDataComponents.LIST_INDEX);
 
         if (player.isShiftKeyDown() && powers != null && !powers.isEmpty()) {
             if (currentSound != null) {
@@ -67,7 +64,7 @@ public class PanFluteItem extends Item {
                         Component.translatable("item.faunaandorchestra.pan_flute." + powersString.get(powers.get(currentSound)-1)), true);
             }
 
-            flute.set(ModDataComponents.PAN_FLUTE_SOUND, currentSound);
+            flute.set(ModDataComponents.LIST_INDEX, currentSound);
             level.playSound(player, player.blockPosition(), ModSounds.PAN_FLUTE_CHANGE.get(), SoundSource.PLAYERS, 1.0f, 1.0f);
             player.getCooldowns().addCooldown(ModItems.PAN_FLUTE.get(), POWERLESS_COOLDOWN);
 
@@ -259,7 +256,7 @@ public class PanFluteItem extends Item {
 
     public static Integer getPower(ItemStack stack) {
         List<Integer> powers = stack.get(ModDataComponents.PAN_FLUTE_LIST);
-        Integer currentSound = stack.get(ModDataComponents.PAN_FLUTE_SOUND);
+        Integer currentSound = stack.get(ModDataComponents.LIST_INDEX);
         return powers == null || currentSound == null ? null : powers.get(currentSound);
     }
 
@@ -275,7 +272,7 @@ public class PanFluteItem extends Item {
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         List<Integer> powers = stack.get(ModDataComponents.PAN_FLUTE_LIST);
-        Integer sound = stack.get(ModDataComponents.PAN_FLUTE_SOUND);
+        Integer sound = stack.get(ModDataComponents.LIST_INDEX);
 
         if (powers != null && sound != null) {
             for (int i = 0; i < powers.size(); i++) {

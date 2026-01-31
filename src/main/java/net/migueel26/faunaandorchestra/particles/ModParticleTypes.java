@@ -22,6 +22,8 @@ public class ModParticleTypes {
             PARTICLE_TYPES.register("dripping_music", () -> new SimpleParticleType(true));
     public static final Supplier<SimpleParticleType> MAGICAL_NOTE =
             PARTICLE_TYPES.register("magical_note", () -> new SimpleParticleType(true));
+    public static final Supplier<SimpleParticleType> REGULAR_NOTE =
+            PARTICLE_TYPES.register("regular_note", () -> new SimpleParticleType(true));
     public static final Supplier<SimpleParticleType> STAR =
             PARTICLE_TYPES.register("star", () -> new SimpleParticleType(true));
     public static final Supplier<SimpleParticleType> CAULDRON_POP =

@@ -33,6 +33,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.LEGENDARY_BATON);
                         output.accept(ModItems.BRIEFCASE);
                         output.accept(ModItems.BUTTERFLY_NET);
+                        output.accept(ModItems.SOUND_SENSOR);
                         output.accept(ModItems.BUTTERFLY_SPAWN_EGG);
                         output.accept(ModItems.MANTIS_SPAWN_EGG);
                         output.accept(ModItems.PENGUIN_SPAWN_EGG);

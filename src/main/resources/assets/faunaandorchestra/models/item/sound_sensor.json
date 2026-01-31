@@ -1,0 +1,109 @@
+{
+  "credit": "Made with Blockbench",
+  "parent": "builtin/entity",
+  "texture_size": [
+    32,
+    32
+  ],
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [
+        -9.900000000000091,
+        47.84999999999991,
+        10.710000000000036
+      ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [
+        -9.900000000000091,
+        47.84999999999991,
+        10.710000000000036
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        -32.17000000000007,
+        56.19999999999982,
+        39.9699999999998
+      ],
+      "translation": [
+        1,
+        0.75,
+        -0.5
+      ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [
+        -32.17000000000007,
+        56.19999999999982,
+        39.9699999999998
+      ],
+      "translation": [
+        1,
+        0.75,
+        -0.5
+      ]
+    },
+    "ground": {
+      "translation": [
+        0,
+        -2.25,
+        0
+      ]
+    },
+    "gui": {
+      "rotation": [
+        45,
+        15,
+        0
+      ],
+      "translation": [
+        0,
+        -1.25,
+        0
+      ],
+      "scale": [
+        1.75,
+        1.75,
+        1.75
+      ]
+    },
+    "fixed": {
+      "rotation": [
+        -90,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        2.5
+      ],
+      "scale": [
+        2.25,
+        2.25,
+        2.25
+      ]
+    },
+    "on_shelf": {
+      "rotation": [
+        90,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        2.5
+      ],
+      "scale": [
+        2.25,
+        2.25,
+        2.25
+      ]
+    }
+  },
+  "textures": {
+    "particle": "faunaandorchestra:item/sound_sensor"
+  }
+}

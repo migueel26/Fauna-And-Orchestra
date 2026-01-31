@@ -4,10 +4,7 @@ import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.entity.custom.*;
 import net.migueel26.faunaandorchestra.entity.custom.boss.ComposerCanonEntity;
 import net.migueel26.faunaandorchestra.entity.custom.boss.TheGreatComposer;
-import net.migueel26.faunaandorchestra.entity.custom.projectile.MusicNoteProjectileEntity;
-import net.migueel26.faunaandorchestra.entity.custom.projectile.PhantomNoteProjectileEntity;
-import net.migueel26.faunaandorchestra.entity.custom.projectile.ThrownBoogieBomb;
-import net.migueel26.faunaandorchestra.entity.custom.projectile.ThrownDiscordBomb;
+import net.migueel26.faunaandorchestra.entity.custom.projectile.*;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -64,6 +61,8 @@ public class ModEntities {
             () -> EntityType.Builder.<MusicNoteProjectileEntity>of(MusicNoteProjectileEntity::new, MobCategory.MISC).sized(1.0f, 1.0f).build("music_note_projectile"));
     public static final Supplier<EntityType<PhantomNoteProjectileEntity>> PHANTOM_NOTE_PROJECTILE = ENTITY_TYPES.register("phantom_note_projectile",
             () -> EntityType.Builder.<PhantomNoteProjectileEntity>of(PhantomNoteProjectileEntity::new, MobCategory.MISC).sized(1.0f, 1.0f).build("phantom_note_projectile"));
+    public static final Supplier<EntityType<SensorNote>> SENSOR_NOTE = ENTITY_TYPES.register("sensor_note",
+            () -> EntityType.Builder.<SensorNote>of(SensorNote::new, MobCategory.MISC).sized(1.0f, 1.0f).build("sensor_note"));
     public static final Supplier<EntityType<ThrownBoogieBomb>> THROWN_BOOGIE_BOMB = ENTITY_TYPES.register("thrown_boogie_bomb",
             () -> EntityType.Builder.<ThrownBoogieBomb>of(ThrownBoogieBomb::new, MobCategory.MISC).sized(1.0f, 1.0f).build("thrown_boogie_bomb"));
     public static final Supplier<EntityType<ThrownDiscordBomb>> THROWN_DISCORD_BOMB = ENTITY_TYPES.register("thrown_discord_bomb",

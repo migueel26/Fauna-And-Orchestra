@@ -5,12 +5,16 @@ import net.migueel26.faunaandorchestra.entity.custom.MusicalEntity;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.item.custom.InstrumentItem;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.biome.Biome;
+import oshi.util.tuples.Pair;
 
 import java.util.*;
 

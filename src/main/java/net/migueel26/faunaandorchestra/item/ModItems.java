@@ -34,7 +34,6 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.renderer.GeoItemRenderer;
 
 import java.util.ArrayList;
@@ -63,13 +62,13 @@ public class ModItems {
             () -> new PanFluteItem(new Item.Properties()
                     .stacksTo(1)
                     .durability(120)
-                    .component(ModDataComponents.PAN_FLUTE_SOUND, 0)
+                    .component(ModDataComponents.LIST_INDEX, 0)
                     .component(ModDataComponents.PAN_FLUTE_LIST, List.of())));
 
     public static final DeferredItem<Item> PAN_FLUTE_CREATIVE = ITEMS.register("pan_flute_creative",
             () -> new PanFluteItem(new Item.Properties()
                     .stacksTo(1)
-                    .component(ModDataComponents.PAN_FLUTE_SOUND, 0)
+                    .component(ModDataComponents.LIST_INDEX, 0)
                     .component(ModDataComponents.PAN_FLUTE_LIST, new ArrayList<>(List.of(1,2,3,4,5)))
                     .rarity(Rarity.EPIC)));
     public static final DeferredItem<Item> BATON = ITEMS.register("baton",
@@ -106,6 +105,8 @@ public class ModItems {
                     super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
                 }
             });
+    public static final DeferredItem<Item> SOUND_SENSOR = ITEMS.register("sound_sensor",
+            () -> new SoundSensorItem(new Item.Properties().stacksTo(1).durability(32)));
     public static final DeferredItem<Item> WHISTLE = ITEMS.register("whistle",
             () -> new WhistleItem(new Item.Properties().stacksTo(1).durability(20)));
     public static final DeferredItem<Item> BOOGIE_BOMB = ITEMS.register("boogie_bomb",

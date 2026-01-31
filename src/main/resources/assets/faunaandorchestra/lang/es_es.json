@@ -23,6 +23,7 @@
 
   "item.faunaandorchestra.briefcase": "Maletín",
   "item.faunaandorchestra.butterfly_net": "Cazamariposas",
+  "item.faunaandorchestra.sound_sensor": "Sensor de sonidos",
   "item.faunaandorchestra.music_bottle": "Música líquida",
   "item.faunaandorchestra.wandering_note": "Nota ambulante",
   "item.faunaandorchestra.gingko_biloba": "Gingko biloba",
@@ -87,6 +88,8 @@
   "item.faunaandorchestra.transmuted_voice.tooltip": "Haz §eclick derecho §ra una criatura sin voz para devolvérsela",
   "item.faunaandorchestra.prop_case.desc": "Haz §eclick derecho §r a un músico para cambiarlo de ropa",
   "item.faunaandorchestra.whistle.desc": "Enlazado con: ",
+  "item.faunaandorchestra.sound_sensor.desc": "Escaneando... ",
+  "item.faunaandorchestra.sound_sensor.not_found": "No se han encontrado biomas",
   "item.faunaandorchestra.ringtails_poster.desc": "2x2",
   "item.faunaandorchestra.whistle.far_message": "¡Está muy lejos!",
   "item.faunaandorchestra.the_great_composer_spawn_egg.desc": "Boss",

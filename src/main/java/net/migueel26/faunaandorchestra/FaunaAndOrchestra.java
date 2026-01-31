@@ -9,6 +9,7 @@ import net.migueel26.faunaandorchestra.client.entity.boss.ComposerCanonRenderer;
 import net.migueel26.faunaandorchestra.client.entity.boss.TheGreatComposerRenderer;
 import net.migueel26.faunaandorchestra.client.entity.projectile.MusicNoteProjectileRenderer;
 import net.migueel26.faunaandorchestra.client.entity.projectile.PhantomNoteProjectileRenderer;
+import net.migueel26.faunaandorchestra.client.entity.projectile.SensorNoteRenderer;
 import net.migueel26.faunaandorchestra.client.entity.projectile.WanderingNoteRenderer;
 import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.effect.ModEffects;
@@ -131,6 +132,7 @@ public class FaunaAndOrchestra {
             EntityRenderers.register(ModEntities.PHANTOM_NOTE_PROJECTILE.get(), PhantomNoteProjectileRenderer::new);
             EntityRenderers.register(ModEntities.THROWN_BOOGIE_BOMB.get(), ThrownItemRenderer::new);
             EntityRenderers.register(ModEntities.THROWN_DISCORD_BOMB.get(), ThrownItemRenderer::new);
+            EntityRenderers.register(ModEntities.SENSOR_NOTE.get(), SensorNoteRenderer::new);
         }
 
         @SubscribeEvent
@@ -168,6 +170,7 @@ public class FaunaAndOrchestra {
             event.registerSpriteSet(ModParticleTypes.TREBLE_CLEF.get(), FaunaNoteParticle.TrebleProvider::new);
             event.registerSpriteSet(ModParticleTypes.DRIPPING_MUSIC.get(), DrippingMusicParticle.Provider::new);
             event.registerSpriteSet(ModParticleTypes.MAGICAL_NOTE.get(), MagicalNoteParticle.Provider::new);
+            event.registerSpriteSet(ModParticleTypes.REGULAR_NOTE.get(), MagicalNoteParticle.Provider::new);
             event.registerSpriteSet(ModParticleTypes.CAULDRON_POP.get(), SculkChargePopParticle.Provider::new);
             event.registerSpriteSet(ModParticleTypes.STAR.get(), StarParticle.Provider::new);
             event.registerSpriteSet(ModParticleTypes.VOICE_PARTICLE.get(), VoiceParticle.Provider::new);
