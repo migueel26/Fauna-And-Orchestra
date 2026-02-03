@@ -48,8 +48,8 @@ public class ModEntities {
             () -> EntityType.Builder.of(WiseTree::new, MobCategory.CREATURE).sized(0.6f, 1.0f).build("wise_tree"));
 
 
-    public static final Supplier<EntityType<KoalaEntity>> WANDERING_KOALA = ENTITY_TYPES.register("wandering_koala",
-            () -> EntityType.Builder.of(KoalaEntity::new, MobCategory.CREATURE).sized(0.5f, 1.25f).build("wandering_koala"));
+    public static final Supplier<EntityType<WanderingKoalaEntity>> WANDERING_KOALA = ENTITY_TYPES.register("wandering_koala",
+            () -> EntityType.Builder.of(WanderingKoalaEntity::new, MobCategory.CREATURE).sized(0.5f, 1.25f).build("wandering_koala"));
     public static final Supplier<EntityType<SproutlingEntity>> SINGING_SPROUTLING = ENTITY_TYPES.register("singing_sproutling",
             () -> EntityType.Builder.of(SproutlingEntity::new, MobCategory.CREATURE).sized(0.35f, 0.45f).build("singing_sproutling"));
     public static final Supplier<EntityType<ButterflyEntity>> BUTTERFLY = ENTITY_TYPES.register("butterfly",

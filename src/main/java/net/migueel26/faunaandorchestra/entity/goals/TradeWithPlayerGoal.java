@@ -1,16 +1,15 @@
 package net.migueel26.faunaandorchestra.entity.goals;
 
-import net.migueel26.faunaandorchestra.entity.custom.KoalaEntity;
+import net.migueel26.faunaandorchestra.entity.custom.WanderingKoalaEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.player.Player;
 
 import java.util.EnumSet;
 
 public class TradeWithPlayerGoal extends Goal {
-    private final KoalaEntity mob;
+    private final WanderingKoalaEntity mob;
 
-    public TradeWithPlayerGoal(KoalaEntity mob) {
+    public TradeWithPlayerGoal(WanderingKoalaEntity mob) {
         this.mob = mob;
         this.setFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.MOVE));
     }
