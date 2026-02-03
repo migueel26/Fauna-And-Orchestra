@@ -1,9 +1,6 @@
 package net.migueel26.faunaandorchestra.entity.goals;
 
-import net.migueel26.faunaandorchestra.entity.custom.WanderingKoalaEntity;
-import net.migueel26.faunaandorchestra.entity.custom.MusicalEntity;
-import net.migueel26.faunaandorchestra.entity.custom.QuirkyFrogEntity;
-import net.migueel26.faunaandorchestra.entity.custom.SproutlingEntity;
+import net.migueel26.faunaandorchestra.entity.custom.*;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;
 
@@ -21,7 +18,7 @@ public class FaunaRandomLookAroundGoal extends Goal {
     }
 
     public enum Fauna {
-        MusicalEntity, ConductorEntity, AgeableMob, QuirkyFrogEntity, AbstractKoalaEntity, WanderingKoalaEntity, SproutlingEntity
+        MusicalEntity, ConductorEntity, AgeableMob, QuirkyFrogEntity, AbstractKoalaEntity, WanderingKoalaEntity, ButlerKoalaEntity, SproutlingEntity
     }
 
     @Override
@@ -29,13 +26,14 @@ public class FaunaRandomLookAroundGoal extends Goal {
         boolean condition = this.mob.getRandom().nextFloat() < 0.02F;
         if (condition) {
             Fauna mobType = Fauna.valueOf(this.mob.getClass().getSuperclass().getSimpleName());
-            if (mobType != Fauna.MusicalEntity) mobType = Fauna.valueOf(this.mob.getClass().getSimpleName());
+            if (mobType != Fauna.MusicalEntity && mobType != Fauna.AbstractKoalaEntity) mobType = Fauna.valueOf(this.mob.getClass().getSimpleName());
 
             switch (mobType) {
                 case MusicalEntity -> condition = !((MusicalEntity) mob).isPlayingInstrument();
                 case QuirkyFrogEntity -> condition = !((QuirkyFrogEntity) mob).isConducting()
                         && !((QuirkyFrogEntity) mob).isSinging();
-                case AbstractKoalaEntity -> condition = !((WanderingKoalaEntity) mob).isKoalaSleeping();
+                case WanderingKoalaEntity -> condition = !((WanderingKoalaEntity) mob).isKoalaSleeping();
+                case ButlerKoalaEntity -> condition = !((ButlerKoalaEntity) mob).isServing();
                 case SproutlingEntity  -> condition = !((SproutlingEntity) mob).isSinging();
             }
         }

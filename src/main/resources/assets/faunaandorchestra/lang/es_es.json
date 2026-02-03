@@ -148,6 +148,7 @@
   "item.faunaandorchestra.lemur_spawn_egg": "Generar Lémur",
   "item.faunaandorchestra.madame_butterfly_spawn_egg": "Generar Madame Butterfly",
   "item.faunaandorchestra.wandering_koala_spawn_egg": "Generar Koala Ambulante",
+  "item.faunaandorchestra.butler_koala_spawn_egg": "Generar Koala Mayordomo",
   "item.faunaandorchestra.ringtails_spawn_egg": "Generar a Los Ringtails",
   "item.faunaandorchestra.wise_tree_spawn_egg": "Generar al Árbol Sabio",
   "item.faunaandorchestra.the_great_composer_spawn_egg": "Generar al Gran Compositor",
@@ -173,6 +174,7 @@
   "text.faunaandorchestra.locked_tomb": "¡Esta tumba está cerrada!",
   "text.faunaandorchestra.sleeping_wandering_koala": "¡Está durmiendo! Intenta despertarlo primero...",
   "text.faunaandorchestra.dont_hurt_koala": "¡Esto no lo despertará! Prueba algo de ruido...",
+  "text.faunaandorchestra.must_serve_butler_koala": "¡Espera a que el koala te esté sirviendo!",
   "text.faunaandorchestra.leave_composer": "La influencia del Gran Compositor se desvanece aquí...",
   "text.faunaandorchestra.pick_up_composer": "¡Recoge la Gran Batuta y reclama tu premio!",
 
@@ -186,6 +188,7 @@
   "entity.faunaandorchestra.lemur": "Lémur",
   "entity.faunaandorchestra.madame_butterfly": "Madame Butterfly",
   "entity.faunaandorchestra.wandering_koala": "Koala Ambulante",
+  "entity.faunaandorchestra.butler_koala": "Koala Mayordomo",
   "entity.faunaandorchestra.faust": "Fausto",
   "entity.faunaandorchestra.orion": "Orión",
   "entity.faunaandorchestra.wise_tree": "Árbol Sabio",

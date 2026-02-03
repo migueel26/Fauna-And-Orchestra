@@ -297,6 +297,12 @@
       "faunaandorchestra:sfx/baby_penguin_ambient3"
     ]
   },
+  "koala_serve": {
+    "subtitles": "sounds.faunaandorchestra.koala_serve",
+    "sounds": [
+      "faunaandorchestra:sfx/koala_serve"
+    ]
+  },
   "beaver_teeth": {
     "subtitles": "sounds.faunaandorchestra.beaver_teeth",
     "sounds:": [

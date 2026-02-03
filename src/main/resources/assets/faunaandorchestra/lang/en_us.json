@@ -149,6 +149,7 @@
   "item.faunaandorchestra.lemur_spawn_egg": "Lemur Spawn Egg",
   "item.faunaandorchestra.madame_butterfly_spawn_egg": "Madame Butterfly Spawn Egg",
   "item.faunaandorchestra.wandering_koala_spawn_egg": "Wandering Koala Spawn Egg",
+  "item.faunaandorchestra.butler_koala_spawn_egg": "Butler Koala Spawn Egg",
   "item.faunaandorchestra.ringtails_spawn_egg": "The Ringtails Spawn Egg",
   "item.faunaandorchestra.wise_tree_spawn_egg": "Wise Tree Spawn Egg",
   "item.faunaandorchestra.the_great_composer_spawn_egg": "The Great Composer Spawn Egg",
@@ -174,6 +175,7 @@
   "text.faunaandorchestra.locked_tomb": "This tomb is locked!",
   "text.faunaandorchestra.sleeping_wandering_koala": "This koala is sleeping! Try to wake him up first...",
   "text.faunaandorchestra.dont_hurt_koala": "This won't wake it up! Try some noise...",
+  "text.faunaandorchestra.must_serve_butler_koala": "Wait until the Koala is serving you!",
   "text.faunaandorchestra.leave_composer": "The influence of the Great Composer fades away here...",
   "text.faunaandorchestra.pick_up_composer": "Pick the Great Baton up and claim your prize!",
 
@@ -187,6 +189,7 @@
   "entity.faunaandorchestra.lemur": "Lemur",
   "entity.faunaandorchestra.madame_butterfly": "Madame Butterfly",
   "entity.faunaandorchestra.wandering_koala": "Wandering Koala",
+  "entity.faunaandorchestra.butler_koala": "Butler Koala",
   "entity.faunaandorchestra.faust": "Faust",
   "entity.faunaandorchestra.orion": "Orion",
   "entity.faunaandorchestra.wise_tree": "Wise Tree",

@@ -79,6 +79,7 @@ public class ModSounds {
     public static final Supplier<SoundEvent> MANTIS_ANGRY = registerSoundEvent("mantis_angry");
 
     public static final Supplier<SoundEvent> BABY_PENGUIN_AMBIENT = registerSoundEvent("baby_penguin_ambient");
+    public static final Supplier<SoundEvent> KOALA_SERVE = registerSoundEvent("koala_serve");
     public static final Supplier<SoundEvent> BEAVER_TEETH = registerSoundEvent("beaver_teeth");
     public static final Supplier<SoundEvent> WISE_TREE_AMBIENT = registerSoundEvent("wise_tree_ambient");
     public static final Supplier<SoundEvent> WISE_TREE_DROP = registerSoundEvent("wise_tree_drop");

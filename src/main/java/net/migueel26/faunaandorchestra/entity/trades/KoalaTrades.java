@@ -59,6 +59,20 @@ public class KoalaTrades {
             )
     );
 
+    public static final Int2ObjectMap<VillagerTrades.ItemListing[]> BUTLER_KOALA_TRADES = toIntMap(
+            ImmutableMap.of(
+                    1,
+                    new VillagerTrades.ItemListing[]{
+                            new ItemsForEmeralds(Items.COOKED_BEEF.getDefaultInstance(), 2, 3, 5, 1, 0.05f, Optional.empty(), Items.WHEAT_SEEDS),
+                            new ItemsForEmeralds(Items.COOKED_BEEF.getDefaultInstance(), 2, 2, 5, 1, 0.05f, Optional.empty(), Items.SUGAR_CANE),
+                            new ItemsForEmeralds(Items.COOKED_CHICKEN.getDefaultInstance(), 2, 3, 5, 1, 0.05f, Optional.empty(), Items.WHEAT_SEEDS),
+                            new ItemsForEmeralds(Items.COOKED_CHICKEN.getDefaultInstance(), 2, 2, 5, 1, 0.05f, Optional.empty(), Items.SUGAR_CANE),
+                            new ItemsForEmeralds(Items.COOKED_PORKCHOP.getDefaultInstance(), 2, 3, 5, 1, 0.05f, Optional.empty(), Items.WHEAT_SEEDS),
+                            new ItemsForEmeralds(Items.COOKED_PORKCHOP.getDefaultInstance(), 2, 2, 5, 1, 0.05f, Optional.empty(), Items.SUGAR_CANE)
+                    }
+            )
+    );
+
     private static Int2ObjectMap<VillagerTrades.ItemListing[]> toIntMap(ImmutableMap<Integer, VillagerTrades.ItemListing[]> map) {
         return new Int2ObjectOpenHashMap<>(map);
     }
@@ -122,7 +136,7 @@ public class KoalaTrades {
 
         public ItemsForEmeralds(
                 ItemStack itemStack,
-                int emeraldCost,
+                int itemCost,
                 int numberOfItems,
                 int maxUses,
                 int villagerXp,
@@ -131,7 +145,7 @@ public class KoalaTrades {
                 Item coin
         ) {
             this.itemStack = itemStack;
-            this.emeraldCost = emeraldCost;
+            this.emeraldCost = itemCost;
             this.itemStack.setCount(numberOfItems);
             this.maxUses = maxUses;
             this.villagerXp = villagerXp;
