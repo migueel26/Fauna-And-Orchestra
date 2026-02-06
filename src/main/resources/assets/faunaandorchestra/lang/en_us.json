@@ -50,6 +50,7 @@
   "item.faunaandorchestra.ringtails_poster": "Ringtails Poster",
   "item.faunaandorchestra.transmuted_voice": "Transmuted Voice",
   "item.faunaandorchestra.voice": "Voice of the ",
+  "block.faunaandorchestra.mother_statue_item": "Statue of Mother",
 
   "item.faunaandorchestra.prop_case": "Prop Case",
   "item.faunaandorchestra_clothing.desc": "Clothing Item",
@@ -118,6 +119,7 @@
   "block.faunaandorchestra.singing_crop": "Singing Crop",
   "block.faunaandorchestra.gingko_biloba_leaves": "Ginkgo Biloba Leaves",
   "block.faunaandorchestra.gingko_biloba_sapling": "Ginkgo Biloba Sapling",
+  "block.faunaandorchestra.mother_statue": "Statue of Mother",
 
   "block.faunaandorchestra.tip_case_theft": "This case is not yours! You can't take the gold",
   "block.faunaandorchestra.tip_case.desc": "Everybody can tip you gold, but only you can retrieve it",

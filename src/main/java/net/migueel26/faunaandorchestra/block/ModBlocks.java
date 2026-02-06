@@ -181,6 +181,12 @@ public class ModBlocks {
             () -> new TheGreatHeadBlock(BlockBehaviour.Properties.of()
                     .strength(1.0F)));
 
+    public static final DeferredBlock<Block> MOTHER_STATUE = registerBlock("mother_statue",
+            () -> new MotherStatueBlock(BlockBehaviour.Properties.of()
+                    .noOcclusion()
+                    .strength(2.0F, 6.0F)
+                    .mapColor(MapColor.STONE)));
+
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block) {
         DeferredBlock<T> toReturn = BLOCKS.register(name, block);
         ModItems.ITEMS.register(name, () -> new BlockItem(toReturn.get(), new Item.Properties()));

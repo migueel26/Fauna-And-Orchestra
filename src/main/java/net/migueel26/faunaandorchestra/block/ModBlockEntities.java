@@ -75,6 +75,12 @@ public class ModBlockEntities {
                     ModBlocks.THE_GREAT_HEAD.get()
             ).build(null));
 
+    public static final Supplier<BlockEntityType<MotherStatueBlockEntity>> MOTHER_STATUE_BE =
+            BLOCK_ENTITES.register("mother_statue_be", () -> BlockEntityType.Builder.of(
+                    MotherStatueBlockEntity::new,
+                    ModBlocks.MOTHER_STATUE.get()
+            ).build(null));
+
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITES.register(eventBus);
     }

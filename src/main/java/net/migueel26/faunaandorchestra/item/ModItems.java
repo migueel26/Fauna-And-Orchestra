@@ -3,6 +3,7 @@ package net.migueel26.faunaandorchestra.item;
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
+import net.migueel26.faunaandorchestra.client.item.MotherStatueItemRenderer;
 import net.migueel26.faunaandorchestra.client.item.PropellerHatItemRenderer;
 import net.migueel26.faunaandorchestra.client.item.SantaHatItemRenderer;
 import net.migueel26.faunaandorchestra.client.item.TopHatItemRenderer;
@@ -253,12 +254,15 @@ public class ModItems {
     public static final DeferredItem<Item> LA_BAMBA_SHEET_MUSIC = createSheetMusic("la_bamba_sheet_music");
     public static final DeferredItem<Item> RESURRECTION_SONG = createLegendarySheetMusic("resurrection_song");
 
+    // BLOCK ITEM
     public static final DeferredItem<Item> THE_GREAT_HEAD_ITEM = ITEMS.register("the_great_head_item",
             () -> new TheGreatHeadItem(ModBlocks.THE_GREAT_HEAD.get(), new Item.Properties().rarity(Rarity.EPIC)));
     public static final DeferredItem<Item> MELOMANCY_CAULDRON_ITEM = ITEMS.register("melomancy_cauldron_item",
             () -> new MelomancyCauldronItem(ModBlocks.MELOMANCY_CAULDRON.get(), new Item.Properties()));
     public static final DeferredItem<Item> DISCORD_NUCLEI_ITEM = ITEMS.register("discord_nuclei_item",
             () -> new DiscordNucleiItem(ModBlocks.DISCORD_NUCLEI.get(), new Item.Properties()));
+    public static final DeferredItem<Item> MOTHER_STATUE_ITEM = ITEMS.register("mother_statue_item",
+            () -> new GeoBlockItem(ModBlocks.MOTHER_STATUE.get(), MotherStatueItemRenderer::new, new Item.Properties()));
 
     // MISC
     public static final DeferredItem<Item> VOICE = ITEMS.register("voice",
