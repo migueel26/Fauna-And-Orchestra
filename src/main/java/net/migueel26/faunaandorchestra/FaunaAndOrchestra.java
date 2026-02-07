@@ -3,6 +3,7 @@ package net.migueel26.faunaandorchestra;
 import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.block.ModBlockEntities;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
+import net.migueel26.faunaandorchestra.block.entity.HangingJarBlockEntity;
 import net.migueel26.faunaandorchestra.client.block.*;
 import net.migueel26.faunaandorchestra.client.entity.*;
 import net.migueel26.faunaandorchestra.client.entity.boss.ComposerCanonRenderer;
@@ -148,12 +149,14 @@ public class FaunaAndOrchestra {
             event.registerBlockEntityRenderer(ModBlockEntities.VOICE_CHAMBER_BE.get(), VoiceChamberBlockEntityRenderer::new);
             event.registerBlockEntityRenderer(ModBlockEntities.DISCORD_NUCLEI_BE.get(), DiscordNucleiBlockEntityRenderer::new);
             event.registerBlockEntityRenderer(ModBlockEntities.MOTHER_STATUE_BE.get(), MotherStatueBlockEntityRenderer::new);
+            event.registerBlockEntityRenderer(ModBlockEntities.HANGING_JAR_BE.get(), HangingJarBlockEntityRenderer::new);
         }
 
         @SubscribeEvent
         public static void registerScreens(RegisterMenuScreensEvent event) {
             event.register(ModMenuTypes.CONDUCTOR_MENU.get(), ConductorScreen::new);
             event.register(ModMenuTypes.MUSICIAN_MENU.get(), MusicianScreen::new);
+            event.register(ModMenuTypes.HANGING_JAR_MENU.get(), HangingJarScreen::new);
         }
 
         @SubscribeEvent

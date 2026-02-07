@@ -51,6 +51,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.RINGTAILS_SPAWN_EGG);
                         output.accept(ModItems.WISE_TREE_SPAWN_EGG);
                         output.accept(ModItems.THE_GREAT_COMPOSER_SPAWN_EGG);
+                        output.accept(ModBlocks.HANGING_JAR);
                         output.accept(ModItems.BACH_AIR_SHEET_MUSIC);
                         output.accept(ModItems.GREENSLEEVES_SHEET_MUSIC);
                         output.accept(ModItems.BLUES_SHEET_MUSIC);

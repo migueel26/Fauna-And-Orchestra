@@ -186,6 +186,8 @@ public class ModBlocks {
                     .noOcclusion()
                     .strength(2.0F, 6.0F)
                     .mapColor(MapColor.STONE)));
+    public static final DeferredBlock<Block> HANGING_JAR = registerBlock("hanging_jar",
+        () -> new HangingJarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS)));
 
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block) {
         DeferredBlock<T> toReturn = BLOCKS.register(name, block);

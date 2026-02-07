@@ -81,6 +81,12 @@ public class ModBlockEntities {
                     ModBlocks.MOTHER_STATUE.get()
             ).build(null));
 
+    public static final Supplier<BlockEntityType<HangingJarBlockEntity>> HANGING_JAR_BE =
+            BLOCK_ENTITES.register("hanging_jar_be", () -> BlockEntityType.Builder.of(
+                    HangingJarBlockEntity::new,
+                    ModBlocks.HANGING_JAR.get()
+            ).build(null));
+
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITES.register(eventBus);
     }

@@ -1,5 +1,6 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
+import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.entity.goals.FaunaRandomLookAroundGoal;
 import net.migueel26.faunaandorchestra.entity.goals.MusicalEntityPlayingInstrumentGoal;
 import net.migueel26.faunaandorchestra.item.ModItems;
@@ -28,6 +29,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoAnimatable;
@@ -245,13 +247,13 @@ public class EmperorPenguinEntity extends MusicalEntity implements NeutralMob {
 
     @Override
     public boolean isFood(ItemStack itemStack) {
-        return false;
+        return isTame() && itemStack.is(Tags.Items.FOODS_RAW_FISH) || itemStack.is(Tags.Items.FOODS_COOKED_FISH);
     }
 
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
-        return null;
+        return ModEntities.PENGUIN.get().create(level());
     }
 
     @Override

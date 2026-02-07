@@ -98,6 +98,7 @@
   "item.faunaandorchestra.frog_flute.desc": "§eRight-click §rto reunite all the quirky frogs nearby!",
   "item.faunaandorchestra.ringtails_poster.desc": "2x2",
   "item.faunaandorchestra.whistle.far_message": "It's too far away!",
+  "item.faunaandorchestra.hanging_jar.desc": "§eDrop§r the items or §eright-click§r the jar to introduce them! You can break it to take everything with you",
   "item.faunaandorchestra.the_great_composer_spawn_egg.desc": "Boss",
 
   "block.faunaandorchestra.composer_gravestone": "The Great Composer's Tomb",
@@ -120,6 +121,7 @@
   "block.faunaandorchestra.gingko_biloba_leaves": "Ginkgo Biloba Leaves",
   "block.faunaandorchestra.gingko_biloba_sapling": "Ginkgo Biloba Sapling",
   "block.faunaandorchestra.mother_statue": "Statue of Mother",
+  "block.faunaandorchestra.hanging_jar": "Hanging Jar",
 
   "block.faunaandorchestra.tip_case_theft": "This case is not yours! You can't take the gold",
   "block.faunaandorchestra.tip_case.desc": "Everybody can tip you gold, but only you can retrieve it",
