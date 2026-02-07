@@ -1,6 +1,7 @@
 package net.migueel26.faunaandorchestra.entity.custom.projectile;
 
 import net.migueel26.faunaandorchestra.entity.ModEntities;
+import net.migueel26.faunaandorchestra.entity.custom.ConductorEntity;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -12,6 +13,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
@@ -67,11 +69,13 @@ public class PhantomNoteProjectileEntity extends AbstractHurtingProjectile {
     protected void onHitEntity(EntityHitResult result) {
         super.onHitEntity(result);
         if (this.level() instanceof ServerLevel serverlevel) {
-            Entity entity1 = result.getEntity();
-            Entity owner = this.getOwner();
-            DamageSource source = this.damageSources().magic();
-            entity1.hurt(source, 6.0F);
-            EnchantmentHelper.doPostAttackEffects(serverlevel, entity1, source);
+            if (!this.isBad() && this.getOwner() instanceof ConductorEntity && result.getEntity() instanceof Monster) {
+                Entity entity1 = result.getEntity();
+                Entity owner = this.getOwner();
+                DamageSource source = this.damageSources().magic();
+                entity1.hurt(source, 6.0F);
+                EnchantmentHelper.doPostAttackEffects(serverlevel, entity1, source);
+            }
         }
     }
 

@@ -341,6 +341,7 @@ public abstract class ConductorEntity extends TamableAnimal {
                             .scale(0.35);
 
                     PhantomNoteProjectileEntity note = new PhantomNoteProjectileEntity(this, direction, level());
+                    note.setOwner(this);
                     note.setGood(true);
                     note.moveTo(getX(), getY() + 1.75f, getZ());
                     note.setDeltaMovement(direction);
