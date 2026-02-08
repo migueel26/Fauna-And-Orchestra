@@ -11,6 +11,7 @@ import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.entity.custom.boss.TheGreatComposer;
 import net.migueel26.faunaandorchestra.entity.custom.projectile.PhantomNoteProjectileEntity;
 import net.migueel26.faunaandorchestra.item.ModItems;
+import net.migueel26.faunaandorchestra.item.custom.BriefcaseItem;
 import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
 import net.migueel26.faunaandorchestra.screen.custom.ConductorMenu;
 import net.migueel26.faunaandorchestra.util.ModTags;
@@ -20,10 +21,14 @@ import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -47,6 +52,7 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -415,37 +421,60 @@ public abstract class ConductorEntity extends TamableAnimal {
 
             } else if (itemStack.is(ModItems.BRIEFCASE) && itemStack.getOrDefault(ModDataComponents.OPENED, false)
                     && getOwnerUUID().equals(player.getUUID())) {
-                List<String> animals = itemStack.get(ModDataComponents.BRIEFCASE_ANIMAL_LIST);
 
-                if (animals == null) {
-                    // If it's not initialized, we store it
-                    animals = new ArrayList<>(6);
-                    itemStack.set(ModDataComponents.BRIEFCASE_ANIMAL_LIST, animals);
+                CompoundTag itemTag = itemStack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+                ListTag entityList;
+
+                // We get the list if there is one
+                if (itemTag.contains(BriefcaseItem.TAG_ENTITY_LIST, Tag.TAG_LIST)) {
+                    entityList = itemTag.getList(BriefcaseItem.TAG_ENTITY_LIST, Tag.TAG_COMPOUND);
+                } else {
+                    entityList = new ListTag();
                 }
 
-                if (animals.size() < 6) {
-                    if (!level().isClientSide()) {
-                        List<String> newAnimals = new ArrayList<>(animals);
-                        newAnimals.add(MusicUtil.musicalAnimalToString(this));
-                        itemStack.set(ModDataComponents.BRIEFCASE_ANIMAL_LIST, newAnimals);
+                if (entityList.size() < BriefcaseItem.MAX_CAPACITY) {
+                    // Tag for the new entity data
+                    CompoundTag entityData = new CompoundTag();
 
-                        if (newAnimals.size() == 6) {
+                    if (this.save(entityData)) {
+                        ResourceLocation key = BuiltInRegistries.ENTITY_TYPE.getKey(this.getType());
+                        entityData.putString("id", key.toString());
+
+                        // Remove the UUID
+                        entityData.remove("UUID");
+
+                        // We save the custom name if it has one
+                        if (this.hasCustomName()) {
+                            entityData.putString("DisplayName", this.getCustomName().getString());
+                        }
+
+                        // Add to list
+                        entityList.add(entityData);
+                        itemTag.put(BriefcaseItem.TAG_ENTITY_LIST, entityList);
+
+                        // Update item
+                        itemStack.set(DataComponents.CUSTOM_DATA, CustomData.of(itemTag));
+
+                        // Play sound and particles
+                        level().playSound(player, this.blockPosition(), SoundEvents.PLAYER_TELEPORT, SoundSource.BLOCKS);
+                        if (!level().isClientSide()) {
+                            ((ServerLevel) level()).sendParticles(ParticleTypes.PORTAL,
+                                    this.getX(), this.getY(), this.getZ(),
+                                    60, 0.5, 0.5, 0.5, 0F);
+                        }
+
+                        // Close the briefcase if full
+                        if (entityList.size() == BriefcaseItem.MAX_CAPACITY) {
                             itemStack.set(ModDataComponents.OPENED, false);
                         }
 
-                        ((ServerLevel) level()).sendParticles(ParticleTypes.PORTAL,
-                                this.getX(), this.getY(), this.getZ(),
-                                60, 0.5, 0.5, 0.5, 0F);
+                        // Eliminate entity
                         this.discard();
-                    } else {
-                        level().playSound(player, this.blockPosition(), SoundEvents.PLAYER_TELEPORT, SoundSource.BLOCKS);
+
+                        return InteractionResult.SUCCESS;
                     }
-                    return InteractionResult.SUCCESS;
-                } else {
-                    return InteractionResult.FAIL;
+
                 }
-
-
             }
         }
         return InteractionResult.PASS;

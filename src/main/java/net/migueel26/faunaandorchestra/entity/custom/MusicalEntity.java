@@ -4,6 +4,7 @@ import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.item.ModItems;
+import net.migueel26.faunaandorchestra.item.custom.BriefcaseItem;
 import net.migueel26.faunaandorchestra.mixins.client.accessors.ClientLevelAccessor;
 import net.migueel26.faunaandorchestra.screen.custom.ConductorMenu;
 import net.migueel26.faunaandorchestra.screen.custom.MusicianMenu;
@@ -11,10 +12,14 @@ import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.migueel26.faunaandorchestra.util.ModTags;
 import net.migueel26.faunaandorchestra.util.MusicUtil;
 import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -26,6 +31,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
@@ -34,6 +40,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -189,42 +196,66 @@ public abstract class MusicalEntity extends TamableAnimal implements GeoEntity {
 
             } else if (itemStack.is(ModItems.BRIEFCASE) && itemStack.getOrDefault(ModDataComponents.OPENED, false)
                         && getOwnerUUID().equals(player.getUUID())) {
-                List<String> animals = itemStack.get(ModDataComponents.BRIEFCASE_ANIMAL_LIST);
 
-                if (animals == null) {
-                    // If it's not initialized, we store it
-                    animals = new ArrayList<>(6);
-                    itemStack.set(ModDataComponents.BRIEFCASE_ANIMAL_LIST, animals);
+                CompoundTag itemTag = itemStack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+                ListTag entityList;
+
+                // We get the list if there is one
+                if (itemTag.contains(BriefcaseItem.TAG_ENTITY_LIST, Tag.TAG_LIST)) {
+                    entityList = itemTag.getList(BriefcaseItem.TAG_ENTITY_LIST, Tag.TAG_COMPOUND);
+                } else {
+                    entityList = new ListTag();
                 }
 
-                if (animals.size() < 6) {
-                    if (!level().isClientSide()) {
-                        List<String> newAnimals = new ArrayList<>(animals);
-                        newAnimals.add(MusicUtil.musicalAnimalToString(this));
-                        itemStack.set(ModDataComponents.BRIEFCASE_ANIMAL_LIST, newAnimals);
+                if (entityList.size() < BriefcaseItem.MAX_CAPACITY) {
+                    // Tag for the new entity data
+                    CompoundTag entityData = new CompoundTag();
 
-                        if (newAnimals.size() == 6) {
-                            itemStack.set(ModDataComponents.OPENED, false);
+                    if (this.save(entityData)) {
+                        ResourceLocation key = BuiltInRegistries.ENTITY_TYPE.getKey(this.getType());
+                        entityData.putString("id", key.toString());
+
+                        // Remove the UUID
+                        entityData.remove("UUID");
+
+                        // We save the custom name if it has one
+                        if (this.hasCustomName()) {
+                            entityData.putString("DisplayName", this.getCustomName().getString());
                         }
 
-                        ((ServerLevel) level()).sendParticles(ParticleTypes.PORTAL,
-                                this.getX(), this.getY(), this.getZ(),
-                                60, 0.5, 0.5, 0.5, 0F);
+                        // Add to list
+                        entityList.add(entityData);
+                        itemTag.put(BriefcaseItem.TAG_ENTITY_LIST, entityList);
 
+                        // Update item
+                        itemStack.set(DataComponents.CUSTOM_DATA, CustomData.of(itemTag));
+
+                        // Play sound and particles
+                        level().playSound(player, this.blockPosition(), SoundEvents.PLAYER_TELEPORT, SoundSource.BLOCKS);
+
+                        if (!level().isClientSide()) {
+                            ((ServerLevel) level()).sendParticles(ParticleTypes.PORTAL,
+                                    this.getX(), this.getY(), this.getZ(),
+                                    60, 0.5, 0.5, 0.5, 0F);
+                        }
+
+                        // Remove musician from orchestra
                         if (isPlayingInstrument() && this.getConductor() != null) {
                             this.getConductor().removeMusician(this);
                         }
 
+                        // Close the briefcase if full
+                        if (entityList.size() == BriefcaseItem.MAX_CAPACITY) {
+                            itemStack.set(ModDataComponents.OPENED, false);
+                        }
+
+                        // Eliminate entity
                         this.discard();
-                    } else {
-                        level().playSound(player, this.blockPosition(), SoundEvents.PLAYER_TELEPORT, SoundSource.BLOCKS);
+
+                        return InteractionResult.SUCCESS;
                     }
-                    return InteractionResult.SUCCESS;
-                } else {
-                    return InteractionResult.FAIL;
+
                 }
-
-
             }
         }
         return InteractionResult.FAIL;

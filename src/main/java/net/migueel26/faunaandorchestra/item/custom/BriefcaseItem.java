@@ -9,7 +9,11 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
@@ -19,6 +23,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
@@ -28,15 +33,20 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public class BriefcaseItem extends Item {
+    public static final String TAG_ENTITY_LIST = "BriefcaseAnimals";
+    public static final int MAX_CAPACITY = 6;
+
     public BriefcaseItem(Properties properties) {
         super(properties);
     }
@@ -44,150 +54,157 @@ public class BriefcaseItem extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
         ItemStack briefcase = player.getItemInHand(usedHand);
-        if (this.calculateHitResult(player).getType() != HitResult.Type.ENTITY
-                  && (briefcase.get(ModDataComponents.BRIEFCASE_ANIMAL_LIST) == null
-                  || briefcase.get(ModDataComponents.BRIEFCASE_ANIMAL_LIST).size() < 6)) {
+        if (this.calculateHitResult(player).getType() != HitResult.Type.ENTITY) {
+            CompoundTag itemTag = briefcase.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+            ListTag entityList;
 
-            if (!level.isClientSide()) {
-                if (briefcase.getOrDefault(ModDataComponents.OPENED, false)) {
-                    briefcase.set(ModDataComponents.OPENED, false);
-                } else {
-                    briefcase.set(ModDataComponents.OPENED, true);
-                }
+            // We get the list if there is one
+            if (itemTag.contains(BriefcaseItem.TAG_ENTITY_LIST, Tag.TAG_LIST)) {
+                entityList = itemTag.getList(BriefcaseItem.TAG_ENTITY_LIST, Tag.TAG_COMPOUND);
+            } else {
+                entityList = new ListTag();
             }
 
-            return InteractionResultHolder.pass(briefcase);
-        } else {
-            return InteractionResultHolder.fail(briefcase);
+            if (entityList.isEmpty() || entityList.size() < 6) {
+                if (!level.isClientSide()) {
+                    if (briefcase.getOrDefault(ModDataComponents.OPENED, false)) {
+                        briefcase.set(ModDataComponents.OPENED, false);
+                    } else {
+                        briefcase.set(ModDataComponents.OPENED, true);
+                    }
+                }
+                return InteractionResultHolder.pass(briefcase);
+            }
         }
+        return InteractionResultHolder.fail(briefcase);
     }
 
     @Override
     public InteractionResult useOn(UseOnContext context) {
-        // TODO: SHINING SQUARE? CUSTOM PARTICLE AND SOUND
-            ItemStack briefcase = context.getItemInHand();
-            List<String> animals = briefcase.get(ModDataComponents.BRIEFCASE_ANIMAL_LIST);
-            if (animals != null && !animals.isEmpty() && !briefcase.getOrDefault(ModDataComponents.OPENED, false)) {
-                if (!context.getLevel().isClientSide()) {
-                    String animalString = animals.getFirst();
-                    List<String> newAnimals = new ArrayList<>(animals);
-                    newAnimals.removeFirst();
-                    ServerLevel level = (ServerLevel) context.getLevel();
-                    BlockPos block = context.getClickedPos().above();
-                    briefcase.set(ModDataComponents.BRIEFCASE_ANIMAL_LIST, newAnimals);
-                    if (newAnimals.isEmpty()) {
-                        briefcase.set(ModDataComponents.OPENED, true);
-                    }
-                    spawnMusicalEntity(animalString, level, block, context.getPlayer());
-                    level.sendParticles(ParticleTypes.PORTAL,
-                            block.getX(), block.getY(), block.getZ(),
-                            40, 0.5, 0.5, 0.5, 0F);
-                } else {
-                    context.getLevel().playSound(context.getPlayer(), context.getClickedPos(), SoundEvents.PLAYER_TELEPORT, SoundSource.BLOCKS);
-                }
-                return InteractionResult.SUCCESS;
-            } else {
-                return  InteractionResult.PASS;
-            }
+        ItemStack briefcase = context.getItemInHand();
+        CompoundTag itemTag = briefcase.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        ListTag entityList;
+
+        // We get the list if there is one
+        if (itemTag.contains(BriefcaseItem.TAG_ENTITY_LIST, Tag.TAG_LIST)) {
+            entityList = itemTag.getList(BriefcaseItem.TAG_ENTITY_LIST, Tag.TAG_COMPOUND);
+        } else {
+            entityList = new ListTag();
         }
 
-    private void spawnMusicalEntity(String animalString, ServerLevel level, BlockPos block, Player player) {
-        String[] elements = animalString.split(";");
-        EntityType<? extends MusicalEntity> musicalEntityType = null;
-        EntityType<? extends ConductorEntity> conductorEntityType = null;
-        // Entity Type
-        switch (elements[0]) {
-            case "MantisEntity" -> musicalEntityType = ModEntities.MANTIS.get();
-            case "PenguinEntity" -> musicalEntityType = ModEntities.PENGUIN.get();
-            case "EmperorPenguinEntity" -> musicalEntityType = ModEntities.EMPEROR_PENGUIN.get();
-            case "RedPandaEntity" -> musicalEntityType = ModEntities.RED_PANDA.get();
-            case "MacawEntity" -> musicalEntityType = ModEntities.MACAW.get();
-            case "BeaverEntity" -> musicalEntityType = ModEntities.BEAVER.get();
-            case "LemurEntity" -> musicalEntityType = ModEntities.LEMUR.get();
-            case "MadameButterflyEntity" -> musicalEntityType = ModEntities.MADAME_BUTTERFLY.get();
-            case "QuirkyFrogEntity" -> conductorEntityType = ModEntities.QUIRKY_FROG.get();
-        }
-        // Holding Instrument
-        boolean holdingInstrument = elements[1].equals("t");
-        // Holding Sheet Music
-        Item sheet = MusicUtil.getSheet(elements[2]);
-        // Legendary Baton
-        boolean legendaryBaton = elements[3].equals("t");
-        // Custom Name
-        String customName = elements[4].equals("f") ? null : elements[3];
+        if (!entityList.isEmpty() && !briefcase.getOrDefault(ModDataComponents.OPENED, false)) {
+            if (!context.getLevel().isClientSide()) {
+                CompoundTag animalTag = entityList.getCompound(entityList.size() - 1);
 
-        if (musicalEntityType != null) {
-            MusicalEntity musicalEntity = musicalEntityType.spawn(level, block, MobSpawnType.MOB_SUMMONED);
-            if (musicalEntity != null) {
-                musicalEntity.tame(player);
-                musicalEntity.setHoldingInstrument(holdingInstrument);
-                musicalEntity.setOrderedToSit(true);
-                if (customName != null) {
-                    musicalEntity.setCustomName(Component.literal(customName));
+                ServerLevel level = (ServerLevel) context.getLevel();
+                BlockPos block = context.getClickedPos().above();
+
+                // We spawn the animal
+                spawnMusicalEntity(animalTag, level, block, context.getPlayer());
+
+                // We remove the animal tag
+                entityList.removeLast();
+
+                // We open the briefcase if empty
+                if (entityList.isEmpty()) {
+                    briefcase.set(ModDataComponents.OPENED, true);
                 }
+
+                // We save the new list
+                itemTag.put(BriefcaseItem.TAG_ENTITY_LIST, entityList);
+                briefcase.set(DataComponents.CUSTOM_DATA, CustomData.of(itemTag));
+
+                level.sendParticles(ParticleTypes.PORTAL,
+                        block.getX(), block.getY(), block.getZ(),
+                        40, 0.5, 0.5, 0.5, 0F);
+
+
             }
-        } else if (conductorEntityType != null){
-            ConductorEntity conductor = conductorEntityType.spawn(level, block, MobSpawnType.MOB_SUMMONED);
-            if (conductor != null) {
-                conductor.tame(player);
-                conductor.setHoldingBaton(holdingInstrument);
-                conductor.setLegendaryBaton(legendaryBaton);
-                conductor.setOrderedToSit(true);
-                if (sheet != Items.AIR) {
-                    conductor.inventory.setStackInSlot(0, new ItemStack(sheet));
-                }
-                if (customName != null) {
-                    conductor.setCustomName(Component.literal(customName));
-                }
-            }
+            context.getLevel().playSound(context.getPlayer(), context.getClickedPos(), SoundEvents.PLAYER_TELEPORT, SoundSource.BLOCKS);
+
+            return InteractionResult.SUCCESS;
+        } else {
+            return InteractionResult.PASS;
+        }
+    }
+
+    private void spawnMusicalEntity(CompoundTag animalTag, ServerLevel level, BlockPos pos, Player player) {
+        Optional<Entity> entityOpt = EntityType.create(animalTag, level);
+        if (entityOpt.isPresent()) {
+            Entity entity = entityOpt.get();
+            entity.setPos(pos.getCenter().x(), pos.getY(), pos.getCenter().z());
+
+            level.addFreshEntity(entity);
         }
     }
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        List<String> animals = stack.get(ModDataComponents.BRIEFCASE_ANIMAL_LIST);
-        if (Screen.hasShiftDown()) {
-            if (animals == null || animals.size() < 6) {
-                tooltipComponents.add(Component.translatable("tooltip.faunaandorchestra:briefcase_empty"));
-            }
-            if (animals != null && !animals.isEmpty()){
-                tooltipComponents.add(Component.translatable("tooltip.faunaandorchestra:briefcase_full"));
+        CustomData customData = stack.get(DataComponents.CUSTOM_DATA);
+        if (customData != null && !customData.isEmpty()) {
+            CompoundTag nbt = customData.copyTag();
+            if (nbt.contains(TAG_ENTITY_LIST, Tag.TAG_LIST)) {
+                ListTag animals = nbt.getList(TAG_ENTITY_LIST, Tag.TAG_COMPOUND);
+
+                if (Screen.hasShiftDown()) {
+                    if (animals.size() < 6) {
+                        tooltipComponents.add(Component.translatable("tooltip.faunaandorchestra:briefcase_empty"));
+                    }
+                    if (!animals.isEmpty()) {
+                        tooltipComponents.add(Component.translatable("tooltip.faunaandorchestra:briefcase_full"));
+                    }
+                } else {
+                    tooltipComponents.add(Component.translatable("tooltip.faunaandorchestra.shift"));
+                }
+
+                for (int i = 0; i < animals.size(); i++) {
+                    addStoredAnimal(tooltipComponents, animals.getCompound(i));
+                }
+
+            } else {
+                if (Screen.hasShiftDown()) {
+                    tooltipComponents.add(Component.translatable("tooltip.faunaandorchestra:briefcase_empty"));
+                } else {
+                    tooltipComponents.add(Component.translatable("tooltip.faunaandorchestra.shift"));
+                }
             }
         } else {
-            tooltipComponents.add(Component.translatable("tooltip.faunaandorchestra.shift"));
-        }
-        if (animals != null) {
-            for (String animalString : animals) {
-                addStoredAnimal(tooltipComponents, animalString);
+            if (Screen.hasShiftDown()) {
+                tooltipComponents.add(Component.translatable("tooltip.faunaandorchestra:briefcase_empty"));
+            } else {
+                tooltipComponents.add(Component.translatable("tooltip.faunaandorchestra.shift"));
             }
         }
+
         super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
     }
 
-    private static void addStoredAnimal(List<Component> tooltipComponents, String animalString) {
-        if (animalString != null) {
-            String[] elements = animalString.split(";");
-            MutableComponent typeName = null;
-            String name = elements[3].equals("f") ? null : elements[3];
-            switch (elements[0]) {
-                case "MantisEntity" -> typeName = Component.translatable("entity.faunaandorchestra.mantis");
-                case "PenguinEntity" -> typeName = Component.translatable("entity.faunaandorchestra.penguin");
-                case "EmperorPenguinEntity" -> typeName = Component.translatable("entity.faunaandorchestra.emperor_penguin");
-                case "RedPandaEntity" -> typeName = Component.translatable("entity.faunaandorchestra.red_panda");
-                case "MacawEntity" -> typeName = Component.translatable("entity.faunaandorchestra.macaw");
-                case "QuirkyFrogEntity" -> typeName = Component.translatable("entity.faunaandorchestra.quirky_frog");
-                case "BeaverEntity" -> typeName = Component.translatable("entity.faunaandorchestra.beaver");
-                case "LemurEntity" -> typeName = Component.translatable("entity.faunaandorchestra.lemur");
-                case "MadameButterflyEntity" -> typeName = Component.translatable("entity.faunaandorchestra.madame_butterfly");
-            }
-            if (typeName != null) {
-                if (name != null) {
-                    tooltipComponents.add(typeName.append(Component.literal(" (" + name + ")")).withStyle(ChatFormatting.DARK_GRAY));
-                } else {
-                    tooltipComponents.add(typeName.withStyle(ChatFormatting.DARK_GRAY));
-                }
+    private static void addStoredAnimal(List<Component> tooltipComponents, CompoundTag entityTag) {
+        MutableComponent typeName = null;
+
+        if (entityTag.contains("id")) {
+            String id = entityTag.getString("id");
+            // Buscamos el tipo de entidad en el registro y obtenemos su nombre traducido
+            typeName = EntityType.byString(id)
+                    .map(EntityType::getDescription) // We get the name
+                    .orElse(Component.literal(id)) // We get the literal if there's an error
+                    .copy();
+        }
+
+        String name = null;
+
+        if (entityTag.contains("DisplayName")) {
+            name = entityTag.getString("DisplayName");
+        }
+
+        if (typeName != null) {
+            if (name != null) {
+                tooltipComponents.add(typeName.append(Component.literal(" (" + name + ")")).withStyle(ChatFormatting.DARK_GRAY));
+            } else {
+                tooltipComponents.add(typeName.withStyle(ChatFormatting.DARK_GRAY));
             }
         }
+
     }
 
     private HitResult calculateHitResult(Player player) {
