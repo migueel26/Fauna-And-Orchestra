@@ -112,6 +112,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.TOP_HAT);
                         output.accept(ModItems.SANTA_HAT);
                         output.accept(ModItems.PROPELLER_HAT);
+                        output.accept(ModItems.GOLDEN_TINT);
                         output.accept(ModItems.SILVER_TINT);
                         output.acceptAll(VesselUtil.getAllVoiceItems());
                         output.accept(ModItems.UNLOCKER);

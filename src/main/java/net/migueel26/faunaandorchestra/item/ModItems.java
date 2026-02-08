@@ -183,6 +183,7 @@ public class ModItems {
     public static final DeferredItem<Item> TOP_HAT = createHeadwearItem("top_hat", ModTags.EntityTypes.WEARS_TOP_HAT, TopHatItemRenderer::new);
     public static final DeferredItem<Item> SANTA_HAT = createHeadwearItem("santa_hat", ModTags.EntityTypes.WEARS_SANTA_HAT, SantaHatItemRenderer::new);
     public static final DeferredItem<Item> SILVER_TINT = createClothingItem("silver_tint", ModTags.EntityTypes.WEARS_SILVER_TINT);
+    public static final DeferredItem<Item> GOLDEN_TINT = createClothingItem("golden_tint", ModTags.EntityTypes.WEARS_GOLDEN_TINT);
 
     public static final DeferredItem<Item> MANTIS_SPAWN_EGG = ITEMS.register("mantis_spawn_egg",
             () -> new DeferredSpawnEggItem(ModEntities.MANTIS, 0x46eb4c, 0x23a628,

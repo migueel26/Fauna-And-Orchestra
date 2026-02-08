@@ -65,6 +65,7 @@ public class ModTags {
         public static final TagKey<EntityType<?>> WEARS_SANTA_HAT = registerTag("wears_santa_hat");
         // TINTS
         public static final TagKey<EntityType<?>> WEARS_SILVER_TINT = registerTag("wears_silver_tint");
+        public static final TagKey<EntityType<?>> WEARS_GOLDEN_TINT = registerTag("wears_golden_tint");
 
         private static TagKey<EntityType<?>> registerTag(String name) {
             return TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, name));

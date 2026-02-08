@@ -1,8 +1,9 @@
 {
   "values": [
     "faunaandorchestra:tuxedo",
-    "faunaandorchestra:silver_tint",
     "faunaandorchestra:tailcoat",
-    "faunaandorchestra:santa_costume"
+    "faunaandorchestra:santa_costume",
+    "faunaandorchestra:silver_tint",
+    "faunaandorchestra:golden_tint"
   ]
 }
