@@ -189,6 +189,13 @@ public class ModBlocks {
     public static final DeferredBlock<Block> HANGING_JAR = registerBlock("hanging_jar",
         () -> new HangingJarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS)));
 
+    public static final DeferredBlock<Block> JAR_RACK = registerBlock("jar_rack",
+            () -> new JarRackBlock(BlockBehaviour.Properties.of()
+                    .strength(2.0F)
+                    .noOcclusion()
+                    .sound(SoundType.WOOD)
+                    .mapColor(MapColor.WOOD)));
+
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block) {
         DeferredBlock<T> toReturn = BLOCKS.register(name, block);
         ModItems.ITEMS.register(name, () -> new BlockItem(toReturn.get(), new Item.Properties()));

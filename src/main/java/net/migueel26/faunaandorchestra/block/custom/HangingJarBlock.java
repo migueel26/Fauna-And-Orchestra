@@ -1,7 +1,9 @@
 package net.migueel26.faunaandorchestra.block.custom;
 
 import com.mojang.serialization.MapCodec;
+import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.block.entity.HangingJarBlockEntity;
+import net.migueel26.faunaandorchestra.item.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
@@ -110,16 +112,19 @@ public class HangingJarBlock extends BaseEntityBlock {
 
         if (blockEntity instanceof HangingJarBlockEntity jarBE) {
             if (!level.isClientSide) {
-                ItemStack itemStack = new ItemStack(this);
+                ItemStack itemStack = new ItemStack(ModBlocks.HANGING_JAR);
 
                 CompoundTag nbt = jarBE.saveWithoutMetadata(level.registryAccess());
-                ResourceLocation id = BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(jarBE.getType());
-                if (id != null) {
-                    nbt.putString("id", id.toString());
-                }
 
-                if (!nbt.isEmpty()) {
-                    itemStack.set(DataComponents.BLOCK_ENTITY_DATA, CustomData.of(nbt));
+                if (!nbt.isEmpty() && nbt.contains("Inventory")) {
+                    ResourceLocation id = BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(jarBE.getType());
+                    if (id != null) {
+                        nbt.putString("id", id.toString());
+                    }
+
+                    if (!nbt.isEmpty()) {
+                        itemStack.set(DataComponents.BLOCK_ENTITY_DATA, CustomData.of(nbt));
+                    }
                 }
 
                 ItemEntity itemEntity = new ItemEntity(level,

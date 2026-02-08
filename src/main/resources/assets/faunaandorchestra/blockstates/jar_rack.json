@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "facing=north,jar=false": { "model": "faunaandorchestra:block/jar_rack_without" },
+    "facing=south,jar=false": { "model": "faunaandorchestra:block/jar_rack_without", "y": 180 },
+    "facing=west,jar=false":  { "model": "faunaandorchestra:block/jar_rack_without", "y": 270 },
+    "facing=east,jar=false":  { "model": "faunaandorchestra:block/jar_rack_without", "y": 90 },
+
+    "facing=north,jar=true": { "model": "faunaandorchestra:block/jar_rack" },
+    "facing=south,jar=true": { "model": "faunaandorchestra:block/jar_rack", "y": 180 },
+    "facing=west,jar=true":  { "model": "faunaandorchestra:block/jar_rack", "y": 270 },
+    "facing=east,jar=true":  { "model": "faunaandorchestra:block/jar_rack", "y": 90 }
+  }
+}

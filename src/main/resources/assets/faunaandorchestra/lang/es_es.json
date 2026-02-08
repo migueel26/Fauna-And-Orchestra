@@ -121,6 +121,7 @@
   "block.faunaandorchestra.gingko_biloba_sapling": "Brote de Gingko biloba",
   "block.faunaandorchestra.mother_statue": "Estatua de Madre",
   "block.faunaandorchestra.hanging_jar": "Jarra colgante",
+  "block.faunaandorchestra.jar_rack": "Cuelgajarras",
 
   "block.faunaandorchestra.tip_case_theft": "¡Esta funda no es tuya! No puedes llevarte el oro",
   "block.faunaandorchestra.tip_case.desc": "Todo el mundo te puede donar, pero sólo tú puedes retirarlo",
@@ -131,6 +132,7 @@
   "block.faunaandorchestra.melomancy_cauldron.finished": "Click derecho con un recipiente si es necesario para recoger",
   "block.faunaandorchestra.discord_nuclei.essence": "Esencia: ",
   "block.faunaandorchestra.discord_nuclei.instability": "Inestabilidad: ",
+  "block.faunaandorchestra.jar_rack.not_placed": "¡El bloque debajo debe ser aire o algún combustible!",
 
   "item.faunaandorchestra.bach_air_sheet_music": "Partitura del Air de Bach",
   "item.faunaandorchestra.greensleeves_sheet_music": "Partitura de Greensleeves",

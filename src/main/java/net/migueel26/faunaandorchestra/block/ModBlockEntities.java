@@ -87,6 +87,12 @@ public class ModBlockEntities {
                     ModBlocks.HANGING_JAR.get()
             ).build(null));
 
+    public static final Supplier<BlockEntityType<JarRackBlockEntity>> JAR_RACK_BE =
+            BLOCK_ENTITES.register("jar_rack_be", () -> BlockEntityType.Builder.of(
+                    JarRackBlockEntity::new,
+                    ModBlocks.JAR_RACK.get()
+            ).build(null));
+
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITES.register(eventBus);
     }

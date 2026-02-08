@@ -122,6 +122,7 @@
   "block.faunaandorchestra.gingko_biloba_sapling": "Ginkgo Biloba Sapling",
   "block.faunaandorchestra.mother_statue": "Statue of Mother",
   "block.faunaandorchestra.hanging_jar": "Hanging Jar",
+  "block.faunaandorchestra.jar_rack": "Jar Rack",
 
   "block.faunaandorchestra.tip_case_theft": "This case is not yours! You can't take the gold",
   "block.faunaandorchestra.tip_case.desc": "Everybody can tip you gold, but only you can retrieve it",
@@ -132,6 +133,7 @@
   "block.faunaandorchestra.melomancy_cauldron.finished": "Right click with recipient if needed to retrieve the result",
   "block.faunaandorchestra.discord_nuclei.essence": "Essence: ",
   "block.faunaandorchestra.discord_nuclei.instability": "Instability: ",
+  "block.faunaandorchestra.jar_rack.not_placed": "The block below needs to be air or some fuel!",
 
   "item.faunaandorchestra.bach_air_sheet_music": "Bach's Air Sheet",
   "item.faunaandorchestra.greensleeves_sheet_music": "Greensleeves Sheet",
