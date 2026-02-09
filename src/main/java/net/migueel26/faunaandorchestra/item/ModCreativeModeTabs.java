@@ -73,6 +73,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.BOOGIE_FRUIT);
                         output.accept(ModItems.SINGING_SEED);
                         output.accept(ModItems.GLOVE);
+                        output.accept(ModItems.FORTUNE_COOKIE);
                         output.accept(ModBlocks.TIP_CASE);
                         output.accept(ModBlocks.LISTENER);
                         output.accept(ModBlocks.LISTENER_CONTAINER);

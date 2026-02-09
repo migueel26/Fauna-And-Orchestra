@@ -6,6 +6,7 @@ import net.minecraft.world.food.FoodProperties;
 
 public class ModFoodProperties {
     public static final FoodProperties BOOGIE_FRUIT = new FoodProperties.Builder().nutrition(3).saturationModifier(0.15f)
-            .effect(() -> new MobEffectInstance(ModEffects.BOOGIE, 100), 1.0f).build();
+            .effect(() -> new MobEffectInstance(ModEffects.BOOGIE, 100), 1.0f).alwaysEdible().build();
+    public static final FoodProperties FORTUNE_COOKIE = new FoodProperties.Builder().alwaysEdible().nutrition(3).build();
 
 }

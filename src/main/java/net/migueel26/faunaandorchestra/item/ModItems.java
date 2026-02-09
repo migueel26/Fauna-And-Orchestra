@@ -29,6 +29,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.IEventBus;
@@ -110,6 +111,9 @@ public class ModItems {
             () -> new SoundSensorItem(new Item.Properties().stacksTo(1).durability(64)));
     public static final DeferredItem<Item> FROG_FLUTE = ITEMS.register("frog_flute",
             () -> new FrogFluteItem(new Item.Properties().stacksTo(1)));
+    public static final DeferredItem<Item> FORTUNE_COOKIE = ITEMS.register("fortune_cookie",
+            () -> new FortuneCookieItem(new Item.Properties().rarity(Rarity.UNCOMMON)
+                    .food(ModFoodProperties.FORTUNE_COOKIE)));
     public static final DeferredItem<Item> WHISTLE = ITEMS.register("whistle",
             () -> new WhistleItem(new Item.Properties().stacksTo(1).durability(20)));
     public static final DeferredItem<Item> BOOGIE_BOMB = ITEMS.register("boogie_bomb",

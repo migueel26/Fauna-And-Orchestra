@@ -367,6 +367,12 @@
       "faunaandorchestra:sfx/whistle_call"
     ]
   },
+  "gong": {
+    "subtitles": "sounds.faunaandorchestra.gong",
+    "sounds": [
+      "faunaandorchestra:sfx/gong"
+    ]
+  },
   "singing_sproutling_sound": {
     "subtitles": "sounds.faunaandorchestra.singing_sproutling_sound",
     "sounds": [
