@@ -17,6 +17,7 @@ public class PenguinModel extends GeoModel<PenguinEntity> {
     private static final ResourceLocation NORMAL_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/penguin.png");
     private static final ResourceLocation TUXEDO_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/penguin_tuxedo.png");
     private static final ResourceLocation SANTA_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/penguin_santa.png");
+    private static final ResourceLocation BASEBALL_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/penguin_baseball.png");
     private static final ResourceLocation ANIMATIONS = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "animations/entity/penguin.animation.json");
     private static final ResourceLocation MODEL = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "geo/entity/penguin.geo.json");
 
@@ -30,6 +31,7 @@ public class PenguinModel extends GeoModel<PenguinEntity> {
         return switch (penguin.getCostume()) {
             case Item costume when costume == ModItems.TUXEDO.get() -> TUXEDO_TEXTURE;
             case Item costume when costume == ModItems.SANTA_COSTUME.get() -> SANTA_TEXTURE;
+            case Item costume when costume == ModItems.BASEBALL_JACKET.get() -> BASEBALL_TEXTURE;
             default -> NORMAL_TEXTURE;
         };
     }
@@ -54,6 +56,7 @@ public class PenguinModel extends GeoModel<PenguinEntity> {
 
         getAnimationProcessor().getBone("santa_hat").setHidden(penguin.getHat() != ModItems.SANTA_HAT.get());
         getAnimationProcessor().getBone("propeller_hat").setHidden(penguin.getHat() != ModItems.PROPELLER_HAT.get());
+        getAnimationProcessor().getBone("baseball_cap").setHidden(penguin.getHat() != ModItems.BASEBALL_CAP.get());
 
         flute.setHidden(!penguin.isHoldingInstrument());
     }

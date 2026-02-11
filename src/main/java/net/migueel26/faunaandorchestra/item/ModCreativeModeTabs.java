@@ -103,6 +103,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.PROP_CASE);
                         output.accept(ModItems.TUXEDO);
                         output.accept(ModItems.TAILCOAT);
+                        output.accept(ModItems.BASEBALL_JACKET);
                         output.accept(ModItems.SANTA_COSTUME);
                         output.accept(ModItems.RIGHT_MONOCLE);
                         output.accept(ModItems.LEFT_MONOCLE);
@@ -112,6 +113,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.MASK_OF_THE_ENLIGHTENED);
                         output.accept(ModItems.TOP_HAT);
                         output.accept(ModItems.SANTA_HAT);
+                        output.accept(ModItems.BASEBALL_CAP);
                         output.accept(ModItems.PROPELLER_HAT);
                         output.accept(ModItems.GOLDEN_TINT);
                         output.accept(ModItems.SILVER_TINT);

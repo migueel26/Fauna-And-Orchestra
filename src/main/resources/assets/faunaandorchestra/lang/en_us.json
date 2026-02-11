@@ -58,6 +58,7 @@
   "item.faunaandorchestra_headwear.desc": "Headwear Item",
   "item.faunaandorchestra.tuxedo": "Tuxedo",
   "item.faunaandorchestra.tailcoat": "Tailcoat",
+  "item.faunaandorchestra.baseball_jacket": "Baseball Jacket",
   "item.faunaandorchestra.santa_costume": "Santa Costume",
   "item.faunaandorchestra.right_monocle": "Right Monocle",
   "item.faunaandorchestra.left_monocle": "Left Monocle",
@@ -68,6 +69,7 @@
   "item.faunaandorchestra.propeller_hat": "Propeller Hat",
   "item.faunaandorchestra.top_hat": "Top Hat",
   "item.faunaandorchestra.santa_hat": "Santa Hat",
+  "item.faunaandorchestra.baseball_cap": "Baseball Cap",
   "item.faunaandorchestra.silver_tint": "Silver Tint",
   "item.faunaandorchestra.golden_tint": "Golden Tint",
 
@@ -119,8 +121,8 @@
   "item.faunaandorchestra.fortune_cookie_phrase14": "What's that behind you?",
   "item.faunaandorchestra.fortune_cookie_phrase15": "There's always a 5% chance...",
   "item.faunaandorchestra.fortune_cookie_phrase16": "Help! I'm a prisoner in a fortune cookie factory! Save me!",
-  "item.faunaandorchestra.fortune_cookie_phrase17": "Some flies are too awesome for the wall.",
-  "item.faunaandorchestra.fortune_cookie_phrase18": "A metaphor is a thought with another thought's hat on.",
+  "item.faunaandorchestra.fortune_cookie_phrase17": "Some flies are too awesome for the wall",
+  "item.faunaandorchestra.fortune_cookie_phrase18": "A metaphor is a thought with another thought's hat on",
 
   "block.faunaandorchestra.composer_gravestone": "The Great Composer's Tomb",
   "block.faunaandorchestra.gravestone": "Tomb",

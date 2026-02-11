@@ -1,0 +1,139 @@
+{
+  "credit": "Made with Blockbench",
+  "parent": "builtin/entity",
+  "texture_size": [
+    32,
+    32
+  ],
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [
+        20,
+        -180,
+        0
+      ],
+      "translation": [
+        0,
+        -0.5,
+        -3
+      ],
+      "scale": [
+        0.8,
+        1,
+        1
+      ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [
+        21,
+        180,
+        0
+      ],
+      "translation": [
+        0,
+        -1,
+        -3
+      ],
+      "scale": [
+        0.8,
+        1,
+        1
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        -5,
+        180,
+        0
+      ],
+      "translation": [
+        -1.25,
+        -0.5,
+        0
+      ],
+      "scale": [
+        0.8,
+        1,
+        1
+      ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [
+        -5,
+        -180,
+        0
+      ],
+      "translation": [
+        -1.25,
+        -0.5,
+        0
+      ],
+      "scale": [
+        0.8,
+        1,
+        1
+      ]
+    },
+    "ground": {
+      "translation": [
+        0,
+        -3.25,
+        0
+      ],
+      "scale": [
+        0.8,
+        1,
+        1
+      ]
+    },
+    "gui": {
+      "rotation": [
+        0,
+        159,
+        0
+      ],
+      "translation": [
+        0,
+        -4,
+        0
+      ],
+      "scale": [
+        1,
+        1.35,
+        1.35
+      ]
+    },
+    "head": {
+      "translation": [
+        0,
+        0.75,
+        3
+      ],
+      "scale": [
+        1.69,
+        1.87,
+        2.09
+      ]
+    },
+    "fixed": {
+      "rotation": [
+        -103,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        0.5,
+        2
+      ],
+      "scale": [
+        1.25,
+        1.25,
+        1.25
+      ]
+    }
+  },
+  "textures": {
+    "particle": "faunaandorchestra:item/baseball_cap"
+  }
+}

@@ -53,6 +53,7 @@ public class ModTags {
         public static final TagKey<EntityType<?>> WEARS_TUXEDO = registerTag("wears_tuxedo");
         public static final TagKey<EntityType<?>> WEARS_TAILCOAT = registerTag("wears_tailcoat");
         public static final TagKey<EntityType<?>> WEARS_SANTA_COSTUME = registerTag("wears_santa_costume");
+        public static final TagKey<EntityType<?>> WEARS_BASEBALL_JACKET = registerTag("wears_baseball_jacket");
         // HEADWEAR
         public static final TagKey<EntityType<?>> WEARS_RIGHT_MONOCLE = registerTag("wears_right_monocle");
         public static final TagKey<EntityType<?>> WEARS_LEFT_MONOCLE = registerTag("wears_left_monocle");
@@ -63,6 +64,7 @@ public class ModTags {
         public static final TagKey<EntityType<?>> WEARS_PROPELLER_HAT = registerTag("wears_propeller_hat");
         public static final TagKey<EntityType<?>> WEARS_TOP_HAT = registerTag("wears_top_hat");
         public static final TagKey<EntityType<?>> WEARS_SANTA_HAT = registerTag("wears_santa_hat");
+        public static final TagKey<EntityType<?>> WEARS_BASEBALL_CAP = registerTag("wears_baseball_cap");
         // TINTS
         public static final TagKey<EntityType<?>> WEARS_SILVER_TINT = registerTag("wears_silver_tint");
         public static final TagKey<EntityType<?>> WEARS_GOLDEN_TINT = registerTag("wears_golden_tint");

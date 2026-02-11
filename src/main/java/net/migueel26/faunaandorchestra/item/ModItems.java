@@ -3,10 +3,7 @@ package net.migueel26.faunaandorchestra.item;
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
-import net.migueel26.faunaandorchestra.client.item.MotherStatueItemRenderer;
-import net.migueel26.faunaandorchestra.client.item.PropellerHatItemRenderer;
-import net.migueel26.faunaandorchestra.client.item.SantaHatItemRenderer;
-import net.migueel26.faunaandorchestra.client.item.TopHatItemRenderer;
+import net.migueel26.faunaandorchestra.client.item.*;
 import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.item.custom.*;
@@ -176,6 +173,7 @@ public class ModItems {
             });
     public static final DeferredItem<Item> TUXEDO = createClothingItem("tuxedo", ModTags.EntityTypes.WEARS_TUXEDO);
     public static final DeferredItem<Item> TAILCOAT = createClothingItem("tailcoat", ModTags.EntityTypes.WEARS_TAILCOAT);
+    public static final DeferredItem<Item> BASEBALL_JACKET = createClothingItem("baseball_jacket", ModTags.EntityTypes.WEARS_BASEBALL_JACKET);
     public static final DeferredItem<Item> SANTA_COSTUME = createClothingItem("santa_costume", ModTags.EntityTypes.WEARS_SANTA_COSTUME);
     public static final DeferredItem<Item> RIGHT_MONOCLE = createHeadwearItem("right_monocle", ModTags.EntityTypes.WEARS_RIGHT_MONOCLE);
     public static final DeferredItem<Item> LEFT_MONOCLE = createHeadwearItem("left_monocle", ModTags.EntityTypes.WEARS_LEFT_MONOCLE);
@@ -186,6 +184,7 @@ public class ModItems {
     public static final DeferredItem<Item> PROPELLER_HAT = createHeadwearItem("propeller_hat", ModTags.EntityTypes.WEARS_PROPELLER_HAT, Rarity.RARE, PropellerHatItemRenderer::new);
     public static final DeferredItem<Item> TOP_HAT = createHeadwearItem("top_hat", ModTags.EntityTypes.WEARS_TOP_HAT, TopHatItemRenderer::new);
     public static final DeferredItem<Item> SANTA_HAT = createHeadwearItem("santa_hat", ModTags.EntityTypes.WEARS_SANTA_HAT, SantaHatItemRenderer::new);
+    public static final DeferredItem<Item> BASEBALL_CAP = createHeadwearItem("baseball_cap", ModTags.EntityTypes.WEARS_BASEBALL_CAP, BaseballCapItemRenderer::new);
     public static final DeferredItem<Item> SILVER_TINT = createClothingItem("silver_tint", ModTags.EntityTypes.WEARS_SILVER_TINT);
     public static final DeferredItem<Item> GOLDEN_TINT = createClothingItem("golden_tint", ModTags.EntityTypes.WEARS_GOLDEN_TINT);
 
