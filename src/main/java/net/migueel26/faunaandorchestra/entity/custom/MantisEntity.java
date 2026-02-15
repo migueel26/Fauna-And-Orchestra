@@ -1,5 +1,6 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
+import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.entity.custom.variants.MantisVariant;
 import net.migueel26.faunaandorchestra.entity.goals.MusicalEntityPlayingInstrumentGoal;
 import net.migueel26.faunaandorchestra.item.ModItems;
@@ -32,6 +33,8 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -98,6 +101,10 @@ public class MantisEntity extends MusicalEntity implements NeutralMob {
     private void addOverridenGoals() {
         this.goalSelector.addGoal(5, new MeleeAttackGoal(this, 1.25D, false) {
             @Override
+            public boolean canUse() {
+                return super.canUse() && !mob.isBaby();
+            }
+            @Override
             protected void checkAndPerformAttack(LivingEntity target) {
                 if (this.canPerformAttack(target)) {
                     ((MantisEntity) this.mob).attack();
@@ -116,6 +123,11 @@ public class MantisEntity extends MusicalEntity implements NeutralMob {
         });
 
         this.goalSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Player.class, 10, false, true, this::isAngryAt) {
+            @Override
+            public boolean canUse() {
+                return super.canUse() && !mob.isBaby();
+            }
+
             @Override
             public void start() {
                 super.start();
@@ -209,7 +221,7 @@ public class MantisEntity extends MusicalEntity implements NeutralMob {
 
     @Override
     public boolean isAngryAt(LivingEntity target) {
-        if (!this.canAttack(target)) {
+        if (!this.canAttack(target) || this.isBaby()) {
             return false;
         } else if (this.level().getPathfindingCostFromLightLevels(this.blockPosition()) < 0.5F && !isTame()) {
             return true;
@@ -223,6 +235,12 @@ public class MantisEntity extends MusicalEntity implements NeutralMob {
     }
 
     //////////////////// NEUTRAL MOB METHODS -> ANGER ////////////////////////////////////
+
+
+    @Override
+    public boolean isAngry() {
+        return isBaby() ? false : NeutralMob.super.isAngry();
+    }
 
     @Override
     public int getRemainingPersistentAngerTime() {
@@ -299,7 +317,24 @@ public class MantisEntity extends MusicalEntity implements NeutralMob {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
-        return null;
+        return ModEntities.MANTIS.get().create(level);
+    }
+
+    @Override
+    public float getAgeScale() {
+        return this.isBaby() ? 0.3F : 1.0F;
+    }
+
+    @Override
+    protected void ageBoundaryReached() {
+        super.ageBoundaryReached();
+        if (!this.isBaby() && this.level().getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
+            this.spawnAtLocation(ModItems.MANTIS_CLAW, 1);
+        }
+    }
+
+    public EntityDimensions getDefaultDimensions(Pose pose) {
+        return this.isBaby() ? ModEntities.MANTIS.get().getDimensions().scale(0.3f) : super.getDefaultDimensions(pose);
     }
 
     @Override

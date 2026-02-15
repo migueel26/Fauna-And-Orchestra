@@ -52,6 +52,7 @@
   "item.faunaandorchestra.voice": "Voice of the ",
   "item.faunaandorchestra.mother_statue_item": "Statue of Mother",
   "item.faunaandorchestra.fortune_cookie": "Fortune Cookie",
+  "item.faunaandorchestra.mantis_claw": "Mantis Claw",
   "item.faunaandorchestra.mantis_dagger": "Mantis Dagger",
 
   "item.faunaandorchestra.prop_case": "Prop Case",
@@ -105,6 +106,7 @@
   "item.faunaandorchestra.whistle.far_message": "It's too far away!",
   "item.faunaandorchestra.hanging_jar.desc": "§eDrop§r the items or §eright-click§r the jar to introduce them! You can break it to take everything with you",
   "item.faunaandorchestra.the_great_composer_spawn_egg.desc": "Boss",
+  "item.faunaandorchestra.mantis_dagger.desc": "Hold §eright-click§r to charge a dash that hurts enemies",
   "item.faunaandorchestra.fortune_cookie_phrase0": "You're GOATED!",
   "item.faunaandorchestra.fortune_cookie_phrase1": "Dream only a dream if work don't follow it",
   "item.faunaandorchestra.fortune_cookie_phrase2": "Nah, but seriously, on a level, you're beautiful",
@@ -147,6 +149,7 @@
   "block.faunaandorchestra.mother_statue": "Statue of Mother",
   "block.faunaandorchestra.hanging_jar": "Hanging Jar",
   "block.faunaandorchestra.jar_rack": "Jar Rack",
+  "block.faunaandorchestra.mantis_egg": "Mantis Egg",
 
   "block.faunaandorchestra.tip_case_theft": "This case is not yours! You can't take the gold",
   "block.faunaandorchestra.tip_case.desc": "Everybody can tip you gold, but only you can retrieve it",

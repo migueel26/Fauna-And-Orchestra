@@ -158,11 +158,14 @@ public class ModItems {
             () -> new MusicalInkItem(new Item.Properties()));
     public static final DeferredItem<Item> GLOVE = ITEMS.register("glove",
             () -> new Item(new Item.Properties().durability(3)));
+    public static final DeferredItem<Item> MANTIS_CLAW = ITEMS.register("mantis_claw",
+            () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> MANTIS_DAGGER = ITEMS.register("mantis_dagger",
             () -> new MantisDaggerItem(new Item.Properties()
                     .durability(250)
                     .attributes(MantisDaggerItem.createAttributes())
                     .component(DataComponents.TOOL, MantisDaggerItem.createToolProperties())));
+
     public static final DeferredItem<Item> PROP_CASE = ITEMS.register("prop_case",
             () -> new Item(new Item.Properties().stacksTo(1)) {
                 @Override

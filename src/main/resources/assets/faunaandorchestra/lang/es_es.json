@@ -52,6 +52,7 @@
   "item.faunaandorchestra.voice": "Voz de ",
   "item.faunaandorchestra.mother_statue_item": "Estatua de Madre",
   "item.faunaandorchestra.fortune_cookie": "Galleta de la fortuna",
+  "item.faunaandorchestra.mantis_claw": "Garra de mantis",
   "item.faunaandorchestra.mantis_claws": "Daga de mantis",
 
   "item.faunaandorchestra.prop_case": "Neceser",
@@ -104,6 +105,7 @@
   "item.faunaandorchestra.whistle.far_message": "¡Está muy lejos!",
   "item.faunaandorchestra.hanging_jar.desc": "§eSuelta§r los items o haz §eclick§r a la jarra para introducirlos. Puedes romperla para llevarte todo contigo",
   "item.faunaandorchestra.the_great_composer_spawn_egg.desc": "Boss",
+  "item.faunaandorchestra.mantis_dagger.desc": "Mantén §eel click derecho§r para cargar una embestida que daña a los enemigos",
   "item.faunaandorchestra.fortune_cookie_phrase0": "¡Eres el GOAT!",
   "item.faunaandorchestra.fortune_cookie_phrase1": "No soy Nelly, pero tú eres el dilema",
   "item.faunaandorchestra.fortune_cookie_phrase2": "Ama a todo el mundo que te ame",
@@ -146,6 +148,7 @@
   "block.faunaandorchestra.mother_statue": "Estatua de Madre",
   "block.faunaandorchestra.hanging_jar": "Jarra colgante",
   "block.faunaandorchestra.jar_rack": "Cuelgajarras",
+  "block.faunaandorchestra.mantis_egg": "Huevo de mantis",
 
   "block.faunaandorchestra.tip_case_theft": "¡Esta funda no es tuya! No puedes llevarte el oro",
   "block.faunaandorchestra.tip_case.desc": "Todo el mundo te puede donar, pero sólo tú puedes retirarlo",

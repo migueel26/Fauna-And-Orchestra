@@ -76,7 +76,7 @@ public class JarRackBlock extends HorizontalDirectionalBlock implements EntityBl
 
     @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        if (stack.is(ModBlocks.HANGING_JAR.asItem()) && level.getBlockEntity(pos) instanceof JarRackBlockEntity blockEntity) {
+        if (stack.is(ModBlocks.HANGING_JAR.asItem()) && !state.getValue(JAR) && level.getBlockEntity(pos) instanceof JarRackBlockEntity blockEntity) {
             if (level.getBlockState(pos.below()).is(ModTags.Blocks.JAR_FUEL)) {
                 CompoundTag tag = stack.getOrDefault(DataComponents.BLOCK_ENTITY_DATA, CustomData.EMPTY).copyTag();
                 if (tag.contains("Inventory")) {

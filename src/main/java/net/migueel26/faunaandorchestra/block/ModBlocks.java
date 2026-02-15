@@ -196,6 +196,9 @@ public class ModBlocks {
                     .sound(SoundType.WOOD)
                     .mapColor(MapColor.WOOD)));
 
+    public static final DeferredBlock<Block> MANTIS_EGG = registerBlock("mantis_egg",
+            () -> new MantisEggBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.TURTLE_EGG)));
+
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block) {
         DeferredBlock<T> toReturn = BLOCKS.register(name, block);
         ModItems.ITEMS.register(name, () -> new BlockItem(toReturn.get(), new Item.Properties()));
