@@ -56,6 +56,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.MANTIS_DAGGER);
                         output.accept(ModBlocks.HANGING_JAR);
                         output.accept(ModBlocks.JAR_RACK);
+                        output.accept(ModBlocks.CATCHWEED);
                         output.accept(ModItems.BACH_AIR_SHEET_MUSIC);
                         output.accept(ModItems.GREENSLEEVES_SHEET_MUSIC);
                         output.accept(ModItems.BLUES_SHEET_MUSIC);

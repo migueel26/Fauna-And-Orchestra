@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "faunaandorchestra:block/catchweed_bottom"
+    },
+    "half=upper": {
+      "model": "faunaandorchestra:block/catchweed_top"
+    }
+  }
+}

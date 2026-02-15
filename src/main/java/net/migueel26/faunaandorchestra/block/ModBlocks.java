@@ -199,6 +199,14 @@ public class ModBlocks {
     public static final DeferredBlock<Block> MANTIS_EGG = registerBlock("mantis_egg",
             () -> new MantisEggBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.TURTLE_EGG)));
 
+    public static final DeferredBlock<Block> CATCHWEED = registerBlock("catchweed",
+            () -> new TallFlowerBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.PEONY).speedFactor(0.25F)) {
+                @Override
+                protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
+                return super.mayPlaceOn(state, level, pos) || state.is(Blocks.CLAY);
+                }
+            });
+
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block) {
         DeferredBlock<T> toReturn = BLOCKS.register(name, block);
         ModItems.ITEMS.register(name, () -> new BlockItem(toReturn.get(), new Item.Properties()));
