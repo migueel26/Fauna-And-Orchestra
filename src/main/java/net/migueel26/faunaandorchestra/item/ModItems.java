@@ -15,6 +15,7 @@ import net.migueel26.faunaandorchestra.util.MusicUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -26,7 +27,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.IEventBus;
@@ -158,6 +158,11 @@ public class ModItems {
             () -> new MusicalInkItem(new Item.Properties()));
     public static final DeferredItem<Item> GLOVE = ITEMS.register("glove",
             () -> new Item(new Item.Properties().durability(3)));
+    public static final DeferredItem<Item> MANTIS_DAGGER = ITEMS.register("mantis_dagger",
+            () -> new MantisDaggerItem(new Item.Properties()
+                    .durability(250)
+                    .attributes(MantisDaggerItem.createAttributes())
+                    .component(DataComponents.TOOL, MantisDaggerItem.createToolProperties())));
     public static final DeferredItem<Item> PROP_CASE = ITEMS.register("prop_case",
             () -> new Item(new Item.Properties().stacksTo(1)) {
                 @Override

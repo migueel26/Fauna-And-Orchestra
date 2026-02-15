@@ -303,6 +303,12 @@
       "faunaandorchestra:sfx/koala_serve"
     ]
   },
+  "dagger_charge": {
+    "subtitles": "sounds.faunaandorchestra.dagger_charge",
+    "sounds": [
+      "faunaandorchestra:sfx/dagger_charge"
+    ]
+  },
   "beaver_teeth": {
     "subtitles": "sounds.faunaandorchestra.beaver_teeth",
     "sounds:": [

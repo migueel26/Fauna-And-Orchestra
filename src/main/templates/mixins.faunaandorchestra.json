@@ -6,6 +6,7 @@
     "MixinParrot",
     "MixinDesertPyramidStructure",
     "MixinStructure",
+    "MixinPlayer",
     "accessors.StructurePieceAccessor"
   ],
   "client": [

@@ -125,6 +125,7 @@ public class ModSounds {
     public static final Supplier<SoundEvent> PAN_FLUTE_ALTAR_QUAKE = registerSoundEvent("pan_flute_altar_quake");
     public static final Supplier<SoundEvent> BOOGIE_BOMB_DANCE = registerSoundEvent("boogie_bomb_dance");
     public static final Supplier<SoundEvent> GONG = registerSoundEvent("gong");
+    public static final Supplier<SoundEvent> DAGGER_CHARGE = registerSoundEvent("dagger_charge");
     public static final Supplier<SoundEvent> DIALOGUE = registerSoundEvent("dialogue");
 
     private static Supplier<SoundEvent> registerSoundEvent(String name) {
