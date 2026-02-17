@@ -7,7 +7,7 @@ import net.migueel26.faunaandorchestra.entity.custom.boss.ComposerCanonEntity;
 import net.migueel26.faunaandorchestra.entity.custom.boss.TheGreatComposer;
 import net.migueel26.faunaandorchestra.item.ModCreativeModeTabs;
 import net.migueel26.faunaandorchestra.networking.*;
-import net.migueel26.faunaandorchestra.potion.ModPotions;
+import net.migueel26.faunaandorchestra.effect.potion.ModPotions;
 import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.goat.Goat;

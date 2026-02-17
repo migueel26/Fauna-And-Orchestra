@@ -1,4 +1,4 @@
-package net.migueel26.faunaandorchestra.potion;
+package net.migueel26.faunaandorchestra.effect.potion;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.effect.ModEffects;

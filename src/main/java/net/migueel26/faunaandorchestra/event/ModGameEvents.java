@@ -14,11 +14,18 @@ import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
+import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.Containers;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.decoration.BlockAttachedEntity;
@@ -27,9 +34,12 @@ import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.SpawnData;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BedPart;
 import net.minecraft.world.phys.EntityHitResult;
@@ -37,6 +47,8 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.common.ItemAbilities;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.event.RegisterStructureConversionsEvent;
 import net.neoforged.neoforge.event.entity.EntityLeaveLevelEvent;
 import net.neoforged.neoforge.event.entity.living.FinalizeSpawnEvent;
@@ -54,6 +66,7 @@ import java.util.Optional;
 @EventBusSubscriber(modid = FaunaAndOrchestra.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public class ModGameEvents {
     private static int musicalityIndex;
+    public static final float BUG_CHANCE = 0.1f;
 
     @SubscribeEvent
     public static void quirkyFrogChoir(EntityTickEvent.Post event) {
@@ -173,6 +186,35 @@ public class ModGameEvents {
             event.getEntity().level().setBlock(headPos,
                     ModBlocks.TIP_CASE.get().defaultBlockState().setValue(TipCaseBlock.FACING, facing).setValue(TipCaseBlock.PART, BedPart.HEAD), 3);
             ((TipCaseBlockEntity) event.getEntity().level().getBlockEntity(headPos)).setOwner(faust.getUUID());
+        }
+    }
+
+    @SubscribeEvent
+    public static void onToolModification(BlockEvent.BlockToolModificationEvent event) {
+        if (event.isSimulated()) return;
+
+        if (event.getLevel() instanceof ServerLevel level) {
+            BlockState originalState = event.getState();
+            RandomSource random = level.getRandom();
+            float chance = random.nextFloat();
+
+            if (chance <= BUG_CHANCE) {
+                ItemStack bug = ItemStack.EMPTY;
+                BlockPos pos = event.getPos();
+                int quantity = random.nextIntBetweenInclusive(1, 3);
+
+                if (originalState.getToolModifiedState(event.getContext(), ItemAbilities.SHOVEL_FLATTEN, true) != null) {
+                    bug = new ItemStack(ModItems.WORM.get(), quantity);
+                } else if (originalState.is(BlockTags.LOGS) && !originalState.is(Tags.Blocks.STRIPPED_LOGS)) {
+                    bug = new ItemStack(ModItems.INSECT.get(), quantity);
+                }
+
+                if (!bug.isEmpty()) {
+                    Containers.dropItemStack(level, pos.getX(), pos.getY() + 1, pos.getZ(), bug);
+                    level.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, event.getState()),
+                            pos.getCenter().x, pos.getY()+1, pos.getCenter().z, 15, 0.15, 0.05, 0.15, 0.05);
+                }
+            }
         }
     }
 }

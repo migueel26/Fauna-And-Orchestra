@@ -3,7 +3,6 @@ package net.migueel26.faunaandorchestra;
 import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.block.ModBlockEntities;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
-import net.migueel26.faunaandorchestra.block.entity.HangingJarBlockEntity;
 import net.migueel26.faunaandorchestra.client.block.*;
 import net.migueel26.faunaandorchestra.client.entity.*;
 import net.migueel26.faunaandorchestra.client.entity.boss.ComposerCanonRenderer;
@@ -20,7 +19,9 @@ import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.loot_tables.ModLootTables;
 import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
 import net.migueel26.faunaandorchestra.particles.custom.*;
-import net.migueel26.faunaandorchestra.potion.ModPotions;
+import net.migueel26.faunaandorchestra.effect.potion.ModPotions;
+import net.migueel26.faunaandorchestra.recipe.ModIngredientTypes;
+import net.migueel26.faunaandorchestra.recipe.ModRecipes;
 import net.migueel26.faunaandorchestra.screen.ModMenuTypes;
 import net.migueel26.faunaandorchestra.screen.custom.*;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
@@ -85,6 +86,8 @@ public class FaunaAndOrchestra {
         ModAdvancements.register(modEventBus);
         ModEffects.register(modEventBus);
         ModPotions.register(modEventBus);
+        ModRecipes.register(modEventBus);
+        ModIngredientTypes.register(modEventBus);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

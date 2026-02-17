@@ -51,7 +51,7 @@ public class JarRackBlockEntityRenderer implements BlockEntityRenderer<JarRackBl
 
         for (ItemStack stack : stacks) {
             float rotation = 90;
-            boolean isBlock = stack.getItem() instanceof BlockItem;
+            boolean isBlock = stack.getItem() instanceof BlockItem && itemRenderer.getModel(stack, null, null, 0).isGui3d();
 
             if (isBlock) {
                 offset += 0.04f;

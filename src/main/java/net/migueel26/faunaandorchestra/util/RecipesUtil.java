@@ -3,7 +3,7 @@ package net.migueel26.faunaandorchestra.util;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.block.entity.MelomancyCauldronBlockEntity;
 import net.migueel26.faunaandorchestra.item.ModItems;
-import net.migueel26.faunaandorchestra.potion.ModPotions;
+import net.migueel26.faunaandorchestra.effect.potion.ModPotions;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;

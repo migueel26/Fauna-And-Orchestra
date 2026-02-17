@@ -165,6 +165,10 @@ public class ModItems {
                     .durability(250)
                     .attributes(MantisDaggerItem.createAttributes())
                     .component(DataComponents.TOOL, MantisDaggerItem.createToolProperties())));
+    public static final DeferredItem<Item> WORM = ITEMS.register("worm",
+            () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> INSECT = ITEMS.register("insect",
+            () -> new Item(new Item.Properties()));
 
     public static final DeferredItem<Item> PROP_CASE = ITEMS.register("prop_case",
             () -> new Item(new Item.Properties().stacksTo(1)) {
