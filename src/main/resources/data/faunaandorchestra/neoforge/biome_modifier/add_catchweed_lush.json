@@ -1,6 +1,6 @@
 {
   "type": "neoforge:add_features",
   "biomes": "#c:is_lush",
-  "features": "faunaandorchestra:catchweed_placed",
+  "features": "faunaandorchestra:catchweed_lush_placed",
   "step": "vegetal_decoration"
 }
