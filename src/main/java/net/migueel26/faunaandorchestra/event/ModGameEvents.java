@@ -106,7 +106,7 @@ public class ModGameEvents {
             musicalityIndex++;
             if (musicalityIndex == 3) {
                 musicalityIndex = 0;
-                musicalEntity.setMusical();
+                musicalEntity.setMusical(true);
             }
         }
     }

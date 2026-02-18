@@ -70,7 +70,7 @@ public class AltarOfTheButterfliesBlock extends AltarBlock {
             if (size >= 5 && level.random.nextFloat() <= size / 80.0f) {
 
                 MadameButterflyEntity madameButterfly = new MadameButterflyEntity(ModEntities.MADAME_BUTTERFLY.get(), level);
-                madameButterfly.setMusical();
+                madameButterfly.setMusical(true);
                 madameButterfly.setOrderedToSit(true);
                 madameButterfly.moveTo(pos.above().getCenter());
                 madameButterfly.setYHeadRot(getYRot(state.getValue(FACING)));

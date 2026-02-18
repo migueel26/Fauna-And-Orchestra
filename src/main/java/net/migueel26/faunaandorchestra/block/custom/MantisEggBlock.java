@@ -3,6 +3,7 @@ package net.migueel26.faunaandorchestra.block.custom;
 import com.mojang.serialization.MapCodec;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.entity.custom.MantisEntity;
+import net.migueel26.faunaandorchestra.entity.custom.variants.MantisVariant;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -26,9 +27,7 @@ import net.minecraft.world.level.block.TurtleEggBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -45,13 +44,23 @@ public class MantisEggBlock extends Block {
     private static final VoxelShape MULTIPLE_EGGS_AABB = Block.box(1.0, 0.0, 1.0, 15.0, 7.0, 15.0);
     public static final IntegerProperty HATCH;
     public static final IntegerProperty EGGS;
+    public static final IntegerProperty FATHER_VARIANT;
+    public static final IntegerProperty MOTHER_VARIANT;
+    public static final BooleanProperty FATHER_MUSICAL;
+    public static final BooleanProperty MOTHER_MUSICAL;
 
     public MapCodec<TurtleEggBlock> codec() {
         return CODEC;
     }
     public MantisEggBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(HATCH, 0).setValue(EGGS, 1));
+        this.registerDefaultState(this.stateDefinition.any()
+                .setValue(HATCH, 0)
+                .setValue(EGGS, 1)
+                .setValue(FATHER_VARIANT, MantisVariant.NORMAL.getId())
+                .setValue(MOTHER_VARIANT, MantisVariant.NORMAL.getId())
+                .setValue(FATHER_MUSICAL, false)
+                .setValue(MOTHER_MUSICAL, false));
     }
 
     public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity) {
@@ -104,7 +113,7 @@ public class MantisEggBlock extends Block {
 
                 for(int j = 0; j < state.getValue(EGGS); ++j) {
                     level.levelEvent(2001, pos, Block.getId(state));
-                    MantisEntity mantis = ModEntities.MANTIS.get().create(level);
+                    MantisEntity mantis = createMantisFromEgg(state, level);
                     if (mantis != null) {
                         mantis.setAge(-24000);
                         mantis.moveTo((double)pos.getX() + 0.3 + (double)j * 0.2, pos.getY(), (double)pos.getZ() + 0.3, 0.0F, 0.0F);
@@ -114,6 +123,31 @@ public class MantisEggBlock extends Block {
             }
         }
 
+    }
+
+    public MantisEntity createMantisFromEgg(BlockState state, Level level) {
+        MantisVariant fatherVariant = MantisVariant.byId(state.getValue(FATHER_VARIANT));
+        MantisVariant motherVariant = MantisVariant.byId(state.getValue(MOTHER_VARIANT));
+        boolean fatherMusical = state.getValue(FATHER_MUSICAL);
+        boolean motherMusical = state.getValue(MOTHER_MUSICAL);
+
+        boolean isMusical;
+        MantisVariant variant;
+
+        isMusical = fatherMusical != motherMusical ? level.getRandom().nextFloat() <= 0.25f : motherMusical;
+        if (fatherVariant != motherVariant) {
+            variant = level.getRandom().nextFloat() <= 0.25f ? MantisVariant.ORCHID : MantisVariant.NORMAL;
+        } else {
+            variant = motherVariant;
+        }
+
+        MantisEntity mantis = ModEntities.MANTIS.get().create(level);
+        if (mantis != null) {
+            mantis.setMusical(isMusical);
+            mantis.setVariant(variant);
+        }
+
+        return mantis;
     }
 
     public static boolean onLand(BlockGetter level, BlockPos pos) {
@@ -156,7 +190,7 @@ public class MantisEggBlock extends Block {
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(HATCH, EGGS);
+        builder.add(HATCH, EGGS, FATHER_MUSICAL, MOTHER_MUSICAL, FATHER_VARIANT, MOTHER_VARIANT);
     }
 
     private boolean canDestroyEgg(Level level, Entity entity) {
@@ -170,5 +204,9 @@ public class MantisEggBlock extends Block {
     static {
         HATCH = BlockStateProperties.HATCH;
         EGGS = BlockStateProperties.EGGS;
+        FATHER_VARIANT = IntegerProperty.create("father_variant", 0, MantisVariant.values().length);
+        MOTHER_VARIANT = IntegerProperty.create("mother_variant", 0, MantisVariant.values().length);
+        FATHER_MUSICAL = BooleanProperty.create("father_musical");
+        MOTHER_MUSICAL = BooleanProperty.create("mother_musical");
     }
 }

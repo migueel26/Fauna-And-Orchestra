@@ -2,6 +2,9 @@ package net.migueel26.faunaandorchestra.entity.custom;
 
 import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.entity.custom.variants.MantisVariant;
+import net.migueel26.faunaandorchestra.entity.goals.AnimalEatGoal;
+import net.migueel26.faunaandorchestra.entity.goals.MantisBreedGoal;
+import net.migueel26.faunaandorchestra.entity.goals.MantisLayEggGoal;
 import net.migueel26.faunaandorchestra.entity.goals.MusicalEntityPlayingInstrumentGoal;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
@@ -30,6 +33,7 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -64,6 +68,7 @@ public class MantisEntity extends MusicalEntity implements NeutralMob {
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
     private static final EntityDataAccessor<Integer> REMAINING_ANGER_TIME = SynchedEntityData.defineId(MantisEntity.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(MantisEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> HAS_EGG = SynchedEntityData.defineId(MantisEntity.class, EntityDataSerializers.BOOLEAN);
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
     private final AnimationController<MantisEntity> MANTIS_CONTROLLER =
             new AnimationController<>(this, "mantis_controller", 5, this::mantisState)
@@ -71,6 +76,7 @@ public class MantisEntity extends MusicalEntity implements NeutralMob {
                     .triggerableAnim("enlighten", ENLIGHTEN);
     @Nullable
     private UUID persistentAngerTarget;
+    public int layEggCounter;
 
     public MantisEntity(EntityType<? extends TamableAnimal> entityType, Level level) {
         super(entityType, level);
@@ -90,10 +96,13 @@ public class MantisEntity extends MusicalEntity implements NeutralMob {
         this.goalSelector.addGoal(1, new MusicalEntityPlayingInstrumentGoal(this));
         this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(3, new HurtByTargetGoal(this).setAlertOthers());
+        this.goalSelector.addGoal(4, new MantisBreedGoal(this, 1.0f));
+        this.goalSelector.addGoal(4, new MantisLayEggGoal(this, 1.0f));
         // NearestAttackableTargetGoal (4)
         // MeleeAttackGoal (5)
         this.goalSelector.addGoal(5, new RandomStrollGoal(this, 1.0));
         // LookAtPlayerGoal (6)
+        this.goalSelector.addGoal(7, new AnimalEatGoal(this, ModItems.MANTIS_FOOD.asItem()));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(8, new ResetUniversalAngerTargetGoal<>(this, true));
     }
@@ -168,6 +177,7 @@ public class MantisEntity extends MusicalEntity implements NeutralMob {
         super.defineSynchedData(builder);
         builder.define(REMAINING_ANGER_TIME, 0);
         builder.define(VARIANT, 0);
+        builder.define(HAS_EGG, false);
     }
 
     @Override
@@ -350,8 +360,24 @@ public class MantisEntity extends MusicalEntity implements NeutralMob {
         return MantisVariant.byId(getVariantId() & 255);
     }
 
-    private void setVariant(MantisVariant variant) {
+    public void setVariant(MantisVariant variant) {
         this.entityData.set(VARIANT, variant.getId());
+    }
+
+    public boolean hasEgg() {
+        return this.entityData.get(HAS_EGG);
+    }
+
+    public void setHasEgg(boolean hasEgg) {
+        this.entityData.set(HAS_EGG, hasEgg);
+    }
+
+    public boolean isLayingEgg() {
+        return layEggCounter > 0;
+    }
+
+    public void setLayingEgg(boolean isLayingEgg) {
+        this.layEggCounter = isLayingEgg ? 1 : 0;
     }
 
     @Override

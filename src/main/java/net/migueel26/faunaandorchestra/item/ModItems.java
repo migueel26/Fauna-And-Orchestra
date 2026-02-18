@@ -165,6 +165,8 @@ public class ModItems {
                     .durability(250)
                     .attributes(MantisDaggerItem.createAttributes())
                     .component(DataComponents.TOOL, MantisDaggerItem.createToolProperties())));
+    public static final DeferredItem<Item> MANTIS_FOOD = ITEMS.register("mantis_food",
+            () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> WORM = ITEMS.register("worm",
             () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> INSECT = ITEMS.register("insect",

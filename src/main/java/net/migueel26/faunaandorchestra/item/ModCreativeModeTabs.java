@@ -54,6 +54,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModBlocks.MANTIS_EGG);
                         output.accept(ModItems.MANTIS_CLAW);
                         output.accept(ModItems.MANTIS_DAGGER);
+                        output.accept(ModItems.MANTIS_FOOD);
                         output.accept(ModItems.WORM);
                         output.accept(ModItems.INSECT);
                         output.accept(ModBlocks.HANGING_JAR);

@@ -305,8 +305,8 @@ public abstract class MusicalEntity extends TamableAnimal implements GeoEntity {
         return conductorUUID != null;
     }
 
-    public void setMusical() {
-        this.entityData.set(IS_MUSICAL, true);
+    public void setMusical(boolean isMusical) {
+        this.entityData.set(IS_MUSICAL, isMusical);
     }
 
     public boolean isMusical() {
