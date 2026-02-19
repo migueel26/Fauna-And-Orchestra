@@ -40,7 +40,8 @@ public class MantisLayEggGoal extends MoveToBlockGoal {
     @Override
     public void start() {
         hasToKill = mantis.getRandom().nextFloat() > 0.2f;
-        partner = mantis.level().getNearestEntity(MantisEntity.class, TargetingConditions.DEFAULT, mantis, mantis.getX(), mantis.getY(), mantis.getZ(), mantis.getBoundingBox().inflate(16));
+        partner = mantis.level().getNearestEntity(MantisEntity.class, TargetingConditions.DEFAULT, mantis,
+                mantis.getX(), mantis.getY(), mantis.getZ(), mantis.getBoundingBox().inflate(16));
         if (partner == null) {
             // In case the entity disappeared
             super.stop();
@@ -48,28 +49,31 @@ public class MantisLayEggGoal extends MoveToBlockGoal {
         }
         isPartnerMusical = partner.isMusical();
         partnerVariant = partner.getVariantId();
-        if (!hasToKill) {
-            super.start();
-        }
+        super.start();
+    }
+
+    @Override
+    public void stop() {
+        super.stop();
     }
 
     public void tick() {
-        if (hasToKill && partner != null) {
+        if (hasToKill && partner != null && mantis.distanceToSqr(partner) <= 5) {
             mantis.lookAt(EntityAnchorArgument.Anchor.FEET, partner.position());
             mantis.attack();
             partner.kill();
             mantis.level().playSound(null, mantis.blockPosition(), ModSounds.MANTIS_ANGRY.get(), SoundSource.NEUTRAL, 1.0f, 1.5f);
 
             hasToKill = false;
-            super.start();
         }
 
         super.tick();
+
         BlockPos blockpos = this.mantis.blockPosition();
         if (!this.mantis.isInWater() && this.isReachedTarget()) {
             if (this.mantis.layEggCounter < 1) {
                 this.mantis.setLayingEgg(true);
-            } else if (this.mantis.layEggCounter > this.adjustedTickDelay(100)) {
+            } else if (this.mantis.layEggCounter > this.adjustedTickDelay(20)) {
                 Level level = this.mantis.level();
                 level.playSound(null, blockpos, SoundEvents.TURTLE_LAY_EGG, SoundSource.BLOCKS, 0.3F, 0.9F + level.random.nextFloat() * 0.2F);
                 BlockPos blockpos1 = this.blockPos.above();
@@ -94,6 +98,11 @@ public class MantisLayEggGoal extends MoveToBlockGoal {
     }
 
     protected boolean isValidTarget(LevelReader level, BlockPos pos) {
-        return !level.isEmptyBlock(pos.above()) ? false : MantisEggBlock.isLand(level, pos);
+        return level.isEmptyBlock(pos.above()) && MantisEggBlock.isLand(level, pos);
+    }
+
+    @Override
+    public double acceptedDistance() {
+        return 2.0F;
     }
 }
