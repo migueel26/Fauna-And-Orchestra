@@ -5,6 +5,7 @@ import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.recipe.ModRecipes;
 import net.migueel26.faunaandorchestra.recipe.NaturalRecipe;
 import net.migueel26.faunaandorchestra.recipe.SizedIngredient;
+import net.migueel26.faunaandorchestra.util.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleType;
@@ -16,6 +17,7 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.Containers;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -44,7 +46,7 @@ public class JarRackBlockEntity extends BlockEntity {
         @Override
         protected void onContentsChanged(int slot) {
             if (!level.isClientSide) {
-                level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
+                markUpdated();
             }
             super.onContentsChanged(slot);
         }
@@ -55,16 +57,16 @@ public class JarRackBlockEntity extends BlockEntity {
         this.progress = 0;
     }
 
-    public void cookTick(Level level, BlockPos pos, BlockState state) {
+    public static void cookTick(Level level, BlockPos pos, BlockState state, JarRackBlockEntity jarRack) {
         if (!level.isClientSide() && level instanceof ServerLevel serverLevel) {
             BlockState fuel = level.getBlockState(pos.below());
 
             List<ItemStack> ingredients = new ArrayList<>();
-            for (int i = 0; i < inventory.getSlots(); i++) {
-                ingredients.add(inventory.getStackInSlot(i));
+            for (int i = 0; i < jarRack.inventory.getSlots(); i++) {
+                ingredients.add(jarRack.inventory.getStackInSlot(i).copy());
             }
 
-            NaturalRecipe.RecipeInput recipeInput = new NaturalRecipe.RecipeInput(ingredients, fuel.getBlock());
+            NaturalRecipe.RecipeInput recipeInput = new NaturalRecipe.RecipeInput(ingredients, fuel);
 
             Optional<RecipeHolder<NaturalRecipe>> recipeOptional = level.getRecipeManager()
                     .getRecipeFor(ModRecipes.NATURAL_TYPE.get(), recipeInput, level);
@@ -72,20 +74,23 @@ public class JarRackBlockEntity extends BlockEntity {
             if (recipeOptional.isPresent()) {
                 NaturalRecipe recipe = recipeOptional.get().value();
 
-                if (progress % 10 == 0) {
+                if (jarRack.progress % 10 == 0) {
                     spawnCookingParticles(pos, serverLevel, fuel);
                 }
 
-                this.progress++;
+                jarRack.progress++;
 
-                if (this.progress >= recipe.time()) {
-                    craftItem(recipe);
-                    this.progress = 0;
+                if (jarRack.progress >= recipe.time()) {
+                    craftItem(recipe, jarRack, level, state);
+                    jarRack.progress = 0;
                 }
+
+                setChanged(level, pos, state);
+
             } else {
-                if (this.progress > 0) {
-                    this.progress = 0;
-                    setChanged();
+                if (jarRack.progress > 0) {
+                    jarRack.progress = 0;
+                    jarRack.setChanged();
                 }
             }
         }
@@ -93,27 +98,27 @@ public class JarRackBlockEntity extends BlockEntity {
 
     private static void spawnCookingParticles(BlockPos pos, ServerLevel serverLevel, BlockState fuel) {
         SimpleParticleType particle = switch (fuel) {
-            case BlockState block when block.is(Blocks.LAVA) -> ParticleTypes.LAVA;
+            case BlockState block when block.is(ModTags.Blocks.JAR_FIRE_FUEL) -> ParticleTypes.CAMPFIRE_COSY_SMOKE;
             case BlockState block when block.is(Blocks.WATER) -> ParticleTypes.DRIPPING_WATER;
             case BlockState block when block.is(Blocks.ICE) -> ParticleTypes.DUST_PLUME;
             default -> ParticleTypes.CLOUD;
         };
 
         serverLevel.sendParticles(particle, pos.getCenter().x, pos.getY(), pos.getCenter().z,
-                10, 0.25f, 0.5f, 0.25f, 0.05);
+                2, 0.25f, 0.15f, 0.25f, 0.01);
     }
 
-    private void craftItem(NaturalRecipe recipe) {
+    private static void craftItem(NaturalRecipe recipe, JarRackBlockEntity jarRack, Level level, BlockState state) {
         for (SizedIngredient required : recipe.ingredients()) {
             int amountNeeded = required.amount();
 
-            for (int i = 0; i < inventory.getSlots(); i++) {
-                ItemStack slotStack = inventory.getStackInSlot(i);
+            for (int i = 0; i < jarRack.inventory.getSlots(); i++) {
+                ItemStack slotStack = jarRack.inventory.getStackInSlot(i);
 
                 if (!slotStack.isEmpty() && required.ingredient().test(slotStack)) {
                     int toExtract = Math.min(amountNeeded, slotStack.getCount());
 
-                    inventory.extractItem(i, toExtract, false);
+                    jarRack.inventory.extractItem(i, toExtract, false);
 
                     amountNeeded -= toExtract;
 
@@ -125,19 +130,19 @@ public class JarRackBlockEntity extends BlockEntity {
         ItemStack result = recipe.output().copy();
 
         boolean inserted = false;
-        for (int i = 0; i < inventory.getSlots(); i++) {
-            if (inventory.insertItem(i, result, false).isEmpty()) {
+        for (int i = 0; i < jarRack.inventory.getSlots(); i++) {
+            if (jarRack.inventory.insertItem(i, result, false).isEmpty()) {
                 inserted = true;
                 break;
             }
         }
 
         if (!inserted) {
-            Containers.dropItemStack(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.0, worldPosition.getZ() + 0.5, result);
+            Containers.dropItemStack(level, jarRack.worldPosition.getX() + 0.5, jarRack.worldPosition.getY() + 1.0, jarRack.worldPosition.getZ() + 0.5, result);
         }
 
-        setChanged();
-        level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
+        jarRack.setChanged();
+        level.sendBlockUpdated(jarRack.worldPosition, state, state, 3);
     }
 
     public void clearContents() {
@@ -169,8 +174,16 @@ public class JarRackBlockEntity extends BlockEntity {
     }
 
     @Override
-    public CompoundTag getUpdateTag(HolderLookup.Provider pRegistries) {
-        return saveWithoutMetadata(pRegistries);
+    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+        CompoundTag compoundTag = new CompoundTag();
+        compoundTag.put("Inventory", inventory.serializeNBT(registries));
+        compoundTag.putInt("Progress", this.progress);
+        return compoundTag;
+    }
+
+    private void markUpdated() {
+        this.setChanged();
+        this.getLevel().sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 3);
     }
 
     public void setInventory(ItemStackHandler inventory) {

@@ -1,0 +1,27 @@
+{
+  "type": "faunaandorchestra:natural_recipe",
+  "ingredients": [
+    {
+      "ingredient": {
+        "tag": "faunaandorchestra:bugs"
+      },
+      "amount": 2
+    },
+    {
+      "ingredient": {
+        "item": "faunaandorchestra:catchweed"
+      }
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:spider_eye"
+      }
+    }
+  ],
+  "fuel": "#faunaandorchestra:jar_fire_fuel",
+  "result": {
+    "id": "faunaandorchestra:mantis_food",
+    "count": 1
+  },
+  "time": 200
+}

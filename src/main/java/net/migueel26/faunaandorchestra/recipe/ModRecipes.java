@@ -18,14 +18,14 @@ public class ModRecipes {
 
     // SERIALIZERS
     public static final Supplier<RecipeSerializer<NaturalRecipe>> NATURAL_SERIALIZER =
-            SERIALIZERS.register("natural_crafting", NaturalRecipe.Serializer::new);
+            SERIALIZERS.register("natural_recipe", NaturalRecipe.Serializer::new);
 
     // RECIPE TYPES
     public static final Supplier<RecipeType<NaturalRecipe>> NATURAL_TYPE =
-            RECIPE_TYPES.register("natural_crafting", () -> new RecipeType<>() {
+            RECIPE_TYPES.register("natural_recipe", () -> new RecipeType<>() {
                 @Override
                 public String toString() {
-                    return "natural_crafting";
+                    return "natural_recipe";
                 }
             });
 
