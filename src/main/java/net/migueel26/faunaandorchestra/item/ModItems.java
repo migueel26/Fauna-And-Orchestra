@@ -311,8 +311,17 @@ public class ModItems {
                     return super.use(level, player, usedHand);
                 }
             });
+
+    // ICONS
     public static final DeferredItem<Item> ICON = ITEMS.register("icon",
             () -> new Item(new Item.Properties().stacksTo(1)));
+    public static final DeferredItem<Item> FIRE_ICON = ITEMS.register("fire_icon",
+            () -> new Item(new Item.Properties().stacksTo(1)));
+    public static final DeferredItem<Item> SOUL_FIRE_ICON = ITEMS.register("soul_fire_icon",
+            () -> new Item(new Item.Properties().stacksTo(1)));
+    public static final DeferredItem<Item> WATER_ICON = ITEMS.register("water_icon",
+            () -> new Item(new Item.Properties().stacksTo(1)));
+
 
     private static DeferredItem<Item> createSheetMusic(String name) {
         return ITEMS.register(name, () -> new Item(new Item.Properties().rarity(Rarity.RARE)) {

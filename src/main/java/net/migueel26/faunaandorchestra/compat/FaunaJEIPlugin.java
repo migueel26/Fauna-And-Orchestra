@@ -8,9 +8,14 @@ import mezz.jei.api.registration.IRecipeRegistration;
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.item.ModItems;
+import net.migueel26.faunaandorchestra.recipe.ModRecipes;
+import net.migueel26.faunaandorchestra.recipe.NaturalRecipe;
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeManager;
 
 import java.util.List;
 @JeiPlugin
@@ -22,12 +27,21 @@ public class FaunaJEIPlugin implements IModPlugin {
 
     @Override
     public void registerCategories(IRecipeCategoryRegistration registration) {
-
+        registration.addRecipeCategories(new NaturalRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
-        //TODO: IMPROVE
+        RecipeManager recipeManager = Minecraft.getInstance().level.getRecipeManager();
+
+        // Natural Recipes
+        List<NaturalRecipe> recipes = recipeManager.getAllRecipesFor(ModRecipes.NATURAL_TYPE.get())
+                .stream()
+                .map(RecipeHolder::value)
+                .toList();
+
+        registration.addRecipes(NaturalRecipeCategory.RECIPE_TYPE, recipes);
+
         registration.addIngredientInfo(ModItems.MUSIC_BOTTLE, symphoniaComponent("music_bottle"));
         registration.addIngredientInfo(ModItems.DISCORD_ESSENCE, symphoniaComponent("discord_essence"));
         registration.addIngredientInfo(ModItems.AMPLIFIER_CRYSTAL, melomancyComponent("amplifier_crystal"));
@@ -48,6 +62,12 @@ public class FaunaJEIPlugin implements IModPlugin {
         registration.addIngredientInfo(ModItems.PETALS_OF_DEATH, symphoniaDefaultText());
         registration.addIngredientInfo(ModItems.GLOVE, symphoniaDefaultText());
         registration.addIngredientInfo(ModItems.GINKGO_BILOBA, symphoniaDefaultText());
+
+    }
+
+    @Override
+    public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
+        registration.addRecipeCatalyst(new ItemStack(ModBlocks.JAR_RACK.get()), NaturalRecipeCategory.RECIPE_TYPE);
     }
 
     public static Component melomancyComponent(String item) {

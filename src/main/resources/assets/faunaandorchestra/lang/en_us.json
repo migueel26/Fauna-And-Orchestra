@@ -78,6 +78,10 @@
   "item.faunaandorchestra.silver_tint": "Silver Tint",
   "item.faunaandorchestra.golden_tint": "Golden Tint",
 
+  "item.faunaandorchestra.fire_icon": "Fire",
+  "item.faunaandorchestra.soul_fire_icon": "Soul Fire",
+  "item.faunaandorchestra.water_icon": "Water",
+
   "item.faunaandorchestra.discord_essence.desc": "When somebody tries to meddle with the nature of sound, it causes a discord to its surroundings",
   "item.faunaandorchestra.activator_clef.desc": "Unstable clef with the capacity to excite the terrain and manifest discord",
   "item.faunaandorchestra.petals_of_death.desc": "Byproduct of the great hunger of a Discorded Flower",
@@ -628,6 +632,9 @@
   "symphonia.page.wise_tree1": "Only its $(o)master$() can understand the language it speaks.",
 
   "symphonia.entry.anya": "Anya",
+
+  "jei.faunaandorchestra.natural_recipe": "Natural Recipe",
+  "jei.faunaandorchestra.requires_below": "This block is required below the §eJar Rack§r with the jar as a fuel",
 
   "jei.faunaandorchestra.melomancy": "After filling the Melomancy Cauldron with §53x Liquid Music§r, you need to place the following ingredients:",
   "jei.faunaandorchestra.symphonia": "Read the §4Symphonia§r guide for more information.",

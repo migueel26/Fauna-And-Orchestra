@@ -77,6 +77,10 @@
   "item.faunaandorchestra.silver_tint": "Tinte plateado",
   "item.faunaandorchestra.golden_tint": "Tinte dorado",
 
+  "item.faunaandorchestra.fire_icon": "Fuego",
+  "item.faunaandorchestra.soul_fire_icon": "Fuego de almas",
+  "item.faunaandorchestra.water_icon": "Agua",
+
   "item.faunaandorchestra.discord_essence.desc": "Cuando alguien intenta entrometerse con la naturaleza del sonido, crea una discordia en sus alrededores",
   "item.faunaandorchestra.activator_clef.desc": "Clave inestable con capacidad de excitar el terreno y manifestar discordia",
   "item.faunaandorchestra.petals_of_death.desc": "Producto del hambre voraz de una flor discórdica",
@@ -495,7 +499,7 @@
   "symphonia.page.offering0": "Ofrenda",
   "symphonia.page.offering1": "Lo creas o no, los grupos de mariposas que te encuentras por el mundo tienen una pariente común: a $(l)Madame Butterfly$(). El problema es que no se suele dejar ver dada su relevancia. Por eso mismo, para atraerla, necesitas algún tipo de $(item)ofrenda$().",
   "symphonia.page.offering2": "Primero de todo, debes craftear un $(item)Altar de las mariposas$() con unas pocas $(item)mariposas$() capturadas con el $(item)cazamariposas$().$(br)Una vez colocado, necesitas craftear la $(item)Ofrenda para M. Butterfly$() en el $(o)caldero de melomancia$().",
-  "symphonia.page.offering3": "La $(item)Ofrenda para M. Butterfly$() tiene la siguiente receta: $(li)$(item)3x Allium$() $(li)$(item)5x Ginkgo Biloba$() $(li)$(item)5x Bayas luminosas$() $(li)$(item)10x Bayas dulces$() $(br)Para tomar la $(o)ofrenda$() del caldero necesitas clickear la mezcla con una $(item)cuerda$(). Tras esto, colócala encima del altar de las mariposas junto a $(thing)5 o más $(o)(cuantas más, más probable)$()$(thing)mariposas$() alrededor suya. Si se mantienen cerca, $(o)ella$() con el tiempo aparecerá.",
+  "symphonia.page.offering3": "La $(item)Ofrenda para M. Butterfly$() tiene la siguiente receta: $(li)$(item)3x Allium$() $(li)$(item)5x Ginkgo Biloba$() $(li)$(item)5x Bayas luminosas$() $(li)$(item)10x Bayas dulces$() $(br)Para tomar la $(o)ofrenda$() del caldero necesitas clickear la mezcla con un $(item)hilo$(). Tras esto, colócala encima del altar de las mariposas junto a $(thing)5 o más $(o)(cuantas más, más probable)$()$(thing)mariposas$() alrededor suya. Si se mantienen cerca, $(o)ella$() con el tiempo aparecerá.",
   "symphonia.page.offering4": "Como cualquier otro $(o)animal musical$(), necesitarás un $(item)instrumento$() para domesticarla.",
 
   "symphonia.entry.wandering_notes": "Notas ambulantes",
@@ -629,10 +633,13 @@
 
   "symphonia.entry.anya": "Anya",
 
+  "jei.faunaandorchestra.natural_recipe": "Recetas naturales",
+  "jei.faunaandorchestra.requires_below": "Este bloque es requerido bajo el §eCuelgajarras§r como combustible",
+
   "jei.faunaandorchestra.melomancy": "Después de llenar el Caldero de melomancia con §53x Música líquida§r, necesitas colocar los siguientes ingredientes:",
   "jei.faunaandorchestra.symphonia": "Lee la guía de §4Symphonia§r para más información.",
   "jei.faunaandorchestra.amplifier_crystal": "§5· 5x Diamantes\n· 3x Notas ambulantes\n· 2x Lingotes de acerónico§r\n\nUsa un §5Fragmento de amatista§r para obtener el resultado.",
-  "jei.faunaandorchestra.offering": "§5· 3x Allium\n· 5x Ginkgo Biloba\n· 5x Bayas luminosas\n· 10x Bayas dulces§r\n\nUsa una §5Cuerda§r para obtener el resultado.",
+  "jei.faunaandorchestra.offering": "§5· 3x Allium\n· 5x Ginkgo Biloba\n· 5x Bayas luminosas\n· 10x Bayas dulces§r\n\nUsa un §5Hilo§r para obtener el resultado.",
   "jei.faunaandorchestra.absolute_hearing_potion": "§5· 1x Polvo de blaze\n· 1x Verruga del nether\n· 3x Ginkgo Biloba§r\n\nUsa una §5Botella de cristal§r para obtener el resultado.",
   "jei.faunaandorchestra.steelsonic_ingot": "§5· 5x Lingotes de hierro\n· 3x Notas ambulantes\n· 1x Cubo de lava§r\n\nUsa tu mano vacía para obtener los resultados.",
   "jei.faunaandorchestra.musical_ink": "§5· 1x Pluma\n· 1x Bolsa de tinta luminosa§r\n\nUsa una §5Botella de cristal§r para obtener los resultados.",

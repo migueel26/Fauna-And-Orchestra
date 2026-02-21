@@ -17,6 +17,7 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.Containers;
 import net.minecraft.world.item.ItemStack;
@@ -99,8 +100,8 @@ public class JarRackBlockEntity extends BlockEntity {
     private static void spawnCookingParticles(BlockPos pos, ServerLevel serverLevel, BlockState fuel) {
         SimpleParticleType particle = switch (fuel) {
             case BlockState block when block.is(ModTags.Blocks.JAR_FIRE_FUEL) -> ParticleTypes.CAMPFIRE_COSY_SMOKE;
-            case BlockState block when block.is(Blocks.WATER) -> ParticleTypes.DRIPPING_WATER;
-            case BlockState block when block.is(Blocks.ICE) -> ParticleTypes.DUST_PLUME;
+            case BlockState block when block.is(ModTags.Blocks.JAR_WATER_FUEL) -> ParticleTypes.DRIPPING_WATER;
+            case BlockState block when block.is(BlockTags.ICE) -> ParticleTypes.DUST_PLUME;
             default -> ParticleTypes.CLOUD;
         };
 

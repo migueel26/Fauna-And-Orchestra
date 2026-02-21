@@ -30,6 +30,8 @@ public class ModTags {
         public static final TagKey<Block> REPLACEABLE_BY_DISCORD = registerTag("replaceable_by_discord");
         public static final TagKey<Block> JAR_FUEL = registerTag("jar_fuel");
         public static final TagKey<Block> JAR_FIRE_FUEL = registerTag("jar_fire_fuel");
+        public static final TagKey<Block> JAR_WATER_FUEL = registerTag("jar_water_fuel");
+
         private static TagKey<Block> registerTag(String name) {
             return BlockTags.create(ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, name));
         }

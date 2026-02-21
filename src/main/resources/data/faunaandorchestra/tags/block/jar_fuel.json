@@ -2,7 +2,7 @@
   "values": [
     "minecraft:air",
     "#faunaandorchestra:jar_fire_fuel",
-    "minecraft:water",
+    "#faunaandorchestra:jar_water_fuel",
     "#minecraft:ice"
   ]
 }
