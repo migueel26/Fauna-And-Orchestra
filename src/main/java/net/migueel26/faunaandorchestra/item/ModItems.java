@@ -127,6 +127,7 @@ public class ModItems {
     public static final DeferredItem<Item> TRANSMUTED_VOICE = ITEMS.register("transmuted_voice",
             () -> new TransmutedVoiceItem(new Item.Properties()));
     public static final DeferredItem<Item> MUSIC_BOTTLE = createRegularDescriptionItem("music_bottle");
+    public static final DeferredItem<Item> EXTRACT_OF_LIVING_MUSIC = createRegularDescriptionItem("extract_of_living_music");
     public static final DeferredItem<Item> FRUIT_OF_LIFE = ITEMS.register("fruit_of_life",
             () -> new Item(new Item.Properties().rarity(Rarity.UNCOMMON)) {
                 @Override
@@ -165,12 +166,15 @@ public class ModItems {
                     .durability(250)
                     .attributes(MantisDaggerItem.createAttributes())
                     .component(DataComponents.TOOL, MantisDaggerItem.createToolProperties())));
-    public static final DeferredItem<Item> MANTIS_FOOD = ITEMS.register("mantis_food",
-            () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> MANTIS_FOOD = createRegularDescriptionItem("mantis_food");
     public static final DeferredItem<Item> WORM = ITEMS.register("worm",
             () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> INSECT = ITEMS.register("insect",
             () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> NATURE_FUMES = ITEMS.register("nature_fumes",
+            () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> BADGRASS_MEAL = ITEMS.register("badgrass_meal",
+            () -> new BadgrassMealItem(new Item.Properties()));
 
     public static final DeferredItem<Item> PROP_CASE = ITEMS.register("prop_case",
             () -> new Item(new Item.Properties().stacksTo(1)) {

@@ -57,6 +57,9 @@
   "item.faunaandorchestra.mantis_food": "Comida de mantis",
   "item.faunaandorchestra.worm": "Gusano",
   "item.faunaandorchestra.bug": "Insecto",
+  "item.faunaandorchestra.nature_fumes": "Humo de la naturaleza",
+  "item.faunaandorchestra.badgrass_meal": "Polvo de hierbajo",
+  "item.faunaandorchestra.extract_of_living_music": "Extracto de música viva",
 
   "item.faunaandorchestra.prop_case": "Neceser",
   "item.faunaandorchestra_clothing.desc": "Ropa para Animales",
@@ -114,6 +117,7 @@
   "item.faunaandorchestra.the_great_composer_spawn_egg.desc": "Boss",
   "item.faunaandorchestra.mantis_dagger.desc": "Mantén §eel click derecho§r para cargar una embestida que daña a los enemigos",
   "item.faunaandorchestra.mantis_food.desc": "Suéltala en el suelo para aparear a las orgullosas mantis",
+  "item.faunaandorchestra.extract_of_living_music.desc": "Acerca el oído... ¿puedes escucharlo?",
   "item.faunaandorchestra.fortune_cookie_phrase0": "¡Eres el GOAT!",
   "item.faunaandorchestra.fortune_cookie_phrase1": "No soy Nelly, pero tú eres el dilema",
   "item.faunaandorchestra.fortune_cookie_phrase2": "Ama a todo el mundo que te ame",

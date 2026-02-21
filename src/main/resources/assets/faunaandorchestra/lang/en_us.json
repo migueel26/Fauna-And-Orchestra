@@ -57,6 +57,9 @@
   "item.faunaandorchestra.mantis_food": "Mantis Food",
   "item.faunaandorchestra.worm": "Worm",
   "item.faunaandorchestra.insect": "Insect",
+  "item.faunaandorchestra.nature_fumes": "Nature Fumes",
+  "item.faunaandorchestra.badgrass_meal": "Badgrass Meal",
+  "item.faunaandorchestra.extract_of_living_music": "Extract of Living Music",
 
   "item.faunaandorchestra.prop_case": "Prop Case",
   "item.faunaandorchestra_clothing.desc": "Clothing Item",
@@ -114,6 +117,8 @@
   "item.faunaandorchestra.hanging_jar.desc": "§eDrop§r the items or §eright-click§r the jar to introduce them! You can break it to take everything with you",
   "item.faunaandorchestra.the_great_composer_spawn_egg.desc": "Boss",
   "item.faunaandorchestra.mantis_dagger.desc": "Hold §eright-click§r to charge a dash that hurts enemies",
+  "item.faunaandorchestra.mantis_food.desc": "Drop it to breed the proud mantis tribe",
+  "item.faunaandorchestra.extract_of_living_music.desc": "Listen carefully... can you hear that?",
   "item.faunaandorchestra.fortune_cookie_phrase0": "You're GOATED!",
   "item.faunaandorchestra.fortune_cookie_phrase1": "Dream only a dream if work don't follow it",
   "item.faunaandorchestra.fortune_cookie_phrase2": "Nah, but seriously, on a level, you're beautiful",
@@ -634,7 +639,7 @@
   "symphonia.entry.anya": "Anya",
 
   "jei.faunaandorchestra.natural_recipe": "Natural Recipe",
-  "jei.faunaandorchestra.requires_below": "This block is required below the §eJar Rack§r with the jar as a fuel",
+  "jei.faunaandorchestra.requires_below": "This block is required below the §eJar Rack§r with the jar",
 
   "jei.faunaandorchestra.melomancy": "After filling the Melomancy Cauldron with §53x Liquid Music§r, you need to place the following ingredients:",
   "jei.faunaandorchestra.symphonia": "Read the §4Symphonia§r guide for more information.",

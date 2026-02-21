@@ -60,6 +60,8 @@ public class ModCreativeModeTabs {
                         output.accept(ModBlocks.HANGING_JAR);
                         output.accept(ModBlocks.JAR_RACK);
                         output.accept(ModBlocks.CATCHWEED);
+                        output.accept(ModItems.NATURE_FUMES);
+                        output.accept(ModItems.BADGRASS_MEAL);
                         output.accept(ModItems.BACH_AIR_SHEET_MUSIC);
                         output.accept(ModItems.GREENSLEEVES_SHEET_MUSIC);
                         output.accept(ModItems.BLUES_SHEET_MUSIC);
@@ -71,6 +73,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.WHISTLE);
                         output.accept(ModItems.MUSIC_BOTTLE);
                         output.accept(ModItems.MUSICAL_INK);
+                        output.accept(ModItems.EXTRACT_OF_LIVING_MUSIC);
                         output.accept(ModItems.BOOGIE_BOMB);
                         output.accept(ModItems.STEELSONIC_INGOT);
                         output.accept(ModItems.AMPLIFIER_CRYSTAL);

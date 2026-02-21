@@ -1,0 +1,28 @@
+{
+  "type": "faunaandorchestra:natural_recipe",
+  "ingredients": [
+    {
+      "ingredient": {
+        "item": "minecraft:dirt"
+      },
+      "amount": 6
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:bone_meal"
+      },
+      "amount": 2
+    },
+    {
+      "ingredient": {
+        "item": "faunaandorchestra:nature_fumes"
+      }
+    }
+  ],
+  "fuel": "#faunaandorchestra:jar_water_fuel",
+  "result": {
+    "id": "faunaandorchestra:badgrass_meal",
+    "count": 2
+  },
+  "time": 200
+}

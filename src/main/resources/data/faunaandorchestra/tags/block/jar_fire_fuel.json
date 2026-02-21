@@ -1,7 +1,6 @@
 {
   "values": [
     "#minecraft:fire",
-    "#minecraft:campfires",
-    "minecraft:lava_cauldron"
+    "#minecraft:campfires"
   ]
 }

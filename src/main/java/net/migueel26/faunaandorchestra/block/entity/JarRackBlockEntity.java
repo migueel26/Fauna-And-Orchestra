@@ -100,7 +100,7 @@ public class JarRackBlockEntity extends BlockEntity {
     private static void spawnCookingParticles(BlockPos pos, ServerLevel serverLevel, BlockState fuel) {
         SimpleParticleType particle = switch (fuel) {
             case BlockState block when block.is(ModTags.Blocks.JAR_FIRE_FUEL) -> ParticleTypes.CAMPFIRE_COSY_SMOKE;
-            case BlockState block when block.is(ModTags.Blocks.JAR_WATER_FUEL) -> ParticleTypes.DRIPPING_WATER;
+            case BlockState block when block.is(ModTags.Blocks.JAR_WATER_FUEL) -> ParticleTypes.BUBBLE_POP;
             case BlockState block when block.is(BlockTags.ICE) -> ParticleTypes.DUST_PLUME;
             default -> ParticleTypes.CLOUD;
         };
