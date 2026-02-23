@@ -15,6 +15,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -28,6 +29,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -176,6 +178,26 @@ public class EmperorPenguinEntity extends MusicalEntity implements NeutralMob {
                 return super.canUse() && !penguin.isWaving();
             }
         });
+    }
+
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+        if (!(spawnType.equals(MobSpawnType.SPAWN_EGG) || spawnType.equals(MobSpawnType.MOB_SUMMONED))
+                && random.nextFloat() <= 0.5f) {
+            int times = random.nextFloat() <= 0.5f ? 2 : 1;
+            for (int i = 0; i < times; i++) {
+                PenguinEntity penguin = ModEntities.PENGUIN.get().create(level.getLevel());
+                penguin.moveTo(this.position());
+
+                level.addFreshEntity(penguin);
+            }
+        }
+        return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
+    }
+
+    @Override
+    public float getAgeScale() {
+        return 1.0f;
     }
 
     private <E extends GeoAnimatable> PlayState penguinState(AnimationState<E> state) {

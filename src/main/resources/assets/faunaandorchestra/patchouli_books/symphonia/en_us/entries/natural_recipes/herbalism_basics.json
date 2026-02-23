@@ -1,0 +1,29 @@
+{
+  "name": "symphonia.entry.herbalism_basics",
+  "category": "faunaandorchestra:natural_recipes",
+  "icon": "faunaandorchestra:hanging_jar",
+  "priority": true,
+  "sortnum": -10,
+  "pages": [
+    {
+      "type": "text",
+      "text": "symphonia.page.welcome0"
+    },
+    {
+      "type": "text",
+      "text": "symphonia.page.welcome1"
+    },
+    {
+      "type": "text",
+      "text": "symphonia.page.welcome2"
+    },
+    {
+      "type": "image",
+      "images": [
+        "faunaandorchestra:textures/gui/entries/intro_render.png"
+      ],
+      "title": "Fauna & Orchestra",
+      "text": "symphonia.page.welcome3"
+    }
+  ]
+}

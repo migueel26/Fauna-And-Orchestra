@@ -60,6 +60,7 @@
   "item.faunaandorchestra.nature_fumes": "Nature Fumes",
   "item.faunaandorchestra.badgrass_meal": "Badgrass Meal",
   "item.faunaandorchestra.extract_of_living_music": "Extract of Living Music",
+  "item.faunaandorchestra.everfruit": "Everfruit",
 
   "item.faunaandorchestra.prop_case": "Prop Case",
   "item.faunaandorchestra_clothing.desc": "Clothing Item",
@@ -416,6 +417,8 @@
   "symphonia.category.discordance.desc": "$(thing)Discordance$() might be the most dangerous branch of $(music)melomancy$(). As easy as it is to obtain, trying to contain it and use it is a high-risk high-reward task. You need to be $(o)careful$() with this chapter: you could lose your home, your life, and every thing you can think of. $(careful)I warn you$().",
   "symphonia.category.biophilia": "Melomancy: Biophilia",
   "symphonia.category.biophilia.desc": "The wonders of $(thing)Biophilia$() can truly take your breath away. The biggest lesson here is that $(o)life and music$() are one in and on itself, intertwined disciplines which can truly bring your $(music)melomantic skills$() into a whole new level. Be aware, though: for every life created one is $(o)damaged$().",
+  "symphonia.category.natural_recipes": "Natural Recipes",
+  "symphonia.category.natural_recipes.desc": "In order to understand the $(o)nature$() of our world, you'll need to learn how to $(o)connect$() with it. With $(thing)Natural Recipes$() you'll be able to bond with the creatures, discover their world and, ultimately, master herbalism.",
 
   "symphonia.entry.welcome": "Introduction to Musicality",
   "symphonia.page.welcome0": "$(o)Welcome to our musical world!$() Whether you found this book by accident, crafted it with some musical ink, or received it from me: this is the first step towards unveiling this world's true sound and becoming a true musician! Whether you just want to enliven your home with some music, or truly become a master of the $(o)$(music)melomantic arts$(), this is your guide.",
@@ -637,6 +640,8 @@
   "symphonia.page.wise_tree1": "Only its $(o)master$() can understand the language it speaks.",
 
   "symphonia.entry.anya": "Anya",
+
+  "symphonia.entry.herbalism_basics": "Basics of Herbalism",
 
   "jei.faunaandorchestra.natural_recipe": "Natural Recipe",
   "jei.faunaandorchestra.requires_below": "This block is required below the §eJar Rack§r with the jar",

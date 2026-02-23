@@ -35,6 +35,7 @@ import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -278,6 +279,11 @@ public abstract class MusicalEntity extends TamableAnimal implements GeoEntity {
         super.tick();
     }
 
+    @Override
+    public void aiStep() {
+        super.aiStep();
+    }
+
     public void tryToTame(Player player) {
         if (level().getRandom().nextInt(3) == 0 && !net.neoforged.neoforge.event.EventHooks.onAnimalTame(this, player)) {
             this.tame(player);
@@ -291,6 +297,23 @@ public abstract class MusicalEntity extends TamableAnimal implements GeoEntity {
         } else {
             this.level().broadcastEntityEvent(this, (byte) 6);
         }
+    }
+
+    @Override
+    public @Nullable <T extends Mob> T convertTo(EntityType<T> entityType, boolean transferInventory) {
+        T mob = super.convertTo(entityType, transferInventory);
+        if (mob instanceof MusicalEntity musicalEntity) {
+            musicalEntity.setOwnerUUID(this.getOwnerUUID());
+            musicalEntity.setTame(this.isTame(), false);
+            musicalEntity.setMusical(isMusical());
+            musicalEntity.setConductor(getConductor());
+            musicalEntity.setHoldingInstrument(isHoldingInstrument());
+            musicalEntity.entityData.set(COSTUME_ITEM, this.entityData.get(COSTUME_ITEM));
+            musicalEntity.entityData.set(HAT_ITEM, this.entityData.get(HAT_ITEM));
+            musicalEntity.inventory = this.inventory;
+        }
+
+        return mob;
     }
 
     public void setHoldingInstrument(boolean holdingInstrument) {

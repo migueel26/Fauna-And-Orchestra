@@ -60,6 +60,7 @@
   "item.faunaandorchestra.nature_fumes": "Humo de la naturaleza",
   "item.faunaandorchestra.badgrass_meal": "Polvo de hierbajo",
   "item.faunaandorchestra.extract_of_living_music": "Extracto de música viva",
+  "item.faunaandorchestra.everfruit": "Frutaeterna",
 
   "item.faunaandorchestra.prop_case": "Neceser",
   "item.faunaandorchestra_clothing.desc": "Ropa para Animales",
@@ -415,6 +416,8 @@
   "symphonia.category.discordance.desc": "La $(thing)Discordia$() puede que sea la rama más peligrosa de la $(music)melomancia$(). Aún siendo de fácil obtención, intentar contenerla y usarla es una tarea peligrosa a la vez que provechosa. Tienes que tener $(o)cuidado$(): podrías perder tu casa, tu vida, y todo tu alrededor. $(careful)Estás avisado$().",
   "symphonia.category.biophilia": "Melomancia: Biofilia",
   "symphonia.category.biophilia.desc": "Las maravillas de la $(thing)Biofilia$() pueden dejarte sin aliento. La mayor lección es que $(o)vida y música$() son una en sí y por sí, disciplinas entrelazadas que pueden volver tus $(music)habilidades melománticas$() a un nivel superior. Te aviso que por cada vida creada otra es $(o)dañada$().",
+  "symphonia.category.natural_recipes": "Recetas Naturales",
+  "symphonia.category.natural_recipes.desc": "Para comprender la $(o)naturaleza$() de nuestro mundo, necesitarás aprender cómo $(o)conectar$() con él. Mediante las $(thing)Recetas Naturales$() podrás conectar con las criaturas, descubrir su mundo y, finalmente, dominar el herbalismo.",
 
   "symphonia.entry.welcome": "Intro a la Musicalidad",
   "symphonia.page.welcome0": "$(o)¡Bienvenido a nuestro mundo musical!$() Da igual si encontraste este libro, lo crafteaste o te lo di: ¡este es tu primer paso en lo que será una gran y melódica aventura! Sea tu objetivo darle vida a tu casa con una orquesta, o volverte un maestro de las $(o)$(music)artes melománticas$(), no importa: esta es tu guía.",

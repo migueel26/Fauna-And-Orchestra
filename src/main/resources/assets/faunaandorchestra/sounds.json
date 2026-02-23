@@ -379,6 +379,12 @@
       "faunaandorchestra:sfx/gong"
     ]
   },
+  "wow": {
+    "subtitles": "sounds.faunaandorchestra.wow",
+    "sounds": [
+      "faunaandorchestra:sfx/wow"
+    ]
+  },
   "singing_sproutling_sound": {
     "subtitles": "sounds.faunaandorchestra.singing_sproutling_sound",
     "sounds": [

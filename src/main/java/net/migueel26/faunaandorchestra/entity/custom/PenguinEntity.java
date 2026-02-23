@@ -1,5 +1,6 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
+import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.entity.goals.AlertWhenAttackedGoal;
 import net.migueel26.faunaandorchestra.entity.goals.MusicalEntityPlayingInstrumentGoal;
 import net.migueel26.faunaandorchestra.item.ModItems;
@@ -12,10 +13,10 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.world.Containers;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
@@ -25,6 +26,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.jetbrains.annotations.Nullable;
@@ -32,6 +34,7 @@ import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.*;
+import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class PenguinEntity extends MusicalEntity {
@@ -45,6 +48,7 @@ public class PenguinEntity extends MusicalEntity {
     protected static final RawAnimation PLAYING_PROPELLER_HAT = RawAnimation.begin().thenPlay("playing_propeller_hat");
     protected static final RawAnimation PROPEL = RawAnimation.begin().thenPlay("propel");
     private static final EntityDataAccessor<Boolean> IS_RUNNING = SynchedEntityData.defineId(PenguinEntity.class, EntityDataSerializers.BOOLEAN);
+    public static final int DEFAULT_AGE = -72000;
     private boolean isRunning = false;
 
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
@@ -152,6 +156,12 @@ public class PenguinEntity extends MusicalEntity {
     }
 
     @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+        this.setAge(DEFAULT_AGE);
+        return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
+    }
+
+    @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(IS_RUNNING, false);
@@ -163,6 +173,32 @@ public class PenguinEntity extends MusicalEntity {
             this.isRunning = entityData.get(IS_RUNNING);
         }
         super.onSyncedDataUpdated(key);
+    }
+
+    @Override
+    public float getAgeScale() {
+        return 1.0f;
+    }
+
+    @Override
+    protected void ageBoundaryReached() {
+        if (!this.level().isClientSide() && getAge() >= 0) {
+            EmperorPenguinEntity adult = this.convertTo(ModEntities.EMPEROR_PENGUIN.get(), true);
+
+            if (adult != null) {
+                this.level().levelEvent(1505, this.blockPosition(), 0);
+
+                if (adult.getHat().equals(ModItems.PROPELLER_HAT.get())) {
+                    adult.inventory.setStackInSlot(0, ItemStack.EMPTY);
+                    this.spawnAtLocation(ModItems.PROPELLER_HAT, 1);
+                }
+            }
+        }
+    }
+
+    @Override
+    public float getVoicePitch() {
+        return (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F;
     }
 
     @Nullable

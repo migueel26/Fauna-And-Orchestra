@@ -27,6 +27,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.IEventBus;
@@ -175,6 +176,8 @@ public class ModItems {
             () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> BADGRASS_MEAL = ITEMS.register("badgrass_meal",
             () -> new BadgrassMealItem(new Item.Properties()));
+    public static final DeferredItem<Item> EVERFRUIT = ITEMS.register("everfruit",
+            () -> new EverfruitItem(new Item.Properties().rarity(Rarity.RARE).food(Foods.GOLDEN_APPLE)));
 
     public static final DeferredItem<Item> PROP_CASE = ITEMS.register("prop_case",
             () -> new Item(new Item.Properties().stacksTo(1)) {

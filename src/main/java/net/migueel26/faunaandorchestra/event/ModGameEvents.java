@@ -102,7 +102,7 @@ public class ModGameEvents {
 
     @SubscribeEvent
     public static void assignMusicality(FinalizeSpawnEvent event) {
-        if (event.getEntity() instanceof MusicalEntity musicalEntity) {
+        if (event.getEntity() instanceof MusicalEntity musicalEntity && !musicalEntity.isBaby()) {
             musicalityIndex++;
             if (musicalityIndex == 3) {
                 musicalityIndex = 0;
