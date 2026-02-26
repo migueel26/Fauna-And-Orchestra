@@ -1,0 +1,84 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.floating_blossom",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 2,
+				"visible_bounds_height": 1.5,
+				"visible_bounds_offset": [0, 0.25, 0]
+			},
+			"bones": [
+				{
+					"name": "floating_blossom",
+					"pivot": [0, 11, 0],
+					"rotation": [180, 0, 0],
+					"cubes": [
+						{
+							"origin": [-5.6, 8.72, -5.6],
+							"size": [11.2, 0, 11.2],
+							"uv": {
+								"down": {"uv": [31, 15], "uv_size": [-14, -14]}
+							}
+						},
+						{"origin": [-4, 8.75, -4], "size": [8, 5, 8], "uv": [0, 17]},
+						{"origin": [-1, 13.75, -1], "size": [4, 3, 4], "uv": [0, 31]},
+						{"origin": [-3, 13.75, -3], "size": [5, 2, 5], "uv": [17, 31]},
+						{
+							"origin": [-3, 14.75, 0],
+							"size": [6, 6, 0],
+							"uv": {
+								"south": {"uv": [0, 39], "uv_size": [6, 6]}
+							}
+						}
+					]
+				},
+				{
+					"name": "flower",
+					"parent": "floating_blossom",
+					"pivot": [-0.1, 8.8, 0],
+					"cubes": [
+						{
+							"origin": [-6.4, 8.56, -12.8],
+							"size": [12.8, 0, 12.8],
+							"pivot": [6.4, 8.8, 0],
+							"rotation": [22.5, 0, 0],
+							"uv": {
+								"down": {"uv": [16, 0], "uv_size": [-16, 16]}
+							}
+						},
+						{
+							"origin": [0, 8.56, -6.4],
+							"size": [12.8, 0, 12.8],
+							"pivot": [0, 8.8, -6.4],
+							"rotation": [0, 0, 22.5],
+							"uv": {
+								"down": {"uv": [16, 0], "uv_size": [-16, 16], "uv_rotation": 90}
+							}
+						},
+						{
+							"origin": [-6.4, 8.56, 0],
+							"size": [12.8, 0, 12.8],
+							"pivot": [6.4, 8.8, 0],
+							"rotation": [-22.5, 0, 0],
+							"uv": {
+								"down": {"uv": [0, 16], "uv_size": [16, -16]}
+							}
+						},
+						{
+							"origin": [-12.8, 8.56, -6.4],
+							"size": [12.8, 0, 12.8],
+							"pivot": [0, 8.8, -6.4],
+							"rotation": [0, 0, -22.5],
+							"uv": {
+								"down": {"uv": [16, 0], "uv_size": [-16, 16], "uv_rotation": 270}
+							}
+						}
+					]
+				}
+			]
+		}
+	]
+}

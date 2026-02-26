@@ -1,4 +1,4 @@
-package net.migueel26.faunaandorchestra.entity.custom.decorative;
+package net.migueel26.faunaandorchestra.entity.custom.misc;
 
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.minecraft.core.particles.ParticleTypes;

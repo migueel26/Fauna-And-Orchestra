@@ -36,7 +36,7 @@ public class BadgrassMealItem extends Item {
                 }
 
                 context.getPlayer().gameEvent(GameEvent.ITEM_INTERACT_FINISH);
-                level.levelEvent(1505, pos, 0);
+                level.levelEvent(1505, pos, 15);
             }
             return InteractionResult.sidedSuccess(level.isClientSide);
         }

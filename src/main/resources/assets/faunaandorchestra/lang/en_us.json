@@ -61,6 +61,7 @@
   "item.faunaandorchestra.badgrass_meal": "Badgrass Meal",
   "item.faunaandorchestra.extract_of_living_music": "Extract of Living Music",
   "item.faunaandorchestra.everfruit": "Everfruit",
+  "item.faunaandorchestra.floating_blossom": "Floating Blossom",
 
   "item.faunaandorchestra.prop_case": "Prop Case",
   "item.faunaandorchestra_clothing.desc": "Clothing Item",
@@ -245,6 +246,7 @@
   "entity.faunaandorchestra.the_great_composer": "Tiego, the Great Composer",
   "entity.faunaandorchestra.the_great_composer_canon": "Canon of the Great Composer",
   "entity.faunaandorchestra.player_canon": "Player Canon",
+  "entity.faunaandorchestra.floating_blossom": "Floating Blossom",
   "entity.faunaandorchestra.music_note_projectile": "Music Note Projectile",
   "entity.faunaandorchestra.phantom_note_projectile": "Phantom Note Projectile",
 

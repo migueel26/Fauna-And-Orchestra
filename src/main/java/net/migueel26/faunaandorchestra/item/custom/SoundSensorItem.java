@@ -2,10 +2,9 @@ package net.migueel26.faunaandorchestra.item.custom;
 
 import com.mojang.datafixers.util.Pair;
 import net.migueel26.faunaandorchestra.client.item.SoundSensorItemRenderer;
-import net.migueel26.faunaandorchestra.client.item.VoiceVesselItemRenderer;
 import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.entity.custom.MusicalEntity;
-import net.migueel26.faunaandorchestra.entity.custom.projectile.SensorNote;
+import net.migueel26.faunaandorchestra.entity.custom.misc.SensorNote;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.util.SensorManager;
 import net.minecraft.ChatFormatting;

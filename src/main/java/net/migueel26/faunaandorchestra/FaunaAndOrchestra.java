@@ -7,6 +7,7 @@ import net.migueel26.faunaandorchestra.client.block.*;
 import net.migueel26.faunaandorchestra.client.entity.*;
 import net.migueel26.faunaandorchestra.client.entity.boss.ComposerCanonRenderer;
 import net.migueel26.faunaandorchestra.client.entity.boss.TheGreatComposerRenderer;
+import net.migueel26.faunaandorchestra.client.entity.misc.FloatingBlossomRenderer;
 import net.migueel26.faunaandorchestra.client.entity.projectile.MusicNoteProjectileRenderer;
 import net.migueel26.faunaandorchestra.client.entity.projectile.PhantomNoteProjectileRenderer;
 import net.migueel26.faunaandorchestra.client.entity.projectile.SensorNoteRenderer;
@@ -138,6 +139,7 @@ public class FaunaAndOrchestra {
             EntityRenderers.register(ModEntities.THROWN_BOOGIE_BOMB.get(), ThrownItemRenderer::new);
             EntityRenderers.register(ModEntities.THROWN_DISCORD_BOMB.get(), ThrownItemRenderer::new);
             EntityRenderers.register(ModEntities.SENSOR_NOTE.get(), SensorNoteRenderer::new);
+            EntityRenderers.register(ModEntities.FLOATING_BLOSSOM.get(), FloatingBlossomRenderer::new);
         }
 
         @SubscribeEvent

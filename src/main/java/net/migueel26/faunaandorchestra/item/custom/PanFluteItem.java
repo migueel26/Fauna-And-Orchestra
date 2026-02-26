@@ -2,7 +2,7 @@ package net.migueel26.faunaandorchestra.item.custom;
 
 import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.entity.custom.SproutlingEntity;
-import net.migueel26.faunaandorchestra.entity.custom.decorative.HealthFluteEntity;
+import net.migueel26.faunaandorchestra.entity.custom.misc.HealthFluteEntity;
 import net.migueel26.faunaandorchestra.entity.custom.projectile.PhantomNoteProjectileEntity;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.sound.ModSounds;

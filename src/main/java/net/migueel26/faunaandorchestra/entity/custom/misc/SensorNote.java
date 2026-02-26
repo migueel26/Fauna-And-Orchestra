@@ -1,8 +1,6 @@
-package net.migueel26.faunaandorchestra.entity.custom.projectile;
+package net.migueel26.faunaandorchestra.entity.custom.misc;
 
 import net.migueel26.faunaandorchestra.entity.ModEntities;
-import net.migueel26.faunaandorchestra.entity.custom.WanderingNoteEntity;
-import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -15,11 +13,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.projectile.*;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 

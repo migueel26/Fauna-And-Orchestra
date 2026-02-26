@@ -61,6 +61,7 @@
   "item.faunaandorchestra.badgrass_meal": "Polvo de hierbajo",
   "item.faunaandorchestra.extract_of_living_music": "Extracto de música viva",
   "item.faunaandorchestra.everfruit": "Frutaeterna",
+  "item.faunaandorchestra.floating_blossom": "Florecer flotante",
 
   "item.faunaandorchestra.prop_case": "Neceser",
   "item.faunaandorchestra_clothing.desc": "Ropa para Animales",
@@ -244,6 +245,7 @@
   "entity.faunaandorchestra.the_great_composer": "Tiego, el Gran Compositor",
   "entity.faunaandorchestra.the_great_composer_canon": "Canon del Gran Compositor",
   "entity.faunaandorchestra.player_canon": "Canon de Jugador",
+  "entity.faunaandorchestra.floating_blossom": "Florecer flotante",
   "entity.faunaandorchestra.music_note_projectile": "Proyectil de Nota Musical",
   "entity.faunaandorchestra.phantom_note_projectile": "Proyectil Fantasma de Nota Musical",
 

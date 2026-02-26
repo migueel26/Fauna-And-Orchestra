@@ -1,6 +1,7 @@
 package net.migueel26.faunaandorchestra.item.custom.clothing;
 
 import net.migueel26.faunaandorchestra.client.item.SantaHatItemRenderer;
+import net.migueel26.faunaandorchestra.item.custom.AbstractGeoItem;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -16,32 +17,15 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public class CosmeticItem extends Item implements GeoItem {
-    private final Supplier<? extends GeoItemRenderer<?>> rendererFactory;
+public class CosmeticItem extends AbstractGeoItem {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     public CosmeticItem(Properties properties, Supplier<? extends GeoItemRenderer<?>> renderer) {
-        super(properties);
-        this.rendererFactory = renderer;
+        super(properties, renderer);
     }
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
 
-    }
-
-    @Override
-    public void createGeoRenderer(Consumer<GeoRenderProvider> consumer) {
-        consumer.accept(new GeoRenderProvider() {
-            private GeoItemRenderer<?> renderer;
-
-            @Override
-            public BlockEntityWithoutLevelRenderer getGeoItemRenderer() {
-                if (renderer == null) {
-                    renderer = rendererFactory.get();
-                }
-                return renderer;
-            }
-        });
     }
 
     @Override
