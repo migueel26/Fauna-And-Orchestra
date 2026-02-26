@@ -64,6 +64,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.BADGRASS_MEAL);
                         output.accept(ModItems.EVERFRUIT);
                         output.accept(ModItems.FLOATING_BLOSSOM);
+                        output.accept(ModItems.PERFUMED_BAMBOO);
                         output.accept(ModItems.SHARP_BAMBOO);
                         output.accept(ModItems.BACH_AIR_SHEET_MUSIC);
                         output.accept(ModItems.GREENSLEEVES_SHEET_MUSIC);

@@ -316,6 +316,23 @@ public abstract class MusicalEntity extends TamableAnimal implements GeoEntity {
         return mob;
     }
 
+    protected MusicalEntity createBaby(EntityType<? extends MusicalEntity> entityType, MusicalEntity parent) {
+        MusicalEntity baby = entityType.create(level());
+
+        if (baby != null) {
+            boolean isMusical = this.isMusical();
+            boolean isParentMusical = parent.isMusical();
+
+            if (isMusical != isParentMusical) {
+                baby.setMusical(random.nextBoolean());
+            } else {
+                baby.setMusical(isMusical);
+            }
+        }
+
+        return baby;
+    }
+
     public void setHoldingInstrument(boolean holdingInstrument) {
         this.entityData.set(HOLDING_INSTRUMENT, holdingInstrument);
     }

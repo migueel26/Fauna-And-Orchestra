@@ -63,7 +63,7 @@ public class AnimalEatGoal extends Goal {
 
         List<ItemEntity> list = this.mob.level().getEntitiesOfClass(ItemEntity.class,
                 this.mob.getBoundingBox().inflate(radius),
-                item -> item.getItem().is(food) && item.onGround()); // onGround opcional, evita que persigan items volando
+                item -> item.getItem().is(food) && item.onGround());
 
         if (list.isEmpty()) {
             return false;

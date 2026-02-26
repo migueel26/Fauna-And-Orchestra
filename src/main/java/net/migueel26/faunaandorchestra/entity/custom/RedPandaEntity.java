@@ -1,5 +1,6 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
+import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.entity.goals.AnimalEatGoal;
 import net.migueel26.faunaandorchestra.entity.goals.MusicalEntityPlayingInstrumentGoal;
 import net.migueel26.faunaandorchestra.entity.goals.RedPandaRandomChangeStanceGoal;
@@ -28,6 +29,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -80,8 +82,10 @@ public class RedPandaEntity extends MusicalEntity {
         this.goalSelector.addGoal(1, new MusicalEntityPlayingInstrumentGoal(this));
         this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(3, new RedPandaEatingBambooGoal(this));
+        // BreedGoal(3)
         this.goalSelector.addGoal(4, new RedPandaLookAtPlayerGoal(this, Player.class, 6.0F));
         // RandomStrollGoal(5)
+        this.goalSelector.addGoal(4, new AnimalEatGoal(this, ModItems.PERFUMED_BAMBOO.get(), this::onEat));
         this.goalSelector.addGoal(4, new AnimalEatGoal(this, Items.BAMBOO, this::onEat));
         // RandomLookAroundGoal(6)
         this.goalSelector.addGoal(6, new RedPandaRandomChangeStanceGoal(this, 0.05F));
@@ -122,6 +126,13 @@ public class RedPandaEntity extends MusicalEntity {
                 redPanda.standUp(false);
                 redPanda.setEating(false);
                 super.start();
+            }
+        });
+
+        this.goalSelector.addGoal(3, new BreedGoal(this, 1.0f) {
+            @Override
+            public boolean canUse() {
+                return super.canUse() && !((RedPandaEntity) animal).isEating() && !((RedPandaEntity) animal).isHoldingInstrument();
             }
         });
 
@@ -185,6 +196,11 @@ public class RedPandaEntity extends MusicalEntity {
 
         this.setEating(true);
 
+        if (stack.is(ModItems.PERFUMED_BAMBOO)) {
+            Player owner = targetEntity.getOwner() instanceof Player player ? player : null;
+            this.setInLove(owner);
+        }
+
         this.level().playSound(null, this.blockPosition(), SoundEvents.ITEM_PICKUP, SoundSource.NEUTRAL);
 
         stack.shrink(1);
@@ -195,14 +211,25 @@ public class RedPandaEntity extends MusicalEntity {
 
     @Override
     public boolean isFood(ItemStack stack) {
-        return stack.is(Items.BAMBOO);
+        return stack.is(Items.BAMBOO) || stack.is(ModItems.PERFUMED_BAMBOO);
     }
 
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
-        return null;
+        return createBaby(ModEntities.RED_PANDA.get(), (RedPandaEntity) otherParent);
     }
+
+    @Override
+    public float getAgeScale() {
+        return this.isBaby() ? 0.7F : 1.0F;
+    }
+
+
+    public EntityDimensions getDefaultDimensions(Pose pose) {
+        return this.isBaby() ? ModEntities.RED_PANDA.get().getDimensions().scale(0.7f) : super.getDefaultDimensions(pose);
+    }
+
 
     public void standUp(boolean flag) {
         if (!isStanding() && flag) triggerAnim("red_panda_controller", "stand_up_animation");
@@ -345,6 +372,11 @@ public class RedPandaEntity extends MusicalEntity {
             redPanda.setEating(false);
             redPanda.spawnAtLocation(ModItems.SHARP_BAMBOO, 1);
             redPanda.level().playSound(null, redPanda.blockPosition(), SoundEvents.ITEM_PICKUP, SoundSource.NEUTRAL, 1.0F, 1.0F);
+
+            if (redPanda.isInLove()) {
+                redPanda.setInLoveTime(600);
+            }
+
             super.stop();
         }
 

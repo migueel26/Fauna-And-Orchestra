@@ -182,6 +182,8 @@ public class ModItems {
             () -> new FloatingBlossomItem(new Item.Properties()));
     public static final DeferredItem<Item> SHARP_BAMBOO = ITEMS.register("sharp_bamboo",
             () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> PERFUMED_BAMBOO = ITEMS.register("perfumed_bamboo",
+            () -> new Item(new Item.Properties()));
 
     public static final DeferredItem<Item> PROP_CASE = ITEMS.register("prop_case",
             () -> new Item(new Item.Properties().stacksTo(1)) {
