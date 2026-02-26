@@ -180,6 +180,8 @@ public class ModItems {
             () -> new EverfruitItem(new Item.Properties().rarity(Rarity.RARE).food(Foods.GOLDEN_APPLE)));
     public static final DeferredItem<Item> FLOATING_BLOSSOM = ITEMS.register("floating_blossom",
             () -> new FloatingBlossomItem(new Item.Properties()));
+    public static final DeferredItem<Item> SHARP_BAMBOO = ITEMS.register("sharp_bamboo",
+            () -> new Item(new Item.Properties()));
 
     public static final DeferredItem<Item> PROP_CASE = ITEMS.register("prop_case",
             () -> new Item(new Item.Properties().stacksTo(1)) {

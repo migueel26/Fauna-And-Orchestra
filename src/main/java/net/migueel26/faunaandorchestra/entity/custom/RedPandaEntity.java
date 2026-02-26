@@ -1,10 +1,13 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
+import net.migueel26.faunaandorchestra.entity.goals.AnimalEatGoal;
 import net.migueel26.faunaandorchestra.entity.goals.MusicalEntityPlayingInstrumentGoal;
 import net.migueel26.faunaandorchestra.entity.goals.RedPandaRandomChangeStanceGoal;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ItemParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -12,6 +15,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -19,12 +23,14 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoAnimatable;
@@ -46,13 +52,16 @@ public class RedPandaEntity extends MusicalEntity {
     protected static final RawAnimation PLAYING = RawAnimation.begin().thenPlay("playing");
     protected static final RawAnimation PLAYING_IMAGINAL_DISK = RawAnimation.begin().thenPlay("playing_imaginal_disk");
     protected static final RawAnimation INSERT_DISK = RawAnimation.begin().thenPlay("insert_disk");
+    protected static final RawAnimation EAT = RawAnimation.begin().thenPlay("eat");
     protected static final RawAnimation IDLE_KEYTAR = RawAnimation.begin().thenPlay("holding_keytar");
     private static final EntityDataAccessor<Boolean> IS_STANDING = SynchedEntityData.defineId(RedPandaEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> IS_EATING = SynchedEntityData.defineId(RedPandaEntity.class, EntityDataSerializers.BOOLEAN);
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
     private final AnimationController<RedPandaEntity> redPandaController = new AnimationController<>(this, "red_panda_controller", 5, this::redPandaState)
             .triggerableAnim("stand_up_animation", STAND_UP)
             .triggerableAnim("sit_down_animation", SIT_DOWN)
-            .triggerableAnim("insert_disk", INSERT_DISK);
+            .triggerableAnim("insert_disk", INSERT_DISK)
+            .triggerableAnim("eat", EAT);
     public RedPandaEntity(EntityType<? extends TamableAnimal> entityType, Level level) {
         super(entityType, level);
 
@@ -66,13 +75,14 @@ public class RedPandaEntity extends MusicalEntity {
 
     @Override
     protected void registerGoals() {
-        //TODO: ROAR
         this.goalSelector.addGoal(0, new FloatGoal(this));
         // TamableAnimalPanicGoal(0)
         this.goalSelector.addGoal(1, new MusicalEntityPlayingInstrumentGoal(this));
         this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
+        this.goalSelector.addGoal(3, new RedPandaEatingBambooGoal(this));
         this.goalSelector.addGoal(4, new RedPandaLookAtPlayerGoal(this, Player.class, 6.0F));
         // RandomStrollGoal(5)
+        this.goalSelector.addGoal(4, new AnimalEatGoal(this, Items.BAMBOO, this::onEat));
         // RandomLookAroundGoal(6)
         this.goalSelector.addGoal(6, new RedPandaRandomChangeStanceGoal(this, 0.05F));
     }
@@ -94,6 +104,8 @@ public class RedPandaEntity extends MusicalEntity {
 
         } else if (isHoldingInstrument()) {
             state.getController().setAnimation(IDLE_KEYTAR);
+        } else if (isEating()) {
+            state.getController().setAnimation(EAT);
         } else {
             state.getController().setAnimation(
                     isStanding() ? IDLE_STANDING : IDLE);
@@ -108,6 +120,7 @@ public class RedPandaEntity extends MusicalEntity {
             @Override
             public void start() {
                 redPanda.standUp(false);
+                redPanda.setEating(false);
                 super.start();
             }
         });
@@ -142,6 +155,7 @@ public class RedPandaEntity extends MusicalEntity {
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(IS_STANDING, false);
+        builder.define(IS_EATING, false);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -154,7 +168,29 @@ public class RedPandaEntity extends MusicalEntity {
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        standUp(isHoldingInstrument());
+        if (compound.contains("Eating")) {
+            this.setEating(compound.getBoolean("Eating"));
+        }
+        this.standUp(isHoldingInstrument());
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putBoolean("Eating", isEating());
+    }
+
+    public void onEat(ItemEntity targetEntity) {
+        ItemStack stack = targetEntity.getItem();
+
+        this.setEating(true);
+
+        this.level().playSound(null, this.blockPosition(), SoundEvents.ITEM_PICKUP, SoundSource.NEUTRAL);
+
+        stack.shrink(1);
+        if (stack.isEmpty()) {
+            targetEntity.discard();
+        }
     }
 
     @Override
@@ -223,6 +259,14 @@ public class RedPandaEntity extends MusicalEntity {
         return isPlayingInstrument() ? null : SoundEvents.PANDA_AMBIENT;
     }
 
+    public void setEating(boolean eating) {
+        this.entityData.set(IS_EATING, eating);
+    }
+
+    public boolean isEating() {
+        return entityData.get(IS_EATING);
+    }
+
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(redPandaController);
@@ -271,4 +315,65 @@ public class RedPandaEntity extends MusicalEntity {
         }
     }
 
+    private class RedPandaEatingBambooGoal extends Goal {
+        private final int MAX_TICKS = 400;
+        private final RedPandaEntity redPanda;
+        private int ticksEating;
+
+        public RedPandaEatingBambooGoal(RedPandaEntity redPanda) {
+            this.redPanda = redPanda;
+        }
+
+        @Override
+        public boolean canUse() {
+            return redPanda.isEating() && !redPanda.isDeadOrDying();
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return redPanda.isEating() && !redPanda.isDeadOrDying() && ticksEating < MAX_TICKS;
+        }
+
+        @Override
+        public void start() {
+            this.ticksEating = 0;
+            super.start();
+        }
+
+        @Override
+        public void stop() {
+            redPanda.setEating(false);
+            redPanda.spawnAtLocation(ModItems.SHARP_BAMBOO, 1);
+            redPanda.level().playSound(null, redPanda.blockPosition(), SoundEvents.ITEM_PICKUP, SoundSource.NEUTRAL, 1.0F, 1.0F);
+            super.stop();
+        }
+
+        @Override
+        public boolean requiresUpdateEveryTick() {
+            return true;
+        }
+
+        @Override
+        public void tick() {
+            ticksEating++;
+            redPanda.getNavigation().stop();
+
+            int cycle = ticksEating % 40;
+
+            if (cycle < 20 && cycle % 4 == 0) {
+                redPanda.playSound(SoundEvents.PANDA_EAT, 1.0F, 0.9F + redPanda.getRandom().nextFloat() * 0.2F);
+
+                if (redPanda.level() instanceof ServerLevel serverLevel) {
+                    Vec3 look = redPanda.getLookAngle();
+                    double x = redPanda.getX() + look.x * 0.5;
+                    double y = redPanda.getEyeY() - 0.15;
+                    double z = redPanda.getZ() + look.z * 0.5;
+
+                    serverLevel.sendParticles(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(Items.BAMBOO)),
+                            x, y, z, 3, 0.1, 0.1, 0.1, 0.05
+                    );
+                }
+            }
+        }
+    }
 }

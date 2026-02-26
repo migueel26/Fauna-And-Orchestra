@@ -22,11 +22,13 @@ import net.minecraft.world.item.ItemStack;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class AnimalEatGoal extends Goal {
     // Partially inspired by Alex's Mobs CreatureAITargetItems
     protected static final int DEFAULT_RADIUS = 10;
     protected static final int DEFAULT_WAIT_TIME = 10;
+    protected final Consumer<ItemEntity> onEat;
     protected final Animal mob;
     protected final int radius;
     protected ItemEntity targetEntity;
@@ -34,14 +36,15 @@ public class AnimalEatGoal extends Goal {
     protected int waitTime;
     protected final Item food;
     protected int pathRecalcDelay;
-    public AnimalEatGoal(Animal mob, Item food) {
-        this(mob, food, DEFAULT_RADIUS);
+    public AnimalEatGoal(Animal mob, Item food, Consumer<ItemEntity> onEat) {
+        this(mob, food, DEFAULT_RADIUS, onEat);
     }
 
-    public AnimalEatGoal(Animal mob, Item food, int radius) {
+    public AnimalEatGoal(Animal mob, Item food, int radius, Consumer<ItemEntity> onEat) {
         this.mob = mob;
         this.food = food;
         this.radius = radius;
+        this.onEat = onEat;
         this.setFlags(EnumSet.of(Goal.Flag.MOVE));
     }
 
@@ -101,29 +104,9 @@ public class AnimalEatGoal extends Goal {
 
         double distance = this.mob.distanceToSqr(this.targetEntity);
         if (distance < 2.0D || (distance < 4.0D && this.targetEntity.getBoundingBox().intersects(this.mob.getBoundingBox()))) {
-            onEat();
+            onEat.accept(this.targetEntity);
+            stop();
         }
-    }
-
-    protected void onEat() {
-        Player owner = targetEntity.getOwner() instanceof Player player ? player : null;
-        ItemStack stack = this.targetEntity.getItem();
-
-        mob.setInLove(owner);
-
-        mob.level().playSound(null, mob.blockPosition(), SoundEvents.CAMEL_EAT, SoundSource.NEUTRAL);
-        if (mob.level() instanceof ServerLevel serverLevel) {
-            serverLevel.sendParticles(new ItemParticleOption(ParticleTypes.ITEM, stack),
-                    targetEntity.getX(), targetEntity.getY(), targetEntity.getZ(),
-                    20, 0.05, 0.05, 0.05, 0.1);
-        }
-
-        stack.shrink(1);
-        if (stack.isEmpty()) {
-            this.targetEntity.discard();
-        }
-
-        stop();
     }
 
     @Override

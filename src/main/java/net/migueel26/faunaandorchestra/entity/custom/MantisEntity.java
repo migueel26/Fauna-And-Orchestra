@@ -11,6 +11,8 @@ import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.core.particles.ItemParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -18,6 +20,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.RandomSource;
@@ -102,7 +105,7 @@ public class MantisEntity extends MusicalEntity implements NeutralMob {
         // MeleeAttackGoal (5)
         this.goalSelector.addGoal(5, new RandomStrollGoal(this, 1.0));
         // LookAtPlayerGoal (6)
-        this.goalSelector.addGoal(7, new AnimalEatGoal(this, ModItems.MANTIS_FOOD.asItem()));
+        this.goalSelector.addGoal(7, new AnimalEatGoal(this, ModItems.MANTIS_FOOD.asItem(), this::onEat));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(8, new ResetUniversalAngerTargetGoal<>(this, true));
     }
@@ -242,6 +245,25 @@ public class MantisEntity extends MusicalEntity implements NeutralMob {
 
     public void attack() {
         triggerAnim("mantis_controller", "attack");
+    }
+
+    public void onEat(ItemEntity targetEntity) {
+        Player owner = targetEntity.getOwner() instanceof Player player ? player : null;
+        ItemStack stack = targetEntity.getItem();
+
+        this.setInLove(owner);
+
+        this.level().playSound(null, this.blockPosition(), SoundEvents.CAMEL_EAT, SoundSource.NEUTRAL);
+        if (this.level() instanceof ServerLevel serverLevel) {
+            serverLevel.sendParticles(new ItemParticleOption(ParticleTypes.ITEM, stack),
+                    targetEntity.getX(), targetEntity.getY(), targetEntity.getZ(),
+                    20, 0.05, 0.05, 0.05, 0.1);
+        }
+
+        stack.shrink(1);
+        if (stack.isEmpty()) {
+            targetEntity.discard();
+        }
     }
 
     //////////////////// NEUTRAL MOB METHODS -> ANGER ////////////////////////////////////

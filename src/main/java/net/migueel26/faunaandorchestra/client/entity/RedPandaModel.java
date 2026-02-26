@@ -40,7 +40,7 @@ public class RedPandaModel extends GeoModel<RedPandaEntity> {
         GeoBone head = getAnimationProcessor().getBone("head");
 
 
-        if (head != null && !redPanda.isPlayingInstrument() && !animationState.isMoving() && redPanda.isCurrentlyNotChangingStances()) {
+        if (head != null && !redPanda.isPlayingInstrument() && !animationState.isMoving() && redPanda.isCurrentlyNotChangingStances() && !redPanda.isEating()) {
             EntityModelData entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);;
 
             if (redPanda.isHoldingInstrument() || redPanda.isStanding()) {
