@@ -182,8 +182,7 @@ public class ModItems {
             () -> new FloatingBlossomItem(new Item.Properties()));
     public static final DeferredItem<Item> SHARP_BAMBOO = ITEMS.register("sharp_bamboo",
             () -> new Item(new Item.Properties()));
-    public static final DeferredItem<Item> PERFUMED_BAMBOO = ITEMS.register("perfumed_bamboo",
-            () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> PERFUMED_BAMBOO = createRegularDescriptionItem("perfumed_bamboo");
 
     public static final DeferredItem<Item> PROP_CASE = ITEMS.register("prop_case",
             () -> new Item(new Item.Properties().stacksTo(1)) {
@@ -294,6 +293,8 @@ public class ModItems {
             () -> new DiscordNucleiItem(ModBlocks.DISCORD_NUCLEI.get(), new Item.Properties()));
     public static final DeferredItem<Item> MOTHER_STATUE_ITEM = ITEMS.register("mother_statue_item",
             () -> new GeoBlockItem(ModBlocks.MOTHER_STATUE.get(), MotherStatueItemRenderer::new, new Item.Properties()));
+    public static final DeferredItem<Item> BAMBOO_TRAP_ITEM = ITEMS.register("bamboo_trap_item",
+            () -> new GeoBlockItem(ModBlocks.BAMBOO_TRAP.get(), BambooTrapItemRenderer::new, new Item.Properties()));
 
     // MISC
     public static final DeferredItem<Item> VOICE = ITEMS.register("voice",

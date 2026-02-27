@@ -59,9 +59,8 @@ public class SoundSensorItem extends Item implements GeoItem {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
+        ItemStack stack = player.getItemInHand(usedHand);
         if (!level.isClientSide) {
-            ItemStack stack = player.getItemInHand(usedHand);
-
             List<EntityType<?>> entities = SensorManager.getScannableEntities(level);
 
             if (entities.isEmpty()) return InteractionResultHolder.fail(stack);
@@ -126,7 +125,7 @@ public class SoundSensorItem extends Item implements GeoItem {
 
 
         }
-        return super.use(level, player, usedHand);
+        return InteractionResultHolder.fail(stack);
     }
 
     @NotNull

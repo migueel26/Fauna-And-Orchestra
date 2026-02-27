@@ -64,6 +64,7 @@
   "item.faunaandorchestra.floating_blossom": "Florecer flotante",
   "item.faunaandorchestra.sharp_bamboo": "Bambú afilado",
   "item.faunaandorchestra.perfumed_bamboo": "Bambú perfumado",
+  "item.faunaandorchestra.bamboo_trap_item": "Trampa de bambú",
 
   "item.faunaandorchestra.prop_case": "Neceser",
   "item.faunaandorchestra_clothing.desc": "Ropa para Animales",
@@ -122,6 +123,7 @@
   "item.faunaandorchestra.mantis_dagger.desc": "Mantén §eel click derecho§r para cargar una embestida que daña a los enemigos",
   "item.faunaandorchestra.mantis_food.desc": "Suéltala en el suelo para aparear a las orgullosas mantis",
   "item.faunaandorchestra.extract_of_living_music.desc": "Acerca el oído... ¿puedes escucharlo?",
+  "item.faunaandorchestra.perfumed_bamboo.desc": "Este dulce y perfumado bambú apareará a los pandas rojos",
   "item.faunaandorchestra.fortune_cookie_phrase0": "¡Eres el GOAT!",
   "item.faunaandorchestra.fortune_cookie_phrase1": "No soy Nelly, pero tú eres el dilema",
   "item.faunaandorchestra.fortune_cookie_phrase2": "Ama a todo el mundo que te ame",
@@ -166,6 +168,7 @@
   "block.faunaandorchestra.jar_rack": "Cuelgajarras",
   "block.faunaandorchestra.mantis_egg": "Huevo de mantis",
   "block.faunaandorchestra.catchweed": "Amor de hortelano",
+  "block.faunaandorchestra.bamboo_trap": "Trampa de bambú",
 
   "block.faunaandorchestra.tip_case_theft": "¡Esta funda no es tuya! No puedes llevarte el oro",
   "block.faunaandorchestra.tip_case.desc": "Todo el mundo te puede donar, pero sólo tú puedes retirarlo",

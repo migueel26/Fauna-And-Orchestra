@@ -93,6 +93,12 @@ public class ModBlockEntities {
                     ModBlocks.JAR_RACK.get()
             ).build(null));
 
+    public static final Supplier<BlockEntityType<BambooTrapBlockEntity>> BAMBOO_TRAP_BE =
+            BLOCK_ENTITES.register("bamboo_trap_be", () -> BlockEntityType.Builder.of(
+                    BambooTrapBlockEntity::new,
+                    ModBlocks.BAMBOO_TRAP.get()
+            ).build(null));
+
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITES.register(eventBus);
     }

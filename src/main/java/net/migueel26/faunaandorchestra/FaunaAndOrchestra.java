@@ -156,6 +156,7 @@ public class FaunaAndOrchestra {
             event.registerBlockEntityRenderer(ModBlockEntities.MOTHER_STATUE_BE.get(), MotherStatueBlockEntityRenderer::new);
             event.registerBlockEntityRenderer(ModBlockEntities.HANGING_JAR_BE.get(), HangingJarBlockEntityRenderer::new);
             event.registerBlockEntityRenderer(ModBlockEntities.JAR_RACK_BE.get(), JarRackBlockEntityRenderer::new);
+            event.registerBlockEntityRenderer(ModBlockEntities.BAMBOO_TRAP_BE.get(), BambooTrapBlockEntityRenderer::new);
         }
 
         @SubscribeEvent

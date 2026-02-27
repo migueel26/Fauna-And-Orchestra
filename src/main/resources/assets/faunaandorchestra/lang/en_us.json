@@ -64,6 +64,7 @@
   "item.faunaandorchestra.floating_blossom": "Floating Blossom",
   "item.faunaandorchestra.sharp_bamboo": "Sharp Bamboo",
   "item.faunaandorchestra.perfumed_bamboo": "Perfumed Bamboo",
+  "item.faunaandorchestra.bamboo_trap_item": "Bamboo Trap",
 
   "item.faunaandorchestra.prop_case": "Prop Case",
   "item.faunaandorchestra_clothing.desc": "Clothing Item",
@@ -123,6 +124,7 @@
   "item.faunaandorchestra.mantis_dagger.desc": "Hold §eright-click§r to charge a dash that hurts enemies",
   "item.faunaandorchestra.mantis_food.desc": "Drop it to breed the proud mantis tribe",
   "item.faunaandorchestra.extract_of_living_music.desc": "Listen carefully... can you hear that?",
+  "item.faunaandorchestra.perfumed_bamboo.desc": "What a perfume-genius idea to breed red pandas!",
   "item.faunaandorchestra.fortune_cookie_phrase0": "You're GOATED!",
   "item.faunaandorchestra.fortune_cookie_phrase1": "Dream only a dream if work don't follow it",
   "item.faunaandorchestra.fortune_cookie_phrase2": "Nah, but seriously, on a level, you're beautiful",
@@ -167,6 +169,7 @@
   "block.faunaandorchestra.jar_rack": "Jar Rack",
   "block.faunaandorchestra.mantis_egg": "Mantis Egg",
   "block.faunaandorchestra.catchweed": "Catchweed",
+  "block.faunaandorchestra.bamboo_trap": "Bamboo Trap",
 
   "block.faunaandorchestra.tip_case_theft": "This case is not yours! You can't take the gold",
   "block.faunaandorchestra.tip_case.desc": "Everybody can tip you gold, but only you can retrieve it",
