@@ -3,6 +3,8 @@ package net.migueel26.faunaandorchestra.block.custom;
 import com.mojang.serialization.MapCodec;
 import net.migueel26.faunaandorchestra.block.entity.BambooTrapBlockEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -14,6 +16,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
@@ -46,49 +49,35 @@ public class BambooTrapBlock extends HorizontalDirectionalBlock implements Entit
     }
 
     @Override
-    public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity) {
-        if (entity instanceof LivingEntity livingEntity && level.getBlockEntity(pos) instanceof BambooTrapBlockEntity bambooTrap) {
-            if (state.getValue(OPEN)) {
-                bambooTrap.trap();
-                level.setBlock(pos, state.setValue(OPEN, false), 3);
-                level.playSound(null, pos, SoundEvents.WOODEN_TRAPDOOR_CLOSE, SoundSource.BLOCKS, 1.0f, 1.0f);
-                livingEntity.setDeltaMovement(Vec3.ZERO);
-
-                livingEntity.hurt(livingEntity.damageSources().sweetBerryBush(), 4.0f);
-                livingEntity.setDeltaMovement(Vec3.ZERO);
-                Vec3 center = pos.getBottomCenter();
-                livingEntity.teleportTo(center.x, center.y, center.z);
-            }
-            entity.makeStuckInBlock(state, new Vec3(0D, 0.05D, 0D));
-        }
-
-        level.scheduleTick(pos, this, 20);
-    }
-
-    @Override
     protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
         if (entity instanceof LivingEntity livingEntity && level.getBlockEntity(pos) instanceof BambooTrapBlockEntity bambooTrap) {
             if (state.getValue(OPEN)) {
+                Vec3 center = pos.getBottomCenter();
+
                 bambooTrap.trap();
                 level.setBlock(pos, state.setValue(OPEN, false), 3);
                 level.playSound(null, pos, SoundEvents.WOODEN_TRAPDOOR_CLOSE, SoundSource.BLOCKS, 1.0f, 1.0f);
+                if (!level.isClientSide()) {
+                    ((ServerLevel) level).sendParticles(ParticleTypes.CLOUD, center.x, center.y+0.3f, center.z, 10, 0.1, 0.1, 0.1, 0.05);
+                }
                 livingEntity.setDeltaMovement(Vec3.ZERO);
 
                 livingEntity.hurt(livingEntity.damageSources().sweetBerryBush(), 4.0f);
                 livingEntity.setDeltaMovement(Vec3.ZERO);
-                Vec3 center = pos.getBottomCenter();
+
                 livingEntity.teleportTo(center.x, center.y, center.z);
+
+                level.scheduleTick(pos, this, 20);
             }
             entity.makeStuckInBlock(state, new Vec3(0D, 0.05D, 0D));;
         }
-
-        level.scheduleTick(pos, this, 20);
     }
 
     @Override
     protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         if (!state.getValue(OPEN)) {
-            List<LivingEntity> entitiesInside = level.getEntitiesOfClass(LivingEntity.class, new AABB(pos));
+            List<LivingEntity> entitiesInside = level.getEntitiesOfClass(LivingEntity.class,
+                    AABB.ofSize(pos.getBottomCenter(), 0.75f, 0.75f, 0.75f));
 
             if (entitiesInside.isEmpty()) {
                 if (level.getBlockEntity(pos) instanceof BambooTrapBlockEntity bambooTrap) {
@@ -98,6 +87,8 @@ public class BambooTrapBlock extends HorizontalDirectionalBlock implements Entit
 
                 level.playSound(null, pos, SoundEvents.WOODEN_TRAPDOOR_OPEN, SoundSource.BLOCKS, 1.0f, 1.0f);
 
+            } else {
+                level.scheduleTick(pos, this, 10);
             }
         }
         super.tick(state, level, pos, random);
@@ -117,6 +108,13 @@ public class BambooTrapBlock extends HorizontalDirectionalBlock implements Entit
     @Override
     protected RenderShape getRenderShape(BlockState state) {
         return RenderShape.ENTITYBLOCK_ANIMATED;
+    }
+
+    @Nullable
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        Direction direction = context.getHorizontalDirection().getOpposite();
+        return this.defaultBlockState().setValue(FACING, direction);
     }
 
     @Override

@@ -120,7 +120,7 @@ public class FloatingBlossomEntity extends Entity implements GeoEntity {
                         tries++;
                     }
 
-                    while (!level().getBlockState(posToPlace.below()).is(BlockTags.DIRT) && tries <= DIAMETER) {
+                    while (!(level().getBlockState(posToPlace.below()).is(BlockTags.DIRT) && level().getBlockState(posToPlace).isEmpty()) && tries <= DIAMETER) {
                         posToPlace.move(0, -1, 0);
                         tries++;
                     }
