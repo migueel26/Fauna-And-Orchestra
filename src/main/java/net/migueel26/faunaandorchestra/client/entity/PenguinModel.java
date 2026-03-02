@@ -45,7 +45,7 @@ public class PenguinModel extends GeoModel<PenguinEntity> {
     public void setCustomAnimations(PenguinEntity penguin, long instanceId, AnimationState<PenguinEntity> animationState) {
         GeoBone head = getAnimationProcessor().getBone("head");
 
-        if (head != null && !penguin.isPlayingInstrument() && !animationState.isMoving()) {
+        if (head != null && !penguin.isPlayingInstrument() && !animationState.isMoving() && !penguin.isBusy()) {
             EntityModelData entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
 
             head.setRotX(entityData.headPitch() * Mth.DEG_TO_RAD);

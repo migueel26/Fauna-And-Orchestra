@@ -8,6 +8,8 @@ import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.item.custom.*;
 import net.migueel26.faunaandorchestra.item.custom.InstrumentItem;
+import net.migueel26.faunaandorchestra.item.custom.armor.FluffyBootsItem;
+import net.migueel26.faunaandorchestra.item.custom.armor.ModArmorMaterials;
 import net.migueel26.faunaandorchestra.item.custom.clothing.CosmeticItem;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.migueel26.faunaandorchestra.util.ModTags;
@@ -183,6 +185,11 @@ public class ModItems {
     public static final DeferredItem<Item> SHARP_BAMBOO = ITEMS.register("sharp_bamboo",
             () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> PERFUMED_BAMBOO = createRegularDescriptionItem("perfumed_bamboo");
+    public static final DeferredItem<Item> PENGUIN_FEATHER = ITEMS.register("penguin_feather",
+            () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> TAIYAKI = createRegularDescriptionItem("taiyaki", new Item.Properties().food(Foods.RABBIT_STEW));
+    public static final DeferredItem<Item> FLUFFY_BOOTS = ITEMS.register("fluffy_boots",
+            () -> new FluffyBootsItem(ModArmorMaterials.PENGUIN_FEATHER, ArmorItem.Type.BOOTS, new Item.Properties().durability(ArmorItem.Type.BOOTS.getDurability(25))));
 
     public static final DeferredItem<Item> PROP_CASE = ITEMS.register("prop_case",
             () -> new Item(new Item.Properties().stacksTo(1)) {
@@ -380,6 +387,18 @@ public class ModItems {
     private static DeferredItem<Item> createRegularDescriptionItem(String name) {
         return ITEMS.register(name,
                 () -> new Item(new Item.Properties()) {
+                    @Override
+                    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+                        tooltipComponents.add(Component.translatable("item.faunaandorchestra." + name + ".desc")
+                                .withStyle(ChatFormatting.GRAY));
+                        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+                    }
+                });
+    }
+
+    private static DeferredItem<Item> createRegularDescriptionItem(String name, Item.Properties properties) {
+        return ITEMS.register(name,
+                () -> new Item(properties) {
                     @Override
                     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
                         tooltipComponents.add(Component.translatable("item.faunaandorchestra." + name + ".desc")

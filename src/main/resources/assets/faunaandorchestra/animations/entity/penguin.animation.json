@@ -2367,6 +2367,67 @@
 					}
 				}
 			}
+		},
+		"decline": {
+			"animation_length": 1.0833,
+			"bones": {
+				"head": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 27.5, 0]
+						},
+						"0.25": {
+							"vector": [0, -27.5, 0],
+							"easing": "easeInOutSine"
+						},
+						"0.5": {
+							"vector": [0, 27.5, 0],
+							"easing": "easeInOutSine"
+						},
+						"0.75": {
+							"vector": [0, -27.5, 0],
+							"easing": "easeInOutSine"
+						},
+						"1.0833": {
+							"vector": [0, 0, 0],
+							"easing": "easeInOutSine"
+						}
+					}
+				},
+				"left_pupil": {
+					"scale": {
+						"0.0": {
+							"vector": [1, 0.3, 1]
+						},
+						"0.5": {
+							"vector": [1, 0.3, 1]
+						},
+						"1.0": {
+							"vector": [1, 1, 1],
+							"easing": "easeInBack"
+						}
+					}
+				},
+				"right_pupil": {
+					"scale": {
+						"0.0": {
+							"vector": [1, 0.3, 1]
+						},
+						"0.5": {
+							"vector": [1, 0.3, 1]
+						},
+						"1.0": {
+							"vector": [1, 1, 1],
+							"easing": "easeInBack"
+						}
+					}
+				},
+				"long_flute": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				}
+			}
 		}
 	},
 	"geckolib_format_version": 2

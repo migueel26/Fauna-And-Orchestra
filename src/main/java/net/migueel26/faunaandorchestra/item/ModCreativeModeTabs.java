@@ -67,6 +67,9 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.PERFUMED_BAMBOO);
                         output.accept(ModItems.SHARP_BAMBOO);
                         output.accept(ModItems.BAMBOO_TRAP_ITEM);
+                        output.accept(ModItems.TAIYAKI);
+                        output.accept(ModItems.PENGUIN_FEATHER);
+                        output.accept(ModItems.FLUFFY_BOOTS);
                         output.accept(ModItems.BACH_AIR_SHEET_MUSIC);
                         output.accept(ModItems.GREENSLEEVES_SHEET_MUSIC);
                         output.accept(ModItems.BLUES_SHEET_MUSIC);

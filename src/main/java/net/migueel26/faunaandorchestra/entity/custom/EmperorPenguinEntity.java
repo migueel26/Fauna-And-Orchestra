@@ -6,6 +6,7 @@ import net.migueel26.faunaandorchestra.entity.goals.MusicalEntityPlayingInstrume
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -35,7 +36,6 @@ import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoAnimatable;
-import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.animation.AnimationState;
@@ -52,6 +52,7 @@ public class EmperorPenguinEntity extends MusicalEntity implements NeutralMob {
     protected static final RawAnimation IDLE_FLUTE = RawAnimation.begin().thenPlay("holding_flute");
     protected static final RawAnimation PLAYING = RawAnimation.begin().thenPlay("playing");
     protected static final RawAnimation ATTACK = RawAnimation.begin().thenPlay("attack");
+    protected static final RawAnimation ACCEPT = RawAnimation.begin().thenPlay("accept");
     private static final EntityDataAccessor<Integer> REMAINING_ANGER_TIME = SynchedEntityData.defineId(EmperorPenguinEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> IS_RUNNING = SynchedEntityData.defineId(EmperorPenguinEntity.class, EntityDataSerializers.BOOLEAN);
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
@@ -62,6 +63,8 @@ public class EmperorPenguinEntity extends MusicalEntity implements NeutralMob {
     private final AnimationController<EmperorPenguinEntity> penguinController = new AnimationController<>(this, "emperor_penguin_controller", 5, this::penguinState)
             .triggerableAnim("wave", WAVE)
             .triggerableAnim("attack", ATTACK);
+    private final AnimationController<EmperorPenguinEntity> acceptController = new AnimationController<>(this, "emperor_penguin_accept_controller", 2, this::emptyState)
+            .triggerableAnim("accept", ACCEPT);
     public EmperorPenguinEntity(EntityType<? extends TamableAnimal> entityType, Level level) {
         super(entityType, level);
 
@@ -175,7 +178,7 @@ public class EmperorPenguinEntity extends MusicalEntity implements NeutralMob {
             final EmperorPenguinEntity penguin = (EmperorPenguinEntity) super.mob;
             @Override
             public boolean canUse() {
-                return super.canUse() && !penguin.isWaving();
+                return super.canUse() && !penguin.isBusy();
             }
         });
     }
@@ -212,6 +215,10 @@ public class EmperorPenguinEntity extends MusicalEntity implements NeutralMob {
         } else {
             state.getController().setAnimation(IDLE);
         }
+        return PlayState.CONTINUE;
+    }
+
+    private <E extends GeoAnimatable> PlayState emptyState(AnimationState<E> state) {
         return PlayState.CONTINUE;
     }
 
@@ -325,8 +332,12 @@ public class EmperorPenguinEntity extends MusicalEntity implements NeutralMob {
         triggerAnim("emperor_penguin_controller", "wave");
     }
 
-    public boolean isWaving() {
-        return penguinController.isPlayingTriggeredAnimation();
+    public void accept() {
+        triggerAnim("emperor_penguin_accept_controller", "accept");
+    }
+
+    public boolean isBusy() {
+        return penguinController.isPlayingTriggeredAnimation() || acceptController.isPlayingTriggeredAnimation();
     }
 
     public void setRunning(boolean flag) {
@@ -341,6 +352,7 @@ public class EmperorPenguinEntity extends MusicalEntity implements NeutralMob {
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(penguinController);
+        controllers.add(acceptController);
     }
 
     @Override

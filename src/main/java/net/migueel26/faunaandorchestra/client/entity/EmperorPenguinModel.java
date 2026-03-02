@@ -2,7 +2,6 @@ package net.migueel26.faunaandorchestra.client.entity;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.entity.custom.EmperorPenguinEntity;
-import net.migueel26.faunaandorchestra.entity.custom.PenguinEntity;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -45,7 +44,7 @@ public class EmperorPenguinModel extends GeoModel<EmperorPenguinEntity> {
     public void setCustomAnimations(EmperorPenguinEntity penguin, long instanceId, AnimationState<EmperorPenguinEntity> animationState) {
         GeoBone head = getAnimationProcessor().getBone("head");
 
-        if (head != null && !penguin.isPlayingInstrument() && !animationState.isMoving()) {
+        if (head != null && !penguin.isPlayingInstrument() && !animationState.isMoving() && !penguin.isBusy()) {
             EntityModelData entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
 
             head.setRotX(entityData.headPitch() * Mth.DEG_TO_RAD);

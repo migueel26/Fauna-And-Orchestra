@@ -5,7 +5,9 @@ import net.migueel26.faunaandorchestra.entity.goals.AlertWhenAttackedGoal;
 import net.migueel26.faunaandorchestra.entity.goals.MusicalEntityPlayingInstrumentGoal;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
+import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -13,25 +15,28 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.DamageTypeTags;
-import net.minecraft.world.Containers;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoAnimatable;
-import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.animation.AnimationState;
@@ -47,6 +52,7 @@ public class PenguinEntity extends MusicalEntity {
     protected static final RawAnimation PLAYING = RawAnimation.begin().thenPlay("playing");
     protected static final RawAnimation PLAYING_PROPELLER_HAT = RawAnimation.begin().thenPlay("playing_propeller_hat");
     protected static final RawAnimation PROPEL = RawAnimation.begin().thenPlay("propel");
+    protected static final RawAnimation DECLINE = RawAnimation.begin().thenPlay("decline");
     private static final EntityDataAccessor<Boolean> IS_RUNNING = SynchedEntityData.defineId(PenguinEntity.class, EntityDataSerializers.BOOLEAN);
     public static final int DEFAULT_AGE = -72000;
     private boolean isRunning = false;
@@ -55,6 +61,8 @@ public class PenguinEntity extends MusicalEntity {
     private final AnimationController<PenguinEntity> penguinController = new AnimationController<>(this, "penguin_controller", 5, this::penguinState)
             .triggerableAnim("wave", WAVE)
             .triggerableAnim("propel", PROPEL);
+    private final AnimationController<PenguinEntity> declineController = new AnimationController<>(this, "penguin_decline_controller", 2, this::emptyState)
+            .triggerableAnim("decline", DECLINE);
     public PenguinEntity(EntityType<? extends TamableAnimal> entityType, Level level) {
         super(entityType, level);
 
@@ -98,6 +106,11 @@ public class PenguinEntity extends MusicalEntity {
         }
         return PlayState.CONTINUE;
     }
+
+    private <E extends GeoAnimatable> PlayState emptyState(AnimationState<E> state) {
+        return PlayState.CONTINUE;
+    }
+
     private void addOverriddenGoals() {
         this.goalSelector.addGoal(0, new TamableAnimalPanicGoal(2.0D, DamageTypeTags.PANIC_CAUSES) {
             final PenguinEntity penguin = (PenguinEntity) super.mob;
@@ -143,7 +156,7 @@ public class PenguinEntity extends MusicalEntity {
             final PenguinEntity penguin = (PenguinEntity) super.mob;
             @Override
             public boolean canUse() {
-                return super.canUse() && !penguin.isWaving();
+                return super.canUse() && !penguin.isBusy();
             }
         });
     }
@@ -153,6 +166,27 @@ public class PenguinEntity extends MusicalEntity {
                 .add(Attributes.MAX_HEALTH, 15d)
                 .add(Attributes.MOVEMENT_SPEED, 0.2D)
                 .add(Attributes.FOLLOW_RANGE, 24D);
+    }
+
+    @Override
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+        ItemStack stack = player.getItemInHand(hand);
+        if (stack.is(ItemTags.FISHES) && !player.getCooldowns().isOnCooldown(stack.getItem())) {
+            player.getCooldowns().addCooldown(stack.getItem(), 10);
+
+            if (!level().isClientSide()) {
+                if (random.nextFloat() <= (stack.is(ModItems.TAIYAKI) ? 0.9f : 0.1f)) {
+                    this.accept(player);
+                } else {
+                    this.decline(player);
+                }
+            }
+
+            stack.shrink(1);
+
+            return InteractionResult.SUCCESS;
+        }
+        return super.mobInteract(player, hand);
     }
 
     @Override
@@ -234,14 +268,12 @@ public class PenguinEntity extends MusicalEntity {
 
     @Override
     public boolean isFood(ItemStack stack) {
-        //TODO: ADD FOOD
         return false;
     }
 
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
-        //TODO: ADD OFFSPRING AND ADULT
         return null;
     }
 
@@ -249,8 +281,40 @@ public class PenguinEntity extends MusicalEntity {
         triggerAnim("penguin_controller", "wave");
     }
 
-    public boolean isWaving() {
-        return penguinController.isPlayingTriggeredAnimation();
+    public void decline(Player player) {
+        this.lookAt(EntityAnchorArgument.Anchor.EYES, player.position());
+        triggerAnim("penguin_decline_controller", "decline");
+        if (!level().isClientSide() && level() instanceof ServerLevel serverLevel) {
+            serverLevel.sendParticles(ParticleTypes.ANGRY_VILLAGER, position().x, position().y + getBbHeight(), position().z, 3, 0.2, 0.2, 0.2, 0.01);
+        }
+        this.makeSound(SoundEvents.VILLAGER_NO);
+    }
+
+    public void accept(Player player) {
+        this.lookAt(EntityAnchorArgument.Anchor.EYES, player.position());
+        wave();
+        if (!level().isClientSide() && level() instanceof ServerLevel serverLevel) {
+            serverLevel.sendParticles(ParticleTypes.HAPPY_VILLAGER, position().x, position().y + getBbHeight(), position().z, 10, 0.3, 0.3, 0.3, 0.01);
+        }
+        this.makeSound(SoundEvents.VILLAGER_CELEBRATE);
+
+        EmperorPenguinEntity adult = level().getNearestEntity(EmperorPenguinEntity.class, TargetingConditions.DEFAULT, this,
+                getX(), getY(), getZ(), getBoundingBox().inflate(6.0f));
+
+        if (adult != null) {
+            adult.lookAt(EntityAnchorArgument.Anchor.EYES, player.position());
+            adult.accept();
+            adult.spawnAtLocation(  new ItemStack(ModItems.PENGUIN_FEATHER.get()));
+            adult.makeSound(SoundEvents.ITEM_PICKUP);
+
+            if (!level().isClientSide() && level() instanceof ServerLevel serverLevel) {
+                serverLevel.sendParticles(ParticleTypes.HAPPY_VILLAGER, adult.getX(), adult.getY() + getBbHeight(), adult.getZ(), 10, 0.3, 0.3, 0.3, 0.01);
+            }
+        }
+    }
+
+    public boolean isBusy() {
+        return penguinController.isPlayingTriggeredAnimation() || declineController.isPlayingTriggeredAnimation();
     }
 
     public void setRunning(boolean flag) {
@@ -273,6 +337,7 @@ public class PenguinEntity extends MusicalEntity {
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(penguinController);
+        controllers.add(declineController);
     }
 
     @Override
