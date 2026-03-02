@@ -13,6 +13,7 @@ import net.migueel26.faunaandorchestra.util.ModTags;
 import net.migueel26.faunaandorchestra.util.MusicUtil;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -41,8 +42,10 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.jetbrains.annotations.Nullable;
@@ -386,5 +389,29 @@ public abstract class MusicalEntity extends TamableAnimal implements GeoEntity {
 
     public void playSpecialClothingAnimation(ItemStack stack) {
 
+    }
+
+    public void onEat(ItemEntity targetEntity) {
+        Player owner = targetEntity.getOwner() instanceof Player player ? player : null;
+        ItemStack stack = targetEntity.getItem();
+
+        this.setInLove(owner);
+
+        this.level().playSound(null, this.blockPosition(), SoundEvents.CAMEL_EAT, SoundSource.NEUTRAL);
+        if (this.level() instanceof ServerLevel serverLevel) {
+            Vec3 look = this.getLookAngle();
+            double x = this.getX() + look.x * 0.5;
+            double y = this.getEyeY() - 0.15;
+            double z = this.getZ() + look.z * 0.5;
+
+            serverLevel.sendParticles(new ItemParticleOption(ParticleTypes.ITEM, stack),
+                    x, y, z, 3, 0.1, 0.1, 0.1, 0.05
+            );
+        }
+
+        stack.shrink(1);
+        if (stack.isEmpty()) {
+            targetEntity.discard();
+        }
     }
 }

@@ -247,25 +247,6 @@ public class MantisEntity extends MusicalEntity implements NeutralMob {
         triggerAnim("mantis_controller", "attack");
     }
 
-    public void onEat(ItemEntity targetEntity) {
-        Player owner = targetEntity.getOwner() instanceof Player player ? player : null;
-        ItemStack stack = targetEntity.getItem();
-
-        this.setInLove(owner);
-
-        this.level().playSound(null, this.blockPosition(), SoundEvents.CAMEL_EAT, SoundSource.NEUTRAL);
-        if (this.level() instanceof ServerLevel serverLevel) {
-            serverLevel.sendParticles(new ItemParticleOption(ParticleTypes.ITEM, stack),
-                    targetEntity.getX(), targetEntity.getY(), targetEntity.getZ(),
-                    20, 0.05, 0.05, 0.05, 0.1);
-        }
-
-        stack.shrink(1);
-        if (stack.isEmpty()) {
-            targetEntity.discard();
-        }
-    }
-
     //////////////////// NEUTRAL MOB METHODS -> ANGER ////////////////////////////////////
 
 
