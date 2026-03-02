@@ -187,7 +187,7 @@ public class ModItems {
     public static final DeferredItem<Item> PERFUMED_BAMBOO = createRegularDescriptionItem("perfumed_bamboo");
     public static final DeferredItem<Item> PENGUIN_FEATHER = ITEMS.register("penguin_feather",
             () -> new Item(new Item.Properties()));
-    public static final DeferredItem<Item> TAIYAKI = createRegularDescriptionItem("taiyaki", new Item.Properties().food(Foods.RABBIT_STEW));
+    public static final DeferredItem<Item> TAIYAKI = createRegularDescriptionItem("taiyaki", new Item.Properties().food(Foods.PUMPKIN_PIE));
     public static final DeferredItem<Item> FLUFFY_BOOTS = ITEMS.register("fluffy_boots",
             () -> new FluffyBootsItem(ModArmorMaterials.PENGUIN_FEATHER, ArmorItem.Type.BOOTS, new Item.Properties().durability(ArmorItem.Type.BOOTS.getDurability(25))));
 
@@ -220,6 +220,7 @@ public class ModItems {
     public static final DeferredItem<Item> BASEBALL_CAP = createHeadwearItem("baseball_cap", ModTags.EntityTypes.WEARS_BASEBALL_CAP, BaseballCapItemRenderer::new);
     public static final DeferredItem<Item> SILVER_TINT = createClothingItem("silver_tint", ModTags.EntityTypes.WEARS_SILVER_TINT);
     public static final DeferredItem<Item> GOLDEN_TINT = createClothingItem("golden_tint", ModTags.EntityTypes.WEARS_GOLDEN_TINT);
+    public static final DeferredItem<Item> COLORFUL_TINT = createClothingItem("colorful_tint", ModTags.EntityTypes.WEARS_COLORFUL_TINT);
 
     public static final DeferredItem<Item> MANTIS_SPAWN_EGG = ITEMS.register("mantis_spawn_egg",
             () -> new DeferredSpawnEggItem(ModEntities.MANTIS, 0x46eb4c, 0x23a628,

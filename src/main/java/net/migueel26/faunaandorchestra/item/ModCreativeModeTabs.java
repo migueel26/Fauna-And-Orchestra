@@ -135,6 +135,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.PROPELLER_HAT);
                         output.accept(ModItems.GOLDEN_TINT);
                         output.accept(ModItems.SILVER_TINT);
+                        output.accept(ModItems.COLORFUL_TINT);
                         output.acceptAll(VesselUtil.getAllVoiceItems());
                         output.accept(ModItems.UNLOCKER);
                     }).build());

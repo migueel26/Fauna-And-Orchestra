@@ -1,11 +1,19 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
+import net.migueel26.faunaandorchestra.entity.custom.variants.ButterflyVariant;
+import net.migueel26.faunaandorchestra.entity.custom.variants.MantisVariant;
 import net.migueel26.faunaandorchestra.item.ModItems;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.*;
@@ -25,6 +33,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
@@ -38,11 +47,12 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 
-public class ButterflyEntity extends Animal implements FlyingAnimal, GeoEntity {
+public class ButterflyEntity extends Animal implements FlyingAnimal, GeoEntity, VariantEntity<ButterflyVariant> {
     public int scheduleDeath = -1;
     protected final static RawAnimation FLY = RawAnimation.begin().thenPlay("fly");
     protected final static RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
     public static final int TICKS_PER_FLAP = 5;
+    protected static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(ButterflyEntity.class, EntityDataSerializers.INT);
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
     public ButterflyEntity(EntityType<? extends Animal> p_27403_, Level p_27404_) {
         super(p_27403_, p_27404_);
@@ -56,6 +66,31 @@ public class ButterflyEntity extends Animal implements FlyingAnimal, GeoEntity {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new ButterflyWanderGoal());
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.5F));
+    }
+
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        builder.define(VARIANT, 0);
+        super.defineSynchedData(builder);
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        compound.putInt("Variant", this.getVariantId());
+        super.addAdditionalSaveData(compound);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compound) {
+        this.entityData.set(VARIANT, compound.getInt("Variant"));
+        super.readAdditionalSaveData(compound);
+    }
+
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @org.jetbrains.annotations.Nullable SpawnGroupData spawnGroupData) {
+        ButterflyVariant variant = Util.getRandom(ButterflyVariant.values(), this.random);
+        this.setVariant(variant);
+        return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
     }
 
     private <E extends GeoAnimatable> PlayState butterflyState(AnimationState<E> state) {
@@ -178,6 +213,21 @@ public class ButterflyEntity extends Animal implements FlyingAnimal, GeoEntity {
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return geoCache;
+    }
+
+    @Override
+    public int getVariantId() {
+        return this.entityData.get(VARIANT);
+    }
+
+    @Override
+    public ButterflyVariant getVariant() {
+        return ButterflyVariant.byId(getVariantId() & 255);
+    }
+
+    @Override
+    public void setVariant(ButterflyVariant variant) {
+        this.entityData.set(VARIANT, variant.getId());
     }
 
     class ButterflyWanderGoal extends Goal {

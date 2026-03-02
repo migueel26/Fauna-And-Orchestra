@@ -59,7 +59,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.UUID;
 
-public class MantisEntity extends MusicalEntity implements NeutralMob {
+public class MantisEntity extends MusicalEntity implements NeutralMob, VariantEntity<MantisVariant> {
     protected static final RawAnimation WALK = RawAnimation.begin().thenPlay("walk");
     protected static final RawAnimation WALK_VIOLIN = RawAnimation.begin().thenPlay("walk_violin");
     protected static final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
@@ -355,14 +355,17 @@ public class MantisEntity extends MusicalEntity implements NeutralMob {
         return false;
     }
 
+    @Override
     public int getVariantId() {
         return entityData.get(VARIANT);
     }
 
+    @Override
     public MantisVariant getVariant() {
         return MantisVariant.byId(getVariantId() & 255);
     }
 
+    @Override
     public void setVariant(MantisVariant variant) {
         this.entityData.set(VARIANT, variant.getId());
     }

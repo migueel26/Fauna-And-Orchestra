@@ -72,6 +72,7 @@ public class ModTags {
         // TINTS
         public static final TagKey<EntityType<?>> WEARS_SILVER_TINT = registerTag("wears_silver_tint");
         public static final TagKey<EntityType<?>> WEARS_GOLDEN_TINT = registerTag("wears_golden_tint");
+        public static final TagKey<EntityType<?>> WEARS_COLORFUL_TINT = registerTag("wears_colorful_tint");
 
         private static TagKey<EntityType<?>> registerTag(String name) {
             return TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, name));
