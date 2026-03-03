@@ -140,7 +140,7 @@ public class MotherStatueBlock extends HorizontalDirectionalBlock implements Ent
 
     @Override
     public @Nullable PushReaction getPistonPushReaction(BlockState state) {
-        return PushReaction.BLOCK;
+        return PushReaction.IGNORE;
     }
 
     public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @javax.annotation.Nullable BlockEntity te, ItemStack stack) {

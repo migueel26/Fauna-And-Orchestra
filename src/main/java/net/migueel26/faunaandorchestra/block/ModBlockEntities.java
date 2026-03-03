@@ -99,6 +99,12 @@ public class ModBlockEntities {
                     ModBlocks.BAMBOO_TRAP.get()
             ).build(null));
 
+    public static final Supplier<BlockEntityType<BeaverStatueBlockEntity>> BEAVER_STATUE_BE =
+            BLOCK_ENTITES.register("beaver_statue_be", () -> BlockEntityType.Builder.of(
+                    BeaverStatueBlockEntity::new,
+                    ModBlocks.BEAVER_STATUE.get()
+            ).build(null));
+
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITES.register(eventBus);
     }

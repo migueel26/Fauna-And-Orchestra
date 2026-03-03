@@ -68,6 +68,7 @@
   "item.faunaandorchestra.penguin_feather": "Penguin Feather",
   "item.faunaandorchestra.taiyaki": "Taiyaki",
   "item.faunaandorchestra.fluffy_boots": "Fluffy Boots",
+  "item.faunaandorchestra.beaver_statue_item": "Beaver Statue",
 
   "item.faunaandorchestra.prop_case": "Prop Case",
   "item.faunaandorchestra_clothing.desc": "Clothing Item",
@@ -177,6 +178,7 @@
   "block.faunaandorchestra.mantis_egg": "Mantis Egg",
   "block.faunaandorchestra.catchweed": "Catchweed",
   "block.faunaandorchestra.bamboo_trap": "Bamboo Trap",
+  "block.faunaandorchestra.beaver_statue": "Beaver Statue",
 
   "block.faunaandorchestra.tip_case_theft": "This case is not yours! You can't take the gold",
   "block.faunaandorchestra.tip_case.desc": "Everybody can tip you gold, but only you can retrieve it",

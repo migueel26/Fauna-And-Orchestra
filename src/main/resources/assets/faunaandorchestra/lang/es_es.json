@@ -68,6 +68,7 @@
   "item.faunaandorchestra.penguin_feather": "Pluma de pingüino",
   "item.faunaandorchestra.taiyaki": "Taiyaki",
   "item.faunaandorchestra.fluffy_boots": "Botas plumosas",
+  "item.faunaandorchestra.beaver_statue_item": "Estatua de castor",
 
   "item.faunaandorchestra.prop_case": "Neceser",
   "item.faunaandorchestra_clothing.desc": "Ropa para Animales",
@@ -176,6 +177,7 @@
   "block.faunaandorchestra.mantis_egg": "Huevo de mantis",
   "block.faunaandorchestra.catchweed": "Amor de hortelano",
   "block.faunaandorchestra.bamboo_trap": "Trampa de bambú",
+  "block.faunaandorchestra.beaver_statue": "Estatua de castor",
 
   "block.faunaandorchestra.tip_case_theft": "¡Esta funda no es tuya! No puedes llevarte el oro",
   "block.faunaandorchestra.tip_case.desc": "Todo el mundo te puede donar, pero sólo tú puedes retirarlo",

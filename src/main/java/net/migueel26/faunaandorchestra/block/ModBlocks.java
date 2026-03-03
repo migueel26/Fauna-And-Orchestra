@@ -210,6 +210,9 @@ public class ModBlocks {
     public static final DeferredBlock<Block> BAMBOO_TRAP = registerBlock("bamboo_trap",
             () -> new BambooTrapBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BAMBOO_FENCE)));
 
+    public static final DeferredBlock<Block> BEAVER_STATUE = registerBlock("beaver_statue",
+            () -> new BeaverStatueBlock(BlockBehaviour.Properties.ofFullCopy(ModBlocks.ALTAR.get()).randomTicks()));
+
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block) {
         DeferredBlock<T> toReturn = BLOCKS.register(name, block);
         ModItems.ITEMS.register(name, () -> new BlockItem(toReturn.get(), new Item.Properties()));

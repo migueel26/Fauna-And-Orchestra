@@ -44,7 +44,7 @@ public class BeaverBuildsDamGoal extends Goal {
     @Override
     public boolean canUse() {
         cooldown--;
-        if (!beaver.isHoldingInstrument() && cooldown <= 0) {
+        if (!beaver.isHoldingInstrument() && cooldown <= 0 && beaver.canBuild()) {
             Pair<Vec3, BlockPos> pair = getDamPosition();
             if (pair != null) {
                 wantedPathBlock = pair.getA();

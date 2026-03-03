@@ -5,6 +5,7 @@ import net.migueel26.faunaandorchestra.entity.goals.FaunaRandomLookAroundGoal;
 import net.migueel26.faunaandorchestra.entity.goals.MusicalEntityPlayingInstrumentGoal;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -43,6 +44,7 @@ public class BeaverEntity extends MusicalEntity {
     protected static final RawAnimation WALKING_SAXOPHONE = RawAnimation.begin().thenPlay("walk_sax");
     protected static final RawAnimation PLAYING = RawAnimation.begin().thenPlay("playing");
     protected static final RawAnimation BUILD = RawAnimation.begin().thenPlay("build");
+    protected static final EntityDataAccessor<Boolean> CAN_BUILD = SynchedEntityData.defineId(BeaverEntity.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Boolean> BUILDING = SynchedEntityData.defineId(BeaverEntity.class, EntityDataSerializers.BOOLEAN);
     private final AnimationController<BeaverEntity> beaverController = new AnimationController<>(this, "beaver_controller", 5, this::beaverState)
             .triggerableAnim("build_trigger", BUILD);
@@ -61,6 +63,7 @@ public class BeaverEntity extends MusicalEntity {
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(BUILDING, false);
+        builder.define(CAN_BUILD, true);
     }
 
     @Override
@@ -119,6 +122,20 @@ public class BeaverEntity extends MusicalEntity {
         return PlayState.CONTINUE;
     }
 
+    @Override
+    public void readAdditionalSaveData(CompoundTag compound) {
+        if (compound.contains("CanBuild")) {
+            this.entityData.set(CAN_BUILD, compound.getBoolean("CanBuild"));
+        }
+        super.readAdditionalSaveData(compound);
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        compound.putBoolean("CanBuild", canBuild());
+        super.addAdditionalSaveData(compound);
+    }
+
     public static AttributeSupplier.Builder createAttributes() {
         return Animal.createLivingAttributes()
                 .add(Attributes.MAX_HEALTH, 15d)
@@ -163,6 +180,14 @@ public class BeaverEntity extends MusicalEntity {
 
     public void setBuilding(boolean building) {
         entityData.set(BUILDING, building);
+    }
+
+    public boolean canBuild() {
+        return entityData.get(CAN_BUILD);
+    }
+
+    public void setCanBuild(boolean canBuild) {
+        this.entityData.set(CAN_BUILD, canBuild);
     }
 
     @Override
