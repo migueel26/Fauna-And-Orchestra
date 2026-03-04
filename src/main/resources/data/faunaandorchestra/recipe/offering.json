@@ -1,0 +1,36 @@
+{
+  "type": "faunaandorchestra:melomancy",
+  "ingredients": [
+    {
+      "ingredient": {
+        "item": "minecraft:allium"
+      },
+      "amount": 3
+    },
+    {
+      "ingredient": {
+        "item": "faunaandorchestra:gingko_biloba"
+      },
+      "amount": 5
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:glow_berries"
+      },
+      "amount": 5
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:sweet_berries"
+      },
+      "amount": 10
+    }
+  ],
+  "catalyst": {
+    "id": "minecraft:string"
+  },
+  "result": {
+    "id": "faunaandorchestra:offering",
+    "count": 1
+  }
+}

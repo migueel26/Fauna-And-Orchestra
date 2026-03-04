@@ -108,7 +108,7 @@
   "item.faunaandorchestra.melomancy_cauldron.desc": "Deposita todos los ingredientes y puf! El mundo de la música está a tu alcance",
   "item.faunaandorchestra.discord_nuclei.desc": "Excitado por una clave de sol discorde, este núcleo puede sintetizar nuevos cacófonos objetos",
   "item.faunaandorchestra.butterfly_net.desc": "Mariposas sueltas por la calle...",
-  "item.faunaandorchestra.music_bottle.desc": "La esencia de la vida y alegría. Ingrediente básico en la Melomancia",
+  "item.faunaandorchestra.music_bottle.desc": "Ingrediente básico en la Melomancia",
   "item.faunaandorchestra.sheet_fragments.desc": "Fausto te lo dio como agradecimiento. Compuesto por el Gran Compositor",
   "item.faunaandorchestra.gingko_biloba.desc": "Otrora los aldeanos masticaban estas hojas para agudizar su oído",
   "item.faunaandorchestra.whistle.tooltip": "Haz §eclick §ra una mascota para enlazarla. ¡Después podrás llamarla cuando quieras!",
@@ -658,8 +658,12 @@
 
   "jei.faunaandorchestra.natural_recipe": "Recetas naturales",
   "jei.faunaandorchestra.requires_below": "Este bloque es requerido bajo el §eCuelgajarras§r como combustible",
+  "jei.faunaandorchestra.melomancy": "Melomancia",
+  "jei.faunaandorchestra.requires_music_bottle": "Este caldero necesita ser llenado con §d3x Música líquida§r",
+  "jei.faunaandorchestra.requires_catalyst": "Para recoger el resultado necesitas hacer §eclick derecho §ral caldero con ",
+  "jei.faunaandorchestra.no_requires_catalyst": "Haz §eclick derecho§r con tu mano para recoger el resultado",
 
-  "jei.faunaandorchestra.melomancy": "Después de llenar el Caldero de melomancia con §53x Música líquida§r, necesitas colocar los siguientes ingredientes:",
+  "jei.faunaandorchestra.melomancy.info": "Después de llenar el Caldero de melomancia con §53x Música líquida§r, necesitas colocar los siguientes ingredientes:",
   "jei.faunaandorchestra.symphonia": "Lee la guía de §4Symphonia§r para más información.",
   "jei.faunaandorchestra.amplifier_crystal": "§5· 5x Diamantes\n· 3x Notas ambulantes\n· 2x Lingotes de acerónico§r\n\nUsa un §5Fragmento de amatista§r para obtener el resultado.",
   "jei.faunaandorchestra.offering": "§5· 3x Allium\n· 5x Ginkgo Biloba\n· 5x Bayas luminosas\n· 10x Bayas dulces§r\n\nUsa un §5Hilo§r para obtener el resultado.",

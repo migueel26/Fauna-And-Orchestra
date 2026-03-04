@@ -3,7 +3,10 @@ package net.migueel26.faunaandorchestra.client.block;
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.block.custom.MelomancyCauldronBlock;
 import net.migueel26.faunaandorchestra.block.entity.MelomancyCauldronBlockEntity;
+import net.migueel26.faunaandorchestra.item.ModItems;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.model.GeoModel;
@@ -24,15 +27,34 @@ public class MelomancyCauldronModel extends GeoModel<MelomancyCauldronBlockEntit
 
     @Override
     public ResourceLocation getTextureResource(MelomancyCauldronBlockEntity animatable) {
-        return switch (animatable.getMixResult()) {
-            case String item when item.startsWith("discord") -> DISCORD_TEXTURE;
-            case "musical_ink", "steelsonic", "boogie_bomb", "amplifier_crystal" -> INK_TEXTURE;
-            case "offering" -> OFFERING_TEXTURE;
-            case "absolute_hearing" -> HEARING_TEXTURE;
-            case "singing_seed" -> SEED_TEXTURE;
-            case "resurrection" -> DISCORD_TEXTURE;
-            default -> DEFAULT_TEXTURE;
-        };
+        if (animatable.getVisualResult().isEmpty()) {
+            return DEFAULT_TEXTURE;
+        }
+
+        Item resultItem = animatable.getVisualResult().getItem();
+
+        if (resultItem == ModItems.DISCORD_ESSENCE.get() || resultItem == ModItems.RESURRECTION_SONG.get()) {
+            return DISCORD_TEXTURE;
+        }
+
+        else if (resultItem == ModItems.MUSICAL_INK.get() ||
+                resultItem == ModItems.STEELSONIC_INGOT.get() ||
+                resultItem == ModItems.BOOGIE_BOMB.get() ||
+                resultItem == ModItems.AMPLIFIER_CRYSTAL.get()) {
+            return INK_TEXTURE;
+        }
+
+        else if (resultItem == ModItems.OFFERING.get()) {
+            return OFFERING_TEXTURE;
+        }
+        else if (resultItem == Items.POTION) {
+            return HEARING_TEXTURE;
+        }
+        else if (resultItem == ModItems.SINGING_SEED.get()) {
+            return SEED_TEXTURE;
+        }
+
+        return DEFAULT_TEXTURE;
     }
 
     @Override

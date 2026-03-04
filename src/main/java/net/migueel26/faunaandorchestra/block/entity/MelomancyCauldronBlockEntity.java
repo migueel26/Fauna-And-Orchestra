@@ -4,6 +4,8 @@ import net.migueel26.faunaandorchestra.block.ModBlockEntities;
 import net.migueel26.faunaandorchestra.block.custom.MelomancyCauldronBlock;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
+import net.migueel26.faunaandorchestra.recipe.MelomancyRecipe;
+import net.migueel26.faunaandorchestra.recipe.ModRecipes;
 import net.migueel26.faunaandorchestra.util.RecipesUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -42,8 +44,8 @@ public class MelomancyCauldronBlockEntity extends BlockEntity implements GeoBloc
     /// COMPONENTS ---------------
     private final NonNullList<ItemStack> ingredients = NonNullList.withSize(NUM_SLOTS, ItemStack.EMPTY);
     protected int cookTime = -1;
-    // "null", "musical_ink", "discord"
-    protected String mixResult = "null";
+    protected boolean isDiscord = false;
+    protected ItemStack visualResult = ItemStack.EMPTY;
     /// ---------------------------
     private final static RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
     private final static RawAnimation PREPARING = RawAnimation.begin().thenLoop("preparing");
@@ -113,8 +115,8 @@ public class MelomancyCauldronBlockEntity extends BlockEntity implements GeoBloc
 
     public static void cookTick(Level level, BlockPos pos, BlockState state, MelomancyCauldronBlockEntity blockEntity) {
         boolean flag = false;
-
         ItemStack itemstack = blockEntity.ingredients.get(0);
+
         if (!itemstack.isEmpty() && blockEntity.cookTime > 0) {
             flag = true;
             blockEntity.cookTime--;
@@ -122,14 +124,23 @@ public class MelomancyCauldronBlockEntity extends BlockEntity implements GeoBloc
             if (blockEntity.cookTime == 0) {
                 level.setBlock(pos, state.setValue(MelomancyCauldronBlock.COOKING, false), 3);
                 level.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.LAVA_EXTINGUISH, SoundSource.BLOCKS, 1.0f, 0.5f);
-                blockEntity.mixResult = RecipesUtil.isRecipe(blockEntity.ingredients);
+
+                blockEntity.isDiscord = true;
+                blockEntity.visualResult = new ItemStack(ModItems.DISCORD_ESSENCE.get());
+
+                MelomancyRecipe.RecipeInput dummyInput = new MelomancyRecipe.RecipeInput(blockEntity.ingredients, ItemStack.EMPTY);
+
+                for (var recipe : level.getRecipeManager().getAllRecipesFor(ModRecipes.MELOMANCY_TYPE.get())) {
+                    if (recipe.value().matchesIngredientsOnly(dummyInput)) {
+                        blockEntity.isDiscord = false;
+                        blockEntity.visualResult = recipe.value().output().copy();
+                        break;
+                    }
+                }
             }
         }
 
-        if (flag) {
-            setChanged(level, pos, state);
-        }
-
+        if (flag) setChanged(level, pos, state);
     }
 
 
@@ -143,18 +154,8 @@ public class MelomancyCauldronBlockEntity extends BlockEntity implements GeoBloc
             double randomZ = level.random.nextDouble()/2 - 0.25f;
             double randomY = level.random.nextDouble() / 4;
 
-            SimpleParticleType particle = blockEntity.mixResult.equalsIgnoreCase("discord") ?
-                    ParticleTypes.SCULK_CHARGE_POP : ModParticleTypes.CAULDRON_POP.get();
-            level.addParticle(particle,
-                    pos.getCenter().x+randomX, pos.getY()+0.65f+randomY, pos.getCenter().z+randomZ, 0, 0.1, 0);
-        }
-    }
-
-    public ItemStack getResult() {
-        if (this.cookTime == 0) {
-            return RecipesUtil.getMixResult(mixResult);
-        } else {
-            return ItemStack.EMPTY;
+            SimpleParticleType particle = blockEntity.isDiscord ? ParticleTypes.SCULK_CHARGE_POP : ModParticleTypes.CAULDRON_POP.get();
+            level.addParticle(particle, pos.getCenter().x+randomX, pos.getY()+0.65f+randomY, pos.getCenter().z+randomZ, 0, 0.1, 0);
         }
     }
 
@@ -179,12 +180,11 @@ public class MelomancyCauldronBlockEntity extends BlockEntity implements GeoBloc
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
         ContainerHelper.loadAllItems(tag, this.ingredients, registries);
-        if (tag.contains("CookTime")) {
-            this.cookTime = tag.getInt("CookTime");
-        }
-
-        if (tag.contains("MixResult")) {
-            this.mixResult = tag.getString("MixResult");
+        if (tag.contains("CookTime")) this.cookTime = tag.getInt("CookTime");
+        if (tag.contains("IsDiscord")) this.isDiscord = tag.getBoolean("IsDiscord");
+        if (tag.contains("VisualResult")) {
+            ItemStack.OPTIONAL_CODEC.parse(registries.createSerializationContext(net.minecraft.nbt.NbtOps.INSTANCE), tag.get("VisualResult"))
+                    .resultOrPartial().ifPresent(stack -> this.visualResult = stack);
         }
     }
 
@@ -193,7 +193,11 @@ public class MelomancyCauldronBlockEntity extends BlockEntity implements GeoBloc
         super.saveAdditional(tag, registries);
         ContainerHelper.saveAllItems(tag, this.ingredients, true, registries);
         tag.putInt("CookTime", cookTime);
-        tag.putString("MixResult", mixResult);
+        tag.putBoolean("IsDiscord", isDiscord);
+        if (!visualResult.isEmpty()) {
+            ItemStack.OPTIONAL_CODEC.encodeStart(registries.createSerializationContext(net.minecraft.nbt.NbtOps.INSTANCE), visualResult)
+                    .resultOrPartial().ifPresent(nbt -> tag.put("VisualResult", nbt));
+        }
     }
 
     public ClientboundBlockEntityDataPacket getUpdatePacket() {
@@ -202,12 +206,17 @@ public class MelomancyCauldronBlockEntity extends BlockEntity implements GeoBloc
 
     @Override
     public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
-        CompoundTag compoundTag = new CompoundTag();
-        ContainerHelper.saveAllItems(compoundTag, this.ingredients, true, registries);
-        compoundTag.putInt("CookTime", this.cookTime);
-        compoundTag.putString("MixResult", this.mixResult);
-        return compoundTag;
+        CompoundTag tag = new CompoundTag();
+        ContainerHelper.saveAllItems(tag, this.ingredients, true, registries);
+        tag.putInt("CookTime", this.cookTime);
+        tag.putBoolean("IsDiscord", this.isDiscord);
+        if (!visualResult.isEmpty()) {
+            ItemStack.OPTIONAL_CODEC.encodeStart(registries.createSerializationContext(net.minecraft.nbt.NbtOps.INSTANCE), visualResult)
+                    .resultOrPartial().ifPresent(nbt -> tag.put("VisualResult", nbt));
+        }
+        return tag;
     }
+
     @Override
     protected void applyImplicitComponents(BlockEntity.DataComponentInput componentInput) {
         super.applyImplicitComponents(componentInput);
@@ -225,10 +234,6 @@ public class MelomancyCauldronBlockEntity extends BlockEntity implements GeoBloc
         this.getLevel().sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 3);
     }
 
-    public String getMixResult() {
-        return this.mixResult;
-    }
-
 
     public NonNullList<ItemStack> getIngredients() {
         return this.ingredients;
@@ -237,11 +242,16 @@ public class MelomancyCauldronBlockEntity extends BlockEntity implements GeoBloc
     public boolean hasFinishedCooking() {
         return this.cookTime == 0;
     }
+    public ItemStack getVisualResult() {
+        return this.visualResult;
+    }
+
     public void clearContent(boolean animate) {
         if (animate) triggerAnim("melomancy_cauldron_controller", "empty");
         this.ingredients.clear();
         this.cookTime = -1;
-        this.mixResult = "null";
+        this.isDiscord = false;
+        this.visualResult = ItemStack.EMPTY; // Limpiamos la textura
         this.setChanged();
     }
 

@@ -8,6 +8,7 @@ import mezz.jei.api.registration.IRecipeRegistration;
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.item.ModItems;
+import net.migueel26.faunaandorchestra.recipe.MelomancyRecipe;
 import net.migueel26.faunaandorchestra.recipe.ModRecipes;
 import net.migueel26.faunaandorchestra.recipe.NaturalRecipe;
 import net.minecraft.client.Minecraft;
@@ -28,6 +29,7 @@ public class FaunaJEIPlugin implements IModPlugin {
     @Override
     public void registerCategories(IRecipeCategoryRegistration registration) {
         registration.addRecipeCategories(new NaturalRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new MelomancyRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
@@ -35,13 +37,22 @@ public class FaunaJEIPlugin implements IModPlugin {
         RecipeManager recipeManager = Minecraft.getInstance().level.getRecipeManager();
 
         // Natural Recipes
-        List<NaturalRecipe> recipes = recipeManager.getAllRecipesFor(ModRecipes.NATURAL_TYPE.get())
+        List<NaturalRecipe> naturalRecipes = recipeManager.getAllRecipesFor(ModRecipes.NATURAL_TYPE.get())
                 .stream()
                 .map(RecipeHolder::value)
                 .toList();
 
-        registration.addRecipes(NaturalRecipeCategory.RECIPE_TYPE, recipes);
+        registration.addRecipes(NaturalRecipeCategory.RECIPE_TYPE, naturalRecipes);
 
+        // Melomancy Recipes
+        List<MelomancyRecipe> melomancyRecipes = recipeManager.getAllRecipesFor(ModRecipes.MELOMANCY_TYPE.get())
+                .stream()
+                .map(RecipeHolder::value)
+                .toList();
+
+        registration.addRecipes(MelomancyRecipeCategory.RECIPE_TYPE, melomancyRecipes);
+
+        // Melomancy Info
         registration.addIngredientInfo(ModItems.MUSIC_BOTTLE, symphoniaComponent("music_bottle"));
         registration.addIngredientInfo(ModItems.DISCORD_ESSENCE, symphoniaComponent("discord_essence"));
         registration.addIngredientInfo(ModItems.AMPLIFIER_CRYSTAL, melomancyComponent("amplifier_crystal"));
@@ -71,7 +82,7 @@ public class FaunaJEIPlugin implements IModPlugin {
     }
 
     public static Component melomancyComponent(String item) {
-        return Component.translatable("jei.faunaandorchestra.melomancy")
+        return Component.translatable("jei.faunaandorchestra.melomancy.info")
                 .append(Component.literal("\n\n")
                 .append(Component.translatable("jei.faunaandorchestra." + item))
                 .append(Component.literal("\n\n"))

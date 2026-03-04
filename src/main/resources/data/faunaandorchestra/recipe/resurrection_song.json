@@ -1,0 +1,22 @@
+{
+  "type": "faunaandorchestra:melomancy",
+  "ingredients": [
+    {
+      "ingredient": {
+        "item": "faunaandorchestra:fruit_of_life"
+      }
+    },
+    {
+      "ingredient": {
+        "item": "faunaandorchestra:petals_of_death"
+      }
+    }
+  ],
+  "catalyst": {
+    "id": "faunaandorchestra:sheet_fragments"
+  },
+  "result": {
+    "id": "faunaandorchestra:resurrection_song",
+    "count": 1
+  }
+}
