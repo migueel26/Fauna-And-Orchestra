@@ -4,6 +4,7 @@ import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.entity.custom.*;
 import net.migueel26.faunaandorchestra.entity.custom.boss.ComposerCanonEntity;
 import net.migueel26.faunaandorchestra.entity.custom.boss.TheGreatComposer;
+import net.migueel26.faunaandorchestra.entity.custom.koala_workers.WorkerKoalaEntity;
 import net.migueel26.faunaandorchestra.entity.custom.misc.FloatingBlossomEntity;
 import net.migueel26.faunaandorchestra.entity.custom.misc.SensorNote;
 import net.migueel26.faunaandorchestra.entity.custom.projectile.*;
@@ -51,9 +52,12 @@ public class ModEntities {
 
 
     public static final Supplier<EntityType<WanderingKoalaEntity>> WANDERING_KOALA = ENTITY_TYPES.register("wandering_koala",
-            () -> EntityType.Builder.of(WanderingKoalaEntity::new, MobCategory.CREATURE).sized(0.5f, 1.25f).build("wandering_koala"));
+            () -> EntityType.Builder.of(WanderingKoalaEntity::new, MobCategory.CREATURE).sized(0.6f, 1.25f).build("wandering_koala"));
     public static final Supplier<EntityType<ButlerKoalaEntity>> BUTLER_KOALA = ENTITY_TYPES.register("butler_koala",
-            () -> EntityType.Builder.of(ButlerKoalaEntity::new, MobCategory.CREATURE).sized(0.5f, 1.25f).build("butler_koala"));
+            () -> EntityType.Builder.of(ButlerKoalaEntity::new, MobCategory.CREATURE).sized(0.6f, 1.0f).build("butler_koala"));
+    public static final Supplier<EntityType<WorkerKoalaEntity>> WORKER_KOALA = ENTITY_TYPES.register("worker_koala",
+            () -> EntityType.Builder.of(WorkerKoalaEntity::new, MobCategory.CREATURE).sized(0.6f, 1.0f).build("worker_koala"));
+
     public static final Supplier<EntityType<SproutlingEntity>> SINGING_SPROUTLING = ENTITY_TYPES.register("singing_sproutling",
             () -> EntityType.Builder.of(SproutlingEntity::new, MobCategory.CREATURE).sized(0.35f, 0.45f).build("singing_sproutling"));
     public static final Supplier<EntityType<ButterflyEntity>> BUTTERFLY = ENTITY_TYPES.register("butterfly",

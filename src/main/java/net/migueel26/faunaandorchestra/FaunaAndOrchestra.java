@@ -124,6 +124,7 @@ public class FaunaAndOrchestra {
             EntityRenderers.register(ModEntities.MADAME_BUTTERFLY.get(), MadameButterflyRenderer::new);
             EntityRenderers.register(ModEntities.WANDERING_KOALA.get(), WanderingKoalaRenderer::new);
             EntityRenderers.register(ModEntities.BUTLER_KOALA.get(), ButlerKoalaRenderer::new);
+            EntityRenderers.register(ModEntities.WORKER_KOALA.get(), WorkerKoalaRenderer::new);
             EntityRenderers.register(ModEntities.FAUST.get(), FaustRenderer::new);
             EntityRenderers.register(ModEntities.ORION.get(), OrionRenderer::new);
             EntityRenderers.register(ModEntities.ANYA_GHOST.get(), CanonEntityRenderer::new);

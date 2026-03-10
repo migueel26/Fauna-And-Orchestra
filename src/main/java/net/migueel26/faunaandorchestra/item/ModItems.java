@@ -255,6 +255,9 @@ public class ModItems {
     public static final DeferredItem<Item> BUTLER_KOALA_SPAWN_EGG = ITEMS.register("butler_koala_spawn_egg",
             () -> new DeferredSpawnEggItem(ModEntities.BUTLER_KOALA, 0xb5b5b5, 0x707070,
                     new Item.Properties()));
+    public static final DeferredItem<Item> WORKER_KOALA_SPAWN_EGG = ITEMS.register("worker_koala_spawn_egg",
+            () -> new DeferredSpawnEggItem(ModEntities.WORKER_KOALA, 0xb5b5b5, 0x707070,
+                    new Item.Properties()));
     public static final DeferredItem<Item> SPROUTLING_SPAWN_EGG = ITEMS.register("sproutling_spawn_egg",
             () -> new DeferredSpawnEggItem(ModEntities.SINGING_SPROUTLING, 0xd1793a, 0x33a03e,
                     new Item.Properties()));
