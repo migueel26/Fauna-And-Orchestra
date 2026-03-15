@@ -120,6 +120,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModBlocks.GINGKO_BILOBA_SAPLING);
                         output.accept(ModItems.FRUIT_OF_LIFE);
                         output.accept(ModItems.OFFERING);
+                        output.accept(ModItems.SEWING_MACHINE_ITEM);
                         output.accept(ModItems.PROP_CASE);
                         output.accept(ModItems.TUXEDO);
                         output.accept(ModItems.TAILCOAT);

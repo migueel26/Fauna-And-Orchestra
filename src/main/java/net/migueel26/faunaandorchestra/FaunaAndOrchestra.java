@@ -125,6 +125,7 @@ public class FaunaAndOrchestra {
             EntityRenderers.register(ModEntities.WANDERING_KOALA.get(), WanderingKoalaRenderer::new);
             EntityRenderers.register(ModEntities.BUTLER_KOALA.get(), ButlerKoalaRenderer::new);
             EntityRenderers.register(ModEntities.WORKER_KOALA.get(), WorkerKoalaRenderer::new);
+            EntityRenderers.register(ModEntities.TAILOR_KOALA.get(), TailorKoalaRenderer::new);
             EntityRenderers.register(ModEntities.FAUST.get(), FaustRenderer::new);
             EntityRenderers.register(ModEntities.ORION.get(), OrionRenderer::new);
             EntityRenderers.register(ModEntities.ANYA_GHOST.get(), CanonEntityRenderer::new);
@@ -159,6 +160,7 @@ public class FaunaAndOrchestra {
             event.registerBlockEntityRenderer(ModBlockEntities.JAR_RACK_BE.get(), JarRackBlockEntityRenderer::new);
             event.registerBlockEntityRenderer(ModBlockEntities.BAMBOO_TRAP_BE.get(), BambooTrapBlockEntityRenderer::new);
             event.registerBlockEntityRenderer(ModBlockEntities.BEAVER_STATUE_BE.get(), BeaverStatueBlockEntityRenderer::new);
+            event.registerBlockEntityRenderer(ModBlockEntities.SEWING_MACHINE_BE.get(), SewingMachineBlockEntityRenderer::new);
         }
 
         @SubscribeEvent
@@ -166,6 +168,7 @@ public class FaunaAndOrchestra {
             event.register(ModMenuTypes.CONDUCTOR_MENU.get(), ConductorScreen::new);
             event.register(ModMenuTypes.MUSICIAN_MENU.get(), MusicianScreen::new);
             event.register(ModMenuTypes.HANGING_JAR_MENU.get(), HangingJarScreen::new);
+            event.register(ModMenuTypes.TAILOR_MENU.get(), TailorScreen::new);
         }
 
         @SubscribeEvent

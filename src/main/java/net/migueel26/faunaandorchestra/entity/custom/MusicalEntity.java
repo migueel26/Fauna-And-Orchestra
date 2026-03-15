@@ -181,6 +181,9 @@ public abstract class MusicalEntity extends TamableAnimal implements GeoEntity {
             } else if (itemStack.is(ModTags.Items.IS_BATON) && !isPlayingInstrument() && itemStack.get(ModDataComponents.MUSICIAN_UUID) == null) {
 
                 itemStack.set(ModDataComponents.MUSICIAN_UUID, this.uuid);
+                if (!level().isClientSide()) {
+                    ((ServerLevel) level()).sendParticles(ParticleTypes.WAX_OFF, getX(), getY()+0.5f, getZ(), 20, 0.2, 0.2, 0.2, 0.05);
+                }
                 return InteractionResult.SUCCESS;
 
             } else if (itemStack.is(instrument) && !isHoldingInstrument()) {

@@ -18,7 +18,7 @@ public class FaunaRandomLookAroundGoal extends Goal {
     }
 
     public enum Fauna {
-        MusicalEntity, ConductorEntity, AgeableMob, QuirkyFrogEntity, AbstractKoalaEntity, WanderingKoalaEntity, ButlerKoalaEntity, SproutlingEntity
+        MusicalEntity, ConductorEntity, AgeableMob, QuirkyFrogEntity, AbstractKoalaEntity, WanderingKoalaEntity, ButlerKoalaEntity, SproutlingEntity, TailorKoalaEntity
     }
 
     @Override

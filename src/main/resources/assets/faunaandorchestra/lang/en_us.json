@@ -69,6 +69,7 @@
   "item.faunaandorchestra.taiyaki": "Taiyaki",
   "item.faunaandorchestra.fluffy_boots": "Fluffy Boots",
   "item.faunaandorchestra.beaver_statue_item": "Beaver Statue",
+  "item.faunaandorchestra.sewing_machine_item": "Sewing Machine",
 
   "item.faunaandorchestra.prop_case": "Prop Case",
   "item.faunaandorchestra_clothing.desc": "Clothing Item",
@@ -179,6 +180,7 @@
   "block.faunaandorchestra.catchweed": "Catchweed",
   "block.faunaandorchestra.bamboo_trap": "Bamboo Trap",
   "block.faunaandorchestra.beaver_statue": "Beaver Statue",
+  "block.faunaandorchestra.sewing_machine": "Sewing Machine",
 
   "block.faunaandorchestra.tip_case_theft": "This case is not yours! You can't take the gold",
   "block.faunaandorchestra.tip_case.desc": "Everybody can tip you gold, but only you can retrieve it",
@@ -190,6 +192,7 @@
   "block.faunaandorchestra.discord_nuclei.essence": "Essence: ",
   "block.faunaandorchestra.discord_nuclei.instability": "Instability: ",
   "block.faunaandorchestra.jar_rack.not_placed": "The block below needs to be air or some fuel!",
+  "block.faunaandorchestra.sewing_machine.cant_sew": "You don't know how to sew!",
 
   "item.faunaandorchestra.bach_air_sheet_music": "Bach's Air Sheet",
   "item.faunaandorchestra.greensleeves_sheet_music": "Greensleeves Sheet",
@@ -254,6 +257,7 @@
   "entity.faunaandorchestra.wandering_koala": "Wandering Koala",
   "entity.faunaandorchestra.butler_koala": "Butler Koala",
   "entity.faunaandorchestra.worker_koala": "Koala",
+  "entity.faunaandorchestra.tailor_koala": "Tailor Koala",
   "entity.faunaandorchestra.faust": "Faust",
   "entity.faunaandorchestra.orion": "Orion",
   "entity.faunaandorchestra.wise_tree": "Wise Tree",
@@ -282,6 +286,7 @@
   "entity.faunaandorchestra.worker_koala_name13": "Geordie",
   "entity.faunaandorchestra.worker_koala_name14": "Jamie",
   "entity.faunaandorchestra.worker_koala_name15": "Sophie",
+  "entity.faunaandorchestra.tailor_koala.catalog": "Catalog",
 
   "piece.faunaandorchestra.bach_air_sheet_music": "Bach's Air",
   "piece.faunaandorchestra.greensleeves_sheet_music": "Greensleeves",
@@ -440,6 +445,8 @@
 
   "dialogue.faunaandorchestra.worker_koala0": "Hi, I'm %. I got your letter and I'm here to work!",
   "dialogue.faunaandorchestra.worker_koala1": "Just give me any §lkit§r so we can get started. Don't take too long!",
+
+  "dialogue.faunaandorchestra.tailor_koala0": "Assign me a sewing machine using a baton!",
 
   "item.faunaandorchestra.unlocker": "Symphonia Wisdom — Creative",
   "item.faunaandorchestra.unlocker.desc": "If you §eright-click§r this book you'll unlock most of the Symphonia entries",

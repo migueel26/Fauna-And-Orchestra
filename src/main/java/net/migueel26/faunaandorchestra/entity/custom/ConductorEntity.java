@@ -408,6 +408,11 @@ public abstract class ConductorEntity extends TamableAnimal {
                 setHoldingBaton(true);
                 setLegendaryBaton(false);
                 setOrderedToSit(true);
+
+                if (!level().isClientSide()) {
+                    ((ServerLevel) level()).sendParticles(ParticleTypes.WAX_OFF, getX(), getY()+0.5f, getZ(), 20, 0.2, 0.2, 0.2, 0.05);
+                }
+
                 return InteractionResult.CONSUME;
 
             } else if (itemStack.is(ModItems.LEGENDARY_BATON) && !isHoldingBaton()) {

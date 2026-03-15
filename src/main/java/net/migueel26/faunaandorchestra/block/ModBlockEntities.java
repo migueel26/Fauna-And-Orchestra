@@ -105,6 +105,12 @@ public class ModBlockEntities {
                     ModBlocks.BEAVER_STATUE.get()
             ).build(null));
 
+    public static final Supplier<BlockEntityType<SewingMachineBlockEntity>> SEWING_MACHINE_BE =
+            BLOCK_ENTITES.register("sewing_machine_be", () -> BlockEntityType.Builder.of(
+                    SewingMachineBlockEntity::new,
+                    ModBlocks.SEWING_MACHINE.get()
+            ).build(null));
+
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITES.register(eventBus);
     }

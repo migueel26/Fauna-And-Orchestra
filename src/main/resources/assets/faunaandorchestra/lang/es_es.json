@@ -69,6 +69,7 @@
   "item.faunaandorchestra.taiyaki": "Taiyaki",
   "item.faunaandorchestra.fluffy_boots": "Botas plumosas",
   "item.faunaandorchestra.beaver_statue_item": "Estatua de castor",
+  "item.faunaandorchestra.sewing_machine_item": "Máquina de coser",
 
   "item.faunaandorchestra.prop_case": "Neceser",
   "item.faunaandorchestra_clothing.desc": "Ropa para Animales",
@@ -178,6 +179,7 @@
   "block.faunaandorchestra.catchweed": "Amor de hortelano",
   "block.faunaandorchestra.bamboo_trap": "Trampa de bambú",
   "block.faunaandorchestra.beaver_statue": "Estatua de castor",
+  "block.faunaandorchestra.sewing_machine": "Máquina de coser",
 
   "block.faunaandorchestra.tip_case_theft": "¡Esta funda no es tuya! No puedes llevarte el oro",
   "block.faunaandorchestra.tip_case.desc": "Todo el mundo te puede donar, pero sólo tú puedes retirarlo",
@@ -189,6 +191,7 @@
   "block.faunaandorchestra.discord_nuclei.essence": "Esencia: ",
   "block.faunaandorchestra.discord_nuclei.instability": "Inestabilidad: ",
   "block.faunaandorchestra.jar_rack.not_placed": "¡El bloque debajo debe ser aire o algún combustible!",
+  "block.faunaandorchestra.sewing_machine.cant_sew": "¡No sabes coser!",
 
   "item.faunaandorchestra.bach_air_sheet_music": "Partitura del Air de Bach",
   "item.faunaandorchestra.greensleeves_sheet_music": "Partitura de Greensleeves",
@@ -253,6 +256,7 @@
   "entity.faunaandorchestra.wandering_koala": "Koala Ambulante",
   "entity.faunaandorchestra.butler_koala": "Koala Mayordomo",
   "entity.faunaandorchestra.worker_koala": "Koala",
+  "entity.faunaandorchestra.tailor_koala": "Koala Costurero",
   "entity.faunaandorchestra.faust": "Fausto",
   "entity.faunaandorchestra.orion": "Orión",
   "entity.faunaandorchestra.wise_tree": "Árbol Sabio",
@@ -281,6 +285,7 @@
   "entity.faunaandorchestra.worker_koala_name13": "Luna",
   "entity.faunaandorchestra.worker_koala_name14": "Nino",
   "entity.faunaandorchestra.worker_koala_name15": "Anitta",
+  "entity.faunaandorchestra.tailor_koala.catalog": "Catálogo",
 
   "piece.faunaandorchestra.bach_air_sheet_music": "Air de Bach",
   "piece.faunaandorchestra.greensleeves_sheet_music": "Greensleeves",
@@ -439,6 +444,8 @@
 
   "dialogue.faunaandorchestra.worker_koala0": "Buenas, me llamo %. ¡Recibí tu carta y vengo a trabajar!",
   "dialogue.faunaandorchestra.worker_koala1": "Dame cualquier §lkit§r para empezar la faena. ¡No tardes!",
+
+  "dialogue.faunaandorchestra.tailor_koala0": "¡Asígname una máquina de coser con una batuta!",
 
   "item.faunaandorchestra.unlocker": "Sabiduría de Symphonia — Creativo",
   "item.faunaandorchestra.unlocker.desc": "Si haces §eright-click§r con este libro desbloquearás casi todas las páginas de Symphonia",

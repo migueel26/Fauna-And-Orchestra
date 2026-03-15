@@ -213,6 +213,9 @@ public class ModBlocks {
     public static final DeferredBlock<Block> BEAVER_STATUE = registerBlock("beaver_statue",
             () -> new BeaverStatueBlock(BlockBehaviour.Properties.ofFullCopy(ModBlocks.ALTAR.get()).randomTicks()));
 
+    public static final DeferredBlock<Block> SEWING_MACHINE = registerBlock("sewing_machine",
+            () -> new SewingMachineBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_PLANKS)));
+
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block) {
         DeferredBlock<T> toReturn = BLOCKS.register(name, block);
         ModItems.ITEMS.register(name, () -> new BlockItem(toReturn.get(), new Item.Properties()));

@@ -1,10 +1,7 @@
 package net.migueel26.faunaandorchestra.screen;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
-import net.migueel26.faunaandorchestra.screen.custom.ConductorMenu;
-import net.migueel26.faunaandorchestra.screen.custom.ConductorScreen;
-import net.migueel26.faunaandorchestra.screen.custom.HangingJarMenu;
-import net.migueel26.faunaandorchestra.screen.custom.MusicianMenu;
+import net.migueel26.faunaandorchestra.screen.custom.*;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
@@ -24,6 +21,9 @@ public class ModMenuTypes {
             "musician_menu", MusicianMenu::create);
     public static final DeferredHolder<MenuType<?>, MenuType<HangingJarMenu>> HANGING_JAR_MENU = registerMenuType(
             "hanging_jar_menu", HangingJarMenu::create
+    );
+    public static final DeferredHolder<MenuType<?>, MenuType<TailorMenu>> TAILOR_MENU = registerMenuType(
+            "tailor_menu", TailorMenu::create
     );
 
     private static <T extends AbstractContainerMenu> DeferredHolder<MenuType<?>, MenuType<T>> registerMenuType(String name,
