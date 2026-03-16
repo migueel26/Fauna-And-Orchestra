@@ -23,6 +23,7 @@ import net.migueel26.faunaandorchestra.particles.custom.*;
 import net.migueel26.faunaandorchestra.effect.potion.ModPotions;
 import net.migueel26.faunaandorchestra.recipe.ModIngredientTypes;
 import net.migueel26.faunaandorchestra.recipe.ModRecipes;
+import net.migueel26.faunaandorchestra.screen.ClientRecipeItemsTooltip;
 import net.migueel26.faunaandorchestra.screen.ModMenuTypes;
 import net.migueel26.faunaandorchestra.screen.custom.*;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
@@ -193,6 +194,11 @@ public class FaunaAndOrchestra {
             event.registerSpriteSet(ModParticleTypes.VOICE_PARTICLE.get(), VoiceParticle.Provider::new);
             event.registerSpriteSet(ModParticleTypes.SLEEP.get(), SleepParticle.Provider::new);
             event.registerSpriteSet(ModParticleTypes.BASS_CLEF.get(), BassClefParticle.Provider::new);
+        }
+
+        @SubscribeEvent
+        public static void registerTooltipComponents(RegisterClientTooltipComponentFactoriesEvent event) {
+            event.register(ClientRecipeItemsTooltip.RecipeItemsTooltip.class, ClientRecipeItemsTooltip::new);
         }
     }
 

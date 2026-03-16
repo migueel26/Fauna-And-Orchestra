@@ -287,6 +287,7 @@
   "entity.faunaandorchestra.worker_koala_name14": "Jamie",
   "entity.faunaandorchestra.worker_koala_name15": "Sophie",
   "entity.faunaandorchestra.tailor_koala.catalog": "Catalog",
+  "entity.faunaandorchestra.tailor_koala.required_items": "Materials",
 
   "piece.faunaandorchestra.bach_air_sheet_music": "Bach's Air",
   "piece.faunaandorchestra.greensleeves_sheet_music": "Greensleeves",

@@ -1,0 +1,25 @@
+{
+  "type": "faunaandorchestra:sewing",
+  "ingredients": [
+    {
+      "ingredient": {
+        "item": "minecraft:red_dye"
+      }
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:string"
+      }
+    },
+    {
+      "ingredient": {
+        "item": "faunaandorchestra:gingko_biloba"
+      },
+      "amount": 3
+    }
+  ],
+  "result": {
+    "id": "faunaandorchestra:santa_costume",
+    "count": 1
+  }
+}

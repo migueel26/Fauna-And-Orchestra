@@ -66,11 +66,12 @@ public class TailorKoalaEntity extends AgeableMob implements Npc, TalkableEntity
     // TAILORING
     protected static final EntityDataAccessor<BlockPos> WORKING_STATION = SynchedEntityData.defineId(TailorKoalaEntity.class, EntityDataSerializers.BLOCK_POS);
     protected static final EntityDataAccessor<Boolean> SLEEPING = SynchedEntityData.defineId(TailorKoalaEntity.class, EntityDataSerializers.BOOLEAN);
+    protected static final EntityDataAccessor<ItemStack> CATALOG_CHOICE = SynchedEntityData.defineId(TailorKoalaEntity.class, EntityDataSerializers.ITEM_STACK);
     private BlockPos workingStation;
     public ItemStackHandler inventory = new ItemStackHandler(12) {
         @Override
         protected void onContentsChanged(int slot) {
-            super.onContentsChanged(slot);
+            tryToSew();
         }
     };
     public TailorKoalaEntity(EntityType<? extends AgeableMob> entityType, Level level) {
@@ -84,6 +85,7 @@ public class TailorKoalaEntity extends AgeableMob implements Npc, TalkableEntity
         builder.define(GOOD_MORNING, true);
         builder.define(SLEEPING, false);
         builder.define(WORKING_STATION, blockPosition());
+        builder.define(CATALOG_CHOICE, ItemStack.EMPTY);
     }
 
     @Override
@@ -122,12 +124,18 @@ public class TailorKoalaEntity extends AgeableMob implements Npc, TalkableEntity
         if (compound.contains("Inventory")) {
             this.inventory.deserializeNBT(this.registryAccess(), compound.getCompound("Inventory"));
         }
+        if (compound.contains("CatalogChoice")) {
+            this.entityData.set(CATALOG_CHOICE, ItemStack.parseOptional(this.registryAccess(), compound.getCompound("CatalogChoice")));
+        }
         super.readAdditionalSaveData(compound);
     }
 
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         compound.put("Inventory", this.inventory.serializeNBT(this.registryAccess()));
+        if (!getCatalogChoice().isEmpty()) {
+            compound.put("CatalogChoice", this.getCatalogChoice().save(this.registryAccess()));
+        }
         if (level().getBlockState(workingStation).is(ModBlocks.SEWING_MACHINE)) {
             compound.put("WorkingStation", NbtUtils.writeBlockPos(this.workingStation));
         }
@@ -139,6 +147,10 @@ public class TailorKoalaEntity extends AgeableMob implements Npc, TalkableEntity
                 .add(Attributes.MAX_HEALTH, 15d)
                 .add(Attributes.MOVEMENT_SPEED, 0.2D)
                 .add(Attributes.FOLLOW_RANGE, 24D);
+    }
+
+    public void tryToSew() {
+
     }
 
     private void openCustomMenu(Player player) {
@@ -247,6 +259,14 @@ public class TailorKoalaEntity extends AgeableMob implements Npc, TalkableEntity
 
     public void setKoalaSleeping(boolean isSleeping) {
         this.entityData.set(SLEEPING, isSleeping);
+    }
+
+    public ItemStack getCatalogChoice() {
+        return entityData.get(CATALOG_CHOICE);
+    }
+
+    public void setCatalogChoice(ItemStack itemStack) {
+        this.entityData.set(CATALOG_CHOICE, itemStack);
     }
 
     @Nullable

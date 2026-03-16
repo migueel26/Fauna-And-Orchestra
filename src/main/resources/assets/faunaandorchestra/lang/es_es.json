@@ -256,7 +256,7 @@
   "entity.faunaandorchestra.wandering_koala": "Koala Ambulante",
   "entity.faunaandorchestra.butler_koala": "Koala Mayordomo",
   "entity.faunaandorchestra.worker_koala": "Koala",
-  "entity.faunaandorchestra.tailor_koala": "Koala Costurero",
+  "entity.faunaandorchestra.tailor_koala": "Koala Sastre",
   "entity.faunaandorchestra.faust": "Fausto",
   "entity.faunaandorchestra.orion": "Orión",
   "entity.faunaandorchestra.wise_tree": "Árbol Sabio",
@@ -286,6 +286,7 @@
   "entity.faunaandorchestra.worker_koala_name14": "Nino",
   "entity.faunaandorchestra.worker_koala_name15": "Anitta",
   "entity.faunaandorchestra.tailor_koala.catalog": "Catálogo",
+  "entity.faunaandorchestra.tailor_koala.required_items": "Materiales",
 
   "piece.faunaandorchestra.bach_air_sheet_music": "Air de Bach",
   "piece.faunaandorchestra.greensleeves_sheet_music": "Greensleeves",
