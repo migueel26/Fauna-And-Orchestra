@@ -1,6 +1,7 @@
 package net.migueel26.faunaandorchestra.entity.goals;
 
 import net.migueel26.faunaandorchestra.entity.custom.*;
+import net.migueel26.faunaandorchestra.entity.custom.koala_workers.TailorKoalaEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;
 
@@ -35,6 +36,7 @@ public class FaunaRandomLookAroundGoal extends Goal {
                 case WanderingKoalaEntity -> condition = !((WanderingKoalaEntity) mob).isKoalaSleeping();
                 case ButlerKoalaEntity -> condition = !((ButlerKoalaEntity) mob).isServing();
                 case SproutlingEntity  -> condition = !((SproutlingEntity) mob).isSinging();
+                case TailorKoalaEntity -> condition = !((TailorKoalaEntity) mob).isSewing();
             }
         }
 

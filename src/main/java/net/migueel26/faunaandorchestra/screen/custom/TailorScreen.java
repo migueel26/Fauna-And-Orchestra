@@ -3,6 +3,7 @@ package net.migueel26.faunaandorchestra.screen.custom;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.entity.custom.koala_workers.TailorKoalaEntity;
+import net.migueel26.faunaandorchestra.networking.TailorKoalaStartSewingC2SPayload;
 import net.migueel26.faunaandorchestra.recipe.ModRecipes;
 import net.migueel26.faunaandorchestra.recipe.SewingRecipe;
 import net.migueel26.faunaandorchestra.screen.ClientRecipeItemsTooltip;
@@ -26,6 +27,7 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,8 +69,8 @@ public class TailorScreen extends AbstractContainerScreen<TailorMenu> {
             for (var recipe : level.getRecipeManager().getAllRecipesFor(ModRecipes.SEWING_TYPE.get())) {
                 this.catalogOfferButtons[catalogSize] = this.addRenderableWidget(
                         new CatalogOfferButton(leftPos + 5, 0, catalogSize, recipe, button -> {
-                            tailor.setCatalogChoice(recipe.value().output());
-                            tailor.tryToSew();
+                            PacketDistributor.sendToServer(new TailorKoalaStartSewingC2SPayload(tailor.getUUID(), true));
+
                 }));
                 catalogSize++;
             }

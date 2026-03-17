@@ -98,6 +98,9 @@ public class SewingMachineBlock extends HorizontalDirectionalBlock implements En
                         return ItemInteractionResult.SUCCESS;
                     }
                 }
+            } else if (state.getValue(SEWING)) {
+                player.displayClientMessage(Component.translatable("block.faunaandorchestra.sewing_machine.is_sewing"), true);
+                return ItemInteractionResult.CONSUME_PARTIAL;
             } else {
                 // EMPTY HAND AND NOT SEWING
                 blockEntity.oops();
@@ -119,9 +122,9 @@ public class SewingMachineBlock extends HorizontalDirectionalBlock implements En
     protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
         // We set the working station to the koala when it arrives the stool
         if (state.getValue(PART) == BedPart.FOOT && entity instanceof TailorKoalaEntity koala && !koala.hasWorkingStation()) {
-            koala.setWorkingStation(pos);
-
             Direction facing = state.getValue(FACING);
+
+            koala.setWorkingStation(pos.relative(facing.getOpposite()));
 
             double y = pos.getY() + 0.25;
             double x = pos.getX();

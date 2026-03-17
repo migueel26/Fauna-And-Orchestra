@@ -96,6 +96,11 @@ public class ModEventBusEvents {
                 SyncTipCaseOwnerPayloadC2S.STREAM_CODEC,
                 (payload, context) -> ServerPayloadHandler.handleSyncTipCaseOnNetwork(payload, context)
         );
+        registrar.playToServer(
+                TailorKoalaStartSewingC2SPayload.TYPE,
+                TailorKoalaStartSewingC2SPayload.STREAM_CODEC,
+                (payload, context) -> ServerPayloadHandler.handleTailorKoalaStartSewingOnNetwork(payload, context)
+        );
         registrar.playToClient(
                 StartOrchestraMusicS2CPayload.TYPE,
                 StartOrchestraMusicS2CPayload.STREAM_CODEC,

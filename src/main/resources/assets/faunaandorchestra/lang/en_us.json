@@ -193,6 +193,7 @@
   "block.faunaandorchestra.discord_nuclei.instability": "Instability: ",
   "block.faunaandorchestra.jar_rack.not_placed": "The block below needs to be air or some fuel!",
   "block.faunaandorchestra.sewing_machine.cant_sew": "You don't know how to sew!",
+  "block.faunaandorchestra.sewing_machine.is_sewing": "The tailor is currently sewing some clothes",
 
   "item.faunaandorchestra.bach_air_sheet_music": "Bach's Air Sheet",
   "item.faunaandorchestra.greensleeves_sheet_music": "Greensleeves Sheet",
@@ -448,6 +449,7 @@
   "dialogue.faunaandorchestra.worker_koala1": "Just give me any §lkit§r so we can get started. Don't take too long!",
 
   "dialogue.faunaandorchestra.tailor_koala0": "Assign me a sewing machine using a baton!",
+  "dialogue.faunaandorchestra.tailor_koala1": "I'm busy working on a new piece. Come back later.",
 
   "item.faunaandorchestra.unlocker": "Symphonia Wisdom — Creative",
   "item.faunaandorchestra.unlocker.desc": "If you §eright-click§r this book you'll unlock most of the Symphonia entries",

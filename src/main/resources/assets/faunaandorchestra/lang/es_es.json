@@ -192,6 +192,7 @@
   "block.faunaandorchestra.discord_nuclei.instability": "Inestabilidad: ",
   "block.faunaandorchestra.jar_rack.not_placed": "¡El bloque debajo debe ser aire o algún combustible!",
   "block.faunaandorchestra.sewing_machine.cant_sew": "¡No sabes coser!",
+  "block.faunaandorchestra.sewing_machine.is_sewing": "El sastre está tejiendo ahora mismo",
 
   "item.faunaandorchestra.bach_air_sheet_music": "Partitura del Air de Bach",
   "item.faunaandorchestra.greensleeves_sheet_music": "Partitura de Greensleeves",
@@ -447,6 +448,7 @@
   "dialogue.faunaandorchestra.worker_koala1": "Dame cualquier §lkit§r para empezar la faena. ¡No tardes!",
 
   "dialogue.faunaandorchestra.tailor_koala0": "¡Asígname una máquina de coser con una batuta!",
+  "dialogue.faunaandorchestra.tailor_koala1": "Estoy ocupado con una nueva prenda. Vuelve más tarde.",
 
   "item.faunaandorchestra.unlocker": "Sabiduría de Symphonia — Creativo",
   "item.faunaandorchestra.unlocker.desc": "Si haces §eright-click§r con este libro desbloquearás casi todas las páginas de Symphonia",

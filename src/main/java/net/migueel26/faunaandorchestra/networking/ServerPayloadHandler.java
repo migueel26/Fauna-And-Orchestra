@@ -3,6 +3,7 @@ package net.migueel26.faunaandorchestra.networking;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.block.entity.TipCaseBlockEntity;
 import net.migueel26.faunaandorchestra.entity.custom.ConductorEntity;
+import net.migueel26.faunaandorchestra.entity.custom.koala_workers.TailorKoalaEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerLevel;
@@ -54,6 +55,19 @@ public class ServerPayloadHandler {
         if (state.getBlock() == ModBlocks.TIP_CASE.get() && entity != null) {
             BlockEntity blockEntity = level.getBlockEntity(blockPos);
             ((TipCaseBlockEntity) blockEntity).setOwner(uuid);
+        }
+    }
+
+    public static void handleTailorKoalaStartSewingOnNetwork(TailorKoalaStartSewingC2SPayload payload, IPayloadContext context) {
+        UUID uuid = payload.tailorUUID();
+        Player player = context.player();
+        ServerLevel level = (ServerLevel) player.level();
+
+        Entity entity = level.getEntity(uuid);
+        if (entity instanceof TailorKoalaEntity koala) {
+            if (koala.tryToSew()) {
+                player.closeContainer();
+            }
         }
     }
 }
