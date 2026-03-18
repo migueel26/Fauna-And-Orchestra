@@ -1,5 +1,6 @@
 package net.migueel26.faunaandorchestra.screen.custom;
 
+import net.migueel26.faunaandorchestra.Config;
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.entity.custom.AnyaGhost;
 import net.migueel26.faunaandorchestra.entity.custom.boss.TheGreatComposer;
@@ -56,7 +57,7 @@ public class AnyaScreen {
                     text = Component.translatable("dialogue.faunaandorchestra.anya0").getString();
 
                 } else {
-                    text = Component.translatable("dialogue.faunaandorchestra.anya1").getString();
+                    text = Component.translatable("dialogue.faunaandorchestra.anya" + (Config.giveBook ? "1" : "1b")).getString();
                 }
 
                 int currIconY = location.getB() + DEFAULT_OFFSET;

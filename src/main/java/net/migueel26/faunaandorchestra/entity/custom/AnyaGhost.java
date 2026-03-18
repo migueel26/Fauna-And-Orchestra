@@ -1,6 +1,7 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
 import com.mojang.blaze3d.platform.NativeImage;
+import net.migueel26.faunaandorchestra.Config;
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.AbstractClientPlayer;
@@ -150,13 +151,16 @@ public class AnyaGhost extends AbstractCanonEntity implements GeoEntity {
         }
 
         if (!level().isClientSide()) {
-            if (tickCount == 350) {
+            if (tickCount == 354 + (Config.giveBook ? 0 : 15)) {
                 ((ServerLevel) level()).sendParticles(ParticleTypes.POOF, position().x, position().y+0.5f, position().z, 40, 0.2, 0.5, 0.2, 0.3);
-                ItemEntity itemEntity = new ItemEntity(level(), position().x, position().y+0.5f, position().z,
-                        PatchouliAPI.get().getBookStack(ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "symphonia")));
-                itemEntity.addDeltaMovement(new Vec3(0, 0.3, 0));
-                level().addFreshEntity(itemEntity);
-            } else if (tickCount == 356) {
+                if (Config.giveBook) {
+                    // If the book SHOULD BE given
+                    ItemEntity itemEntity = new ItemEntity(level(), position().x, position().y+0.5f, position().z,
+                            PatchouliAPI.get().getBookStack(ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "symphonia")));
+                    itemEntity.addDeltaMovement(new Vec3(0, 0.3, 0));
+                    level().addFreshEntity(itemEntity);
+                }
+            } else if (tickCount == 360 + (Config.giveBook ? 0 : 15)) {
                 this.discard();
             }
         }

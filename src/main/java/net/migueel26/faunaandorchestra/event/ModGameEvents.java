@@ -162,7 +162,10 @@ public class ModGameEvents {
                 player.level().addFreshEntity(anyaGhost);
             } else {
                 // Anya SHOULD NOT spawn
-                player.addItem(PatchouliAPI.get().getBookStack(ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "symphonia")));
+                if (Config.giveBook) {
+                    // The book SHOULD BE given
+                    player.addItem(PatchouliAPI.get().getBookStack(ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "symphonia")));
+                }
             }
         }
     }
