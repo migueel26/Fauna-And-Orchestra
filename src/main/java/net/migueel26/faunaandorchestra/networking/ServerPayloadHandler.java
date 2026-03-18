@@ -10,6 +10,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -61,10 +62,12 @@ public class ServerPayloadHandler {
     public static void handleTailorKoalaStartSewingOnNetwork(TailorKoalaStartSewingC2SPayload payload, IPayloadContext context) {
         UUID uuid = payload.tailorUUID();
         Player player = context.player();
+        ItemStack choice = payload.catalogChoice();
         ServerLevel level = (ServerLevel) player.level();
 
         Entity entity = level.getEntity(uuid);
         if (entity instanceof TailorKoalaEntity koala) {
+            koala.setCatalogChoice(choice);
             if (koala.tryToSew()) {
                 player.closeContainer();
             }

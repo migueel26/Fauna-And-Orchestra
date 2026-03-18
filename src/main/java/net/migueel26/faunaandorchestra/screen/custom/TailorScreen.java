@@ -69,7 +69,7 @@ public class TailorScreen extends AbstractContainerScreen<TailorMenu> {
             for (var recipe : level.getRecipeManager().getAllRecipesFor(ModRecipes.SEWING_TYPE.get())) {
                 this.catalogOfferButtons[catalogSize] = this.addRenderableWidget(
                         new CatalogOfferButton(leftPos + 5, 0, catalogSize, recipe, button -> {
-                            PacketDistributor.sendToServer(new TailorKoalaStartSewingC2SPayload(tailor.getUUID(), true));
+                            PacketDistributor.sendToServer(new TailorKoalaStartSewingC2SPayload(tailor.getUUID(), true, recipe.value().output()));
 
                 }));
                 catalogSize++;

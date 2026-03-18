@@ -36,7 +36,10 @@ public class FaunaRandomLookAroundGoal extends Goal {
                 case WanderingKoalaEntity -> condition = !((WanderingKoalaEntity) mob).isKoalaSleeping();
                 case ButlerKoalaEntity -> condition = !((ButlerKoalaEntity) mob).isServing();
                 case SproutlingEntity  -> condition = !((SproutlingEntity) mob).isSinging();
-                case TailorKoalaEntity -> condition = !((TailorKoalaEntity) mob).isSewing();
+                case TailorKoalaEntity -> {
+                    TailorKoalaEntity koala = (TailorKoalaEntity) mob;
+                    condition = !koala.isKoalaSleeping() && (!koala.isSewing() || koala.isInLunchBreak());
+                }
             }
         }
 

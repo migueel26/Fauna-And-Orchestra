@@ -13,6 +13,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -32,6 +33,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -39,11 +41,13 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.UUID;
 
 public class SewingMachineBlock extends HorizontalDirectionalBlock implements EntityBlock {
     public static final MapCodec<SewingMachineBlock> CODEC = simpleCodec(SewingMachineBlock::new);
     public static final EnumProperty<BedPart> PART = BlockStateProperties.BED_PART;
+    public static final BooleanProperty OCCUPIED = BlockStateProperties.OCCUPIED;
     public static final BooleanProperty SEWING = BooleanProperty.create("sewing");
     // TABLE SHAPE
     public static final VoxelShape TOP = Block.box(1, 6, 1, 15, 9, 15);
@@ -60,7 +64,10 @@ public class SewingMachineBlock extends HorizontalDirectionalBlock implements En
     public SewingMachineBlock(Properties properties) {
         super(properties);
 
-        this.registerDefaultState(this.getStateDefinition().any().setValue(PART, BedPart.FOOT).setValue(SEWING, false));
+        this.registerDefaultState(this.getStateDefinition().any()
+                .setValue(PART, BedPart.FOOT)
+                .setValue(SEWING, false)
+                .setValue(OCCUPIED, false));
     }
 
     @Override
@@ -83,21 +90,22 @@ public class SewingMachineBlock extends HorizontalDirectionalBlock implements En
             tablePos = pos.relative(state.getValue(FACING));
         }
         if (level.getBlockEntity(tablePos) instanceof SewingMachineBlockEntity blockEntity) {
-            if (stack.is(ModTags.Items.IS_BATON) && !level.isClientSide()) {
+            if (stack.is(ModTags.Items.IS_BATON)) {
                 // ASSIGN
-                UUID uuid = stack.get(ModDataComponents.MUSICIAN_UUID);
-                if (uuid != null && level instanceof ServerLevel serverLevel) {
-                    Entity entity = serverLevel.getEntity(uuid);
-                    if (entity instanceof TailorKoalaEntity koala && koala.isAlive() && entity.distanceToSqr(pos.getCenter()) < 150) {
-                        // We clear the UUID
-                        stack.set(ModDataComponents.MUSICIAN_UUID, null);
-                        BlockPos stoolPos = pos.equals(tablePos) ? pos.relative(state.getValue(FACING)) : pos;
+                if (!level.isClientSide()) {
+                    UUID uuid = stack.get(ModDataComponents.MUSICIAN_UUID);
+                    if (uuid != null && level instanceof ServerLevel serverLevel) {
+                        Entity entity = serverLevel.getEntity(uuid);
+                        if (entity instanceof TailorKoalaEntity koala && koala.isAlive() && entity.distanceToSqr(pos.getCenter()) < 150) {
+                            // We clear the UUID
+                            stack.set(ModDataComponents.MUSICIAN_UUID, null);
+                            BlockPos stoolPos = pos.equals(tablePos) ? pos.relative(state.getValue(FACING)) : pos;
 
-                        koala.getNavigation().moveTo(stoolPos.getCenter().x, stoolPos.getY(), stoolPos.getCenter().z, 0, 1.0f);
-
-                        return ItemInteractionResult.SUCCESS;
+                            koala.getNavigation().moveTo(stoolPos.getCenter().x, stoolPos.getY(), stoolPos.getCenter().z, 0, 1.0f);
+                        }
                     }
                 }
+                return ItemInteractionResult.SUCCESS;
             } else if (state.getValue(SEWING)) {
                 player.displayClientMessage(Component.translatable("block.faunaandorchestra.sewing_machine.is_sewing"), true);
                 return ItemInteractionResult.CONSUME_PARTIAL;
@@ -120,43 +128,49 @@ public class SewingMachineBlock extends HorizontalDirectionalBlock implements En
 
     @Override
     protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
+        boolean occupied = state.getValue(OCCUPIED);
         // We set the working station to the koala when it arrives the stool
-        if (state.getValue(PART) == BedPart.FOOT && entity instanceof TailorKoalaEntity koala && !koala.hasWorkingStation()) {
+        if (state.getValue(PART) == BedPart.FOOT && entity instanceof TailorKoalaEntity koala && !koala.hasWorkingStation() && !occupied) {
             Direction facing = state.getValue(FACING);
 
             koala.setWorkingStation(pos.relative(facing.getOpposite()));
 
-            double y = pos.getY() + 0.25;
-            double x = pos.getX();
-            double z = pos.getZ();
-
-            // We calculate the stool position depending on the direction
-            switch (facing) {
-                case NORTH -> {
-                    x += 0.5;
-                    z += 0.75125;
-                }
-                case SOUTH -> {
-                    x += 0.5;
-                    z += 0.24875;
-                }
-                case EAST -> {
-                    x += 0.24875;
-                    z += 0.5;
-                }
-                case WEST -> {
-                    x += 0.75125;
-                    z += 0.5;
-                }
-                default -> {
-                    x += 0.5;
-                    z += 0.5;
-                }
-            }
-
-            koala.moveTo(x, y, z);
+            moveKoalaToStool(pos, koala, facing);
+            level.setBlock(pos, state.setValue(OCCUPIED, true), 3);
         }
         super.entityInside(state, level, pos, entity);
+    }
+
+    public static void moveKoalaToStool(BlockPos pos, TailorKoalaEntity koala, Direction facing) {
+        double y = pos.getY() + 0.25;
+        double x = pos.getX();
+        double z = pos.getZ();
+
+        // We calculate the stool position depending on the direction
+        switch (facing) {
+            case NORTH -> {
+                x += 0.5;
+                z += 0.75125;
+            }
+            case SOUTH -> {
+                x += 0.5;
+                z += 0.24875;
+            }
+            case EAST -> {
+                x += 0.24875;
+                z += 0.5;
+            }
+            case WEST -> {
+                x += 0.75125;
+                z += 0.5;
+            }
+            default -> {
+                x += 0.5;
+                z += 0.5;
+            }
+        }
+
+        koala.moveTo(x, y, z);
     }
 
     @Override
@@ -173,12 +187,19 @@ public class SewingMachineBlock extends HorizontalDirectionalBlock implements En
     protected @NotNull BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
         if (direction == getNeighbourDirection(state.getValue(PART), state.getValue(FACING))) {
             if (neighborState.is(this) && neighborState.getValue(PART) != state.getValue(PART)) {
-                return state.setValue(SEWING, neighborState.getValue(SEWING));
+                return state.setValue(SEWING, neighborState.getValue(SEWING))
+                        .setValue(OCCUPIED, neighborState.getValue(OCCUPIED));
             } else {
                 return Blocks.AIR.defaultBlockState();
             }
         }
         return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
+    }
+
+    @Override
+    protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        level.setBlock(pos, state.setValue(SewingMachineBlock.SEWING, false).setValue(SewingMachineBlock.OCCUPIED, false), 3);
+        super.tick(state, level, pos, random);
     }
 
     @Override
@@ -204,6 +225,23 @@ public class SewingMachineBlock extends HorizontalDirectionalBlock implements En
                 : null;
     }
 
+    @Override
+    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
+        if (!state.is(newState.getBlock())) {
+            AABB searchArea = new AABB(pos).inflate(1.5);
+
+            List<TailorKoalaEntity> nearbyKoalas = level.getEntitiesOfClass(TailorKoalaEntity.class, searchArea);
+
+            for (TailorKoalaEntity koala : nearbyKoalas) {
+                if (koala.hasWorkingStation() && pos.equals(koala.getWorkingStation())) {
+                    TailorKoalaEntity.onLeaveWorkingStation(koala);
+                }
+            }
+        }
+
+        super.onRemove(state, level, pos, newState, isMoving);
+    }
+
     public static Direction getConnectedDirection(BlockState state) {
         Direction direction = state.getValue(FACING);
         return state.getValue(PART) == BedPart.FOOT ? direction.getOpposite() : direction;
@@ -225,6 +263,6 @@ public class SewingMachineBlock extends HorizontalDirectionalBlock implements En
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, PART, SEWING);
+        builder.add(FACING, PART, SEWING, OCCUPIED);
     }
 }

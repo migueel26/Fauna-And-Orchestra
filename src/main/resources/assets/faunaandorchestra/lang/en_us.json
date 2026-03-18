@@ -450,6 +450,9 @@
 
   "dialogue.faunaandorchestra.tailor_koala0": "Assign me a sewing machine using a baton!",
   "dialogue.faunaandorchestra.tailor_koala1": "I'm busy working on a new piece. Come back later.",
+  "dialogue.faunaandorchestra.tailor_koala2": "Hey, boss. We can chat if you want, I'm on my lunch break.",
+  "dialogue.faunaandorchestra.tailor_koala3": "Yadayadayada",
+  "dialogue.faunaandorchestra.tailor_koala4": "Diridiridiri",
 
   "item.faunaandorchestra.unlocker": "Symphonia Wisdom — Creative",
   "item.faunaandorchestra.unlocker.desc": "If you §eright-click§r this book you'll unlock most of the Symphonia entries",

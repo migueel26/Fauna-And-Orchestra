@@ -25,7 +25,7 @@ public class SewingMachineBlockEntity extends BlockEntity implements GeoBlockEnt
         if (blockState.getValue(SewingMachineBlock.SEWING)) {
             state.getController().setAnimation(USE);
         } else {
-            state.getController().stop();
+            return PlayState.STOP;
         }
         return PlayState.CONTINUE;
     }
