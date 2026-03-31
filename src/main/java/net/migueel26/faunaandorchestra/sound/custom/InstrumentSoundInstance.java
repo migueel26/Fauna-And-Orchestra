@@ -35,7 +35,7 @@ public class InstrumentSoundInstance extends AbstractTickableSoundInstance {
     @Override
     public void tick() {
         if (!entity.isPlayingInstrument() || entity.isRemoved()) {
-            // There needs to be a little delay for the server and client to be synchronised
+            // There needs to be a little delay for the server and client to be synchronized
             if (stopDelay > 0) {
                 stopDelay--;
             } else {

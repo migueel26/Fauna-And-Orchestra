@@ -188,10 +188,9 @@ public abstract class MusicalEntity extends TamableAnimal implements GeoEntity {
 
             } else if (itemStack.is(instrument) && !isHoldingInstrument()) {
 
-                setHoldingInstrument(true);
+                onSetInstrument();
                 player.setItemInHand(hand, ItemStack.EMPTY);
-                level().addParticle(ParticleTypes.NOTE, this.getX(), this.getY() + 2.5, this.getZ(), 0F, 0.5F, 0F);
-                setOrderedToSit(true);
+
                 return InteractionResult.CONSUME;
 
             } else if (itemStack.isEmpty() && isHoldingInstrument()) {
@@ -416,5 +415,21 @@ public abstract class MusicalEntity extends TamableAnimal implements GeoEntity {
         if (stack.isEmpty()) {
             targetEntity.discard();
         }
+    }
+
+    protected void onSetInstrument() {
+        setHoldingInstrument(true);
+        setOrderedToSit(true);
+
+        Optional<ConductorEntity> potentialConductor = this.level()
+                .getEntitiesOfClass(ConductorEntity.class, this.getBoundingBox().inflate(7))
+                .stream()
+                .filter(ConductorEntity::isHoldingBaton)
+                .filter(ConductorEntity::isHoldingASheetMusic)
+                .filter(cond -> cond.isMusicianApt(this))
+                .filter(cond -> cond.getOrchestra().stream().noneMatch(this.getClass()::isInstance))
+                .findAny();
+
+        potentialConductor.ifPresent(this::setConductor);
     }
 }

@@ -12,6 +12,7 @@ import net.migueel26.faunaandorchestra.entity.custom.boss.TheGreatComposer;
 import net.migueel26.faunaandorchestra.entity.custom.projectile.PhantomNoteProjectileEntity;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.item.custom.BriefcaseItem;
+import net.migueel26.faunaandorchestra.networking.RestartOrchestraMusicS2CPayload;
 import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
 import net.migueel26.faunaandorchestra.screen.custom.ConductorMenu;
 import net.migueel26.faunaandorchestra.util.ModTags;
@@ -60,6 +61,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.*;
 
@@ -101,6 +103,10 @@ public abstract class ConductorEntity extends TamableAnimal {
             if (slot == 1) {
                 entityData.set(COSTUME_ITEM, getStackInSlot(1));
                 playSound(SoundEvents.ARMOR_EQUIP_LEATHER.value(), 1.0F, 1.0F + ((random.nextFloat() / 2) - 0.25F));
+            }
+
+            if (slot == 0) {
+                onStartConducting();
             }
 
             super.onContentsChanged(slot);
@@ -591,19 +597,54 @@ public abstract class ConductorEntity extends TamableAnimal {
 
     public void addMusician(MusicalEntity musicalEntity) {
         orchestra.add(musicalEntity);
-        if (!isConducting) this.entityData.set(IS_CONDUCTING, true);
-        isConducting = true;
+        if (!isConducting) {
+            this.entityData.set(IS_CONDUCTING, true);
+            this.isConducting = true;
+        }
     }
 
     public void removeMusician(MusicalEntity musicalEntity) {
         orchestra.remove(musicalEntity);
-        if (orchestra.isEmpty()) this.entityData.set(IS_CONDUCTING, false);
-        isConducting = false;
+        if (orchestra.isEmpty()) {
+            this.entityData.set(IS_CONDUCTING, false);
+            this.isConducting = false;
+        }
     }
 
     public void setConducting(boolean setConducting) {
         this.entityData.set(IS_CONDUCTING, setConducting);
         this.isConducting = setConducting;
+    }
+
+    public void onStartConducting() {
+        if (!this.isOrchestraFull() && this.isHoldingASheetMusic()) {
+            List<MusicalEntity> musicians = level().getEntitiesOfClass(
+                    MusicalEntity.class, this.getBoundingBox().inflate(7),
+                    musician ->
+                            !musician.isDeadOrDying() && musician.getConductor() == null && musician.isHoldingInstrument()
+                            && this.isMusicianApt(musician) && this.getOrchestra().stream().noneMatch(musician.getClass()::isInstance)
+            );
+
+            Iterator<MusicalEntity> iterator = musicians.iterator();
+            while (iterator.hasNext() && !this.isOrchestraFull()) {
+                MusicalEntity musician = iterator.next();
+                musician.setConductor(this);
+            }
+        }
+    }
+
+    public void onNewMember() {
+        List<Player> nearbyPlayers = this.level().getEntitiesOfClass(
+                Player.class, this.getBoundingBox().inflate(32.0, 32.0, 32.0), EntitySelector.LIVING_ENTITY_STILL_ALIVE);
+
+        for (Player player : nearbyPlayers) {
+            PacketDistributor.sendToPlayer((ServerPlayer) player, new RestartOrchestraMusicS2CPayload(
+                    getUUID(),
+                    getOrchestra().stream().map(Entity::getUUID).toList(),
+                    getTicksPlaying(),
+                    getCurrentVolume(),
+                    getSheetMusic().toString()));
+        }
     }
 
     public boolean isOrchestraEmpty() {

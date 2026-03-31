@@ -50,7 +50,7 @@ public class ClientPayloadHandler {
                     System.err.println("The UUID in the StartOrchestraMusicPayload is for an entity that does not exist");
                 }
 
-                //System.out.println("Packet received!");
+                ((ISoundManagerMixin) Minecraft.getInstance().getSoundManager()).faunaStopMusic(uuid);
                 Minecraft.getInstance().getSoundManager().play(new InstrumentSoundInstance(entity, soundEvent, 1.0F, ticksOffset));
             }
         });

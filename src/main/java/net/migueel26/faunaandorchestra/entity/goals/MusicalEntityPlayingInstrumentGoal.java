@@ -29,19 +29,7 @@ public class MusicalEntityPlayingInstrumentGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        if (musician.getTicksSinceLoaded() <= 20) return false;
-        Optional<ConductorEntity> potentialConductor = this.musician.level()
-                .getEntitiesOfClass(ConductorEntity.class, this.musician.getBoundingBox().inflate(7))
-                .stream()
-                .filter(ConductorEntity::isHoldingBaton)
-                .filter(ConductorEntity::isHoldingASheetMusic)
-                .filter(cond -> cond.isMusicianApt(musician))
-                .filter(cond -> cond.getOrchestra().stream().noneMatch(musician.getClass()::isInstance))
-                .findAny();
-
         if (!musician.isHoldingInstrument()) return false;
-
-        potentialConductor.ifPresent(musician::setConductor);
 
         if (musician.getConductor() != null && musician.getConductor().isOrchestraFull()) {
             musician.setConductor(null);
@@ -49,7 +37,7 @@ public class MusicalEntityPlayingInstrumentGoal extends Goal {
         }
 
         return !musician.isDeadOrDying() && musician.isHoldingInstrument()
-                && potentialConductor.isPresent();
+                && musician.getConductor() != null;
     }
 
     @Override
@@ -60,10 +48,8 @@ public class MusicalEntityPlayingInstrumentGoal extends Goal {
 
     @Override
     public void start() {
-        //System.out.println("Musician IN!");
         conductor = musician.getConductor();
 
-        // The musician joins the conductor's orchestra
         conductor.addMusician(musician);
 
         // We get how many ticks the conductor has been conducting
@@ -80,6 +66,8 @@ public class MusicalEntityPlayingInstrumentGoal extends Goal {
                                 MusicUtil.getLocation(conductor.getSheetMusic(), musician.getInstrument().get())),
                         ticksOffset));
             }
+
+            //conductor.onNewMember();
 
         }
 

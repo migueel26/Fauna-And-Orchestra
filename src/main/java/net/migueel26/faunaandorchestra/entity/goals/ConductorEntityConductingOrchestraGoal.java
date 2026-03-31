@@ -31,6 +31,9 @@ public class ConductorEntityConductingOrchestraGoal extends Goal {
 
     @Override
     public boolean canUse() {
+        if (conductor.isReady()) {
+            conductor.onStartConducting();
+        }
         return !conductor.isOrchestraEmpty() && !conductor.isDeadOrDying() && conductor.isHoldingBaton();
     }
 
@@ -79,6 +82,8 @@ public class ConductorEntityConductingOrchestraGoal extends Goal {
         }
 
         if (waitForMoreMusicians > 0) {
+            // The currentOrchestraSize should be obsolete now since new members cannot join on their own now.
+            // I'm keeping it just in case for the future
             if (currentOrchestraSize != this.conductor.getOrchestra().size()) {
                 waitForMoreMusicians = 140;
                 this.currentOrchestraSize = this.conductor.getOrchestra().size();
