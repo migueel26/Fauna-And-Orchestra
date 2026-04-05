@@ -70,6 +70,7 @@
   "item.faunaandorchestra.fluffy_boots": "Fluffy Boots",
   "item.faunaandorchestra.beaver_statue_item": "Beaver Statue",
   "item.faunaandorchestra.sewing_machine_item": "Sewing Machine",
+  "item.faunaandorchestra.mailbox_item": "Mailbox",
 
   "item.faunaandorchestra.prop_case": "Prop Case",
   "item.faunaandorchestra_clothing.desc": "Clothing Item",
@@ -181,6 +182,7 @@
   "block.faunaandorchestra.bamboo_trap": "Bamboo Trap",
   "block.faunaandorchestra.beaver_statue": "Beaver Statue",
   "block.faunaandorchestra.sewing_machine": "Sewing Machine",
+  "block.faunaandorchestra.mailbox": "Mailbox",
 
   "block.faunaandorchestra.tip_case_theft": "This case is not yours! You can't take the gold",
   "block.faunaandorchestra.tip_case.desc": "Everybody can tip you gold, but only you can retrieve it",
@@ -194,6 +196,8 @@
   "block.faunaandorchestra.jar_rack.not_placed": "The block below needs to be air or some fuel!",
   "block.faunaandorchestra.sewing_machine.cant_sew": "You don't know how to sew!",
   "block.faunaandorchestra.sewing_machine.is_sewing": "The tailor is currently sewing some clothes",
+  "block.faunaandorchestra.mailbox.tooltip": "Send all kinds of §epackages and letters§r via your own Mailbird Macaw!",
+  "block.faunaandorchestra.mailbox.send": "Send",
 
   "item.faunaandorchestra.bach_air_sheet_music": "Bach's Air Sheet",
   "item.faunaandorchestra.greensleeves_sheet_music": "Greensleeves Sheet",

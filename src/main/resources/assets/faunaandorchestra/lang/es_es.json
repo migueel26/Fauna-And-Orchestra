@@ -70,6 +70,7 @@
   "item.faunaandorchestra.fluffy_boots": "Botas plumosas",
   "item.faunaandorchestra.beaver_statue_item": "Estatua de castor",
   "item.faunaandorchestra.sewing_machine_item": "Máquina de coser",
+  "item.faunaandorchestra.mailbox_item": "Buzón",
 
   "item.faunaandorchestra.prop_case": "Neceser",
   "item.faunaandorchestra_clothing.desc": "Ropa para Animales",
@@ -180,6 +181,7 @@
   "block.faunaandorchestra.bamboo_trap": "Trampa de bambú",
   "block.faunaandorchestra.beaver_statue": "Estatua de castor",
   "block.faunaandorchestra.sewing_machine": "Máquina de coser",
+  "block.faunaandorchestra.mailbox": "Buzón",
 
   "block.faunaandorchestra.tip_case_theft": "¡Esta funda no es tuya! No puedes llevarte el oro",
   "block.faunaandorchestra.tip_case.desc": "Todo el mundo te puede donar, pero sólo tú puedes retirarlo",
@@ -193,6 +195,8 @@
   "block.faunaandorchestra.jar_rack.not_placed": "¡El bloque debajo debe ser aire o algún combustible!",
   "block.faunaandorchestra.sewing_machine.cant_sew": "¡No sabes coser!",
   "block.faunaandorchestra.sewing_machine.is_sewing": "El sastre está tejiendo ahora mismo",
+  "block.faunaandorchestra.mailbox.tooltip": "¡Envía diversos §epaquetes y cartas§r con tu Guacamayo Mensajero!",
+  "block.faunaandorchestra.mailbox.send": "Enviar",
 
   "item.faunaandorchestra.bach_air_sheet_music": "Partitura del Air de Bach",
   "item.faunaandorchestra.greensleeves_sheet_music": "Partitura de Greensleeves",

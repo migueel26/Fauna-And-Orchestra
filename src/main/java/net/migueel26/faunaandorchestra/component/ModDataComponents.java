@@ -2,6 +2,7 @@ package net.migueel26.faunaandorchestra.component;
 
 import com.mojang.serialization.Codec;
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -35,6 +36,9 @@ public class ModDataComponents {
 
         public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> LIST_INDEX = register("index_list",
                 builder -> builder.persistent(Codec.INT));
+
+        public static final DeferredHolder<DataComponentType<?>, DataComponentType<BlockPos>> POSITION = register("position",
+                builder -> builder.persistent(BlockPos.CODEC));
 
     private static <T> DeferredHolder<DataComponentType<?>, DataComponentType<T>> register(String name, UnaryOperator<DataComponentType.Builder<T>> builderOperator) {
         return DATA_COMPONENT_TYPES.register(name, () -> builderOperator.apply(DataComponentType.builder()).build());

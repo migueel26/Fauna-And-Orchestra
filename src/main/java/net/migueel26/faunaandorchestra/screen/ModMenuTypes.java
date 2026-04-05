@@ -20,11 +20,11 @@ public class ModMenuTypes {
     public static final DeferredHolder<MenuType<?>, MenuType<MusicianMenu>> MUSICIAN_MENU = registerMenuType(
             "musician_menu", MusicianMenu::create);
     public static final DeferredHolder<MenuType<?>, MenuType<HangingJarMenu>> HANGING_JAR_MENU = registerMenuType(
-            "hanging_jar_menu", HangingJarMenu::create
-    );
+            "hanging_jar_menu", HangingJarMenu::create);
     public static final DeferredHolder<MenuType<?>, MenuType<TailorMenu>> TAILOR_MENU = registerMenuType(
-            "tailor_menu", TailorMenu::create
-    );
+            "tailor_menu", TailorMenu::create);
+    public static final DeferredHolder<MenuType<?>, MenuType<MailboxMenu>> MAILBOX_MENU = registerMenuType(
+            "mailbox_menu", MailboxMenu::create);
 
     private static <T extends AbstractContainerMenu> DeferredHolder<MenuType<?>, MenuType<T>> registerMenuType(String name,
                                                                                                                IContainerFactory<T> factory) {

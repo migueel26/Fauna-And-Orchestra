@@ -1,6 +1,7 @@
 package net.migueel26.faunaandorchestra.block;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
+import net.migueel26.faunaandorchestra.block.custom.MailboxBlock;
 import net.migueel26.faunaandorchestra.block.entity.*;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.Block;
@@ -109,6 +110,12 @@ public class ModBlockEntities {
             BLOCK_ENTITES.register("sewing_machine_be", () -> BlockEntityType.Builder.of(
                     SewingMachineBlockEntity::new,
                     ModBlocks.SEWING_MACHINE.get()
+            ).build(null));
+
+    public static final Supplier<BlockEntityType<MailboxBlockEntity>> MAILBOX_BE =
+            BLOCK_ENTITES.register("mailbox_be", () -> BlockEntityType.Builder.of(
+                    MailboxBlockEntity::new,
+                    ModBlocks.MAILBOX.get()
             ).build(null));
 
     public static void register(IEventBus eventBus) {

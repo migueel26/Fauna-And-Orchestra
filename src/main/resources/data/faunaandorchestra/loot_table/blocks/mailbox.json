@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "faunaandorchestra:beaver_statue_item"
+          "name": "faunaandorchestra:mailbox_item"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "faunaandorchestra:blocks/beaver_statue"
+  "random_sequence": "faunaandorchestra:blocks/mailbox"
 }

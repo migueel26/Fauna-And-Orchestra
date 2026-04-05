@@ -162,6 +162,7 @@ public class FaunaAndOrchestra {
             event.registerBlockEntityRenderer(ModBlockEntities.BAMBOO_TRAP_BE.get(), BambooTrapBlockEntityRenderer::new);
             event.registerBlockEntityRenderer(ModBlockEntities.BEAVER_STATUE_BE.get(), BeaverStatueBlockEntityRenderer::new);
             event.registerBlockEntityRenderer(ModBlockEntities.SEWING_MACHINE_BE.get(), SewingMachineBlockEntityRenderer::new);
+            event.registerBlockEntityRenderer(ModBlockEntities.MAILBOX_BE.get(), MailboxBlockEntityRenderer::new);
         }
 
         @SubscribeEvent
@@ -170,6 +171,7 @@ public class FaunaAndOrchestra {
             event.register(ModMenuTypes.MUSICIAN_MENU.get(), MusicianScreen::new);
             event.register(ModMenuTypes.HANGING_JAR_MENU.get(), HangingJarScreen::new);
             event.register(ModMenuTypes.TAILOR_MENU.get(), TailorScreen::new);
+            event.register(ModMenuTypes.MAILBOX_MENU.get(), MailboxScreen::new);
         }
 
         @SubscribeEvent

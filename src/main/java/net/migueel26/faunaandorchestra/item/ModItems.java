@@ -310,6 +310,8 @@ public class ModItems {
             () -> new GeoBlockItem(ModBlocks.BEAVER_STATUE.get(), BeaverStatueItemRenderer::new, new Item.Properties()));
     public static final DeferredItem<Item> SEWING_MACHINE_ITEM = ITEMS.register("sewing_machine_item",
             () -> new GeoBlockItem(ModBlocks.SEWING_MACHINE.get(), SewingMachineItemRenderer::new, new Item.Properties()));
+    public static final DeferredItem<Item> MAILBOX_ITEM = ITEMS.register("mailbox_item",
+            () -> new GeoBlockItem(ModBlocks.MAILBOX.get(), MailboxItemRenderer::new, true, new Item.Properties()));
 
     // MISC
     public static final DeferredItem<Item> VOICE = ITEMS.register("voice",
