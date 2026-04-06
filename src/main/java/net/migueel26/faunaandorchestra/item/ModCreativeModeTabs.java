@@ -72,6 +72,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.PENGUIN_FEATHER);
                         output.accept(ModItems.FLUFFY_BOOTS);
                         output.accept(ModItems.BEAVER_STATUE_ITEM);
+                        output.accept(ModBlocks.LETTER_AND_QUILL);
                         output.accept(ModItems.MAILBOX_ITEM);
                         output.accept(ModItems.BACH_AIR_SHEET_MUSIC);
                         output.accept(ModItems.GREENSLEEVES_SHEET_MUSIC);

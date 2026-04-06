@@ -172,6 +172,7 @@ public class FaunaAndOrchestra {
             event.register(ModMenuTypes.HANGING_JAR_MENU.get(), HangingJarScreen::new);
             event.register(ModMenuTypes.TAILOR_MENU.get(), TailorScreen::new);
             event.register(ModMenuTypes.MAILBOX_MENU.get(), MailboxScreen::new);
+            event.register(ModMenuTypes.LETTER_AND_QUILL_MENU.get(), LetterAndQuillScreen::new);
         }
 
         @SubscribeEvent

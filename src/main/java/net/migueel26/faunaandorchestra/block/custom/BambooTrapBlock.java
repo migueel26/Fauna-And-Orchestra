@@ -19,6 +19,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -92,6 +94,19 @@ public class BambooTrapBlock extends HorizontalDirectionalBlock implements Entit
             }
         }
         super.tick(state, level, pos, random);
+    }
+
+    protected BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor level, BlockPos currentPos, BlockPos facingPos) {
+        return !state.canSurvive(level, currentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, facing, facingState, level, currentPos, facingPos);
+    }
+
+    protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
+        return !state.getCollisionShape(level, pos).getFaceShape(Direction.UP).isEmpty() || state.isFaceSturdy(level, pos, Direction.UP);
+    }
+
+    protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+        BlockPos blockpos = pos.below();
+        return this.mayPlaceOn(level.getBlockState(blockpos), level, blockpos);
     }
 
     @Override

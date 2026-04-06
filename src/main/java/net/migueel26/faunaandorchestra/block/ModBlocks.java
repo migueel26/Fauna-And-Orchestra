@@ -217,6 +217,8 @@ public class ModBlocks {
             () -> new SewingMachineBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_PLANKS)));
     public static final DeferredBlock<Block> MAILBOX = registerBlock("mailbox",
             () -> new MailboxBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_PLANKS)));
+    public static final DeferredBlock<Block> LETTER_AND_QUILL = registerBlock("letter_and_quill",
+            () -> new LetterAndQuillBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.FLOWER_POT)));
 
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block) {
         DeferredBlock<T> toReturn = BLOCKS.register(name, block);

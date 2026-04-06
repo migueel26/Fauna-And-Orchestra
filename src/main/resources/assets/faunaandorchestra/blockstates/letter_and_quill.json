@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "faunaandorchestra:block/letter_and_quill" },
+    "facing=south": { "model": "faunaandorchestra:block/letter_and_quill", "y": 180 },
+    "facing=west":  { "model": "faunaandorchestra:block/letter_and_quill", "y": 270 },
+    "facing=east":  { "model": "faunaandorchestra:block/letter_and_quill", "y": 90 }
+  }
+}

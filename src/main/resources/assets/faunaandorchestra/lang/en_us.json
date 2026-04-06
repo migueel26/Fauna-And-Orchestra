@@ -183,6 +183,7 @@
   "block.faunaandorchestra.beaver_statue": "Beaver Statue",
   "block.faunaandorchestra.sewing_machine": "Sewing Machine",
   "block.faunaandorchestra.mailbox": "Mailbox",
+  "block.faunaandorchestra.letter_and_quill": "Letter and Quill",
 
   "block.faunaandorchestra.tip_case_theft": "This case is not yours! You can't take the gold",
   "block.faunaandorchestra.tip_case.desc": "Everybody can tip you gold, but only you can retrieve it",

@@ -25,6 +25,8 @@ public class ModMenuTypes {
             "tailor_menu", TailorMenu::create);
     public static final DeferredHolder<MenuType<?>, MenuType<MailboxMenu>> MAILBOX_MENU = registerMenuType(
             "mailbox_menu", MailboxMenu::create);
+    public static final DeferredHolder<MenuType<?>, MenuType<LetterAndQuillMenu>> LETTER_AND_QUILL_MENU = registerMenuType(
+            "letter_and_quill_menu", LetterAndQuillMenu::create);
 
     private static <T extends AbstractContainerMenu> DeferredHolder<MenuType<?>, MenuType<T>> registerMenuType(String name,
                                                                                                                IContainerFactory<T> factory) {

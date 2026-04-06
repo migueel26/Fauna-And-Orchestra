@@ -93,7 +93,10 @@ public class MailboxBlock extends HorizontalDirectionalBlock implements EntityBl
 
     @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        if (level.getBlockEntity(pos) instanceof MailboxBlockEntity mailbox) {
+        BlockPos bePos = state.getValue(HALF) == DoubleBlockHalf.LOWER ? pos : pos.below();
+
+        // We always access the lower half inventory
+        if (level.getBlockEntity(bePos) instanceof MailboxBlockEntity mailbox) {
             if (!level.isClientSide()) {
                 player.openMenu(new SimpleMenuProvider(mailbox, mailbox.getDisplayName()), pos);
             } else {
@@ -105,8 +108,10 @@ public class MailboxBlock extends HorizontalDirectionalBlock implements EntityBl
 
     @Override
     protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
-        if (level.getBlockEntity(pos) instanceof MailboxBlockEntity mailbox) {
-            BlocksUtil.dropContents(level, pos, mailbox.inventory);
+        if (!newState.is(state.getBlock())) {
+            if (level.getBlockEntity(pos) instanceof MailboxBlockEntity mailbox && state.getValue(MAILBIRD)) {
+                BlocksUtil.dropContents(level, pos, mailbox.inventory);
+            }
         }
         super.onRemove(state, level, pos, newState, movedByPiston);
     }
@@ -121,6 +126,8 @@ public class MailboxBlock extends HorizontalDirectionalBlock implements EntityBl
                 return Blocks.AIR.defaultBlockState();
             }
         } else if (half == DoubleBlockHalf.LOWER && facing == Direction.DOWN && !state.canSurvive(level, currentPos)) {
+            return Blocks.AIR.defaultBlockState();
+        } else if (half == DoubleBlockHalf.UPPER && !level.getBlockState(currentPos.above()).isEmpty()) {
             return Blocks.AIR.defaultBlockState();
         }
 
@@ -137,16 +144,12 @@ public class MailboxBlock extends HorizontalDirectionalBlock implements EntityBl
         BlockPos blockpos = context.getClickedPos();
         Level level = context.getLevel();
         Direction direction = context.getHorizontalDirection().getOpposite();
-        return blockpos.getY() < level.getMaxBuildHeight() - 1 && level.getBlockState(blockpos.above()).canBeReplaced(context) ? this.defaultBlockState().setValue(FACING, direction) : null;
+        return blockpos.getY() < level.getMaxBuildHeight() - 1 && level.getBlockState(blockpos.above()).canBeReplaced(context) && level.getBlockState(blockpos.above(2)).isEmpty() ? this.defaultBlockState().setValue(FACING, direction) : null;
     }
 
     @Override
     public @Nullable PushReaction getPistonPushReaction(BlockState state) {
         return PushReaction.IGNORE;
-    }
-
-    public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @javax.annotation.Nullable BlockEntity te, ItemStack stack) {
-        super.playerDestroy(level, player, pos, Blocks.AIR.defaultBlockState(), te, stack);
     }
 
     protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
