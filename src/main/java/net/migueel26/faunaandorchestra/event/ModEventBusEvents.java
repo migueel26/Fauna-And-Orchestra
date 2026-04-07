@@ -101,6 +101,16 @@ public class ModEventBusEvents {
                 TailorKoalaStartSewingC2SPayload.STREAM_CODEC,
                 (payload, context) -> ServerPayloadHandler.handleTailorKoalaStartSewingOnNetwork(payload, context)
         );
+        registrar.playToServer(
+                WriteMailC2SPayload.TYPE,
+                WriteMailC2SPayload.STREAM_CODEC,
+                (payload, context) -> ServerPayloadHandler.handleWriteEmailOnNetwork(payload, context)
+        );
+        registrar.playToServer(
+                EraseMailC2SPayload.TYPE,
+                EraseMailC2SPayload.STREAM_CODEC,
+                (payload, context) -> ServerPayloadHandler.handleEraseEmailOnNetwork(payload, context)
+        );
         registrar.playToClient(
                 StartOrchestraMusicS2CPayload.TYPE,
                 StartOrchestraMusicS2CPayload.STREAM_CODEC,

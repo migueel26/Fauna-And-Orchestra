@@ -2,8 +2,10 @@ package net.migueel26.faunaandorchestra.networking;
 
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.block.entity.TipCaseBlockEntity;
+import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.entity.custom.ConductorEntity;
 import net.migueel26.faunaandorchestra.entity.custom.koala_workers.TailorKoalaEntity;
+import net.migueel26.faunaandorchestra.screen.custom.LetterAndQuillMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerLevel;
@@ -70,6 +72,45 @@ public class ServerPayloadHandler {
             koala.setCatalogChoice(choice);
             if (koala.tryToSew()) {
                 player.closeContainer();
+            }
+        }
+    }
+
+    public static void handleWriteEmailOnNetwork(WriteMailC2SPayload payload, IPayloadContext context) {
+        Player player = context.player();
+        String sender = payload.sender();
+        String receiver = payload.receiver();
+        int x = payload.x();
+        int y = payload.y();
+        int z = payload.z();
+
+        if (player.containerMenu instanceof LetterAndQuillMenu menu) {
+            ItemStack serverStack = menu.getLetterItem();
+
+            if (!serverStack.isEmpty()) {
+                if (!sender.isEmpty()) {
+                    serverStack.set(ModDataComponents.SENDER, sender);
+                }
+                if (!receiver.isEmpty()) {
+                    serverStack.set(ModDataComponents.RECEIVER, receiver);
+                }
+                if (x != -1) {
+                    serverStack.set(ModDataComponents.POSITION, new BlockPos(x, y, z));
+                }
+            }
+        }
+    }
+
+    public static void handleEraseEmailOnNetwork(EraseMailC2SPayload payload, IPayloadContext context) {
+        Player player = context.player();
+
+        if (player.containerMenu instanceof LetterAndQuillMenu menu) {
+            ItemStack stack = menu.getLetterItem();
+
+            if (!stack.isEmpty() && ItemStack.isSameItem(payload.stack(), stack)) {
+                stack.remove(ModDataComponents.SENDER);
+                stack.remove(ModDataComponents.RECEIVER);
+                stack.remove(ModDataComponents.POSITION);
             }
         }
     }

@@ -197,8 +197,10 @@
   "block.faunaandorchestra.jar_rack.not_placed": "The block below needs to be air or some fuel!",
   "block.faunaandorchestra.sewing_machine.cant_sew": "You don't know how to sew!",
   "block.faunaandorchestra.sewing_machine.is_sewing": "The tailor is currently sewing some clothes",
-  "block.faunaandorchestra.mailbox.tooltip": "Send all kinds of §epackages and letters§r via your own Mailbird Macaw!",
+  "block.faunaandorchestra.sewing_machine.tooltip": "Use this machine to sew different §ecostumes or armor§f for you or your orchestra!",
+  "block.faunaandorchestra.mailbox.tooltip": "Send all kinds of §epackages and letters§f via your own Mailbird Macaw!",
   "block.faunaandorchestra.mailbox.send": "Send",
+  "block.faunaandorchestra.letter_and_quill.tooltip": "Write or erase the sender, receiver and their address to §esend items§r to other mailboxes",
 
   "item.faunaandorchestra.bach_air_sheet_music": "Bach's Air Sheet",
   "item.faunaandorchestra.greensleeves_sheet_music": "Greensleeves Sheet",
@@ -239,10 +241,21 @@
   "tooltip.faunaandorchestra:legendary_baton": "§eClick §ra musician and then §eclick §ra block to lead it there\n§rThis §elegendary baton §runlocks the true power of sheet music",
   "tooltip.faunaandorchestra:briefcase_empty": "§eClick §ra musician or conductor while it's §eopened §rto take it with you (up to 6)",
   "tooltip.faunaandorchestra:briefcase_full": "§eClick §ra a block while it's §eclosed §rto release the §eanimal §rthere",
+  "tooltip.faunaandorchestra.sender": "From: ",
+  "tooltip.faunaandorchestra.receiver": "To: ",
+  "tooltip.faunaandorchestra.mailbox": "Mailbox: ",
 
   "tooltip.faunaandorchestra.shift": "Press §eShift§r for more Information",
 
   "screen.faunaandorchestra.conductor_screen": "Volume: ",
+  "screen.faunaandorchestra.my_dear": "My dear",
+  "screen.faunaandorchestra.mailbox_coordinates": "I hereby send this item to the following Mailbox via Mailbird:",
+  "screen.faunaandorchestra.mailbox_coordinates.x": "X:",
+  "screen.faunaandorchestra.mailbox_coordinates.y": "Y:",
+  "screen.faunaandorchestra.mailbox_coordinates.z": "Z:",
+  "screen.faunaandorchestra.sincerely": "Sincerely,",
+  "screen.faunaandorchestra.erase_tooltip": "Click here to §eerase all the mail information§f from the item",
+  "screen.faunaandorchestra.write_tooltip": "Click here to §ewrite all the filled text fields§f to the item. Only the §eaddress§f is mandatory.",
 
   "text.faunaandorchestra.locked_tomb": "This tomb is locked!",
   "text.faunaandorchestra.sleeping_wandering_koala": "This koala is sleeping! Try to wake him up first...",

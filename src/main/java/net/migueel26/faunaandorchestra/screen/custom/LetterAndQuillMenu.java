@@ -105,4 +105,8 @@ public class LetterAndQuillMenu extends AbstractContainerMenu {
         super.removed(player);
         this.access.execute((level, pos) -> this.clearContainer(player, this.container));
     }
+
+    public ItemStack getLetterItem() {
+        return this.slots.get(TE_INVENTORY_FIRST_SLOT_INDEX).getItem();
+    }
 }

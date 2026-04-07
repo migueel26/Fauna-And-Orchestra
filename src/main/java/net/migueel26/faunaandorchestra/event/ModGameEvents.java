@@ -5,11 +5,13 @@ import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.block.custom.TipCaseBlock;
 import net.migueel26.faunaandorchestra.block.entity.TipCaseBlockEntity;
+import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.effect.ModEffects;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.entity.custom.*;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.item.custom.RingtailsPosterItem;
+import net.minecraft.ChatFormatting;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -54,6 +56,7 @@ import net.neoforged.neoforge.event.entity.EntityLeaveLevelEvent;
 import net.neoforged.neoforge.event.entity.living.FinalizeSpawnEvent;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
 import net.neoforged.neoforge.event.entity.living.MobSpawnEvent;
+import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
@@ -218,6 +221,31 @@ public class ModGameEvents {
                             pos.getCenter().x, pos.getY()+1, pos.getCenter().z, 15, 0.15, 0.05, 0.15, 0.05);
                 }
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void registerTooltips(ItemTooltipEvent event) {
+        ItemStack stack = event.getItemStack();
+
+        if (stack.has(ModDataComponents.SENDER)) {
+            event.getToolTip().add(
+                    Component.translatable("tooltip.faunaandorchestra.sender").append(stack.get(ModDataComponents.SENDER))
+                            .withStyle(ChatFormatting.GRAY));
+        }
+
+        if (stack.has(ModDataComponents.RECEIVER)) {
+            event.getToolTip().add(
+                    Component.translatable("tooltip.faunaandorchestra.receiver").append(stack.get(ModDataComponents.RECEIVER))
+                            .withStyle(ChatFormatting.GRAY));
+        }
+
+        if (stack.has(ModDataComponents.POSITION)) {
+            BlockPos pos = stack.get(ModDataComponents.POSITION);
+            event.getToolTip().add(
+                    Component.translatable("tooltip.faunaandorchestra.mailbox").append(pos.getX() + " " + pos.getY() + " " + pos.getZ())
+                            .withStyle(ChatFormatting.GRAY)
+            );
         }
     }
 }

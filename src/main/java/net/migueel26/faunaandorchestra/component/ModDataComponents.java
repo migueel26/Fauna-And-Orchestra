@@ -40,6 +40,12 @@ public class ModDataComponents {
         public static final DeferredHolder<DataComponentType<?>, DataComponentType<BlockPos>> POSITION = register("position",
                 builder -> builder.persistent(BlockPos.CODEC));
 
+        public static final DeferredHolder<DataComponentType<?>, DataComponentType<String>> SENDER = register("sender",
+                builder -> builder.persistent(Codec.STRING));
+
+        public static final DeferredHolder<DataComponentType<?>, DataComponentType<String>> RECEIVER = register("receiver",
+                builder -> builder.persistent(Codec.STRING));
+
     private static <T> DeferredHolder<DataComponentType<?>, DataComponentType<T>> register(String name, UnaryOperator<DataComponentType.Builder<T>> builderOperator) {
         return DATA_COMPONENT_TYPES.register(name, () -> builderOperator.apply(DataComponentType.builder()).build());
     }

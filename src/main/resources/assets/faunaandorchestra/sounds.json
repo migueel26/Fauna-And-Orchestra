@@ -385,6 +385,18 @@
       "faunaandorchestra:sfx/wow"
     ]
   },
+  "write": {
+    "subtitles": "sounds.faunaandorchestra.write",
+    "sounds": [
+      "faunaandorchestra:sfx/write"
+    ]
+  },
+  "erase": {
+    "subtitles": "sounds.faunaandorchestra.erase",
+    "sounds": [
+      "faunaandorchestra:sfx/erase"
+    ]
+  },
   "singing_sproutling_sound": {
     "subtitles": "sounds.faunaandorchestra.singing_sproutling_sound",
     "sounds": [

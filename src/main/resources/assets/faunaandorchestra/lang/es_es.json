@@ -196,8 +196,10 @@
   "block.faunaandorchestra.jar_rack.not_placed": "¡El bloque debajo debe ser aire o algún combustible!",
   "block.faunaandorchestra.sewing_machine.cant_sew": "¡No sabes coser!",
   "block.faunaandorchestra.sewing_machine.is_sewing": "El sastre está tejiendo ahora mismo",
-  "block.faunaandorchestra.mailbox.tooltip": "¡Envía diversos §epaquetes y cartas§r con tu Guacamayo Mensajero!",
+  "block.faunaandorchestra.sewing_machine.tooltip": "Usa esta máquina para tejer §etrajes o armadura§f para ti o tu orquesta",
+  "block.faunaandorchestra.mailbox.tooltip": "¡Envía diversos §epaquetes y cartas§f con tu Guacamayo Mensajero!",
   "block.faunaandorchestra.mailbox.send": "Enviar",
+  "block.faunaandorchestra.letter_and_quill.tooltip": "Escribe o borra el emisor, receptor y su dirección para §eenviar ítems§r a otros buzones",
 
   "item.faunaandorchestra.bach_air_sheet_music": "Partitura del Air de Bach",
   "item.faunaandorchestra.greensleeves_sheet_music": "Partitura de Greensleeves",
@@ -238,8 +240,19 @@
   "tooltip.faunaandorchestra:legendary_baton": "Haz §eclick §ra un músico y después haz §eclick §ra un bloque para mandarlo allí\n§rEsta §elegendaria batuta §rdesbloquea el verdadero poder de las partituras",
   "tooltip.faunaandorchestra:briefcase_empty": "Haz §eclick §ren un músico o director mientras esté §eabierto §rpara llevártelo (máximo 6)",
   "tooltip.faunaandorchestra:briefcase_full": "Haz §eclick §ren un bloque mientras esté §ecerrado §rpara liberar al §eanimal §rahí",
+  "tooltip.faunaandorchestra.sender": "De: ",
+  "tooltip.faunaandorchestra.receiver": "Para: ",
+  "tooltip.faunaandorchestra.mailbox": "Buzón: ",
 
   "tooltip.faunaandorchestra.shift": "Presiona §eShift§r para más información",
+  "screen.faunaandorchestra.my_dear": "Estimad@",
+  "screen.faunaandorchestra.mailbox_coordinates": "Envío el siguiente ítem vía Guacamayo Mensajero al Buzón:",
+  "screen.faunaandorchestra.mailbox_coordinates.x": "X:",
+  "screen.faunaandorchestra.mailbox_coordinates.y": "Y:",
+  "screen.faunaandorchestra.mailbox_coordinates.z": "Z:",
+  "screen.faunaandorchestra.sincerely": "Un saludo,",
+  "screen.faunaandorchestra.erase_tooltip": "Haz click aquí para §eborrar toda la información postal§f del objeto",
+  "screen.faunaandorchestra.write_tooltip": "Haz click aquí para §eescribir todos los campos de texto§f en el objeto. Sólo la §edirección§f es obligatoria.",
 
   "screen.faunaandorchestra.conductor_screen": "Volumen: ",
 

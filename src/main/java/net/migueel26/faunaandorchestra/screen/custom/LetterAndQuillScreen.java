@@ -2,14 +2,28 @@ package net.migueel26.faunaandorchestra.screen.custom;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
+import net.migueel26.faunaandorchestra.component.ModDataComponents;
+import net.migueel26.faunaandorchestra.networking.EraseMailC2SPayload;
+import net.migueel26.faunaandorchestra.networking.WriteMailC2SPayload;
+import net.migueel26.faunaandorchestra.sound.ModSounds;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
+import net.minecraft.client.gui.components.SpriteIconButton;
+import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.client.resources.sounds.SoundInstance;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 public class LetterAndQuillScreen extends AbstractContainerScreen<LetterAndQuillMenu> {
     private static final ResourceLocation GUI_TEXTURE =
@@ -26,6 +40,14 @@ public class LetterAndQuillScreen extends AbstractContainerScreen<LetterAndQuill
     private static final int Z_TEXTBOX_X = 102;
     private static final int COORDINATE_TEXTBOX_Y = 47;
     private static final int COORDINATE_TEXTBOX_WIDTH = 26;
+    public static final MutableComponent MY_DEAR_TEXT = Component.translatable("screen.faunaandorchestra.my_dear");
+    public static final MutableComponent WRITE_MAILBOX_TEXT = Component.translatable("screen.faunaandorchestra.mailbox_coordinates");
+    public static final MutableComponent MAILBOX_COORDINATE_X = Component.translatable("screen.faunaandorchestra.mailbox_coordinates.x");
+    public static final MutableComponent MAILBOX_COORDINATE_Y = Component.translatable("screen.faunaandorchestra.mailbox_coordinates.y");
+    public static final MutableComponent MAILBOX_COORDINATE_Z = Component.translatable("screen.faunaandorchestra.mailbox_coordinates.z");
+    public static final MutableComponent SINCERELY_TEXT = Component.translatable("screen.faunaandorchestra.sincerely");
+    public static final MutableComponent ERASE_TOOLTIP = Component.translatable("screen.faunaandorchestra.erase_tooltip");
+    public static final MutableComponent WRITE_TOOLTIP = Component.translatable("screen.faunaandorchestra.write_tooltip");
     public final int initialX = 18;
     public final int myDearestY = 5;
     public final int sincerelyY = 60;
@@ -38,6 +60,8 @@ public class LetterAndQuillScreen extends AbstractContainerScreen<LetterAndQuill
     private EditBox yText;
     private EditBox zText;
     protected EditBox[] textBoxes = new EditBox[5];
+    private SpriteIconButton eraseButton;
+    private SpriteIconButton writeButton;
 
 
     public LetterAndQuillScreen(LetterAndQuillMenu menu, Inventory playerInventory, Component title) {
@@ -53,6 +77,23 @@ public class LetterAndQuillScreen extends AbstractContainerScreen<LetterAndQuill
 
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
+
+        //this.eraseButton = new ExtendedButton(x + 142, y + 7, 18, 18, Component.empty(), button -> {});
+        this.eraseButton = new SpriteIconButton.Builder(Component.empty(), this::onErase, true)
+                .sprite(ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "erase_icon"), 16, 16)
+                .size(18, 18)
+                .build();
+        eraseButton.setX(x + 142);
+        eraseButton.setY(y + 7);
+        eraseButton.setTooltip(Tooltip.create(ERASE_TOOLTIP));
+
+        this.writeButton = new SpriteIconButton.Builder(Component.empty(), this::onWrite, true)
+                .sprite(ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "write_icon"), 16, 16)
+                .size(18, 18)
+                .build();
+        writeButton.setX(x + 142);
+        writeButton.setY(y + 48);
+        writeButton.setTooltip(Tooltip.create(WRITE_TOOLTIP));
 
         this.myDearestText = new EditBox(this.font, x + DEAREST_TEXTBOX_X, y + DEAREST_TEXTBOX_Y, DEAREST_TEXTBOX_WIDTH, DEFAULT_TEXTBOX_HEIGHT, Component.literal("Hello"));
         this.sincerelyText = new EditBox(this.font, x + SINCERELY_TEXTBOX_X, y + SINCERELY_TEXTBOX_Y, SINCERELY_TEXTBOX_WIDTH, DEFAULT_TEXTBOX_HEIGHT, Component.translatable("Hello,"));
@@ -78,6 +119,9 @@ public class LetterAndQuillScreen extends AbstractContainerScreen<LetterAndQuill
             this.addRenderableWidget(textBoxes[i]);
         }
 
+        this.addRenderableWidget(eraseButton);
+        this.addRenderableWidget(writeButton);
+
         super.init();
     }
 
@@ -94,6 +138,58 @@ public class LetterAndQuillScreen extends AbstractContainerScreen<LetterAndQuill
         }
     }
 
+    private void onWrite(Button button) {
+        ItemStack stack = menu.getLetterItem();
+
+        if (!stack.isEmpty()) {
+            int x = -1;
+            int y = -1;
+            int z = -1;
+            String sender = "";
+            String receiver = "";
+
+            if (!xText.getValue().isEmpty() && !yText.getValue().isEmpty() && !zText.getValue().isEmpty()) {
+                x = Integer.parseInt(xText.getValue());
+                y = Integer.parseInt(yText.getValue());
+                z = Integer.parseInt(zText.getValue());
+            } else if (!stack.has(ModDataComponents.POSITION)) {
+                return;
+            }
+
+            if (!sincerelyText.getValue().isEmpty()) {
+                sender = sincerelyText.getValue();
+                stack.set(ModDataComponents.SENDER, sender);
+            }
+
+            if (!myDearestText.getValue().isEmpty()) {
+                receiver = myDearestText.getValue();
+                stack.set(ModDataComponents.RECEIVER, receiver);
+            }
+
+            if (x != -1) {
+                stack.set(ModDataComponents.POSITION, new BlockPos(x, y, z));
+            }
+
+            PacketDistributor.sendToServer(new WriteMailC2SPayload(sender, receiver, x, y, z));
+
+            Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(ModSounds.WRITE.get(), 1.0f));
+        }
+    }
+
+    private void onErase(Button button) {
+        ItemStack stack = menu.getLetterItem();
+
+        if (!stack.isEmpty()) {
+            PacketDistributor.sendToServer(new EraseMailC2SPayload(stack));
+
+            stack.remove(ModDataComponents.SENDER);
+            stack.remove(ModDataComponents.RECEIVER);
+            stack.remove(ModDataComponents.POSITION);
+
+            Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(ModSounds.ERASE.get(), 1.0f));
+        }
+    }
+
     @Override
     protected void setInitialFocus() {
         this.setInitialFocus(this.myDearestText);
@@ -102,20 +198,27 @@ public class LetterAndQuillScreen extends AbstractContainerScreen<LetterAndQuill
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (keyCode == 256) {
             this.minecraft.player.closeContainer();
+            return true;
         }
 
-        return !this.myDearestText.keyPressed(keyCode, scanCode, modifiers) && !this.myDearestText.canConsumeInput() ? super.keyPressed(keyCode, scanCode, modifiers) : true;
+        for (EditBox textBox : this.textBoxes) {
+            if (textBox.keyPressed(keyCode, scanCode, modifiers) || textBox.canConsumeInput()) {
+                return true;
+            }
+        }
+
+        return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
     @Override
     protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
         guiGraphics.drawString(this.font, this.playerInventoryTitle, this.inventoryLabelX, this.inventoryLabelY, 4210752, false);
-        guiGraphics.drawString(this.font, Component.translatable("My dear"), this.initialX, this.myDearestY, 0x0, false);
-        guiGraphics.drawWordWrap(this.font, FormattedText.of(Component.translatable("I hereby send this item to the following Mailbox via Mailbird:").getString()), initialX, 17,  110, 0x0);
-        guiGraphics.drawString(this.font, Component.translatable("X:"), this.initialX, coordinateY, 0x0, false);
-        guiGraphics.drawString(this.font, Component.translatable("Y:"), this.yCoordinateX, coordinateY, 0x0, false);
-        guiGraphics.drawString(this.font, Component.translatable("Z:"), this.zCoordinateX, coordinateY, 0x0, false);
-        guiGraphics.drawString(this.font, Component.translatable("Sincerely,"), this.initialX, this.sincerelyY, 0x0, false);
+        guiGraphics.drawString(this.font, MY_DEAR_TEXT, this.initialX, this.myDearestY, 0x0, false);
+        guiGraphics.drawWordWrap(this.font, FormattedText.of(WRITE_MAILBOX_TEXT.getString()), initialX, 17,  110, 0x0);
+        guiGraphics.drawString(this.font, MAILBOX_COORDINATE_X, this.initialX, coordinateY, 0x0, false);
+        guiGraphics.drawString(this.font, MAILBOX_COORDINATE_Y, this.yCoordinateX, coordinateY, 0x0, false);
+        guiGraphics.drawString(this.font, MAILBOX_COORDINATE_Z, this.zCoordinateX, coordinateY, 0x0, false);
+        guiGraphics.drawString(this.font, SINCERELY_TEXT, this.initialX, this.sincerelyY, 0x0, false);
     }
 
     @Override
