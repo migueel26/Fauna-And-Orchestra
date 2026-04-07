@@ -1,5 +1,6 @@
 {
   "name": "symphonia.category.quests",
   "description": "symphonia.category.quests.desc",
+  "sortnum": 2,
   "icon": "minecraft:writable_book"
 }

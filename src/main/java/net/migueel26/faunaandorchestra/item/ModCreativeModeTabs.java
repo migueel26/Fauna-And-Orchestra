@@ -72,6 +72,8 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.PENGUIN_FEATHER);
                         output.accept(ModItems.FLUFFY_BOOTS);
                         output.accept(ModItems.BEAVER_STATUE_ITEM);
+                        output.accept(ModItems.MACAW_FEATHER);
+                        output.accept(ModItems.WRITING_INK);
                         output.accept(ModBlocks.LETTER_AND_QUILL);
                         output.accept(ModItems.MAILBOX_ITEM);
                         output.accept(ModItems.BACH_AIR_SHEET_MUSIC);
@@ -122,6 +124,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModBlocks.GINGKO_BILOBA_SAPLING);
                         output.accept(ModItems.FRUIT_OF_LIFE);
                         output.accept(ModItems.OFFERING);
+                        output.accept(ModItems.BUSINESS_CARD);
                         output.accept(ModItems.SEWING_MACHINE_ITEM);
                         output.accept(ModItems.PROP_CASE);
                         output.accept(ModItems.TUXEDO);

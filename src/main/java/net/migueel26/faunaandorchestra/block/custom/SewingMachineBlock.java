@@ -5,6 +5,7 @@ import net.migueel26.faunaandorchestra.block.entity.SewingMachineBlockEntity;
 import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.entity.custom.koala_workers.TailorKoalaEntity;
 import net.migueel26.faunaandorchestra.util.ModTags;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -19,7 +20,9 @@ import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -259,6 +262,16 @@ public class SewingMachineBlock extends HorizontalDirectionalBlock implements En
 
     protected static Direction getNeighbourDirection(BedPart part, Direction direction) {
         return part == BedPart.HEAD ? direction : direction.getOpposite();
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+        if (Screen.hasShiftDown()) {
+            tooltipComponents.add(Component.translatable("block.faunaandorchestra.sewing_machine.tooltip"));
+        } else {
+            tooltipComponents.add(Component.translatable("tooltip.faunaandorchestra.shift"));
+        }
+        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
     }
 
     @Override

@@ -2,6 +2,7 @@ package net.migueel26.faunaandorchestra.screen.custom;
 
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.block.entity.MailboxBlockEntity;
+import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.screen.ModMenuTypes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
@@ -29,7 +30,17 @@ public class LetterAndQuillMenu extends AbstractContainerMenu {
         super(ModMenuTypes.LETTER_AND_QUILL_MENU.get(), containerId);
         this.level = inv.player.level();
         this.access = access;
-        this.container = new SimpleContainer(1);
+        this.container = new SimpleContainer(1) {
+            @Override
+            public boolean canAddItem(ItemStack stack) {
+                return !stack.is(ModItems.BUSINESS_CARD);
+            }
+
+            @Override
+            public boolean canPlaceItem(int slot, ItemStack stack) {
+                return !stack.is(ModItems.BUSINESS_CARD);
+            }
+        };
 
         addPlayerInventory(inv);
         addPlayerHotbar(inv);

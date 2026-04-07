@@ -190,6 +190,10 @@ public class ModItems {
     public static final DeferredItem<Item> TAIYAKI = createRegularDescriptionItem("taiyaki", new Item.Properties().food(Foods.PUMPKIN_PIE));
     public static final DeferredItem<Item> FLUFFY_BOOTS = ITEMS.register("fluffy_boots",
             () -> new FluffyBootsItem(ModArmorMaterials.PENGUIN_FEATHER, ArmorItem.Type.BOOTS, new Item.Properties().durability(ArmorItem.Type.BOOTS.getDurability(25))));
+    public static final DeferredItem<Item> MACAW_FEATHER = createRegularDescriptionItem("macaw_feather");
+    public static final DeferredItem<Item> WRITING_INK = ITEMS.register("writing_ink",
+            () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> BUSINESS_CARD = createRegularDescriptionItem("business_card", new Item.Properties().stacksTo(1).rarity(Rarity.EPIC));
 
     public static final DeferredItem<Item> PROP_CASE = ITEMS.register("prop_case",
             () -> new Item(new Item.Properties().stacksTo(1)) {

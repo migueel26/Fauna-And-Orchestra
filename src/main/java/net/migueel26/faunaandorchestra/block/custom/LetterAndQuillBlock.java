@@ -2,6 +2,7 @@ package net.migueel26.faunaandorchestra.block.custom;
 
 import com.mojang.serialization.MapCodec;
 import net.migueel26.faunaandorchestra.screen.custom.LetterAndQuillMenu;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -12,6 +13,9 @@ import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.StonecutterMenu;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -27,6 +31,8 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class LetterAndQuillBlock extends HorizontalDirectionalBlock {
     public static final MapCodec<LetterAndQuillBlock> CODEC = simpleCodec(LetterAndQuillBlock::new);
@@ -104,6 +110,16 @@ public class LetterAndQuillBlock extends HorizontalDirectionalBlock {
     protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
         BlockPos blockpos = pos.below();
         return this.mayPlaceOn(level.getBlockState(blockpos), level, blockpos);
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+        if (Screen.hasShiftDown()) {
+            tooltipComponents.add(Component.translatable("block.faunaandorchestra.letter_and_quill.tooltip"));
+        } else {
+            tooltipComponents.add(Component.translatable("tooltip.faunaandorchestra.shift"));
+        }
+        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
     }
 
     @Override

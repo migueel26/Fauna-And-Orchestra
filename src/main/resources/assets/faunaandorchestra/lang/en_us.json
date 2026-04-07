@@ -71,6 +71,9 @@
   "item.faunaandorchestra.beaver_statue_item": "Beaver Statue",
   "item.faunaandorchestra.sewing_machine_item": "Sewing Machine",
   "item.faunaandorchestra.mailbox_item": "Mailbox",
+  "item.faunaandorchestra.macaw_feather": "Macaw Feather",
+  "item.faunaandorchestra.writing_ink": "Writing Ink",
+  "item.faunaandorchestra.business_card": "Business Card",
 
   "item.faunaandorchestra.prop_case": "Prop Case",
   "item.faunaandorchestra_clothing.desc": "Clothing Item",
@@ -135,6 +138,8 @@
   "item.faunaandorchestra.fluffy_boots.desc1": "+ Snow Walking",
   "item.faunaandorchestra.fluffy_boots.desc2": "+ Sand Walking",
   "item.faunaandorchestra.perfumed_bamboo.desc": "What a perfume-genius idea to breed red pandas!",
+  "item.faunaandorchestra.macaw_feather.desc": "Given by macaws as symbol of loyalty to a good friend",
+  "item.faunaandorchestra.business_card.desc": "§7Hey! If you ever need a tailor or some other employee, send me this card with your §6mailbird",
   "item.faunaandorchestra.fortune_cookie_phrase0": "You're GOATED!",
   "item.faunaandorchestra.fortune_cookie_phrase1": "Dream only a dream if work don't follow it",
   "item.faunaandorchestra.fortune_cookie_phrase2": "Nah, but seriously, on a level, you're beautiful",
@@ -489,6 +494,10 @@
   "symphonia.category.biophilia.desc": "The wonders of $(thing)Biophilia$() can truly take your breath away. The biggest lesson here is that $(o)life and music$() are one in and on itself, intertwined disciplines which can truly bring your $(music)melomantic skills$() into a whole new level. Be aware, though: for every life created one is $(o)damaged$().",
   "symphonia.category.natural_recipes": "Natural Recipes",
   "symphonia.category.natural_recipes.desc": "In order to understand the $(o)nature$() of our world, you'll need to learn how to $(o)connect$() with it. With $(thing)Natural Recipes$() you'll be able to bond with the creatures, discover their world and, ultimately, master herbalism.",
+  "symphonia.category.befriend_em_all": "Befriend 'Em All!",
+  "symphonia.category.befriend_em_all.desc": "Placeholder",
+  "symphonia.category.misc": "Misc",
+  "symphonia.category.misc.desc": "Placeholder",
 
   "symphonia.entry.welcome": "Introduction to Musicality",
   "symphonia.page.welcome0": "$(o)Welcome to our musical world!$() Whether you found this book by accident, crafted it with some musical ink, or received it from me: this is the first step towards unveiling this world's true sound and becoming a true musician! Whether you just want to enliven your home with some music, or truly become a master of the $(o)$(music)melomantic arts$(), this is your guide.",
@@ -712,6 +721,12 @@
   "symphonia.entry.anya": "Anya",
 
   "symphonia.entry.herbalism_basics": "Basics of Herbalism",
+
+  "symphonia.entry.mailbox": "Mailboxes & Mailbirds",
+  "symphonia.page.mailbox0": "Friends usually live far, far away... It's quite hard to $(o)communicate$() with them. That's what $(item)mail$() is for! Introducing $(l)Mailboxes$(), the best method to send gifts and letters to your friends far away!$(br2)First of all, you'll need your very own $(item)Letter and Quill$() so that your $(music)Mailbirds$() can know where to go to!",
+  "symphonia.page.mailbox1": "More information on how to make Writing Ink $(o)$(l:natural_recipes)here$().$(br)Once crafted, you must write the $(thing)x, y and z$() coordinates of your friend's Mailbox $(o)(they don't have to be exact)$(). Additionally, you can write the $(thing)sender$() and/or $(thing)receiver$().",
+  "symphonia.page.mailbox2": "Once your item has the right address, it's time to send it. For that, you'll need a $(l)Mailbox$() with its own $(music)Mailbird Macaw$(). To get your own mailbird, you'll need to get a $(item)unique Feather$() from a $(o)$(l:musicians/macaw)$(thing)Macaw$(), a symbol of their trust.$(br2)Once crafted, it'll come right away to deliver your mail. Only items with an $(thing)address$() or $(o)$(l:befriend_em_all/business_card)$(item)business cards$() can be placed inside.",
+  "symphonia.page.mailbox3": "Once sent, the $(o)mailbird$() will take a while to deliver the mail and come back. If the receiver's $(item)Mailbox$() is full or there isn't one with that address, the $(o)mailbird$() will come back with the mail.",
 
   "jei.faunaandorchestra.natural_recipe": "Natural Recipe",
   "jei.faunaandorchestra.requires_below": "This block is required below the §eJar Rack§r with the jar",

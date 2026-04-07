@@ -71,6 +71,9 @@
   "item.faunaandorchestra.beaver_statue_item": "Estatua de castor",
   "item.faunaandorchestra.sewing_machine_item": "Máquina de coser",
   "item.faunaandorchestra.mailbox_item": "Buzón",
+  "item.faunaandorchestra.macaw_feather": "Pluma de guacamayo",
+  "item.faunaandorchestra.black_ink": "Tinta de escribir",
+  "item.faunaandorchestra.business_card": "Tarjeta de negocios",
 
   "item.faunaandorchestra.prop_case": "Neceser",
   "item.faunaandorchestra_clothing.desc": "Ropa para Animales",
@@ -134,6 +137,9 @@
   "item.faunaandorchestra.perfumed_bamboo.desc": "Este dulce y perfumado bambú apareará a los pandas rojos",
   "item.faunaandorchestra.fluffy_boots.desc1": "+ Velocidad en nieve",
   "item.faunaandorchestra.fluffy_boots.desc2": "+ Velocidad en arena",
+  "item.faunaandorchestra.macaw_feather.desc": "Dado por los guacamayos como símbolo de lealtad a sus amigos",
+  "item.faunaandorchestra.business_card.desc": "§7Hey! Si alguna vez necesitas a un sastre u otro empleado, envíame esta carta con tu §6guacamayo mensajero",
+
   "item.faunaandorchestra.fortune_cookie_phrase0": "¡Eres el GOAT!",
   "item.faunaandorchestra.fortune_cookie_phrase1": "No soy Nelly, pero tú eres el dilema",
   "item.faunaandorchestra.fortune_cookie_phrase2": "Ama a todo el mundo que te ame",
@@ -488,6 +494,10 @@
   "symphonia.category.biophilia.desc": "Las maravillas de la $(thing)Biofilia$() pueden dejarte sin aliento. La mayor lección es que $(o)vida y música$() son una en sí y por sí, disciplinas entrelazadas que pueden volver tus $(music)habilidades melománticas$() a un nivel superior. Te aviso que por cada vida creada otra es $(o)dañada$().",
   "symphonia.category.natural_recipes": "Recetas Naturales",
   "symphonia.category.natural_recipes.desc": "Para comprender la $(o)naturaleza$() de nuestro mundo, necesitarás aprender cómo $(o)conectar$() con él. Mediante las $(thing)Recetas Naturales$() podrás conectar con las criaturas, descubrir su mundo y, finalmente, dominar el herbalismo.",
+  "symphonia.category.befriend_em_all": "Befriend 'Em All!",
+  "symphonia.category.befriend_em_all.desc": "Placeholder",
+  "symphonia.category.misc": "Misceláneo",
+  "symphonia.category.misc.desc": "Placeholder",
 
   "symphonia.entry.welcome": "Intro a la Musicalidad",
   "symphonia.page.welcome0": "$(o)¡Bienvenido a nuestro mundo musical!$() Da igual si encontraste este libro, lo crafteaste o te lo di: ¡este es tu primer paso en lo que será una gran y melódica aventura! Sea tu objetivo darle vida a tu casa con una orquesta, o volverte un maestro de las $(o)$(music)artes melománticas$(), no importa: esta es tu guía.",
@@ -688,7 +698,7 @@
 
   "symphonia.entry.fragments": "La Partitura Perdida",
   "symphonia.page.fragments0": "$(o)Fausto y Orión$() te han presentado al $(music)Gran Compositor$(), el terror de esta tierra. Lleva dañando y absorbiendo la fauna desde hace mucho, y eres $(o)el único$() que puede pararlo. Para hacerlo, te ha pedido reparar los $(music)Fragmentos de una composición perdida$(), resucitarlo y acabar con su reinado del terror.",
-  "symphonia.page.fragments1": "Para reparar el $(item)Réquiem de la Resurrección$() necesitas poner estos ingredientes en un $(music)Caldero de melomacia$(): $(li)$(item)1x Fruta de la vida $(li)1x Pétalos de la muerte $()$(br)Finalmente, fusiona tus $(item)Fragmentos de una composición perdida$() con la mezcla y lo repararás.",
+  "symphonia.page.fragments1": "Para reparar el $(item)Réquiem de la Resurrección$() necesitas poner estos ingredientes en un $(music)Caldero de melomancia$(): $(li)$(item)1x Fruta de la vida $(li)1x Pétalos de la muerte $()$(br)Finalmente, fusiona tus $(item)Fragmentos de una composición perdida$() con la mezcla y lo repararás.",
 
   "symphonia.entry.fruit_of_life": "La Fruta de la Vida",
   "symphonia.page.fruit_of_life0": "Uno de los dos ingredientes clave para conseguir la $(music)Resurrección$(). La $(item)Fruta de la vida$() es el síntesis entre vida y armonía, sólo producida como el fruto de un $(thing)gran y sabio árbol$(). Esto es $(music)biofilia$() pura, así que necesitarás investigar sobre ésta.",
@@ -709,6 +719,14 @@
   "symphonia.page.wise_tree1": "Sólo su $(o)dueño$() puede entender su lenguaje.",
 
   "symphonia.entry.anya": "Anya",
+
+  "symphonia.entry.herbalism_basics": "Herbalismo: Primeros pasos",
+
+  "symphonia.entry.mailbox": "Buzones & Mensajeros",
+  "symphonia.page.mailbox0": "Los amigos normalmente viven muy, muy lejos... Es bastante difícil $(o)comunicarse$() con ellos. ¡Para esto está el $(item)correo$()! Te presento los $(l)Buzones$(), ¡la mejor manera de enviar regalos y cartas a tus amigos!$(br2)Primero de todo, necesitarás tu propia $(item)Carta y pluma$() para que tu $(music)Pájaro mensajero$() pueda saber a dónde ir.",
+  "symphonia.page.mailbox1": "Más información de cómo hacer Tinta de escribir $(o)$(l:natural_recipes)aquí$().$(br)Una vez crafteado, debes escribir las coordenadas $(thing)x, y, z$() del buzón de tu amigo $(o)(no tienen que ser exactas)$(). Además, puedes añadir el $(thing)emisor$() y/o $(thing)receptor$() o $(thing)borrar$() toda información.",
+  "symphonia.page.mailbox2": "Una vez tu ítem tiene la dirección correcta, es hora de mandarlo. Para ello, necesitarás un $(l)Buzón$() con su propio $(music)Guacamayo mensajero$(). Para conseguir tu propio cartero, necesitarás una $(item)pluma única$() de un $(o)$(l:musicians/macaw)$(thing)Guacamayo$(), símbolo de su confianza en ti.$(br2)Tras craftear el bloque, vendrá a esperar y repartir tu correo. Sólo los objetos con una $(thing)dirección$() o $(o)$(l:befriend_em_all/business_card)$(item)tarjetas de negocio$() se pueden colocar en su interior.",
+  "symphonia.page.mailbox3": "Tras enviarlo, el $(o)mensajero$() se tomará un tiempo en entregarlo y volver a tu buzón. Si el $(item)buzón$() del receptor está lleno o no hay uno con esa dirección, el $(o)guacamayo$() volverá con el correo.",
 
   "jei.faunaandorchestra.natural_recipe": "Recetas naturales",
   "jei.faunaandorchestra.requires_below": "Este bloque es requerido bajo el §eCuelgajarras§r como combustible",
