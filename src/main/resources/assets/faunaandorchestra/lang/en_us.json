@@ -205,6 +205,7 @@
   "block.faunaandorchestra.sewing_machine.tooltip": "Use this machine to sew different §ecostumes or armor§f for you or your orchestra!",
   "block.faunaandorchestra.mailbox.tooltip": "Send all kinds of §epackages and letters§f via your own Mailbird Macaw!",
   "block.faunaandorchestra.mailbox.send": "Send",
+  "block.faunaandorchestra.mailbox.no_mailbird": "The mailbird is currently away",
   "block.faunaandorchestra.letter_and_quill.tooltip": "Write or erase the sender, receiver and their address to §esend items§r to other mailboxes",
 
   "item.faunaandorchestra.bach_air_sheet_music": "Bach's Air Sheet",

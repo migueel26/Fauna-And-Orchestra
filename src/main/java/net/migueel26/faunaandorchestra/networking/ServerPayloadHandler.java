@@ -114,4 +114,14 @@ public class ServerPayloadHandler {
             }
         }
     }
+
+    public static void handleMailbirdFlyAwayOnNetwork(MailbirdFlyAwayC2SPayload payload, IPayloadContext context) {
+        BlockPos pos = payload.pos();
+        Player player = context.player();
+        ServerLevel level = (ServerLevel) player.level();
+
+        if (level.getBlockState(pos).is(ModBlocks.MAILBOX)) {
+            level.scheduleTick(pos, ModBlocks.MAILBOX.get(), 1);
+        }
+    }
 }

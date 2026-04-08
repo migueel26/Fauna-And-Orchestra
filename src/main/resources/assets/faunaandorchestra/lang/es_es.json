@@ -205,6 +205,7 @@
   "block.faunaandorchestra.sewing_machine.tooltip": "Usa esta máquina para tejer §etrajes o armadura§f para ti o tu orquesta",
   "block.faunaandorchestra.mailbox.tooltip": "¡Envía diversos §epaquetes y cartas§f con tu Guacamayo Mensajero!",
   "block.faunaandorchestra.mailbox.send": "Enviar",
+  "block.faunaandorchestra.mailbox.no_mailbird": "El pájaro mensajero no se halla aquí",
   "block.faunaandorchestra.letter_and_quill.tooltip": "Escribe o borra el emisor, receptor y su dirección para §eenviar ítems§r a otros buzones",
 
   "item.faunaandorchestra.bach_air_sheet_music": "Partitura del Air de Bach",

@@ -111,6 +111,11 @@ public class ModEventBusEvents {
                 EraseMailC2SPayload.STREAM_CODEC,
                 (payload, context) -> ServerPayloadHandler.handleEraseEmailOnNetwork(payload, context)
         );
+        registrar.playToServer(
+                MailbirdFlyAwayC2SPayload.TYPE,
+                MailbirdFlyAwayC2SPayload.STREAM_CODEC,
+                (payload, context) -> ServerPayloadHandler.handleMailbirdFlyAwayOnNetwork(payload, context)
+        );
         registrar.playToClient(
                 StartOrchestraMusicS2CPayload.TYPE,
                 StartOrchestraMusicS2CPayload.STREAM_CODEC,

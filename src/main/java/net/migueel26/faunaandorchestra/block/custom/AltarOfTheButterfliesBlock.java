@@ -1,6 +1,5 @@
 package net.migueel26.faunaandorchestra.block.custom;
 
-import com.mojang.serialization.MapCodec;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.entity.custom.ButterflyEntity;
@@ -17,23 +16,15 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
-import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
-import net.minecraft.world.phys.shapes.VoxelShape;
 
 import java.util.List;
 
@@ -76,7 +67,7 @@ public class AltarOfTheButterfliesBlock extends AltarBlock {
                 madameButterfly.setYHeadRot(getYRot(state.getValue(FACING)));
                 madameButterfly.setYBodyRot(madameButterfly.getYRot());
 
-                level.playSound(null, pos, ModSounds.SPROUTLING_TWINKLE.get(), SoundSource.NEUTRAL);
+                level.playSound(null, pos, ModSounds.TWINKLE.get(), SoundSource.NEUTRAL);
                 ((ServerLevel) level).sendParticles(ModParticleTypes.STAR.get(),
                         pos.getCenter().x, pos.above().getY()+0.25f, pos.getCenter().z,
                         10, 0.1f, 0.1f, 0.1f, 0.025f);

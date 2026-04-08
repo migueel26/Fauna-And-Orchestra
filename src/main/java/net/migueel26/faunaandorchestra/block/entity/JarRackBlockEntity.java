@@ -52,6 +52,7 @@ public class JarRackBlockEntity extends BlockEntity {
             super.onContentsChanged(slot);
         }
     };
+
     public JarRackBlockEntity(BlockPos pos, BlockState blockState) {
         super(ModBlockEntities.JAR_RACK_BE.get(), pos, blockState);
 

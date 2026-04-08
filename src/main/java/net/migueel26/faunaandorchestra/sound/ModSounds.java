@@ -1,7 +1,6 @@
 package net.migueel26.faunaandorchestra.sound;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
-import net.minecraft.client.resources.sounds.Sound;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -114,7 +113,7 @@ public class ModSounds {
     public static final Supplier<SoundEvent> PROPEL = registerSoundEvent("propel");
     public static final Supplier<SoundEvent> ENLIGHTEN = registerSoundEvent("enlighten");
     public static final Supplier<SoundEvent> SINGING_SPROUTLING_SOUND = registerSoundEvent("singing_sproutling_sound");
-    public static final Supplier<SoundEvent> SPROUTLING_TWINKLE = registerSoundEvent("sproutling_twinkle");
+    public static final Supplier<SoundEvent> TWINKLE = registerSoundEvent("sproutling_twinkle");
     public static final Supplier<SoundEvent> WHISTLE_CALL = registerSoundEvent("whistle_call");
     public static final Supplier<SoundEvent> CAULDRON_BUBBLING = registerSoundEvent("cauldron_bubbling");
     public static final Supplier<SoundEvent> CAULDRON_ITEM = registerSoundEvent("cauldron_item");
