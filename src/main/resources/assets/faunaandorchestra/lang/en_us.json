@@ -262,6 +262,7 @@
   "screen.faunaandorchestra.sincerely": "Sincerely,",
   "screen.faunaandorchestra.erase_tooltip": "Click here to §eerase all the mail information§f from the item",
   "screen.faunaandorchestra.write_tooltip": "Click here to §ewrite all the filled text fields§f to the item. Only the §eaddress§f is mandatory.",
+  "screen.faunaandorchestra.undelivered": "Some mail §ccouldn't be delivered§f to its address last time",
 
   "text.faunaandorchestra.locked_tomb": "This tomb is locked!",
   "text.faunaandorchestra.sleeping_wandering_koala": "This koala is sleeping! Try to wake him up first...",

@@ -30,22 +30,17 @@ public class LetterAndQuillMenu extends AbstractContainerMenu {
         super(ModMenuTypes.LETTER_AND_QUILL_MENU.get(), containerId);
         this.level = inv.player.level();
         this.access = access;
-        this.container = new SimpleContainer(1) {
-            @Override
-            public boolean canAddItem(ItemStack stack) {
-                return !stack.is(ModItems.BUSINESS_CARD);
-            }
-
-            @Override
-            public boolean canPlaceItem(int slot, ItemStack stack) {
-                return !stack.is(ModItems.BUSINESS_CARD);
-            }
-        };
+        this.container = new SimpleContainer(1);
 
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
 
-        this.addSlot(new Slot(this.container, 0, 143, 29));
+        this.addSlot(new Slot(this.container, 0, 143, 29) {
+            @Override
+            public boolean mayPlace(ItemStack stack) {
+                return !stack.is(ModItems.BUSINESS_CARD);
+            }
+        });
     }
 
     // CREDIT GOES TO: diesieben07 | https://github.com/diesieben07/SevenCommons

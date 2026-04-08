@@ -18,15 +18,24 @@ import net.neoforged.neoforge.items.SlotItemHandler;
 public class MailboxMenu extends AbstractContainerMenu {
     public final MailboxBlockEntity blockEntity;
     private final Level level;
+    private final boolean showWarning;
 
     public static MailboxMenu create(int containerId, Inventory inv, FriendlyByteBuf buf) {
-        return new MailboxMenu(containerId, inv, inv.player.level().getBlockEntity(buf.readBlockPos()));
+        BlockEntity be = inv.player.level().getBlockEntity(buf.readBlockPos());
+        boolean hasWarning = false;
+
+        if (be instanceof MailboxBlockEntity mailboxBE) {
+            hasWarning = mailboxBE.isShowWarning();
+        }
+
+        return new MailboxMenu(containerId, inv, be, hasWarning);
     }
 
-    public MailboxMenu(int containerId, Inventory inv, BlockEntity blockEntity) {
+    public MailboxMenu(int containerId, Inventory inv, BlockEntity blockEntity, boolean showWarning) {
         super(ModMenuTypes.MAILBOX_MENU.get(), containerId);
         this.blockEntity = ((MailboxBlockEntity) blockEntity);
         this.level = inv.player.level();
+        this.showWarning = showWarning;
 
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
@@ -100,6 +109,21 @@ public class MailboxMenu extends AbstractContainerMenu {
     private void addPlayerHotbar(Inventory playerInventory) {
         for (int i = 0; i < 9; ++i) {
             this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
+        }
+    }
+
+    public boolean showWarning() {
+        return showWarning;
+    }
+
+    @Override
+    public void removed(Player player) {
+        super.removed(player);
+
+        if (!this.level.isClientSide() && this.showWarning) {
+            this.blockEntity.setShowWarning(false);
+            this.blockEntity.setChanged();
+            this.level.sendBlockUpdated(this.blockEntity.getBlockPos(), this.blockEntity.getBlockState(), this.blockEntity.getBlockState(), 3);
         }
     }
 }

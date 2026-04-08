@@ -260,6 +260,7 @@
   "screen.faunaandorchestra.sincerely": "Un saludo,",
   "screen.faunaandorchestra.erase_tooltip": "Haz click aquí para §eborrar toda la información postal§f del objeto",
   "screen.faunaandorchestra.write_tooltip": "Haz click aquí para §eescribir todos los campos de texto§f en el objeto. Sólo la §edirección§f es obligatoria.",
+  "screen.faunaandorchestra.undelivered": "Algún correo §cno pudo ser entregado§f a su dirección la última vez",
 
   "screen.faunaandorchestra.conductor_screen": "Volumen: ",
 

@@ -93,7 +93,7 @@ public class MailboxBlock extends HorizontalDirectionalBlock implements EntityBl
         // We always access the lower half inventory
         if (state.getValue(MAILBIRD) && level.getBlockEntity(bePos) instanceof MailboxBlockEntity mailbox) {
             if (!level.isClientSide()) {
-                player.openMenu(new SimpleMenuProvider(mailbox, mailbox.getDisplayName()), pos);
+                player.openMenu(new SimpleMenuProvider(mailbox, mailbox.getDisplayName()), bePos);
             } else {
                 player.playSound(SoundEvents.BARREL_OPEN, 1.5f, 1.0f + ((level.random.nextFloat()/2)-0.25f));
             }
@@ -121,7 +121,7 @@ public class MailboxBlock extends HorizontalDirectionalBlock implements EntityBl
             level.scheduleTick(pos, this, 20);
             level.setBlock(pos, state.setValue(MAILBIRD, false).setValue(TIME_AWAY, 1), 3);
 
-            level.playSound(null, pos, ModSounds.TWINKLE.get(), SoundSource.BLOCKS);
+            level.playSound(null, pos, SoundEvents.PARROT_AMBIENT, SoundSource.BLOCKS);
         } else if (time == TIME_TO_SEND) {
             BlockPos lowerPos = state.getValue(HALF) == DoubleBlockHalf.LOWER ? pos : pos.below();
             // The lower inventory
@@ -143,7 +143,7 @@ public class MailboxBlock extends HorizontalDirectionalBlock implements EntityBl
     @Override
     protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
         if (!newState.is(state.getBlock())) {
-            if (level.getBlockEntity(pos) instanceof MailboxBlockEntity mailbox && state.getValue(MAILBIRD)) {
+            if (level.getBlockEntity(pos) instanceof MailboxBlockEntity mailbox) {
                 BlocksUtil.dropContents(level, pos, mailbox.inventory);
             }
         }

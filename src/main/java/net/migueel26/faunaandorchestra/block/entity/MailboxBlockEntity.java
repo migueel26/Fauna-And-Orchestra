@@ -37,6 +37,8 @@ public class MailboxBlockEntity extends BlockEntity implements GeoBlockEntity, M
     protected final RawAnimation ARRIVE = RawAnimation.begin().thenPlay("arrive");
     protected final AnimationController<MailboxBlockEntity> controller = new AnimationController<>(this, "mailbox_controller", 0, this::animController)
             .triggerableAnim("arrive", ARRIVE);
+    // If true, the menu will show a warning next time
+    protected boolean showWarning = false;
     public ItemStackHandler inventory = new ItemStackHandler(6) {
         @Override
         public boolean isItemValid(int slot, ItemStack stack) {
@@ -105,7 +107,7 @@ public class MailboxBlockEntity extends BlockEntity implements GeoBlockEntity, M
                         if (!emptySlot) {
                             allDelivered = false;
                         } else {
-                            level.playSound(null, pos, ModSounds.TWINKLE.get(), SoundSource.BLOCKS);
+                            level.playSound(null, pos, ModSounds.WOW.get(), SoundSource.BLOCKS);
                         }
                     }
                 } else {
@@ -113,23 +115,35 @@ public class MailboxBlockEntity extends BlockEntity implements GeoBlockEntity, M
                 }
             }
         }
+
+        boolean previousWarning = this.showWarning;
+        this.showWarning = !allDelivered;
+
+        if (previousWarning != this.showWarning) {
+            setChanged();
+            if (level != null && !level.isClientSide) {
+                level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
+            }
+        }
     }
 
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int i, Inventory inventory, Player player) {
-        return new MailboxMenu(i, inventory, this);
+        return new MailboxMenu(i, inventory, this, showWarning);
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         tag.put("Inventory", inventory.serializeNBT(registries));
+        tag.putBoolean("Warning", this.showWarning);
         super.saveAdditional(tag, registries);
     }
 
     @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         inventory.deserializeNBT(registries, tag.getCompound("Inventory"));
+        this.showWarning = tag.getBoolean("Warning");
         super.loadAdditional(tag, registries);
     }
 
@@ -157,5 +171,13 @@ public class MailboxBlockEntity extends BlockEntity implements GeoBlockEntity, M
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return geoCache;
+    }
+
+    public boolean isShowWarning() {
+        return showWarning;
+    }
+
+    public void setShowWarning(boolean showWarning) {
+        this.showWarning = showWarning;
     }
 }
