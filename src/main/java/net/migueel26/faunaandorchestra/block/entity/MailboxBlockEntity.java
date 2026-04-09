@@ -4,7 +4,10 @@ import net.migueel26.faunaandorchestra.block.ModBlockEntities;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.block.custom.MailboxBlock;
 import net.migueel26.faunaandorchestra.component.ModDataComponents;
+import net.migueel26.faunaandorchestra.entity.ModEntities;
+import net.migueel26.faunaandorchestra.entity.custom.koala_workers.WorkerKoalaEntity;
 import net.migueel26.faunaandorchestra.item.ModItems;
+import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
 import net.migueel26.faunaandorchestra.screen.custom.MailboxMenu;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.minecraft.core.BlockPos;
@@ -14,6 +17,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
@@ -81,37 +85,40 @@ public class MailboxBlockEntity extends BlockEntity implements GeoBlockEntity, M
         for (int i = 0; i < inventory.getSlots(); i++) {
             ItemStack stack = inventory.getStackInSlot(i);
             if (!stack.isEmpty()) {
-                // TODO: BUSINESS CARD
-                BlockPos address = stack.get(ModDataComponents.POSITION);
+                if (!stack.is(ModItems.BUSINESS_CARD)) {
+                    BlockPos address = stack.get(ModDataComponents.POSITION);
 
-                Optional<BlockPos> optionalMailBoxPos = BlockPos.findClosestMatch(address,6, 6, pos -> level.getBlockState(pos).is(ModBlocks.MAILBOX));
+                    Optional<BlockPos> optionalMailBoxPos = BlockPos.findClosestMatch(address,6, 6, pos -> level.getBlockState(pos).is(ModBlocks.MAILBOX));
 
-                if (optionalMailBoxPos.isPresent()) {
-                    BlockPos pos = optionalMailBoxPos.get();
-                    BlockState mailBoxState = level.getBlockState(pos);
+                    if (optionalMailBoxPos.isPresent()) {
+                        BlockPos pos = optionalMailBoxPos.get();
+                        BlockState mailBoxState = level.getBlockState(pos);
 
-                    // We get the lower part of the mailbox (it has the inventory)
-                    BlockPos bePos = mailBoxState.getValue(MailboxBlock.HALF) == DoubleBlockHalf.LOWER ? pos : pos.below();
+                        // We get the lower part of the mailbox (it has the inventory)
+                        BlockPos bePos = mailBoxState.getValue(MailboxBlock.HALF) == DoubleBlockHalf.LOWER ? pos : pos.below();
 
-                    if (level.getBlockEntity(bePos) instanceof MailboxBlockEntity blockEntity) {
-                        boolean emptySlot = false;
+                        if (level.getBlockEntity(bePos) instanceof MailboxBlockEntity blockEntity) {
+                            boolean emptySlot = false;
 
-                        for (int j = 0; j < blockEntity.inventory.getSlots() && !emptySlot; j++) {
-                            if (blockEntity.inventory.getStackInSlot(j).isEmpty()) {
-                                blockEntity.inventory.setStackInSlot(j, stack);
-                                this.inventory.setStackInSlot(i, ItemStack.EMPTY);
-                                emptySlot = true;
+                            for (int j = 0; j < blockEntity.inventory.getSlots() && !emptySlot; j++) {
+                                if (blockEntity.inventory.getStackInSlot(j).isEmpty()) {
+                                    blockEntity.inventory.setStackInSlot(j, stack);
+                                    this.inventory.setStackInSlot(i, ItemStack.EMPTY);
+                                    emptySlot = true;
+                                }
+                            }
+
+                            if (!emptySlot) {
+                                allDelivered = false;
+                            } else {
+                                level.playSound(null, pos, ModSounds.WOW.get(), SoundSource.BLOCKS);
                             }
                         }
-
-                        if (!emptySlot) {
-                            allDelivered = false;
-                        } else {
-                            level.playSound(null, pos, ModSounds.WOW.get(), SoundSource.BLOCKS);
-                        }
+                    } else {
+                        allDelivered = false;
                     }
                 } else {
-                    allDelivered = false;
+                    allDelivered = tryToDeliverBusinessCard(i, allDelivered);
                 }
             }
         }
@@ -125,6 +132,34 @@ public class MailboxBlockEntity extends BlockEntity implements GeoBlockEntity, M
                 level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
             }
         }
+    }
+
+    private boolean tryToDeliverBusinessCard(int i, boolean allDelivered) {
+        // We find a possible empty block
+        BlockPos foundSpace = null;
+        for (BlockPos pos : BlockPos.betweenClosed(getBlockPos().west().north().above(), getBlockPos().east().south().below())) {
+            if (level.getBlockState(pos).isEmpty()) {
+                inventory.setStackInSlot(i, ItemStack.EMPTY);
+                foundSpace = pos;
+                break;
+            }
+        }
+
+        if (foundSpace != null) {
+            // We summon the Worker Koala
+            WorkerKoalaEntity koala = new WorkerKoalaEntity(ModEntities.WORKER_KOALA.get(), level);
+            koala.moveTo(foundSpace.getCenter());
+
+            level.addFreshEntity(koala);
+
+            level.playSound(null, foundSpace, ModSounds.TWINKLE.get(), SoundSource.BLOCKS);
+            ((ServerLevel) level).sendParticles(ModParticleTypes.STAR.get(),
+                    foundSpace.getCenter().x, foundSpace.getY()+0.45, foundSpace.getCenter().z,
+                    10, 0.1f, 0.1f, 0.1f, 0.025f);
+        } else {
+            allDelivered = false;
+        }
+        return allDelivered;
     }
 
     @Nullable

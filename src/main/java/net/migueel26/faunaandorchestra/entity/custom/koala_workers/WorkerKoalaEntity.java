@@ -4,6 +4,7 @@ import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.entity.custom.Faust;
 import net.migueel26.faunaandorchestra.entity.custom.TalkableEntity;
+import net.migueel26.faunaandorchestra.entity.goals.RandomWalkToPlayerGoal;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -22,6 +23,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.npc.Npc;
 import net.minecraft.world.entity.player.Player;
@@ -53,7 +55,9 @@ public class WorkerKoalaEntity extends AgeableMob implements Npc, GeoEntity, Tal
     public WorkerKoalaEntity(EntityType<? extends AgeableMob> entityType, Level level) {
         super(entityType, level);
 
+        ((GroundPathNavigation) this.getNavigation()).setCanOpenDoors(true);
         this.setCustomName(getRandomName());
+
         addOverridenGoals();
     }
 
@@ -68,7 +72,7 @@ public class WorkerKoalaEntity extends AgeableMob implements Npc, GeoEntity, Tal
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         // PanicGoal(1);
-        //this.goalSelector.addGoal(2, new WanderingTrader.WanderToPositionGoal(this, 2.0F, 0.35));
+        this.goalSelector.addGoal(3, new RandomWalkToPlayerGoal(this, 1.0f, 120, 32));
         this.goalSelector.addGoal(4, new RandomStrollGoal(this, 1.0f));
         this.goalSelector.addGoal(9, new InteractGoal(this, Player.class, 3.0F, 1.0F));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Mob.class, 8.0F));
