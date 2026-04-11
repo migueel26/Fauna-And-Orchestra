@@ -2,18 +2,18 @@ package net.migueel26.faunaandorchestra.entity.goals;
 
 import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.entity.custom.ConductorEntity;
+import net.migueel26.faunaandorchestra.entity.custom.ListeningEntity;
 import net.migueel26.faunaandorchestra.entity.custom.MusicalEntity;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.networking.RestartOrchestraMusicS2CPayload;
 import net.migueel26.faunaandorchestra.networking.StopOrchestraMusicS2CPayload;
 import net.migueel26.faunaandorchestra.util.MusicUtil;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.JukeboxSongs;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.network.PacketDistributor;
 
@@ -22,6 +22,7 @@ import java.util.*;
 public class ConductorEntityConductingOrchestraGoal extends Goal {
     private final ConductorEntity conductor;
     private List<Player> playersListening;
+    private List<Mob> entitiesListening;
     private int lookCooldown;
     private int waitForMoreMusicians;
     private int currentOrchestraSize;
@@ -49,18 +50,36 @@ public class ConductorEntityConductingOrchestraGoal extends Goal {
         this.lookCooldown = 0;
         this.playersListening = this.conductor.level().getEntitiesOfClass(
                 Player.class, this.conductor.getBoundingBox().inflate(50.0, 50.0, 50.0), EntitySelector.LIVING_ENTITY_STILL_ALIVE);
-
         this.currentOrchestraSize = this.conductor.getOrchestra().size();
         this.waitForMoreMusicians = conductor.isReady() ? 140 : -1;
+        this.entitiesListening = this.conductor.level().getEntitiesOfClass(
+                Mob.class, this.conductor.getBoundingBox().inflate(50.0, 50.0, 50.0), this::isNotListening);
+
+        for (Mob mob : entitiesListening) {
+            ListeningEntity entity = (ListeningEntity) mob;
+            entity.onStartListening(conductor);
+        }
+
         super.start();
 
     }
 
+    private boolean isNotListening(Mob entity) {
+        return entity instanceof ListeningEntity listeningEntity && !listeningEntity.isListening();
+    }
+
     @Override
     public void stop() {
-        //System.out.println("Conductor OUT!");
         MusicUtil.deleteOrchestra(conductor.getUUID());
-        // PARROT DANCE
+
+        // All mobs stop listening
+        for (Mob mob : this.entitiesListening) {
+            ((ListeningEntity) mob).onStopListening();
+        }
+
+        this.entitiesListening = new ArrayList<>();
+
+        // Parrot dance
         conductor.level().levelEvent(null, 1011, this.conductor.blockPosition(), 0);
         super.stop();
     }

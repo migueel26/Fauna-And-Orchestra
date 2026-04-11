@@ -451,6 +451,14 @@
       "faunaandorchestra:sfx/vessel_collect"
     ]
   },
+  "sewing": {
+    "subtitles": "sounds.faunaandorchestra.sewing",
+    "sounds": [
+      "faunaandorchestra:sfx/sewing1",
+      "faunaandorchestra:sfx/sewing2",
+      "faunaandorchestra:sfx/sewing3"
+    ]
+  },
   "pan_flute_altar_quake": {
     "subtitles": "sounds.faunaandorchestra.pan_flute_altar_quake",
     "sounds": [

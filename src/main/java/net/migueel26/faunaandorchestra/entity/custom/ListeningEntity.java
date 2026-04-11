@@ -4,4 +4,5 @@ public interface ListeningEntity {
     // These entities are waiting for an orchestra to start or end
     void onStartListening(ConductorEntity conductor);
     void onStopListening();
+    boolean isListening();
 }

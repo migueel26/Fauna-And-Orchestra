@@ -128,6 +128,7 @@ public class ModSounds {
     public static final Supplier<SoundEvent> WOW = registerSoundEvent("wow");
     public static final Supplier<SoundEvent> WRITE = registerSoundEvent("write");
     public static final Supplier<SoundEvent> ERASE = registerSoundEvent("erase");
+    public static final Supplier<SoundEvent> SEWING = registerSoundEvent("sewing");
     public static final Supplier<SoundEvent> DIALOGUE = registerSoundEvent("dialogue");
 
     private static Supplier<SoundEvent> registerSoundEvent(String name) {

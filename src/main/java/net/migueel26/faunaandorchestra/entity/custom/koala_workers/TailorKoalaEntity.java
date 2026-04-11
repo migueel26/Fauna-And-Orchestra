@@ -4,13 +4,17 @@ import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.block.custom.SewingMachineBlock;
 import net.migueel26.faunaandorchestra.component.ModDataComponents;
+import net.migueel26.faunaandorchestra.entity.custom.ConductorEntity;
+import net.migueel26.faunaandorchestra.entity.custom.ListeningEntity;
 import net.migueel26.faunaandorchestra.entity.custom.TalkableEntity;
+import net.migueel26.faunaandorchestra.entity.custom.WanderingKoalaEntity;
 import net.migueel26.faunaandorchestra.entity.goals.FaunaRandomLookAroundGoal;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.recipe.ModRecipes;
 import net.migueel26.faunaandorchestra.recipe.SewingRecipe;
 import net.migueel26.faunaandorchestra.recipe.SizedIngredient;
 import net.migueel26.faunaandorchestra.screen.custom.TailorMenu;
+import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.migueel26.faunaandorchestra.util.BlocksUtil;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
@@ -61,7 +65,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TailorKoalaEntity extends AgeableMob implements Npc, TalkableEntity, GeoEntity {
+public class TailorKoalaEntity extends AgeableMob implements Npc, TalkableEntity, ListeningEntity, GeoEntity {
     private static final RawAnimation SLEEP = RawAnimation.begin().thenPlay("sleep");
     private static final RawAnimation WALK = RawAnimation.begin().thenPlay("walk");
     private static final RawAnimation SIT = RawAnimation.begin().thenPlay("sit");
@@ -88,6 +92,7 @@ public class TailorKoalaEntity extends AgeableMob implements Npc, TalkableEntity
     protected static final EntityDataAccessor<Boolean> SLEEPING = SynchedEntityData.defineId(TailorKoalaEntity.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<ItemStack> CATALOG_CHOICE = SynchedEntityData.defineId(TailorKoalaEntity.class, EntityDataSerializers.ITEM_STACK);
     protected BlockPos workingStation;
+    protected ConductorEntity conductor;
     protected int workTime;
     public ItemStackHandler inventory = new ItemStackHandler(12);
     public TailorKoalaEntity(EntityType<? extends AgeableMob> entityType, Level level) {
@@ -99,7 +104,7 @@ public class TailorKoalaEntity extends AgeableMob implements Npc, TalkableEntity
         super.defineSynchedData(builder);
         builder.define(DIALOGUE_TIMER, 0);
         builder.define(GOOD_MORNING, true);
-        builder.define(SLEEPING, false);
+        builder.define(SLEEPING, true);
         builder.define(WORKING_STATION, BlockPos.ZERO);
         builder.define(CATALOG_CHOICE, ItemStack.EMPTY);
         builder.define(SEWING, false);
@@ -121,7 +126,12 @@ public class TailorKoalaEntity extends AgeableMob implements Npc, TalkableEntity
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new PanicGoal(this, 1.5f));
+        this.goalSelector.addGoal(1, new PanicGoal(this, 1.5f) {
+            @Override
+            public boolean canUse() {
+                return super.canUse() && !((TailorKoalaEntity) mob).isKoalaSleeping();
+            }
+        });
         this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 8.0f) {
             final TailorKoalaEntity koala = (TailorKoalaEntity) mob;
             @Override
@@ -130,7 +140,6 @@ public class TailorKoalaEntity extends AgeableMob implements Npc, TalkableEntity
             }
         });
         this.goalSelector.addGoal(3, new RandomStrollGoal(this, 1.0f) {
-            // TODO: MAKE IT WANDER AROUND THE WORKING STATION
             final TailorKoalaEntity koala = (TailorKoalaEntity) mob;
             @Override
             public boolean canUse() {
@@ -141,7 +150,7 @@ public class TailorKoalaEntity extends AgeableMob implements Npc, TalkableEntity
     }
 
     private <E extends GeoAnimatable> PlayState koalaState(AnimationState<E> state) {
-        if (isKoalaSleeping()) {
+        if (isKoalaSleeping() && hasWorkingStation()) {
             state.getController().setAnimation(SLEEP);
         } else if (isSewing() && !isInLunchBreak()) {
             state.getController().setAnimation(SEW);
@@ -262,7 +271,7 @@ public class TailorKoalaEntity extends AgeableMob implements Npc, TalkableEntity
 
     @Override
     public void tick() {
-        if (isSewing() && !level().isClientSide()) {
+        if (isSewing() && !level().isClientSide() && !isKoalaSleeping()) {
             if (tickCount <= 20 || workTime <= 1 || (workTime >= END_PAUSE && workTime <= END_PAUSE + 1)) {
                 this.lookAt(EntityAnchorArgument.Anchor.FEET, workingStation.getCenter());
             }
@@ -374,10 +383,16 @@ public class TailorKoalaEntity extends AgeableMob implements Npc, TalkableEntity
                 ((ServerLevel) level()).sendParticles(ParticleTypes.WAX_OFF, getX(), getY() + 0.5f, getZ(), 20, 0.2, 0.2, 0.2, 0.05);
             }
             return InteractionResult.SUCCESS;
+
+        } else if (isKoalaSleeping()) {
+            player.displayClientMessage(Component.translatable("text.faunaandorchestra.sleeping_worker_koala"), true);
+            return InteractionResult.SUCCESS;
+
         } else if (hasWorkingStation() && !isSewing()) {
             // We open the inventory
             this.openCustomMenu(player);
             return InteractionResult.SUCCESS;
+
         } else if (getDialogueTimer() == 0) {
             // The koala talks
             if (level().isClientSide()) {
@@ -410,7 +425,7 @@ public class TailorKoalaEntity extends AgeableMob implements Npc, TalkableEntity
                         // Hey boss
                         dialogue = Component.translatable(RESOURCE + "2").getString();
                     } else {
-                        int randomDialogue = random.nextIntBetweenInclusive(3, 4);
+                        int randomDialogue = random.nextIntBetweenInclusive(3, 20);
                         dialogue = Component.translatable(RESOURCE + randomDialogue).getString();
                     }
                 } else {
@@ -541,5 +556,40 @@ public class TailorKoalaEntity extends AgeableMob implements Npc, TalkableEntity
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return geoCache;
+    }
+
+    @Override
+    public void onStartListening(ConductorEntity conductor) {
+        setKoalaSleeping(false);
+
+        if (isSewing() && !isInLunchBreak()) {
+            this.level().setBlock(workingStation, level().getBlockState(workingStation).setValue(SewingMachineBlock.SEWING, true), 3);
+        }
+    }
+
+    @Override
+    public void onStopListening() {
+        setKoalaSleeping(true);
+
+        if (isSewing()) {
+            this.level().setBlock(workingStation, level().getBlockState(workingStation).setValue(SewingMachineBlock.SEWING, false), 3);
+        }
+    }
+
+    @Override
+    protected @Nullable SoundEvent getAmbientSound() {
+        return ModSounds.SEWING.get();
+    }
+
+    @Override
+    public void playAmbientSound() {
+        if (isSewing() && !isInLunchBreak()) {
+            super.playAmbientSound();
+        }
+    }
+
+    @Override
+    public boolean isListening() {
+        return !isKoalaSleeping();
     }
 }
