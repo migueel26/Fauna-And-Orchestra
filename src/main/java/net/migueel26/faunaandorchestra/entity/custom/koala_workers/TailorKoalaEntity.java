@@ -51,6 +51,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.items.ItemStackHandler;
@@ -65,7 +66,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TailorKoalaEntity extends AgeableMob implements Npc, TalkableEntity, ListeningEntity, GeoEntity {
+public class TailorKoalaEntity extends AbstractKoalaWorker {
     private static final RawAnimation SLEEP = RawAnimation.begin().thenPlay("sleep");
     private static final RawAnimation WALK = RawAnimation.begin().thenPlay("walk");
     private static final RawAnimation SIT = RawAnimation.begin().thenPlay("sit");
@@ -76,24 +77,15 @@ public class TailorKoalaEntity extends AgeableMob implements Npc, TalkableEntity
     AnimationController<TailorKoalaEntity> controller = new AnimationController<>(this, "tailor_koala_controller", 5, this::koalaState)
             .triggerableAnim("eat", EAT);
     // TALKABLE ENTITY
-    protected static final EntityDataAccessor<Integer> DIALOGUE_TIMER = SynchedEntityData.defineId(TailorKoalaEntity.class, EntityDataSerializers.INT);
-    protected static final EntityDataAccessor<Boolean> GOOD_MORNING = SynchedEntityData.defineId(TailorKoalaEntity.class, EntityDataSerializers.BOOLEAN);
     public static final ResourceLocation ICON = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/gui/entity/tailor_koala_icon.png");
     public static final String RESOURCE = "dialogue.faunaandorchestra.tailor_koala";
-    public String currentDialogue;
     // TAILORING
     public static final int MAX_WORK_TIME = 100;//1200;
     public static final int START_PAUSE = 20;//600;
     public static final int END_PAUSE = 80;//900;
     public static final int EAT_TIME = (START_PAUSE + END_PAUSE) / 3;
-    protected static final EntityDataAccessor<Integer> WORK_TIME = SynchedEntityData.defineId(TailorKoalaEntity.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Boolean> SEWING = SynchedEntityData.defineId(TailorKoalaEntity.class, EntityDataSerializers.BOOLEAN);
-    protected static final EntityDataAccessor<BlockPos> WORKING_STATION = SynchedEntityData.defineId(TailorKoalaEntity.class, EntityDataSerializers.BLOCK_POS);
-    protected static final EntityDataAccessor<Boolean> SLEEPING = SynchedEntityData.defineId(TailorKoalaEntity.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<ItemStack> CATALOG_CHOICE = SynchedEntityData.defineId(TailorKoalaEntity.class, EntityDataSerializers.ITEM_STACK);
-    protected BlockPos workingStation;
-    protected ConductorEntity conductor;
-    protected int workTime;
     public ItemStackHandler inventory = new ItemStackHandler(12);
     public TailorKoalaEntity(EntityType<? extends AgeableMob> entityType, Level level) {
         super(entityType, level);
@@ -102,25 +94,8 @@ public class TailorKoalaEntity extends AgeableMob implements Npc, TalkableEntity
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
-        builder.define(DIALOGUE_TIMER, 0);
-        builder.define(GOOD_MORNING, true);
-        builder.define(SLEEPING, true);
-        builder.define(WORKING_STATION, BlockPos.ZERO);
         builder.define(CATALOG_CHOICE, ItemStack.EMPTY);
         builder.define(SEWING, false);
-        builder.define(WORK_TIME, 0);
-    }
-
-    @Override
-    public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
-        if (key.equals(WORKING_STATION)) {
-            BlockPos pos = this.entityData.get(WORKING_STATION);
-            this.workingStation = pos.equals(BlockPos.ZERO) || !level().getBlockState(pos).is(ModBlocks.SEWING_MACHINE) ? null : pos;
-        }
-        if (key.equals(WORK_TIME)) {
-            this.workTime = this.entityData.get(WORK_TIME);
-        }
-        super.onSyncedDataUpdated(key);
     }
 
     @Override
@@ -166,9 +141,7 @@ public class TailorKoalaEntity extends AgeableMob implements Npc, TalkableEntity
 
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
-        NbtUtils.readBlockPos(compound, "WorkingStation").ifPresent(pos -> this.entityData.set(WORKING_STATION, pos));
         this.entityData.set(SEWING, compound.getBoolean("Sewing"));
-        this.entityData.set(WORK_TIME, compound.getInt("WorkTime"));
         if (compound.contains("Inventory")) {
             this.inventory.deserializeNBT(this.registryAccess(), compound.getCompound("Inventory"));
         }
@@ -182,21 +155,10 @@ public class TailorKoalaEntity extends AgeableMob implements Npc, TalkableEntity
     public void addAdditionalSaveData(CompoundTag compound) {
         compound.put("Inventory", this.inventory.serializeNBT(this.registryAccess()));
         compound.putBoolean("Sewing", isSewing());
-        compound.putInt("WorkTime", getWorkTime());
         if (!getCatalogChoice().isEmpty()) {
             compound.put("CatalogChoice", this.getCatalogChoice().save(this.registryAccess()));
         }
-        if (workingStation != null && level().getBlockState(workingStation).is(ModBlocks.SEWING_MACHINE)) {
-            compound.put("WorkingStation", NbtUtils.writeBlockPos(this.workingStation));
-        }
         super.addAdditionalSaveData(compound);
-    }
-
-    public static AttributeSupplier.Builder createAttributes() {
-        return Animal.createLivingAttributes()
-                .add(Attributes.MAX_HEALTH, 15d)
-                .add(Attributes.MOVEMENT_SPEED, 0.2D)
-                .add(Attributes.FOLLOW_RANGE, 24D);
     }
 
     public boolean tryToSew() {
@@ -351,18 +313,6 @@ public class TailorKoalaEntity extends AgeableMob implements Npc, TalkableEntity
         }
     }
 
-    @Override
-    public boolean isPushable() {
-        return !hasWorkingStation() || isInLunchBreak();
-    }
-
-    @Override
-    public void knockback(double strength, double x, double z) {
-        if (!hasWorkingStation() || isInLunchBreak()) {
-            super.knockback(strength, x, z);
-        }
-    }
-
     private void openCustomMenu(Player player) {
         if (!this.level().isClientSide()) {
             ((ServerPlayer) player).openMenu(new SimpleMenuProvider((id, playerInventory, playerEntity) ->
@@ -404,11 +354,6 @@ public class TailorKoalaEntity extends AgeableMob implements Npc, TalkableEntity
     }
 
     @Override
-    public boolean isPersistenceRequired() {
-        return true;
-    }
-
-    @Override
     public ResourceLocation getIcon() {
         return ICON;
     }
@@ -441,62 +386,6 @@ public class TailorKoalaEntity extends AgeableMob implements Npc, TalkableEntity
         return dialogue;
     }
 
-    @Override
-    public Pair<Integer, Integer> getIconSize() {
-        return new Pair<>(49, 60);
-    }
-
-    @Override
-    public Pair<Integer, Integer> getIconLocation() {
-        return new Pair<>(107, 136);
-    }
-
-    @Override
-    public int getDialogueTimer() {
-        return entityData.get(DIALOGUE_TIMER);
-    }
-
-    @Override
-    public void increaseDialogueTimer() {
-        entityData.set(DIALOGUE_TIMER, getDialogueTimer() + 1);
-    }
-
-    @Override
-    public void resetDialogueTimer() {
-        entityData.set(DIALOGUE_TIMER, 0);
-    }
-
-    @Override
-    public void setGoodMorning(boolean goodMorning) {
-        entityData.set(GOOD_MORNING, goodMorning);
-    }
-
-    @Override
-    public boolean getGoodMorning() {
-        return entityData.get(GOOD_MORNING);
-    }
-
-    public void setWorkingStation(BlockPos workingStation) {
-        this.entityData.set(WORKING_STATION, workingStation);
-        this.workingStation = workingStation == BlockPos.ZERO ? null : workingStation;
-    }
-
-    public boolean hasWorkingStation() {
-        return workingStation != null;
-    }
-
-    public BlockPos getWorkingStation() {
-        return workingStation;
-    }
-
-    public boolean isKoalaSleeping() {
-        return entityData.get(SLEEPING);
-    }
-
-    public void setKoalaSleeping(boolean isSleeping) {
-        this.entityData.set(SLEEPING, isSleeping);
-    }
-
     public ItemStack getCatalogChoice() {
         return entityData.get(CATALOG_CHOICE);
     }
@@ -511,41 +400,6 @@ public class TailorKoalaEntity extends AgeableMob implements Npc, TalkableEntity
 
     public void setSewing(boolean sewing) {
         this.entityData.set(SEWING, sewing);
-    }
-
-    public int getWorkTime() {
-        return workTime;
-    }
-
-    public void increaseWorkTime() {
-        this.workTime++;
-        entityData.set(WORK_TIME, workTime);
-    }
-
-    public void resetWorkTime() {
-        this.workTime = 0;
-        entityData.set(WORK_TIME, workTime);
-    }
-
-    public boolean isInLunchBreak() {
-        return workTime >= START_PAUSE && workTime <= END_PAUSE;
-    }
-
-    @Nullable
-    @Override
-    protected SoundEvent getHurtSound(DamageSource damageSource) {
-        return SoundEvents.PANDA_HURT;
-    }
-
-    @Nullable
-    @Override
-    protected SoundEvent getDeathSound() {
-        return SoundEvents.PANDA_DEATH;
-    }
-
-    @Override
-    public @Nullable AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
-        return null;
     }
 
     @Override
@@ -586,6 +440,20 @@ public class TailorKoalaEntity extends AgeableMob implements Npc, TalkableEntity
         if (isSewing() && !isInLunchBreak()) {
             super.playAmbientSound();
         }
+    }
+
+    public boolean isInLunchBreak() {
+        return workTime >= START_PAUSE && workTime <= END_PAUSE;
+    }
+
+    @Override
+    public boolean isWorking() {
+        return isSewing();
+    }
+
+    @Override
+    public boolean isWorkingStation(BlockState state) {
+        return state.is(ModBlocks.SEWING_MACHINE);
     }
 
     @Override

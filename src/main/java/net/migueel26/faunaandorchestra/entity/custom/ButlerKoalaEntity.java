@@ -3,7 +3,6 @@ package net.migueel26.faunaandorchestra.entity.custom;
 import com.google.common.collect.Lists;
 import net.migueel26.faunaandorchestra.entity.goals.*;
 import net.migueel26.faunaandorchestra.entity.trades.KoalaTrades;
-import net.migueel26.faunaandorchestra.item.ModItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -16,7 +15,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.animal.Animal;
@@ -32,7 +30,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.ArrayList;
 
-public class ButlerKoalaEntity extends AbstractKoalaEntity {
+public class ButlerKoalaEntity extends AbstractKoalaMerchant {
     private static final RawAnimation WALK = RawAnimation.begin().thenPlay("walk");
     private static final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
     private static final RawAnimation SERVE = RawAnimation.begin().thenPlay("serve");

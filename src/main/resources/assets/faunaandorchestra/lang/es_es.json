@@ -261,6 +261,10 @@
   "screen.faunaandorchestra.erase_tooltip": "Haz click aquí para §eborrar toda la información postal§f del objeto",
   "screen.faunaandorchestra.write_tooltip": "Haz click aquí para §eescribir todos los campos de texto§f en el objeto. Sólo la §edirección§f es obligatoria.",
   "screen.faunaandorchestra.undelivered": "Algún correo §cno pudo ser entregado§f a su dirección la última vez",
+  "screen.faunaandorchestra.melomancer1": "Los §eseis slots de madera§f son para los ingredientes.",
+  "screen.faunaandorchestra.melomancer2": "El §eslot azulado§f es para la §dmúsica líquida§f.",
+  "screen.faunaandorchestra.melomancer3": "El §eslot solitario normal§f es por si es necesario algún ítem para recoger el resultado.",
+  "screen.faunaandorchestra.melomancer4": "Si todo es correcto, el §dMelomante§f comenzará a usar el caldero y a dejar los resultados en el §eCofre§f asignado.",
 
   "screen.faunaandorchestra.conductor_screen": "Volumen: ",
 
@@ -285,6 +289,7 @@
   "entity.faunaandorchestra.butler_koala": "Koala Mayordomo",
   "entity.faunaandorchestra.worker_koala": "Koala",
   "entity.faunaandorchestra.tailor_koala": "Koala Sastre",
+  "entity.faunaandorchestra.melomancer_koala": "Koala Melomante",
   "entity.faunaandorchestra.faust": "Fausto",
   "entity.faunaandorchestra.orion": "Orión",
   "entity.faunaandorchestra.wise_tree": "Árbol Sabio",

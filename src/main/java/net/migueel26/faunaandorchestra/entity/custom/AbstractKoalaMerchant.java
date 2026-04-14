@@ -1,7 +1,6 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
 import com.mojang.logging.LogUtils;
-import net.migueel26.faunaandorchestra.entity.trades.KoalaTrades;
 import net.minecraft.Util;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
@@ -14,7 +13,6 @@ import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.npc.Npc;
-import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.trading.Merchant;
@@ -25,13 +23,13 @@ import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import software.bernie.geckolib.animatable.GeoEntity;
 
-public abstract class AbstractKoalaEntity extends AgeableMob implements Npc, Merchant, GeoEntity {
+public abstract class AbstractKoalaMerchant extends AgeableMob implements Npc, Merchant, GeoEntity {
     @Nullable
     protected Player tradingPlayer;
     @Nullable
     protected MerchantOffers offers;
     protected static final Logger LOGGER = LogUtils.getLogger();
-    protected AbstractKoalaEntity(EntityType<? extends AgeableMob> entityType, Level level) {
+    protected AbstractKoalaMerchant(EntityType<? extends AgeableMob> entityType, Level level) {
         super(entityType, level);
     }
 

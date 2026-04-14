@@ -23,6 +23,8 @@ public class ModMenuTypes {
             "hanging_jar_menu", HangingJarMenu::create);
     public static final DeferredHolder<MenuType<?>, MenuType<TailorMenu>> TAILOR_MENU = registerMenuType(
             "tailor_menu", TailorMenu::create);
+    public static final DeferredHolder<MenuType<?>, MenuType<MelomancerMenu>> MELOMANCER_MENU = registerMenuType(
+            "melomancer_menu", MelomancerMenu::create);
     public static final DeferredHolder<MenuType<?>, MenuType<MailboxMenu>> MAILBOX_MENU = registerMenuType(
             "mailbox_menu", MailboxMenu::create);
     public static final DeferredHolder<MenuType<?>, MenuType<LetterAndQuillMenu>> LETTER_AND_QUILL_MENU = registerMenuType(

@@ -4,6 +4,7 @@ import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.entity.custom.*;
 import net.migueel26.faunaandorchestra.entity.custom.boss.ComposerCanonEntity;
 import net.migueel26.faunaandorchestra.entity.custom.boss.TheGreatComposer;
+import net.migueel26.faunaandorchestra.entity.custom.koala_workers.MelomancerKoalaEntity;
 import net.migueel26.faunaandorchestra.entity.custom.koala_workers.TailorKoalaEntity;
 import net.migueel26.faunaandorchestra.entity.custom.koala_workers.WorkerKoalaEntity;
 import net.migueel26.faunaandorchestra.entity.custom.misc.FloatingBlossomEntity;
@@ -51,7 +52,6 @@ public class ModEntities {
     public static final Supplier<EntityType<WiseTree>> WISE_TREE = ENTITY_TYPES.register("wise_tree",
             () -> EntityType.Builder.of(WiseTree::new, MobCategory.CREATURE).sized(0.6f, 1.0f).build("wise_tree"));
 
-
     public static final Supplier<EntityType<WanderingKoalaEntity>> WANDERING_KOALA = ENTITY_TYPES.register("wandering_koala",
             () -> EntityType.Builder.of(WanderingKoalaEntity::new, MobCategory.CREATURE).sized(0.6f, 1.25f).build("wandering_koala"));
     public static final Supplier<EntityType<ButlerKoalaEntity>> BUTLER_KOALA = ENTITY_TYPES.register("butler_koala",
@@ -60,6 +60,8 @@ public class ModEntities {
             () -> EntityType.Builder.of(WorkerKoalaEntity::new, MobCategory.CREATURE).sized(0.5f, 1.0f).build("worker_koala"));
     public static final Supplier<EntityType<TailorKoalaEntity>> TAILOR_KOALA = ENTITY_TYPES.register("tailor_koala",
         () -> EntityType.Builder.of(TailorKoalaEntity::new, MobCategory.CREATURE).sized(0.4f, 1.0f).build("tailor_koala"));
+    public static final Supplier<EntityType<MelomancerKoalaEntity>> MELOMANCER_KOALA = ENTITY_TYPES.register("melomancer_koala",
+            () -> EntityType.Builder.of(MelomancerKoalaEntity::new, MobCategory.CREATURE).sized(0.4f, 1.0f).build("melomancer_koala"));
 
     public static final Supplier<EntityType<SproutlingEntity>> SINGING_SPROUTLING = ENTITY_TYPES.register("singing_sproutling",
             () -> EntityType.Builder.of(SproutlingEntity::new, MobCategory.CREATURE).sized(0.35f, 0.45f).build("singing_sproutling"));

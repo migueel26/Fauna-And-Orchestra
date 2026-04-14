@@ -5,6 +5,7 @@ import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.entity.custom.*;
 import net.migueel26.faunaandorchestra.entity.custom.boss.ComposerCanonEntity;
 import net.migueel26.faunaandorchestra.entity.custom.boss.TheGreatComposer;
+import net.migueel26.faunaandorchestra.entity.custom.koala_workers.AbstractKoalaWorker;
 import net.migueel26.faunaandorchestra.entity.custom.koala_workers.TailorKoalaEntity;
 import net.migueel26.faunaandorchestra.entity.custom.koala_workers.WorkerKoalaEntity;
 import net.migueel26.faunaandorchestra.item.ModCreativeModeTabs;
@@ -37,11 +38,14 @@ public class ModEventBusEvents {
         event.put(ModEntities.MACAW.get(), MacawEntity.createAttributes().build());
         event.put(ModEntities.BEAVER.get(), BeaverEntity.createAttributes().build());
         event.put(ModEntities.LEMUR.get(), LemurEntity.createAttributes().build());
+
         event.put(ModEntities.MADAME_BUTTERFLY.get(), MadameButterflyEntity.createAttributes().build());
         event.put(ModEntities.WANDERING_KOALA.get(), WanderingKoalaEntity.createAttributes().build());
         event.put(ModEntities.BUTLER_KOALA.get(), ButlerKoalaEntity.createAttributes().build());
         event.put(ModEntities.WORKER_KOALA.get(), WorkerKoalaEntity.createAttributes().build());
+        event.put(ModEntities.MELOMANCER_KOALA.get(), AbstractKoalaWorker.createAttributes().build());
         event.put(ModEntities.TAILOR_KOALA.get(), TailorKoalaEntity.createAttributes().build());
+
         event.put(ModEntities.FAUST.get(), Faust.createAttributes().build());
         event.put(ModEntities.ORION.get(), Orion.createAttributes().build());
         event.put(ModEntities.ANYA_GHOST.get(), AnyaGhost.createAttributes().build());

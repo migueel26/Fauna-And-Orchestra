@@ -38,7 +38,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.ArrayList;
 
-public class WanderingKoalaEntity extends AbstractKoalaEntity {
+public class WanderingKoalaEntity extends AbstractKoalaMerchant {
     private static final RawAnimation SLEEP = RawAnimation.begin().thenPlay("sleep");
     private static final RawAnimation WALK = RawAnimation.begin().thenPlay("walk");
     private static final RawAnimation SIT = RawAnimation.begin().thenPlay("sit");
