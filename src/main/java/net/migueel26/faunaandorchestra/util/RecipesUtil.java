@@ -9,8 +9,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionContents;
+import net.neoforged.neoforge.items.ItemStackHandler;
 import oshi.util.tuples.Pair;
 
+import javax.annotation.Nullable;
 import java.util.*;
 
 public class RecipesUtil {
@@ -38,5 +40,29 @@ public class RecipesUtil {
 
     public static Pair<Integer, Float> getDiscordNucleiIndexes(ItemStack stack) {
         return UNSTABILITY_INDEXES.get(stack.getItem());
+    }
+
+    public static List<ItemStack> toList(ItemStackHandler inventory) {
+        List<ItemStack> list = new ArrayList<>(inventory.getSlots());
+
+        for (int i = 0; i < inventory.getSlots(); i++) {
+            list.add(inventory.getStackInSlot(i));
+        }
+
+        return list;
+    }
+
+    public static void listToInventory(List<ItemStack> list, ItemStackHandler inventory) {
+        int maxItems = Math.min(list.size(), inventory.getSlots());
+
+        for (int i = 0; i < maxItems; i++) {
+            inventory.setStackInSlot(i, list.get(i));
+        }
+    }
+
+    public static void clearContents(ItemStackHandler inventory) {
+        for (int i = 0; i < inventory.getSlots(); i++) {
+            inventory.setStackInSlot(i, ItemStack.EMPTY);
+        }
     }
 }
