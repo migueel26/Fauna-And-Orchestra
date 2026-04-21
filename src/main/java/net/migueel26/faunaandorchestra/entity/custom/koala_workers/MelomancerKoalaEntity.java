@@ -20,6 +20,7 @@ import net.migueel26.faunaandorchestra.util.RecipesUtil;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
@@ -30,6 +31,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
@@ -44,6 +46,7 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import software.bernie.geckolib.animatable.GeoAnimatable;
@@ -82,6 +85,11 @@ public class MelomancerKoalaEntity extends AbstractKoalaWorker {
     protected ItemStackHandler nextInventory = getNewInventory();
     // Lock for the inventory
     private boolean isUpdatingRecipe = false;
+    // Every 3 items take a well-deserved break
+    public static final int ITEMS_UNTIL_BREAK = 3;
+    public static final int LUNCH_BREAK_DURATION = 60;//300;
+    public static final int EAT_TIME = LUNCH_BREAK_DURATION / 3;
+    protected int consecutiveItems = 0;
 
     public MelomancerKoalaEntity(EntityType<? extends AgeableMob> entityType, Level level) {
         super(entityType, level);
@@ -255,6 +263,7 @@ public class MelomancerKoalaEntity extends AbstractKoalaWorker {
 
     @Override
     public void tick() {
+        // MIXING
         if (isMixing() && getCauldronBE() != null && !level().isClientSide() && !isKoalaSleeping()) {
             if (tickCount <= 20 || workTime <= 1) {
                 this.lookAt(EntityAnchorArgument.Anchor.FEET, cauldronPos.getCenter());
@@ -269,7 +278,38 @@ public class MelomancerKoalaEntity extends AbstractKoalaWorker {
             if (workTime >= MAX_WORK_TIME) {
                 finishMixing();
             }
+        }
 
+        // LUNCH BREAK
+        if (isInLunchBreak() && !level().isClientSide()) {
+            if (tickCount % 20 == 0) {
+                increaseWorkTime();
+            }
+
+            if (workTime == EAT_TIME || workTime == EAT_TIME*2) {
+                triggerAnim("melomancer_koala_controller", "eat");
+            }
+
+            if (tickCount % 4 == 0 && (workTime >= EAT_TIME && workTime <= EAT_TIME + 1) ||
+                    (workTime >= EAT_TIME*2 && workTime <= EAT_TIME*2 + 1)) {
+                this.playSound(SoundEvents.PANDA_EAT, 1.0F, 0.9F + this.getRandom().nextFloat() * 0.2F);
+
+                if (this.level() instanceof ServerLevel serverLevel) {
+                    Vec3 look = this.getLookAngle();
+                    double x = this.getX() + look.x * 0.25;
+                    double y = this.getEyeY() - 0.15;
+                    double z = this.getZ() + look.z * 0.25;
+
+                    serverLevel.sendParticles(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(ModItems.GINKGO_BILOBA.get())),
+                            x, y, z, 3, 0.1, 0.1, 0.1, 0.05
+                    );
+                }
+            }
+
+            if (workTime >= LUNCH_BREAK_DURATION && !isKoalaSleeping()) {
+                setState(MelomancerState.GOING_TO_CHEST);
+                resetWorkTime();
+            }
         }
 
         super.tick();
@@ -292,8 +332,16 @@ public class MelomancerKoalaEntity extends AbstractKoalaWorker {
             RecipesUtil.clearContents(nextInventory);
 
             // Reset the koala and send to chest
-            this.setState(MelomancerState.GOING_TO_CHEST);
             this.resetWorkTime();
+            this.consecutiveItems++;
+
+            // Lunch break or go to chest
+            if (consecutiveItems == ITEMS_UNTIL_BREAK) {
+                this.setState(MelomancerState.LUNCH_BREAK);
+                this.consecutiveItems = 0;
+            } else {
+                this.setState(MelomancerState.GOING_TO_CHEST);
+            }
         }
     }
 
@@ -303,12 +351,10 @@ public class MelomancerKoalaEntity extends AbstractKoalaWorker {
             if (getState() == MelomancerState.MIXING) {
                 onLeaveCauldronWhileMixing(this, false);
 
-            } else if (getState() == MelomancerState.GOING_TO_CHEST || getState() == MelomancerState.GOING_TO_MIX) {
+            } else if (getState() == MelomancerState.GOING_TO_CHEST || getState() == MelomancerState.GOING_TO_MIX || getState() == MelomancerState.LUNCH_BREAK) {
                 // We drop all the items
                 BlocksUtil.dropContents(level(), blockPosition(), inventory);
             }
-
-            // TODO: LUNCHBREAK
 
             this.setCauldronPos(BlockPos.ZERO);
 
@@ -371,7 +417,7 @@ public class MelomancerKoalaEntity extends AbstractKoalaWorker {
             player.displayClientMessage(Component.translatable("text.faunaandorchestra.sleeping_worker_koala"), true);
             return InteractionResult.SUCCESS;
 
-        } else if (hasWorkingStation() && !isMixing()) {
+        } else if (hasWorkingStation() && !isMixing() && !isInLunchBreak()) {
             // We open the inventory
             this.openCustomMenu(player);
             return InteractionResult.SUCCESS;
@@ -408,6 +454,9 @@ public class MelomancerKoalaEntity extends AbstractKoalaWorker {
         if (compound.contains("NextInventory")) {
             this.nextInventory.deserializeNBT(this.registryAccess(), compound.getCompound("NextInventory"));
         }
+        if (compound.contains("ConsecutiveItems")) {
+            this.consecutiveItems = compound.getInt("ConsecutiveItems");
+        }
     }
 
     @Override
@@ -416,6 +465,7 @@ public class MelomancerKoalaEntity extends AbstractKoalaWorker {
         compound.put("Inventory", this.inventory.serializeNBT(this.registryAccess()));
         compound.put("NextInventory", this.nextInventory.serializeNBT(this.registryAccess()));
         compound.putInt("CurrentState", getState().getId());
+        compound.putInt("ConsecutiveItems", this.consecutiveItems);
         if (cauldronPos != null && level().getBlockState(cauldronPos).is(ModBlocks.MELOMANCY_CAULDRON)) {
             compound.put("Cauldron", NbtUtils.writeBlockPos(this.cauldronPos));
         }
@@ -506,7 +556,7 @@ public class MelomancerKoalaEntity extends AbstractKoalaWorker {
         String dialogue = currentDialogue;
         boolean goodMorning = entityData.get(GOOD_MORNING);
         if (getDialogueTimer() <= 5) {
-            if (isMixing()) {
+            if (isMixing() || isInLunchBreak()) {
                 if (isInLunchBreak()) {
                     if (goodMorning) {
                         // Hey boss

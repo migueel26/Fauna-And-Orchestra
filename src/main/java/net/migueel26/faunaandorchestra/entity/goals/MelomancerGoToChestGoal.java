@@ -2,6 +2,9 @@ package net.migueel26.faunaandorchestra.entity.goals;
 
 import net.migueel26.faunaandorchestra.entity.custom.koala_workers.MelomancerKoalaEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -73,6 +76,10 @@ public class MelomancerGoToChestGoal extends Goal {
                 this.melomancer.getNavigation().stop();
                 this.setChestState(targetChest, true);
                 this.depositTimer = 15;
+
+                if (melomancer.level() instanceof ServerLevel level) {
+                    level.playSound(null, targetChest, SoundEvents.CHEST_OPEN, SoundSource.BLOCKS, 1.0F, 1.0F);
+                }
             }
 
             if (this.depositTimer > 0) {
@@ -84,6 +91,10 @@ public class MelomancerGoToChestGoal extends Goal {
                 depositItemsAndRestart(targetChest);
                 this.setChestState(targetChest, false);
                 this.depositTimer = -1;
+
+                if (melomancer.level() instanceof ServerLevel level) {
+                    level.playSound(null, targetChest, SoundEvents.CHEST_CLOSE, SoundSource.BLOCKS, 1.0F, 1.0F);
+                }
             }
         } else {
             this.melomancer.getLookControl().setLookAt(targetChest.getX() + 0.5D, targetChest.getY(), targetChest.getZ() + 0.5D, 10.0F, (float)this.melomancer.getMaxHeadXRot());
