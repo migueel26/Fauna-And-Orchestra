@@ -7,12 +7,17 @@
 				"texture_width": 64,
 				"texture_height": 64,
 				"visible_bounds_width": 3,
-				"visible_bounds_height": 2.5,
-				"visible_bounds_offset": [0, 0.75, 0]
+				"visible_bounds_height": 3.5,
+				"visible_bounds_offset": [0, 1.25, 0]
 			},
 			"bones": [
 				{
+					"name": "melomancer_koala",
+					"pivot": [0, 12, 0]
+				},
+				{
 					"name": "body",
+					"parent": "melomancer_koala",
 					"pivot": [0, 12, 0]
 				},
 				{
@@ -368,6 +373,29 @@
 								"west": {"uv": [48, 24], "uv_size": [1, 2]},
 								"up": {"uv": [49, 25], "uv_size": [-1, -1]},
 								"down": {"uv": [49, 26], "uv_size": [-1, -1]}
+							}
+						}
+					]
+				},
+				{
+					"name": "stool",
+					"parent": "melomancer_koala",
+					"pivot": [-3, -4, 3.5],
+					"cubes": [
+						{"origin": [-3.5, -4, 3], "size": [1, 2.5, 1], "uv": [22, 45]},
+						{"origin": [2.5, -4, 3], "size": [1, 2.5, 1], "uv": [22, 48]},
+						{"origin": [2.5, -4, -3], "size": [1, 2.5, 1], "uv": [2, 48]},
+						{"origin": [-3.5, -4, -3], "size": [1, 2.5, 1], "uv": [2, 45]},
+						{
+							"origin": [-3.5, -1.5, -3],
+							"size": [7, 1.5, 7],
+							"uv": {
+								"north": {"uv": [7, 52], "uv_size": [7, 2]},
+								"east": {"uv": [0, 52], "uv_size": [7, 2]},
+								"south": {"uv": [21, 52], "uv_size": [7, 2]},
+								"west": {"uv": [14, 52], "uv_size": [7, 2]},
+								"up": {"uv": [7, 45], "uv_size": [7, 7]},
+								"down": {"uv": [14, 52], "uv_size": [7, -7]}
 							}
 						}
 					]

@@ -3,18 +3,23 @@ package net.migueel26.faunaandorchestra.entity.custom.koala_workers;
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.block.custom.MelomancyCauldronBlock;
+import net.migueel26.faunaandorchestra.block.custom.SewingMachineBlock;
 import net.migueel26.faunaandorchestra.block.entity.MelomancyCauldronBlockEntity;
 import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.entity.custom.ConductorEntity;
 import net.migueel26.faunaandorchestra.entity.goals.FaunaRandomLookAroundGoal;
 import net.migueel26.faunaandorchestra.entity.goals.MelomancerGoToCauldronGoal;
+import net.migueel26.faunaandorchestra.entity.goals.MelomancerGoToChestGoal;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.recipe.MelomancyRecipe;
 import net.migueel26.faunaandorchestra.recipe.ModRecipes;
 import net.migueel26.faunaandorchestra.recipe.SizedIngredient;
 import net.migueel26.faunaandorchestra.screen.custom.MelomancerMenu;
+import net.migueel26.faunaandorchestra.util.BlocksUtil;
 import net.migueel26.faunaandorchestra.util.RecipesUtil;
+import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
@@ -28,6 +33,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.goal.*;
@@ -66,37 +72,16 @@ public class MelomancerKoalaEntity extends AbstractKoalaWorker {
     public static final int LIQUID_MUSIC_SLOT = 6;
     public static final int CATALYST_SLOT = 7;
     public static final int OUTPUT_SLOT = 8;
+    public static final int MAX_WORK_TIME = MelomancyCauldronBlockEntity.DEFAULT_COOK_TIME / 20;
     protected static final EntityDataAccessor<Integer> CURRENT_STATE = SynchedEntityData.defineId(MelomancerKoalaEntity.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<BlockPos> CAULDRON_POS = SynchedEntityData.defineId(MelomancerKoalaEntity.class, EntityDataSerializers.BLOCK_POS);
     protected BlockPos cauldronPos;
     // This is the "real" inventory
-    public ItemStackHandler inventory = new ItemStackHandler(9) {
-        @Override
-        public boolean isItemValid(int slot, ItemStack stack) {
-            return (slot == 6) == stack.is(ModItems.MUSIC_BOTTLE);
-        }
-
-        @Override
-        protected void onContentsChanged(int slot) {
-            if (slot < 8) {
-                tryToMix();
-            }
-        }
-    };
+    public ItemStackHandler inventory = getNewInventory();
     // This is the inventory after mixing
-    protected ItemStackHandler nextInventory = new ItemStackHandler(9) {
-        @Override
-        public boolean isItemValid(int slot, ItemStack stack) {
-            return (slot == 6) == stack.is(ModItems.MUSIC_BOTTLE);
-        }
-
-        @Override
-        protected void onContentsChanged(int slot) {
-            if (slot < 8) {
-                tryToMix();
-            }
-        }
-    };
+    protected ItemStackHandler nextInventory = getNewInventory();
+    // Lock for the inventory
+    private boolean isUpdatingRecipe = false;
 
     public MelomancerKoalaEntity(EntityType<? extends AgeableMob> entityType, Level level) {
         super(entityType, level);
@@ -112,12 +97,12 @@ public class MelomancerKoalaEntity extends AbstractKoalaWorker {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        // Melomancer Goals
-        
-        this.goalSelector.addGoal(1, new MelomancerGoToCauldronGoal(this));
-        // Go to Chest and leave Items
 
-        // Normal Goals
+        // Melomancer Goals
+        this.goalSelector.addGoal(1, new MelomancerGoToCauldronGoal(this));
+        this.goalSelector.addGoal(1, new MelomancerGoToChestGoal(this));
+
+        // Regular Goals
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.5f) {
             @Override
             public boolean canUse() {
@@ -164,42 +149,53 @@ public class MelomancerKoalaEntity extends AbstractKoalaWorker {
     }
 
     public void tryToMix() {
-        MelomancyRecipe recipe = null;
-        RecipeManager recipeManager = level().getRecipeManager();
+        if (isUpdatingRecipe) return;
 
-        // Three liquid music needed
-        if (inventory.getStackInSlot(LIQUID_MUSIC_SLOT).getCount() < 3) {
-            if (getState() == MelomancerState.GOING_TO_MIX) {
+        isUpdatingRecipe = true;
+
+        try {
+            MelomancyRecipe recipe = null;
+            RecipeManager recipeManager = level().getRecipeManager();
+
+            // Three liquid music needed
+            if (inventory.getStackInSlot(LIQUID_MUSIC_SLOT).getCount() < 3) {
+                if (getState() == MelomancerState.GOING_TO_MIX) {
+                    // If now he can't do it, he stops doing stuff
+                    setState(MelomancerState.NOTHING);
+                    RecipesUtil.clearContents(nextInventory);
+                }
+                return;
+            }
+
+            // Try to find the catalyst
+            for (RecipeHolder<MelomancyRecipe> holder : recipeManager.getAllRecipesFor(ModRecipes.MELOMANCY_TYPE.get())) {
+                if (ItemStack.isSameItem(holder.value().catalyst(), inventory.getStackInSlot(CATALYST_SLOT))) {
+                    // The catalyst is the same
+                    recipe = holder.value();
+                    break;
+                }
+            }
+
+            if (recipe != null) {
+                List<ItemStack> inventoryList = RecipesUtil.toList(inventory);
+
+                List<ItemStack> remainingInventory = calculateRemaining(inventoryList, recipe.ingredients());
+
+                if (remainingInventory != null) {
+                    // We've got the new inventory
+                    setState(MelomancerState.GOING_TO_MIX);
+                    RecipesUtil.listToInventory(remainingInventory, nextInventory);
+
+                    // We place in the hidden slot the output
+                    nextInventory.setStackInSlot(OUTPUT_SLOT, recipe.output());
+                }
+            } else if (getState() == MelomancerState.GOING_TO_MIX) {
                 // If now he can't do it, he stops doing stuff
                 setState(MelomancerState.NOTHING);
                 RecipesUtil.clearContents(nextInventory);
             }
-            return;
-        }
-
-        // Try to find the catalyst
-        for (RecipeHolder<MelomancyRecipe> holder : recipeManager.getAllRecipesFor(ModRecipes.MELOMANCY_TYPE.get())) {
-            if (ItemStack.isSameItem(holder.value().catalyst(), inventory.getStackInSlot(CATALYST_SLOT))) {
-                // The catalyst is the same
-                recipe = holder.value();
-                break;
-            }
-        }
-
-        if (recipe != null) {
-            List<ItemStack> inventoryList = RecipesUtil.toList(inventory);
-
-            List<ItemStack> remainingInventory = calculateRemaining(inventoryList, recipe.ingredients());
-
-            if (remainingInventory != null) {
-                // We've got the new inventory
-                setState(MelomancerState.GOING_TO_MIX);
-                RecipesUtil.listToInventory(remainingInventory, nextInventory);
-            }
-        } else if (getState() == MelomancerState.GOING_TO_MIX) {
-            // If now he can't do it, he stops doing stuff
-            setState(MelomancerState.NOTHING);
-            RecipesUtil.clearContents(nextInventory);
+        } finally {
+            isUpdatingRecipe = false;
         }
     }
 
@@ -238,6 +234,15 @@ public class MelomancerKoalaEntity extends AbstractKoalaWorker {
         // The koala starts mixing, the inventory is locked up
         this.setState(MelomancerState.MIXING);
 
+        if (!this.level().isClientSide()) {
+            for (Player player : this.level().players()) {
+                if (player.containerMenu instanceof MelomancerMenu melomancerMenu && melomancerMenu.melomancer == this) {
+
+                    player.closeContainer();
+                }
+            }
+        }
+
         // We update the cauldron
         if (level().getBlockEntity(cauldronPos) instanceof MelomancyCauldronBlockEntity cauldron) {
             level().setBlock(cauldronPos, cauldron.getBlockState()
@@ -250,10 +255,104 @@ public class MelomancerKoalaEntity extends AbstractKoalaWorker {
 
     @Override
     public void tick() {
-        super.tick();
-        if (isMixing() && getCauldronBE() != null) {
+        if (isMixing() && getCauldronBE() != null && !level().isClientSide() && !isKoalaSleeping()) {
+            if (tickCount <= 20 || workTime <= 1) {
+                this.lookAt(EntityAnchorArgument.Anchor.FEET, cauldronPos.getCenter());
+            }
+
+            if (tickCount % 20 == 0) {
+                increaseWorkTime();
+            }
+
             MelomancyCauldronBlockEntity.particleTick(level(), cauldronPos, getCauldronBlockState(), getCauldronBE());
+
+            if (workTime >= MAX_WORK_TIME) {
+                finishMixing();
+            }
+
         }
+
+        super.tick();
+    }
+
+    private void finishMixing() {
+        if (getCauldronBE() != null && getCauldronBlockState() != null) {
+            // Clear the contents of the cauldron
+            level().setBlock(cauldronPos, getCauldronBlockState().setValue(MelomancyCauldronBlock.COOKING, false).setValue(MelomancyCauldronBlock.LIQUID, 0), 3);
+            this.setCauldronPos(BlockPos.ZERO);
+
+            // Replace the inventory
+            List<ItemStack> resultList = RecipesUtil.toList(nextInventory);
+            RecipesUtil.listToInventory(resultList, this.inventory);
+
+            this.inventory.extractItem(LIQUID_MUSIC_SLOT, 3, false);
+            this.inventory.extractItem(CATALYST_SLOT, 1, false);
+
+            // Clear the "next inventory" because its contents are now in the main one
+            RecipesUtil.clearContents(nextInventory);
+
+            // Reset the koala and send to chest
+            this.setState(MelomancerState.GOING_TO_CHEST);
+            this.resetWorkTime();
+        }
+    }
+
+    @Override
+    public boolean hurt(DamageSource source, float amount) {
+        if (!this.level().isClientSide() && this.hasWorkingStation()) {
+            if (getState() == MelomancerState.MIXING) {
+                onLeaveCauldronWhileMixing(this, false);
+
+            } else if (getState() == MelomancerState.GOING_TO_CHEST || getState() == MelomancerState.GOING_TO_MIX) {
+                // We drop all the items
+                BlocksUtil.dropContents(level(), blockPosition(), inventory);
+            }
+
+            // TODO: LUNCHBREAK
+
+            this.setCauldronPos(BlockPos.ZERO);
+
+            RecipesUtil.clearContents(inventory);
+            RecipesUtil.clearContents(nextInventory);
+        }
+        setState(MelomancerState.NOTHING);
+        return super.hurt(source, amount);
+    }
+
+    @Override
+    public void knockback(double strength, double x, double z) {
+        super.knockback(strength, x, z);
+    }
+
+    public static void onLeaveCauldronWhileMixing(MelomancerKoalaEntity melomancerKoala, boolean destroyed) {
+        // Clear the contents of the cauldron
+        if (!destroyed && melomancerKoala.getCauldronBE() != null && melomancerKoala.getCauldronBlockState() != null) {
+            melomancerKoala.level().setBlock(melomancerKoala.getCauldronPos(), melomancerKoala.getCauldronBlockState()
+                    .setValue(MelomancyCauldronBlock.COOKING, false)
+                    .setValue(MelomancyCauldronBlock.LIQUID, 0), 3);
+        }
+
+        // We drop all the new items except the output
+        melomancerKoala.nextInventory.setStackInSlot(OUTPUT_SLOT, ItemStack.EMPTY);
+        BlocksUtil.dropContents(melomancerKoala.level(), melomancerKoala.blockPosition(), melomancerKoala.nextInventory);
+
+        melomancerKoala.setCauldronPos(BlockPos.ZERO);
+    }
+
+    private ItemStackHandler getNewInventory() {
+        return new ItemStackHandler(9) {
+            @Override
+            public boolean isItemValid(int slot, ItemStack stack) {
+                return (slot == LIQUID_MUSIC_SLOT) == stack.is(ModItems.MUSIC_BOTTLE);
+            }
+
+            @Override
+            protected void onContentsChanged(int slot) {
+                if (slot < 8) {
+                    tryToMix();
+                }
+            }
+        };
     }
 
     @Override
@@ -299,8 +398,10 @@ public class MelomancerKoalaEntity extends AbstractKoalaWorker {
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        NbtUtils.readBlockPos(compound, "Cauldron").ifPresent(pos -> this.entityData.set(CAULDRON_POS, pos));
-        this.entityData.set(CURRENT_STATE, compound.getInt("CurrentState"));
+        NbtUtils.readBlockPos(compound, "Cauldron").ifPresent(pos -> setCauldronPos(pos));
+        if (compound.contains("CurrentState")) {
+            this.entityData.set(CURRENT_STATE, compound.getInt("CurrentState"));
+        }
         if (compound.contains("Inventory")) {
             this.inventory.deserializeNBT(this.registryAccess(), compound.getCompound("Inventory"));
         }
@@ -315,7 +416,7 @@ public class MelomancerKoalaEntity extends AbstractKoalaWorker {
         compound.put("Inventory", this.inventory.serializeNBT(this.registryAccess()));
         compound.put("NextInventory", this.nextInventory.serializeNBT(this.registryAccess()));
         compound.putInt("CurrentState", getState().getId());
-        if (cauldronPos != null && level().getBlockState(workingStation).is(ModBlocks.MELOMANCY_CAULDRON)) {
+        if (cauldronPos != null && level().getBlockState(cauldronPos).is(ModBlocks.MELOMANCY_CAULDRON)) {
             compound.put("Cauldron", NbtUtils.writeBlockPos(this.cauldronPos));
         }
     }
@@ -327,7 +428,7 @@ public class MelomancerKoalaEntity extends AbstractKoalaWorker {
     public BlockState getCauldronBlockState() {
         if (cauldronPos != BlockPos.ZERO && cauldronPos != null) {
             BlockState state = level().getBlockState(cauldronPos);
-            if (state.is(ModBlocks.MELOMANCY_CAULDRON)) {
+            if (state.is(ModBlocks.MELOMANCY_CAULDRON.get())) {
                 return state;
             }
         }
@@ -371,7 +472,7 @@ public class MelomancerKoalaEntity extends AbstractKoalaWorker {
 
     @Override
     public boolean isWorking() {
-        return isDoingNothing();
+        return !isDoingNothing();
     }
 
     @Override

@@ -4,6 +4,7 @@ import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.block.custom.MelomancyCauldronBlock;
 import net.migueel26.faunaandorchestra.entity.custom.koala_workers.MelomancerKoalaEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -23,6 +24,10 @@ public class MelomancerGoToCauldronGoal extends Goal {
 
     @Override
     public boolean canUse() {
+        if (this.melomancer.isKoalaSleeping()) {
+            return false;
+        }
+
         if (this.melomancer.getState() != MelomancerKoalaEntity.MelomancerState.GOING_TO_MIX) {
             return false;
         }
@@ -39,7 +44,7 @@ public class MelomancerGoToCauldronGoal extends Goal {
         Optional<BlockPos> optionalPos = BlockPos.findClosestMatch(
                 this.melomancer.blockPosition(),
                 16, 4,
-                pos -> isCauldronValid(pos)
+                this::isCauldronValid
         );
 
         if (optionalPos.isPresent()) {
@@ -71,18 +76,21 @@ public class MelomancerGoToCauldronGoal extends Goal {
 
     @Override
     public void tick() {
-        if (this.melomancer.distanceToSqr(this.targetCauldron.getCenter()) < 4.0D) {
+        double dist = melomancer.distanceToSqr(targetCauldron.getCenter());
+
+        if (dist < 1.0D) {
             this.melomancer.getNavigation().stop();
-            if (isCauldronValid(this.targetCauldron)) {
-                this.melomancer.setCauldronPos(this.targetCauldron);
-                this.melomancer.startToMix();
-            }
+
+            this.melomancer.getLookControl().setLookAt(this.targetCauldron.getX() + 0.5D, this.targetCauldron.getY() + 0.5D, this.targetCauldron.getZ() + 0.5D, 30.0F, 30.0F);
+            this.melomancer.setCauldronPos(this.targetCauldron);
+            this.melomancer.startToMix();
         } else {
-            this.melomancer.getLookControl().setLookAt(this.targetCauldron.getX() + 0.5D, this.targetCauldron.getY(), this.targetCauldron.getZ() + 0.5D, 10.0F, (float)this.melomancer.getMaxHeadXRot());
+            this.melomancer.getLookControl().setLookAt(this.targetCauldron.getX() + 0.5D, this.targetCauldron.getY() + 0.5D, this.targetCauldron.getZ() + 0.5D, 10.0F, (float)this.melomancer.getMaxHeadXRot());
 
             if (--this.pathUpdateCountdown <= 0) {
-                this.pathUpdateCountdown = 20;
-                this.melomancer.getNavigation().moveTo(this.targetCauldron.getX(), this.targetCauldron.getY(), this.targetCauldron.getZ(), this.speedModifier);
+                this.pathUpdateCountdown = 10;
+
+                this.melomancer.getNavigation().moveTo(this.targetCauldron.getCenter().x(), this.targetCauldron.getY(), this.targetCauldron.getCenter().z(), this.speedModifier);
             }
         }
     }

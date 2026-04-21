@@ -4,6 +4,8 @@ import com.mojang.serialization.MapCodec;
 import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.block.ModBlockEntities;
 import net.migueel26.faunaandorchestra.block.entity.MelomancyCauldronBlockEntity;
+import net.migueel26.faunaandorchestra.entity.custom.koala_workers.MelomancerKoalaEntity;
+import net.migueel26.faunaandorchestra.entity.custom.koala_workers.TailorKoalaEntity;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
 import net.migueel26.faunaandorchestra.recipe.MelomancyRecipe;
@@ -42,12 +44,14 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.Optional;
 
 public class MelomancyCauldronBlock extends HorizontalDirectionalBlock implements EntityBlock {
@@ -241,6 +245,23 @@ public class MelomancyCauldronBlock extends HorizontalDirectionalBlock implement
             BlockEntityType<A> serverType, BlockEntityType<E> clientType, BlockEntityTicker<? super E> ticker
     ) {
         return clientType == serverType ? (BlockEntityTicker<A>) ticker : null;
+    }
+
+    @Override
+    protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
+        if (!state.is(newState.getBlock())) {
+            AABB searchArea = new AABB(pos).inflate(2);
+
+            List<MelomancerKoalaEntity> nearbyKoalas = level.getEntitiesOfClass(MelomancerKoalaEntity.class, searchArea);
+
+            for (MelomancerKoalaEntity koala : nearbyKoalas) {
+                if (koala.getCauldronPos() != null && pos.equals(koala.getCauldronPos())) {
+                    MelomancerKoalaEntity.onLeaveCauldronWhileMixing(koala, true);
+                }
+            }
+        }
+
+        super.onRemove(state, level, pos, newState, movedByPiston);
     }
 
     @Override

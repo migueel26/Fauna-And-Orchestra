@@ -26,6 +26,10 @@ public class MelomancerKoalaRenderer extends GeoEntityRenderer<MelomancerKoalaEn
         if (bone.getName().equals("gingko_biloba")) {
             bone.setHidden(!koala.isInLunchBreak());
         }
+        if (bone.getName().equals("stool")) {
+            boolean isWorking = koala.isMixing() && !koala.isInLunchBreak();
+            bone.setHidden(!isWorking);
+        }
         super.renderRecursively(poseStack, koala, bone, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, colour);
     }
 }
