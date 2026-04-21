@@ -282,6 +282,10 @@ public class MelomancerKoalaEntity extends AbstractKoalaWorker {
 
         // LUNCH BREAK
         if (isInLunchBreak() && !level().isClientSide()) {
+            if (workTime == 0) {
+                this.setGoodMorning(true);
+            }
+
             if (tickCount % 20 == 0) {
                 increaseWorkTime();
             }
