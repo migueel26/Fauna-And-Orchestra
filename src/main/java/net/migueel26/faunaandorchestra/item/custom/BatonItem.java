@@ -2,6 +2,7 @@ package net.migueel26.faunaandorchestra.item.custom;
 
 import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.entity.custom.koala_workers.AbstractKoalaWorker;
+import net.migueel26.faunaandorchestra.entity.custom.koala_workers.FarmerKoalaEntity;
 import net.migueel26.faunaandorchestra.entity.custom.koala_workers.MelomancerKoalaEntity;
 import net.migueel26.faunaandorchestra.entity.custom.koala_workers.TailorKoalaEntity;
 import net.migueel26.faunaandorchestra.item.ModItems;
@@ -41,8 +42,8 @@ public class BatonItem extends Item {
 
                 stack.set(ModDataComponents.MUSICIAN_UUID, null);
 
-                if (mob instanceof MelomancerKoalaEntity melomancer && level.getBlockState(block).is(Tags.Blocks.CHESTS)) {
-                    melomancer.setWorkingStation(block);
+                if ((mob instanceof MelomancerKoalaEntity || mob instanceof FarmerKoalaEntity) && level.getBlockState(block).is(Tags.Blocks.CHESTS)) {
+                    ((AbstractKoalaWorker) mob).setWorkingStation(block);
                     ((ServerLevel) level).sendParticles(ParticleTypes.WAX_OFF, block.getCenter().x(), block.getY() + 0.5f, block.getCenter().z(), 20, 0.2, 0.2, 0.2, 0.05);
                 } else if (mob != null && !(mob instanceof AbstractKoalaWorker) && mob.distanceToSqr(block.getCenter()) < 150) {
                     mob.getNavigation().moveTo(block.getX(), block.getY(), block.getZ(), 1F);

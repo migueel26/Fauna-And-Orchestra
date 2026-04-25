@@ -73,7 +73,7 @@ public abstract class AbstractKoalaWorker extends AgeableMob implements Npc, Tal
     public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
         if (key.equals(WORKING_STATION)) {
             BlockPos pos = this.entityData.get(WORKING_STATION);
-            this.workingStation = pos.equals(BlockPos.ZERO) || !isWorkingStation(level().getBlockState(pos)) ? null : pos;
+            this.workingStation = pos.equals(BlockPos.ZERO) ? null : pos;
         }
         if (key.equals(WORK_TIME)) {
             this.workTime = this.entityData.get(WORK_TIME);

@@ -8,7 +8,7 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import java.util.EnumSet;
 
 public class FaunaRandomLookAroundGoal extends Goal {
-    private final Mob mob;
+    protected final Mob mob;
     private double relX;
     private double relZ;
     private int lookTime;

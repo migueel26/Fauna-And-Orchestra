@@ -129,6 +129,7 @@ public class FaunaAndOrchestra {
             EntityRenderers.register(ModEntities.WORKER_KOALA.get(), WorkerKoalaRenderer::new);
             EntityRenderers.register(ModEntities.TAILOR_KOALA.get(), TailorKoalaRenderer::new);
             EntityRenderers.register(ModEntities.MELOMANCER_KOALA.get(), MelomancerKoalaRenderer::new);
+            EntityRenderers.register(ModEntities.FARMER_KOALA.get(), FarmerKoalaRenderer::new);
 
             EntityRenderers.register(ModEntities.FAUST.get(), FaustRenderer::new);
             EntityRenderers.register(ModEntities.ORION.get(), OrionRenderer::new);
@@ -178,6 +179,7 @@ public class FaunaAndOrchestra {
             event.register(ModMenuTypes.MAILBOX_MENU.get(), MailboxScreen::new);
             event.register(ModMenuTypes.LETTER_AND_QUILL_MENU.get(), LetterAndQuillScreen::new);
             event.register(ModMenuTypes.MELOMANCER_MENU.get(), MelomancerScreen::new);
+            event.register(ModMenuTypes.FARMER_MENU.get(), FarmerScreen::new);
         }
 
         @SubscribeEvent

@@ -71,7 +71,7 @@ public class MelomancerGoToChestGoal extends Goal {
         BlockPos targetChest = this.melomancer.getWorkingStation();
         if (targetChest == null) return;
 
-        if (this.melomancer.distanceToSqr(targetChest.getCenter()) < 4.0D) {
+        if (this.melomancer.distanceToSqr(targetChest.getCenter()) < 3.0D) {
             if (this.depositTimer == -1) {
                 this.melomancer.getNavigation().stop();
                 this.setChestState(targetChest, true);
