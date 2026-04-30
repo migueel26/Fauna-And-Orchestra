@@ -10,6 +10,7 @@
   "item.faunaandorchestra.saxophone": "Saxofón",
   "item.faunaandorchestra.oboe": "Oboe",
   "item.faunaandorchestra.cello": "Cello",
+  "item.faunaandorchestra.drum": "Tambor",
   "item.faunaandorchestra.baton": "Batuta",
   "item.faunaandorchestra.legendary_baton": "La Gran Batuta",
 
@@ -214,6 +215,7 @@
   "item.faunaandorchestra.jazzy_fur_elise_sheet_music": "Partitura del Jazz de Für Elise",
   "item.faunaandorchestra.dance_of_the_little_swans_sheet_music": "Partitura de la Danza de los Pequeños Cisnes",
   "item.faunaandorchestra.la_bamba_sheet_music": "Partitura de La Bamba",
+  "item.faunaandorchestra.saint_sheet_music": "Partitura de La Marcha de los Santos",
   "item.faunaandorchestra.resurrection_song": "El Réquiem de Resurrección",
 
   "item.faunaandorchestra.resurrection_song.desc": "§8§oOración de San Francisco",
@@ -227,6 +229,7 @@
   "item.faunaandorchestra.beaver_spawn_egg": "Generar Castor",
   "item.faunaandorchestra.lemur_spawn_egg": "Generar Lémur",
   "item.faunaandorchestra.madame_butterfly_spawn_egg": "Generar Madame Butterfly",
+  "item.faunaandorchestra.sea_lion_spawn_egg": "Generar León Marino",
   "item.faunaandorchestra.wandering_koala_spawn_egg": "Generar Koala Ambulante",
   "item.faunaandorchestra.butler_koala_spawn_egg": "Generar Koala Mayordomo",
   "item.faunaandorchestra.worker_koala_spawn_egg": "Generar Koala",
@@ -243,6 +246,7 @@
   "tooltip.faunaandorchestra:saxophone": "§7Este instrumento parece capturar la atención de algunos... §oacuáticos§r§7 trabajadores",
   "tooltip.faunaandorchestra:oboe": "§7Este instrumento parece capturar la atención de algunos... §odeslumbrantes§r§7 primates",
   "tooltip.faunaandorchestra:cello": "§7Este instrumento parece capturar la atención de algunas... §orevoloteantes§r§7 danzarinas",
+  "tooltip.faunaandorchestra:drum": "§7Este instrumento parece capturar la atención de algunos... §obramantes§r§7 leones de la marea",
   "tooltip.faunaandorchestra:baton": "Haz §eclick §ra un músico y después haz §eclick §ra un bloque para mandarlo allí\n§7Este instrumento parece capturar la atención de algunos... §osimpáticos§r§7 saltarines",
   "tooltip.faunaandorchestra:legendary_baton": "Haz §eclick §ra un músico y después haz §eclick §ra un bloque para mandarlo allí\n§rEsta §elegendaria batuta §rdesbloquea el verdadero poder de las partituras",
   "tooltip.faunaandorchestra:briefcase_empty": "Haz §eclick §ren un músico o director mientras esté §eabierto §rpara llevártelo (máximo 6)",
@@ -285,6 +289,7 @@
   "entity.faunaandorchestra.beaver": "Castor",
   "entity.faunaandorchestra.lemur": "Lémur",
   "entity.faunaandorchestra.madame_butterfly": "Madame Butterfly",
+  "entity.faunaandorchestra.sea_lion": "León Marino",
   "entity.faunaandorchestra.wandering_koala": "Koala Ambulante",
   "entity.faunaandorchestra.butler_koala": "Koala Mayordomo",
   "entity.faunaandorchestra.worker_koala": "Koala",
@@ -328,6 +333,7 @@
   "piece.faunaandorchestra.jazzy_fur_elise_sheet_music": "El Jazz de Für Elise",
   "piece.faunaandorchestra.dance_of_the_little_swans_sheet_music": "Danza de los Pequeños Cisnes",
   "piece.faunaandorchestra.la_bamba_sheet_music": "La Bamba",
+  "piece.faunaandorchestra.saints_sheet_music": "La Marcha de los Santos",
   "piece.faunaandorchestra.resurrection_song": "El Réquiem de Resurrección",
 
   "effect.faunaandorchestra.boogie": "Coreomanía",

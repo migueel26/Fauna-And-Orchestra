@@ -10,6 +10,7 @@
   "item.faunaandorchestra.saxophone": "Saxophone",
   "item.faunaandorchestra.oboe": "Oboe",
   "item.faunaandorchestra.cello": "Cello",
+  "item.faunaandorchestra.drum": "Drum",
   "item.faunaandorchestra.baton": "Baton",
   "item.faunaandorchestra.legendary_baton": "The Great Baton",
 
@@ -214,6 +215,7 @@
   "item.faunaandorchestra.jazzy_fur_elise_sheet_music": "Jazzy Für Elise Sheet",
   "item.faunaandorchestra.dance_of_the_little_swans_sheet_music": "Dance of the Little Swans Sheet",
   "item.faunaandorchestra.la_bamba_sheet_music": "La Bamba Sheet",
+  "item.faunaandorchestra.saints_sheet_music": "When The Saints Go Marching In Sheet",
   "item.faunaandorchestra.resurrection_song": "The Requiem of Resurrection",
 
   "item.faunaandorchestra.resurrection_song.desc": "§8Prayer of St. Francis",
@@ -227,6 +229,7 @@
   "item.faunaandorchestra.beaver_spawn_egg": "Beaver Spawn Egg",
   "item.faunaandorchestra.lemur_spawn_egg": "Lemur Spawn Egg",
   "item.faunaandorchestra.madame_butterfly_spawn_egg": "Madame Butterfly Spawn Egg",
+  "item.faunaandorchestra.sea_lion_spawn_egg": "Sea Lion Spawn Egg",
   "item.faunaandorchestra.wandering_koala_spawn_egg": "Wandering Koala Spawn Egg",
   "item.faunaandorchestra.butler_koala_spawn_egg": "Butler Koala Spawn Egg",
   "item.faunaandorchestra.worker_koala_spawn_egg": "Koala Spawn Egg",
@@ -243,6 +246,7 @@
   "tooltip.faunaandorchestra:saxophone": "§7This instrument seems to capture the attention of some... §odam-good§r§7 builders",
   "tooltip.faunaandorchestra:oboe": "§7This instrument seems to capture the attention of some... §oloony§r§7 leapers",
   "tooltip.faunaandorchestra:cello": "§7This instrument seems to capture the attention of some... §ofluttering§r§7 dawn-silks",
+  "tooltip.faunaandorchestra:drum": "§7This instrument seems to capture the attention of some... §obarking§r§7 tide-lions",
   "tooltip.faunaandorchestra:baton": "§eClick §ra musician and then §eclick §ra block to lead it there\n§7This item also seems to capture the attention of some... §oleapy§r§7 lads",
   "tooltip.faunaandorchestra:legendary_baton": "§eClick §ra musician and then §eclick §ra block to lead it there\n§rThis §elegendary baton §runlocks the true power of sheet music",
   "tooltip.faunaandorchestra:briefcase_empty": "§eClick §ra musician or conductor while it's §eopened §rto take it with you (up to 6)",
@@ -285,6 +289,7 @@
   "entity.faunaandorchestra.beaver": "Beaver",
   "entity.faunaandorchestra.lemur": "Lemur",
   "entity.faunaandorchestra.madame_butterfly": "Madame Butterfly",
+  "entity.faunaandorchestra.sea_lion": "Sea Lion",
   "entity.faunaandorchestra.wandering_koala": "Wandering Koala",
   "entity.faunaandorchestra.butler_koala": "Butler Koala",
   "entity.faunaandorchestra.worker_koala": "Koala",
@@ -328,6 +333,7 @@
   "piece.faunaandorchestra.jazzy_fur_elise_sheet_music": "Jazzy Für Elise",
   "piece.faunaandorchestra.dance_of_the_little_swans_sheet_music": "Dance of the Little Swans",
   "piece.faunaandorchestra.la_bamba_sheet_music": "La Bamba",
+  "piece.faunaandorchestra.saints_sheet_music": "When The Saints Go Marching In",
   "piece.faunaandorchestra.resurrection_song": "The Requiem of Resurrection",
 
   "effect.faunaandorchestra.boogie": "Choreomania",

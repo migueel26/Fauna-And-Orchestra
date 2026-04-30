@@ -41,6 +41,12 @@
       "faunaandorchestra:sfx/cello"
     ]
   },
+  "drum_use": {
+    "subtitles": "sounds.faunaandorchestra.drum_use",
+    "sounds": [
+      "faunaandorchestra:sfx/drum"
+    ]
+  },
   "pan_flute_use": {
     "subtitles": "sounds.faunaandorchestra.pan_flute_use",
     "sounds": [
@@ -258,6 +264,48 @@
       "faunaandorchestra:music/bamba_violin"
     ]
   },
+  "when_the_saints_go_marching_cello": {
+    "subtitles": "sounds.faunaandorchestra.when_the_saints_go_marching_cello",
+    "sounds": [
+      "faunaandorchestra:music/when_the_saints_go_marching_cello"
+    ]
+  },
+  "when_the_saints_go_marching_double_bass": {
+    "subtitles": "sounds.faunaandorchestra.when_the_saints_go_marching_double_bass",
+    "sounds": [
+      "faunaandorchestra:music/when_the_saints_go_marching_double_bass"
+    ]
+  },
+  "when_the_saints_go_marching_drum": {
+    "subtitles": "sounds.faunaandorchestra.when_the_saints_go_marching_drum",
+    "sounds": [
+      "faunaandorchestra:music/when_the_saints_go_marching_drum"
+    ]
+  },
+  "when_the_saints_go_marching_flute": {
+    "subtitles": "sounds.faunaandorchestra.when_the_saints_go_marching_flute",
+    "sounds": [
+      "faunaandorchestra:music/when_the_saints_go_marching_flute"
+    ]
+  },
+  "when_the_saints_go_marching_oboe": {
+    "subtitles": "sounds.faunaandorchestra.when_the_saints_go_marching_oboe",
+    "sounds": [
+      "faunaandorchestra:music/when_the_saints_go_marching_oboe"
+    ]
+  },
+  "when_the_saints_go_marching_saxophone": {
+    "subtitles": "sounds.faunaandorchestra.when_the_saints_go_marching_saxophone",
+    "sounds": [
+      "faunaandorchestra:music/when_the_saints_go_marching_saxophone"
+    ]
+  },
+  "when_the_saints_go_marching_violin": {
+    "subtitles": "sounds.faunaandorchestra.when_the_saints_go_marching_violin",
+    "sounds": [
+      "faunaandorchestra:music/when_the_saints_go_marching_violin"
+    ]
+  },
   "frog_song": {
     "subtitles": "sounds.faunaandorchestra.frog_song",
     "sounds": [
@@ -295,6 +343,14 @@
       "faunaandorchestra:sfx/baby_penguin_ambient1",
       "faunaandorchestra:sfx/baby_penguin_ambient2",
       "faunaandorchestra:sfx/baby_penguin_ambient3"
+    ]
+  },
+  "sea_lion_ambient": {
+    "subtitles": "sounds.faunaandorchestra.sea_lion_ambient",
+    "sounds": [
+      "faunaandorchestra:sfx/sea_lion0",
+      "faunaandorchestra:sfx/sea_lion1",
+      "faunaandorchestra:sfx/sea_lion2"
     ]
   },
   "koala_serve": {

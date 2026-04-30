@@ -27,10 +27,8 @@ public class ModEntities {
             () -> EntityType.Builder.of(MantisEntity::new, MobCategory.CREATURE).sized(1f, 2.25f).build("mantis"));
     public static final Supplier<EntityType<PenguinEntity>> PENGUIN = ENTITY_TYPES.register("penguin",
             () -> EntityType.Builder.of(PenguinEntity::new, MobCategory.CREATURE).sized(0.75f, 1.0f).build("penguin"));
-
     public static final Supplier<EntityType<EmperorPenguinEntity>> EMPEROR_PENGUIN = ENTITY_TYPES.register("emperor_penguin",
             () -> EntityType.Builder.of(EmperorPenguinEntity::new, MobCategory.CREATURE).sized(0.75f, 1.25f).build("emperor_penguin"));
-
     public static final Supplier<EntityType<RedPandaEntity>> RED_PANDA = ENTITY_TYPES.register("red_panda",
             () -> EntityType.Builder.of(RedPandaEntity::new, MobCategory.CREATURE).sized(0.75f, 1f).build("red_panda"));
     public static final Supplier<EntityType<MacawEntity>> MACAW = ENTITY_TYPES.register("macaw",
@@ -41,6 +39,8 @@ public class ModEntities {
             () -> EntityType.Builder.of(LemurEntity::new, MobCategory.CREATURE).sized(0.75f, 0.75f).build("lemur"));
     public static final Supplier<EntityType<MadameButterflyEntity>> MADAME_BUTTERFLY = ENTITY_TYPES.register("madame_butterfly",
             () -> EntityType.Builder.of(MadameButterflyEntity::new, MobCategory.CREATURE).sized(0.5f, 0.5f).build("madame_butterfly"));
+    public static final Supplier<EntityType<SeaLionEntity>> SEA_LION = ENTITY_TYPES.register("sea_lion",
+            () -> EntityType.Builder.of(SeaLionEntity::new, MobCategory.CREATURE).sized(0.75f, 1.25f).build("sea_lion"));
     public  static final Supplier<EntityType<QuirkyFrogEntity>> QUIRKY_FROG = ENTITY_TYPES.register("quirky_frog",
             () -> EntityType.Builder.of(QuirkyFrogEntity::new, MobCategory.CREATURE).sized(0.75f, 0.75f).build("quirky_frog"));
 

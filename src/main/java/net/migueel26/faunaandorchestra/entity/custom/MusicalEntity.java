@@ -421,6 +421,10 @@ public abstract class MusicalEntity extends TamableAnimal implements GeoEntity {
         setHoldingInstrument(true);
         setOrderedToSit(true);
 
+        searchForConductor();
+    }
+
+    public void searchForConductor() {
         Optional<ConductorEntity> potentialConductor = this.level()
                 .getEntitiesOfClass(ConductorEntity.class, this.getBoundingBox().inflate(7))
                 .stream()

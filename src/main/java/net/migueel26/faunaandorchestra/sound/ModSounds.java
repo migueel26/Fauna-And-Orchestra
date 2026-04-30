@@ -20,6 +20,7 @@ public class ModSounds {
     public static final Supplier<SoundEvent> SAXOPHONE_USE = registerSoundEvent("saxophone_use");
     public static final Supplier<SoundEvent> OBOE_USE = registerSoundEvent("oboe_use");
     public static final Supplier<SoundEvent> CELLO_USE = registerSoundEvent("cello_use");
+    public static final Supplier<SoundEvent> DRUM_USE = registerSoundEvent("drum_use");
     public static final Supplier<SoundEvent> PAN_FLUTE_USE = registerSoundEvent("pan_flute_use");
 
     public static final Supplier<SoundEvent> PAN_FLUTE_NOTES = registerSoundEvent("pan_flute_notes");
@@ -65,6 +66,14 @@ public class ModSounds {
     public static final Supplier<SoundEvent> BAMBA_SAXOPHONE = registerSoundEvent("bamba_saxophone");
     public static final Supplier<SoundEvent> BAMBA_VIOLIN = registerSoundEvent("bamba_violin");
 
+    public static final Supplier<SoundEvent> SAINTS_CELLO = registerSoundEvent("when_the_saints_go_marching_cello");
+    public static final Supplier<SoundEvent> SAINTS_DOUBLE_BASS = registerSoundEvent("when_the_saints_go_marching_double_bass");
+    public static final Supplier<SoundEvent> SAINTS_FLUTE = registerSoundEvent("when_the_saints_go_marching_flute");
+    public static final Supplier<SoundEvent> SAINTS_VIOLIN = registerSoundEvent("when_the_saints_go_marching_violin");
+    public static final Supplier<SoundEvent> SAINTS_OBOE = registerSoundEvent("when_the_saints_go_marching_oboe");
+    public static final Supplier<SoundEvent> SAINTS_DRUM = registerSoundEvent("when_the_saints_go_marching_drum");
+    public static final Supplier<SoundEvent> SAINTS_SAXOPHONE = registerSoundEvent("when_the_saints_go_marching_saxophone");
+
     public static final Supplier<SoundEvent> FROG_SONG = registerSoundEvent("frog_song");
     public static final Supplier<SoundEvent> SPROUTLING_SONG = registerSoundEvent("sproutling_song");
     public static final Supplier<SoundEvent> RINGTAILS_SONG = registerSoundEvent("hona_bildots_eztia");
@@ -78,6 +87,7 @@ public class ModSounds {
     public static final Supplier<SoundEvent> MANTIS_ANGRY = registerSoundEvent("mantis_angry");
 
     public static final Supplier<SoundEvent> BABY_PENGUIN_AMBIENT = registerSoundEvent("baby_penguin_ambient");
+    public static final Supplier<SoundEvent> SEA_LION_AMBIENT = registerSoundEvent("sea_lion_ambient");
     public static final Supplier<SoundEvent> KOALA_SERVE = registerSoundEvent("koala_serve");
     public static final Supplier<SoundEvent> BEAVER_TEETH = registerSoundEvent("beaver_teeth");
     public static final Supplier<SoundEvent> WISE_TREE_AMBIENT = registerSoundEvent("wise_tree_ambient");

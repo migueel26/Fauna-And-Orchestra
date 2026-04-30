@@ -60,6 +60,8 @@ public class ModItems {
             () -> new InstrumentItem(new Item.Properties().stacksTo(1), ModSounds.OBOE_USE.get()));
     public static final DeferredItem<Item> CELLO = ITEMS.register("cello",
             () -> new InstrumentItem(new Item.Properties().stacksTo(1), ModSounds.CELLO_USE.get()));
+    public static final DeferredItem<Item> DRUM = ITEMS.register("drum",
+            () -> new GeoInstrumentItem(new Item.Properties().stacksTo(1), ModSounds.DRUM_USE.get(), DrumItemRenderer::new));
     public static final DeferredItem<Item> PAN_FLUTE = ITEMS.register("pan_flute",
             () -> new PanFluteItem(new Item.Properties()
                     .stacksTo(1)
@@ -250,6 +252,9 @@ public class ModItems {
     public static final DeferredItem<Item> MADAME_BUTTERFLY_SPAWN_EGG = ITEMS.register("madame_butterfly_spawn_egg",
             () -> new DeferredSpawnEggItem(ModEntities.MADAME_BUTTERFLY, 0x23a2e3, 0x02050d,
                     new Item.Properties()));
+    public static final DeferredItem<Item> SEA_LION_SPAWN_EGG = ITEMS.register("sea_lion_spawn_egg",
+            () -> new DeferredSpawnEggItem(ModEntities.SEA_LION, 0x463627, 0x977d6b,
+                    new Item.Properties()));
     public static final DeferredItem<Item> QUIRKY_FROG_SPAWN_EGG = ITEMS.register("quirky_frog_spawn_egg",
             () -> new DeferredSpawnEggItem(ModEntities.QUIRKY_FROG, 0x245715, 0xbfbd82,
                     new Item.Properties()));
@@ -297,6 +302,7 @@ public class ModItems {
     public static final DeferredItem<Item> JAZZY_FUR_ELISE_SHEET_MUSIC = createSheetMusic("jazzy_fur_elise_sheet_music");
     public static final DeferredItem<Item> DANCE_OF_THE_LITTLE_SWANS = createSheetMusic("dance_of_the_little_swans_sheet_music");
     public static final DeferredItem<Item> LA_BAMBA_SHEET_MUSIC = createSheetMusic("la_bamba_sheet_music");
+    public static final DeferredItem<Item> SAINTS_SHEET_MUSIC = createSheetMusic("saints_sheet_music");
     public static final DeferredItem<Item> RESURRECTION_SONG = createLegendarySheetMusic("resurrection_song");
 
     // BLOCK ITEM

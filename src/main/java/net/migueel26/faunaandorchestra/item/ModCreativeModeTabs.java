@@ -27,6 +27,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.SAXOPHONE);
                         output.accept(ModItems.OBOE);
                         output.accept(ModItems.CELLO);
+                        output.accept(ModItems.DRUM);
                         output.accept(ModItems.PAN_FLUTE);
                         output.accept(ModItems.PAN_FLUTE_CREATIVE);
                         output.accept(ModItems.BATON);
@@ -44,6 +45,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.BEAVER_SPAWN_EGG);
                         output.accept(ModItems.LEMUR_SPAWN_EGG);
                         output.accept(ModItems.MADAME_BUTTERFLY_SPAWN_EGG);
+                        output.accept(ModItems.SEA_LION_SPAWN_EGG);
                         output.accept(ModItems.QUIRKY_FROG_SPAWN_EGG);
                         output.accept(ModItems.WORKER_KOALA_SPAWN_EGG);
                         output.accept(ModItems.WANDERING_KOALA_SPAWN_EGG);
@@ -82,6 +84,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.JAZZY_FUR_ELISE_SHEET_MUSIC);
                         output.accept(ModItems.DANCE_OF_THE_LITTLE_SWANS);
                         output.accept(ModItems.LA_BAMBA_SHEET_MUSIC);
+                        output.accept(ModItems.SAINTS_SHEET_MUSIC);
                         output.accept(ModItems.RESURRECTION_SONG);
                         output.accept(ModItems.SHEET_FRAGMENTS);
                         output.accept(ModItems.WHISTLE);

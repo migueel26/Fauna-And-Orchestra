@@ -49,8 +49,8 @@ public class BeaverEntity extends MusicalEntity {
     private final AnimationController<BeaverEntity> beaverController = new AnimationController<>(this, "beaver_controller", 5, this::beaverState)
             .triggerableAnim("build_trigger", BUILD);
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
-    int bubbleTick = 0;
-    Vec3 lastPosition = position();
+    protected int bubbleTick = 0;
+    protected Vec3 lastPosition = position();
     public BeaverEntity(EntityType<? extends TamableAnimal> entityType, Level level) {
         super(entityType, level);
 

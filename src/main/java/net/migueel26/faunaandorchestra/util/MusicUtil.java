@@ -67,6 +67,16 @@ public class MusicUtil {
             ModItems.VIOLIN.get(), ModSounds.BAMBA_VIOLIN.get().getLocation()
     );
 
+    public static final Map<Item, ResourceLocation> SAINTS = Map.of(
+            ModItems.CELLO.get(), ModSounds.SAINTS_CELLO.get().getLocation(),
+            ModItems.DOUBLE_BASS.get(), ModSounds.SAINTS_DOUBLE_BASS.get().getLocation(),
+            ModItems.FLUTE.get(), ModSounds.SAINTS_FLUTE.get().getLocation(),
+            ModItems.DRUM.get(), ModSounds.SAINTS_DRUM.get().getLocation(),
+            ModItems.SAXOPHONE.get(), ModSounds.SAINTS_SAXOPHONE.get().getLocation(),
+            ModItems.VIOLIN.get(), ModSounds.SAINTS_VIOLIN.get().getLocation(),
+            ModItems.OBOE.get(), ModSounds.SAINTS_OBOE.get().getLocation()
+    );
+
     private static final Map<Item, Map<Item, ResourceLocation>> SONG = Map.of(
             ModItems.BACH_AIR_SHEET_MUSIC.get(), BACH_AIR,
             ModItems.GREENSLEEVES_SHEET_MUSIC.get(), GREENSLEEVES,
@@ -74,7 +84,8 @@ public class MusicUtil {
             ModItems.JAZZY_FUR_ELISE_SHEET_MUSIC.get(), JAZZY_FUR_ELISE,
             ModItems.DANCE_OF_THE_LITTLE_SWANS.get(), SWANS,
             ModItems.LA_BAMBA_SHEET_MUSIC.get(), LA_BAMBA,
-            ModItems.RESURRECTION_SONG.get(), RESURRECTION
+            ModItems.RESURRECTION_SONG.get(), RESURRECTION,
+            ModItems.SAINTS_SHEET_MUSIC.get(), SAINTS
     );
 
     private static final Map<String, Item> STRING_TO_SHEET = Map.of(
@@ -84,7 +95,8 @@ public class MusicUtil {
             "faunaandorchestra:jazzy_fur_elise_sheet_music", ModItems.JAZZY_FUR_ELISE_SHEET_MUSIC.get(),
             "faunaandorchestra:dance_of_the_little_swans_sheet_music", ModItems.DANCE_OF_THE_LITTLE_SWANS.get(),
             "faunaandorchestra:la_bamba_sheet_music", ModItems.LA_BAMBA_SHEET_MUSIC.get(),
-            "faunaandorchestra:resurrection_song", ModItems.RESURRECTION_SONG.get()
+            "faunaandorchestra:resurrection_song", ModItems.RESURRECTION_SONG.get(),
+            "faunaandorchestra:saints_sheet_music", ModItems.SAINTS_SHEET_MUSIC.get()
     );
 
     private static final Map<Item, Integer> DURATION = Map.of(
@@ -94,7 +106,8 @@ public class MusicUtil {
             ModItems.JAZZY_FUR_ELISE_SHEET_MUSIC.get(), 1775,
             ModItems.DANCE_OF_THE_LITTLE_SWANS.get(), 1895,
             ModItems.LA_BAMBA_SHEET_MUSIC.get(), 1115,
-            ModItems.RESURRECTION_SONG.get(), 4990
+            ModItems.RESURRECTION_SONG.get(), 4990,
+            ModItems.SAINTS_SHEET_MUSIC.get(), 1880
     );
 
     public static final List<Item> INSTRUMENTS = new ArrayList<>(List.of(
@@ -104,7 +117,8 @@ public class MusicUtil {
             ModItems.CELLO.get(),
             ModItems.DOUBLE_BASS.get(),
             ModItems.VIOLIN.get(),
-            ModItems.KEYTAR.get())
+            ModItems.KEYTAR.get(),
+            ModItems.DRUM.get())
     );
 
     private static Map<UUID, Item> CURRENT_ORCHESTRAS = new HashMap<>();

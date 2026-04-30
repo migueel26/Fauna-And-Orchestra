@@ -135,6 +135,11 @@ public class BriefcaseItem extends Item {
             entity.setPos(pos.getCenter().x(), pos.getY(), pos.getCenter().z());
 
             level.addFreshEntity(entity);
+
+            MusicalEntity musicalEntity = (MusicalEntity) entity;
+            if (musicalEntity.isHoldingInstrument()) {
+                musicalEntity.searchForConductor();
+            }
         }
     }
 
