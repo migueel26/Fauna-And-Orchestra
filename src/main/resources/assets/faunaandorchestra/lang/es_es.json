@@ -611,6 +611,10 @@
   "symphonia.page.beaver0": "¡$(l)Castores$()! Estos trabajadores $(o)(y algo molestos...)$() animales se pueden encontrar en casi cualquier $(l)río$() que encuentres. Notarás su presencia por los grandes $(o)embalses$() que aman construir. ¡Pero cuidado! Si tapan algún canal, ¡puedes romperlos fácilmente con tu $(item)espada$()! $(br)A pesar de ser algo... $(o)molestos$(), ¡no puedo negar su talento musical! ",
   "symphonia.page.beaver1": "Dato curioso: Si te quedas sin palos, encuentra un río. ¡Tendrás de sobra!",
 
+  "symphonia.entry.sea_lion": "León Marino",
+  "symphonia.page.sea_lion0": "¡Si alguna vez te encuentras cerca de los $(o)océanos$() o de algunas $(o)playas$(), puede que veas a algunos $(l)leones marinos$() descansando! Estos animales son muy sociables, y les encanta tomar el sol y nadar. Pueden ser bastante ruidosos, ¡pero tienen un gran sentido del ritmo! $(br)¡Si tocas algo de música cerca de ellos, puede que incluso se unan a tu orquesta!",
+  "symphonia.page.sea_lion1": "Dato curioso: ¡Pueden aguantar la respiración hasta 20 minutos!",
+
   "symphonia.entry.madame_butterfly": "Madame Butterfly",
   "symphonia.page.madame_butterfly0": "Madre de todas las mariposas, ¡$(l)Madame Butterfly$() ha decidido confiar en ti! No suele mostrarse a menos que llames su atención. La mezcla de olores, armonías y sabores de la $(item)ofrenda$() la devuelve a su inocente juventud. Las Madame Butterfly son elegidas al nacer, y rápidamente se vuelven importantes $(o)figuras políticas$() en sus colonias.",
   "symphonia.page.madame_butterfly1": "A pesar de no tocar técnicamente el cello, ¡dirige a las otras $(o)mariposas$()!",

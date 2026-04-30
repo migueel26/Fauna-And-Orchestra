@@ -26,7 +26,11 @@
     {
       "type": "crafting",
       "recipe": "faunaandorchestra:oboe",
-      "recipe2": "faunaandorchestra:baton"
+      "recipe2": "faunaandorchestra:drum"
+    },
+    {
+      "type": "crafting",
+      "recipe": "faunaandorchestra:baton"
     }
   ]
 }
