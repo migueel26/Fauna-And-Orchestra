@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#faunaandorchestra:spawns_sea_lion",
+  "spawners": {
+    "type": "faunaandorchestra:sea_lion",
+    "maxCount": 4,
+    "minCount": 3,
+    "weight": 8
+  }
+}
