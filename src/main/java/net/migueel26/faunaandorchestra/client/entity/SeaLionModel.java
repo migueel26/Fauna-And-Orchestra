@@ -49,6 +49,10 @@ public class SeaLionModel extends GeoModel<SeaLionEntity> {
 
         }
 
+        getAnimationProcessor().getBone("top_hat").setHidden(seaLion.getHat() != ModItems.TOP_HAT.get());
+        getAnimationProcessor().getBone("right_monocle").setHidden(seaLion.getHat() != ModItems.RIGHT_MONOCLE.get());
+        getAnimationProcessor().getBone("left_monocle").setHidden(seaLion.getHat() != ModItems.LEFT_MONOCLE.get());
+
         setHiddenInstrument(!seaLion.isHoldingInstrument());
     }
 
