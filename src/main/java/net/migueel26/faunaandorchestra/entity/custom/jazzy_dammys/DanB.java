@@ -1,0 +1,189 @@
+package net.migueel26.faunaandorchestra.entity.custom.jazzy_dammys;
+
+import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
+import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
+import net.migueel26.faunaandorchestra.entity.custom.TravellingMusician;
+import net.migueel26.faunaandorchestra.networking.StartAmbientMusicS2CPayload;
+import net.migueel26.faunaandorchestra.networking.StopMusicS2CPayload;
+import net.migueel26.faunaandorchestra.util.ModSavedData;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.EntitySelector;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.npc.Npc;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.network.PacketDistributor;
+import software.bernie.geckolib.animatable.GeoAnimatable;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.*;
+import software.bernie.geckolib.util.GeckoLibUtil;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class DanB extends TravellingMusician implements Npc, GeoEntity {
+    // ANIMATION
+    private static final RawAnimation PLAYING = RawAnimation.begin().thenPlay("playing");
+    private static final RawAnimation WALK = RawAnimation.begin().thenPlay("walk");
+    private static final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
+    private final AnimationController<DanB> jazzyDammyController = new AnimationController<>(this, "dan_b_controller", 5, this::jazzyDammyState);
+    private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
+
+    // TALKABLE
+    protected static final EntityDataAccessor<Integer> CONFIDENCE = SynchedEntityData.defineId(DanB.class, EntityDataSerializers.INT);
+    protected static final EntityDataAccessor<Boolean> GOOD_MORNING = SynchedEntityData.defineId(DanB.class, EntityDataSerializers.BOOLEAN);
+    public static final int COOL_CONFIDENCE = 35;
+    public static final ResourceLocation ICON = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/gui/entity/dan_b_icon.png");
+    protected int confidence;
+    public static final String RESOURCE = "dialogue.faunaandorchestra.dan_b";
+    public String currentDialogue;
+
+    // MUSIC
+    protected List<Player> playersListening = new ArrayList<>();
+
+    public DanB(EntityType<? extends AgeableMob> entityType, Level level) {
+        super(entityType, level);
+
+        this.setCustomName(Component.translatable("entity.faunaandorchestra.dan_b"));
+    }
+
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(CONFIDENCE, 0);
+    }
+
+    private <E extends GeoAnimatable> PlayState jazzyDammyState(AnimationState<E> state) {
+        if (state.isMoving()) {
+            state.getController().setAnimation(WALK);
+        } else if (isPlaying()) {
+            state.getController().setAnimation(PLAYING);
+        } else {
+            state.getController().setAnimation(IDLE);
+        }
+        return PlayState.CONTINUE;
+    }
+
+    @Override
+    protected InteractionResult mobInteract(Player player, InteractionHand hand) {
+        if (getDialogueTimer() == 0) {
+
+            if (level().isClientSide()) {
+                increaseDialogueTimer();
+            } else {
+                this.confidence = ModSavedData.getConfidence((ServerLevel) level(), this, player.getUUID());
+                setConfidence(confidence);
+                if (this.confidence >= COOL_CONFIDENCE) {
+                    //ModAdvancements.BEFRIEND_FAUST.get().trigger((ServerPlayer) player);
+                }
+                ModSavedData.saveConfidence((ServerLevel) level(), this, player.getUUID(), this.confidence + 1);
+            }
+            return InteractionResult.SUCCESS;
+        }
+        return InteractionResult.FAIL;
+    }
+
+    @Override
+    public ResourceLocation getIcon() {
+        return ICON;
+    }
+
+    @Override
+    public String getRandomDialogue(Player player) {
+        // NOTE: % is the player's name
+        // # is laugh and it's animated
+        String dialogue = currentDialogue;
+        boolean goodMorning = entityData.get(GOOD_MORNING);
+        this.confidence = getConfidence();
+        if (getDialogueTimer() <= 5) {
+            if (confidence == -1) {
+                dialogue = Component.translatable(RESOURCE + "2").getString();
+                String[] arr = dialogue.split("%");
+                dialogue = arr[0] + player.getDisplayName().getString() + arr[1];
+            } else if (confidence == 0 && goodMorning) {
+                dialogue = Component.translatable(RESOURCE + "0").getString();
+            } else if (confidence > 0 && confidence <= COOL_CONFIDENCE && goodMorning) {
+                dialogue = Component.translatable(RESOURCE + "1").getString();
+                String[] arr = dialogue.split("%");
+                dialogue = arr[0] + player.getDisplayName().getString() + arr[1];
+            } else if (confidence > COOL_CONFIDENCE && goodMorning) {
+                dialogue = Component.translatable(RESOURCE + "1s").getString();
+            } else {
+                int randomDialogue = random.nextInt(3, 20);
+                dialogue = Component.translatable(RESOURCE + randomDialogue).getString();
+                if (randomDialogue >= 16 && confidence > COOL_CONFIDENCE) dialogue = Component.translatable(RESOURCE + randomDialogue + "s").getString();
+            }
+            currentDialogue = dialogue;
+        }
+        return dialogue;
+    }
+
+    @Override
+    public void tick() {
+        if (isPlaying() && !level().isClientSide()) {
+            List<Player> nearbyPlayers = this.level().getEntitiesOfClass(
+                    Player.class, this.getBoundingBox().inflate(32.0, 32.0, 32.0), EntitySelector.LIVING_ENTITY_STILL_ALIVE);
+
+            List<Player> newPlayers = new ArrayList<>(nearbyPlayers);
+            List<Player> exitPlayers = new ArrayList<>(playersListening);
+            exitPlayers.removeAll(nearbyPlayers);
+            newPlayers.removeAll(playersListening);
+
+            for (Player player : newPlayers) {
+                PacketDistributor.sendToPlayer((ServerPlayer) player, new StartAmbientMusicS2CPayload(this.uuid));
+                //ModAdvancements.MEET_RINGTAILS.get().trigger((ServerPlayer) player);
+            }
+
+            for (Player player : exitPlayers) {
+                PacketDistributor.sendToPlayer((ServerPlayer) player, new StopMusicS2CPayload(this.uuid));
+            }
+
+            playersListening = nearbyPlayers;
+
+        } else {
+            playersListening = new ArrayList<>();
+        }
+
+        super.tick();
+    }
+
+    @Override
+    public void setConfidence(int confidence) {
+        entityData.set(CONFIDENCE, confidence);
+    }
+
+    @Override
+    public int getConfidence() {
+        return entityData.get(CONFIDENCE);
+    }
+
+    @Override
+    public void setGoodMorning(boolean goodMorning) {
+        entityData.set(GOOD_MORNING, goodMorning);
+    }
+
+    @Override
+    public boolean getGoodMorning() {
+        return entityData.get(GOOD_MORNING);
+    }
+
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(jazzyDammyController);
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return geoCache;
+    }
+}

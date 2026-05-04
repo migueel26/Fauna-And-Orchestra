@@ -82,4 +82,7 @@ public abstract class TravellingMusician extends AgeableMob implements TalkableE
     public boolean isPlaying() {
         return this.entityData.get(IS_PLAYING);
     }
+
+    public abstract void setConfidence(int confidence);
+    public abstract int getConfidence();
 }

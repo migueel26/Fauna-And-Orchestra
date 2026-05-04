@@ -4,6 +4,7 @@ import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.entity.custom.Faust;
 import net.migueel26.faunaandorchestra.entity.custom.Orion;
 import net.migueel26.faunaandorchestra.entity.custom.TalkableEntity;
+import net.migueel26.faunaandorchestra.entity.custom.jazzy_dammys.DanB;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -107,6 +108,7 @@ public class ModSavedData extends SavedData {
         switch (entity) {
             case Faust faust -> name = "faust";
             case Orion orion -> name = "orion";
+            case DanB danB -> name = "dan_b";
             case null, default -> {
             }
         }

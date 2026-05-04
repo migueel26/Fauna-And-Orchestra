@@ -4,6 +4,10 @@ import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.entity.custom.*;
 import net.migueel26.faunaandorchestra.entity.custom.boss.ComposerCanonEntity;
 import net.migueel26.faunaandorchestra.entity.custom.boss.TheGreatComposer;
+import net.migueel26.faunaandorchestra.entity.custom.jazzy_dammys.DanB;
+import net.migueel26.faunaandorchestra.entity.custom.jazzy_dammys.Delroy;
+import net.migueel26.faunaandorchestra.entity.custom.jazzy_dammys.Denise;
+import net.migueel26.faunaandorchestra.entity.custom.jazzy_dammys.Denzel;
 import net.migueel26.faunaandorchestra.entity.custom.koala_workers.FarmerKoalaEntity;
 import net.migueel26.faunaandorchestra.entity.custom.koala_workers.MelomancerKoalaEntity;
 import net.migueel26.faunaandorchestra.entity.custom.koala_workers.TailorKoalaEntity;
@@ -52,6 +56,14 @@ public class ModEntities {
             () -> EntityType.Builder.of(AnyaGhost::new, MobCategory.CREATURE).sized(0.6f, 1.8f).build("anya_ghost"));
     public static final Supplier<EntityType<WiseTree>> WISE_TREE = ENTITY_TYPES.register("wise_tree",
             () -> EntityType.Builder.of(WiseTree::new, MobCategory.CREATURE).sized(0.6f, 1.0f).build("wise_tree"));
+    public static final Supplier<EntityType<DanB>> DAN_B = ENTITY_TYPES.register("dan_b",
+            () -> EntityType.Builder.of(DanB::new, MobCategory.CREATURE).sized(0.75f, 1f).build("dan_b"));
+    public static final Supplier<EntityType<Delroy>> DELROY = ENTITY_TYPES.register("delroy",
+            () -> EntityType.Builder.of(Delroy::new, MobCategory.CREATURE).sized(0.75f, 1f).build("delroy"));
+    public static final Supplier<EntityType<Denise>> DENISE = ENTITY_TYPES.register("denise",
+            () -> EntityType.Builder.of(Denise::new, MobCategory.CREATURE).sized(0.75f, 1f).build("denise"));
+    public static final Supplier<EntityType<Denzel>> DENZEL = ENTITY_TYPES.register("denzel",
+            () -> EntityType.Builder.of(Denzel::new, MobCategory.CREATURE).sized(0.75f, 1f).build("denzel"));
 
     public static final Supplier<EntityType<WanderingKoalaEntity>> WANDERING_KOALA = ENTITY_TYPES.register("wandering_koala",
             () -> EntityType.Builder.of(WanderingKoalaEntity::new, MobCategory.CREATURE).sized(0.6f, 1.25f).build("wandering_koala"));

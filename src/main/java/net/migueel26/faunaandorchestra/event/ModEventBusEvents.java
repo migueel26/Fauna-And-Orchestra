@@ -5,6 +5,10 @@ import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.entity.custom.*;
 import net.migueel26.faunaandorchestra.entity.custom.boss.ComposerCanonEntity;
 import net.migueel26.faunaandorchestra.entity.custom.boss.TheGreatComposer;
+import net.migueel26.faunaandorchestra.entity.custom.jazzy_dammys.DanB;
+import net.migueel26.faunaandorchestra.entity.custom.jazzy_dammys.Delroy;
+import net.migueel26.faunaandorchestra.entity.custom.jazzy_dammys.Denise;
+import net.migueel26.faunaandorchestra.entity.custom.jazzy_dammys.Denzel;
 import net.migueel26.faunaandorchestra.entity.custom.koala_workers.AbstractKoalaWorker;
 import net.migueel26.faunaandorchestra.entity.custom.koala_workers.FarmerKoalaEntity;
 import net.migueel26.faunaandorchestra.entity.custom.koala_workers.TailorKoalaEntity;
@@ -53,6 +57,11 @@ public class ModEventBusEvents {
         event.put(ModEntities.ORION.get(), Orion.createMusicianAttributes().build());
         event.put(ModEntities.ANYA_GHOST.get(), AnyaGhost.createAttributes().build());
         event.put(ModEntities.WISE_TREE.get(), WiseTree.createAttributes().build());
+        event.put(ModEntities.DAN_B.get(), DanB.createMusicianAttributes().build());
+        event.put(ModEntities.DELROY.get(), Delroy.createMusicianAttributes().build());
+        event.put(ModEntities.DENISE.get(), Denise.createMusicianAttributes().build());
+        event.put(ModEntities.DENZEL.get(), Denzel.createMusicianAttributes().build());
+
         event.put(ModEntities.SINGING_SPROUTLING.get(), SproutlingEntity.createAttributes().build());
         event.put(ModEntities.BUTTERFLY.get(), ButterflyEntity.createAttributes().build());
         event.put(ModEntities.WANDERING_NOTE.get(), ButterflyEntity.createAttributes().build());

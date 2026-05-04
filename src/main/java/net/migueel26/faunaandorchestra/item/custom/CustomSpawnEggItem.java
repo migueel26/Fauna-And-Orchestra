@@ -1,7 +1,9 @@
 package net.migueel26.faunaandorchestra.item.custom;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -13,6 +15,7 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
@@ -21,6 +24,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.minecraft.network.chat.Component;
 
 import java.util.Arrays;
 import java.util.List;
@@ -99,5 +103,29 @@ public class CustomSpawnEggItem extends Item {
                 return InteractionResultHolder.fail(itemstack);
             }
         }
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+        if (!musicians.isEmpty()) {
+            MutableComponent combinedTooltip = null;
+
+            for (int i = 0; i < musicians.size(); i++) {
+                Component entityName = musicians.get(i).getDescription();
+
+                if (combinedTooltip == null) {
+                    combinedTooltip = entityName.copy();
+                } else if (i == musicians.size() - 1) {
+                    combinedTooltip.append(" & ").append(entityName);
+                } else {
+                    combinedTooltip.append(", ").append(entityName);
+                }
+            }
+
+            if (combinedTooltip != null) {
+                tooltipComponents.add(combinedTooltip.withStyle(ChatFormatting.GRAY));
+            }
+        }
+        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
     }
 }

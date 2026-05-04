@@ -276,16 +276,9 @@ public class ModItems {
             () -> new DeferredSpawnEggItem(ModEntities.WISE_TREE, 0x5f4a2b, 0x567e22,
                     new Item.Properties()));
     public static final DeferredItem<Item> RINGTAILS_SPAWN_EGG = ITEMS.register("ringtails_spawn_egg",
-            () -> new CustomSpawnEggItem(new Item.Properties(), ModEntities.FAUST.get(), ModEntities.ORION.get()) {
-                @Override
-                public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-                    tooltipComponents.add(Component.translatable("entity.faunaandorchestra.faust")
-                            .append(Component.literal(" & "))
-                            .append(Component.translatable("entity.faunaandorchestra.orion"))
-                            .withStyle(ChatFormatting.GRAY));
-                    super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
-                }
-            });
+            () -> new CustomSpawnEggItem(new Item.Properties(), ModEntities.FAUST.get(), ModEntities.ORION.get()));
+    public static final DeferredItem<Item> JAZZY_DAMMYS_SPAWN_EGG = ITEMS.register("jazzy_dammys_spawn_egg",
+            () -> new CustomSpawnEggItem(new Item.Properties(), ModEntities.DENZEL.get(), ModEntities.DENISE.get(), ModEntities.DELROY.get(), ModEntities.DAN_B.get()));
     public static final DeferredItem<Item> THE_GREAT_COMPOSER_SPAWN_EGG = ITEMS.register("the_great_composer_spawn_egg",
             () -> new DeferredSpawnEggItem(ModEntities.THE_GREAT_COMPOSER, 0xe2d7a8, 0x23ab53, new Item.Properties()) {
                 @Override

@@ -3,6 +3,7 @@ package net.migueel26.faunaandorchestra;
 import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.block.ModBlockEntities;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
+import net.migueel26.faunaandorchestra.client.entity.DanBRenderer;
 import net.migueel26.faunaandorchestra.client.block.*;
 import net.migueel26.faunaandorchestra.client.entity.*;
 import net.migueel26.faunaandorchestra.client.entity.boss.ComposerCanonRenderer;
@@ -136,6 +137,11 @@ public class FaunaAndOrchestra {
             EntityRenderers.register(ModEntities.ORION.get(), OrionRenderer::new);
             EntityRenderers.register(ModEntities.ANYA_GHOST.get(), CanonEntityRenderer::new);
             EntityRenderers.register(ModEntities.WISE_TREE.get(), WiseTreeRenderer::new);
+            EntityRenderers.register(ModEntities.DAN_B.get(), DanBRenderer::new);
+            EntityRenderers.register(ModEntities.DELROY.get(), DelroyRenderer::new);
+            EntityRenderers.register(ModEntities.DENISE.get(), DeniseRenderer::new);
+            EntityRenderers.register(ModEntities.DENZEL.get(), DenzelRenderer::new);
+
 
             EntityRenderers.register(ModEntities.SINGING_SPROUTLING.get(), SproutlingRenderer::new);
             EntityRenderers.register(ModEntities.BUTTERFLY.get(), ButterflyRenderer::new);
