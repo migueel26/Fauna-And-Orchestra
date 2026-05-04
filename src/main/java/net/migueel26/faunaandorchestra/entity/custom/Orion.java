@@ -29,11 +29,10 @@ import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class Orion extends TravellingMusician implements Npc, GeoEntity, TalkableEntity {
+public class Orion extends TravellingMusician implements Npc, GeoEntity {
     private static final RawAnimation PLAYING = RawAnimation.begin().thenPlay("playing");
     private static final RawAnimation WALK = RawAnimation.begin().thenPlay("walk");
     private static final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
-    protected static final EntityDataAccessor<Integer> DIALOGUE_TIMER = SynchedEntityData.defineId(Orion.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> CONFIDENCE = SynchedEntityData.defineId(Orion.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Boolean> GOOD_MORNING = SynchedEntityData.defineId(Orion.class, EntityDataSerializers.BOOLEAN);
     public static final ResourceLocation ICON = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/gui/entity/orion_icon.png");
@@ -54,7 +53,6 @@ public class Orion extends TravellingMusician implements Npc, GeoEntity, Talkabl
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
 
-        builder.define(DIALOGUE_TIMER, 0);
         builder.define(CONFIDENCE, 0);
         builder.define(GOOD_MORNING, true);
     }
@@ -73,24 +71,6 @@ public class Orion extends TravellingMusician implements Npc, GeoEntity, Talkabl
             state.getController().setAnimation(IDLE);
         }
         return PlayState.CONTINUE;
-    }
-
-    @Nullable
-    @Override
-    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
-        return null;
-    }
-
-    public static AttributeSupplier.Builder createAttributes() {
-        return Animal.createLivingAttributes()
-                .add(Attributes.MAX_HEALTH, 1000d)
-                .add(Attributes.MOVEMENT_SPEED, 0.25D)
-                .add(Attributes.FOLLOW_RANGE, 24D);
-    }
-
-    @Override
-    public void checkDespawn() {
-
     }
 
     @Override
@@ -163,36 +143,6 @@ public class Orion extends TravellingMusician implements Npc, GeoEntity, Talkabl
             currentDialogue = dialogue;
         }
         return dialogue;
-    }
-
-    @Override
-    public boolean canBeLeashed() {
-        return false;
-    }
-
-    @Override
-    public Pair<Integer, Integer> getIconSize() {
-        return new Pair<>(49, 60);
-    }
-
-    @Override
-    public Pair<Integer, Integer> getIconLocation() {
-        return new Pair<>(107, 136);
-    }
-
-    @Override
-    public int getDialogueTimer() {
-        return entityData.get(DIALOGUE_TIMER);
-    }
-
-    @Override
-    public void increaseDialogueTimer() {
-        entityData.set(DIALOGUE_TIMER, getDialogueTimer() + 1);
-    }
-
-    @Override
-    public void resetDialogueTimer() {
-        entityData.set(DIALOGUE_TIMER, 0);
     }
 
     public void setGoodMorning(boolean goodMorning) {

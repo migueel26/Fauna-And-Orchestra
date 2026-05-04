@@ -49,8 +49,8 @@ public class ModEventBusEvents {
         event.put(ModEntities.TAILOR_KOALA.get(), TailorKoalaEntity.createAttributes().build());
         event.put(ModEntities.FARMER_KOALA.get(), FarmerKoalaEntity.createAttributes().build());
 
-        event.put(ModEntities.FAUST.get(), Faust.createAttributes().build());
-        event.put(ModEntities.ORION.get(), Orion.createAttributes().build());
+        event.put(ModEntities.FAUST.get(), Faust.createMusicianAttributes().build());
+        event.put(ModEntities.ORION.get(), Orion.createMusicianAttributes().build());
         event.put(ModEntities.ANYA_GHOST.get(), AnyaGhost.createAttributes().build());
         event.put(ModEntities.WISE_TREE.get(), WiseTree.createAttributes().build());
         event.put(ModEntities.SINGING_SPROUTLING.get(), SproutlingEntity.createAttributes().build());
