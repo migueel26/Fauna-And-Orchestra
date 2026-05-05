@@ -140,7 +140,7 @@ public class ButlerKoalaEntity extends AbstractKoalaMerchant {
         VillagerTrades.ItemListing[] food = KoalaTrades.BUTLER_KOALA_TRADES.get(1);
         if (food != null) {
             MerchantOffers offers = this.offers;
-            addOffersFromItemListings(offers, food, 1);
+            addOffersFromItemListings(offers, food, 5);
 
         }
     }
@@ -151,8 +151,13 @@ public class ButlerKoalaEntity extends AbstractKoalaMerchant {
 
         while (i < maxNumbers && !foodList.isEmpty()) {
             MerchantOffer merchantoffer = null;
-            if (i <= 1)
+            if (i <= 2) {
                 merchantoffer = foodList.remove(this.random.nextInt(foodList.size())).getOffer(this, this.random);
+            } else if (i == 3) {
+                merchantoffer = KoalaTrades.BUTLER_KOALA_TRADES.get(2)[0].getOffer(this, this.random);
+            } else if (i == 4) {
+                merchantoffer = KoalaTrades.BUTLER_KOALA_TRADES.get(3)[0].getOffer(this, this.random);
+            }
             if (merchantoffer != null) {
                 givenMerchantOffers.add(merchantoffer);
                 i++;

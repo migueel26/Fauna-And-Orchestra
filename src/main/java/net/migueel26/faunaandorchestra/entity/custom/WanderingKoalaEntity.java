@@ -191,7 +191,7 @@ public class WanderingKoalaEntity extends AbstractKoalaMerchant {
         VillagerTrades.ItemListing[] gingkoBilobas = KoalaTrades.WANDERING_KOALA_TRADES.get(4);
         if (sheets != null && instruments != null) {
             MerchantOffers merchantOffers = this.getOffers();
-            this.addOffersFromItemListings(merchantOffers, sheets, instruments, panFlutes, gingkoBilobas, 6);
+            this.addOffersFromItemListings(merchantOffers, sheets, instruments, panFlutes, gingkoBilobas, 7);
 
             /*int i = this.random.nextInt(sheets.length);
             VillagerTrades.ItemListing itemListing = sheets[i];
@@ -219,6 +219,8 @@ public class WanderingKoalaEntity extends AbstractKoalaMerchant {
                 merchantoffer = panFluteList.remove(this.random.nextInt(panFluteList.size())).getOffer(this, this.random);
             if (i == 5)
                 merchantoffer = gingkoBilobaList.remove(this.random.nextInt(gingkoBilobaList.size())).getOffer(this, this.random);
+            if (i == 6)
+                merchantoffer = KoalaTrades.WANDERING_KOALA_TRADES.get(6)[0].getOffer(this, this.random);
             if (merchantoffer != null) {
                 givenMerchantOffers.add(merchantoffer);
                 i++;

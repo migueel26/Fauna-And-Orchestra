@@ -56,6 +56,10 @@ public class KoalaTrades {
                     5,
                     new VillagerTrades.ItemListing[]{
                         new ItemsForEmeralds(ModItems.GLOVE.get().getDefaultInstance(), 3, 1, 5, 1, 0.05f, Optional.empty(), ModItems.BOOGIE_FRUIT.get())
+                    },
+                    6,
+                    new VillagerTrades.ItemListing[]{
+                            new ItemsForEmeralds(ModItems.BUSINESS_CARD.get().getDefaultInstance(), 1, 1, 1, 1, 1, Optional.empty(), ModItems.ACTIVATOR_CLEF.get()),
                     }
             )
     );
@@ -64,12 +68,24 @@ public class KoalaTrades {
             ImmutableMap.of(
                     1,
                     new VillagerTrades.ItemListing[]{
-                            new ItemsForEmeralds(Items.COOKED_BEEF.getDefaultInstance(), 2, 3, 5, 1, 0.05f, Optional.empty(), Items.WHEAT_SEEDS),
-                            new ItemsForEmeralds(Items.COOKED_BEEF.getDefaultInstance(), 2, 2, 5, 1, 0.05f, Optional.empty(), Items.SUGAR_CANE),
-                            new ItemsForEmeralds(Items.COOKED_CHICKEN.getDefaultInstance(), 2, 3, 5, 1, 0.05f, Optional.empty(), Items.WHEAT_SEEDS),
-                            new ItemsForEmeralds(Items.COOKED_CHICKEN.getDefaultInstance(), 2, 2, 5, 1, 0.05f, Optional.empty(), Items.SUGAR_CANE),
-                            new ItemsForEmeralds(Items.COOKED_PORKCHOP.getDefaultInstance(), 2, 3, 5, 1, 0.05f, Optional.empty(), Items.WHEAT_SEEDS),
-                            new ItemsForEmeralds(Items.COOKED_PORKCHOP.getDefaultInstance(), 2, 2, 5, 1, 0.05f, Optional.empty(), Items.SUGAR_CANE)
+                            new ItemsForEmeralds(Items.BREAD.getDefaultInstance(), 3, 2, 5, 1, 0.05f, Optional.empty(), Items.WHEAT_SEEDS),
+                            new ItemsForEmeralds(Items.CAKE.getDefaultInstance(), 5, 1, 5, 1, 0.05f, Optional.empty(), Items.BEEF),
+                            new ItemsForEmeralds(Items.RABBIT_STEW.getDefaultInstance(), 1, 8, 5, 1, 0.05f, Optional.empty(), Items.BEETROOT),
+                            new ItemsForEmeralds(Items.ENCHANTED_GOLDEN_APPLE.getDefaultInstance(), 10, 1, 1, 1, 0.05f, Optional.empty(), ModItems.BOOGIE_FRUIT.get()),
+                            new ItemsForEmeralds(Items.HONEY_BOTTLE.getDefaultInstance(), 3, 1, 10, 5, 0.05f),
+                            new ItemsForEmeralds(Items.GLOW_BERRIES.getDefaultInstance(), 2, 4, 10, 5, 0.05f, Optional.empty(), Items.SWEET_BERRIES),
+                            new ItemsForEmeralds(Items.SUSPICIOUS_STEW.getDefaultInstance(), 4, 1, 8, 5, 0.05f, Optional.empty(), Items.BROWN_MUSHROOM),
+                            new ItemsForEmeralds(Items.GOLDEN_CARROT.getDefaultInstance(), 3, 3, 12, 10, 0.05f),
+                            new ItemsForEmeralds(Items.GOLDEN_APPLE.getDefaultInstance(), 5, 1, 12, 10, 0.05f),
+                            new ItemsForEmeralds(Items.COOKIE.getDefaultInstance(), 1, 12, 20, 10, 0.05f)
+                    },
+                    2,
+                    new VillagerTrades.ItemListing[]{
+                            new ItemsForEmeralds(ModItems.FORTUNE_COOKIE.get().getDefaultInstance(), 3, 1, 8, 5, 1),
+                    },
+                    3,
+                    new VillagerTrades.ItemListing[]{
+                            new ItemsForEmeralds(ModItems.BUSINESS_CARD.get().getDefaultInstance(), 1, 1, 1, 1, 1, Optional.empty(), ModItems.ACTIVATOR_CLEF.get()),
                     }
             )
     );
