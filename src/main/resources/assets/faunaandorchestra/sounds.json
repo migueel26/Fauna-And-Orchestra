@@ -570,6 +570,12 @@
       "faunaandorchestra:music/hona_bildots_eztia"
     ]
   },
+  "soleram": {
+    "subtitles": "sounds.faunaandorchestra.soleram",
+    "sounds": [
+      "faunaandorchestra:music/soleram"
+    ]
+  },
   "the_great_composer_theme": {
     "subtitles": "sounds.faunaandorchestra.the_great_composer_theme",
     "sounds": [

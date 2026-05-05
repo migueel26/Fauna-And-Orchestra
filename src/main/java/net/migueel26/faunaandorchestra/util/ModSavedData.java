@@ -108,7 +108,7 @@ public class ModSavedData extends SavedData {
         switch (entity) {
             case Faust faust -> name = "faust";
             case Orion orion -> name = "orion";
-            case DanB danB -> name = "dan_b";
+            case DanB dan_b -> name = "dan_b";
             case null, default -> {
             }
         }

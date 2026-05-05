@@ -5,6 +5,7 @@ import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.block.entity.TipCaseBlockEntity;
 import net.migueel26.faunaandorchestra.entity.custom.*;
 import net.migueel26.faunaandorchestra.entity.custom.boss.TheGreatComposer;
+import net.migueel26.faunaandorchestra.entity.custom.jazzy_dammys.DanB;
 import net.migueel26.faunaandorchestra.mixins.client.accessors.ClientLevelAccessor;
 import net.migueel26.faunaandorchestra.mixins.interfaces.ISoundManagerMixin;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
@@ -130,15 +131,20 @@ public class ClientPayloadHandler {
                 Minecraft.getInstance().getSoundManager().play(new FrogSongSoundInstance(
                         ModSounds.FROG_SONG.get(),
                         quirkyFrog));
-            } else if (musician instanceof TravellingMusician travellingMusician) {
+            } else if (musician instanceof Faust faust) {
                 Minecraft.getInstance().getSoundManager().play(new TravellingMusicianSoundInstance(
                         ModSounds.RINGTAILS_SONG.get(),
-                        travellingMusician
+                        faust
                 ));
             } else if (musician instanceof TheGreatComposer theGreatComposer) {
                 SoundEvent soundEvent = theGreatComposer.isFinalPhase() ? ModSounds.THE_GREAT_COMPOSER_FINAL_THEME.get() : ModSounds.THE_GREAT_COMPOSER_THEME.get();
                 Minecraft.getInstance().getSoundManager().play(new BossSoundInstance(
                         soundEvent, theGreatComposer
+                ));
+            } else if (musician instanceof DanB danB) {
+                Minecraft.getInstance().getSoundManager().play(new TravellingMusicianSoundInstance(
+                        ModSounds.JAZZY_DAMMYS_SONG.get(),
+                        danB
                 ));
             } else {
                 System.err.println("The UUID in the StartAmbientMusicPayload is for an entity that does not exist");

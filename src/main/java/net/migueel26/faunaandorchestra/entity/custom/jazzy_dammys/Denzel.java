@@ -2,6 +2,7 @@ package net.migueel26.faunaandorchestra.entity.custom.jazzy_dammys;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.entity.custom.TravellingMusician;
+import net.migueel26.faunaandorchestra.entity.goals.JazzyDammysRunAwayGoal;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -37,6 +38,9 @@ public class Denzel extends TravellingMusician implements Npc, GeoEntity {
     public static final String RESOURCE = "dialogue.faunaandorchestra.denzel";
     public String currentDialogue;
 
+    // MUSIC
+    protected DanB danB;
+
     public Denzel(EntityType<? extends AgeableMob> entityType, Level level) {
         super(entityType, level);
 
@@ -47,6 +51,12 @@ public class Denzel extends TravellingMusician implements Npc, GeoEntity {
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(CONFIDENCE, 0);
+        builder.define(GOOD_MORNING, true);
+    }
+
+    @Override
+    protected void registerGoals() {
+        this.goalSelector.addGoal(0, new JazzyDammysRunAwayGoal(this, 2.0));
     }
 
     private <E extends GeoAnimatable> PlayState jazzyDammyState(AnimationState<E> state) {
@@ -117,6 +127,14 @@ public class Denzel extends TravellingMusician implements Npc, GeoEntity {
     @Override
     public boolean getGoodMorning() {
         return entityData.get(GOOD_MORNING);
+    }
+
+    public DanB getDanB() {
+        return danB;
+    }
+
+    public void setDanB(DanB danB) {
+        this.danB = danB;
     }
 
     @Override

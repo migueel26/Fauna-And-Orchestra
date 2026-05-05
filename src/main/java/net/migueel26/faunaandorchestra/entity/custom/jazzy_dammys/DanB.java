@@ -3,6 +3,8 @@ package net.migueel26.faunaandorchestra.entity.custom.jazzy_dammys;
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.entity.custom.TravellingMusician;
+import net.migueel26.faunaandorchestra.entity.goals.DanBFindJazzyDammysGoal;
+import net.migueel26.faunaandorchestra.entity.goals.JazzyDammysRunAwayGoal;
 import net.migueel26.faunaandorchestra.networking.StartAmbientMusicS2CPayload;
 import net.migueel26.faunaandorchestra.networking.StopMusicS2CPayload;
 import net.migueel26.faunaandorchestra.util.ModSavedData;
@@ -50,6 +52,9 @@ public class DanB extends TravellingMusician implements Npc, GeoEntity {
 
     // MUSIC
     protected List<Player> playersListening = new ArrayList<>();
+    protected Denise denise;
+    protected Denzel denzel;
+    protected Delroy delroy;
 
     public DanB(EntityType<? extends AgeableMob> entityType, Level level) {
         super(entityType, level);
@@ -61,6 +66,13 @@ public class DanB extends TravellingMusician implements Npc, GeoEntity {
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(CONFIDENCE, 0);
+        builder.define(GOOD_MORNING, true);
+    }
+
+    @Override
+    protected void registerGoals() {
+        this.goalSelector.addGoal(0, new JazzyDammysRunAwayGoal(this, 2.0));
+        this.goalSelector.addGoal(1, new DanBFindJazzyDammysGoal(this));
     }
 
     private <E extends GeoAnimatable> PlayState jazzyDammyState(AnimationState<E> state) {
@@ -118,6 +130,8 @@ public class DanB extends TravellingMusician implements Npc, GeoEntity {
                 dialogue = arr[0] + player.getDisplayName().getString() + arr[1];
             } else if (confidence > COOL_CONFIDENCE && goodMorning) {
                 dialogue = Component.translatable(RESOURCE + "1s").getString();
+                String[] arr = dialogue.split("%");
+                dialogue = arr[0] + player.getDisplayName().getString() + arr[1];
             } else {
                 int randomDialogue = random.nextInt(3, 20);
                 dialogue = Component.translatable(RESOURCE + randomDialogue).getString();
@@ -158,6 +172,14 @@ public class DanB extends TravellingMusician implements Npc, GeoEntity {
     }
 
     @Override
+    protected void tickDeath() {
+        if (denise != null) denise.setDanB(null);
+        if (denzel != null) denzel.setDanB(null);
+        if (delroy != null) delroy.setDanB(null);
+        super.tickDeath();
+    }
+
+    @Override
     public void setConfidence(int confidence) {
         entityData.set(CONFIDENCE, confidence);
     }
@@ -175,6 +197,27 @@ public class DanB extends TravellingMusician implements Npc, GeoEntity {
     @Override
     public boolean getGoodMorning() {
         return entityData.get(GOOD_MORNING);
+    }
+
+    public Denise getDenise() {
+        return denise;
+
+    }
+    public void setDenise(Denise denise) {
+        this.denise = denise;
+    }
+
+    public Denzel getDenzel() { return denzel; }
+    public void setDenzel(Denzel denzel) {
+        this.denzel = denzel;
+    }
+
+    public Delroy getDelroy() {
+        return delroy;
+    }
+
+    public void setDelroy(Delroy delroy) {
+        this.delroy = delroy;
     }
 
     @Override

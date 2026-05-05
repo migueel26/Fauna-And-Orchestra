@@ -77,6 +77,7 @@ public class ModSounds {
     public static final Supplier<SoundEvent> FROG_SONG = registerSoundEvent("frog_song");
     public static final Supplier<SoundEvent> SPROUTLING_SONG = registerSoundEvent("sproutling_song");
     public static final Supplier<SoundEvent> RINGTAILS_SONG = registerSoundEvent("hona_bildots_eztia");
+    public static final Supplier<SoundEvent> JAZZY_DAMMYS_SONG = registerSoundEvent("soleram");
     public static final Supplier<SoundEvent> THE_GREAT_COMPOSER_THEME = registerSoundEvent("the_great_composer_theme");
     public static final Supplier<SoundEvent> THE_GREAT_COMPOSER_FINAL_THEME = registerSoundEvent("the_great_composer_theme2");
 
