@@ -5,6 +5,10 @@ import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.entity.custom.Faust;
 import net.migueel26.faunaandorchestra.entity.custom.TalkableEntity;
 import net.migueel26.faunaandorchestra.entity.goals.RandomWalkToPlayerGoal;
+import net.migueel26.faunaandorchestra.item.ModItems;
+import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
+import net.migueel26.faunaandorchestra.sound.ModSounds;
+import net.migueel26.faunaandorchestra.util.ModTags;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -15,6 +19,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -27,6 +32,7 @@ import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.npc.Npc;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.Nullable;
@@ -175,7 +181,17 @@ public class WorkerKoalaEntity extends AgeableMob implements Npc, GeoEntity, Tal
 
     @Override
     protected InteractionResult mobInteract(Player player, InteractionHand hand) {
-        if (getDialogueTimer() == 0) {
+        ItemStack stack = player.getItemInHand(hand);
+        if (stack.is(ModTags.Items.KITS) && !level().isClientSide()) {
+            // Some VFX and SFX
+            ((ServerLevel) level()).sendParticles(ModParticleTypes.STAR.get(), getX(), getY() + 0.5, getZ(), 20, 0.5, 0.5, 0.5, 0.1);
+            level().playSound(null, blockPosition(), ModSounds.TWINKLE.get(), SoundSource.NEUTRAL, 1.0f, 1.0f);
+
+            // We transform the koala
+            this.convertTo(getKoala(stack), true);
+            
+            return InteractionResult.SUCCESS;
+        } else if (getDialogueTimer() == 0) {
             if (level().isClientSide()) {
                 increaseDialogueTimer();
             }
@@ -200,6 +216,30 @@ public class WorkerKoalaEntity extends AgeableMob implements Npc, GeoEntity, Tal
             currentDialogue = dialogue;
         }
         return dialogue;
+    }
+
+    public EntityType<? extends AbstractKoalaWorker> getKoala(ItemStack stack) {
+        if (stack.is(ModItems.SEWING_KIT)) {
+            return ModEntities.TAILOR_KOALA.get();
+        } else if (stack.is(ModItems.MELOMANCY_KIT)) {
+            return ModEntities.MELOMANCER_KOALA.get();
+        } else if (stack.is(ModItems.FARMING_KIT)) {
+            return ModEntities.FARMER_KOALA.get();
+        }
+        return null;
+    }
+
+    @Override
+    public @Nullable <T extends Mob> T convertTo(EntityType<T> entityType, boolean transferInventory) {
+        T entity = super.convertTo(entityType, transferInventory);
+        if (entity instanceof AbstractKoalaWorker koalaWorker) {
+            koalaWorker.lookForConductor((ServerLevelAccessor) level());
+
+            koalaWorker.setYBodyRot(this.getYRot());
+            koalaWorker.setYHeadRot(this.getYHeadRot());
+            koalaWorker.setXRot(this.getXRot());
+        }
+        return entity;
     }
 
     @Override

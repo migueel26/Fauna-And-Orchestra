@@ -196,7 +196,6 @@ public class ModItems {
     public static final DeferredItem<Item> WRITING_INK = ITEMS.register("writing_ink",
             () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> BUSINESS_CARD = createRegularDescriptionItem("business_card", new Item.Properties().stacksTo(1).rarity(Rarity.EPIC));
-
     public static final DeferredItem<Item> PROP_CASE = ITEMS.register("prop_case",
             () -> new Item(new Item.Properties().stacksTo(1)) {
                 @Override
@@ -210,6 +209,10 @@ public class ModItems {
                     super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
                 }
             });
+    public static final DeferredItem<Item> SEWING_KIT =  createKoalaKit("sewing_kit", ModEntities.TAILOR_KOALA);
+    public static final DeferredItem<Item> MELOMANCY_KIT =  createKoalaKit("melomancy_kit", ModEntities.MELOMANCER_KOALA);
+    public static final DeferredItem<Item> FARMING_KIT =  createKoalaKit("farming_kit", ModEntities.FARMER_KOALA);
+
     public static final DeferredItem<Item> TUXEDO = createClothingItem("tuxedo", ModTags.EntityTypes.WEARS_TUXEDO);
     public static final DeferredItem<Item> TAILCOAT = createClothingItem("tailcoat", ModTags.EntityTypes.WEARS_TAILCOAT);
     public static final DeferredItem<Item> BASEBALL_JACKET = createClothingItem("baseball_jacket", ModTags.EntityTypes.WEARS_BASEBALL_JACKET);
@@ -533,6 +536,19 @@ public class ModItems {
                         }
 
                         tooltipComponents.add(musicians.withStyle(ChatFormatting.DARK_GRAY));
+                    }
+                });
+    }
+
+    private static DeferredItem<Item> createKoalaKit(String name, Supplier<? extends EntityType<?>> entityType) {
+        return ITEMS.register(name,
+                () -> new Item(new Item.Properties()) {
+                    @Override
+                    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+                        tooltipComponents.add(Component.translatable("item.faunaandorchestra.kit.desc").withStyle(ChatFormatting.GRAY)
+                                .append(" ")
+                                .append("§e" + entityType.get().getDescription().getString()));
+                        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
                     }
                 });
     }

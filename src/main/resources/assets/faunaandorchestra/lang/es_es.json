@@ -75,6 +75,9 @@
   "item.faunaandorchestra.macaw_feather": "Pluma de guacamayo",
   "item.faunaandorchestra.black_ink": "Tinta de escribir",
   "item.faunaandorchestra.business_card": "Tarjeta de negocios",
+  "item.faunaandorchestra.sewing_kit": "Kit de costura",
+  "item.faunaandorchestra.melomancy_kit": "Kit de melomancia",
+  "item.faunaandorchestra.farming_kit": "Kit de agricultura",
 
   "item.faunaandorchestra.prop_case": "Neceser",
   "item.faunaandorchestra_clothing.desc": "Ropa para Animales",
@@ -140,6 +143,7 @@
   "item.faunaandorchestra.fluffy_boots.desc2": "+ Velocidad en arena",
   "item.faunaandorchestra.macaw_feather.desc": "Dado por los guacamayos como símbolo de lealtad a sus amigos",
   "item.faunaandorchestra.business_card.desc": "§7Hey! Si alguna vez necesitas a un sastre u otro empleado, envíame esta carta con tu §6guacamayo mensajero",
+  "item.faunaandorchestra.kit.desc": "Este kit tiene todo lo necesario para que tu Koala se vuelva un",
 
   "item.faunaandorchestra.fortune_cookie_phrase0": "¡Eres el GOAT!",
   "item.faunaandorchestra.fortune_cookie_phrase1": "No soy Nelly, pero tú eres el dilema",

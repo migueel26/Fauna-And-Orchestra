@@ -61,11 +61,7 @@ public abstract class AbstractKoalaWorker extends AgeableMob implements Npc, Tal
 
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
-        Optional<ConductorEntity> conductor = level.getEntitiesOfClass(ConductorEntity.class,
-                this.getBoundingBox().inflate(50.0, 50.0, 50.0), ConductorEntity::isConducting).stream().findAny();
-        if (conductor.isPresent()) {
-            this.onStartListening(conductor.get());
-        }
+        lookForConductor(level);
         return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
     }
 
@@ -113,6 +109,14 @@ public abstract class AbstractKoalaWorker extends AgeableMob implements Npc, Tal
     public void knockback(double strength, double x, double z) {
         if (!hasWorkingStation() || isInLunchBreak()) {
             super.knockback(strength, x, z);
+        }
+    }
+
+    public void lookForConductor(ServerLevelAccessor level) {
+        Optional<ConductorEntity> conductor = level.getEntitiesOfClass(ConductorEntity.class,
+                this.getBoundingBox().inflate(50.0, 50.0, 50.0), ConductorEntity::isConducting).stream().findAny();
+        if (conductor.isPresent()) {
+            this.onStartListening(conductor.get());
         }
     }
 

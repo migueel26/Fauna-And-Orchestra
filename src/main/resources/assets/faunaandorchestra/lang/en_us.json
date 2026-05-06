@@ -75,6 +75,9 @@
   "item.faunaandorchestra.macaw_feather": "Macaw Feather",
   "item.faunaandorchestra.writing_ink": "Writing Ink",
   "item.faunaandorchestra.business_card": "Business Card",
+  "item.faunaandorchestra.sewing_kit": "Sewing Kit",
+  "item.faunaandorchestra.melomancy_kit": "Melomancy Kit",
+  "item.faunaandorchestra.farming_kit": "Farming Kit",
 
   "item.faunaandorchestra.prop_case": "Prop Case",
   "item.faunaandorchestra_clothing.desc": "Clothing Item",
@@ -141,6 +144,8 @@
   "item.faunaandorchestra.perfumed_bamboo.desc": "What a perfume-genius idea to breed red pandas!",
   "item.faunaandorchestra.macaw_feather.desc": "Given by macaws as symbol of loyalty to a good friend",
   "item.faunaandorchestra.business_card.desc": "§7Hey! If you ever need a tailor or some other employee, send me this card with your §6mailbird",
+  "item.faunaandorchestra.kit.desc": "This kit has everything needed for a Koala to become a",
+
   "item.faunaandorchestra.fortune_cookie_phrase0": "You're GOATED!",
   "item.faunaandorchestra.fortune_cookie_phrase1": "Dream only a dream if work don't follow it",
   "item.faunaandorchestra.fortune_cookie_phrase2": "Nah, but seriously, on a level, you're beautiful",

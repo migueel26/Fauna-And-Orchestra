@@ -20,6 +20,7 @@ public class ModTags {
         public static final TagKey<Item> IS_COSTUME = registerTag("is_costume");
         public static final TagKey<Item> IS_LEGENDARY_CLOTHING = registerTag("is_legendary_clothing");
         public static final TagKey<Item> BUGS = registerTag("bugs");
+        public static final TagKey<Item> KITS = registerTag("kits");
 
         private static TagKey<Item> registerTag(String name) {
             return ItemTags.create(ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, name));

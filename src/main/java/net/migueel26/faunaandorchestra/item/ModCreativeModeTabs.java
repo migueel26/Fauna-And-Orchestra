@@ -129,6 +129,9 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.FRUIT_OF_LIFE);
                         output.accept(ModItems.OFFERING);
                         output.accept(ModItems.BUSINESS_CARD);
+                        output.accept(ModItems.SEWING_KIT);
+                        output.accept(ModItems.MELOMANCY_KIT);
+                        output.accept(ModItems.FARMING_KIT);
                         output.accept(ModItems.SEWING_MACHINE_ITEM);
                         output.accept(ModItems.PROP_CASE);
                         output.accept(ModItems.TUXEDO);
