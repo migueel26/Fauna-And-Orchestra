@@ -212,6 +212,8 @@ public class ModItems {
     public static final DeferredItem<Item> SEWING_KIT =  createKoalaKit("sewing_kit", ModEntities.TAILOR_KOALA);
     public static final DeferredItem<Item> MELOMANCY_KIT =  createKoalaKit("melomancy_kit", ModEntities.MELOMANCER_KOALA);
     public static final DeferredItem<Item> FARMING_KIT =  createKoalaKit("farming_kit", ModEntities.FARMER_KOALA);
+    public static final DeferredItem<Item> COTTON = ITEMS.register("cotton",
+            () -> new Item(new Item.Properties()));
 
     public static final DeferredItem<Item> TUXEDO = createClothingItem("tuxedo", ModTags.EntityTypes.WEARS_TUXEDO);
     public static final DeferredItem<Item> TAILCOAT = createClothingItem("tailcoat", ModTags.EntityTypes.WEARS_TAILCOAT);

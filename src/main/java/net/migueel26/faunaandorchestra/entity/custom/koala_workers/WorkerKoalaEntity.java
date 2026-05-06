@@ -233,11 +233,11 @@ public class WorkerKoalaEntity extends AgeableMob implements Npc, GeoEntity, Tal
     public @Nullable <T extends Mob> T convertTo(EntityType<T> entityType, boolean transferInventory) {
         T entity = super.convertTo(entityType, transferInventory);
         if (entity instanceof AbstractKoalaWorker koalaWorker) {
-            koalaWorker.lookForConductor((ServerLevelAccessor) level());
-
             koalaWorker.setYBodyRot(this.getYRot());
             koalaWorker.setYHeadRot(this.getYHeadRot());
             koalaWorker.setXRot(this.getXRot());
+
+            koalaWorker.lookForConductor((ServerLevelAccessor) level());
         }
         return entity;
     }
