@@ -1,0 +1,8 @@
+{
+  "sources": [
+    {
+      "type": "single",
+      "resource": "faunaandorchestra:item/speech_bubble"
+    }
+  ]
+}

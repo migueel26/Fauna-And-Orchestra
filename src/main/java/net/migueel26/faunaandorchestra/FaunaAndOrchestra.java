@@ -211,6 +211,7 @@ public class FaunaAndOrchestra {
             event.registerSpriteSet(ModParticleTypes.VOICE_PARTICLE.get(), VoiceParticle.Provider::new);
             event.registerSpriteSet(ModParticleTypes.SLEEP.get(), SleepParticle.Provider::new);
             event.registerSpriteSet(ModParticleTypes.BASS_CLEF.get(), BassClefParticle.Provider::new);
+            event.registerSpriteSet(ModParticleTypes.SPEECH_BUBBLE.get(), SpeechBubbleParticle.Provider::new);
         }
 
         @SubscribeEvent

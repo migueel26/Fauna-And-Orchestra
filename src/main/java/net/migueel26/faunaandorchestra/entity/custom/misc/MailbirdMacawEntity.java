@@ -4,6 +4,7 @@ import net.migueel26.faunaandorchestra.entity.custom.MacawEntity;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -32,6 +33,18 @@ public class MailbirdMacawEntity extends MacawEntity {
     @Override
     protected void registerGoals() {
 
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compound) {
+        this.isFlyingAway = compound.getBoolean("isFlyingAway");
+        super.readAdditionalSaveData(compound);
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        compound.putBoolean("isFlyingAway", isFlyingAway);
+        super.addAdditionalSaveData(compound);
     }
 
     @Override
