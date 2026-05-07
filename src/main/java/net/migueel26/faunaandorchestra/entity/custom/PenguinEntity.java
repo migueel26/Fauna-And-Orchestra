@@ -171,7 +171,7 @@ public class PenguinEntity extends MusicalEntity {
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
-        if (stack.is(ItemTags.FISHES) && !player.getCooldowns().isOnCooldown(stack.getItem())) {
+        if (!isTame() && stack.is(ItemTags.FISHES) && !player.getCooldowns().isOnCooldown(stack.getItem())) {
             player.getCooldowns().addCooldown(stack.getItem(), 10);
 
             if (!level().isClientSide()) {

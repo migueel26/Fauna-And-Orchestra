@@ -142,7 +142,7 @@ public class MacawEntity extends MusicalEntity implements FlyingAnimal {
         InteractionResult result = super.mobInteract(player, hand);
 
         ItemStack stack  = player.getItemInHand(hand);
-        if (result == InteractionResult.PASS || result == InteractionResult.FAIL) {
+        if (!isTame() && (result == InteractionResult.PASS || result == InteractionResult.FAIL)) {
             // Create new riddle or try to guess
             if (getRiddle().isEmpty()) {
                 if (!level().isClientSide()) {
