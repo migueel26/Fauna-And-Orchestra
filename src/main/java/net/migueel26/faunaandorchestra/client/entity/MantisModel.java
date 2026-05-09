@@ -15,10 +15,12 @@ import software.bernie.geckolib.model.data.EntityModelData;
 public class MantisModel extends GeoModel<MantisEntity> {
     private static final ResourceLocation NORMAL_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/mantis.png");
     private static final ResourceLocation NORMAL_TUXEDO_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/mantis_tuxedo.png");
+    private static final ResourceLocation WHITE_TUXEDO_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/mantis_white_tuxedo.png");
     private static final ResourceLocation NORMAL_ANIMATIONS = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "animations/entity/mantis.animation.json");
     private static final ResourceLocation NORMAL_MODEL = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "geo/entity/mantis.geo.json");
     private static final ResourceLocation ORCHID_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/orchid_mantis.png");
     private static final ResourceLocation ORCHID_TUXEDO_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/orchid_mantis_tuxedo.png");
+    private static final ResourceLocation ORCHID_WHITE_TUXEDO_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/orchid_mantis_white_tuxedo.png");
     private static final ResourceLocation ORCHID_ANIMATIONS = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "animations/entity/orchid_mantis.animation.json");
     private static final ResourceLocation ORCHID_MODEL = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "geo/entity/orchid_mantis.geo.json");
 
@@ -37,6 +39,11 @@ public class MantisModel extends GeoModel<MantisEntity> {
             return switch (mantis.getVariant()) {
                 case ORCHID -> ORCHID_TUXEDO_TEXTURE;
                 default -> NORMAL_TUXEDO_TEXTURE;
+            };
+        } else if (costume == ModItems.WHITE_TUXEDO.get()) {
+            return switch (mantis.getVariant()) {
+                case ORCHID -> ORCHID_WHITE_TUXEDO_TEXTURE;
+                default -> WHITE_TUXEDO_TEXTURE;
             };
         } else {
             return switch (mantis.getVariant()) {

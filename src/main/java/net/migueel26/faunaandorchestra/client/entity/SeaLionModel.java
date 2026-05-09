@@ -16,6 +16,7 @@ import software.bernie.geckolib.model.data.EntityModelData;
 public class SeaLionModel extends GeoModel<SeaLionEntity> {
     private static final ResourceLocation NORMAL_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/sea_lion.png");
     private static final ResourceLocation TUXEDO_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/sea_lion_tuxedo.png");
+    private static final ResourceLocation WHITE_TUXEDO_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/sea_lion_white_tuxedo.png");
     private static final ResourceLocation ANIMATIONS = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "animations/entity/sea_lion.animation.json");
     private static final ResourceLocation MODEL = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "geo/entity/sea_lion.geo.json");
     @Override
@@ -27,6 +28,7 @@ public class SeaLionModel extends GeoModel<SeaLionEntity> {
     public ResourceLocation getTextureResource(SeaLionEntity beaver) {
         return switch (beaver.getCostume()) {
             case Item costume when costume == ModItems.TUXEDO.get() -> TUXEDO_TEXTURE;
+            case Item costume when costume == ModItems.WHITE_TUXEDO.get() -> WHITE_TUXEDO_TEXTURE;
             default -> NORMAL_TEXTURE;
         };
     }

@@ -15,6 +15,7 @@ import software.bernie.geckolib.model.data.EntityModelData;
 public class RedPandaModel extends GeoModel<RedPandaEntity> {
     private static final ResourceLocation NORMAL_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/red_panda.png");
     private static final ResourceLocation TUXEDO_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/red_panda_tuxedo.png");
+    private static final ResourceLocation WHITE_TUXEDO_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/red_panda_white_tuxedo.png");
     private static final ResourceLocation ANIMATIONS = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "animations/entity/red_panda.animation.json");
     private static final ResourceLocation MODEL = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "geo/entity/red_panda.geo.json");
     @Override
@@ -26,6 +27,7 @@ public class RedPandaModel extends GeoModel<RedPandaEntity> {
     public ResourceLocation getTextureResource(RedPandaEntity redPanda) {
         return switch (redPanda.getCostume()) {
             case Item costume when costume == ModItems.TUXEDO.get() -> TUXEDO_TEXTURE;
+            case Item costume when costume == ModItems.WHITE_TUXEDO.get() -> WHITE_TUXEDO_TEXTURE;
             default -> NORMAL_TEXTURE;
         };
     }

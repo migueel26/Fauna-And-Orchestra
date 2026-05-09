@@ -215,6 +215,7 @@ public class ModItems {
     public static final DeferredItem<Item> COTTON = ITEMS.register("cotton",
             () -> new Item(new Item.Properties()));
 
+    public static final DeferredItem<Item> WHITE_TUXEDO = createClothingItem("white_tuxedo", ModTags.EntityTypes.WEARS_WHITE_TUXEDO);
     public static final DeferredItem<Item> TUXEDO = createClothingItem("tuxedo", ModTags.EntityTypes.WEARS_TUXEDO);
     public static final DeferredItem<Item> TAILCOAT = createClothingItem("tailcoat", ModTags.EntityTypes.WEARS_TAILCOAT);
     public static final DeferredItem<Item> BASEBALL_JACKET = createClothingItem("baseball_jacket", ModTags.EntityTypes.WEARS_BASEBALL_JACKET);

@@ -15,6 +15,7 @@ import software.bernie.geckolib.model.data.EntityModelData;
 public class EmperorPenguinModel extends GeoModel<EmperorPenguinEntity> {
     private static final ResourceLocation NORMAL_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/emperor_penguin.png");
     private static final ResourceLocation TUXEDO_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/emperor_penguin_tuxedo.png");
+    private static final ResourceLocation WHITE_TUXEDO_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/emperor_penguin_white_tuxedo.png");
     private static final ResourceLocation SANTA_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/emperor_penguin_santa.png");
     private static final ResourceLocation BASEBALL_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/emperor_penguin_baseball.png");
     private static final ResourceLocation ANIMATIONS = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "animations/entity/emperor_penguin.animation.json");
@@ -29,6 +30,7 @@ public class EmperorPenguinModel extends GeoModel<EmperorPenguinEntity> {
     public ResourceLocation getTextureResource(EmperorPenguinEntity penguin) {
         return switch (penguin.getCostume()) {
             case Item costume when costume == ModItems.TUXEDO.get() -> TUXEDO_TEXTURE;
+            case Item costume when costume == ModItems.WHITE_TUXEDO.get() -> WHITE_TUXEDO_TEXTURE;
             case Item costume when costume == ModItems.SANTA_COSTUME.get() -> SANTA_TEXTURE;
             case Item costume when costume == ModItems.BASEBALL_JACKET.get() -> BASEBALL_TEXTURE;
             default -> NORMAL_TEXTURE;

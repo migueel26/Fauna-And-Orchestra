@@ -135,6 +135,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.FARMING_KIT);
                         output.accept(ModItems.SEWING_MACHINE_ITEM);
                         output.accept(ModItems.PROP_CASE);
+                        output.accept(ModItems.WHITE_TUXEDO);
                         output.accept(ModItems.TUXEDO);
                         output.accept(ModItems.TAILCOAT);
                         output.accept(ModItems.BASEBALL_JACKET);

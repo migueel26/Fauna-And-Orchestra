@@ -15,6 +15,7 @@ import software.bernie.geckolib.model.data.EntityModelData;
 public class MacawModel extends GeoModel<MacawEntity> {
     private static final ResourceLocation NORMAL_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/macaw.png");
     private static final ResourceLocation TUXEDO_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/macaw_tuxedo.png");
+    private static final ResourceLocation WHITE_TUXEDO_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/macaw_white_tuxedo.png");
     private static final ResourceLocation BASEBALL_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/macaw_baseball.png");
     private static final ResourceLocation ANIMATIONS = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "animations/entity/macaw.animation.json");
     private static final ResourceLocation MODEL = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "geo/entity/macaw.geo.json");
@@ -28,6 +29,7 @@ public class MacawModel extends GeoModel<MacawEntity> {
     public ResourceLocation getTextureResource(MacawEntity macaw) {
         return switch (macaw.getCostume()) {
             case Item costume when costume == ModItems.TUXEDO.get() -> TUXEDO_TEXTURE;
+            case Item costume when costume == ModItems.WHITE_TUXEDO.get() -> WHITE_TUXEDO_TEXTURE;
             case Item costume when costume == ModItems.BASEBALL_JACKET.get() -> BASEBALL_TEXTURE;
             default -> NORMAL_TEXTURE;
         };

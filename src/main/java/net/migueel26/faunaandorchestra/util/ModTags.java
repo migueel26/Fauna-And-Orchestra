@@ -57,6 +57,7 @@ public class ModTags {
     public static class EntityTypes {
         // CLOTHING
         public static final TagKey<EntityType<?>> WEARS_TUXEDO = registerTag("wears_tuxedo");
+        public static final TagKey<EntityType<?>> WEARS_WHITE_TUXEDO = registerTag("wears_white_tuxedo");
         public static final TagKey<EntityType<?>> WEARS_TAILCOAT = registerTag("wears_tailcoat");
         public static final TagKey<EntityType<?>> WEARS_SANTA_COSTUME = registerTag("wears_santa_costume");
         public static final TagKey<EntityType<?>> WEARS_BASEBALL_JACKET = registerTag("wears_baseball_jacket");
