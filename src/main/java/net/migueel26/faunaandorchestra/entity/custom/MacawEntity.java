@@ -2,6 +2,7 @@ package net.migueel26.faunaandorchestra.entity.custom;
 
 import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.entity.custom.misc.MailbirdMacawEntity;
+import net.migueel26.faunaandorchestra.entity.goals.AnimalEatGoal;
 import net.migueel26.faunaandorchestra.entity.goals.MusicalEntityPlayingInstrumentGoal;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
@@ -40,6 +41,7 @@ import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.LeavesBlock;
@@ -103,8 +105,10 @@ public class MacawEntity extends MusicalEntity implements FlyingAnimal {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new MusicalEntityPlayingInstrumentGoal(this));
         // LookAtPlayerGoal (2)
+        // BreedGoal (3)
         this.goalSelector.addGoal(3, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(3, new MacawWanderGoal(this, 1.0));
+        this.goalSelector.addGoal(4, new AnimalEatGoal(this, ModItems.SEEDY_APPLE.get(), this::onEat));
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
     }
 
@@ -116,6 +120,12 @@ public class MacawEntity extends MusicalEntity implements FlyingAnimal {
                 if (this.lookAt.isAlive() && ((MusicalEntity) this.mob).isHoldingInstrument()) {
                     this.mob.getLookControl().setLookAt(this.lookAt.getX(), this.lookAt.getEyeY()-5, this.lookAt.getZ());
                 }
+            }
+        });
+        this.goalSelector.addGoal(3, new BreedGoal(this, 1.0f) {
+            @Override
+            public boolean canUse() {
+                return super.canUse() && !((MacawEntity) animal).isFlying() && !((MacawEntity) animal).isHoldingInstrument();
             }
         });
     }
@@ -291,7 +301,7 @@ public class MacawEntity extends MusicalEntity implements FlyingAnimal {
         if (isHoldingInstrument()) {
             return super.getDefaultDimensions(pose).scale(1.5F, 2.75F);
         } else {
-            return super.getDefaultDimensions(pose);
+            return this.isBaby() ? ModEntities.MACAW.get().getDimensions().scale(0.7f) : super.getDefaultDimensions(pose);
         }
     }
 
@@ -355,13 +365,18 @@ public class MacawEntity extends MusicalEntity implements FlyingAnimal {
 
     @Override
     public boolean isFood(ItemStack stack) {
-        return false;
+        return stack.is(ModItems.SEEDY_APPLE);
     }
 
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
-        return null;
+        return createBaby(ModEntities.MACAW.get(), (MacawEntity) otherParent);
+    }
+
+    @Override
+    public float getAgeScale() {
+        return this.isBaby() ? 0.7F : 1.0F;
     }
 
     @Override

@@ -209,11 +209,15 @@ public class ModItems {
                     super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
                 }
             });
+    public static final DeferredItem<Item> COTTON = ITEMS.register("cotton",
+            () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> SEEDY_APPLE = ITEMS.register("seedy_apple",
+            () -> new Item(new Item.Properties()));
+
+
     public static final DeferredItem<Item> SEWING_KIT =  createKoalaKit("sewing_kit", ModEntities.TAILOR_KOALA);
     public static final DeferredItem<Item> MELOMANCY_KIT =  createKoalaKit("melomancy_kit", ModEntities.MELOMANCER_KOALA);
     public static final DeferredItem<Item> FARMING_KIT =  createKoalaKit("farming_kit", ModEntities.FARMER_KOALA);
-    public static final DeferredItem<Item> COTTON = ITEMS.register("cotton",
-            () -> new Item(new Item.Properties()));
 
     public static final DeferredItem<Item> WHITE_TUXEDO = createClothingItem("white_tuxedo", ModTags.EntityTypes.WEARS_WHITE_TUXEDO);
     public static final DeferredItem<Item> TUXEDO = createClothingItem("tuxedo", ModTags.EntityTypes.WEARS_TUXEDO);
