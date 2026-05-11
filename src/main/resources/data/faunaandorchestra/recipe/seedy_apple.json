@@ -1,0 +1,28 @@
+{
+  "type": "faunaandorchestra:natural_recipe",
+  "ingredients": [
+    {
+      "ingredient": {
+        "item": "minecraft:apple"
+      }
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:beetroot_seeds"
+      },
+      "amount": 5
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:wheat_seeds"
+      },
+      "amount": 3
+    }
+  ],
+  "fuel": "#faunaandorchestra:jar_fire_fuel",
+  "result": {
+    "id": "faunaandorchestra:seedy_apple",
+    "count": 1
+  },
+  "time": 200
+}
