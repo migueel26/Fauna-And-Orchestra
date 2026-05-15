@@ -26,7 +26,16 @@ public class ModArmorMaterials {
                 attribute.put(ArmorItem.Type.CHESTPLATE, 3);
                 attribute.put(ArmorItem.Type.HELMET, 1);
                 attribute.put(ArmorItem.Type.BODY, 3);
-            }), 15, 0.0f, 0.1f, () -> ModItems.PENGUIN_FEATHER.get(), SoundEvents.ARMOR_EQUIP_LEATHER);
+            }), 15, 0.0f, 0.1f, ModItems.PENGUIN_FEATHER, SoundEvents.ARMOR_EQUIP_LEATHER);
+
+    public static final Holder<ArmorMaterial> FLORA_FORTA = register("flora_forta",
+            Util.make(new EnumMap<>(ArmorItem.Type.class), attribute -> {
+                attribute.put(ArmorItem.Type.BOOTS, 1);
+                attribute.put(ArmorItem.Type.LEGGINGS, 2);
+                attribute.put(ArmorItem.Type.CHESTPLATE, 3);
+                attribute.put(ArmorItem.Type.HELMET, 1);
+                attribute.put(ArmorItem.Type.BODY, 3);
+            }), 15, 0.0f, 0.1f, ModItems.FLORA_FORTA, Holder.direct(SoundEvents.GRASS_PLACE));
 
     private static Holder<ArmorMaterial> register(String name, EnumMap<ArmorItem.Type, Integer> typeProtection,
                                                   int enchantability, float toughness, float knockbackResistance,

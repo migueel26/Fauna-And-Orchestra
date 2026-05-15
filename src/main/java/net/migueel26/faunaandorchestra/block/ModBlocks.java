@@ -219,6 +219,14 @@ public class ModBlocks {
             () -> new MailboxBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_PLANKS)));
     public static final DeferredBlock<Block> LETTER_AND_QUILL = registerBlock("letter_and_quill",
             () -> new LetterAndQuillBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.FLOWER_POT)));
+    public static final DeferredBlock<Block> FLOWER_PATH = registerBlock("flower_path",
+            () -> new FlowerPathBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.PLANT)
+                    .strength(0.2F)
+                    .noOcclusion()
+                    .sound(SoundType.VINE)
+                    .ignitedByLava()
+                    .pushReaction(PushReaction.DESTROY)));
 
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block) {
         DeferredBlock<T> toReturn = BLOCKS.register(name, block);

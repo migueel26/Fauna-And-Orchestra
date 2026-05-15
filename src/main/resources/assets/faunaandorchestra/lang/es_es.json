@@ -80,6 +80,8 @@
   "item.faunaandorchestra.farming_kit": "Kit de agricultura",
   "item.faunaandorchestra.cotton": "Algodón",
   "item.faunaandorchestra.seedy_apple": "Manzana con semillas",
+  "item.faunaandorchestra.flora_forta": "Flora forta",
+  "item.faunaandorchestra.flora_boots": "Florabotas",
 
   "item.faunaandorchestra.prop_case": "Neceser",
   "item.faunaandorchestra_clothing.desc": "Ropa para Animales",
@@ -197,6 +199,7 @@
   "block.faunaandorchestra.sewing_machine": "Máquina de coser",
   "block.faunaandorchestra.mailbox": "Buzón",
   "block.faunaandorchestra.letter_and_quill": "Carta y pluma",
+  "block.faunaandorchestra.flower_path": "Camino de flores",
 
   "block.faunaandorchestra.tip_case_theft": "¡Esta funda no es tuya! No puedes llevarte el oro",
   "block.faunaandorchestra.tip_case.desc": "Todo el mundo te puede donar, pero sólo tú puedes retirarlo",

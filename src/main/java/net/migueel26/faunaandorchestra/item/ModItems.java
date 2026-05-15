@@ -8,6 +8,7 @@ import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.item.custom.*;
 import net.migueel26.faunaandorchestra.item.custom.InstrumentItem;
+import net.migueel26.faunaandorchestra.item.custom.armor.FloralBootsItem;
 import net.migueel26.faunaandorchestra.item.custom.armor.FluffyBootsItem;
 import net.migueel26.faunaandorchestra.item.custom.armor.ModArmorMaterials;
 import net.migueel26.faunaandorchestra.item.custom.clothing.CosmeticItem;
@@ -190,8 +191,6 @@ public class ModItems {
     public static final DeferredItem<Item> PENGUIN_FEATHER = ITEMS.register("penguin_feather",
             () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> TAIYAKI = createRegularDescriptionItem("taiyaki", new Item.Properties().food(Foods.PUMPKIN_PIE));
-    public static final DeferredItem<Item> FLUFFY_BOOTS = ITEMS.register("fluffy_boots",
-            () -> new FluffyBootsItem(ModArmorMaterials.PENGUIN_FEATHER, ArmorItem.Type.BOOTS, new Item.Properties().durability(ArmorItem.Type.BOOTS.getDurability(25))));
     public static final DeferredItem<Item> MACAW_FEATHER = createRegularDescriptionItem("macaw_feather");
     public static final DeferredItem<Item> WRITING_INK = ITEMS.register("writing_ink",
             () -> new Item(new Item.Properties()));
@@ -213,7 +212,12 @@ public class ModItems {
             () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> SEEDY_APPLE = ITEMS.register("seedy_apple",
             () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> FLORA_FORTA = createRegularDescriptionItem("flora_forta");
 
+    public static final DeferredItem<Item> FLUFFY_BOOTS = ITEMS.register("fluffy_boots",
+            () -> new FluffyBootsItem(ModArmorMaterials.PENGUIN_FEATHER, ArmorItem.Type.BOOTS, new Item.Properties().durability(ArmorItem.Type.BOOTS.getDurability(25))));
+    public static final DeferredItem<Item> FLORA_BOOTS = ITEMS.register("flora_boots",
+            () -> new FloralBootsItem(ModArmorMaterials.FLORA_FORTA, ArmorItem.Type.BOOTS, new Item.Properties().durability(ArmorItem.Type.BOOTS.getDurability(50))));
 
     public static final DeferredItem<Item> SEWING_KIT =  createKoalaKit("sewing_kit", ModEntities.TAILOR_KOALA);
     public static final DeferredItem<Item> MELOMANCY_KIT =  createKoalaKit("melomancy_kit", ModEntities.MELOMANCER_KOALA);

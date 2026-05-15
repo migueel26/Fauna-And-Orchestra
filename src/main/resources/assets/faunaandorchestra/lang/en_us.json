@@ -80,6 +80,8 @@
   "item.faunaandorchestra.farming_kit": "Farming Kit",
   "item.faunaandorchestra.cotton": "Cotton",
   "item.faunaandorchestra.seedy_apple": "Seedy Apple",
+  "item.faunaandorchestra.flora_forta": "Flora Forta",
+  "item.faunaandorchestra.flora_boots": "Flora Boots",
 
   "item.faunaandorchestra.prop_case": "Prop Case",
   "item.faunaandorchestra_clothing.desc": "Clothing Item",
@@ -198,6 +200,7 @@
   "block.faunaandorchestra.sewing_machine": "Sewing Machine",
   "block.faunaandorchestra.mailbox": "Mailbox",
   "block.faunaandorchestra.letter_and_quill": "Letter and Quill",
+  "block.faunaandorchestra.flower_path": "Flower Path",
 
   "block.faunaandorchestra.tip_case_theft": "This case is not yours! You can't take the gold",
   "block.faunaandorchestra.tip_case.desc": "Everybody can tip you gold, but only you can retrieve it",

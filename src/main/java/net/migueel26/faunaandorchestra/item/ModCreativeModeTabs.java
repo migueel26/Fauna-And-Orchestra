@@ -67,8 +67,10 @@ public class ModCreativeModeTabs {
                         output.accept(ModBlocks.CATCHWEED);
                         output.accept(ModItems.NATURE_FUMES);
                         output.accept(ModItems.BADGRASS_MEAL);
+                        output.accept(ModItems.FLORA_FORTA);
                         output.accept(ModItems.EVERFRUIT);
                         output.accept(ModItems.FLOATING_BLOSSOM);
+                        output.accept(ModItems.FLORA_BOOTS);
                         output.accept(ModItems.PERFUMED_BAMBOO);
                         output.accept(ModItems.SHARP_BAMBOO);
                         output.accept(ModItems.BAMBOO_TRAP_ITEM);
