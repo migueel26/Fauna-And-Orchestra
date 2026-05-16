@@ -216,8 +216,8 @@ public class ModItems {
 
     public static final DeferredItem<Item> FLUFFY_BOOTS = ITEMS.register("fluffy_boots",
             () -> new FluffyBootsItem(ModArmorMaterials.PENGUIN_FEATHER, ArmorItem.Type.BOOTS, new Item.Properties().durability(ArmorItem.Type.BOOTS.getDurability(25))));
-    public static final DeferredItem<Item> FLORA_BOOTS = ITEMS.register("flora_boots",
-            () -> new FloralBootsItem(ModArmorMaterials.FLORA_FORTA, ArmorItem.Type.BOOTS, new Item.Properties().durability(ArmorItem.Type.BOOTS.getDurability(50))));
+    public static final DeferredItem<Item> FLORAL_BOOTS = ITEMS.register("floral_boots",
+            () -> new FloralBootsItem(ModArmorMaterials.FLORA_FORTA, ArmorItem.Type.BOOTS, new Item.Properties().durability(ArmorItem.Type.BOOTS.getDurability(50)).rarity(Rarity.RARE)));
 
     public static final DeferredItem<Item> SEWING_KIT =  createKoalaKit("sewing_kit", ModEntities.TAILOR_KOALA);
     public static final DeferredItem<Item> MELOMANCY_KIT =  createKoalaKit("melomancy_kit", ModEntities.MELOMANCER_KOALA);

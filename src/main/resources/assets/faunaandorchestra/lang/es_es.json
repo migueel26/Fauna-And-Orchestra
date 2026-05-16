@@ -81,7 +81,7 @@
   "item.faunaandorchestra.cotton": "Algodón",
   "item.faunaandorchestra.seedy_apple": "Manzana con semillas",
   "item.faunaandorchestra.flora_forta": "Flora forta",
-  "item.faunaandorchestra.flora_boots": "Florabotas",
+  "item.faunaandorchestra.floral_boots": "Botas florales",
 
   "item.faunaandorchestra.prop_case": "Neceser",
   "item.faunaandorchestra_clothing.desc": "Ropa para Animales",
@@ -146,6 +146,7 @@
   "item.faunaandorchestra.perfumed_bamboo.desc": "Este dulce y perfumado bambú apareará a los pandas rojos",
   "item.faunaandorchestra.fluffy_boots.desc1": "+ Velocidad en nieve",
   "item.faunaandorchestra.fluffy_boots.desc2": "+ Velocidad en arena",
+  "item.faunaandorchestra.floral_boots.desc": "+ Andar floral",
   "item.faunaandorchestra.macaw_feather.desc": "Dado por los guacamayos como símbolo de lealtad a sus amigos",
   "item.faunaandorchestra.business_card.desc": "§7Hey! Si alguna vez necesitas a un sastre u otro empleado, envíame esta carta con tu §6guacamayo mensajero",
   "item.faunaandorchestra.kit.desc": "Este kit tiene todo lo necesario para que tu Koala se vuelva un",

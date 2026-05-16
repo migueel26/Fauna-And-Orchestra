@@ -1,23 +1,32 @@
 package net.migueel26.faunaandorchestra.block.custom;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.Nullable;
 
-public class FlowerPathBlock extends Block {
+public class FlowerPathBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock {
+    protected static final MapCodec<FlowerPathBlock> CODEC = simpleCodec(FlowerPathBlock::new);
 
-    // --- CONFIGURACIÓN DE LA COREOGRAFÍA (20 ticks = 1 segundo) ---
     public static final int SPREAD_DELAY = 4;     // How fast the circle spreads
     public static final int SHRINK_DELAY = 8;     // Time difference between rings
     public static final int STAY_TIME = 40;       // Time the circle stays full
@@ -27,6 +36,7 @@ public class FlowerPathBlock extends Block {
     public static final IntegerProperty GENERATION = IntegerProperty.create("generation", 0, 10);
     public static final BooleanProperty FATHER = BooleanProperty.create("father");
     public static final IntegerProperty MAX_GENERATION = IntegerProperty.create("max_generation", 0, 10);
+    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     private static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 1.0D, 16.0D);
 
@@ -35,12 +45,39 @@ public class FlowerPathBlock extends Block {
         this.registerDefaultState(this.getStateDefinition().any()
                 .setValue(GENERATION, 0)
                 .setValue(FATHER, false)
-                .setValue(MAX_GENERATION, DEFAULT_MAX_GENERATION));
+                .setValue(MAX_GENERATION, DEFAULT_MAX_GENERATION)
+                .setValue(WATERLOGGED, Boolean.FALSE));
+    }
+
+    @Override
+    public @Nullable BlockState getStateForPlacement(BlockPlaceContext context) {
+        FluidState fluidstate = context.getLevel().getFluidState(context.getClickedPos());
+        boolean flag = fluidstate.getType() == Fluids.WATER;
+        return super.getStateForPlacement(context).setValue(WATERLOGGED, Boolean.valueOf(flag));
+    }
+
+    @Override
+    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+        return CODEC;
     }
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return SHAPE;
+    }
+
+    @Override
+    protected FluidState getFluidState(BlockState state) {
+        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
+    }
+
+    @Override
+    protected BlockState updateShape(BlockState state, Direction direction, BlockState state2, LevelAccessor levelAccessor, BlockPos blockPos, BlockPos blockPos2) {
+        if (state.getValue(WATERLOGGED)) {
+            levelAccessor.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelAccessor));
+        }
+
+        return super.updateShape(state, direction, state2, levelAccessor, blockPos, blockPos2);
     }
 
     @Override
@@ -63,12 +100,13 @@ public class FlowerPathBlock extends Block {
                     BlockPos neighborPos = pos.relative(dir);
                     BlockState neighborState = level.getBlockState(neighborPos);
 
-                    // Solo crecemos si el bloque se puede reemplazar y si hay suelo firme debajo
                     if (neighborState.canBeReplaced()) {
                         level.setBlock(neighborPos, this.defaultBlockState()
                                 .setValue(GENERATION, myGen + 1)
                                 .setValue(MAX_GENERATION, maxGen)
-                                .setValue(FATHER, false), 3);
+                                .setValue(FATHER, false)
+                                .setValue(FACING, Direction.Plane.HORIZONTAL.getRandomDirection(level.random))
+                                .setValue(WATERLOGGED, neighborState.getFluidState().is(Fluids.WATER)), 3);
                     }
                 }
             }
@@ -80,13 +118,12 @@ public class FlowerPathBlock extends Block {
             level.scheduleTick(pos, this, deathDelay);
 
         } else {
-            // --- FASE 3: DESAPARICIÓN ---
             level.removeBlock(pos, false);
         }
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(GENERATION, FATHER, MAX_GENERATION);
+        builder.add(GENERATION, FATHER, MAX_GENERATION, FACING, WATERLOGGED);
     }
 }

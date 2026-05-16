@@ -81,7 +81,7 @@
   "item.faunaandorchestra.cotton": "Cotton",
   "item.faunaandorchestra.seedy_apple": "Seedy Apple",
   "item.faunaandorchestra.flora_forta": "Flora Forta",
-  "item.faunaandorchestra.flora_boots": "Flora Boots",
+  "item.faunaandorchestra.floral_boots": "Floral Boots",
 
   "item.faunaandorchestra.prop_case": "Prop Case",
   "item.faunaandorchestra_clothing.desc": "Clothing Item",
@@ -146,6 +146,7 @@
   "item.faunaandorchestra.taiyaki.desc": "Baby penguin's favorite snack!",
   "item.faunaandorchestra.fluffy_boots.desc1": "+ Snow Walking",
   "item.faunaandorchestra.fluffy_boots.desc2": "+ Sand Walking",
+  "item.faunaandorchestra.floral_boots.desc": "+ Floral Walking",
   "item.faunaandorchestra.perfumed_bamboo.desc": "What a perfume-genius idea to breed red pandas!",
   "item.faunaandorchestra.macaw_feather.desc": "Given by macaws as symbol of loyalty to a good friend",
   "item.faunaandorchestra.business_card.desc": "§7Hey! If you ever need a tailor or some other employee, send me this card with your §6mailbird",
