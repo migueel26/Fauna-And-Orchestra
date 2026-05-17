@@ -228,6 +228,8 @@
   "item.faunaandorchestra.dance_of_the_little_swans_sheet_music": "Dance of the Little Swans Sheet",
   "item.faunaandorchestra.la_bamba_sheet_music": "La Bamba Sheet",
   "item.faunaandorchestra.saints_sheet_music": "When The Saints Go Marching In Sheet",
+  "item.faunaandorchestra.oh_susanna_sheet_music": "Oh! Susanna Sheet",
+  "item.faunaandorchestra.the_entertainer_sheet_music": "The Entertainer Sheet",
   "item.faunaandorchestra.resurrection_song": "The Requiem of Resurrection",
 
   "item.faunaandorchestra.resurrection_song.desc": "§8Prayer of St. Francis",
@@ -351,6 +353,8 @@
   "piece.faunaandorchestra.dance_of_the_little_swans_sheet_music": "Dance of the Little Swans",
   "piece.faunaandorchestra.la_bamba_sheet_music": "La Bamba",
   "piece.faunaandorchestra.saints_sheet_music": "When The Saints Go Marching In",
+  "piece.faunaandorchestra.oh_susanna_sheet_music": "Oh! Susanna",
+  "piece.faunaandorchestra.the_entertainer_sheet_music": "The Entertainer",
   "piece.faunaandorchestra.resurrection_song": "The Requiem of Resurrection",
 
   "effect.faunaandorchestra.boogie": "Choreomania",

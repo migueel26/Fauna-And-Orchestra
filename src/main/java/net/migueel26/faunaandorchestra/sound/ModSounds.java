@@ -74,6 +74,14 @@ public class ModSounds {
     public static final Supplier<SoundEvent> SAINTS_DRUM = registerSoundEvent("when_the_saints_go_marching_drum");
     public static final Supplier<SoundEvent> SAINTS_SAXOPHONE = registerSoundEvent("when_the_saints_go_marching_saxophone");
 
+    public static final Supplier<SoundEvent> OH_SUSANNA_SAXOPHONE = registerSoundEvent("oh_susana_saxophone");
+    public static final Supplier<SoundEvent> OH_SUSANNA_DOUBLE_BASS = registerSoundEvent("oh_susana_double_bass");
+    public static final Supplier<SoundEvent> OH_SUSANNA_OBOE = registerSoundEvent("oh_susana_oboe");
+
+    public static final Supplier<SoundEvent> THE_ENTERTAINER_KEYTAR= registerSoundEvent("the_entertainer_keytar");
+    public static final Supplier<SoundEvent> THE_ENTERTAINER_FLUTE = registerSoundEvent("the_entertainer_flute");
+    public static final Supplier<SoundEvent> THE_ENTERTAINER_OBOE = registerSoundEvent("the_entertainer_oboe");
+
     public static final Supplier<SoundEvent> FROG_SONG = registerSoundEvent("frog_song");
     public static final Supplier<SoundEvent> SPROUTLING_SONG = registerSoundEvent("sproutling_song");
     public static final Supplier<SoundEvent> RINGTAILS_SONG = registerSoundEvent("hona_bildots_eztia");

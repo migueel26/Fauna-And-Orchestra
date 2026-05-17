@@ -226,7 +226,9 @@
   "item.faunaandorchestra.jazzy_fur_elise_sheet_music": "Partitura del Jazz de Für Elise",
   "item.faunaandorchestra.dance_of_the_little_swans_sheet_music": "Partitura de la Danza de los Pequeños Cisnes",
   "item.faunaandorchestra.la_bamba_sheet_music": "Partitura de La Bamba",
-  "item.faunaandorchestra.saint_sheet_music": "Partitura de La Marcha de los Santos",
+  "item.faunaandorchestra.saints_sheet_music": "Partitura de La Marcha de los Santos",
+  "item.faunaandorchestra.oh_susanna_sheet_music": "Partitura de Oh! Susana",
+  "item.faunaandorchestra.the_entertainer_sheet_music": "Partitura de The Entertainer",
   "item.faunaandorchestra.resurrection_song": "El Réquiem de Resurrección",
 
   "item.faunaandorchestra.resurrection_song.desc": "§8§oOración de San Francisco",
@@ -350,6 +352,8 @@
   "piece.faunaandorchestra.dance_of_the_little_swans_sheet_music": "Danza de los Pequeños Cisnes",
   "piece.faunaandorchestra.la_bamba_sheet_music": "La Bamba",
   "piece.faunaandorchestra.saints_sheet_music": "La Marcha de los Santos",
+  "piece.faunaandorchestra.oh_sussana_sheet_music": "Oh! Susana",
+  "piece.faunaandorchestra.the_entertainer_sheet_music": "The Entertainer",
   "piece.faunaandorchestra.resurrection_song": "El Réquiem de Resurrección",
 
   "effect.faunaandorchestra.boogie": "Coreomanía",

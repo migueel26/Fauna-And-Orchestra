@@ -306,6 +306,42 @@
       "faunaandorchestra:music/when_the_saints_go_marching_violin"
     ]
   },
+  "oh_susana_saxophone": {
+    "subtitles": "sounds.faunaandorchestra.oh_susana_saxophone",
+    "sounds": [
+      "faunaandorchestra:music/oh_susana_saxophone"
+    ]
+  },
+  "oh_susana_double_bass": {
+    "subtitles": "sounds.faunaandorchestra.oh_susana_double_bass",
+    "sounds": [
+      "faunaandorchestra:music/oh_susana_double_bass"
+    ]
+  },
+  "oh_susana_oboe": {
+    "subtitles": "sounds.faunaandorchestra.oh_susana_oboe",
+    "sounds": [
+      "faunaandorchestra:music/oh_susana_oboe"
+    ]
+  },
+  "the_entertainer_keytar": {
+    "subtitles": "sounds.faunaandorchestra.the_entertainer_keytar",
+    "sounds": [
+      "faunaandorchestra:music/the_entertainer_keytar"
+    ]
+  },
+  "the_entertainer_oboe": {
+    "subtitles": "sounds.faunaandorchestra.the_entertainer_oboe",
+    "sounds": [
+      "faunaandorchestra:music/the_entertainer_oboe"
+    ]
+  },
+  "the_entertainer_flute": {
+    "subtitles": "sounds.faunaandorchestra.the_entertainer_flute",
+    "sounds": [
+      "faunaandorchestra:music/the_entertainer_flute"
+    ]
+  },
   "frog_song": {
     "subtitles": "sounds.faunaandorchestra.frog_song",
     "sounds": [

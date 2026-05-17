@@ -5,16 +5,11 @@ import net.migueel26.faunaandorchestra.entity.custom.MusicalEntity;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.item.custom.InstrumentItem;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.TagKey;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.biome.Biome;
-import oshi.util.tuples.Pair;
 
 import java.util.*;
 
@@ -77,6 +72,18 @@ public class MusicUtil {
             ModItems.OBOE.get(), ModSounds.SAINTS_OBOE.get().getLocation()
     );
 
+    public static final Map<Item, ResourceLocation> OH_SUSANNA = Map.of(
+            ModItems.OBOE.get(), ModSounds.OH_SUSANNA_OBOE.get().getLocation(),
+            ModItems.DOUBLE_BASS.get(), ModSounds.OH_SUSANNA_DOUBLE_BASS.get().getLocation(),
+            ModItems.SAXOPHONE.get(), ModSounds.OH_SUSANNA_SAXOPHONE.get().getLocation()
+    );
+
+    public static final Map<Item, ResourceLocation> ENTERTAINER = Map.of(
+            ModItems.KEYTAR.get(), ModSounds.THE_ENTERTAINER_KEYTAR.get().getLocation(),
+            ModItems.FLUTE.get(), ModSounds.THE_ENTERTAINER_FLUTE.get().getLocation(),
+            ModItems.OBOE.get(), ModSounds.THE_ENTERTAINER_OBOE.get().getLocation()
+    );
+
     private static final Map<Item, Map<Item, ResourceLocation>> SONG = Map.of(
             ModItems.BACH_AIR_SHEET_MUSIC.get(), BACH_AIR,
             ModItems.GREENSLEEVES_SHEET_MUSIC.get(), GREENSLEEVES,
@@ -85,7 +92,9 @@ public class MusicUtil {
             ModItems.DANCE_OF_THE_LITTLE_SWANS.get(), SWANS,
             ModItems.LA_BAMBA_SHEET_MUSIC.get(), LA_BAMBA,
             ModItems.RESURRECTION_SONG.get(), RESURRECTION,
-            ModItems.SAINTS_SHEET_MUSIC.get(), SAINTS
+            ModItems.SAINTS_SHEET_MUSIC.get(), SAINTS,
+            ModItems.OH_SUSANNA_SHEET_MUSIC.get(), OH_SUSANNA,
+            ModItems.THE_ENTERTAINER_SHEET_MUSIC.get(), ENTERTAINER
     );
 
     private static final Map<String, Item> STRING_TO_SHEET = Map.of(
@@ -96,7 +105,9 @@ public class MusicUtil {
             "faunaandorchestra:dance_of_the_little_swans_sheet_music", ModItems.DANCE_OF_THE_LITTLE_SWANS.get(),
             "faunaandorchestra:la_bamba_sheet_music", ModItems.LA_BAMBA_SHEET_MUSIC.get(),
             "faunaandorchestra:resurrection_song", ModItems.RESURRECTION_SONG.get(),
-            "faunaandorchestra:saints_sheet_music", ModItems.SAINTS_SHEET_MUSIC.get()
+            "faunaandorchestra:saints_sheet_music", ModItems.SAINTS_SHEET_MUSIC.get(),
+            "faunaandorchestra:oh_susanna_sheet_music", ModItems.OH_SUSANNA_SHEET_MUSIC.get(),
+            "faunaandorchestra:the_entertainer_sheet_music", ModItems.THE_ENTERTAINER_SHEET_MUSIC.get()
     );
 
     private static final Map<Item, Integer> DURATION = Map.of(
@@ -107,7 +118,9 @@ public class MusicUtil {
             ModItems.DANCE_OF_THE_LITTLE_SWANS.get(), 1895,
             ModItems.LA_BAMBA_SHEET_MUSIC.get(), 1115,
             ModItems.RESURRECTION_SONG.get(), 4990,
-            ModItems.SAINTS_SHEET_MUSIC.get(), 1880
+            ModItems.SAINTS_SHEET_MUSIC.get(), 1880,
+            ModItems.OH_SUSANNA_SHEET_MUSIC.get(), 1440,
+            ModItems.THE_ENTERTAINER_SHEET_MUSIC.get(), 1890
     );
 
     public static final List<Item> INSTRUMENTS = new ArrayList<>(List.of(

@@ -310,6 +310,8 @@ public class ModItems {
     public static final DeferredItem<Item> DANCE_OF_THE_LITTLE_SWANS = createSheetMusic("dance_of_the_little_swans_sheet_music");
     public static final DeferredItem<Item> LA_BAMBA_SHEET_MUSIC = createSheetMusic("la_bamba_sheet_music");
     public static final DeferredItem<Item> SAINTS_SHEET_MUSIC = createSheetMusic("saints_sheet_music");
+    public static final DeferredItem<Item> OH_SUSANNA_SHEET_MUSIC = createSheetMusic("oh_susanna_sheet_music");
+    public static final DeferredItem<Item> THE_ENTERTAINER_SHEET_MUSIC = createSheetMusic("the_entertainer_sheet_music");
     public static final DeferredItem<Item> RESURRECTION_SONG = createLegendarySheetMusic("resurrection_song");
 
     // BLOCK ITEM

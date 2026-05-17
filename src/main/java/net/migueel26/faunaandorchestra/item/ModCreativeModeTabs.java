@@ -90,6 +90,8 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.DANCE_OF_THE_LITTLE_SWANS);
                         output.accept(ModItems.LA_BAMBA_SHEET_MUSIC);
                         output.accept(ModItems.SAINTS_SHEET_MUSIC);
+                        output.accept(ModItems.OH_SUSANNA_SHEET_MUSIC);
+                        output.accept(ModItems.THE_ENTERTAINER_SHEET_MUSIC);
                         output.accept(ModItems.RESURRECTION_SONG);
                         output.accept(ModItems.SHEET_FRAGMENTS);
                         output.accept(ModItems.WHISTLE);
