@@ -1,5 +1,6 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -16,6 +17,7 @@ import oshi.util.tuples.Pair;
 public abstract class TravellingMusician extends AgeableMob implements TalkableEntity {
     protected static final EntityDataAccessor<Boolean> IS_PLAYING = SynchedEntityData.defineId(TravellingMusician.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Integer> DIALOGUE_TIMER = SynchedEntityData.defineId(TravellingMusician.class, EntityDataSerializers.INT);
+    protected static final EntityDataAccessor<Boolean> MOVABLE = SynchedEntityData.defineId(TravellingMusician.class, EntityDataSerializers.BOOLEAN);
 
     protected TravellingMusician(EntityType<? extends AgeableMob> entityType, Level level) {
         super(entityType, level);
@@ -26,6 +28,7 @@ public abstract class TravellingMusician extends AgeableMob implements TalkableE
         super.defineSynchedData(builder);
         builder.define(IS_PLAYING, false);
         builder.define(DIALOGUE_TIMER, 0);
+        builder.define(MOVABLE, false);
     }
 
     public static AttributeSupplier.Builder createMusicianAttributes() {
@@ -36,8 +39,32 @@ public abstract class TravellingMusician extends AgeableMob implements TalkableE
     }
 
     @Override
+    public void readAdditionalSaveData(CompoundTag compound) {
+        this.entityData.set(MOVABLE, compound.getBoolean("Movable"));
+        super.readAdditionalSaveData(compound);
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        compound.putBoolean("Movable", this.entityData.get(MOVABLE));
+        super.addAdditionalSaveData(compound);
+    }
+
+    @Override
     public void checkDespawn() {
 
+    }
+
+    @Override
+    public void knockback(double strength, double x, double z) {
+        if (isMovable()) {
+            super.knockback(strength, x, z);
+        }
+    }
+
+    @Override
+    public boolean isPushable() {
+        return isMovable() && super.isPushable();
     }
 
     @Override
@@ -81,6 +108,14 @@ public abstract class TravellingMusician extends AgeableMob implements TalkableE
 
     public boolean isPlaying() {
         return this.entityData.get(IS_PLAYING);
+    }
+
+    public void setMovable(boolean movable) {
+        this.entityData.set(MOVABLE, movable);
+    }
+
+    public boolean isMovable() {
+        return this.entityData.get(MOVABLE);
     }
 
     public abstract void setConfidence(int confidence);

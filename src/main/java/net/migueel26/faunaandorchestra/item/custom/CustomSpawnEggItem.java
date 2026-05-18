@@ -1,5 +1,6 @@
 package net.migueel26.faunaandorchestra.item.custom;
 
+import net.migueel26.faunaandorchestra.entity.custom.TravellingMusician;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -10,6 +11,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
@@ -57,7 +59,7 @@ public class CustomSpawnEggItem extends Item {
             }
 
             for (EntityType<? extends AgeableMob> entityType : musicians) {
-                entityType.spawn(
+                Entity entity = entityType.spawn(
                         (ServerLevel) level,
                         itemstack,
                         context.getPlayer(),
@@ -66,6 +68,10 @@ public class CustomSpawnEggItem extends Item {
                         true,
                         !Objects.equals(blockpos, blockpos1) && direction == Direction.UP
                 );
+
+                if (entity instanceof TravellingMusician musician) {
+                    musician.setMovable(true);
+                }
             }
 
             itemstack.shrink(1);
@@ -76,7 +82,7 @@ public class CustomSpawnEggItem extends Item {
     }
 
     /**
-     * Called to trigger the item's "innate" right click behavior. To handle when this item is used on a Block, see {@link #onItemUse}.
+     * Called to trigger the item's "innate" right click behavior. To handle when this item is used on a Block, see {@link #onItemUseFirst(ItemStack, UseOnContext)}.
      */
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
