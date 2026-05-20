@@ -78,6 +78,7 @@ public class BeaverEntity extends MusicalEntity {
         this.goalSelector.addGoal(1, new MusicalEntityPlayingInstrumentGoal(this));
         this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
         // LookAtPlayerGoal (3)
+        // LookAtPlayerGoal (3, TravellingMusician)
         this.goalSelector.addGoal(3, new BeaverBuildsDamGoal(this, 1.0D));
         // RandomStrollGoal (4)
         this.goalSelector.addGoal(5, new FaunaRandomLookAroundGoal(this));
@@ -85,7 +86,7 @@ public class BeaverEntity extends MusicalEntity {
     }
 
     protected void addOverridenGoals() {
-        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F) {
+        this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 6.0F) {
             @Override
             public boolean canUse() {
                 return super.canUse() && !((MusicalEntity) mob).isPlayingInstrument()
@@ -95,6 +96,20 @@ public class BeaverEntity extends MusicalEntity {
             @Override
             public boolean canContinueToUse() {
                 return super.canContinueToUse() && !((MusicalEntity) mob).isPlayingInstrument()
+                        && !((BeaverEntity) mob).isBuilding();
+            }
+        });
+
+        this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, TravellingMusician.class, 6.0F) {
+            @Override
+            public boolean canUse() {
+                return super.canUse() && !((MusicalEntity) mob).isHoldingInstrument()
+                        && !((BeaverEntity) mob).isBuilding();
+            }
+
+            @Override
+            public boolean canContinueToUse() {
+                return super.canContinueToUse() && !((MusicalEntity) mob).isHoldingInstrument()
                         && !((BeaverEntity) mob).isBuilding();
             }
         });

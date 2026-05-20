@@ -68,13 +68,20 @@ public class SeaLionEntity extends MusicalEntity {
         this.goalSelector.addGoal(1, new TamableAnimalPanicGoal(1.25f));
         this.goalSelector.addGoal(1, new MusicalEntityPlayingInstrumentGoal(this));
         this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
-        // LookAtPlayerGoal(5)
+        // LookAtPlayerGoal(3)
+        // LookAtPlayerGoal(3, TravellingMusician)
         // RandomStrollGoal(5)
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
     }
 
     private void addOverridenGoals() {
-        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F) {
+        this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 6.0F) {
+            @Override
+            public boolean canUse() {
+                return super.canUse() && !((MusicalEntity) mob).isPlayingInstrument();
+            }
+        });
+        this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, TravellingMusician.class, 6.0F) {
             @Override
             public boolean canUse() {
                 return super.canUse() && !((MusicalEntity) mob).isPlayingInstrument();

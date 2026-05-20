@@ -1,0 +1,16 @@
+{
+  "structures": [
+    {
+      "structure": "faunaandorchestra:inn",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 50,
+    "separation": 20,
+    "salt": 420691325,
+    "exclude_biomes": [],
+    "avoid_structure_type": "minecraft:village"
+  }
+}

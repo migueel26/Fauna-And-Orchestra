@@ -57,13 +57,13 @@ public class ModEntities {
     public static final Supplier<EntityType<WiseTree>> WISE_TREE = ENTITY_TYPES.register("wise_tree",
             () -> EntityType.Builder.of(WiseTree::new, MobCategory.CREATURE).sized(0.6f, 1.0f).build("wise_tree"));
     public static final Supplier<EntityType<DanB>> DAN_B = ENTITY_TYPES.register("dan_b",
-            () -> EntityType.Builder.of(DanB::new, MobCategory.CREATURE).sized(0.75f, 1f).build("dan_b"));
+            () -> EntityType.Builder.of(DanB::new, MobCategory.CREATURE).sized(0.75f, 1.35f).build("dan_b"));
     public static final Supplier<EntityType<Delroy>> DELROY = ENTITY_TYPES.register("delroy",
             () -> EntityType.Builder.of(Delroy::new, MobCategory.CREATURE).sized(0.75f, 1f).build("delroy"));
     public static final Supplier<EntityType<Denise>> DENISE = ENTITY_TYPES.register("denise",
             () -> EntityType.Builder.of(Denise::new, MobCategory.CREATURE).sized(0.75f, 1f).build("denise"));
     public static final Supplier<EntityType<Denzel>> DENZEL = ENTITY_TYPES.register("denzel",
-            () -> EntityType.Builder.of(Denzel::new, MobCategory.CREATURE).sized(0.75f, 1f).build("denzel"));
+            () -> EntityType.Builder.of(Denzel::new, MobCategory.CREATURE).sized(0.75f, 1.2f).build("denzel"));
 
     public static final Supplier<EntityType<WanderingKoalaEntity>> WANDERING_KOALA = ENTITY_TYPES.register("wandering_koala",
             () -> EntityType.Builder.of(WanderingKoalaEntity::new, MobCategory.CREATURE).sized(0.6f, 1.25f).build("wandering_koala"));

@@ -202,6 +202,8 @@
   "block.faunaandorchestra.letter_and_quill": "Carta y pluma",
   "block.faunaandorchestra.flower_path": "Camino de flores",
 
+  "block.faunaandorchestra.tavern_spawner": "Tavern Spawner",
+
   "block.faunaandorchestra.tip_case_theft": "¡Esta funda no es tuya! No puedes llevarte el oro",
   "block.faunaandorchestra.tip_case.desc": "Todo el mundo te puede donar, pero sólo tú puedes retirarlo",
   "block.faunaandorchestra.listener.desc": "Colócalo encima del Contenedor y toca algo de música",

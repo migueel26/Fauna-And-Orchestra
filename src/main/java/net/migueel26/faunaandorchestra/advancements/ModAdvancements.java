@@ -15,6 +15,7 @@ public class ModAdvancements {
 
     public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> FULL_ORCHESTRA = register("full_orchestra");
     public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> MEET_RINGTAILS = register("meet_ringtails");
+    public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> MEET_JAZZY_DAMMYS = register("meet_jazzy_dammys");
     public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> BEFRIEND_ORION = register("befriend_orion");
     public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> BEFRIEND_FAUST = register("befriend_faust");
     public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> USE_MELOMANCY_CAULDRON = register("use_melomancy_cauldron");

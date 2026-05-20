@@ -3,6 +3,8 @@ package net.migueel26.faunaandorchestra.block;
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.block.custom.MailboxBlock;
 import net.migueel26.faunaandorchestra.block.entity.*;
+import net.migueel26.faunaandorchestra.block.entity.spawners.PaintingSpawnerBlockEntity;
+import net.migueel26.faunaandorchestra.block.entity.spawners.TavernSpawnerBlockEntity;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -116,6 +118,18 @@ public class ModBlockEntities {
             BLOCK_ENTITES.register("mailbox_be", () -> BlockEntityType.Builder.of(
                     MailboxBlockEntity::new,
                     ModBlocks.MAILBOX.get()
+            ).build(null));
+
+    // MISC (CREATIVE ONLY)
+    public static final Supplier<BlockEntityType<TavernSpawnerBlockEntity>> TAVERN_SPAWNER_BE =
+            BLOCK_ENTITES.register("tavern_spawner_be", () -> BlockEntityType.Builder.of(
+                    TavernSpawnerBlockEntity::new,
+                    ModBlocks.TAVERN_SPAWNER.get()
+            ).build(null));
+    public static final Supplier<BlockEntityType<PaintingSpawnerBlockEntity>> PAINTING_SPAWNER_BE =
+            BLOCK_ENTITES.register("painting_spawner_be", () -> BlockEntityType.Builder.of(
+                    PaintingSpawnerBlockEntity::new,
+                    ModBlocks.PAINTING_SPAWNER.get()
             ).build(null));
 
     public static void register(IEventBus eventBus) {

@@ -155,7 +155,7 @@ public class DanB extends TravellingMusician implements Npc, GeoEntity {
 
             for (Player player : newPlayers) {
                 PacketDistributor.sendToPlayer((ServerPlayer) player, new StartAmbientMusicS2CPayload(this.uuid));
-                //ModAdvancements.MEET_RINGTAILS.get().trigger((ServerPlayer) player);
+                ModAdvancements.MEET_JAZZY_DAMMYS.get().trigger((ServerPlayer) player);
             }
 
             for (Player player : exitPlayers) {

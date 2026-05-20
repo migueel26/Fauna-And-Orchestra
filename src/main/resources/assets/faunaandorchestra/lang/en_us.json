@@ -203,6 +203,8 @@
   "block.faunaandorchestra.letter_and_quill": "Letter and Quill",
   "block.faunaandorchestra.flower_path": "Flower Path",
 
+  "block.faunaandorchestra.tavern_spawner": "Tavern Spawner",
+
   "block.faunaandorchestra.tip_case_theft": "This case is not yours! You can't take the gold",
   "block.faunaandorchestra.tip_case.desc": "Everybody can tip you gold, but only you can retrieve it",
   "block.faunaandorchestra.listener.desc": "Place it on top of a Listener Container and play some music",
@@ -412,6 +414,8 @@
   "advancements.faunaandorchestra.tame_musician.desc": "Tame your first musician",
   "advancements.faunaandorchestra.tame_frog": "Super Trouper",
   "advancements.faunaandorchestra.tame_frog.desc": "Recruit your first conductor",
+  "advancements.faunaandorchestra.meet_jazzy_dammys": "What's Going On?",
+  "advancements.faunaandorchestra.meet_jazzy_dammys.desc": "Meet the acclaimed Jazzy Dammys",
 
   "dialogue.faunaandorchestra.faust0": "Nice to meet you! I'm Faust, and together we're The Ringtails",
   "dialogue.faunaandorchestra.faust1": "Nice to see you again, %! Care to join us?",

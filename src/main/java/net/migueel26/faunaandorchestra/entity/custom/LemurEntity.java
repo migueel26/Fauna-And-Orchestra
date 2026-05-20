@@ -54,13 +54,14 @@ public class LemurEntity extends MusicalEntity {
         this.goalSelector.addGoal(1, new MusicalEntityPlayingInstrumentGoal(this));
         this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
         // LookAtPlayerGoal (3)
+        // LookAtPlayerGoal (3, TravellingMusician)
         this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1.0));
         this.goalSelector.addGoal(5, new FaunaRandomLookAroundGoal(this));
 
     }
 
     protected void addOverridenGoals() {
-        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F) {
+        this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 6.0F) {
             @Override
             public boolean canUse() {
                 return super.canUse() && !((MusicalEntity) mob).isPlayingInstrument();
@@ -72,6 +73,17 @@ public class LemurEntity extends MusicalEntity {
             }
         });
 
+        this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, TravellingMusician.class, 6.0F) {
+            @Override
+            public boolean canUse() {
+                return super.canUse() && !((MusicalEntity) mob).isPlayingInstrument();
+            }
+
+            @Override
+            public boolean canContinueToUse() {
+                return super.canContinueToUse() && !((MusicalEntity) mob).isPlayingInstrument();
+            }
+        });
     }
 
     private <E extends GeoAnimatable> PlayState lemurState(AnimationState<E> state) {

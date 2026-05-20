@@ -99,6 +99,7 @@ public class EmperorPenguinEntity extends MusicalEntity implements NeutralMob {
         // NearestAttackableTargetGoal (4)
         this.goalSelector.addGoal(5, new AnimalEatGoal(this, Items.STONE, this::onEat));
         // LookAtPlayerGoal (4)
+        // LookAtPlayerGoal (3, TravellingMusician)
         // MeleeAttackGoal (5)
         // RandomStrollGoal(5)
         this.goalSelector.addGoal(6, new FaunaRandomLookAroundGoal(this));
@@ -171,6 +172,15 @@ public class EmperorPenguinEntity extends MusicalEntity implements NeutralMob {
             @Override
             public void tick() {
                 super.tick();
+            }
+        });
+
+        this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, TravellingMusician.class, 6.0F) {
+            final EmperorPenguinEntity penguin = (EmperorPenguinEntity) super.mob;
+
+            @Override
+            public boolean canUse() {
+                return super.canUse() && !penguin.isPlayingInstrument();
             }
         });
 

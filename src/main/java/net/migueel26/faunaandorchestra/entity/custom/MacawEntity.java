@@ -105,6 +105,7 @@ public class MacawEntity extends MusicalEntity implements FlyingAnimal {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new MusicalEntityPlayingInstrumentGoal(this));
         // LookAtPlayerGoal (2)
+        // LookAtPlayerGoal (2, TravellingMusician)
         // BreedGoal (3)
         this.goalSelector.addGoal(3, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(3, new MacawWanderGoal(this, 1.0));
@@ -122,6 +123,22 @@ public class MacawEntity extends MusicalEntity implements FlyingAnimal {
                 }
             }
         });
+
+        this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, TravellingMusician.class, 8.0F) {
+            @Override
+            public void tick() {
+                super.tick();
+                if (this.lookAt.isAlive() && ((MusicalEntity) this.mob).isHoldingInstrument()) {
+                    this.mob.getLookControl().setLookAt(this.lookAt.getX(), this.lookAt.getEyeY()-5, this.lookAt.getZ());
+                }
+            }
+
+            @Override
+            public boolean canUse() {
+                return super.canUse() && !((MusicalEntity) mob).isPlayingInstrument();
+            }
+        });
+
         this.goalSelector.addGoal(3, new BreedGoal(this, 1.0f) {
             @Override
             public boolean canUse() {

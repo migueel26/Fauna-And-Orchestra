@@ -75,6 +75,7 @@ public class MadameButterflyEntity extends MusicalEntity implements FlyingAnimal
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new MusicalEntityPlayingInstrumentGoal(this));
         // LookAtPlayerGoal (2)
+        // LookAtPlayerGoal (2, TravellingMusician)
         this.goalSelector.addGoal(3, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(3, new MadameButterflyWanderGoal(this, 1.0));
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
@@ -88,6 +89,21 @@ public class MadameButterflyEntity extends MusicalEntity implements FlyingAnimal
                 if (this.lookAt.isAlive() && ((MusicalEntity) this.mob).isHoldingInstrument()) {
                     this.mob.getLookControl().setLookAt(this.lookAt.getX(), this.lookAt.getEyeY()-5, this.lookAt.getZ());
                 }
+            }
+        });
+
+        this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, TravellingMusician.class, 8.0F) {
+            @Override
+            public void tick() {
+                super.tick();
+                if (this.lookAt.isAlive() && ((MusicalEntity) this.mob).isHoldingInstrument()) {
+                    this.mob.getLookControl().setLookAt(this.lookAt.getX(), this.lookAt.getEyeY()-5, this.lookAt.getZ());
+                }
+            }
+
+            @Override
+            public boolean canUse() {
+                return super.canUse() && !((MusicalEntity) mob).isPlayingInstrument();
             }
         });
     }

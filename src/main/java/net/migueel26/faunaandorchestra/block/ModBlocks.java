@@ -2,6 +2,8 @@ package net.migueel26.faunaandorchestra.block;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.block.custom.*;
+import net.migueel26.faunaandorchestra.block.custom.spawners.PaintingSpawnerBlock;
+import net.migueel26.faunaandorchestra.block.custom.spawners.TavernSpawnerBlock;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.worldgen.tree.ModTreeGrowers;
 import net.minecraft.core.BlockPos;
@@ -227,6 +229,18 @@ public class ModBlocks {
                     .sound(SoundType.VINE)
                     .ignitedByLava()
                     .pushReaction(PushReaction.DESTROY)));
+
+    // MISC (CREATIVE-ONLY)
+    public static final DeferredBlock<Block> TAVERN_SPAWNER = registerBlock("tavern_spawner",
+            () -> new TavernSpawnerBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.NONE)
+                    .noCollission()
+                    .instabreak()));
+    public static final DeferredBlock<Block> PAINTING_SPAWNER = registerBlock("painting_spawner",
+            () -> new PaintingSpawnerBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.NONE)
+                    .noCollission()
+                    .instabreak()));
 
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block) {
         DeferredBlock<T> toReturn = BLOCKS.register(name, block);

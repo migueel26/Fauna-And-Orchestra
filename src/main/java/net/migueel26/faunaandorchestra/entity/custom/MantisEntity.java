@@ -105,6 +105,7 @@ public class MantisEntity extends MusicalEntity implements NeutralMob, VariantEn
         // MeleeAttackGoal (5)
         this.goalSelector.addGoal(5, new RandomStrollGoal(this, 1.0));
         // LookAtPlayerGoal (6)
+        // LookAtPlayerGoal (6, TravellingMusician)
         this.goalSelector.addGoal(7, new AnimalEatGoal(this, ModItems.MANTIS_FOOD.asItem(), this::onEat));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(8, new ResetUniversalAngerTargetGoal<>(this, true));
@@ -128,6 +129,13 @@ public class MantisEntity extends MusicalEntity implements NeutralMob, VariantEn
         });
 
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F) {
+            @Override
+            public boolean canUse() {
+                return super.canUse() && !((MusicalEntity) mob).isPlayingInstrument();
+            }
+        });
+
+        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, TravellingMusician.class, 6.0F) {
             @Override
             public boolean canUse() {
                 return super.canUse() && !((MusicalEntity) mob).isPlayingInstrument();

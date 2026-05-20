@@ -43,7 +43,7 @@ import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class RedPandaEntity extends MusicalEntity {
-    // Gotta change the names to match de other entities
+    // I've to change the names to match de other entities
     protected static final RawAnimation WALK = RawAnimation.begin().thenPlay("walking");
     protected static final RawAnimation WALK_STANDING = RawAnimation.begin().thenPlay("walking_standing");
     protected static final RawAnimation WALK_KEYTAR = RawAnimation.begin().thenPlay("walking_keytar");
@@ -84,6 +84,7 @@ public class RedPandaEntity extends MusicalEntity {
         this.goalSelector.addGoal(3, new RedPandaEatingBambooGoal(this));
         // BreedGoal(3)
         this.goalSelector.addGoal(4, new RedPandaLookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(4, new RedPandaLookAtPlayerGoal(this, TravellingMusician.class, 6.0F));
         // RandomStrollGoal(5)
         this.goalSelector.addGoal(4, new AnimalEatGoal(this, ModItems.PERFUMED_BAMBOO.get(), this::onEat));
         this.goalSelector.addGoal(4, new AnimalEatGoal(this, Items.BAMBOO, this::onEat));
@@ -314,7 +315,7 @@ public class RedPandaEntity extends MusicalEntity {
 
         @Override
         public boolean canUse() {
-            return super.canUse() && redPanda.isCurrentlyNotChangingStances();
+            return super.canUse() && redPanda.isCurrentlyNotChangingStances() && !redPanda.isPlayingInstrument();
         }
 
         @Override

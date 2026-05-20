@@ -82,6 +82,7 @@ public class PenguinEntity extends MusicalEntity {
         this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(3, new AlertWhenAttackedGoal(this, EmperorPenguinEntity.class));
         // LookAtPlayerGoal(4)
+        // LookAtPlayerGoal(4, TravellingMusician)
         // RandomStrollGoal(5)
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
     }
@@ -151,6 +152,16 @@ public class PenguinEntity extends MusicalEntity {
                 super.tick();
             }
         });
+
+        this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, TravellingMusician.class, 6.0F) {
+            final PenguinEntity penguin = (PenguinEntity) super.mob;
+
+            @Override
+            public boolean canUse() {
+                return super.canUse() && !penguin.isPlayingInstrument();
+            }
+        });
+
 
         this.goalSelector.addGoal(5, new RandomStrollGoal(this, 1.0) {
             final PenguinEntity penguin = (PenguinEntity) super.mob;
