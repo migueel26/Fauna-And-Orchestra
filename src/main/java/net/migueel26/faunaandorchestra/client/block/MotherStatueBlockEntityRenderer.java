@@ -15,6 +15,7 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.cache.object.BakedGeoModel;
+import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.renderer.GeoBlockRenderer;
 
 public class MotherStatueBlockEntityRenderer extends GeoBlockRenderer<MotherStatueBlockEntity> {
@@ -34,6 +35,14 @@ public class MotherStatueBlockEntityRenderer extends GeoBlockRenderer<MotherStat
                 blockEntity.getBlockPos().offset(-16, -16, -16).getCenter(),
                 blockEntity.getBlockPos().offset(16, 16, 16).getCenter()
         );
+    }
+
+    @Override
+    public void renderRecursively(PoseStack poseStack, MotherStatueBlockEntity animatable, GeoBone bone, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, int colour) {
+        if (bone.getName().equals("crown")) {
+            bone.setHidden(!animatable.getBlockState().getValue(MotherStatueBlock.LEGENDARY));
+        }
+        super.renderRecursively(poseStack, animatable, bone, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, colour);
     }
 
     @Override

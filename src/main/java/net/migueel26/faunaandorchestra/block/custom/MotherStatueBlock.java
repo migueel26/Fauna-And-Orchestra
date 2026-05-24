@@ -4,6 +4,7 @@ import com.mojang.serialization.MapCodec;
 import net.migueel26.faunaandorchestra.block.entity.MotherStatueBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -19,6 +20,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -27,6 +29,7 @@ import org.jetbrains.annotations.Nullable;
 public class MotherStatueBlock extends HorizontalDirectionalBlock implements EntityBlock {
     public static final MapCodec<MotherStatueBlock> CODEC = simpleCodec(MotherStatueBlock::new);
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
+    public static final BooleanProperty LEGENDARY = BooleanProperty.create("legendary");
     public static final VoxelShape LOWER_NORTH = Shapes.or(
             Block.box(4, 0, 7, 16, 16, 9),
             Block.box(0, 0, 3, 6.5, 7, 13),
@@ -80,7 +83,7 @@ public class MotherStatueBlock extends HorizontalDirectionalBlock implements Ent
 
     public MotherStatueBlock(BlockBehaviour.Properties properties) {
         super(properties);
-        this.registerDefaultState(this.getStateDefinition().any().setValue(HALF, DoubleBlockHalf.LOWER));
+        this.registerDefaultState(this.getStateDefinition().any().setValue(HALF, DoubleBlockHalf.LOWER).setValue(LEGENDARY, false));
     }
 
     @Override
@@ -116,18 +119,45 @@ public class MotherStatueBlock extends HorizontalDirectionalBlock implements Ent
         return new MotherStatueBlockEntity(pos, state);
     }
 
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+        if (player.isCreative() && player.isShiftKeyDown()) {
+            boolean nuevoLegendary = !state.getValue(LEGENDARY);
+            DoubleBlockHalf half = state.getValue(HALF);
+
+            BlockPos otherHalfPos = (half == DoubleBlockHalf.LOWER) ? pos.above() : pos.below();
+            BlockState otherHalf = level.getBlockState(otherHalfPos);
+
+            level.setBlock(pos, state.setValue(LEGENDARY, nuevoLegendary), 3);
+
+            if (otherHalf.is(this)) {
+                level.setBlock(otherHalfPos, otherHalf.setValue(LEGENDARY, nuevoLegendary), 3);
+            }
+        }
+        return InteractionResult.SUCCESS;
+    }
+
+    @Override
     protected BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor level, BlockPos currentPos, BlockPos facingPos) {
         DoubleBlockHalf doubleblockhalf = state.getValue(HALF);
-        if (facing.getAxis() != Direction.Axis.Y || doubleblockhalf == DoubleBlockHalf.LOWER != (facing == Direction.UP) || facingState.is(this) && facingState.getValue(HALF) != doubleblockhalf) {
+        if (facing.getAxis() != Direction.Axis.Y || doubleblockhalf == DoubleBlockHalf.LOWER != (facing == Direction.UP)) {
             return doubleblockhalf == DoubleBlockHalf.LOWER && facing == Direction.DOWN && !state.canSurvive(level, currentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, facing, facingState, level, currentPos, facingPos);
         } else {
-            return Blocks.AIR.defaultBlockState();
+            if (facingState.is(this) && facingState.getValue(HALF) != doubleblockhalf) {
+                return state.setValue(FACING, facingState.getValue(FACING))
+                        .setValue(LEGENDARY, facingState.getValue(LEGENDARY));
+            } else {
+                return Blocks.AIR.defaultBlockState();
+            }
         }
     }
 
     public void setPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
         BlockPos blockpos = pos.above();
-        level.setBlock(blockpos, this.defaultBlockState().setValue(HALF, DoubleBlockHalf.UPPER).setValue(FACING, state.getValue(FACING)), 3);
+        level.setBlock(blockpos, this.defaultBlockState()
+                .setValue(HALF, DoubleBlockHalf.UPPER)
+                .setValue(FACING, state.getValue(FACING))
+                .setValue(LEGENDARY, state.getValue(LEGENDARY)), 3);
     }
 
     @Nullable
@@ -145,6 +175,14 @@ public class MotherStatueBlock extends HorizontalDirectionalBlock implements Ent
 
     public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @javax.annotation.Nullable BlockEntity te, ItemStack stack) {
         super.playerDestroy(level, player, pos, Blocks.AIR.defaultBlockState(), te, stack);
+    }
+
+    @Override
+    protected float getDestroyProgress(BlockState state, Player player, BlockGetter level, BlockPos pos) {
+        if (state.getValue(LEGENDARY)) {
+            return 0.0F;
+        }
+        return super.getDestroyProgress(state, player, level, pos);
     }
 
     protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
@@ -167,6 +205,6 @@ public class MotherStatueBlock extends HorizontalDirectionalBlock implements Ent
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, HALF);
+        builder.add(FACING, HALF, LEGENDARY);
     }
 }
