@@ -1,4 +1,4 @@
-package net.migueel26.faunaandorchestra.block.custom;
+package net.migueel26.faunaandorchestra.block.entity;
 
 import net.migueel26.faunaandorchestra.networking.SyncOwnableBEPayloadS2C;
 import net.minecraft.core.BlockPos;

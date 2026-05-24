@@ -64,6 +64,8 @@ public abstract class MusicalEntity extends TamableAnimal implements GeoEntity {
     protected UUID conductorUUID;
     private int ticksSinceLoaded;
     // Costumes
+    public final static int HAT_SLOT = 0;
+    public final static int COSTUME_SLOT = 1;
     public ItemStackHandler inventory = new ItemStackHandler(2) {
         @Override
         public boolean isItemValid(int slot, ItemStack stack) {
@@ -84,15 +86,15 @@ public abstract class MusicalEntity extends TamableAnimal implements GeoEntity {
             playSound(SoundEvents.ARMOR_EQUIP_LEATHER.value(), 1.0F, 1.0F + ((random.nextFloat()/2)-0.25F));
 
             if (slot == 0) {
-                entityData.set(HAT_ITEM, getStackInSlot(0));
+                entityData.set(HAT_ITEM, getStackInSlot(HAT_SLOT));
                 if (!level().isClientSide()) {
-                    playSpecialClothingAnimation(getStackInSlot(0));
+                    playSpecialClothingAnimation(getStackInSlot(HAT_SLOT));
                 }
 
             } else {
-                entityData.set(COSTUME_ITEM, getStackInSlot(1));
+                entityData.set(COSTUME_ITEM, getStackInSlot(COSTUME_SLOT));
                 if (!level().isClientSide()) {
-                    playSpecialClothingAnimation(getStackInSlot(1));
+                    playSpecialClothingAnimation(getStackInSlot(COSTUME_SLOT));
                 }
             }
 

@@ -1,7 +1,6 @@
 package net.migueel26.faunaandorchestra.block.entity;
 
 import net.migueel26.faunaandorchestra.block.ModBlockEntities;
-import net.migueel26.faunaandorchestra.block.custom.OwnableBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 import software.bernie.geckolib.animatable.GeoBlockEntity;

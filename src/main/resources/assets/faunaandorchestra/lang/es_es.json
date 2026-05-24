@@ -298,6 +298,7 @@
   "text.faunaandorchestra.leave_composer": "La influencia del Gran Compositor se desvanece aquí...",
   "text.faunaandorchestra.pick_up_composer": "¡Recoge la Gran Batuta y reclama tu premio!",
   "text.faunaandorchestra.sleeping_worker_koala": "¡Los koalas trabajadores se duermen si no hay una orquesta tocando cerca!",
+  "text.faunaandorchestra.myth_locked": "¡Este mito está bloqueado! Intenta encontrar a algún animal que te lo cuente...",
 
   "entity.faunaandorchestra.mantis": "Mantis",
   "entity.faunaandorchestra.penguin": "Bebé Pingüino",
@@ -418,6 +419,8 @@
   "advancements.faunaandorchestra.tame_frog.desc": "Recluta a tu primer conductor",
   "advancements.faunaandorchestra.meet_jazzy_dammys": "What's Going On?",
   "advancements.faunaandorchestra.meet_jazzy_dammys.desc": "Conoce a los aclamados Jazzy Dammys",
+  "advancements.faunaandorchestra.diskinserted": "Feeling DiskInserted?",
+  "advancements.faunaandorchestra.diskinserted.desc": "Resuelve tu primer mito y obtén tu recompensa",
 
   "dialogue.faunaandorchestra.faust0": "¡Encantado! Soy Fausto, y juntos somos Los Ringtails",
   "dialogue.faunaandorchestra.faust1": "¡Me alegro de verte, %! ¿Con ganas de música?",
@@ -880,6 +883,8 @@
   "symphonia.page.find_myths1": "If you want to be notified when $(l)Dan B.$() learns a new myth, you can place a $(item)$(l:mailbox)Mailbox$() near your home, and he'll send you a letter every time he learns something new!",
 
   "symphonia.entry.imaginal_disk": "El disco imaginario",
+  "symphonia.page.imaginal_disk0": "Se dice que el $(l)Disco Imaginario$() es un artefacto legendario capaz de elevar a su portador a $(o)nuevas alturas$(). Según Dan B., fue creado por la propia $(thing)Madre$().$(br2)Para obtenerlo, debes hallar una $(item)Estatua de Madre$() en grandes alturas y lanzar al estanque: $(li)$(item)1x Disco de música$()$(li)$(item)1x Lágrima de ghast$()$(li)$(item)1x Extracto de música viva$()",
+  "symphonia.page.imaginal_disk1": "Se dice que el $(item)Panda Rojo$() músico es la única criatura apta para el $(l)Disco$(), así que mete uno en el estanque y $(o)haz click en la Estatua$().",
 
   "symphonia.entry.mask_of_the_enlightened": "La máscara de luz",
 

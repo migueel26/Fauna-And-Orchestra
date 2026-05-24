@@ -298,6 +298,7 @@
   "text.faunaandorchestra.leave_composer": "The influence of the Great Composer fades away here...",
   "text.faunaandorchestra.pick_up_composer": "Pick the Great Baton up and claim your prize!",
   "text.faunaandorchestra.sleeping_worker_koala": "Koala Workers fall asleep if there isn't an orchestra playing nearby!",
+  "text.faunaandorchestra.myth_locked": "This myth is locked! Try to find the right musical animal to tell it to you",
 
   "entity.faunaandorchestra.mantis": "Mantis",
   "entity.faunaandorchestra.penguin": "Baby Penguin",
@@ -418,6 +419,8 @@
   "advancements.faunaandorchestra.tame_frog.desc": "Recruit your first conductor",
   "advancements.faunaandorchestra.meet_jazzy_dammys": "What's Going On?",
   "advancements.faunaandorchestra.meet_jazzy_dammys.desc": "Meet the acclaimed Jazzy Dammys",
+  "advancements.faunaandorchestra.diskinserted": "Feeling DiskInserted?",
+  "advancements.faunaandorchestra.diskinserted.desc": "Resolve your first Myth and claim your prize",
 
   "dialogue.faunaandorchestra.faust0": "Nice to meet you! I'm Faust, and together we're The Ringtails",
   "dialogue.faunaandorchestra.faust1": "Nice to see you again, %! Care to join us?",
@@ -880,6 +883,8 @@
   "symphonia.page.find_myths1": "If you want to be notified when $(l)Dan B.$() learns a new myth, you can place a $(item)$(l:befriend_em_all/mailbox)Mailbox$() near your home, and he'll send you a letter every time he learns something new!",
 
   "symphonia.entry.imaginal_disk": "The Imaginal Disk",
+  "symphonia.page.imaginal_disk0": "The $(l)Imaginal Disk$() is said to be a legendary artifact capable of enhancing its host to $(o)new heights$(). According to Dan B., it was created by $(thing)Mother$() herself.$(br2)In order to obtain it, you need to find a $(item)Statue of Mother$() on great heights and drop in the pond: $(li)$(item)1x Music Disc$()$(li)$(item)1x Ghast Tear$()$(li)$(item)1x Extract of Living Music$()",
+  "symphonia.page.imaginal_disk1": "The $(item)Red Panda$() musician is said to be the only creature apt for the $(l)Disk$(), so get one inside the pond and $(o)click the Statue$().",
 
   "symphonia.entry.mask_of_the_enlightened": "The Mask of the Enlightened",
 

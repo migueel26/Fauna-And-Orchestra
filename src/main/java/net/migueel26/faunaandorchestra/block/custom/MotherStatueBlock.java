@@ -1,13 +1,29 @@
 package net.migueel26.faunaandorchestra.block.custom;
 
 import com.mojang.serialization.MapCodec;
+import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
+import net.migueel26.faunaandorchestra.block.ModBlockEntities;
 import net.migueel26.faunaandorchestra.block.entity.MotherStatueBlockEntity;
+import net.migueel26.faunaandorchestra.entity.custom.RedPandaEntity;
+import net.migueel26.faunaandorchestra.item.ModItems;
+import net.migueel26.faunaandorchestra.sound.ModSounds;
+import net.migueel26.faunaandorchestra.util.AdvancementUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -15,16 +31,22 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.neoforged.neoforge.common.Tags;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
 
 public class MotherStatueBlock extends HorizontalDirectionalBlock implements EntityBlock {
     public static final MapCodec<MotherStatueBlock> CODEC = simpleCodec(MotherStatueBlock::new);
@@ -121,6 +143,53 @@ public class MotherStatueBlock extends HorizontalDirectionalBlock implements Ent
 
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+        //changeFormCreativeOnly(state, level, pos, player);
+        DoubleBlockHalf half = state.getValue(HALF);
+        BlockPos blockPos = pos;
+        if (half == DoubleBlockHalf.UPPER) {
+            blockPos = pos.below();
+        }
+
+        if (!level.isClientSide()
+                && level.getBlockEntity(blockPos) instanceof MotherStatueBlockEntity motherStatue) {
+            if (AdvancementUtil.hasAdvancement(player, FaunaAndOrchestra.MOD_ID, "myths/dan_myth0")) {
+                tryToStartDiskAnimation(level, blockPos, motherStatue);
+            } else {
+                player.displayClientMessage(Component.translatable("text.faunaandorchestra.myth_locked"), true);
+            }
+        }
+        return InteractionResult.SUCCESS;
+    }
+
+    private void tryToStartDiskAnimation(Level level, BlockPos pos, MotherStatueBlockEntity motherStatue) {
+        if (!motherStatue.isPlayingDiskAnimation()) {
+            AABB area = AABB.ofSize(pos.getCenter(), 12, 6, 12);
+            Optional<RedPandaEntity> redPanda = level.getEntitiesOfClass(RedPandaEntity.class, area, entity -> entity.isInWater() && entity.isTame() && entity.getHat() == Items.AIR).stream().findFirst();
+            if (redPanda.isPresent()) {
+                Optional<ItemEntity> disc = level.getEntitiesOfClass(ItemEntity.class, area, item -> item.isInWater() && item.getItem().is(Tags.Items.MUSIC_DISCS)).stream().findFirst();
+                Optional<ItemEntity> tear = level.getEntitiesOfClass(ItemEntity.class, area, item -> item.isInWater() && item.getItem().is(Items.GHAST_TEAR)).stream().findFirst();
+                Optional<ItemEntity> musicExtract = level.getEntitiesOfClass(ItemEntity.class, area, item -> item.isInWater() && item.getItem().is(ModItems.EXTRACT_OF_LIVING_MUSIC)).stream().findFirst();
+
+                if (disc.isPresent() && tear.isPresent() && musicExtract.isPresent()) {
+                    level.playSound(null, pos, SoundEvents.LAVA_EXTINGUISH, SoundSource.NEUTRAL, 1.0f, 1.0f);
+
+                    ((ServerLevel) level).sendParticles(ParticleTypes.CLOUD, disc.get().getX(), disc.get().getY() + 0.5, disc.get().getZ(), 60, 0.1, 5, 0.1, 0.05);
+                    ((ServerLevel) level).sendParticles(ParticleTypes.CLOUD, tear.get().getX(), tear.get().getY() + 0.5, tear.get().getZ(), 60, 0.1, 5, 5, 0.05);
+                    ((ServerLevel) level).sendParticles(ParticleTypes.CLOUD, musicExtract.get().getX(), musicExtract.get().getY() + 0.5, musicExtract.get().getZ(), 60, 0.1, 5, 0.1, 0.05);
+
+                    disc.get().discard();
+                    tear.get().discard();
+                    musicExtract.get().discard();
+
+                    redPanda.get().standUp(true);
+
+                    motherStatue.startDiskAnimation(redPanda.get());
+                }
+            }
+        }
+    }
+
+    private void changeFormCreativeOnly(BlockState state, Level level, BlockPos pos, Player player) {
         if (player.isCreative() && player.isShiftKeyDown()) {
             boolean nuevoLegendary = !state.getValue(LEGENDARY);
             DoubleBlockHalf half = state.getValue(HALF);
@@ -134,7 +203,6 @@ public class MotherStatueBlock extends HorizontalDirectionalBlock implements Ent
                 level.setBlock(otherHalfPos, otherHalf.setValue(LEGENDARY, nuevoLegendary), 3);
             }
         }
-        return InteractionResult.SUCCESS;
     }
 
     @Override
@@ -166,6 +234,16 @@ public class MotherStatueBlock extends HorizontalDirectionalBlock implements Ent
         Level level = context.getLevel();
         Direction direction = context.getHorizontalDirection().getOpposite();
         return blockpos.getY() < level.getMaxBuildHeight() - 1 && level.getBlockState(blockpos.above()).canBeReplaced(context) ? this.defaultBlockState().setValue(FACING, direction) : null;
+    }
+
+    @Nullable
+    protected static <E extends BlockEntity, A extends BlockEntity> BlockEntityTicker<A> createTickerHelper(BlockEntityType<A> serverType, BlockEntityType<E> clientType, BlockEntityTicker<? super E> ticker) {
+        return clientType == serverType ? (BlockEntityTicker<A>) ticker : null;
+    }
+
+    @Override
+    public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
+        return level.isClientSide() || state.getValue(HALF) == DoubleBlockHalf.UPPER ? null : createTickerHelper(blockEntityType, ModBlockEntities.MOTHER_STATUE_BE.get(), MotherStatueBlockEntity::tick);
     }
 
     @Override

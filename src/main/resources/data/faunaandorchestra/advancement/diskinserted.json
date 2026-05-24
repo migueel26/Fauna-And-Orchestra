@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "count": 1,
+      "id": "faunaandorchestra:imaginal_disk"
+    },
+    "title": {
+      "translate": "advancements.faunaandorchestra.diskinserted"
+    },
+    "description": {
+      "translate": "advancements.faunaandorchestra.diskinserted.desc"
+    },
+    "frame": "task"
+  },
+  "parent": "faunaandorchestra:meet_jazzy_dammys",
+  "criteria": {
+    "unique": {
+      "trigger": "faunaandorchestra:diskinserted"
+    }
+  },
+  "requirements": [
+    [
+      "unique"
+    ]
+  ]
+}

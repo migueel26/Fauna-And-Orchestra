@@ -1,7 +1,7 @@
 package net.migueel26.faunaandorchestra.networking;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
-import net.migueel26.faunaandorchestra.block.custom.OwnableBlockEntity;
+import net.migueel26.faunaandorchestra.block.entity.OwnableBlockEntity;
 import net.migueel26.faunaandorchestra.entity.custom.*;
 import net.migueel26.faunaandorchestra.entity.custom.boss.TheGreatComposer;
 import net.migueel26.faunaandorchestra.entity.custom.jazzy_dammys.DanB;

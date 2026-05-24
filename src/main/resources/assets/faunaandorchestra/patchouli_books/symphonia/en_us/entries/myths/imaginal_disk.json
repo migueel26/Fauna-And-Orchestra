@@ -3,9 +3,18 @@
   "category": "faunaandorchestra:myths",
   "icon": "faunaandorchestra:imaginal_disk",
   "advancement": "faunaandorchestra:myths/dan_myth0",
+  "turnin": "faunaandorchestra:diskinserted",
   "pages": [
     {
-      "type": "empty"
+      "type": "text",
+      "text": "symphonia.page.imaginal_disk0"
+    },
+    {
+      "type": "image",
+      "images": [
+        "faunaandorchestra:textures/gui/entries/mothers_pond.png"
+      ],
+      "text": "symphonia.page.imaginal_disk1"
     }
   ]
 }
