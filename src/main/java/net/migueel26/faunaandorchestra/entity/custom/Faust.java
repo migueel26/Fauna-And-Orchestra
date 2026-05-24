@@ -55,6 +55,7 @@ public class Faust extends TravellingMusician implements Npc, GeoEntity {
     public static final String RESOURCE = "dialogue.faunaandorchestra.faust";
     public String currentDialogue;
     private List<Player> playersListening = new ArrayList<>();
+    private int nearbyPlayersSearchDelay = 0;
 
     protected Orion orion;
     protected BlockPos tipCasePos;
@@ -152,27 +153,32 @@ public class Faust extends TravellingMusician implements Npc, GeoEntity {
     @Override
     public void tick() {
         if (isPlaying() && !level().isClientSide()) {
-            List<Player> nearbyPlayers = this.level().getEntitiesOfClass(
-                    Player.class, this.getBoundingBox().inflate(32.0, 32.0, 32.0), EntitySelector.LIVING_ENTITY_STILL_ALIVE);
+            if (nearbyPlayersSearchDelay < 60) {
+                nearbyPlayersSearchDelay++;
+                playersListening = new ArrayList<>();
+            } else {
+                List<Player> nearbyPlayers = this.level().getEntitiesOfClass(
+                        Player.class, this.getBoundingBox().inflate(32.0, 32.0, 32.0), EntitySelector.LIVING_ENTITY_STILL_ALIVE);
 
-            List<Player> newPlayers = new ArrayList<>(nearbyPlayers);
-            List<Player> exitPlayers = new ArrayList<>(playersListening);
-            exitPlayers.removeAll(nearbyPlayers);
-            newPlayers.removeAll(playersListening);
+                List<Player> newPlayers = new ArrayList<>(nearbyPlayers);
+                List<Player> exitPlayers = new ArrayList<>(playersListening);
+                exitPlayers.removeAll(nearbyPlayers);
+                newPlayers.removeAll(playersListening);
 
-            for (Player player : newPlayers) {
-                PacketDistributor.sendToPlayer((ServerPlayer) player, new StartAmbientMusicS2CPayload(this.uuid));
-                ModAdvancements.MEET_RINGTAILS.get().trigger((ServerPlayer) player);
+                for (Player player : newPlayers) {
+                    PacketDistributor.sendToPlayer((ServerPlayer) player, new StartAmbientMusicS2CPayload(this.uuid));
+                    ModAdvancements.MEET_RINGTAILS.get().trigger((ServerPlayer) player);
+                }
+
+                for (Player player : exitPlayers) {
+                    PacketDistributor.sendToPlayer((ServerPlayer) player, new StopMusicS2CPayload(this.uuid));
+                }
+
+                playersListening = nearbyPlayers;
             }
-
-            for (Player player : exitPlayers) {
-                PacketDistributor.sendToPlayer((ServerPlayer) player, new StopMusicS2CPayload(this.uuid));
-            }
-
-            playersListening = nearbyPlayers;
-
         } else {
             playersListening = new ArrayList<>();
+            this.nearbyPlayersSearchDelay = 0;
         }
 
         if (tipCasePos != null && orion != null) {

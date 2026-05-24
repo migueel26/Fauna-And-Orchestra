@@ -58,6 +58,7 @@ public class DanB extends TravellingMusician implements Npc, GeoEntity {
 
     // MUSIC
     protected List<Player> playersListening = new ArrayList<>();
+    private int nearbyPlayersSearchDelay = 0;
     protected Denise denise;
     protected Denzel denzel;
     protected Delroy delroy;
@@ -189,26 +190,33 @@ public class DanB extends TravellingMusician implements Npc, GeoEntity {
     @Override
     public void tick() {
         if (isPlaying() && !level().isClientSide()) {
-            List<Player> nearbyPlayers = this.level().getEntitiesOfClass(
-                    Player.class, this.getBoundingBox().inflate(32.0, 32.0, 32.0), EntitySelector.LIVING_ENTITY_STILL_ALIVE);
+            if (nearbyPlayersSearchDelay < 60) {
+                nearbyPlayersSearchDelay++;
+                playersListening = new ArrayList<>();
+            } else {
+                List<Player> nearbyPlayers = this.level().getEntitiesOfClass(
+                        Player.class, this.getBoundingBox().inflate(32.0, 32.0, 32.0), EntitySelector.LIVING_ENTITY_STILL_ALIVE);
 
-            List<Player> newPlayers = new ArrayList<>(nearbyPlayers);
-            List<Player> exitPlayers = new ArrayList<>(playersListening);
-            exitPlayers.removeAll(nearbyPlayers);
-            newPlayers.removeAll(playersListening);
+                List<Player> newPlayers = new ArrayList<>(nearbyPlayers);
+                List<Player> exitPlayers = new ArrayList<>(playersListening);
+                exitPlayers.removeAll(nearbyPlayers);
+                newPlayers.removeAll(playersListening);
 
-            for (Player player : newPlayers) {
-                PacketDistributor.sendToPlayer((ServerPlayer) player, new StartAmbientMusicS2CPayload(this.uuid));
-                ModAdvancements.MEET_JAZZY_DAMMYS.get().trigger((ServerPlayer) player);
-            }
+                for (Player player : newPlayers) {
+                    PacketDistributor.sendToPlayer((ServerPlayer) player, new StartAmbientMusicS2CPayload(this.uuid));
+                    ModAdvancements.MEET_JAZZY_DAMMYS.get().trigger((ServerPlayer) player);
+                }
 
-            for (Player player : exitPlayers) {
-                PacketDistributor.sendToPlayer((ServerPlayer) player, new StopMusicS2CPayload(this.uuid));
-            }
+                for (Player player : exitPlayers) {
+                    PacketDistributor.sendToPlayer((ServerPlayer) player, new StopMusicS2CPayload(this.uuid));
+                }
 
-            playersListening = nearbyPlayers;
+                playersListening = nearbyPlayers;
+
+                }
 
         } else {
+            nearbyPlayersSearchDelay = 0;
             playersListening = new ArrayList<>();
         }
 
