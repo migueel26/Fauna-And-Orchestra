@@ -1,0 +1,19 @@
+{
+  "name": "symphonia.entry.find_myths",
+  "category": "faunaandorchestra:myths",
+  "icon": "minecraft:map",
+  "priority": true,
+  "sortnum": -10,
+  "advancement": "faunaandorchestra:meet_jazzy_dammys",
+  "pages": [
+    {
+      "type": "text",
+      "text": "symphonia.page.find_myths0"
+    },
+    {
+      "type": "spotlight",
+      "item": "faunaandorchestra:mailbox_item",
+      "text": "symphonia.page.find_myths1"
+    }
+  ]
+}

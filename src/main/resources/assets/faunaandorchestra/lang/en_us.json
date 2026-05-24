@@ -875,6 +875,10 @@
   "symphonia.page.mailbox2": "Once your item has the right address, it's time to send it. For that, you'll need a $(l)Mailbox$() with its own $(music)Mailbird Macaw$(). To get your own mailbird, you'll need to get a $(item)unique Feather$() from a $(o)$(l:musicians/macaw)$(thing)Macaw$(), a symbol of their trust.$(br2)Once crafted, it'll come right away to deliver your mail. Only items with an $(thing)address$() or $(o)$(l:befriend_em_all/business_card)$(item)business cards$() can be placed inside.",
   "symphonia.page.mailbox3": "Once sent, the $(o)mailbird$() will take a while to deliver the mail and come back. If the receiver's $(item)Mailbox$() is full or there isn't one with that address, the $(o)mailbird$() will come back with the mail.",
 
+  "symphonia.entry.find_myths": "How to Find Myths",
+  "symphonia.page.find_myths0": "Myths are the key to unlock the secrets of this world. They're the ones who can teach you about the wonders of $(thing)Melomancy$() and the mysteries of $(thing)our world$(). While you explore the world and complete both $(item)Minecraft and Fauna & Orchestra advancements$(), Dan B. from the Jazzy Dammys might learn new myths. So don't forget to visit him every once in a while!",
+  "symphonia.page.find_myths1": "If you want to be notified when $(l)Dan B.$() learns a new myth, you can place a $(item)$(l:befriend_em_all/mailbox)Mailbox$() near your home, and he'll send you a letter every time he learns something new!",
+
   "symphonia.entry.imaginal_disk": "The Imaginal Disk",
 
   "symphonia.entry.mask_of_the_enlightened": "The Mask of the Enlightened",

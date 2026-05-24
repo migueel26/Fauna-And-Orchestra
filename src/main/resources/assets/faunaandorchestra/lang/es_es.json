@@ -875,6 +875,14 @@
   "symphonia.page.mailbox2": "Una vez tu ítem tiene la dirección correcta, es hora de mandarlo. Para ello, necesitarás un $(l)Buzón$() con su propio $(music)Guacamayo mensajero$(). Para conseguir tu propio cartero, necesitarás una $(item)pluma única$() de un $(o)$(l:musicians/macaw)$(thing)Guacamayo$(), símbolo de su confianza en ti.$(br2)Tras craftear el bloque, vendrá a esperar y repartir tu correo. Sólo los objetos con una $(thing)dirección$() o $(o)$(l:befriend_em_all/business_card)$(item)tarjetas de negocio$() se pueden colocar en su interior.",
   "symphonia.page.mailbox3": "Tras enviarlo, el $(o)mensajero$() se tomará un tiempo en entregarlo y volver a tu buzón. Si el $(item)buzón$() del receptor está lleno o no hay uno con esa dirección, el $(o)guacamayo$() volverá con el correo.",
 
+  "symphonia.entry.find_myths": "How to Find Myths",
+  "symphonia.page.find_myths0": "Myths are the key to unlock the secrets of this world. They're the ones who can teach you about the wonders of $(music)Melomancy$() and the mysteries of $(thing)our world$(). While you explore the world and complete both $(item)Minecraft and Fauna & Orchestra advancements$(), Dan B. from the $(l)Jazzy Dammys$() might learn new myths. So don't forget to visit him every once in a while!",
+  "symphonia.page.find_myths1": "If you want to be notified when $(l)Dan B.$() learns a new myth, you can place a $(item)$(l:mailbox)Mailbox$() near your home, and he'll send you a letter every time he learns something new!",
+
+  "symphonia.entry.imaginal_disk": "El disco imaginario",
+
+  "symphonia.entry.mask_of_the_enlightened": "La máscara de luz",
+
   "jei.faunaandorchestra.natural_recipe": "Recetas naturales",
   "jei.faunaandorchestra.requires_below": "Este bloque es requerido bajo el §eCuelgajarras§r como combustible",
   "jei.faunaandorchestra.melomancy": "Melomancia",
