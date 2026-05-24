@@ -1,0 +1,11 @@
+{
+  "name": "symphonia.entry.mask_of_the_enlightened",
+  "category": "faunaandorchestra:myths",
+  "icon": "faunaandorchestra:mask_of_the_enlightened",
+  "advancement": "faunaandorchestra:myths/dan_myth1",
+  "pages": [
+    {
+      "type": "empty"
+    }
+  ]
+}

@@ -1,8 +1,7 @@
 package net.migueel26.faunaandorchestra.networking;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
-import net.migueel26.faunaandorchestra.block.ModBlocks;
-import net.migueel26.faunaandorchestra.block.entity.TipCaseBlockEntity;
+import net.migueel26.faunaandorchestra.block.custom.OwnableBlockEntity;
 import net.migueel26.faunaandorchestra.entity.custom.*;
 import net.migueel26.faunaandorchestra.entity.custom.boss.TheGreatComposer;
 import net.migueel26.faunaandorchestra.entity.custom.jazzy_dammys.DanB;
@@ -27,8 +26,6 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.util.List;
@@ -173,16 +170,16 @@ public class ClientPayloadHandler {
         gui.setSubtitle(Component.literal(subtitle).withStyle(ChatFormatting.GREEN));
     }
 
-    public static void handleSyncTipCaseOnNetwork(SyncTipCaseOwnerPayloadS2C payload, IPayloadContext context) {
+    public static void handleSyncOwnableBEOnNetwork(SyncOwnableBEPayloadS2C payload, IPayloadContext context) {
         UUID uuid = payload.owner();
         BlockPos blockPos = new BlockPos(payload.x(), payload.y(), payload.z());
         ClientLevel level = Minecraft.getInstance().level;
 
-        BlockState state = level.getBlockState(blockPos);
-        Entity entity = ((ClientLevelAccessor) level).callGetEntities().get(uuid);
-        if (state.getBlock() == ModBlocks.TIP_CASE.get() && entity != null) {
-            BlockEntity blockEntity = level.getBlockEntity(blockPos);
-            ((TipCaseBlockEntity) blockEntity).setOwner(uuid);
+        if (level != null) {
+            Entity entity = ((ClientLevelAccessor) level).callGetEntities().get(uuid);
+            if (entity != null && level.getBlockEntity(blockPos) instanceof OwnableBlockEntity be) {
+                be.setOwner(uuid);
+            }
         }
     }
 }

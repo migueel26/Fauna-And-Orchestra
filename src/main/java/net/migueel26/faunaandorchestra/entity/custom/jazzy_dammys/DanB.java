@@ -7,7 +7,9 @@ import net.migueel26.faunaandorchestra.entity.goals.DanBFindJazzyDammysGoal;
 import net.migueel26.faunaandorchestra.entity.goals.JazzyDammysRunAwayGoal;
 import net.migueel26.faunaandorchestra.networking.StartAmbientMusicS2CPayload;
 import net.migueel26.faunaandorchestra.networking.StopMusicS2CPayload;
+import net.migueel26.faunaandorchestra.util.AdvancementUtil;
 import net.migueel26.faunaandorchestra.util.ModSavedData;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -38,6 +40,7 @@ public class DanB extends TravellingMusician implements Npc, GeoEntity {
     private static final RawAnimation PLAYING = RawAnimation.begin().thenPlay("playing");
     private static final RawAnimation WALK = RawAnimation.begin().thenPlay("walk");
     private static final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
+    public static final String MYTHS_DATA_KEY = "faunaandorchestra.myths";
     private final AnimationController<DanB> jazzyDammyController = new AnimationController<>(this, "dan_b_controller", 5, this::jazzyDammyState);
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
 
@@ -49,6 +52,9 @@ public class DanB extends TravellingMusician implements Npc, GeoEntity {
     protected int confidence;
     public static final String RESOURCE = "dialogue.faunaandorchestra.dan_b";
     public String currentDialogue;
+
+    // MYTHS
+    protected static final EntityDataAccessor<Integer> CURRENT_MYTH = SynchedEntityData.defineId(DanB.class, EntityDataSerializers.INT);
 
     // MUSIC
     protected List<Player> playersListening = new ArrayList<>();
@@ -67,6 +73,7 @@ public class DanB extends TravellingMusician implements Npc, GeoEntity {
         super.defineSynchedData(builder);
         builder.define(CONFIDENCE, 0);
         builder.define(GOOD_MORNING, true);
+        builder.define(CURRENT_MYTH, -1);
     }
 
     @Override
@@ -93,6 +100,8 @@ public class DanB extends TravellingMusician implements Npc, GeoEntity {
             if (level().isClientSide()) {
                 increaseDialogueTimer();
             } else {
+                activateMyth(player);
+
                 this.confidence = ModSavedData.getConfidence((ServerLevel) level(), this, player.getUUID());
                 setConfidence(confidence);
                 if (this.confidence >= COOL_CONFIDENCE) {
@@ -103,6 +112,39 @@ public class DanB extends TravellingMusician implements Npc, GeoEntity {
             return InteractionResult.SUCCESS;
         }
         return InteractionResult.FAIL;
+    }
+
+    private void activateMyth(Player player) {
+        CompoundTag persistentData = player.getPersistentData();
+        CompoundTag data = persistentData.getCompound(ServerPlayer.PERSISTED_NBT_TAG);
+        int myths = data.getInt(MYTHS_DATA_KEY);
+
+        boolean updatePersistentData = false;
+
+        if (!AdvancementUtil.hasAdvancement(player, FaunaAndOrchestra.MOD_ID, "myths/dan_myth0") && AdvancementUtil.hasAdvancement(player, ResourceLocation.DEFAULT_NAMESPACE, "story/lava_bucket")) {
+            ModAdvancements.DAN_MYTH0.get().trigger((ServerPlayer) player);
+            setCurrentMyth(0);
+            setGoodMorning(false);
+            data.putInt(MYTHS_DATA_KEY, myths | 1);
+            updatePersistentData = true;
+        } else if (!AdvancementUtil.hasAdvancement(player, FaunaAndOrchestra.MOD_ID, "myths/dan_myth1") && AdvancementUtil.hasAdvancement(player, ResourceLocation.DEFAULT_NAMESPACE, "adventure/hero_of_the_village")) {
+            ModAdvancements.DAN_MYTH1.get().trigger((ServerPlayer) player);
+            setCurrentMyth(1);
+            setGoodMorning(false);
+            data.putInt(MYTHS_DATA_KEY, myths | 2);
+            updatePersistentData = true;
+        } else if (!AdvancementUtil.hasAdvancement(player, FaunaAndOrchestra.MOD_ID, "myths/dan_myth2") && AdvancementUtil.hasAdvancement(player, ResourceLocation.DEFAULT_NAMESPACE, "nether/explore_nether")) {
+            ModAdvancements.DAN_MYTH2.get().trigger((ServerPlayer) player);
+            setCurrentMyth(2);
+            data.putInt(MYTHS_DATA_KEY, myths | 4);
+            setGoodMorning(false);
+            updatePersistentData = true;
+        }
+
+        if (updatePersistentData) {
+            persistentData.put(ServerPlayer.PERSISTED_NBT_TAG, data);
+        }
+
     }
 
     @Override
@@ -118,7 +160,9 @@ public class DanB extends TravellingMusician implements Npc, GeoEntity {
         boolean goodMorning = entityData.get(GOOD_MORNING);
         this.confidence = getConfidence();
         if (getDialogueTimer() <= 5) {
-            if (confidence == -1) {
+            if (getCurrentMyth() != -1) {
+                dialogue = Component.translatable(RESOURCE + ".myth" + getCurrentMyth()).getString();
+            } else if (confidence == -1) {
                 dialogue = Component.translatable(RESOURCE + "2").getString();
                 String[] arr = dialogue.split("%");
                 dialogue = arr[0] + player.getDisplayName().getString() + arr[1];
@@ -133,9 +177,9 @@ public class DanB extends TravellingMusician implements Npc, GeoEntity {
                 String[] arr = dialogue.split("%");
                 dialogue = arr[0] + player.getDisplayName().getString() + arr[1];
             } else {
-                int randomDialogue = random.nextInt(3, 20);
+                int randomDialogue = random.nextIntBetweenInclusive(3, 20);
                 dialogue = Component.translatable(RESOURCE + randomDialogue).getString();
-                if (randomDialogue >= 16 && confidence > COOL_CONFIDENCE) dialogue = Component.translatable(RESOURCE + randomDialogue + "s").getString();
+                if (randomDialogue >= 16 && confidence > COOL_CONFIDENCE && randomDialogue < 20) dialogue = Component.translatable(RESOURCE + randomDialogue + "s").getString();
             }
             currentDialogue = dialogue;
         }
@@ -218,6 +262,14 @@ public class DanB extends TravellingMusician implements Npc, GeoEntity {
 
     public void setDelroy(Delroy delroy) {
         this.delroy = delroy;
+    }
+
+    public void setCurrentMyth(int myth) {
+        entityData.set(CURRENT_MYTH, myth);
+    }
+
+    public int getCurrentMyth() {
+        return entityData.get(CURRENT_MYTH);
     }
 
     @Override

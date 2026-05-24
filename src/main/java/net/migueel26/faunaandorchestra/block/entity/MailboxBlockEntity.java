@@ -3,6 +3,7 @@ package net.migueel26.faunaandorchestra.block.entity;
 import net.migueel26.faunaandorchestra.block.ModBlockEntities;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.block.custom.MailboxBlock;
+import net.migueel26.faunaandorchestra.block.custom.OwnableBlockEntity;
 import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.entity.custom.koala_workers.WorkerKoalaEntity;
@@ -36,7 +37,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 import javax.annotation.Nullable;
 import java.util.Optional;
 
-public class MailboxBlockEntity extends BlockEntity implements GeoBlockEntity, MenuProvider {
+public class MailboxBlockEntity extends OwnableBlockEntity implements GeoBlockEntity, MenuProvider {
     protected final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
     protected final RawAnimation ARRIVE = RawAnimation.begin().thenPlay("arrive");
     protected final AnimationController<MailboxBlockEntity> controller = new AnimationController<>(this, "mailbox_controller", 0, this::animController)
@@ -162,6 +163,16 @@ public class MailboxBlockEntity extends BlockEntity implements GeoBlockEntity, M
         return allDelivered;
     }
 
+    public int getEmptySlotIndex() {
+        int emptySlot = -1;
+        for (int slot = 0; slot < inventory.getSlots() && emptySlot == -1; slot++) {
+            if (inventory.getStackInSlot(slot).isEmpty()) {
+                emptySlot = slot;
+            }
+        }
+        return emptySlot;
+    }
+
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int i, Inventory inventory, Player player) {
@@ -190,7 +201,9 @@ public class MailboxBlockEntity extends BlockEntity implements GeoBlockEntity, M
 
     @Override
     public CompoundTag getUpdateTag(HolderLookup.Provider pRegistries) {
-        return saveWithoutMetadata(pRegistries);
+        CompoundTag tag = saveWithoutMetadata(pRegistries);
+        tag.putUUID("Owner", owner);
+        return tag;
     }
 
     @Override

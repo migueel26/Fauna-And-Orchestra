@@ -7,6 +7,7 @@ import net.migueel26.faunaandorchestra.block.entity.TipCaseBlockEntity;
 import net.migueel26.faunaandorchestra.entity.custom.Faust;
 import net.migueel26.faunaandorchestra.entity.custom.Orion;
 import net.migueel26.faunaandorchestra.entity.custom.TalkableEntity;
+import net.migueel26.faunaandorchestra.entity.custom.jazzy_dammys.DanB;
 import net.migueel26.faunaandorchestra.mixins.client.accessors.ClientLevelAccessor;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.minecraft.client.DeltaTracker;
@@ -88,6 +89,10 @@ public class DialogueScreen {
                 if (entity.getDialogueTimer() > 260) {
                     entity.resetDialogueTimer();
                     entity.setGoodMorning(false);
+
+                    if (entity instanceof DanB danB) {
+                        danB.setCurrentMyth(-1);
+                    }
                 }
 
                 guiGraphics.blit(BACKGROUND, DEFAULT_BACKGROUND_X + xOffset(guiGraphics), currBackY - currOffset + yOffset(guiGraphics),0,0,223, TRANSITION_DURATION);

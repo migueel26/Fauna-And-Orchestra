@@ -165,9 +165,9 @@ public class ModEventBusEvents {
                 (payload, context) -> ClientPayloadHandler.handleShowTitleOnNetwork(payload, context)
         );
         registrar.playToClient(
-                SyncTipCaseOwnerPayloadS2C.TYPE,
-                SyncTipCaseOwnerPayloadS2C.STREAM_CODEC,
-                (payload, context) -> ClientPayloadHandler.handleSyncTipCaseOnNetwork(payload, context)
+                SyncOwnableBEPayloadS2C.TYPE,
+                SyncOwnableBEPayloadS2C.STREAM_CODEC,
+                (payload, context) -> ClientPayloadHandler.handleSyncOwnableBEOnNetwork(payload, context)
         );
     }
 

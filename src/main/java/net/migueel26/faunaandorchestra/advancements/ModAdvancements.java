@@ -28,6 +28,12 @@ public class ModAdvancements {
     public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> PLAYER_CANON = register("player_canon");
     public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> TAME_MUSICIAN = register("tame_musician");
     public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> TAME_FROG = register("tame_frog");
+
+    // DAN MYTHS
+    public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> DAN_MYTH0 = register("dan_myth0");
+    public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> DAN_MYTH1 = register("dan_myth1");
+    public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> DAN_MYTH2 = register("dan_myth2");
+
     public static <T extends CriterionTrigger<?>> DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> register(String name) {
         return TRIGGERS.register(name, CustomSimpleTrigger::new);
     }

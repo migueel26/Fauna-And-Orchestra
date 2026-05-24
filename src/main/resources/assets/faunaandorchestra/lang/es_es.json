@@ -82,6 +82,7 @@
   "item.faunaandorchestra.seedy_apple": "Manzana con semillas",
   "item.faunaandorchestra.flora_forta": "Flora forta",
   "item.faunaandorchestra.floral_boots": "Botas florales",
+  "item.faunaandorchestra.letter_dan": "Carta de Dan",
 
   "item.faunaandorchestra.prop_case": "Neceser",
   "item.faunaandorchestra_clothing.desc": "Ropa para Animales",
@@ -151,6 +152,7 @@
   "item.faunaandorchestra.macaw_feather.desc": "Dado por los guacamayos como símbolo de lealtad a sus amigos",
   "item.faunaandorchestra.business_card.desc": "§7Hey! Si alguna vez necesitas a un sastre u otro empleado, envíame esta carta con tu §6guacamayo mensajero",
   "item.faunaandorchestra.kit.desc": "Este kit tiene todo lo necesario para que tu Koala se vuelva un",
+  "item.faunaandorchestra.letter_dan.desc": "¡Ey! Creo que he encontrado un nuevo mito y deberías echarle un vistazo. Ven a verme en cuanto puedas. - Dan B.",
 
   "item.faunaandorchestra.fortune_cookie_phrase0": "¡Eres el GOAT!",
   "item.faunaandorchestra.fortune_cookie_phrase1": "No soy Nelly, pero tú eres el dilema",
@@ -582,7 +584,7 @@
   "dialogue.faunaandorchestra.dan_b1": "¡%! ¡Has vuelto! ¿Listo para un poco de jazz?",
   "dialogue.faunaandorchestra.dan_b1s": "¡¿Ese es mi amigo %?! ¡Cuánto tiempo! ¿Qué tal?",
   "dialogue.faunaandorchestra.dan_b2": "Eso no moló, %. ¡Nos asustamos la otra vez!",
-  "dialogue.faunaandorchestra.dan_b3": "Es fascinante cómo los mitos me ayudan a entender el mundo.",
+  "dialogue.faunaandorchestra.dan_b3": "Es fascinante cómo los mitos me ayudan a entender todo.",
   "dialogue.faunaandorchestra.dan_b4": "¡Denise es mi melliza! ¡Le gano por 5 minutos!",
   "dialogue.faunaandorchestra.dan_b5": "Denzel es el tío más genial. ¡La batería SÍ que es lo suyo!",
   "dialogue.faunaandorchestra.dan_b6": "Delroy es mi primo pequeño. Es algo tontorrón, ¡es su encanto!",
@@ -595,6 +597,7 @@
   "dialogue.faunaandorchestra.dan_b13": "Delroy es un liante. ¿Cuántos saxos ha roto ya? ¿Diez?",
   "dialogue.faunaandorchestra.dan_b14": "Aprendo mucho conociendo animales en cada posada.",
   "dialogue.faunaandorchestra.dan_b15": "Éramos tres hasta que Delroy creció. ¡No dudó ni un segundo!",
+  "dialogue.faunaandorchestra.dan_b20": "Si tienes un buzón, ¡te avisaré cuando encuentre un mito!",
 
   "dialogue.faunaandorchestra.dan_b16": "¿Su voz? ¿Q-qué pasa con ella? No puedo ayudarte, lo siento.",
   "dialogue.faunaandorchestra.dan_b17": "¿Mi meta? Tocar el piano y... esto... no puedo decírtelo.",
@@ -604,6 +607,10 @@
   "dialogue.faunaandorchestra.dan_b17s": "Sólo soy un pianista, pero... ¿tendré un propósito mayor?",
   "dialogue.faunaandorchestra.dan_b18s": "Busco mitos para hallar respuestas, pero no sé para qué.",
   "dialogue.faunaandorchestra.dan_b19s": "Los amo, son mi familia. Sólo desearía poder entenderlos.",
+
+  "dialogue.faunaandorchestra.dan_b.myth0": "¿Has escuchado sobre el §lDisco imaginario§r de Madre?",
+  "dialogue.faunaandorchestra.dan_b.myth1": "La §lMáscara de Luz§r es un artefacto de una arcaica tribu.",
+  "dialogue.faunaandorchestra.dan_b.myth2": "Algunos koalas cosen botas con las que §landas en el aire§r.",
 
   "dialogue.faunaandorchestra.delroy0": "...",
   "dialogue.faunaandorchestra.denise0": "...",
@@ -627,8 +634,8 @@
   "symphonia.category.natural_recipes.desc": "Para comprender la $(o)naturaleza$() de nuestro mundo, necesitarás aprender cómo $(o)conectar$() con él. Mediante las $(thing)Recetas Naturales$() podrás conectar con las criaturas, descubrir su mundo y, finalmente, dominar el herbalismo.",
   "symphonia.category.befriend_em_all": "Befriend 'Em All!",
   "symphonia.category.befriend_em_all.desc": "Placeholder",
-  "symphonia.category.misc": "Misceláneo",
-  "symphonia.category.misc.desc": "Placeholder",
+  "symphonia.category.myths": "Mitos & Leyendas",
+  "symphonia.category.myths.desc": "Placeholder",
 
   "symphonia.entry.welcome": "Intro a la Musicalidad",
   "symphonia.page.welcome0": "$(o)¡Bienvenido a nuestro mundo musical!$() Da igual si encontraste este libro, lo crafteaste o te lo di: ¡este es tu primer paso en lo que será una gran y melódica aventura! Sea tu objetivo darle vida a tu casa con una orquesta, o volverte un maestro de las $(o)$(music)artes melománticas$(), no importa: esta es tu guía.",
@@ -891,6 +898,6 @@
 
   "jei.faunaandorchestra.discorded_flower": "La §5Flor discórdica§r puede obtenerse al mutar una §5Margarita§r en un §oNúcleo de discordia§r.",
   "jei.faunaandorchestra.discord_bomb": "La §5Bomba de discordia§r puede obtenerse al mutar una §5Fruta boogie§r en un §oNúcleo de discordia§r.",
-  "jei.faunaandorchestra.transmuted_voice": "La §5Voz transmutada§r puede obtenerse al mutar una §5Voz§r en un §oNúcleo de discordia§r.",
+  "jei.faunaandorchestra.transmuted_voice": "La §5Voz transmutada§r puede obtenerse al mutar una §5Voz§r en un §oNúcleo de discordia§r."
 }
 

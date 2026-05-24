@@ -1,0 +1,11 @@
+{
+  "name": "symphonia.entry.imaginal_disk",
+  "category": "faunaandorchestra:myths",
+  "icon": "faunaandorchestra:imaginal_disk",
+  "advancement": "faunaandorchestra:myths/dan_myth0",
+  "pages": [
+    {
+      "type": "empty"
+    }
+  ]
+}

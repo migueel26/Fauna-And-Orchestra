@@ -1,16 +1,25 @@
 package net.migueel26.faunaandorchestra.block.custom;
 
 import com.mojang.serialization.MapCodec;
+import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.block.entity.MailboxBlockEntity;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
+import net.migueel26.faunaandorchestra.entity.custom.jazzy_dammys.DanB;
 import net.migueel26.faunaandorchestra.entity.custom.misc.MailbirdMacawEntity;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
+import net.migueel26.faunaandorchestra.util.AdvancementUtil;
 import net.migueel26.faunaandorchestra.util.BlocksUtil;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
@@ -20,6 +29,8 @@ import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.ItemLore;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -37,6 +48,8 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class MailboxBlock extends HorizontalDirectionalBlock implements EntityBlock {
     protected static final int TIME_TO_SEND = 10; //300; // SECONDS
@@ -93,6 +106,7 @@ public class MailboxBlock extends HorizontalDirectionalBlock implements EntityBl
         // We always access the lower half inventory
         if (state.getValue(MAILBIRD) && level.getBlockEntity(bePos) instanceof MailboxBlockEntity mailbox) {
             if (!level.isClientSide()) {
+                addDanLetter(mailbox, player);
                 player.openMenu(new SimpleMenuProvider(mailbox, mailbox.getDisplayName()), bePos);
             } else {
                 player.playSound(SoundEvents.BARREL_OPEN, 1.5f, 1.0f + ((level.random.nextFloat()/2)-0.25f));
@@ -101,6 +115,58 @@ public class MailboxBlock extends HorizontalDirectionalBlock implements EntityBl
             player.displayClientMessage(Component.translatable("block.faunaandorchestra.mailbox.no_mailbird"), true);
         }
         return ItemInteractionResult.SUCCESS;
+    }
+
+    private void addDanLetter(MailboxBlockEntity blockEntity, Player player) {
+        CompoundTag persistentData = player.getPersistentData();
+        CompoundTag data = persistentData.getCompound(ServerPlayer.PERSISTED_NBT_TAG);
+        int myths = data.getInt(DanB.MYTHS_DATA_KEY);
+        int slot = blockEntity.getEmptySlotIndex();
+
+        if (slot == -1 || !blockEntity.getOwner().equals(player.getUUID())) return;
+
+        ItemStack stack = new ItemStack(Items.PAPER);
+
+        stack.applyComponents(DataComponentMap.builder()
+                        .set(DataComponents.ITEM_NAME, Component.translatable("item.faunaandorchestra.letter_dan"))
+                        .set(DataComponents.LORE, new ItemLore(List.of(Component.translatable("item.faunaandorchestra.letter_dan.desc").withStyle(ChatFormatting.GRAY))))
+                .build());
+
+        boolean addLetter = false;
+
+        if (canReceiveMythZero(player, myths)) {
+            data.putInt(DanB.MYTHS_DATA_KEY, myths | 1);
+            addLetter = true;
+        } else if (canReceiveMythOne(player, myths)) {
+            data.putInt(DanB.MYTHS_DATA_KEY, myths | 2);
+            addLetter = true;
+        } else if (canReceiveMythTwo(player, myths)) {
+            data.putInt(DanB.MYTHS_DATA_KEY, myths | 4);
+            addLetter = true;
+        }
+
+        if (addLetter) {
+            persistentData.put(ServerPlayer.PERSISTED_NBT_TAG, data);
+            blockEntity.inventory.setStackInSlot(slot, stack);
+        }
+    }
+
+    public boolean canReceiveMythZero(Player player, int myths) {
+        return (myths & 1) == 0
+                && !AdvancementUtil.hasAdvancement(player, FaunaAndOrchestra.MOD_ID, "dan_myth0")
+                && AdvancementUtil.hasAdvancement(player, ResourceLocation.DEFAULT_NAMESPACE, "story/lava_bucket");
+    }
+
+    public boolean canReceiveMythOne(Player player, int myths) {
+        return (myths & 2) == 0
+                && !AdvancementUtil.hasAdvancement(player, FaunaAndOrchestra.MOD_ID, "dan_myth1")
+                && AdvancementUtil.hasAdvancement(player, ResourceLocation.DEFAULT_NAMESPACE, "adventure/hero_of_the_village");
+    }
+
+    public boolean canReceiveMythTwo(Player player, int myths) {
+        return (myths & 4) == 0
+                && !AdvancementUtil.hasAdvancement(player, FaunaAndOrchestra.MOD_ID, "dan_myth2")
+                && AdvancementUtil.hasAdvancement(player, ResourceLocation.DEFAULT_NAMESPACE, "nether/explore_nether");
     }
 
     @Override
@@ -171,6 +237,10 @@ public class MailboxBlock extends HorizontalDirectionalBlock implements EntityBl
     public void setPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
         BlockPos blockpos = pos.above();
         level.setBlock(blockpos, this.defaultBlockState().setValue(HALF, DoubleBlockHalf.UPPER).setValue(FACING, state.getValue(FACING)).setValue(MAILBIRD, state.getValue(MAILBIRD)), 3);
+        if (state.getValue(HALF) == DoubleBlockHalf.LOWER) {
+            ((MailboxBlockEntity) level.getBlockEntity(pos)).setOwner(placer.getUUID());
+            ((MailboxBlockEntity) level.getBlockEntity(blockpos)).setOwner(placer.getUUID());
+        }
     }
 
     @Nullable
