@@ -2,9 +2,16 @@ package net.migueel26.faunaandorchestra.util;
 
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.block.entity.MelomancyCauldronBlockEntity;
+import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.effect.potion.ModPotions;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.component.DataComponentPatch;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -30,6 +37,10 @@ public class RecipesUtil {
             ModItems.VOICE.get(), new Pair<>(10, 3.5f)
     );
 
+    public static List<Item> ITEMS_RECIPE = List.of(
+            ModItems.FLORAL_BOOTS.asItem()
+    );
+
     public static boolean isDiscordNucleiIngredient(ItemStack stack) {
         return DISCORD_NUCLEI.containsKey(stack.getItem());
     }
@@ -40,6 +51,22 @@ public class RecipesUtil {
 
     public static Pair<Integer, Float> getDiscordNucleiIndexes(ItemStack stack) {
         return UNSTABILITY_INDEXES.get(stack.getItem());
+    }
+
+    public static ItemStack recipeOfItem(Item item) {
+        ItemStack stack = new ItemStack(ModItems.SEWING_RECIPE.get());
+
+        stack.applyComponents(DataComponentPatch.builder()
+                .set(ModDataComponents.FAUNA_NAME.get(), BuiltInRegistries.ITEM.getKey(item).toString())
+                .set(DataComponents.ITEM_NAME, Component.translatable(item.getDescriptionId())
+                        .append(Component.translatable("item.faunaandorchestra.sewing_recipe")))
+                .build());
+
+        return stack;
+    }
+
+    public static List<ItemStack> getAllRecipeItems() {
+        return ITEMS_RECIPE.stream().map(RecipesUtil::recipeOfItem).toList();
     }
 
     public static List<ItemStack> toList(ItemStackHandler inventory) {

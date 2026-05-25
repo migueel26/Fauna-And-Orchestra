@@ -85,6 +85,7 @@
   "item.faunaandorchestra.floral_boots": "Floral Boots",
   "item.faunaandorchestra.letter_dan": "Letter from Dan",
   "item.faunaandorchestra.unlit_mask": "Unlit Mask",
+  "item.faunaandorchestra.sewing_recipe": " Recipe",
 
   "item.faunaandorchestra.prop_case": "Prop Case",
   "item.faunaandorchestra_clothing.desc": "Clothing Item",
@@ -156,6 +157,7 @@
   "item.faunaandorchestra.kit.desc": "This kit has everything needed for a Koala to become a",
   "item.faunaandorchestra.letter_dan.desc": "Hey! I think I might've found a new myth and you should check it out! Come see me whenever you can - Dan B.",
   "item.faunaandorchestra.unlit_mask.desc": "Under the pale dawn, where scythes of emerald gleam,\nOffer this mask to her who dances in a dream;\nSurrender the shell before the night is gone.",
+  "item.faunaandorchestra.sewing_recipe.desc": "You can't understand the pattern... maybe another animal could help you with this?",
 
   "item.faunaandorchestra.fortune_cookie_phrase0": "You're GOATED!",
   "item.faunaandorchestra.fortune_cookie_phrase1": "Dream only a dream if work don't follow it",
@@ -303,6 +305,7 @@
   "text.faunaandorchestra.pick_up_composer": "Pick the Great Baton up and claim your prize!",
   "text.faunaandorchestra.sleeping_worker_koala": "Koala Workers fall asleep if there isn't an orchestra playing nearby!",
   "text.faunaandorchestra.myth_locked": "This myth is locked! Try to find the right musical animal to tell it to you",
+  "text.faunaandorchestra.new_recipe": "The Koala has learned a new recipe!",
 
   "entity.faunaandorchestra.mantis": "Mantis",
   "entity.faunaandorchestra.penguin": "Baby Penguin",
@@ -620,7 +623,7 @@
 
   "dialogue.faunaandorchestra.dan_b.myth0": "Have you ever heard of Mother's §lImaginal Disk§r?",
   "dialogue.faunaandorchestra.dan_b.myth1": "The §lMask of the Light§r is the remnant of an ancient city.",
-  "dialogue.faunaandorchestra.dan_b.myth2": "Some koalas can sew boots which can make you §lwalk on air§r.",
+  "dialogue.faunaandorchestra.dan_b.myth2": "Some say Floral Boots can make you §lwalk on air§r.",
 
   "dialogue.faunaandorchestra.delroy0": "...",
   "dialogue.faunaandorchestra.denise0": "...",
@@ -897,6 +900,9 @@
   "symphonia.page.mask_of_the_enlightened0": "Ages ago, a great civilization praised the Sun and its light, channeling its power through the $(l)Mask of the Enlightened$().$(br2)In order to regain its power from the $(thing)Unlit Mask$() you have, you'll need to build an altar in $(item)$(t:Y >= 170)great heights$() and give it to your $(item)Mantis$() musician. It must be $(item)dawn$(), when the sun is rising behind the horizon.",
   "symphonia.page.mask_of_the_enlightened1": "Altar of the Light",
   "symphonia.page.mask_of_the_enlightened2": "The altar must be oriented to the $(item)east$(), with its light going through the $(o)Gold Block$().",
+
+  "symphonia.entry.floral_boots": "The Floral Boots",
+  "symphonia.page.floral_boots0": "The $(l)Floral Boots$() are a pair of boots that are said to be made of the essence of flowers. They allow you to $(item)walk on air$() conjuring a bed of flowers under your feet.$(br2)According to Dan B., the $(item)book$() given to you contains the recipe for these boots, but it's written in a very cryptic way. Do you know somebody that could help you $(o)decipher and make it$()?",
 
   "jei.faunaandorchestra.natural_recipe": "Natural Recipe",
   "jei.faunaandorchestra.requires_below": "This block is required below the §eJar Rack§r with the jar",

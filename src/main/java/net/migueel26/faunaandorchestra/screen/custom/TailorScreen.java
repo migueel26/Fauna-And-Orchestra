@@ -3,6 +3,7 @@ package net.migueel26.faunaandorchestra.screen.custom;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.entity.custom.koala_workers.TailorKoalaEntity;
+import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.networking.TailorKoalaStartSewingC2SPayload;
 import net.migueel26.faunaandorchestra.recipe.ModRecipes;
 import net.migueel26.faunaandorchestra.recipe.SewingRecipe;
@@ -22,6 +23,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.MerchantMenu;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.trading.MerchantOffer;
@@ -67,15 +69,25 @@ public class TailorScreen extends AbstractContainerScreen<TailorMenu> {
         if (level != null) {
             catalogSize = 0;
             for (var recipe : level.getRecipeManager().getAllRecipesFor(ModRecipes.SEWING_TYPE.get())) {
-                this.catalogOfferButtons[catalogSize] = this.addRenderableWidget(
-                        new CatalogOfferButton(leftPos + 5, 0, catalogSize, recipe, button -> {
-                            PacketDistributor.sendToServer(new TailorKoalaStartSewingC2SPayload(tailor.getUUID(), true, recipe.value().output()));
+                if (isAptRecipe(recipe.value())) {
+                    this.catalogOfferButtons[catalogSize] = this.addRenderableWidget(
+                            new CatalogOfferButton(leftPos + 5, 0, catalogSize, recipe, button -> {
+                                PacketDistributor.sendToServer(new TailorKoalaStartSewingC2SPayload(tailor.getUUID(), true, recipe.value().output()));
 
-                }));
-                catalogSize++;
+                            }));
+                    catalogSize++;
+                }
             }
         }
 
+    }
+
+    public boolean isAptRecipe(SewingRecipe recipe) {
+        ItemStack item = recipe.output();
+        if (item.is(ModItems.FLORAL_BOOTS)) {
+            return (tailor.getLearntRecipes() & 1) != 0;
+        }
+        return true;
     }
 
     private void renderScroller(GuiGraphics guiGraphics, int posX, int posY) {

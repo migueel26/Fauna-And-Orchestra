@@ -198,13 +198,6 @@ public class MailboxBlockEntity extends OwnableBlockEntity implements GeoBlockEn
     }
 
     @Override
-    public CompoundTag getUpdateTag(HolderLookup.Provider pRegistries) {
-        CompoundTag tag = saveWithoutMetadata(pRegistries);
-        tag.putUUID("Owner", owner);
-        return tag;
-    }
-
-    @Override
     public Component getDisplayName() {
         return getBlockState().getBlock().getName();
     }

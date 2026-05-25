@@ -3,7 +3,6 @@
   "category": "faunaandorchestra:myths",
   "icon": "faunaandorchestra:mask_of_the_enlightened",
   "advancement": "faunaandorchestra:myths/dan_myth1",
-  "turnin": "faunaandorchestra:diskinserted",
   "pages": [
     {
       "type": "text",

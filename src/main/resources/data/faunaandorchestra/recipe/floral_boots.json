@@ -1,0 +1,27 @@
+{
+  "type": "faunaandorchestra:sewing",
+  "ingredients": [
+    {
+      "ingredient": {
+        "item": "faunaandorchestra:floating_blossom"
+      },
+      "amount": 2
+    },
+    {
+      "ingredient": {
+        "item": "faunaandorchestra:cotton"
+      },
+      "amount": 4
+    },
+    {
+      "ingredient": {
+        "item": "faunaandorchestra:flora_forta"
+      },
+      "amount": 4
+    }
+  ],
+  "result": {
+    "id": "faunaandorchestra:floral_boots",
+    "count": 1
+  }
+}

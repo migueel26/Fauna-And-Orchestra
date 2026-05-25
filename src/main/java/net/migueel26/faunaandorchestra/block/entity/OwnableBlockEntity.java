@@ -53,7 +53,7 @@ public abstract class OwnableBlockEntity extends BlockEntity {
     @Override
     public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
         CompoundTag compoundTag = new CompoundTag();
-        compoundTag.putUUID("Owner", owner);
+        if (owner != null) compoundTag.putUUID("Owner", owner);
         return compoundTag;
     }
 

@@ -210,12 +210,12 @@ public class ModItems {
             });
     public static final DeferredItem<Item> COTTON = ITEMS.register("cotton",
             () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> COTTON_PLANT_SEEDS = ITEMS.register("cotton_seeds",
+            () -> new ItemNameBlockItem(ModBlocks.COTTON_PLANT.get(), new Item.Properties()));
     public static final DeferredItem<Item> SEEDY_APPLE = ITEMS.register("seedy_apple",
             () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> FLORA_FORTA = createRegularDescriptionItem("flora_forta");
-    public static final DeferredItem<Item> UNLIT_MASK = createRegularDescriptionItem("unlit_mask", new Item.Properties().stacksTo(1).rarity(Rarity.EPIC));
-    public static final DeferredItem<Item> COTTON_PLANT_SEEDS = ITEMS.register("cotton_seeds",
-            () -> new ItemNameBlockItem(ModBlocks.COTTON_PLANT.get(), new Item.Properties()));
+    public static final DeferredItem<Item> UNLIT_MASK = createRegularDescriptionItem("unlit_mask", new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON));
 
     public static final DeferredItem<Item> FLUFFY_BOOTS = ITEMS.register("fluffy_boots",
             () -> new FluffyBootsItem(ModArmorMaterials.PENGUIN_FEATHER, ArmorItem.Type.BOOTS, new Item.Properties().durability(ArmorItem.Type.BOOTS.getDurability(25))));
@@ -338,6 +338,7 @@ public class ModItems {
     // MISC
     public static final DeferredItem<Item> VOICE = ITEMS.register("voice",
             () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> SEWING_RECIPE = createRegularDescriptionItem("sewing_recipe", new Item.Properties().rarity(Rarity.UNCOMMON));
 
     public static final DeferredItem<Item> UNLOCKER = ITEMS.register("unlocker",
             () -> new Item(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)) {

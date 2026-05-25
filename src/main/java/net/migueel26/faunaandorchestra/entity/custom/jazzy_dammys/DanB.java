@@ -5,10 +5,12 @@ import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.entity.custom.TravellingMusician;
 import net.migueel26.faunaandorchestra.entity.goals.DanBFindJazzyDammysGoal;
 import net.migueel26.faunaandorchestra.entity.goals.JazzyDammysRunAwayGoal;
+import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.networking.StartAmbientMusicS2CPayload;
 import net.migueel26.faunaandorchestra.networking.StopMusicS2CPayload;
 import net.migueel26.faunaandorchestra.util.AdvancementUtil;
 import net.migueel26.faunaandorchestra.util.ModSavedData;
+import net.migueel26.faunaandorchestra.util.RecipesUtil;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -140,6 +142,8 @@ public class DanB extends TravellingMusician implements Npc, GeoEntity {
             data.putInt(MYTHS_DATA_KEY, myths | 4);
             setGoodMorning(false);
             updatePersistentData = true;
+
+            player.addItem(RecipesUtil.recipeOfItem(ModItems.FLORAL_BOOTS.get()));
         }
 
         if (updatePersistentData) {

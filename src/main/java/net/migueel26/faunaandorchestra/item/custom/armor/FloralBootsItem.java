@@ -1,5 +1,6 @@
 package net.migueel26.faunaandorchestra.item.custom.armor;
 
+import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.block.custom.FlowerPathBlock;
 import net.migueel26.faunaandorchestra.client.item.armor.FloralBootsRenderer;
@@ -75,6 +76,7 @@ public class FloralBootsItem extends ArmorItem implements GeoItem {
                     if (player.tickCount % 20 == 0) {
                         stack.hurtAndBreak(1, (ServerLevel) level, player instanceof ServerPlayer sp ? sp : null,
                                 item -> player.onEquippedItemBroken(item, EquipmentSlot.FEET));
+                        ModAdvancements.FIRST_RESOLVED_MYTH.get().trigger((ServerPlayer) player);
                     }
                 }
 

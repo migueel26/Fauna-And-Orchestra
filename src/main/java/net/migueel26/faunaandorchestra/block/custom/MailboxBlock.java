@@ -147,7 +147,10 @@ public class MailboxBlock extends HorizontalDirectionalBlock implements EntityBl
 
         if (addLetter) {
             persistentData.put(ServerPlayer.PERSISTED_NBT_TAG, data);
-            blockEntity.inventory.setStackInSlot(slot, stack);
+
+            if (AdvancementUtil.hasAdvancement(player, FaunaAndOrchestra.MOD_ID, "meet_jazzy_dammys")) {
+                blockEntity.inventory.setStackInSlot(slot, stack);
+            }
         }
     }
 

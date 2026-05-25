@@ -10,6 +10,7 @@ import net.migueel26.faunaandorchestra.entity.custom.TalkableEntity;
 import net.migueel26.faunaandorchestra.entity.custom.WanderingKoalaEntity;
 import net.migueel26.faunaandorchestra.entity.goals.FaunaRandomLookAroundGoal;
 import net.migueel26.faunaandorchestra.item.ModItems;
+import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
 import net.migueel26.faunaandorchestra.recipe.ModRecipes;
 import net.migueel26.faunaandorchestra.recipe.SewingRecipe;
 import net.migueel26.faunaandorchestra.recipe.SizedIngredient;
@@ -21,6 +22,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
@@ -32,12 +34,14 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -48,6 +52,7 @@ import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.npc.Npc;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
@@ -86,6 +91,7 @@ public class TailorKoalaEntity extends AbstractKoalaWorker {
     public static final int EAT_TIME = (START_PAUSE + END_PAUSE) / 3;
     protected static final EntityDataAccessor<Boolean> SEWING = SynchedEntityData.defineId(TailorKoalaEntity.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<ItemStack> CATALOG_CHOICE = SynchedEntityData.defineId(TailorKoalaEntity.class, EntityDataSerializers.ITEM_STACK);
+    protected static final EntityDataAccessor<Integer> LEARNT_RECIPES = SynchedEntityData.defineId(TailorKoalaEntity.class, EntityDataSerializers.INT);
     public ItemStackHandler inventory = new ItemStackHandler(12);
     public TailorKoalaEntity(EntityType<? extends AgeableMob> entityType, Level level) {
         super(entityType, level);
@@ -96,6 +102,7 @@ public class TailorKoalaEntity extends AbstractKoalaWorker {
         super.defineSynchedData(builder);
         builder.define(CATALOG_CHOICE, ItemStack.EMPTY);
         builder.define(SEWING, false);
+        builder.define(LEARNT_RECIPES, 0);
     }
 
     @Override
@@ -142,6 +149,7 @@ public class TailorKoalaEntity extends AbstractKoalaWorker {
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         this.entityData.set(SEWING, compound.getBoolean("Sewing"));
+        this.entityData.set(LEARNT_RECIPES, compound.getInt("LearntRecipes"));
         if (compound.contains("Inventory")) {
             this.inventory.deserializeNBT(this.registryAccess(), compound.getCompound("Inventory"));
         }
@@ -153,6 +161,7 @@ public class TailorKoalaEntity extends AbstractKoalaWorker {
 
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
+        compound.putInt("LearntRecipes", this.entityData.get(LEARNT_RECIPES));
         compound.put("Inventory", this.inventory.serializeNBT(this.registryAccess()));
         compound.putBoolean("Sewing", isSewing());
         if (!getCatalogChoice().isEmpty()) {
@@ -338,6 +347,24 @@ public class TailorKoalaEntity extends AbstractKoalaWorker {
             player.displayClientMessage(Component.translatable("text.faunaandorchestra.sleeping_worker_koala"), true);
             return InteractionResult.SUCCESS;
 
+        } else if (stack.is(ModItems.SEWING_RECIPE)) {
+            String itemString = stack.get(ModDataComponents.FAUNA_NAME);
+            ResourceLocation location = ResourceLocation.parse(itemString);
+            Item item = BuiltInRegistries.ITEM.get(location);
+
+            if (item.equals(ModItems.FLORAL_BOOTS.get()) && (getLearntRecipes() & 1) == 0) {
+                if (!level().isClientSide() && level() instanceof ServerLevel serverLevel) {
+                    serverLevel.playSound(null, blockPosition(), ModSounds.TWINKLE.get(), SoundSource.NEUTRAL);
+                    serverLevel.sendParticles(ModParticleTypes.STAR.get(),
+                            position().x, blockPosition().above().getY()+0.25f, position().z,
+                            10, 0.1f, 0.1f, 0.1f, 0.025f);
+
+                    setLearntRecipes(getLearntRecipes() | 1);
+                    player.displayClientMessage(Component.translatable("text.faunaandorchestra.new_recipe"), true);
+                }
+                return InteractionResult.SUCCESS;
+            }
+
         } else if (hasWorkingStation() && !isSewing()) {
             // We open the inventory
             this.openCustomMenu(player);
@@ -459,5 +486,13 @@ public class TailorKoalaEntity extends AbstractKoalaWorker {
     @Override
     public boolean isListening() {
         return !isKoalaSleeping();
+    }
+
+    public void setLearntRecipes(int recipes) {
+        this.entityData.set(LEARNT_RECIPES, recipes);
+    }
+
+    public int getLearntRecipes() {
+        return entityData.get(LEARNT_RECIPES);
     }
 }

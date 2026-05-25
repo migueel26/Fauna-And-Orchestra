@@ -2,6 +2,7 @@ package net.migueel26.faunaandorchestra.item;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
+import net.migueel26.faunaandorchestra.util.RecipesUtil;
 import net.migueel26.faunaandorchestra.util.VesselUtil;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -160,6 +161,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.SILVER_TINT);
                         output.accept(ModItems.COLORFUL_TINT);
                         output.accept(ModItems.UNLIT_MASK);
+                        output.acceptAll(RecipesUtil.getAllRecipeItems());
                         output.acceptAll(VesselUtil.getAllVoiceItems());
                         output.accept(ModItems.UNLOCKER);
                     }).build());
