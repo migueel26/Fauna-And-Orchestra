@@ -1,6 +1,7 @@
 package net.migueel26.faunaandorchestra.event;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
+import net.migueel26.faunaandorchestra.effect.ModEffects;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.entity.custom.*;
 import net.migueel26.faunaandorchestra.entity.custom.boss.ComposerCanonEntity;
@@ -16,7 +17,10 @@ import net.migueel26.faunaandorchestra.entity.custom.koala_workers.WorkerKoalaEn
 import net.migueel26.faunaandorchestra.item.ModCreativeModeTabs;
 import net.migueel26.faunaandorchestra.networking.*;
 import net.migueel26.faunaandorchestra.effect.potion.ModPotions;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.SpawnPlacementTypes;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.goat.Goat;
 import net.minecraft.world.item.CreativeModeTab;
@@ -27,6 +31,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
+import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
@@ -75,6 +80,16 @@ public class ModEventBusEvents {
         if (event.getTab().equals(ModCreativeModeTabs.FAUNA_AND_ORCHESTRA.get())) {
             event.accept(PotionContents.createItemStack(Items.POTION, ModPotions.ABSOLUTE_HEARING_POTION), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         }
+    }
+
+    @SubscribeEvent
+    public static void onAttributeModifiers(EntityAttributeModificationEvent event) {
+        ModEffects.OVERWHELMING_SLOWNESS.value().addAttributeModifier(
+                Attributes.MOVEMENT_SPEED,
+                ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "overwhelming_slowness"),
+                -0.90D,
+                AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL
+        );
     }
 
     @SubscribeEvent

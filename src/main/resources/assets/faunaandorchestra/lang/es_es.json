@@ -83,6 +83,7 @@
   "item.faunaandorchestra.flora_forta": "Flora forta",
   "item.faunaandorchestra.floral_boots": "Botas florales",
   "item.faunaandorchestra.letter_dan": "Carta de Dan",
+  "item.faunaandorchestra.unlit_mask": "Máscara apagada",
 
   "item.faunaandorchestra.prop_case": "Neceser",
   "item.faunaandorchestra_clothing.desc": "Ropa para Animales",
@@ -153,6 +154,7 @@
   "item.faunaandorchestra.business_card.desc": "§7Hey! Si alguna vez necesitas a un sastre u otro empleado, envíame esta carta con tu §6guacamayo mensajero",
   "item.faunaandorchestra.kit.desc": "Este kit tiene todo lo necesario para que tu Koala se vuelva un",
   "item.faunaandorchestra.letter_dan.desc": "¡Ey! Creo que he encontrado un nuevo mito y deberías echarle un vistazo. Ven a verme en cuanto puedas. - Dan B.",
+  "item.faunaandorchestra.unlit_mask.desc": "Bajo el pálido alba, donde guadañas de esmeralda brillan,\nofrece esta máscara a la que danza en la vigilia;\nentrega el caparazón antes de que raye el sol.",
 
   "item.faunaandorchestra.fortune_cookie_phrase0": "¡Eres el GOAT!",
   "item.faunaandorchestra.fortune_cookie_phrase1": "No soy Nelly, pero tú eres el dilema",
@@ -364,6 +366,7 @@
 
   "effect.faunaandorchestra.boogie": "Coreomanía",
   "effect.faunaandorchestra.absolute_hearing": "Oído absoluto",
+  "effect.faunaandorchestra.overwhelming_slowness": "Lentitud abrumadora",
   "item.minecraft.potion.effect.absolute_hearing_potion": "Poción de oído absoluto",
   "item.minecraft.splash_potion.effect.absolute_hearing_potion": "Poción de oído absoluto arrojadiza",
   "item.minecraft.lingering_potion.effect.absolute_hearing_potion": "Poción de oído absoluto persistente",
@@ -887,6 +890,9 @@
   "symphonia.page.imaginal_disk1": "Se dice que el $(item)Panda Rojo$() músico es la única criatura apta para el $(l)Disco$(), así que mete uno en el estanque y $(o)haz click en la Estatua$().",
 
   "symphonia.entry.mask_of_the_enlightened": "La máscara de luz",
+  "symphonia.page.mask_of_the_enlightened0": "Hace eras, una gran civilización alababa al Sol y su luz, canalizando su poder mediante la $(l)Máscara de los Iluminados().$(br2)Para recuperar el poder de la $(thing)Máscara Apagada$() que posees, debes alzar un altar en $(item)$(t:Y >= 170)grandes alturas$() y dársela a tu $(item)Mantis$() músico. Debe ser al $(item)amanecer$(), cuando el sol sale tras el horizonte.",
+  "symphonia.page.mask_of_the_enlightened1": "Altar de la Luz",
+  "symphonia.page.mask_of_the_enlightened2": "El altar debe estar orientado al $(item)este$(), y su luz debe cruzar el $(o)Bloque de Oro$().",
 
   "jei.faunaandorchestra.natural_recipe": "Recetas naturales",
   "jei.faunaandorchestra.requires_below": "Este bloque es requerido bajo el §eCuelgajarras§r como combustible",

@@ -1,5 +1,8 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
+import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
+import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
+import net.migueel26.faunaandorchestra.effect.ModEffects;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.entity.custom.variants.MantisVariant;
 import net.migueel26.faunaandorchestra.entity.goals.AnimalEatGoal;
@@ -8,16 +11,20 @@ import net.migueel26.faunaandorchestra.entity.goals.MantisLayEggGoal;
 import net.migueel26.faunaandorchestra.entity.goals.MusicalEntityPlayingInstrumentGoal;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
+import net.migueel26.faunaandorchestra.util.AdvancementUtil;
 import net.minecraft.Util;
+import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -27,7 +34,11 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -47,6 +58,8 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.jetbrains.annotations.Nullable;
@@ -57,6 +70,7 @@ import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
+import java.util.Iterator;
 import java.util.UUID;
 
 public class MantisEntity extends MusicalEntity implements NeutralMob, VariantEntity<MantisVariant> {
@@ -68,6 +82,7 @@ public class MantisEntity extends MusicalEntity implements NeutralMob, VariantEn
     protected static final RawAnimation IDLE_VIOLIN = RawAnimation.begin().thenPlay("idle_violin");
     protected static final RawAnimation PLAYING_ENLIGHTEN = RawAnimation.begin().thenPlay("playing_enlighten");
     protected static final RawAnimation ENLIGHTEN = RawAnimation.begin().thenPlay("enlighten");
+    public static final int MIN_ALTAR_PILLAR = 170;
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
     private static final EntityDataAccessor<Integer> REMAINING_ANGER_TIME = SynchedEntityData.defineId(MantisEntity.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(MantisEntity.class, EntityDataSerializers.INT);
@@ -221,6 +236,99 @@ public class MantisEntity extends MusicalEntity implements NeutralMob, VariantEn
 
         this.setVariant(variant);
         return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
+    }
+
+    @Override
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+        ItemStack itemStack = player.getItemInHand(hand);
+        if (itemStack.is(ModItems.UNLIT_MASK) && this.isHoldingInstrument() && !this.isBaby()) {
+            if (!this.level().isClientSide()) return tryToLitMask(player, hand);
+            else return InteractionResult.sidedSuccess(this.level().isClientSide());
+        }
+        return super.mobInteract(player, hand);
+    }
+
+    private InteractionResult tryToLitMask(Player player, InteractionHand hand) {
+        if (!AdvancementUtil.hasAdvancement(player, FaunaAndOrchestra.MOD_ID, "myths/dan_myth1")) {
+            player.displayClientMessage(Component.translatable("text.faunaandorchestra.myth_locked"), true);
+            return InteractionResult.FAIL;
+        } else {
+            if (isDawn() && this.getBlockY() >= MIN_ALTAR_PILLAR && checkAltar()) {
+                ServerLevel serverLevel = (ServerLevel) level();
+
+                // Summon Lighting Bolt
+                EntityType.LIGHTNING_BOLT.spawn(serverLevel, blockPosition().offset(5, 1, 0), MobSpawnType.MOB_SUMMONED);
+
+                // Replace Gold with Coal
+                level().setBlock(blockPosition().offset(3, 0, 0), Blocks.COAL_BLOCK.defaultBlockState(), 3);
+                level().setBlock(blockPosition().offset(0, 0, -3), Blocks.COAL_BLOCK.defaultBlockState(), 3);
+                level().setBlock(blockPosition().offset(0, 0, 3), Blocks.COAL_BLOCK.defaultBlockState(), 3);
+                level().setBlock(blockPosition().offset(2, 1, -3), Blocks.COAL_BLOCK.defaultBlockState(), 3);
+                level().setBlock(blockPosition().offset(2, 1, 3), Blocks.COAL_BLOCK.defaultBlockState(), 3);
+
+                // Give Darkness, Slowness and Look at Mantis Eyes
+                player.addEffect(new MobEffectInstance(MobEffects.DARKNESS, 100, 1, false, false, true));
+                player.addEffect(new MobEffectInstance(ModEffects.OVERWHELMING_SLOWNESS, 100, 255, false, false, true));
+                player.moveTo(blockPosition().offset(-2, 0, 0).getBottomCenter());
+                player.lookAt(EntityAnchorArgument.Anchor.EYES, this.getEyePosition());
+
+                // Give the mask to the mantis and look at player
+                this.inventory.setStackInSlot(HAT_SLOT, new ItemStack(ModItems.MASK_OF_THE_ENLIGHTENED.get()));
+                this.lookAt(EntityAnchorArgument.Anchor.FEET, player.getEyePosition());
+
+                // Clear the mask and give advancement
+                player.setItemInHand(hand, ItemStack.EMPTY);
+                ModAdvancements.FIRST_RESOLVED_MYTH.get().trigger((ServerPlayer) player);
+
+                return InteractionResult.sidedSuccess(!this.level().isClientSide());
+            }
+        }
+        return InteractionResult.FAIL;
+    }
+
+    private boolean isDawn() {
+        return level().getDayTime() >= 23200 || level().getDayTime() <= 800;
+    }
+
+    private boolean checkAltar() {
+        boolean result = true;
+
+        // Check the blocks under the mantis
+        Iterator<BlockPos> baseIt = BlockPos.betweenClosed(blockPosition().offset(-1, -1, -1), blockPosition().offset(1, -1, 1)).iterator();
+        while (baseIt.hasNext() && result) {
+            if (!level().getBlockState(baseIt.next()).is(Blocks.QUARTZ_BLOCK)) {
+                result = false;
+            }
+        }
+
+        // Check the stairs
+        Iterator<BlockPos> stairsIt = BlockPos.betweenClosed(blockPosition().offset(-2, -1, -1), blockPosition().offset(-2, -1, 1)).iterator();
+        while (stairsIt.hasNext() && result) {
+            if (!level().getBlockState(stairsIt.next()).is(Blocks.QUARTZ_STAIRS)) {
+                result = false;
+            }
+        }
+
+        // Check the left, right and front pillars
+        for (int i = 0; i < 2 && result; i++) {
+            Block block = i == 0 ? Blocks.QUARTZ_PILLAR : Blocks.GOLD_BLOCK;
+            if (!level().getBlockState(blockPosition().offset(0, -1 + i, -3)).is(block)
+            || !level().getBlockState(blockPosition().offset(0, -1 + i, 3)).is(block)
+            || !level().getBlockState(blockPosition().offset(3, -1 + i, 0)).is(block)) {
+                result = false;
+            }
+        }
+
+        // Check the front left and right pilars
+        for (int i = 0; i < 3; i++) {
+            Block block = i < 2 ? Blocks.QUARTZ_PILLAR : Blocks.GOLD_BLOCK;
+            if (!level().getBlockState(blockPosition().offset(2, -1 + i, -3)).is(block)
+                    || !level().getBlockState(blockPosition().offset(2, -1 + i, 3)).is(block)) {
+                result = false;
+            }
+        }
+
+        return result;
     }
 
     public static AttributeSupplier.Builder createAttributes() {

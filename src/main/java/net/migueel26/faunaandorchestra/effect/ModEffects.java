@@ -18,6 +18,8 @@ public class ModEffects {
     public static final Holder<MobEffect> ABSOLUTE_HEARING = MOB_EFFECTS.register("absolute_hearing",
             () -> new AbsoluteHearingEffect(MobEffectCategory.NEUTRAL, 0xffe79e));
 
+    public static final Holder<MobEffect> OVERWHELMING_SLOWNESS = MOB_EFFECTS.register("overwhelming_slowness",
+            OverwhelmingSlownessEffect::new);
 
     public static void register(IEventBus eventBus) {
         MOB_EFFECTS.register(eventBus);

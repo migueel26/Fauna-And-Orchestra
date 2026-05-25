@@ -213,6 +213,7 @@ public class ModItems {
     public static final DeferredItem<Item> SEEDY_APPLE = ITEMS.register("seedy_apple",
             () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> FLORA_FORTA = createRegularDescriptionItem("flora_forta");
+    public static final DeferredItem<Item> UNLIT_MASK = createRegularDescriptionItem("unlit_mask", new Item.Properties().stacksTo(1).rarity(Rarity.EPIC));
 
     public static final DeferredItem<Item> FLUFFY_BOOTS = ITEMS.register("fluffy_boots",
             () -> new FluffyBootsItem(ModArmorMaterials.PENGUIN_FEATHER, ArmorItem.Type.BOOTS, new Item.Properties().durability(ArmorItem.Type.BOOTS.getDurability(25))));

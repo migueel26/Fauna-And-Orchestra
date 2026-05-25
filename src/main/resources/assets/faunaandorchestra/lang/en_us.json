@@ -83,6 +83,7 @@
   "item.faunaandorchestra.flora_forta": "Flora Forta",
   "item.faunaandorchestra.floral_boots": "Floral Boots",
   "item.faunaandorchestra.letter_dan": "Letter from Dan",
+  "item.faunaandorchestra.unlit_mask": "Unlit Mask",
 
   "item.faunaandorchestra.prop_case": "Prop Case",
   "item.faunaandorchestra_clothing.desc": "Clothing Item",
@@ -153,6 +154,7 @@
   "item.faunaandorchestra.business_card.desc": "§7Hey! If you ever need a tailor or some other employee, send me this card with your §6mailbird",
   "item.faunaandorchestra.kit.desc": "This kit has everything needed for a Koala to become a",
   "item.faunaandorchestra.letter_dan.desc": "Hey! I think I might've found a new myth and you should check it out! Come see me whenever you can - Dan B.",
+  "item.faunaandorchestra.unlit_mask.desc": "Under the pale dawn, where scythes of emerald gleam,\nOffer this mask to her who dances in a dream;\nSurrender the shell before the night is gone.",
 
   "item.faunaandorchestra.fortune_cookie_phrase0": "You're GOATED!",
   "item.faunaandorchestra.fortune_cookie_phrase1": "Dream only a dream if work don't follow it",
@@ -364,6 +366,7 @@
 
   "effect.faunaandorchestra.boogie": "Choreomania",
   "effect.faunaandorchestra.absolute_hearing": "Absolute Hearing",
+  "effect.faunaandorchestra.overwhelming_slowness": "Overwhelming Slowness",
   "item.minecraft.potion.effect.absolute_hearing_potion": "Absolute Hearing Potion",
   "item.minecraft.splash_potion.effect.absolute_hearing_potion": "Absolute Hearing Splash Potion",
   "item.minecraft.lingering_potion.effect.absolute_hearing_potion": "Absolute Hearing Lingering Potion",
@@ -886,7 +889,10 @@
   "symphonia.page.imaginal_disk0": "The $(l)Imaginal Disk$() is said to be a legendary artifact capable of enhancing its host to $(o)new heights$(). According to Dan B., it was created by $(thing)Mother$() herself.$(br2)In order to obtain it, you need to find a $(item)Statue of Mother$() on great heights and drop in the pond: $(li)$(item)1x Music Disc$()$(li)$(item)1x Ghast Tear$()$(li)$(item)1x Extract of Living Music$()",
   "symphonia.page.imaginal_disk1": "The $(item)Red Panda$() musician is said to be the only creature apt for the $(l)Disk$(), so get one inside the pond and $(o)click the Statue$().",
 
-  "symphonia.entry.mask_of_the_enlightened": "The Mask of the Enlightened",
+  "symphonia.entry.mask_of_the_enlightened": "The Mask of Light",
+  "symphonia.page.mask_of_the_enlightened0": "Ages ago, a great civilization praised the Sun and its light, channeling its power through the $(l)Mask of the Enlightened$().$(br2)In order to regain its power from the $(thing)Unlit Mask$() you have, you'll need to build an altar in $(item)$(t:Y >= 170)great heights$() and give it to your $(item)Mantis$() musician. It must be $(item)dawn$(), when the sun is rising behind the horizon.",
+  "symphonia.page.mask_of_the_enlightened1": "Altar of the Light",
+  "symphonia.page.mask_of_the_enlightened2": "The altar must be oriented to the $(item)east$(), with its light going through the $(o)Gold Block$().",
 
   "jei.faunaandorchestra.natural_recipe": "Natural Recipe",
   "jei.faunaandorchestra.requires_below": "This block is required below the §eJar Rack§r with the jar",

@@ -86,7 +86,7 @@ public class MotherStatueBlockEntity extends BlockEntity implements GeoBlockEnti
                     }
 
                     redPanda.setNoGravity(false);
-                    redPanda.inventory.setStackInSlot(0, ModItems.IMAGINAL_DISK.toStack());
+                    redPanda.inventory.setStackInSlot(RedPandaEntity.HAT_SLOT, ModItems.IMAGINAL_DISK.toStack());
 
                     motherStatue.setPlayingDiskAnimation(false);
                     motherStatue.setRedPanda(null);
