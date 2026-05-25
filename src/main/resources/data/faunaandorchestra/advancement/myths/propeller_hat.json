@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "count": 1,
+      "id": "faunaandorchestra:propeller_hat"
+    },
+    "title": {
+      "translate": "advancements.faunaandorchestra.propeller_hat"
+    },
+    "description": {
+      "translate": "advancements.faunaandorchestra.propeller_hat.desc"
+    },
+    "frame": "task"
+  },
+  "parent": "faunaandorchestra:meet_jazzy_dammys",
+  "criteria": {
+    "unique": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "faunaandorchestra:propeller_hat"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "unique"
+    ]
+  ]
+}
