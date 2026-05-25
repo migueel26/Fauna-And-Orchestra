@@ -16,6 +16,9 @@ public class ModLootTables {
     public static final Supplier<MapCodec<AddGraveyardItemModifier>> ADD_DUNGEON =
             GLOBAL_LOOT_MODIFIER_SERIALIZERS.register("add_graveyard", () -> AddGraveyardItemModifier.CODEC);
 
+    public static final Supplier<MapCodec<? extends IGlobalLootModifier>> ADD_ITEM =
+            GLOBAL_LOOT_MODIFIER_SERIALIZERS.register("add_item", () -> AddItemLootModifier.CODEC);
+
     public static void register(IEventBus eventBus) {
         GLOBAL_LOOT_MODIFIER_SERIALIZERS.register(eventBus);
     }

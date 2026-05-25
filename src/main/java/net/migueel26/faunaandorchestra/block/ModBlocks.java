@@ -229,6 +229,14 @@ public class ModBlocks {
                     .sound(SoundType.VINE)
                     .ignitedByLava()
                     .pushReaction(PushReaction.DESTROY)));
+    public static final DeferredBlock<Block> COTTON_PLANT = registerBlock("cotton_plant",
+            () -> new CropBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.PLANT)
+                    .noCollission()
+                    .randomTicks()
+                    .instabreak()
+                    .sound(SoundType.CROP)
+                    .pushReaction(PushReaction.DESTROY)));
 
     // MISC (CREATIVE-ONLY)
     public static final DeferredBlock<Block> TAVERN_SPAWNER = registerBlock("tavern_spawner",

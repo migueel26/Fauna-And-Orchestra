@@ -61,6 +61,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.MANTIS_FOOD);
                         output.accept(ModItems.WORM);
                         output.accept(ModItems.INSECT);
+                        output.accept(ModItems.COTTON_PLANT_SEEDS);
                         output.accept(ModItems.COTTON);
                         output.accept(ModBlocks.HANGING_JAR);
                         output.accept(ModBlocks.JAR_RACK);

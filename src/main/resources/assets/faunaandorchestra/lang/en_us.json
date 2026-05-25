@@ -79,6 +79,7 @@
   "item.faunaandorchestra.melomancy_kit": "Melomancy Kit",
   "item.faunaandorchestra.farming_kit": "Farming Kit",
   "item.faunaandorchestra.cotton": "Cotton",
+  "item.faunaandorchestra.cotton_seeds": "Cotton Seeds",
   "item.faunaandorchestra.seedy_apple": "Seedy Apple",
   "item.faunaandorchestra.flora_forta": "Flora Forta",
   "item.faunaandorchestra.floral_boots": "Floral Boots",
@@ -206,6 +207,7 @@
   "block.faunaandorchestra.mailbox": "Mailbox",
   "block.faunaandorchestra.letter_and_quill": "Letter and Quill",
   "block.faunaandorchestra.flower_path": "Flower Path",
+  "block.faunaandorchestra.cotton_plant": "Cotton Plant",
 
   "block.faunaandorchestra.tavern_spawner": "Tavern Spawner",
 

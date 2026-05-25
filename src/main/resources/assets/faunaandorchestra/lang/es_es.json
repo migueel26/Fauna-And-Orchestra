@@ -79,6 +79,7 @@
   "item.faunaandorchestra.melomancy_kit": "Kit de melomancia",
   "item.faunaandorchestra.farming_kit": "Kit de agricultura",
   "item.faunaandorchestra.cotton": "Algodón",
+  "item.faunaandorchestra.cotton_seeds": "Semillas de algodón",
   "item.faunaandorchestra.seedy_apple": "Manzana con semillas",
   "item.faunaandorchestra.flora_forta": "Flora forta",
   "item.faunaandorchestra.floral_boots": "Botas florales",
@@ -206,6 +207,7 @@
   "block.faunaandorchestra.mailbox": "Buzón",
   "block.faunaandorchestra.letter_and_quill": "Carta y pluma",
   "block.faunaandorchestra.flower_path": "Camino de flores",
+  "block.faunaandorchestra.cotton_plant": "Planta de algodón",
 
   "block.faunaandorchestra.tavern_spawner": "Tavern Spawner",
 

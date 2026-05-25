@@ -1,6 +1,6 @@
 {
+  "replace": false,
   "entries": [
-    "faunaandorchestra:add_graveyard"
-  ],
-  "replace": false
+    "faunaandorchestra:seeds_from_grass"
+  ]
 }
