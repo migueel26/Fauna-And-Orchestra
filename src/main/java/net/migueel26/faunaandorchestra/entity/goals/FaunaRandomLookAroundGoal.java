@@ -28,14 +28,13 @@ public class FaunaRandomLookAroundGoal extends Goal {
         if (condition) {
             Fauna mobType = Fauna.valueOf(this.mob.getClass().getSuperclass().getSimpleName());
             if (mobType != Fauna.MusicalEntity &&
-                mobType != Fauna.AbstractKoalaMerchant &&
                 mobType != Fauna.AbstractKoalaWorker) mobType = Fauna.valueOf(this.mob.getClass().getSimpleName());
 
             switch (mobType) {
                 case MusicalEntity -> condition = !((MusicalEntity) mob).isPlayingInstrument();
                 case QuirkyFrogEntity -> condition = !((QuirkyFrogEntity) mob).isConducting()
                         && !((QuirkyFrogEntity) mob).isSinging();
-                case WanderingKoalaEntity -> condition = !((WanderingKoalaEntity) mob).isKoalaSleeping();
+                case AbstractKoalaMerchant -> condition = !((WanderingKoalaEntity) mob).isKoalaSleeping();
                 case ButlerKoalaEntity -> condition = !((ButlerKoalaEntity) mob).isServing();
                 case SproutlingEntity  -> condition = !((SproutlingEntity) mob).isSinging();
                 case AbstractKoalaWorker -> {
