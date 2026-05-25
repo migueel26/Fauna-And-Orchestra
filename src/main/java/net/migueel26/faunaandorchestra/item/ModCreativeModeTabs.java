@@ -80,6 +80,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.TAIYAKI);
                         output.accept(ModItems.PENGUIN_FEATHER);
                         output.accept(ModItems.FLUFFY_BOOTS);
+                        output.accept(ModItems.REALLY_GOOD_STICK);
                         output.accept(ModItems.BEAVER_STATUE_ITEM);
                         output.accept(ModItems.SEEDY_APPLE);
                         output.accept(ModItems.MACAW_FEATHER);

@@ -1,5 +1,7 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
+import net.migueel26.faunaandorchestra.entity.ModEntities;
+import net.migueel26.faunaandorchestra.entity.goals.AnimalEatGoal;
 import net.migueel26.faunaandorchestra.entity.goals.BeaverBuildsDamGoal;
 import net.migueel26.faunaandorchestra.entity.goals.FaunaRandomLookAroundGoal;
 import net.migueel26.faunaandorchestra.entity.goals.MusicalEntityPlayingInstrumentGoal;
@@ -13,9 +15,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
@@ -25,6 +25,7 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
@@ -34,6 +35,7 @@ import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.*;
+import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class BeaverEntity extends MusicalEntity {
@@ -78,8 +80,10 @@ public class BeaverEntity extends MusicalEntity {
         this.goalSelector.addGoal(1, new MusicalEntityPlayingInstrumentGoal(this));
         this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
         // LookAtPlayerGoal (3)
+        // BreedGoal
         // LookAtPlayerGoal (3, TravellingMusician)
         this.goalSelector.addGoal(3, new BeaverBuildsDamGoal(this, 1.0D));
+        this.goalSelector.addGoal(4, new AnimalEatGoal(this, Items.OAK_LOG, this::onEat));
         // RandomStrollGoal (4)
         this.goalSelector.addGoal(5, new FaunaRandomLookAroundGoal(this));
 
@@ -118,6 +122,13 @@ public class BeaverEntity extends MusicalEntity {
             @Override
             public boolean canUse() {
                 return super.canUse() && !((BeaverEntity) mob).isBuilding();
+            }
+        });
+
+        this.goalSelector.addGoal(3, new BreedGoal(this, 1.0f) {
+            @Override
+            public boolean canUse() {
+                return super.canUse() && !((BeaverEntity) animal).isBuilding() && !((BeaverEntity) animal).isHoldingInstrument();
             }
         });
     }
@@ -206,14 +217,23 @@ public class BeaverEntity extends MusicalEntity {
     }
 
     @Override
+    public float getAgeScale() {
+        return this.isBaby() ? 0.7F : 1.0F;
+    }
+
+    public EntityDimensions getDefaultDimensions(Pose pose) {
+        return this.isBaby() ? ModEntities.BEAVER.get().getDimensions().scale(0.7f) : super.getDefaultDimensions(pose);
+    }
+
+    @Override
     public boolean isFood(ItemStack stack) {
-        return false;
+        return stack.is(Items.OAK_LOG);
     }
 
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
-        return null;
+        return createBaby(ModEntities.BEAVER.get(), (BeaverEntity) otherParent);
     }
 
     @Override

@@ -223,16 +223,20 @@ public class ModItems {
             () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> FLORA_FORTA = createRegularDescriptionItem("flora_forta");
     public static final DeferredItem<Item> UNLIT_MASK = createRegularDescriptionItem("unlit_mask", new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON));
+    public static final DeferredItem<Item> REALLY_GOOD_STICK = createRegularDescriptionItem("really_good_stick");
 
+    // ARMOR
     public static final DeferredItem<Item> FLUFFY_BOOTS = ITEMS.register("fluffy_boots",
             () -> new FluffyBootsItem(ModArmorMaterials.PENGUIN_FEATHER, ArmorItem.Type.BOOTS, new Item.Properties().durability(ArmorItem.Type.BOOTS.getDurability(25))));
     public static final DeferredItem<Item> FLORAL_BOOTS = ITEMS.register("floral_boots",
             () -> new FloralBootsItem(ModArmorMaterials.FLORA_FORTA, ArmorItem.Type.BOOTS, new Item.Properties().durability(ArmorItem.Type.BOOTS.getDurability(50)).rarity(Rarity.RARE)));
 
+    // KITS
     public static final DeferredItem<Item> SEWING_KIT =  createKoalaKit("sewing_kit", ModEntities.TAILOR_KOALA);
     public static final DeferredItem<Item> MELOMANCY_KIT =  createKoalaKit("melomancy_kit", ModEntities.MELOMANCER_KOALA);
     public static final DeferredItem<Item> FARMING_KIT =  createKoalaKit("farming_kit", ModEntities.FARMER_KOALA);
 
+    // CLOTHING
     public static final DeferredItem<Item> WHITE_TUXEDO = createClothingItem("white_tuxedo", ModTags.EntityTypes.WEARS_WHITE_TUXEDO);
     public static final DeferredItem<Item> TUXEDO = createClothingItem("tuxedo", ModTags.EntityTypes.WEARS_TUXEDO);
     public static final DeferredItem<Item> TAILCOAT = createClothingItem("tailcoat", ModTags.EntityTypes.WEARS_TAILCOAT);

@@ -7,14 +7,14 @@
   ],
   "key": {
     "#": {
-      "item": "faunaandorchestra:discord_essence"
+      "item": "minecraft:stone"
     },
     "L": {
-      "item": "faunaandorchestra:wandering_note"
+      "item": "faunaandorchestra:really_good_stick"
     }
   },
   "result": {
-    "id": "faunaandorchestra:activator_clef",
+    "id": "faunaandorchestra:beaver_statue_item",
     "count": 1
   }
 }
