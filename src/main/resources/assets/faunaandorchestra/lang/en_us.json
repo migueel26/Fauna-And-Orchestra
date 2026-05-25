@@ -894,7 +894,7 @@
 
   "symphonia.entry.imaginal_disk": "The Imaginal Disk",
   "symphonia.page.imaginal_disk0": "The $(l)Imaginal Disk$() is said to be a legendary artifact capable of enhancing its host to $(o)new heights$(). According to Dan B., it was created by $(thing)Mother$() herself.$(br2)In order to obtain it, you need to find a $(item)Statue of Mother$() on great heights and drop in the pond: $(li)$(item)1x Music Disc$()$(li)$(item)1x Ghast Tear$()$(li)$(item)1x Extract of Living Music$()",
-  "symphonia.page.imaginal_disk1": "The $(item)Red Panda$() musician is said to be the only creature apt for the $(l)Disk$(), so get one inside the pond and $(o)click the Statue$().",
+  "symphonia.page.imaginal_disk1": "The $(item)Red Panda$() musician he only creature apt for the $(l)Disk$(), so get one in the pond and $(o)click the Statue$().",
 
   "symphonia.entry.mask_of_the_enlightened": "The Mask of Light",
   "symphonia.page.mask_of_the_enlightened0": "Ages ago, a great civilization praised the Sun and its light, channeling its power through the $(l)Mask of the Enlightened$().$(br2)In order to regain its power from the $(thing)Unlit Mask$() you have, you'll need to build an altar in $(item)$(t:Y >= 170)great heights$() and give it to your $(item)Mantis$() musician. It must be $(item)dawn$(), when the sun is rising behind the horizon.",

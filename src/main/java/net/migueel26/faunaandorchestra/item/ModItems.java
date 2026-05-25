@@ -13,6 +13,7 @@ import net.migueel26.faunaandorchestra.item.custom.armor.FluffyBootsItem;
 import net.migueel26.faunaandorchestra.item.custom.armor.ModArmorMaterials;
 import net.migueel26.faunaandorchestra.item.custom.clothing.CosmeticItem;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
+import net.migueel26.faunaandorchestra.util.AdvancementUtil;
 import net.migueel26.faunaandorchestra.util.ModTags;
 import net.migueel26.faunaandorchestra.util.MusicUtil;
 import net.minecraft.ChatFormatting;
@@ -351,16 +352,8 @@ public class ModItems {
                 @Override
                 public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
                     if (!level.isClientSide() && player instanceof ServerPlayer serverPlayer) {
-                        player.addItem(new ItemStack(ModItems.SHEET_FRAGMENTS.get()));
-                        player.addItem(new ItemStack(ModItems.FRUIT_OF_LIFE.get()));
-                        player.addItem(new ItemStack(ModItems.PETALS_OF_DEATH.get()));
-                        player.addItem(new ItemStack(ModItems.RESURRECTION_SONG.get()));
-                        player.addItem(new ItemStack(ModItems.MUSIC_BOTTLE.get()));
-                        player.addItem(new ItemStack(ModItems.BOOGIE_FRUIT.get()));
-                        ModAdvancements.KILL_COMPOSER.get().trigger(serverPlayer);
-                        ModAdvancements.WISE_TREE.get().trigger(serverPlayer);
-                        ModAdvancements.MEET_RINGTAILS.get().trigger(serverPlayer);
-                        ModAdvancements.USE_DISCORD_BOMB.get().trigger(serverPlayer);
+                        AdvancementUtil.unlock(serverPlayer);
+                        return InteractionResultHolder.success(player.getItemInHand(usedHand));
                     }
                     return super.use(level, player, usedHand);
                 }
