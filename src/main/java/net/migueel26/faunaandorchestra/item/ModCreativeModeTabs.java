@@ -64,6 +64,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.INSECT);
                         output.accept(ModItems.COTTON_PLANT_SEEDS);
                         output.accept(ModItems.COTTON);
+                        output.accept(ModItems.ARCTIC_FUMES);
                         output.accept(ModBlocks.HANGING_JAR);
                         output.accept(ModBlocks.JAR_RACK);
                         output.accept(ModBlocks.CATCHWEED);
@@ -101,10 +102,12 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.MUSICAL_INK);
                         output.accept(ModItems.EXTRACT_OF_LIVING_MUSIC);
                         output.accept(ModItems.BOOGIE_BOMB);
+                        output.accept(ModItems.SONIC_FUMES);
                         output.accept(ModItems.STEELSONIC_INGOT);
                         output.accept(ModItems.AMPLIFIER_CRYSTAL);
                         output.accept(ModItems.VOICE_VESSEL);
                         output.accept(ModItems.GINKGO_BILOBA);
+                        output.accept(ModItems.BIOSONIC_INGOT);
                         output.accept(ModItems.WANDERING_NOTE);
                         output.accept(ModItems.BOOGIE_FRUIT);
                         output.accept(ModItems.SINGING_SEED);

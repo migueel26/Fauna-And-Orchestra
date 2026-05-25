@@ -102,6 +102,8 @@ public class ModItems {
     public static final DeferredItem<Item> AMPLIFIER_CRYSTAL = ITEMS.register("amplifier_crystal",
             () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> STEELSONIC_INGOT = createRegularDescriptionItem("steelsonic_ingot");
+    public static final DeferredItem<Item> BIOSONIC_INGOT = ITEMS.register("biosonic_ingot",
+            () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> GINKGO_BILOBA = createRegularDescriptionItem("gingko_biloba");
     public static final DeferredItem<Item> BUTTERFLY_NET = ITEMS.register("butterfly_net",
             () -> new Item(new Item.Properties().stacksTo(1).durability(48)) {
@@ -179,6 +181,10 @@ public class ModItems {
     public static final DeferredItem<Item> INSECT = ITEMS.register("insect",
             () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> NATURE_FUMES = ITEMS.register("nature_fumes",
+            () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> ARCTIC_FUMES = ITEMS.register("arctic_fumes",
+            () -> new Item(new Item.Properties()));
+        public static final DeferredItem<Item> SONIC_FUMES = ITEMS.register("sonic_fumes",
             () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> BADGRASS_MEAL = ITEMS.register("badgrass_meal",
             () -> new BadgrassMealItem(new Item.Properties()));
