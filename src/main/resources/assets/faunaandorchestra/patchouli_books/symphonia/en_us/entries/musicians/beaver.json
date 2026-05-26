@@ -1,7 +1,7 @@
 {
   "name": "symphonia.entry.beaver",
   "category": "faunaandorchestra:musicians",
-  "icon": "faunaandorchestra:beaver_spawn_egg",
+  "icon": "faunaandorchestra:really_good_stick",
   "sortnum": 1,
   "pages": [
     {
@@ -15,6 +15,16 @@
       "scale": 0.9,
       "default_rotation": 30,
       "text": "symphonia.page.beaver1"
+    },
+    {
+      "type": "spotlight",
+      "item": "faunaandorchestra:really_good_stick",
+      "text": "symphonia.page.beaver2"
+    },
+    {
+      "type": "crafting",
+      "recipe": "faunaandorchestra:beaver_statue_item",
+      "text": "symphonia.page.beaver3"
     }
   ]
 }

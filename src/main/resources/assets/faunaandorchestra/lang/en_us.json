@@ -702,8 +702,10 @@
   "symphonia.page.lemur1": "I really loved lemurs when I was younger, they always helped me find my way home!",
 
   "symphonia.entry.beaver": "Beaver",
-  "symphonia.page.beaver0": "$(l)Beavers$()! These hardworking $(o)(and kind of annoying...)$() animals can be found in almost every $(l)river$() you may found! You'll notice their presence by the large $(o)dams$() they adore to build. But beware! If they clog some river you love, you can destroy the Dams with a $(item)sword$()! $(br)Even though they might be... $(o)annoying$() I can't deny their musical talent! ",
+  "symphonia.page.beaver0": "$(l)Beavers$()! These hardworking $(o)(and kind of annoying...)$() animals can be found in almost every $(l)river$() you may found! You'll notice their presence by the large $(o)dams$() they adore to build. But beware! If they clog some river you love, you can destroy the Dams with a $(item)Sword$()! $(br)Even though they might be... $(o)annoying$() I can't deny their musical talent! ",
   "symphonia.page.beaver1": "Fun fact: If you ever run out of sticks, find a river. You'll have sticks for days!",
+  "symphonia.page.beaver2": "Beavers are very territorial, filling the river with their $(thing)dams$(). They carefully select every stick they use, to the point they might even use a $(item)Really Good Stick$()! These sticks are both exceptional and rare: extremely strong and unlikely to drop from $(item)Dam Blocks$()!$(br)If you actually want $(o)more$() beavers, try dropping some $(item)Oak Logs$() around them.",
+  "symphonia.page.beaver3": "With some $(item)Really Good Sticks$() you can craft a $(item)Beaver Statues$()! They act like traffic lights: if they're $(thing)on$(), beavers around them will build dams. If they're $(thing)off$(), they won't. You can use this to your advantage if you want to keep some rivers clean!",
 
   "symphonia.entry.sea_lion": "Sea Lion",
   "symphonia.page.sea_lion0": "If you ever find yourself near the $(o)oceans$() or some $(o)beaches$(), you might find some $(l)sea lions$() hanging around! These animals are quite social, and they love to sunbathe and swim around. They can be quite noisy, but they have a great sense of rhythm! $(br)If you play some music around them, they might even joining your orchestra!",
