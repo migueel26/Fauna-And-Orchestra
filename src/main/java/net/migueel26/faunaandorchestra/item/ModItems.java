@@ -186,7 +186,9 @@ public class ModItems {
             () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> ARCTIC_FUMES = ITEMS.register("arctic_fumes",
             () -> new Item(new Item.Properties()));
-        public static final DeferredItem<Item> SONIC_FUMES = ITEMS.register("sonic_fumes",
+    public static final DeferredItem<Item> FLORAL_FUMES = ITEMS.register("floral_fumes",
+            () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> SONIC_FUMES = ITEMS.register("sonic_fumes",
             () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> BADGRASS_MEAL = ITEMS.register("badgrass_meal",
             () -> new BadgrassMealItem(new Item.Properties()));

@@ -62,6 +62,7 @@
   "item.faunaandorchestra.insect": "Insect",
   "item.faunaandorchestra.nature_fumes": "Nature Fumes",
   "item.faunaandorchestra.arctic_fumes": "Arctic Fumes",
+  "item.faunaandorchestra.floral_fumes": "Floral Fumes",
   "item.faunaandorchestra.sonic_fumes": "Sonic Fumes",
   "item.faunaandorchestra.badgrass_meal": "Badgrass Meal",
   "item.faunaandorchestra.extract_of_living_music": "Extract of Living Music",
@@ -687,6 +688,8 @@
   "symphonia.entry.red_panda": "Red Panda",
   "symphonia.page.red_panda0": "Who doesn't love $(o)bamboo$()? You may do, but certainly not more than $(l)red pandas$()! Just like their bigger white and black siblings, you can find them in every $(o)jungle$() you encounter. They love to wander around, stare at other animals. If they get tired of walking on four, they might even stand up for a while! $(br)Nature gave them legs and paws for something: music!",
   "symphonia.page.red_panda1": "Fun fact: They believe they're as intimidating as regular pandas, so they stand up to them sometimes!",
+  "symphonia.page.red_panda2": "Their favorite food, obviously, is bamboo. If you give them some $(item)Bamboo$() they'll chew and bite and sharpen it, resulting in them dropping a $(item)Sharp Bamboo$().$(br2)Also, through $(l:natural_recipes/herbalism_basics)Herbalism$() you can craft $(l:natural_recipes/perfumed_bamboo)Perfumed Bamboo$() which, after eating it, will make them easier to fall in love with other pandas around.",
+  "symphonia.page.red_panda3": "With this $(item)Sharp Bamboo$() is pretty useful for crafting a $(item)Bamboo Trap$() which can be used to catch some of the more $(o)elusive animals$() around the world!",
 
   "symphonia.entry.macaw": "Macaw",
   "symphonia.page.macaw0": "You may know parrots, but have you ever heard of $(l)macaws$()? They bring life to every $(o)jungle forest$() you may find! They love flying around, usually in flocks, alongside their colorful siblings $(o)(cousins, even?)$(). Despite being so similar to them, they can't imitate the sounds you make or dance to the tunes you may play. $(br)However, they are big fans of some string instrument!",
@@ -903,6 +906,9 @@
 
   "symphonia.entry.bugs": "Bugs",
   "symphonia.page.bugs0": "Bugs are a very common food for many of the species in our world. They're a great source of protein and nutrients, and they're really easy to catch!$(br2)Get yourself an $(item)Axe$() and start using it on $(o)Logs$() or a $(item)Shovel$() on $(o)Grass$()! You'll eventually find either $(item)Insects$() or $(item)Worms$().",
+
+  "symphonia.entry.perfumed_bamboo": "Perfumed Bamboo",
+  "symphonia.page.perfumed_bamboo0": "The $(l)Perfumed Bamboo$() is a special type of bamboo soaked in a sweet scent that it attracts their main consumer, the $(o)Red Pandas$() — quite useful if you want to mate some of them!$(br)To get it, you need to follow this a $(thing)Natural Recipe$(), some $(item)Water Fuel$() with the following ingredients:$(li)$(item)1x Bamboo$(li)2x Floral Fumes$(li)2x Sugar$()",
 
   "symphonia.entry.mailbox": "Mailboxes & Mailbirds",
   "symphonia.page.mailbox0": "Friends usually live far, far away... It's quite hard to $(o)communicate$() with them. That's what $(item)mail$() is for! Introducing $(l)Mailboxes$(), the best method to send gifts and letters to your friends far away!$(br2)First of all, you'll need your very own $(item)Letter and Quill$() so that your $(music)Mailbirds$() can know where to go to!",

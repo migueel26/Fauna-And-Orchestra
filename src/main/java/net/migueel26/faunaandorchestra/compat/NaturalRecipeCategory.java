@@ -95,8 +95,6 @@ public class NaturalRecipeCategory implements IRecipeCategory<NaturalRecipe> {
                         return new ItemStack(ModItems.SOUL_FIRE_ICON.asItem());
                     } else if (block == Blocks.WATER) {
                         return new ItemStack(ModItems.WATER_ICON.asItem());
-                    } else if (block.asItem() == Items.AIR) {
-                        return new ItemStack(Items.BARRIER);
                     }
 
                     return new ItemStack(block);

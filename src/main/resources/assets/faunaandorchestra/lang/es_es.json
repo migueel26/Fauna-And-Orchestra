@@ -62,6 +62,7 @@
   "item.faunaandorchestra.insect": "Insecto",
   "item.faunaandorchestra.nature_fumes": "Humo de la naturaleza",
   "item.faunaandorchestra.arctic_fumes": "Humo ártico",
+  "item.faunaandorchestra.floral_fumes": "Humo floral",
   "item.faunaandorchestra.sonic_fumes": "Humo sónico",
   "item.faunaandorchestra.badgrass_meal": "Polvo de hierbajo",
   "item.faunaandorchestra.extract_of_living_music": "Extracto de música viva",
@@ -687,6 +688,8 @@
   "symphonia.entry.red_panda": "Panda Rojo",
   "symphonia.page.red_panda0": "¿A quién no le gusta el $(o)bambú$()? Capaz a ti, ¡pero seguramente no más que a los $(l)pandas rojos$()! Como a sus hermanos mayores, los podrás encontrar en las $(o)junglas$(). Les encanta deambular y mirar a otros animales. Si se cansan de andar a cuatro, ¡lo mismo se ponen de pie! $(br)La naturaleza les dio patas para algo: ¡música!",
   "symphonia.page.red_panda1": "Dato curioso: Creen que son tan intimidantes como los pandas, ¡a veces les rugen!",
+  "symphonia.page.red_panda2": "Su comida favorita, obviamente, es el bambú. Si les das un poco de $(item)Bambú$(), lo morderán, masticarán y afilarán, haciendo que suelten $(item)Bambú Afilado$().$(br2)Además, mediante la $(l:natural_recipes/herbalism_basics)Herbalismo$() puedes fabricar $(l:natural_recipes/perfumed_bamboo)Bambú Perfumado$(), el cual, tras comerlo, hará que se enamoren más fácilmente de otros pandas cercanos.",
+  "symphonia.page.red_panda3": "Este $(item)Bambú Afilado$() es de gran utilidad para fabricar una $(item)Trampa de Bambú$(), ¡la cual sirve para capturar a algunos de los animales más $(o)escurridizos$() del mundo!",
 
   "symphonia.entry.macaw": "Guacamayo",
   "symphonia.page.macaw0": "Seguramente conozcas a los loros, ¿pero has oído sobre $(l)guacamayos$()? ¡Darán vida a cada $(o)jungla$() que te encuentres! Les encanta volar, especialmente en bandadas, junto a sus coloridos hermanos $(o)(¿o primos?)$(). A pesar de ser tan similares, no pueden reproducir los sonidos de otros animales. $(br)No obstante, ¡son grandes fans de un instrumento de cuerda!",
