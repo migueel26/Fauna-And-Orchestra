@@ -104,6 +104,8 @@ public class ModItems {
     public static final DeferredItem<Item> STEELSONIC_INGOT = createRegularDescriptionItem("steelsonic_ingot");
     public static final DeferredItem<Item> BIOSONIC_INGOT = ITEMS.register("biosonic_ingot",
             () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> BIOSONIC_DIRK = ITEMS.register("biosonic_dirk",
+            () -> new BiosonicDirkItem(new Item.Properties().durability(16).stacksTo(1)));
     public static final DeferredItem<Item> GINKGO_BILOBA = createRegularDescriptionItem("gingko_biloba");
     public static final DeferredItem<Item> BUTTERFLY_NET = ITEMS.register("butterfly_net",
             () -> new Item(new Item.Properties().stacksTo(1).durability(48)) {

@@ -6,6 +6,7 @@ import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.migueel26.faunaandorchestra.util.ModSavedData;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -131,6 +132,20 @@ public class LivingMusicEntity extends AgeableMob implements GeoEntity {
             }
         }
         super.tick();
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compound) {
+        if (compound.contains("TicksUntilDeath")) {
+            setTicksUntilDeath(compound.getInt("TicksUntilDeath"));
+        }
+        super.readAdditionalSaveData(compound);
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        compound.putInt("TicksUntilDeath", getTicksUntilDeath());
+        super.addAdditionalSaveData(compound);
     }
 
     @Override
