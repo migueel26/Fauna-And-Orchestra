@@ -1,7 +1,7 @@
 {
   "name": "symphonia.entry.macaw",
   "category": "faunaandorchestra:musicians",
-  "icon": "faunaandorchestra:macaw_spawn_egg",
+  "icon": "faunaandorchestra:macaw_feather",
   "sortnum": 1,
   "pages": [
     {
@@ -14,6 +14,19 @@
       "rotate": false,
       "default_rotation": 30,
       "text": "symphonia.page.macaw1"
+    },
+    {
+      "type": "spotlight",
+      "item": "faunaandorchestra:macaw_feather",
+      "text": "symphonia.page.macaw2"
+    },
+    {
+      "type": "image",
+      "images": [
+        "faunaandorchestra:textures/gui/entries/macaw_riddle.png"
+      ],
+      "border": true,
+      "text": "symphonia.page.macaw3"
     }
   ]
 }

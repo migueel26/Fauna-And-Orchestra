@@ -694,6 +694,8 @@
   "symphonia.entry.macaw": "Macaw",
   "symphonia.page.macaw0": "You may know parrots, but have you ever heard of $(l)macaws$()? They bring life to every $(o)jungle forest$() you may find! They love flying around, usually in flocks, alongside their colorful siblings $(o)(cousins, even?)$(). Despite being so similar to them, they can't imitate the sounds you make or dance to the tunes you may play. $(br)However, they are big fans of some string instrument!",
   "symphonia.page.macaw1": "Fun fact: Although they might be small, they have great strength lifting heavy equipment!",
+  "symphonia.page.macaw2": "Did you know that Macaws are extremely intelligent? They may not be able to play music, but they'll gladly give you a $(thing)riddle$() to solve! They'll show you the $(item)shadow of an item$() and you have to guess what it is! If you get it right, they'll give you a $(item)Macaw Feather$() as a reward!$(br)They also really love to eat, so try to craft some $(l:natural_recipes/seedy_apple)Seedy Apples$() to give them!",
+  "symphonia.page.macaw3": "$(l)Macaws$() will $(careful)fly away$() after giving one to you. Use it wisely!",
 
   "symphonia.entry.lemur": "Lemur",
   "symphonia.page.lemur0": "Our favorite ring-tailed animal of all time: the $(l)lemur!$() Whether you actually prefer red pandas or racoons, these little creatures can't be took for granted! They come from a foreign island, and since they inhabited the $(o)savannas$() in our world, they have been blessing the environment with their charismatic appearance! $(br)But it's not all charisma, they're unique when it comes to music!",
@@ -908,7 +910,10 @@
   "symphonia.page.bugs0": "Bugs are a very common food for many of the species in our world. They're a great source of protein and nutrients, and they're really easy to catch!$(br2)Get yourself an $(item)Axe$() and start using it on $(o)Logs$() or a $(item)Shovel$() on $(o)Grass$()! You'll eventually find either $(item)Insects$() or $(item)Worms$().",
 
   "symphonia.entry.perfumed_bamboo": "Perfumed Bamboo",
-  "symphonia.page.perfumed_bamboo0": "The $(l)Perfumed Bamboo$() is a special type of bamboo soaked in a sweet scent that it attracts their main consumer, the $(o)Red Pandas$() — quite useful if you want to mate some of them!$(br)To get it, you need to follow this a $(thing)Natural Recipe$(), some $(item)Water Fuel$() with the following ingredients:$(li)$(item)1x Bamboo$(li)2x Floral Fumes$(li)2x Sugar$()",
+  "symphonia.page.perfumed_bamboo0": "The $(l)Perfumed Bamboo$() is a special type of bamboo soaked in a sweet scent that it attracts their main consumer, the $(o)Red Pandas$().$(br)Its $(thing)Natural Recipe$(), alongside some $(item)Water Fuel$(), needs the following ingredients:$(li)$(item)1x Bamboo$(li)2x Floral Fumes$(li)2x Sugar$()",
+
+  "symphonia.entry.seedy_apple": "Seedy Apple",
+  "symphonia.page.seedy_apple0": "The $(l)Seedy Apple$() is a special type of apple that contains a lot of seeds. It's the main food of the $(o)Macaws$(), so it's really useful if you want to mate some of them!$(br)Its $(thing)Natural Recipe$(), alongside some $(item)Fire Fuel$(), needs the following ingredients:$(li)$(item)1x Apple$(li)5x Beetroot Seeds$(li)3x Wheat Seeds$()",
 
   "symphonia.entry.mailbox": "Mailboxes & Mailbirds",
   "symphonia.page.mailbox0": "Friends usually live far, far away... It's quite hard to $(o)communicate$() with them. That's what $(item)mail$() is for! Introducing $(l)Mailboxes$(), the best method to send gifts and letters to your friends far away!$(br2)First of all, you'll need your very own $(item)Letter and Quill$() so that your $(music)Mailbirds$() can know where to go to!",

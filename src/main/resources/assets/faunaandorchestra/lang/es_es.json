@@ -694,6 +694,8 @@
   "symphonia.entry.macaw": "Guacamayo",
   "symphonia.page.macaw0": "Seguramente conozcas a los loros, ¿pero has oído sobre $(l)guacamayos$()? ¡Darán vida a cada $(o)jungla$() que te encuentres! Les encanta volar, especialmente en bandadas, junto a sus coloridos hermanos $(o)(¿o primos?)$(). A pesar de ser tan similares, no pueden reproducir los sonidos de otros animales. $(br)No obstante, ¡son grandes fans de un instrumento de cuerda!",
   "symphonia.page.macaw1": "Dato curioso: A pesar de ser pequeños, ¡tienen una gran fuerza para levantar artilugios pesados!",
+  "symphonia.page.macaw2": "¿Sabías que los guacamayos son extremadamente inteligentes? ¡Puede que no sepan tocar música, pero te propondrán un $(thing)acertijo$()! ¡Te mostrarán la $(item)silueta de un objeto$() y tendrás que adivinar qué es! Si aciertas, ¡te darán una $(item)Pluma de Guacamayo$() como recompensa!$(br)También les encanta comer, ¡así que intenta fabricar $(l:natural_recipes/seedy_apple)Manzanas con Semillas$() para ellos!",
+  "symphonia.page.macaw3": "Los $(l)Guacamayos$() $(careful)saldrán volando$() tras entregarte una. ¡Úsala con sabiduría!",
 
   "symphonia.entry.lemur": "Lémur",
   "symphonia.page.lemur0": "Nuestro favorito animal de cola anillada: ¡el $(l)lémur!$() Aunque prefieras a los pandas rojos o mapaches, ¡no subestimes a estos pequeños animales! Procedentes de una isla lejana, habitaron hace años las $(o)sabanas$() de nuestro mundo, bendiciendo el medio ambiente con su carisma. $(br)Pero no es todo carisma, ¡son únicos con los instrumentos!",
