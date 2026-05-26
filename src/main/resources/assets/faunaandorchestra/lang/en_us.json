@@ -676,9 +676,11 @@
   "symphonia.page.mantis0": "$(l)Mantises$() have inhabited the $(o)Swamps, Cherry Groves and Lush Caves$()! These abnormally gigantic mantises are found in small packs, usually between two and three, and are extremely territorial. They won't attack you unless you hurt them, and don't try to approach them in the night either! $(br)Besides all of this, they are great musicians when given the right instrument!",
   "symphonia.page.mantis1": "Fun fact: Their giant yellow eyes hide their pupils when angry: their predators get intimidated by this tactic!",
 
-  "symphonia.entry.penguin": "Baby Penguin",
+  "symphonia.entry.penguin": "Penguin",
   "symphonia.page.penguin0": "Check the floor at all times! You might bump into these little $(l)penguins$() while traveling through most $(o)snowy biomes$(). They're one of the most social creatures out there: they will always wave at you with great happiness when they notice your presence! They also love swimming, and the can run very fast! $(br)Despite their age, they can perform music spectacularly!",
   "symphonia.page.penguin1": "Fun fact: If they don't practice the musical arts when young, they'll lose their gift when grown up!",
+  "symphonia.page.penguin2": "In their natural habitat, adult $(l)Emperor Penguins$() are usually surrounded by their offspring, and they're pretty protective of them. While they cannot learn $(music)music$(), they'll gladly let you interact with their babies.$(br)In fact, if you give a Baby Penguin $(item)Fish$() or $(l:taiyaki)Taiyaki$(), they might award you with some of their $(item)Feathers$()!$(br2)Penguins show their love with $(item)Stones$(), so try leaving a few of them on the floor!",
+  "symphonia.page.penguin3": "With some of these $(item)Penguin Feathers$() you can craft some $(item)Fluffy Boots$() which will give you $(o)speed$() on sand and snow!",
 
   "symphonia.entry.red_panda": "Red Panda",
   "symphonia.page.red_panda0": "Who doesn't love $(o)bamboo$()? You may do, but certainly not more than $(l)red pandas$()! Just like their bigger white and black siblings, you can find them in every $(o)jungle$() you encounter. They love to wander around, stare at other animals. If they get tired of walking on four, they might even stand up for a while! $(br)Nature gave them legs and paws for something: music!",
@@ -890,6 +892,9 @@
   "symphonia.entry.anya": "Anya",
 
   "symphonia.entry.herbalism_basics": "Basics of Herbalism",
+
+  "symphonia.entry.taiyaki": "Taiyaki",
+  "symphonia.page.taiyaki0": "The $(l)Taiyaki$() is the penguin's favorite food! It's a fish-shaped cake made of their favorite food $(o)(made for human consumption too!)$(). The natural recipe in the $(thing)Jar Rack$() is:$(li)$(item)1x Any Raw Fish$(li)2x Sugar$(li)1x Egg$()$(br)The fuel needed is any type of $(item)Fire$().",
 
   "symphonia.entry.mailbox": "Mailboxes & Mailbirds",
   "symphonia.page.mailbox0": "Friends usually live far, far away... It's quite hard to $(o)communicate$() with them. That's what $(item)mail$() is for! Introducing $(l)Mailboxes$(), the best method to send gifts and letters to your friends far away!$(br2)First of all, you'll need your very own $(item)Letter and Quill$() so that your $(music)Mailbirds$() can know where to go to!",

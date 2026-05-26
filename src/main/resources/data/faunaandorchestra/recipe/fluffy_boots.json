@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "C C",
+    "S S",
+    "S S"
+  ],
+  "key": {
+    "S": {
+      "item": "faunaandorchestra:penguin_feather"
+    },
+    "C": {
+      "item": "faunaandorchestra:cotton"
+    }
+  },
+  "result": {
+    "id": "faunaandorchestra:fluffy_boots",
+    "count": 1
+  }
+}

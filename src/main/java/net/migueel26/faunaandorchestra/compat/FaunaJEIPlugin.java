@@ -5,6 +5,7 @@ import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
+import mezz.jei.api.runtime.IJeiRuntime;
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.item.ModItems;
@@ -21,9 +22,19 @@ import net.minecraft.world.item.crafting.RecipeManager;
 import java.util.List;
 @JeiPlugin
 public class FaunaJEIPlugin implements IModPlugin {
+    private static IJeiRuntime jeiRuntime;
     @Override
     public ResourceLocation getPluginUid() {
         return ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "jei_plugin");
+    }
+
+    @Override
+    public void onRuntimeAvailable(IJeiRuntime runtime) {
+        jeiRuntime = runtime;
+    }
+
+    public static IJeiRuntime getRuntime() {
+        return jeiRuntime;
     }
 
     @Override

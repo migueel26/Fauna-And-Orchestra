@@ -1,0 +1,12 @@
+{
+  "name": "symphonia.entry.taiyaki",
+  "category": "faunaandorchestra:natural_recipes",
+  "icon": "faunaandorchestra:taiyaki",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "faunaandorchestra:taiyaki",
+      "text": "symphonia.page.taiyaki0"
+    }
+  ]
+}
