@@ -23,7 +23,7 @@
     },
     {
       "type": "crafting",
-      "recipe": "faunaandorchestra:beaver_statue_item",
+      "recipe": "faunaandorchestra:beaver_statue",
       "text": "symphonia.page.beaver3"
     }
   ]

@@ -917,6 +917,16 @@
   "symphonia.entry.seedy_apple": "Seedy Apple",
   "symphonia.page.seedy_apple0": "The $(l)Seedy Apple$() is a special type of apple that contains a lot of seeds. It's the main food of the $(o)Macaws$(), so it's really useful if you want to mate some of them!$(br)Its $(thing)Natural Recipe$(), alongside some $(item)Fire Fuel$(), needs the following ingredients:$(li)$(item)1x Apple$(li)5x Beetroot Seeds$(li)3x Wheat Seeds$()",
 
+  "symphonia.entry.catchweed": "Catchweed",
+  "symphonia.page.catchweed0": "The $(l)Catchweed$() is a very common plant that grows in the wild. It's a great source of food for many animals, and it's really easy to find!$(br2)You can find it in $(thing)meadows, lush caves or flower forests$()!$(br2)It can be quite $(o)sticky$(), so be careful when you're running away from mobs!",
+  "symphonia.page.catchweed1": "It's also a great ingredient for many recipes, so another way of getting them is by crafting $(item)Badgrass Meal$(). Its $(thing)Natural Recipe$() with $(item)Water Fuel$() is:$(li)$(item)6x Dirt$(li)2x Bone Meal$(li)1x Nature Fumes$()",
+
+  "symphonia.entry.fumes": "Fumes",
+  "symphonia.page.fumes0": "Fumes are an essential part of $(thing)Natural Recipes$(), being used in lots and lots of recipes — so you'll need lots of them!$(br2)The main one is the $(l)Nature Fumes$(), which is made using $(item)Fire Fuel$() with:$(li)$(item)2x Saplings$(li)2x Sugar Cane$(li)1x Wheat Seeds$(li)1x Brick$()",
+  "symphonia.page.fumes1": "Another useful one is the $(l)Arctic Fumes$(), made with the coldest of items!$(br2)You'll need some $(item)Ice Fuel$() and:$(li)$(item)6x Snowballs$(li)2x Taiyaki$(li)1x Penguin Feather$(li)1x Brick$()",
+  "symphonia.page.fumes2": "Finally, the $(l)Floral Fumes$() are here to heighten your senses with powerful scents!$(br2)You'll need some $(item)Water Fuel$() and:$(li)$(item)3x Poppys$(li)2x Lilac$(li)5x Dandelion$(li)3x Oxeye Daisy$(li)1x Brick$()",
+  "symphonia.page.fumes3": "$(l)Music$() actually has its own scent, and you can make it with the ingredients you've collected in your adventure!$(br2)They are made with $(item)Fire Fuel$() and:$(li)$(item)5x Catchweed$(li)2x Boogie Fruits$(li)2x Liquid Music$(li)1x Steelsonic Ingot$()",
+
   "symphonia.entry.mailbox": "Mailboxes & Mailbirds",
   "symphonia.page.mailbox0": "Friends usually live far, far away... It's quite hard to $(o)communicate$() with them. That's what $(item)mail$() is for! Introducing $(l)Mailboxes$(), the best method to send gifts and letters to your friends far away!$(br2)First of all, you'll need your very own $(item)Letter and Quill$() so that your $(music)Mailbirds$() can know where to go to!",
   "symphonia.page.mailbox1": "More information on how to make Writing Ink $(o)$(l:natural_recipes)here$().$(br)Once crafted, you must write the $(thing)x, y and z$() coordinates of your friend's Mailbox $(o)(they don't have to be exact)$(). Additionally, you can write the $(thing)sender$() and/or $(thing)receiver$().",

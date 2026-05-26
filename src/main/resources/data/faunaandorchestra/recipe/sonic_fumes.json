@@ -3,9 +3,9 @@
   "ingredients": [
     {
       "ingredient": {
-        "item": "faunaandorchestra:nature_fumes"
+        "item": "faunaandorchestra:catchweed"
       },
-      "amount": 3
+      "amount": 5
     },
     {
       "ingredient": {

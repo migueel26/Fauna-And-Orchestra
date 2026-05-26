@@ -1,0 +1,17 @@
+{
+  "name": "symphonia.entry.catchweed",
+  "category": "faunaandorchestra:natural_recipes",
+  "icon": "faunaandorchestra:catchweed",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "faunaandorchestra:catchweed",
+      "text": "symphonia.page.catchweed0"
+    },
+    {
+      "type": "spotlight",
+      "item": "faunaandorchestra:badgrass_meal",
+      "text": "symphonia.page.catchweed1"
+    }
+  ]
+}
