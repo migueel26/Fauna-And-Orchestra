@@ -675,10 +675,14 @@
   "symphonia.entry.mantis": "Mantis",
   "symphonia.page.mantis0": "¡Las $(l)Mantises$() han habitado los $(o)Manglares, Cerezales y Cuevas frondosas$()! Estas anormalmente grandes criaturas viajan en pequeñas mandas, de entre dos y tres, y son muy territoriales. No te atacarán a menos que las molestes, ¡y eso incluye en la noche! $(br)Aparte de todo esto, ¡son grandes músicos de un cierto instrumento!",
   "symphonia.page.mantis1": "Dato curioso: Para intimidar a sus depredadores o amenazas, ¡ocultan sus pupilas cuando se enfadan!",
+  "symphonia.page.mantis2": "Las mantis son fascinantes: hay $(o)especies distintas$() según el bioma. Son exquisitas y orgullosas, por lo que solo aceptarán $(l:natural_recipes/mantis_food)Comida para Mantis$() hecha en un $(l:natural_recipes/herbalism_basics)Estante de Frascos$(). ¡Prueba a lanzársela y mira cómo comen!$(br2)Tras reproducirse, la hembra suele $(careful)matar$() al macho y poner huevos. Tardarán mucho en eclosionar, ¡pero luego tendrás una $(l)pequeña mantis$() para tocar música!",
+  "symphonia.page.mantis3": "Al crecer, las mantis bebé dejarán atrás una valiosa $(item)Garra de Mantis$() que sirve para fabricar una $(item)Daga de Mantis$(). Se utilizan tanto para atacar como para $(o)arremeter$() a tu alrededor.",
 
   "symphonia.entry.penguin": "Bebé Pingüino",
   "symphonia.page.penguin0": "¡Mira al suelo siempre, vaya a ser que te tropieces con estos $(l)pingüinos bebés$()! Habitan la mayoría de $(o)biomas nevados$(). Son una de las criaturas más sociables: ¡te saludarán alegremente cuando se percaten de tu presencia! También aman nadar, ¡y corren muy rápido! $(br)A pesar de su edad, ¡pueden tocar música espectacularmente!",
   "symphonia.page.penguin1": "Dato curioso: Si no practican las artes musicales de jóvenes, ¡perderán su don al crecer!",
+  "symphonia.page.penguin2": "En su hábitat natural, los $(l)Pingüinos Emperador$() adultos suelen cuidar de sus crías de forma muy protectora. Aunque no pueden aprender $(music)música$(), te dejarán interactuar con sus bebés.$(br)De hecho, si le das a un Bebé Pingüino $(item)Pescado$() o $(l:taiyaki)Taiyaki$(), ¡podrían darte algunas de sus $(item)Plumas$()!$(br2)Los pingüinos demuestran su amor con $(item)Piedras$(), ¡así que prueba a dejar unas pocas en el suelo!",
+  "symphonia.page.penguin3": "¡Con algunas de estas $(item)Plumas de Pingüino$() podrás fabricar unas $(item)Botas plumosas() que te darán $(o)velocidad$() en la arena y la nieve!",
 
   "symphonia.entry.red_panda": "Panda Rojo",
   "symphonia.page.red_panda0": "¿A quién no le gusta el $(o)bambú$()? Capaz a ti, ¡pero seguramente no más que a los $(l)pandas rojos$()! Como a sus hermanos mayores, los podrás encontrar en las $(o)junglas$(). Les encanta deambular y mirar a otros animales. Si se cansan de andar a cuatro, ¡lo mismo se ponen de pie! $(br)La naturaleza les dio patas para algo: ¡música!",

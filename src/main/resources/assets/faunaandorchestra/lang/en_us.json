@@ -675,11 +675,13 @@
   "symphonia.entry.mantis": "Mantis",
   "symphonia.page.mantis0": "$(l)Mantises$() have inhabited the $(o)Swamps, Cherry Groves and Lush Caves$()! These abnormally gigantic mantises are found in small packs, usually between two and three, and are extremely territorial. They won't attack you unless you hurt them, and don't try to approach them in the night either! $(br)Besides all of this, they are great musicians when given the right instrument!",
   "symphonia.page.mantis1": "Fun fact: Their giant yellow eyes hide their pupils when angry: their predators get intimidated by this tactic!",
+  "symphonia.page.mantis2": "Mantises are really interesting: there are $(o)different species of them$(), depending on the biome. They're both exquisite and proud, so they'll only accept $(l:natural_recipes/mantis_food)Mantis Food$() made in a $(l:natural_recipes/herbalism_basics)Jar Rack$(). Try throwing them and watch how they eat!$(br2)Once bred, the female will usually $(careful)kill$() the male one and lay eggs. These eggs will take a lot of time to hatch, but once they do, you'll have a $(l)tiny new mantis$() to play music with!",
+  "symphonia.page.mantis3": "Once the baby mantises grow up, they'll leave behind a precious $(item)Mantis Claw$() which can be used to craft a $(item)Mantis Dagger$()! They're used both for attacking and $(o)dashing$() around.",
 
   "symphonia.entry.penguin": "Penguin",
   "symphonia.page.penguin0": "Check the floor at all times! You might bump into these little $(l)penguins$() while traveling through most $(o)snowy biomes$(). They're one of the most social creatures out there: they will always wave at you with great happiness when they notice your presence! They also love swimming, and the can run very fast! $(br)Despite their age, they can perform music spectacularly!",
   "symphonia.page.penguin1": "Fun fact: If they don't practice the musical arts when young, they'll lose their gift when grown up!",
-  "symphonia.page.penguin2": "In their natural habitat, adult $(l)Emperor Penguins$() are usually surrounded by their offspring, and they're pretty protective of them. While they cannot learn $(music)music$(), they'll gladly let you interact with their babies.$(br)In fact, if you give a Baby Penguin $(item)Fish$() or $(l:taiyaki)Taiyaki$(), they might award you with some of their $(item)Feathers$()!$(br2)Penguins show their love with $(item)Stones$(), so try leaving a few of them on the floor!",
+  "symphonia.page.penguin2": "In their natural habitat, adult $(l)Emperor Penguins$() are usually surrounded by their offspring, and they're pretty protective of them. While they cannot learn $(music)music$(), they'll gladly let you interact with their babies.$(br)In fact, if you give a Baby Penguin $(item)Fish$() or $(l:natural_recipes/taiyaki)Taiyaki$(), they might award you with some of their $(item)Feathers$()!$(br2)Penguins show their love with $(item)Stones$(), so try leaving a few of them on the floor!",
   "symphonia.page.penguin3": "With some of these $(item)Penguin Feathers$() you can craft some $(item)Fluffy Boots$() which will give you $(o)speed$() on sand and snow!",
 
   "symphonia.entry.red_panda": "Red Panda",
@@ -895,6 +897,12 @@
 
   "symphonia.entry.taiyaki": "Taiyaki",
   "symphonia.page.taiyaki0": "The $(l)Taiyaki$() is the penguin's favorite food! It's a fish-shaped cake made of their favorite food $(o)(made for human consumption too!)$(). The natural recipe in the $(thing)Jar Rack$() is:$(li)$(item)1x Any Raw Fish$(li)2x Sugar$(li)1x Egg$()$(br)The fuel needed is any type of $(item)Fire$().",
+
+  "symphonia.entry.mantis_food": "Mantis Food",
+  "symphonia.page.mantis_food0": "The $(l)Mantis Food$() is the only one that the proud mantis tribe will accept. Although they eat different $(l:natural_recipes/bugs)Bugs$() in their natural habitat, they're too proud to accept them from a human. $(br)The natural recipe in the $(thing)Jar Rack$() using a $(item)Fire Fuel$() is:$(li)$(item)2x Bugs$(li)1x Catchweed$(li)1x Spider Eye$().",
+
+  "symphonia.entry.bugs": "Bugs",
+  "symphonia.page.bugs0": "Bugs are a very common food for many of the species in our world. They're a great source of protein and nutrients, and they're really easy to catch!$(br2)Get yourself an $(item)Axe$() and start using it on $(o)Logs$() or a $(item)Shovel$() on $(o)Grass$()! You'll eventually find either $(item)Insects$() or $(item)Worms$().",
 
   "symphonia.entry.mailbox": "Mailboxes & Mailbirds",
   "symphonia.page.mailbox0": "Friends usually live far, far away... It's quite hard to $(o)communicate$() with them. That's what $(item)mail$() is for! Introducing $(l)Mailboxes$(), the best method to send gifts and letters to your friends far away!$(br2)First of all, you'll need your very own $(item)Letter and Quill$() so that your $(music)Mailbirds$() can know where to go to!",

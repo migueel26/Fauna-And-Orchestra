@@ -10,6 +10,7 @@
     },
     {
       "type": "image",
+      "border": true,
       "images": [
         "faunaandorchestra:textures/gui/entries/mothers_pond.png"
       ],
