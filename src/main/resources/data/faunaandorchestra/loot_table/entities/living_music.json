@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:entity",
+  "pools": [
+    {
+      "name": "extract_drop",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "faunaandorchestra:extract_of_living_music"
+        }
+      ]
+    }
+  ]
+}

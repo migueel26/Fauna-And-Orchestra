@@ -19,7 +19,7 @@ public class FaunaRandomLookAroundGoal extends Goal {
     }
 
     public enum Fauna {
-        MusicalEntity, ConductorEntity, AgeableMob, QuirkyFrogEntity, AbstractKoalaMerchant, WanderingKoalaEntity, ButlerKoalaEntity, SproutlingEntity, AbstractKoalaWorker
+        MusicalEntity, ConductorEntity, AgeableMob, QuirkyFrogEntity, AbstractKoalaMerchant, WanderingKoalaEntity, ButlerKoalaEntity, SproutlingEntity, AbstractKoalaWorker, LivingMusicEntity
     }
 
     @Override
@@ -37,6 +37,7 @@ public class FaunaRandomLookAroundGoal extends Goal {
                 case AbstractKoalaMerchant -> condition = !((WanderingKoalaEntity) mob).isKoalaSleeping();
                 case ButlerKoalaEntity -> condition = !((ButlerKoalaEntity) mob).isServing();
                 case SproutlingEntity  -> condition = !((SproutlingEntity) mob).isSinging();
+                case LivingMusicEntity -> condition = !((LivingMusicEntity) mob).isTrapped();
                 case AbstractKoalaWorker -> {
                     AbstractKoalaWorker koala = (AbstractKoalaWorker) mob;
                     condition = !koala.isKoalaSleeping() && (!koala.isWorking() || koala.isInLunchBreak());

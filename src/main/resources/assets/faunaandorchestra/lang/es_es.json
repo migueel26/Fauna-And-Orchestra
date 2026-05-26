@@ -268,6 +268,7 @@
   "item.faunaandorchestra.wise_tree_spawn_egg": "Generar al Árbol Sabio",
   "item.faunaandorchestra.the_great_composer_spawn_egg": "Generar al Gran Compositor",
   "item.faunaandorchestra.sproutling_spawn_egg": "Generar Brotecito Cantarín",
+  "item.faunaandorchestra.living_music_spawn_egg": "Generar Música Viva",
   "item.faunaandorchestra.butterfly_spawn_egg": "Mariposa",
 
   "tooltip.faunaandorchestra:violin": "§7Este instrumento parece capturar la atención de algunos... §odevotos§r§7 insectos",
@@ -333,6 +334,7 @@
   "entity.faunaandorchestra.orion": "Orión",
   "entity.faunaandorchestra.wise_tree": "Árbol Sabio",
   "entity.faunaandorchestra.singing_sproutling": "Brotecito Cantarín",
+  "entity.faunaandorchestra.living_music": "Música Viva",
   "entity.faunaandorchestra.butterfly": "Mariposa",
   "entity.faunaandorchestra.the_great_composer": "Tiego, el Gran Compositor",
   "entity.faunaandorchestra.the_great_composer_canon": "Canon del Gran Compositor",

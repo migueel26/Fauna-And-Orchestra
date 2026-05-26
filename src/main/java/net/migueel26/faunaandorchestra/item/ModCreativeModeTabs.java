@@ -51,6 +51,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.WORKER_KOALA_SPAWN_EGG);
                         output.accept(ModItems.WANDERING_KOALA_SPAWN_EGG);
                         output.accept(ModItems.BUTLER_KOALA_SPAWN_EGG);
+                        output.accept(ModItems.LIVING_MUSIC_SPAWN_EGG);
                         output.accept(ModItems.SPROUTLING_SPAWN_EGG);
                         output.accept(ModItems.RINGTAILS_SPAWN_EGG);
                         output.accept(ModItems.JAZZY_DAMMYS_SPAWN_EGG);

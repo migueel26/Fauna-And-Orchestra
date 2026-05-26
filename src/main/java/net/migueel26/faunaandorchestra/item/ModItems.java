@@ -298,6 +298,9 @@ public class ModItems {
     public static final DeferredItem<Item> SPROUTLING_SPAWN_EGG = ITEMS.register("sproutling_spawn_egg",
             () -> new DeferredSpawnEggItem(ModEntities.SINGING_SPROUTLING, 0xd1793a, 0x33a03e,
                     new Item.Properties()));
+    public static final DeferredItem<Item> LIVING_MUSIC_SPAWN_EGG = ITEMS.register("living_music_spawn_egg",
+            () -> new DeferredSpawnEggItem(ModEntities.LIVING_MUSIC, 0xA375FF, 0x6986FF,
+                    new Item.Properties()));
     public static final DeferredItem<Item> BUTTERFLY_SPAWN_EGG = ITEMS.register("butterfly_spawn_egg",
             () -> new CustomSpawnEggItem(new Item.Properties(), ModEntities.BUTTERFLY.get()));
     public static final DeferredItem<Item> WISE_TREE_SPAWN_EGG = ITEMS.register("wise_tree_spawn_egg",

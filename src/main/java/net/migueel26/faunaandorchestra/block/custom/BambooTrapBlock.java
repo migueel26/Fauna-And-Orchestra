@@ -2,6 +2,7 @@ package net.migueel26.faunaandorchestra.block.custom;
 
 import com.mojang.serialization.MapCodec;
 import net.migueel26.faunaandorchestra.block.entity.BambooTrapBlockEntity;
+import net.migueel26.faunaandorchestra.entity.custom.LivingMusicEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -70,6 +71,11 @@ public class BambooTrapBlock extends HorizontalDirectionalBlock implements Entit
                 livingEntity.teleportTo(center.x, center.y, center.z);
 
                 level.scheduleTick(pos, this, 20);
+
+                if (livingEntity instanceof LivingMusicEntity livingMusic) {
+                    // We trap it so it doesn't despawn
+                    livingMusic.setTicksUntilDeath(-1);
+                }
             }
             entity.makeStuckInBlock(state, new Vec3(0D, 0.05D, 0D));;
         }

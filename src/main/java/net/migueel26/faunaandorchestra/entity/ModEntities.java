@@ -80,6 +80,8 @@ public class ModEntities {
 
     public static final Supplier<EntityType<SproutlingEntity>> SINGING_SPROUTLING = ENTITY_TYPES.register("singing_sproutling",
             () -> EntityType.Builder.of(SproutlingEntity::new, MobCategory.CREATURE).sized(0.35f, 0.45f).build("singing_sproutling"));
+    public static final Supplier<EntityType<LivingMusicEntity>> LIVING_MUSIC = ENTITY_TYPES.register("living_music",
+            () -> EntityType.Builder.of(LivingMusicEntity::new, MobCategory.CREATURE).sized(0.35f, 0.45f).build("living_music"));
     public static final Supplier<EntityType<ButterflyEntity>> BUTTERFLY = ENTITY_TYPES.register("butterfly",
             () -> EntityType.Builder.of(ButterflyEntity::new, MobCategory.CREATURE).sized(0.35f, 0.35f).build("butterfly"));
     public static final Supplier<EntityType<WanderingNoteEntity>> WANDERING_NOTE = ENTITY_TYPES.register("wandering_note_entity",

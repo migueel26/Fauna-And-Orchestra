@@ -268,6 +268,7 @@
   "item.faunaandorchestra.wise_tree_spawn_egg": "Wise Tree Spawn Egg",
   "item.faunaandorchestra.the_great_composer_spawn_egg": "The Great Composer Spawn Egg",
   "item.faunaandorchestra.sproutling_spawn_egg": "Singing Sproutling Spawn Egg",
+  "item.faunaandorchestra.living_music_spawn_egg": "Living Music Spawn Egg",
   "item.faunaandorchestra.butterfly_spawn_egg": "Butterfly",
 
   "tooltip.faunaandorchestra:violin": "§7This instrument seems to capture the attention of some... §odevout§r§7 insects",
@@ -333,6 +334,7 @@
   "entity.faunaandorchestra.orion": "Orion",
   "entity.faunaandorchestra.wise_tree": "Wise Tree",
   "entity.faunaandorchestra.singing_sproutling": "Singing Sproutling",
+  "entity.faunaandorchestra.living_music": "Living Music",
   "entity.faunaandorchestra.butterfly": "Butterfly",
   "entity.faunaandorchestra.the_great_composer": "Tiego, the Great Composer",
   "entity.faunaandorchestra.the_great_composer_canon": "Canon of the Great Composer",
