@@ -820,6 +820,10 @@
   "symphonia.page.amplifier_crystal0": "Containing $(item)voices$() is even trickier than music: they have an $(o)errant and wild nature$(), so $(item)steelsonic$() isn't enough. In order to channel and contain them, we need an $(l)Amplifier Crystal$(). It's quite expensive to make in the $(music)Melomancy Cauldron$(), but worth it. They're indispensable if you want to meddle in this branch of $(thing)biophilia$().",
   "symphonia.page.amplifier_crystal1": "The recipe for this valuable $(item)item$() is: $(li)$(item)5x Diamonds $(li)3x Wandering Notes $(li)2x Steelsonic Ingots$()$(br)Finally, infuse an $(item)Amethyst Shard$() with it and you'll get your precious $(item)Amplifier Crystal$().",
 
+  "symphonia.entry.biosonic_ingot": "Biosonic Ingot",
+  "symphonia.page.biosonic_ingot0": "The $(l)Biosonic Ingot$() is the last step towards the synthesis of $(thing)life$(), $(thing)music$() and $(thing)steel$(). By fusing all of the different $(item)fumes$() you've made, you can get this powerful metal. The recipe for $(item)1x Biosonic Ingot$() is:$(li)$(item)1x Steelsonic Ingot$(li)1x Sonic Fumes$(li)1x Arctic Fumes$(li)1x Floral Fumes$()$(br)You don't need any recipient to get it!",
+  "symphonia.page.biosonic_ingot1": "The first item you might want to craft is this $(item)Biosonic Dirk$(). By right-clicking an entity you'll have a chance of taking some $(l:biophilia/living_music)Living Music$() out of their body!",
+
   "symphonia.entry.singing_sproutling": "Singing Sproutling",
   "symphonia.page.singing_sproutling0": "These $(o)little creatures$() were the singing crops all along! They're the epitome of what $(thing)biophilia$() is: the marriage between $(o)music and life$(). $(br)They love wandering around, especially around other crops, and singing! $(br2)They have such an $(o)angelical voice$() that when they sing the $(music)crops and grass$() around it $(o)magically grow$()!",
   "symphonia.page.singing_sproutling1": "They're really useful as a natural $(item)bone meal$() and... $(o)perhaps$() something more?",

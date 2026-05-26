@@ -81,7 +81,7 @@ public class JarRackBlock extends HorizontalDirectionalBlock implements EntityBl
     @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         if (stack.is(ModBlocks.HANGING_JAR.asItem()) && !state.getValue(JAR) && level.getBlockEntity(pos) instanceof JarRackBlockEntity blockEntity) {
-            if (level.getBlockState(pos.below()).is(ModTags.Blocks.JAR_FUEL)) {
+            if (level.getBlockState(pos.below()).is(ModTags.Blocks.JAR_FUEL) || level.getBlockState(pos.below()).isEmpty()) {
                 CompoundTag tag = stack.getOrDefault(DataComponents.BLOCK_ENTITY_DATA, CustomData.EMPTY).copyTag();
                 if (tag.contains("Inventory")) {
                     // We introduce the items
@@ -177,7 +177,7 @@ public class JarRackBlock extends HorizontalDirectionalBlock implements EntityBl
         BlockPos wallPos = pos.relative(wallDirection);
         BlockState wallState = level.getBlockState(wallPos);
 
-        return wallState.isFaceSturdy(level, wallPos, facing) && (level.getBlockState(pos.below()).is(ModTags.Blocks.JAR_FUEL) || !state.getValue(JAR));
+        return wallState.isFaceSturdy(level, wallPos, facing) && (level.getBlockState(pos.below()).is(ModTags.Blocks.JAR_FUEL) || !state.getValue(JAR) || level.getBlockState(pos.below()).isEmpty());
     }
 
     @Override

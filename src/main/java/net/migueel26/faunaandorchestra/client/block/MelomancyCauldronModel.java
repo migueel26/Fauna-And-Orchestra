@@ -18,6 +18,7 @@ public class MelomancyCauldronModel extends GeoModel<MelomancyCauldronBlockEntit
     private static final ResourceLocation OFFERING_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/block/melomancy_cauldron_offering.png");
     private static final ResourceLocation HEARING_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/block/melomancy_cauldron_hearing.png");
     private static final ResourceLocation SEED_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/block/melomancy_cauldron_seed.png");
+    public static final ResourceLocation BIOSONIC_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/block/melomancy_cauldron_biosonic.png");
     private static final ResourceLocation ANIMATIONS = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "animations/block/melomancy_cauldron.animation.json");
     private static final ResourceLocation MODEL = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "geo/block/melomancy_cauldron.geo.json");
     @Override
@@ -52,6 +53,9 @@ public class MelomancyCauldronModel extends GeoModel<MelomancyCauldronBlockEntit
         }
         else if (resultItem == ModItems.SINGING_SEED.get()) {
             return SEED_TEXTURE;
+        }
+        else if (resultItem == ModItems.BIOSONIC_INGOT.get()) {
+            return BIOSONIC_TEXTURE;
         }
 
         return DEFAULT_TEXTURE;
