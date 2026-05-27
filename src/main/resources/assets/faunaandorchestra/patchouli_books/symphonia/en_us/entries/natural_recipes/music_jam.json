@@ -1,0 +1,13 @@
+{
+  "name": "symphonia.entry.music_jam",
+  "category": "faunaandorchestra:natural_recipes",
+  "icon": "faunaandorchestra:music_jam",
+  "advancement": "faunaandorchestra:living_music",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "faunaandorchestra:music_jam",
+      "text": "symphonia.page.music_jam0"
+    }
+  ]
+}

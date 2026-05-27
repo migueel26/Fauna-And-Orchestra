@@ -61,7 +61,7 @@ public class KoalaTrades {
                     },
                     6,
                     new VillagerTrades.ItemListing[]{
-                            new ItemsForEmeralds(ModItems.BUSINESS_CARD.get().getDefaultInstance(), 1, 1, 1, 1, 1, Optional.empty(), ModItems.ACTIVATOR_CLEF.get()),
+                            new ItemsForEmeralds(ModItems.BUSINESS_CARD.get().getDefaultInstance(), 1, 1, 1, 1, 1, Optional.empty(), ModItems.MUSIC_JAM.get()),
                     }
             )
     );
@@ -87,7 +87,7 @@ public class KoalaTrades {
                     },
                     3,
                     new VillagerTrades.ItemListing[]{
-                            new ItemsForEmeralds(ModItems.BUSINESS_CARD.get().getDefaultInstance(), 1, 1, 1, 1, 1, Optional.empty(), ModItems.ACTIVATOR_CLEF.get()),
+                            new ItemsForEmeralds(ModItems.BUSINESS_CARD.get().getDefaultInstance(), 1, 1, 1, 1, 1, Optional.empty(), ModItems.MUSIC_JAM.get()),
                     }
             )
     );

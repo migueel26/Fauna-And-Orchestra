@@ -104,6 +104,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.MUSIC_BOTTLE);
                         output.accept(ModItems.MUSICAL_INK);
                         output.accept(ModItems.EXTRACT_OF_LIVING_MUSIC);
+                        output.accept(ModItems.MUSIC_JAM);
                         output.accept(ModItems.BOOGIE_BOMB);
                         output.accept(ModItems.SONIC_FUMES);
                         output.accept(ModItems.STEELSONIC_INGOT);

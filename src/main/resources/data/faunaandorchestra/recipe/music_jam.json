@@ -1,0 +1,28 @@
+{
+  "type": "faunaandorchestra:natural_recipe",
+  "ingredients": [
+    {
+      "ingredient": {
+        "item": "faunaandorchestra:extract_of_living_music"
+      },
+      "amount": 2
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:sugar"
+      },
+      "amount": 2
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:honey_bottle"
+      }
+    }
+  ],
+  "fuel": "#minecraft:ice",
+  "result": {
+    "id": "faunaandorchestra:music_jam",
+    "count": 1
+  },
+  "time": 600
+}

@@ -228,6 +228,7 @@ public class ModItems {
     public static final DeferredItem<Item> FLORA_FORTA = createRegularDescriptionItem("flora_forta");
     public static final DeferredItem<Item> UNLIT_MASK = createRegularDescriptionItem("unlit_mask", new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON));
     public static final DeferredItem<Item> REALLY_GOOD_STICK = createRegularDescriptionItem("really_good_stick");
+    public static final DeferredItem<Item> MUSIC_JAM = createRegularDescriptionItem("music_jam", new Item.Properties().food(Foods.MUSHROOM_STEW));
 
     // ARMOR
     public static final DeferredItem<Item> FLUFFY_BOOTS = ITEMS.register("fluffy_boots",
