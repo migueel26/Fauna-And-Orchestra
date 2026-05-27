@@ -23,6 +23,7 @@
     },
     {
       "type": "crafting",
+      "anchor": "bamboo_trap",
       "recipe": "faunaandorchestra:bamboo_trap",
       "text": "symphonia.page.red_panda3"
     }

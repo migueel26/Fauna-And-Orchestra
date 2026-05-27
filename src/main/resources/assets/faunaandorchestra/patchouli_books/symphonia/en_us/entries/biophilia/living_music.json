@@ -1,0 +1,21 @@
+{
+  "name": "symphonia.entry.living_music",
+  "category": "faunaandorchestra:biophilia",
+  "icon": "faunaandorchestra:extract_of_living_music",
+  "advancement": "faunaandorchestra:living_music",
+  "pages": [
+    {
+      "type": "text",
+      "text": "symphonia.page.living_music0"
+    },
+    {
+      "type": "entity",
+      "entity": "faunaandorchestra:living_music",
+      "rotate": true,
+      "offset": -0.2,
+      "scale": 1.2,
+      "default_rotation": 35,
+      "text": "symphonia.page.living_music1"
+    }
+  ]
+}

@@ -441,6 +441,8 @@
   "advancements.faunaandorchestra.diskinserted.desc": "Resolve your first Myth and claim your prize",
   "advancements.faunaandorchestra.propeller_hat": "HYPERYOUTH",
   "advancements.faunaandorchestra.propeller_hat.desc": "Obtain the rare Propeller Hat",
+  "advancements.faunaandorchestra.living_music": "Tender The Spark",
+  "advancements.faunaandorchestra.living_music.desc": "Extract Living Music out of an entity",
 
   "dialogue.faunaandorchestra.faust0": "Nice to meet you! I'm Faust, and together we're The Ringtails",
   "dialogue.faunaandorchestra.faust1": "Nice to see you again, %! Care to join us?",
@@ -823,6 +825,10 @@
   "symphonia.entry.biosonic_ingot": "Biosonic Ingot",
   "symphonia.page.biosonic_ingot0": "The $(l)Biosonic Ingot$() is the last step towards the synthesis of $(thing)life$(), $(thing)music$() and $(thing)steel$(). By fusing all of the different $(item)fumes$() you've made, you can get this powerful metal. The recipe for $(item)1x Biosonic Ingot$() is:$(li)$(item)1x Steelsonic Ingot$(li)1x Sonic Fumes$(li)1x Arctic Fumes$(li)1x Floral Fumes$()$(br)You don't need any recipient to get it!",
   "symphonia.page.biosonic_ingot1": "The first item you might want to craft is this $(item)Biosonic Dirk$(). By right-clicking an entity you'll have a chance of taking some $(l:biophilia/living_music)Living Music$() out of their body!",
+
+  "symphonia.entry.living_music": "Living Music",
+  "symphonia.page.living_music0": "$(l)Living Music$() is the purest form of music, the one that comes from a creature's $(music)soul$() — representing the communion between $(o)life and song$(). You can obtain it by using a $(item)Biosonic Dirk$() on any creature, but it's not guaranteed that you'll get some.$(br) It'll run away and disappear in a couple of seconds, so you might need to $(careful)kill it fast$() or $(l:musicians/red_panda#bamboo_trap)trap it$().",
+  "symphonia.page.living_music1": "If you decide to kill it, you'll get some $(item)Extract of Living Music$(), useful in recipes.",
 
   "symphonia.entry.singing_sproutling": "Singing Sproutling",
   "symphonia.page.singing_sproutling0": "These $(o)little creatures$() were the singing crops all along! They're the epitome of what $(thing)biophilia$() is: the marriage between $(o)music and life$(). $(br)They love wandering around, especially around other crops, and singing! $(br2)They have such an $(o)angelical voice$() that when they sing the $(music)crops and grass$() around it $(o)magically grow$()!",
