@@ -445,6 +445,8 @@
   "advancements.faunaandorchestra.propeller_hat.desc": "Obtain the rare Propeller Hat",
   "advancements.faunaandorchestra.living_music": "Tender The Spark",
   "advancements.faunaandorchestra.living_music.desc": "Extract Living Music out of an entity",
+  "advancements.faunaandorchestra.worker_koala": "Man's Best Friend",
+  "advancements.faunaandorchestra.worker_koala.desc": "Hire your very first Koala!",
 
   "dialogue.faunaandorchestra.faust0": "Nice to meet you! I'm Faust, and together we're The Ringtails",
   "dialogue.faunaandorchestra.faust1": "Nice to see you again, %! Care to join us?",
@@ -940,13 +942,18 @@
   "symphonia.page.fumes3": "$(l)Music$() actually has its own scent, and you can make it with the ingredients you've collected in your adventure!$(br2)They are made with $(item)Fire Fuel$() and:$(li)$(item)5x Catchweed$(li)2x Boogie Fruits$(li)2x Liquid Music$(li)1x Steelsonic Ingot$()",
 
   "symphonia.entry.music_jam": "Music Jam",
-  "symphonia.page.music_jam0": "The $(l)Music Jam$() is a special type of jam with a sweet taste of $(music)sound$(). Not apt for every animal, but especially loved by the $(thing)Koalas$(). If you get yourself some you'll be able to get some pretty good deals with them!$(br)Its $(thing)Natural Recipe$() is made with $(item)Ice Fuel$() and:$(li)$(item)2x Extract of Living Music$(li)2x Sugar$(li)1x Honey Bottle$()",
+  "symphonia.page.music_jam0": "The $(l)Music Jam$() is a special type of jam with a sweet taste of $(music)sound$(). Not apt for every animal, but especially loved by the $(thing)Koalas$(). $(br)Its $(thing)Natural Recipe$() is made with $(item)Ice Fuel$() and:$(li)$(item)2x Extract of Living Music$(li)2x Sugar$(li)3x Ginkgo Biloba$(li)1x Sonic Fumes$(li)1x Honey Bottle$()",
 
   "symphonia.entry.mailbox": "Mailboxes & Mailbirds",
   "symphonia.page.mailbox0": "Friends usually live far, far away... It's quite hard to $(o)communicate$() with them. That's what $(item)mail$() is for! Introducing $(l)Mailboxes$(), the best method to send gifts and letters to your friends far away!$(br2)First of all, you'll need your very own $(item)Letter and Quill$() so that your $(music)Mailbirds$() can know where to go to!",
   "symphonia.page.mailbox1": "More information on how to make Writing Ink $(o)$(l:natural_recipes)here$().$(br)Once crafted, you must write the $(thing)x, y and z$() coordinates of your friend's Mailbox $(o)(they don't have to be exact)$(). Additionally, you can write the $(thing)sender$() and/or $(thing)receiver$().",
   "symphonia.page.mailbox2": "Once your item has the right address, it's time to send it. For that, you'll need a $(l)Mailbox$() with its own $(music)Mailbird Macaw$(). To get your own mailbird, you'll need to get a $(item)unique Feather$() from a $(o)$(l:musicians/macaw)$(thing)Macaw$(), a symbol of their trust.$(br2)Once crafted, it'll come right away to deliver your mail. Only items with an $(thing)address$() or $(o)$(l:befriend_em_all/business_card)$(item)business cards$() can be placed inside.",
   "symphonia.page.mailbox3": "Once sent, the $(o)mailbird$() will take a while to deliver the mail and come back. If the receiver's $(item)Mailbox$() is full or there isn't one with that address, the $(o)mailbird$() will come back with the mail.",
+
+  "symphonia.entry.business_card": "Business Card & Kits",
+  "symphonia.page.business_card0": "Don't you get tired of doing everything by yourself? I sure did $(o)(a long time ago...)$(). Why don't you try to get some help? Farming, melomancy... even new tasks, like $(thing)sewing$()!$(br)In order to do that, you first need to find a $(item)Business Card$(). Most Koalas have one from their friends, but they usually ask for $(l:natural_recipes/music_jam)something expensive in exchange.$()",
+  "symphonia.page.business_card1": "Once you have one, the next step is getting a $(l:befriend_em_all/mailbox)Mailbox$() and sending said $(item)Business Card$() to your interviewee. After a while a $(l)Koala$() will come to your home and will wander around until you talk to them and give them a $(item)Kit$(). Don't take too much, or they might go away!$(br2)The good thing about $(l)Koala Workers$() is that they don't ask for much, just a little bit of $(item)music$(). If they don't have one, they'll stop what they're doing and $(o)fall asleep$()!",
+  "symphonia.page.business.card2": "These are the different $(item)kits$() you can craft. Just give one to the Koala and they'll start working right away! Farmers will $(thing)farm$(), tailors will $(thing)sew$(), etc.",
 
   "symphonia.entry.find_myths": "How to Find Myths",
   "symphonia.page.find_myths0": "Myths are the key to unlock the secrets of this world. They're the ones who can teach you about the wonders of $(thing)Melomancy$() and the mysteries of $(thing)our world$(). While you explore the world and complete both $(item)Minecraft and Fauna & Orchestra advancements$(), Dan B. from the Jazzy Dammys might learn new myths. So don't forget to visit him every once in a while!",

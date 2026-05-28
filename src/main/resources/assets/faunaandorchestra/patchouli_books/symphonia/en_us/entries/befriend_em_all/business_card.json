@@ -2,25 +2,26 @@
   "name": "symphonia.entry.business_card",
   "category": "faunaandorchestra:befriend_em_all",
   "icon": "faunaandorchestra:business_card",
+  "advancement": "faunaandorchestra:boogie_fruit",
   "pages": [
     {
       "type": "spotlight",
-      "item": "faunaandorchestra:mailbox_item",
-      "text": "symphonia.page.mailbox0"
-    },
-    {
-      "type": "crafting",
-      "recipe": "faunaandorchestra:letter_and_quill",
-      "text": "symphonia.page.mailbox1"
+      "item": "faunaandorchestra:business_card",
+      "text": "symphonia.page.business_card0"
     },
     {
       "type": "text",
-      "text": "symphonia.page.mailbox2"
+      "text": "symphonia.page.business_card1"
     },
     {
       "type": "crafting",
-      "recipe": "faunaandorchestra:mailbox",
-      "text": "symphonia.page.mailbox3"
+      "recipe": "faunaandorchestra:sewing_kit",
+      "recipe2": "faunaandorchestra:melomancy_kit"
+    },
+    {
+      "type": "crafting",
+      "recipe": "faunaandorchestra:farming_kit",
+      "text": "symphonia.page.business.card2"
     }
   ]
 }

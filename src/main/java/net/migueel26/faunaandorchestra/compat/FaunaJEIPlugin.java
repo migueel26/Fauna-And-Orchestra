@@ -66,12 +66,12 @@ public class FaunaJEIPlugin implements IModPlugin {
         // Melomancy Info
         registration.addIngredientInfo(ModItems.MUSIC_BOTTLE, symphoniaComponent("music_bottle"));
         registration.addIngredientInfo(ModItems.DISCORD_ESSENCE, symphoniaComponent("discord_essence"));
-        registration.addIngredientInfo(ModItems.AMPLIFIER_CRYSTAL, melomancyComponent("amplifier_crystal"));
-        registration.addIngredientInfo(ModItems.OFFERING, melomancyComponent("offering"));
-        registration.addIngredientInfo(ModItems.STEELSONIC_INGOT, melomancyComponent("steelsonic_ingot"));
-        registration.addIngredientInfo(ModItems.MUSICAL_INK, melomancyComponent("musical_ink"));
-        registration.addIngredientInfo(ModItems.SINGING_SEED, melomancyComponent("singing_seed"));
-        registration.addIngredientInfo(ModItems.BOOGIE_BOMB, melomancyComponent("boogie_bomb"));
+        //registration.addIngredientInfo(ModItems.AMPLIFIER_CRYSTAL, melomancyComponent("amplifier_crystal"));
+        //registration.addIngredientInfo(ModItems.OFFERING, melomancyComponent("offering"));
+        //registration.addIngredientInfo(ModItems.STEELSONIC_INGOT, melomancyComponent("steelsonic_ingot"));
+        //registration.addIngredientInfo(ModItems.MUSICAL_INK, melomancyComponent("musical_ink"));
+        //registration.addIngredientInfo(ModItems.SINGING_SEED, melomancyComponent("singing_seed"));
+        //registration.addIngredientInfo(ModItems.BOOGIE_BOMB, melomancyComponent("boogie_bomb"));
         registration.addIngredientInfo(ModItems.RESURRECTION_SONG, melomancyComponent("resurrection_song"));
 
         registration.addIngredientInfo(ModItems.TRANSMUTED_VOICE, symphoniaComponent("transmuted_voice"));
@@ -79,7 +79,7 @@ public class FaunaJEIPlugin implements IModPlugin {
         registration.addIngredientInfo(ModBlocks.DISCORDED_FLOWER.asItem(), symphoniaComponent("discorded_flower"));
 
         registration.addIngredientInfo(ModItems.DISCORD_NUCLEI_ITEM, symphoniaDefaultText());
-        registration.addIngredientInfo(ModItems.WANDERING_NOTE, symphoniaDefaultText());
+        //registration.addIngredientInfo(ModItems.WANDERING_NOTE, symphoniaDefaultText());
         registration.addIngredientInfo(ModItems.FRUIT_OF_LIFE, symphoniaDefaultText());
         registration.addIngredientInfo(ModItems.PETALS_OF_DEATH, symphoniaDefaultText());
         registration.addIngredientInfo(ModItems.GLOVE, symphoniaDefaultText());
@@ -90,6 +90,7 @@ public class FaunaJEIPlugin implements IModPlugin {
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.JAR_RACK.get()), NaturalRecipeCategory.RECIPE_TYPE);
+        registration.addRecipeCatalyst(new ItemStack(ModBlocks.MELOMANCY_CAULDRON.get()), MelomancyRecipeCategory.RECIPE_TYPE);
     }
 
     public static Component melomancyComponent(String item) {

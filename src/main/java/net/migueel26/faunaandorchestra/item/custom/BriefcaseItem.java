@@ -136,8 +136,7 @@ public class BriefcaseItem extends Item {
 
             level.addFreshEntity(entity);
 
-            MusicalEntity musicalEntity = (MusicalEntity) entity;
-            if (musicalEntity.isHoldingInstrument()) {
+            if (entity instanceof MusicalEntity musicalEntity && musicalEntity.isHoldingInstrument()) {
                 musicalEntity.searchForConductor();
             }
         }

@@ -34,7 +34,7 @@ public class TailorKoalaModel extends GeoModel<TailorKoalaEntity> {
     @Override
     public void setCustomAnimations(TailorKoalaEntity koala, long instanceId, AnimationState<TailorKoalaEntity> animationState) {
         GeoBone head = getAnimationProcessor().getBone("head");
-        if (head != null && (!koala.isSewing() || koala.isInLunchBreak()) && !koala.isKoalaSleeping()) {
+        if (head != null && (!koala.isSewing() || koala.isInLunchBreak()) && (!koala.isKoalaSleeping() || !koala.hasWorkingStation())) {
             EntityModelData entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
 
             head.setRotX(entityData.headPitch() * Mth.DEG_TO_RAD);

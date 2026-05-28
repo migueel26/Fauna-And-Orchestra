@@ -34,7 +34,7 @@ public class FarmerKoalaModel extends GeoModel<FarmerKoalaEntity> {
     @Override
     public void setCustomAnimations(FarmerKoalaEntity koala, long instanceId, AnimationState<FarmerKoalaEntity> animationState) {
         GeoBone head = getAnimationProcessor().getBone("head");
-        if (head != null && (!animationState.getController().isPlayingTriggeredAnimation() || koala.isInLunchBreak()) && !koala.isKoalaSleeping()) {
+        if (head != null && (!animationState.getController().isPlayingTriggeredAnimation() || koala.isInLunchBreak()) && (!koala.isKoalaSleeping() || !koala.hasWorkingStation())) {
             EntityModelData entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
 
             head.setRotX(entityData.headPitch() * Mth.DEG_TO_RAD);

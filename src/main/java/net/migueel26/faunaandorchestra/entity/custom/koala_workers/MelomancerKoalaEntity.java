@@ -112,23 +112,24 @@ public class MelomancerKoalaEntity extends AbstractKoalaWorker {
 
         // Regular Goals
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.5f) {
+            MelomancerKoalaEntity koala = (MelomancerKoalaEntity) mob;
             @Override
             public boolean canUse() {
-                return super.canUse() && !((MelomancerKoalaEntity) mob).isKoalaSleeping();
+                return super.canUse() && (!koala.isKoalaSleeping() || !koala.hasWorkingStation());
             }
         });
         this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 8.0f) {
             final MelomancerKoalaEntity koala = (MelomancerKoalaEntity) mob;
             @Override
             public boolean canUse() {
-                return super.canUse() && !koala.isKoalaSleeping() && (koala.isDoingNothing() || koala.isInLunchBreak());
+                return super.canUse() && (!koala.isKoalaSleeping() || !koala.hasWorkingStation()) && (koala.isDoingNothing() || koala.isInLunchBreak());
             }
         });
         this.goalSelector.addGoal(3, new RandomStrollGoal(this, 1.0f) {
             final MelomancerKoalaEntity koala = (MelomancerKoalaEntity) mob;
             @Override
             public boolean canUse() {
-                return super.canUse() && !koala.isKoalaSleeping() && (!koala.hasWorkingStation() || koala.isInLunchBreak() || koala.isDoingNothing());
+                return super.canUse() && (!koala.isKoalaSleeping() || !koala.hasWorkingStation()) && (!koala.hasWorkingStation() || koala.isInLunchBreak() || koala.isDoingNothing());
             }
         });
         this.goalSelector.addGoal(5, new FaunaRandomLookAroundGoal(this));
@@ -417,7 +418,7 @@ public class MelomancerKoalaEntity extends AbstractKoalaWorker {
             }
             return InteractionResult.SUCCESS;
 
-        } else if (isKoalaSleeping()) {
+        } else if (isKoalaSleeping() && hasWorkingStation()) {
             player.displayClientMessage(Component.translatable("text.faunaandorchestra.sleeping_worker_koala"), true);
             return InteractionResult.SUCCESS;
 

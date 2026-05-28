@@ -34,7 +34,7 @@ public class MelomancerKoalaModel extends GeoModel<MelomancerKoalaEntity> {
     @Override
     public void setCustomAnimations(MelomancerKoalaEntity koala, long instanceId, AnimationState<MelomancerKoalaEntity> animationState) {
         GeoBone head = getAnimationProcessor().getBone("head");
-        if (head != null && (!koala.isMixing() || koala.isInLunchBreak()) && !koala.isKoalaSleeping()) {
+        if (head != null && (!koala.isMixing() || koala.isInLunchBreak()) && (!koala.isKoalaSleeping() || !koala.hasWorkingStation())) {
             EntityModelData entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
 
             head.setRotX(entityData.headPitch() * Mth.DEG_TO_RAD);

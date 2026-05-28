@@ -391,14 +391,10 @@ public abstract class ConductorEntity extends TamableAnimal {
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
-        if (isTame()) {
-            if (hand == InteractionHand.MAIN_HAND && isHoldingBaton() && !player.isSecondaryUseActive()
-                    && !this.level().isClientSide()) {
+        if (isTame() && !level().isClientSide()) {
 
-                this.openCustomMenu(player);
-                return InteractionResult.SUCCESS;
 
-            } else if (itemStack.isEmpty() && isHoldingBaton() && player.isSecondaryUseActive()) {
+            if (itemStack.isEmpty() && isHoldingBaton() && player.isSecondaryUseActive()) {
 
                 Item item = isHoldingLegendaryBaton() ? ModItems.LEGENDARY_BATON.get() : ModItems.BATON.get();
                 player.setItemInHand(hand, new ItemStack(item, 1));
@@ -415,9 +411,7 @@ public abstract class ConductorEntity extends TamableAnimal {
                 setLegendaryBaton(false);
                 setOrderedToSit(true);
 
-                if (!level().isClientSide()) {
-                    ((ServerLevel) level()).sendParticles(ParticleTypes.WAX_OFF, getX(), getY()+0.5f, getZ(), 20, 0.2, 0.2, 0.2, 0.05);
-                }
+                ((ServerLevel) level()).sendParticles(ParticleTypes.WAX_OFF, getX(), getY()+0.5f, getZ(), 20, 0.2, 0.2, 0.2, 0.05);
 
                 return InteractionResult.CONSUME;
 
@@ -486,6 +480,10 @@ public abstract class ConductorEntity extends TamableAnimal {
                     }
 
                 }
+            } else if (hand == InteractionHand.MAIN_HAND && isHoldingBaton() && !player.isSecondaryUseActive()) {
+
+                this.openCustomMenu(player);
+                return InteractionResult.SUCCESS;
             }
         }
         return InteractionResult.PASS;
@@ -518,6 +516,17 @@ public abstract class ConductorEntity extends TamableAnimal {
                 buf.writeUUID(getUUID());
             });
         }
+    }
+
+    @Override
+    public void remove(RemovalReason reason) {
+        List<Mob> listeningEntities = level().getEntitiesOfClass(Mob.class, this.getBoundingBox().inflate(64),
+                entity -> entity instanceof ListeningEntity listeningEntity && listeningEntity.isListening());
+
+        for (Mob mob : listeningEntities) {
+            ((ListeningEntity) mob).onStopListening();
+        }
+        super.remove(reason);
     }
 
     @Override

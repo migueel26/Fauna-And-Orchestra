@@ -87,30 +87,31 @@ public class FarmerKoalaEntity extends AbstractKoalaWorker {
 
         // Regular Goals
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.5f) {
+            FarmerKoalaEntity koala = (FarmerKoalaEntity) mob;
             @Override
             public boolean canUse() {
-                return super.canUse() && !((FarmerKoalaEntity) mob).isKoalaSleeping();
+                return super.canUse() && (!koala.isKoalaSleeping() || !koala.hasWorkingStation());
             }
         });
         this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 8.0f) {
             final FarmerKoalaEntity koala = (FarmerKoalaEntity) mob;
             @Override
             public boolean canUse() {
-                return super.canUse() && !koala.isKoalaSleeping() && (koala.isInLunchBreak() || koala.isBored());
+                return super.canUse() && (!koala.isKoalaSleeping() || !koala.hasWorkingStation()) && (koala.isInLunchBreak() || koala.isBored());
             }
         });
         this.goalSelector.addGoal(3, new RandomStrollGoal(this, 1.0f) {
             final FarmerKoalaEntity koala = (FarmerKoalaEntity) mob;
             @Override
             public boolean canUse() {
-                return super.canUse() && !koala.isKoalaSleeping() && (koala.isInLunchBreak() || koala.isBored());
+                return super.canUse() && (!koala.isKoalaSleeping() || !koala.hasWorkingStation()) && (koala.isInLunchBreak() || koala.isBored());
             }
         });
         this.goalSelector.addGoal(5, new FaunaRandomLookAroundGoal(this) {
             @Override
             public boolean canUse() {
                 FarmerKoalaEntity koala = (FarmerKoalaEntity) mob;
-                return super.canUse() && !koala.isKoalaSleeping() && (koala.isInLunchBreak() || koala.isBored());
+                return super.canUse() && (!koala.isKoalaSleeping() || !koala.hasWorkingStation()) && (koala.isInLunchBreak() || koala.isBored());
             }
         });
     }
@@ -162,7 +163,7 @@ public class FarmerKoalaEntity extends AbstractKoalaWorker {
             }
             return InteractionResult.SUCCESS;
 
-        } else if (isKoalaSleeping()) {
+        } else if (isKoalaSleeping() && hasWorkingStation()) {
             player.displayClientMessage(Component.translatable("text.faunaandorchestra.sleeping_worker_koala"), true);
             return InteractionResult.SUCCESS;
 

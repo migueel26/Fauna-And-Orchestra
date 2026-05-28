@@ -109,23 +109,24 @@ public class TailorKoalaEntity extends AbstractKoalaWorker {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.5f) {
+            final TailorKoalaEntity koala = (TailorKoalaEntity) mob;
             @Override
             public boolean canUse() {
-                return super.canUse() && !((TailorKoalaEntity) mob).isKoalaSleeping();
+                return super.canUse() && (!koala.isKoalaSleeping() || !koala.hasWorkingStation());
             }
         });
         this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 8.0f) {
             final TailorKoalaEntity koala = (TailorKoalaEntity) mob;
             @Override
             public boolean canUse() {
-                return super.canUse() && !koala.isKoalaSleeping() && (!koala.isSewing() || koala.isInLunchBreak());
+                return super.canUse() && (!koala.isKoalaSleeping() || !koala.hasWorkingStation()) && (!koala.isSewing() || koala.isInLunchBreak());
             }
         });
         this.goalSelector.addGoal(3, new RandomStrollGoal(this, 1.0f) {
             final TailorKoalaEntity koala = (TailorKoalaEntity) mob;
             @Override
             public boolean canUse() {
-                return super.canUse() && !koala.isKoalaSleeping() && (!koala.hasWorkingStation() || koala.isInLunchBreak());
+                return super.canUse() && (!koala.isKoalaSleeping() || !koala.hasWorkingStation()) && (!koala.hasWorkingStation() || koala.isInLunchBreak());
             }
         });
         this.goalSelector.addGoal(5, new FaunaRandomLookAroundGoal(this));
@@ -343,7 +344,7 @@ public class TailorKoalaEntity extends AbstractKoalaWorker {
             }
             return InteractionResult.SUCCESS;
 
-        } else if (isKoalaSleeping()) {
+        } else if (isKoalaSleeping() && hasWorkingStation()) {
             player.displayClientMessage(Component.translatable("text.faunaandorchestra.sleeping_worker_koala"), true);
             return InteractionResult.SUCCESS;
 

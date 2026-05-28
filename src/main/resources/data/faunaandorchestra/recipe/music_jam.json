@@ -15,6 +15,17 @@
     },
     {
       "ingredient": {
+        "item": "faunaandorchestra:gingko_biloba"
+      },
+      "amount": 3
+    },
+    {
+      "ingredient": {
+        "item": "faunaandorchestra:sonic_fumes"
+      }
+    },
+    {
+      "ingredient": {
         "item": "minecraft:honey_bottle"
       }
     }
