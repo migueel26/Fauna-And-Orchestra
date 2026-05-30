@@ -1,11 +1,18 @@
 package net.migueel26.faunaandorchestra.util;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.Containers;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.items.ItemStackHandler;
+
+import java.util.Optional;
 
 public class BlocksUtil {
     public static void dropContents(Level level, BlockPos pos, ItemStackHandler container) {
@@ -17,5 +24,17 @@ public class BlocksUtil {
         }
 
         Containers.dropContents(level, pos, contents);
+    }
+
+    public static ItemStack getRandomItemFromTag(TagKey<?> tag, Level level) {
+        HolderLookup.RegistryLookup<Item> registry = level.registryAccess().lookupOrThrow(Registries.ITEM);
+
+        Optional<HolderSet.Named<Item>> tagContents = registry.get(ModTags.Items.RIDDLE_ITEMS);
+
+        return tagContents.flatMap(holders ->
+                holders.getRandomElement(level.random)
+        ).map(holder ->
+                new ItemStack(holder.value())
+        ).orElse(ItemStack.EMPTY);
     }
 }

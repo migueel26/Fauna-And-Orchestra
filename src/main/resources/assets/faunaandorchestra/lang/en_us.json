@@ -220,6 +220,7 @@
   "block.faunaandorchestra.letter_and_quill": "Letter and Quill",
   "block.faunaandorchestra.flower_path": "Flower Path",
   "block.faunaandorchestra.cotton_plant": "Cotton Plant",
+  "block.faunaandorchestra.flora_enhancer": "Flora Enhancer",
 
   "block.faunaandorchestra.tavern_spawner": "Tavern Spawner",
 
@@ -240,6 +241,9 @@
   "block.faunaandorchestra.mailbox.send": "Send",
   "block.faunaandorchestra.mailbox.no_mailbird": "The mailbird is currently away",
   "block.faunaandorchestra.letter_and_quill.tooltip": "Write or erase the sender, receiver and their address to §esend items§r to other mailboxes",
+  "block.faunaandorchestra.flora_enhancer.desc": "§ePlace §ron top of a flower pot with a plant to enhance its musical capabilities",
+  "block.faunaandorchestra.flora_enhancer.sheet_music": "This plant seems to be fancying... ",
+  "block.faunaandorchestra.flora_enhancer.wet": "This plant seems to be quite happy now!",
 
   "item.faunaandorchestra.bach_air_sheet_music": "Bach's Air Sheet",
   "item.faunaandorchestra.greensleeves_sheet_music": "Greensleeves Sheet",

@@ -175,6 +175,7 @@ public class FaunaAndOrchestra {
             event.registerBlockEntityRenderer(ModBlockEntities.BEAVER_STATUE_BE.get(), BeaverStatueBlockEntityRenderer::new);
             event.registerBlockEntityRenderer(ModBlockEntities.SEWING_MACHINE_BE.get(), SewingMachineBlockEntityRenderer::new);
             event.registerBlockEntityRenderer(ModBlockEntities.MAILBOX_BE.get(), MailboxBlockEntityRenderer::new);
+            event.registerBlockEntityRenderer(ModBlockEntities.FLORA_ENHANCER.get(), FloraEnhancerBlockEntityRenderer::new);
         }
 
         @SubscribeEvent

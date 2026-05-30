@@ -119,6 +119,11 @@ public class ModBlockEntities {
                     MailboxBlockEntity::new,
                     ModBlocks.MAILBOX.get()
             ).build(null));
+    public static final Supplier<BlockEntityType<FloraEnhancerBlockEntity>> FLORA_ENHANCER =
+            BLOCK_ENTITES.register("flora_enhancer_be", () -> BlockEntityType.Builder.of(
+                    FloraEnhancerBlockEntity::new,
+                    ModBlocks.FLORA_ENHANCER.get()
+            ).build(null));
 
     // MISC (CREATIVE ONLY)
     public static final Supplier<BlockEntityType<TavernSpawnerBlockEntity>> TAVERN_SPAWNER_BE =

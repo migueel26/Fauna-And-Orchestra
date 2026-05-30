@@ -220,6 +220,7 @@
   "block.faunaandorchestra.letter_and_quill": "Carta y pluma",
   "block.faunaandorchestra.flower_path": "Camino de flores",
   "block.faunaandorchestra.cotton_plant": "Planta de algodón",
+  "block.faunaandorchestra.flora_enhancer": "Potenciador floral",
 
   "block.faunaandorchestra.tavern_spawner": "Tavern Spawner",
 
@@ -240,6 +241,9 @@
   "block.faunaandorchestra.mailbox.send": "Enviar",
   "block.faunaandorchestra.mailbox.no_mailbird": "El pájaro mensajero no se halla aquí",
   "block.faunaandorchestra.letter_and_quill.tooltip": "Escribe o borra el emisor, receptor y su dirección para §eenviar ítems§r a otros buzones",
+  "block.faunaandorchestra.flora_enhancer.desc": "§Colócalo §rencima de una maceta con una planta para potenciar sus capacidades musicales",
+  "block.faunaandorchestra.flora_enhancer.sheet_music": "A esta planta parece que se le apetece... ¿",
+  "block.faunaandorchestra.flora_enhancer.wet": "¡Esta planta parece feliz ahora mismo!",
 
   "item.faunaandorchestra.bach_air_sheet_music": "Partitura del Air de Bach",
   "item.faunaandorchestra.greensleeves_sheet_music": "Partitura de Greensleeves",

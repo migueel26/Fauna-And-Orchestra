@@ -237,6 +237,11 @@ public class ModBlocks {
                     .instabreak()
                     .sound(SoundType.CROP)
                     .pushReaction(PushReaction.DESTROY)));
+    public static final DeferredBlock<Block> FLORA_ENHANCER = registerBlock("flora_enhancer",
+            () -> new FloraEnhancerBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.PLANT)
+                    .strength(2.0F)
+                    .sound(SoundType.STONE)));
 
     // MISC (CREATIVE-ONLY)
     public static final DeferredBlock<Block> TAVERN_SPAWNER = registerBlock("tavern_spawner",

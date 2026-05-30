@@ -113,6 +113,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.GINKGO_BILOBA);
                         output.accept(ModItems.BIOSONIC_INGOT);
                         output.accept(ModItems.BIOSONIC_DIRK);
+                        output.accept(ModBlocks.FLORA_ENHANCER);
                         output.accept(ModItems.WANDERING_NOTE);
                         output.accept(ModItems.BOOGIE_FRUIT);
                         output.accept(ModItems.SINGING_SEED);
