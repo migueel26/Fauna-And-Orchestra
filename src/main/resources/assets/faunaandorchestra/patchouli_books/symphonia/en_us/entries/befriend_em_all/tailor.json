@@ -12,6 +12,10 @@
       "type": "crafting",
       "recipe": "faunaandorchestra:sewing_machine",
       "text": "symphonia.page.tailor1"
+    },
+    {
+      "type": "crafting",
+      "recipe": "faunaandorchestra:prop_case"
     }
   ]
 }
