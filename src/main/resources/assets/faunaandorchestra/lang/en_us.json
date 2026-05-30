@@ -915,6 +915,9 @@
   "symphonia.entry.anya": "Anya",
 
   "symphonia.entry.herbalism_basics": "Basics of Herbalism",
+  "symphonia.page.herbalism_basics0": "Crafting can sometimes be quite... artificial, can't it? That's why we have the $(thing)Natural Recipes$(), a more organic way of crafting that consists in putting the ingredients in a $(item)Jar$() and hanging it over some sort of $(thing)fuel$() to let it brew. These fuels can range from $(item)Fire$() to $(item)Water$() or even $(item)Ice$()!$(br2)This method needs both a $(item)Hanging Jar$() and a $(thing)Jar Rack$() to hold it, but it's really worth it!",
+  "symphonia.page.herbalism_basics1": "First, you need to place the $(item)Jar$() on the ground and either $(item)drop$() the items on it or manually $(o)introduce$() them yourself. After that, break it and the contents will be $(o)saved inside$().$(br2)Finally, place the $(item)Jar Rack$() over the ground $(o)(one block minimum$()$() and place the $(item)Hanging Jar$() on it. Depending on the $(thing)fuel$() you $(o)put below$() or $(thing)recipe$() made, the brewing will take more or less time.",
+  "symphonia.page.herbalism_basics2": "You can make the same recipe repeatedly, just be sure to $(o)leave one slot for the outputs$()!",
 
   "symphonia.entry.taiyaki": "Taiyaki",
   "symphonia.page.taiyaki0": "The $(l)Taiyaki$() is the penguin's favorite food! It's a fish-shaped cake made of their favorite food $(o)(made for human consumption too!)$(). The natural recipe in the $(thing)Jar Rack$() is:$(li)$(item)1x Any Raw Fish$(li)2x Sugar$(li)1x Egg$()$(br)The fuel needed is any type of $(item)Fire$().",
@@ -943,6 +946,9 @@
 
   "symphonia.entry.music_jam": "Music Jam",
   "symphonia.page.music_jam0": "The $(l)Music Jam$() is a special type of jam with a sweet taste of $(music)sound$(). Not apt for every animal, but especially loved by the $(thing)Koalas$(). $(br)Its $(thing)Natural Recipe$() is made with $(item)Ice Fuel$() and:$(li)$(item)2x Extract of Living Music$(li)2x Sugar$(li)3x Ginkgo Biloba$(li)1x Sonic Fumes$(li)1x Honey Bottle$()",
+
+  "symphonia.entry.cotton": "Cotton",
+  "symphonia.page.cotton0": "The $(l)Cotton$() is a soft and fluffy plant that grows in the wild. It's a great source of food for many animals, and it's really easy to find!$(br2)You can $(item)Cotton Seeds$() by breaking some grass. After that, plant it and wait for a while. You'll get cotton for days!",
 
   "symphonia.entry.mailbox": "Mailboxes & Mailbirds",
   "symphonia.page.mailbox0": "Friends usually live far, far away... It's quite hard to $(o)communicate$() with them. That's what $(item)mail$() is for! Introducing $(l)Mailboxes$(), the best method to send gifts and letters to your friends far away!$(br2)First of all, you'll need your very own $(item)Letter and Quill$() so that your $(music)Mailbirds$() can know where to go to!",
