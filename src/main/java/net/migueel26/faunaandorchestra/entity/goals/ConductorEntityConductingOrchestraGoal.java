@@ -2,18 +2,21 @@ package net.migueel26.faunaandorchestra.entity.goals;
 
 import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.entity.custom.ConductorEntity;
+import net.migueel26.faunaandorchestra.entity.custom.ListeningBlockEntity;
 import net.migueel26.faunaandorchestra.entity.custom.ListeningEntity;
 import net.migueel26.faunaandorchestra.entity.custom.MusicalEntity;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.networking.RestartOrchestraMusicS2CPayload;
 import net.migueel26.faunaandorchestra.networking.StopOrchestraMusicS2CPayload;
 import net.migueel26.faunaandorchestra.util.MusicUtil;
+import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.network.PacketDistributor;
 
@@ -59,6 +62,13 @@ public class ConductorEntityConductingOrchestraGoal extends Goal {
             ListeningEntity entity = (ListeningEntity) mob;
             entity.onStartListening(conductor);
         }
+
+        BlockPos.betweenClosedStream(conductor.getBoundingBox().inflate(50.0, 50.0, 50.0)).forEach(pos -> {
+            BlockEntity blockEntity = conductor.level().getBlockEntity(pos);
+            if (blockEntity instanceof ListeningBlockEntity listeningBlockEntity && !listeningBlockEntity.isListening()) {
+                listeningBlockEntity.onStartListening(conductor);
+            }
+        });
 
         super.start();
 

@@ -10,6 +10,8 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.phys.AABB;
 
 import java.util.*;
 
@@ -166,6 +168,12 @@ public class MusicUtil {
             CURRENT_ORCHESTRAS.put(conductorUUID, sheetMusic);
             return true;
         }
+    }
+
+    public static ConductorEntity lookForConductor(ServerLevelAccessor level, AABB bb) {
+        Optional<ConductorEntity> conductor = level.getEntitiesOfClass(ConductorEntity.class,
+                bb.inflate(50.0, 50.0, 50.0), ConductorEntity::isConducting).stream().findAny();
+        return conductor.orElse(null);
     }
 
     public static String musicalAnimalToString(Entity entity) {

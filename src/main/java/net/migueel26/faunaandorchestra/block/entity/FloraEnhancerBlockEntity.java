@@ -1,6 +1,7 @@
 package net.migueel26.faunaandorchestra.block.entity;
 
 import net.migueel26.faunaandorchestra.block.ModBlockEntities;
+import net.migueel26.faunaandorchestra.block.custom.FloraEnhancerBlock;
 import net.migueel26.faunaandorchestra.entity.custom.ConductorEntity;
 import net.migueel26.faunaandorchestra.entity.custom.ListeningBlockEntity;
 import net.migueel26.faunaandorchestra.util.ModTags;
@@ -11,6 +12,8 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.items.ItemStackHandler;
@@ -92,7 +95,17 @@ public class FloraEnhancerBlockEntity extends BlockEntity implements GeoBlockEnt
 
     @Override
     public void onStartListening(ConductorEntity conductor) {
+        if (getSheetMusic().is(Items.AIR)) {
+            setSheetMusic(FloraEnhancerBlock.getNewSheetMusic(level));
+        }
 
+        if (getSheetMusic().is(conductor.getSheetMusic()) &&
+                getBlockState().getValue(FloraEnhancerBlock.MOISTURE) < FloraEnhancerBlock.MAX_MOSITURE &&
+                getBlockState().getValue(FloraEnhancerBlock.WET_TIME) == 0) {
+            // Water
+            level.setBlock(getBlockPos(), getBlockState().setValue(FloraEnhancerBlock.WET_TIME, FloraEnhancerBlock.DEFAULT_WET_TIME), 3);
+            level.scheduleTick(getBlockPos(), getBlockState().getBlock(), 20);
+        }
     }
 
     @Override

@@ -26,10 +26,10 @@ public class BlocksUtil {
         Containers.dropContents(level, pos, contents);
     }
 
-    public static ItemStack getRandomItemFromTag(TagKey<?> tag, Level level) {
+    public static ItemStack getRandomItemFromTag(TagKey<Item> tag, Level level) {
         HolderLookup.RegistryLookup<Item> registry = level.registryAccess().lookupOrThrow(Registries.ITEM);
 
-        Optional<HolderSet.Named<Item>> tagContents = registry.get(ModTags.Items.RIDDLE_ITEMS);
+        Optional<HolderSet.Named<Item>> tagContents = registry.get(tag);
 
         return tagContents.flatMap(holders ->
                 holders.getRandomElement(level.random)
