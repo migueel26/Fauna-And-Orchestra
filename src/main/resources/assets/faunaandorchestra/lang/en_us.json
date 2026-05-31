@@ -831,7 +831,7 @@
   "symphonia.page.amplifier_crystal1": "The recipe for this valuable $(item)item$() is: $(li)$(item)5x Diamonds $(li)3x Wandering Notes $(li)2x Steelsonic Ingots$()$(br)Finally, infuse an $(item)Amethyst Shard$() with it and you'll get your precious $(item)Amplifier Crystal$().",
 
   "symphonia.entry.biosonic_ingot": "Biosonic Ingot",
-  "symphonia.page.biosonic_ingot0": "The $(l)Biosonic Ingot$() is the last step towards the synthesis of $(thing)life$(), $(thing)music$() and $(thing)steel$(). By fusing all of the different $(item)fumes$() you've made, you can get this powerful metal. The recipe for $(item)1x Biosonic Ingot$() is:$(li)$(item)1x Steelsonic Ingot$(li)1x Sonic Fumes$(li)1x Arctic Fumes$(li)1x Floral Fumes$()$(br)You don't need any recipient to get it!",
+  "symphonia.page.biosonic_ingot0": "The $(l)Biosonic Ingot$() is the last step towards the synthesis of $(thing)life$(), $(thing)music$() and $(thing)steel$(). By fusing all of the different $(item)fumes$() you've made, you can get this powerful metal. The recipe for $(item)1x Biosonic Ingot$() with no recipient needed is:$(li)$(item)1x Steelsonic Ingot$(li)1x Sonic Fumes$(li)1x Arctic Fumes$(li)1x Floral Fumes$(li)1x Nature Fumes$()",
   "symphonia.page.biosonic_ingot1": "The first item you might want to craft is this $(item)Biosonic Dirk$(). By right-clicking an entity you'll have a chance of taking some $(l:biophilia/living_music)Living Music$() out of their body!",
 
   "symphonia.entry.living_music": "Living Music",
@@ -954,9 +954,12 @@
   "symphonia.entry.cotton": "Cotton",
   "symphonia.page.cotton0": "The $(l)Cotton$() is a soft and fluffy plant that grows in the wild. It's a great source of food for many animals, and it's really easy to find!$(br2)You can $(item)Cotton Seeds$() by breaking some grass. After that, plant it and wait for a while. You'll get cotton for days!",
 
+  "symphonia.entry.writing_ink": "Writing Ink",
+  "symphonia.page.writing_ink0": "The $(l)Writing Ink$() is a special type of ink that can be used to write on paper. It's really useful if you want to send some mail to your friends! You wouldn't dare to write with raw ink sacs, wouldn't you?$(br)Its $(thing)Natural Recipe$() is made with $(item)Water Fuel$() and:$(li)$(item)2x Ink Sac$(li)1x Glass Bottle$(li)1x Feather$()",
+
   "symphonia.entry.mailbox": "Mailboxes & Mailbirds",
   "symphonia.page.mailbox0": "Friends usually live far, far away... It's quite hard to $(o)communicate$() with them. That's what $(item)mail$() is for! Introducing $(l)Mailboxes$(), the best method to send gifts and letters to your friends far away!$(br2)First of all, you'll need your very own $(item)Letter and Quill$() so that your $(music)Mailbirds$() can know where to go to!",
-  "symphonia.page.mailbox1": "More information on how to make Writing Ink $(o)$(l:natural_recipes)here$().$(br)Once crafted, you must write the $(thing)x, y and z$() coordinates of your friend's Mailbox $(o)(they don't have to be exact)$(). Additionally, you can write the $(thing)sender$() and/or $(thing)receiver$().",
+  "symphonia.page.mailbox1": "More information on how to make Writing Ink $(o)$(l:natural_recipes/writing_ink)here$().$(br)Once crafted, you must write the $(thing)x, y and z$() coordinates of your friend's Mailbox $(o)(they don't have to be exact)$(). Additionally, you can write the $(thing)sender$() and/or $(thing)receiver$().",
   "symphonia.page.mailbox2": "Once your item has the right address, it's time to send it. For that, you'll need a $(l)Mailbox$() with its own $(music)Mailbird Macaw$(). To get your own mailbird, you'll need to get a $(item)unique Feather$() from a $(o)$(l:musicians/macaw)$(thing)Macaw$(), a symbol of their trust.$(br2)Once crafted, it'll come right away to deliver your mail. Only items with an $(thing)address$() or $(o)$(l:befriend_em_all/business_card)$(item)business cards$() can be placed inside.",
   "symphonia.page.mailbox3": "Once sent, the $(o)mailbird$() will take a while to deliver the mail and come back. If the receiver's $(item)Mailbox$() is full or there isn't one with that address, the $(o)mailbird$() will come back with the mail.",
 

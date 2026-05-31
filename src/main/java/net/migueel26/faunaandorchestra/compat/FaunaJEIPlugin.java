@@ -90,7 +90,7 @@ public class FaunaJEIPlugin implements IModPlugin {
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.JAR_RACK.get()), NaturalRecipeCategory.RECIPE_TYPE);
-        registration.addRecipeCatalyst(new ItemStack(ModBlocks.MELOMANCY_CAULDRON.get()), MelomancyRecipeCategory.RECIPE_TYPE);
+        registration.addRecipeCatalyst(new ItemStack(ModItems.MELOMANCY_CAULDRON_ITEM.get()), MelomancyRecipeCategory.RECIPE_TYPE);
     }
 
     public static Component melomancyComponent(String item) {

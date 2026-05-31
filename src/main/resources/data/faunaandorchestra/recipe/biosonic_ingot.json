@@ -3,6 +3,11 @@
   "ingredients": [
     {
       "ingredient": {
+        "item": "faunaandorchestra:nature_fumes"
+      }
+    },
+    {
+      "ingredient": {
         "item": "faunaandorchestra:sonic_fumes"
       }
     },
