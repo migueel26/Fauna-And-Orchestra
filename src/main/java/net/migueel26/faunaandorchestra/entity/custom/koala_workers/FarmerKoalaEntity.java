@@ -61,7 +61,7 @@ public class FarmerKoalaEntity extends AbstractKoalaWorker {
     protected static final EntityDataAccessor<Integer> CONSECUTIVE_CROPS = SynchedEntityData.defineId(FarmerKoalaEntity.class, EntityDataSerializers.INT);
     // We use workTime as the lunch break timer, if it's 0 the koala is working, else it's on a break
     public static final int CROPS_UNTIL_BREAK = 30;
-    public static final int LUNCH_BREAK_DURATION = 60;//300;
+    public static final int LUNCH_BREAK_DURATION = 300;
     public static final int EAT_TIME = LUNCH_BREAK_DURATION / 3;
     protected int consecutiveCrops = 0;
     // Inventory

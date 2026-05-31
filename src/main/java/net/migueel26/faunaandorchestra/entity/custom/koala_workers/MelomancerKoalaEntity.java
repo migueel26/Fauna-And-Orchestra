@@ -87,7 +87,7 @@ public class MelomancerKoalaEntity extends AbstractKoalaWorker {
     private boolean isUpdatingRecipe = false;
     // Every 3 items take a well-deserved break
     public static final int ITEMS_UNTIL_BREAK = 3;
-    public static final int LUNCH_BREAK_DURATION = 60;//300;
+    public static final int LUNCH_BREAK_DURATION = 300;
     public static final int EAT_TIME = LUNCH_BREAK_DURATION / 3;
     protected int consecutiveItems = 0;
 

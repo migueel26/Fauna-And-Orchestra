@@ -85,9 +85,9 @@ public class TailorKoalaEntity extends AbstractKoalaWorker {
     public static final ResourceLocation ICON = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/gui/entity/tailor_koala_icon.png");
     public static final String RESOURCE = "dialogue.faunaandorchestra.tailor_koala";
     // TAILORING
-    public static final int MAX_WORK_TIME = 100;//1200;
-    public static final int START_PAUSE = 20;//600;
-    public static final int END_PAUSE = 80;//900;
+    public static final int MAX_WORK_TIME = 1200;
+    public static final int START_PAUSE = 600;
+    public static final int END_PAUSE = 900;
     public static final int EAT_TIME = (START_PAUSE + END_PAUSE) / 3;
     protected static final EntityDataAccessor<Boolean> SEWING = SynchedEntityData.defineId(TailorKoalaEntity.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<ItemStack> CATALOG_CHOICE = SynchedEntityData.defineId(TailorKoalaEntity.class, EntityDataSerializers.ITEM_STACK);
