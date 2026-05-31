@@ -451,6 +451,8 @@
   "advancements.faunaandorchestra.living_music.desc": "Extract Living Music out of an entity",
   "advancements.faunaandorchestra.worker_koala": "Man's Best Friend",
   "advancements.faunaandorchestra.worker_koala.desc": "Hire your very first Koala!",
+  "advancements.faunaandorchestra.colorful_tint": "Somewhere Over The Rainbow",
+  "advancements.faunaandorchestra.colorful_tint.desc": "Obtain a colorful tint and see the world in a different way",
 
   "dialogue.faunaandorchestra.faust0": "Nice to meet you! I'm Faust, and together we're The Ringtails",
   "dialogue.faunaandorchestra.faust1": "Nice to see you again, %! Care to join us?",
@@ -747,6 +749,10 @@
   "symphonia.entry.frog_flute": "Frog Flute",
   "symphonia.page.frog_flute0": "The $(l)Frog Flute$() is an useful item if you can't find $(music)Quirky Frogs$() nearby. Once you've crafted this item, $(o)right-click$() with the flute in hand to play a $(music)soothing$() tune that will attract and reunite frogs nearby. Just be patient, they're some slow leapers!",
   "symphonia.page.frog_flute1": "Quirky Frogs are naturally drawn to music, hence their impulse to follow the sweet sound coming out of the flute.",
+
+  "symphonia.entry.sound_sensor": "Sound Sensor",
+  "symphonia.page.sound_sensor0": "The $(l)Sound Sensor$() is a pretty useful item to have around if you're looking for a specific $(thing)musical creatures$()! It works by $(o)emitting a redstone signal$() resembling the sound of the instrument the creature of your choice plays.",
+  "symphonia.page.sound_sensor1": "For example, if you're looking for a $(l)penguin$(), you can set the Sound Sensor to emit a signal resembling the sound of a $(item)Flute$()!$(br)This way, you can easily find the animals you want to recruit for your orchestra!",
 
   "symphonia.entry.music_bottle": "Liquid Music",
   "symphonia.page.music_bottle0": "It seems like you have finally obtained $(l)liquid music$(), the core ingredient in all $(o)melomantic recipes$(). As you might already know, this is the physical manifestation of superb music, whose main form of obtention is through $(music)Listeners$() $(o)(more on the next chapter)$(). For the time being, know that the harvest of this ingredient is fundamental",

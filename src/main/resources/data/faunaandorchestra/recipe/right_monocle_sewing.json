@@ -3,19 +3,14 @@
   "ingredients": [
     {
       "ingredient": {
-        "item": "minecraft:red_dye"
-      }
-    },
-    {
-      "ingredient": {
-        "item": "minecraft:string"
-      }
-    },
-    {
-      "ingredient": {
-        "item": "faunaandorchestra:gingko_biloba"
+        "item": "minecraft:gold_ingot"
       },
       "amount": 3
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:glass_pane"
+      }
     }
   ],
   "result": {

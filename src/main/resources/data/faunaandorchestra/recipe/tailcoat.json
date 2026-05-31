@@ -3,19 +3,21 @@
   "ingredients": [
     {
       "ingredient": {
-        "item": "minecraft:red_dye"
-      }
-    },
-    {
-      "ingredient": {
-        "item": "minecraft:string"
-      }
-    },
-    {
-      "ingredient": {
-        "item": "faunaandorchestra:gingko_biloba"
+        "item": "minecraft:black_dye"
       },
-      "amount": 3
+      "amount": 4
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:white_dye"
+      },
+      "amount": 4
+    },
+    {
+      "ingredient": {
+        "item": "faunaandorchestra:cotton"
+      },
+      "amount": 12
     }
   ],
   "result": {

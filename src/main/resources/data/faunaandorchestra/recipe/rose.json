@@ -3,13 +3,14 @@
   "ingredients": [
     {
       "ingredient": {
-        "item": "minecraft:red_dye"
+        "item": "minecraft:poppy"
       }
     },
     {
       "ingredient": {
-        "item": "minecraft:string"
-      }
+        "item": "minecraft:red_dye"
+      },
+      "amount": 2
     },
     {
       "ingredient": {

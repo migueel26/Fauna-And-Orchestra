@@ -3,24 +3,24 @@
   "ingredients": [
     {
       "ingredient": {
-        "item": "minecraft:white_dye"
+        "item": "minecraft:gold_ingot"
       },
-      "amount": 6
+      "amount": 3
     },
     {
       "ingredient": {
-        "item": "minecraft:purple_dye"
+        "item": "minecraft:lava_bucket"
       }
     },
     {
       "ingredient": {
-        "item": "faunaandorchestra:cotton"
+        "item": "faunaandorchestra:music_bottle"
       },
-      "amount": 12
+      "amount": 3
     }
   ],
   "result": {
-    "id": "faunaandorchestra:white_tuxedo",
+    "id": "faunaandorchestra:golden_tint",
     "count": 1
   }
 }

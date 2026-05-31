@@ -1,0 +1,49 @@
+{
+  "type": "faunaandorchestra:sewing",
+  "ingredients": [
+    {
+      "ingredient": {
+        "item": "minecraft:iron_ingot"
+      }
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:orange_dye"
+      }
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:yellow_dye"
+      }
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:red_dye"
+      }
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:lime_dye"
+      }
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:light_blue_dye"
+      }
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:pink_dye"
+      }
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:purple_dye"
+      }
+    }
+  ],
+  "result": {
+    "id": "faunaandorchestra:colorful_tint",
+    "count": 1
+  }
+}
