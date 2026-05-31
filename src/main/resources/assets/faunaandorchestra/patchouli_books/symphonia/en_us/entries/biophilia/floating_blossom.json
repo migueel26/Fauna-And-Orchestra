@@ -1,0 +1,20 @@
+{
+  "name": "symphonia.entry.floating_blossom",
+  "category": "faunaandorchestra:biophilia",
+  "icon": "faunaandorchestra:floating_blossom",
+  "advancement": "faunaandorchestra:living_music",
+  "pages": [
+    {
+      "type": "text",
+      "text": "symphonia.page.floating_blossom0"
+    },
+    {
+      "type": "image",
+      "images": [
+        "faunaandorchestra:textures/gui/entries/blossom.png"
+      ],
+      "border": true,
+      "text": "symphonia.page.floating_blossom1"
+    }
+  ]
+}

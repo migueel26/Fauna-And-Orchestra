@@ -666,7 +666,7 @@
   "symphonia.category.natural_recipes": "Natural Recipes",
   "symphonia.category.natural_recipes.desc": "In order to understand the $(o)nature$() of our world, you'll need to learn how to $(o)connect$() with it. With $(thing)Natural Recipes$() you'll be able to bond with the creatures, discover their world and, ultimately, master herbalism.",
   "symphonia.category.befriend_em_all": "Befriend 'Em All!",
-  "symphonia.category.befriend_em_all.desc": "Placeholder",
+  "symphonia.category.befriend_em_all.desc": "The best way to learn about the world is to make friends with it! With the $(thing)Befriend 'Em All!$() chapter you'll be able to find and befriend all the different animals around the world, and learn how to use their unique gifts to your advantage. Don't forget to give them some love and care, though!",
   "symphonia.category.myths": "Myths & Legends",
   "symphonia.category.myths.desc": "The world is $(o)full of stories$(), and music is no exception. In this chapter you'll find the most popular $(thing)Myths and Legends$() around the world, found by our lovely $(o)Dan B$(). Who knows, maybe you'll even find some hidden secrets in these pages...",
 
@@ -838,6 +838,10 @@
   "symphonia.page.living_music0": "$(l)Living Music$() is the purest form of music, the one that comes from a creature's $(music)soul$() — representing the communion between $(o)life and song$(). You can obtain it by using a $(item)Biosonic Dirk$() on any creature, but it's not guaranteed that you'll get some.$(br) It'll run away and disappear in a couple of seconds, so you might need to $(careful)kill it fast$() or $(l:musicians/red_panda#bamboo_trap)trap it$().",
   "symphonia.page.living_music1": "If you decide to kill it, you'll get some $(item)Extract of Living Music$(), useful in recipes.",
 
+  "symphonia.entry.floating_blossom": "Floating Blossom",
+  "symphonia.page.floating_blossom0": "Do you want a special kind of flower you can't find? Or perhaps you just want $(o)lots and lots$() of them? The synthesis of a $(l)Floating Blossom$() could be answer to all your problems! Its recipe in a $(music)Melomancy Cauldron$() is:$(li)$(item)32x Dirt$(li)3x Floral Fumes$(li)2x Nature Fumes$(li)2x Extract of Living Music$()$(br)After brewing the mixture, click it with a $(item)Spore Blossom$().",
+  "symphonia.page.floating_blossom1": "Place it on the grass and watch lots of $(item)flowers$() grow around it!",
+
   "symphonia.entry.singing_sproutling": "Singing Sproutling",
   "symphonia.page.singing_sproutling0": "These $(o)little creatures$() were the singing crops all along! They're the epitome of what $(thing)biophilia$() is: the marriage between $(o)music and life$(). $(br)They love wandering around, especially around other crops, and singing! $(br2)They have such an $(o)angelical voice$() that when they sing the $(music)crops and grass$() around it $(o)magically grow$()!",
   "symphonia.page.singing_sproutling1": "They're really useful as a natural $(item)bone meal$() and... $(o)perhaps$() something more?",
@@ -971,6 +975,10 @@
   "symphonia.entry.tailor": "Tailor Koala",
   "symphonia.page.tailor0": "Unlike other koalas, $(l)Tailor Koalas$() are the only ones who can do their job! While $(o)melomancers$() need a cauldron, $(o)tailors$() need a $(item)Sewing Machine$(). After placing it, just like every other koala, you need to guide them to their machine with a $(item)Baton$().$(br2)Finally, play some music and they're ready to get to work!",
   "symphonia.page.tailor1": "$(l)Tailor Koalas$() can make different $(item)clothing$() items, which wil bring some color to your orchestra!$(br2)It's important, though, to craft a $(item)Prop Case$() in order to change their clothes. You can see the recipe on the $(o)next page$().",
+
+  "symphonia.entry.flora_enhancer": "Flora Enhancer",
+  "symphonia.page.flora_enhancer0": "The $(l)Flora Enhancer$() is a special item that can be used to enhance the $(thing)capabilities$() of plants. They won't be able to speak $(o)(yet...)$() but they'll communicate you their $(music)musical$() needs. Perhaps, if you satisfy them enough, they might even give you some $(item)Flora Forta$()! You'll need lots of $(item)music sheets$() though, their knowledge is even greater than your own!",
+  "symphonia.page.flora_enhancer1": "To use it, place the $(item)Enhancer$() on top of a $(item)Potted Plant$() and talk to it. Be careful to not break the pot or change the plant, because the $(item)Enhancer$() is linked to it and will $(careful)break itself$()!",
 
   "symphonia.entry.find_myths": "How to Find Myths",
   "symphonia.page.find_myths0": "Myths are the key to unlock the secrets of this world. They're the ones who can teach you about the wonders of $(thing)Melomancy$() and the mysteries of $(thing)our world$(). While you explore the world and complete both $(item)Minecraft and Fauna & Orchestra advancements$(), Dan B. from the Jazzy Dammys might learn new myths. So don't forget to visit him every once in a while!",
