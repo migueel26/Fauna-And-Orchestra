@@ -676,7 +676,7 @@
   "symphonia.category.befriend_em_all": "Befriend 'Em All!",
   "symphonia.category.befriend_em_all.desc": "Placeholder",
   "symphonia.category.myths": "Mitos & Leyendas",
-  "symphonia.category.myths.desc": "Placeholder",
+  "symphonia.category.myths.desc": "El mundo está $(o)lleno de historias$(), y la música no es una excepción. En este capítulo encontrarás los $(thing)Mitos y Leyendas$() más populares de todo el mundo, recopilados por nuestro querido $(o)Dan B$(). Quién sabe, tal vez incluso encuentres algunos secretos ocultos entre estas páginas...",
 
   "symphonia.entry.welcome": "Intro a la Musicalidad",
   "symphonia.page.welcome0": "$(o)¡Bienvenido a nuestro mundo musical!$() Da igual si encontraste este libro, lo crafteaste o te lo di: ¡este es tu primer paso en lo que será una gran y melódica aventura! Sea tu objetivo darle vida a tu casa con una orquesta, o volverte un maestro de las $(o)$(music)artes melománticas$(), no importa: esta es tu guía.",
@@ -756,6 +756,10 @@
   "symphonia.page.frog_flute0": "La $(l)flauta de ranas$() es un útil objeto si no puedes encontrar $(music)ranas talentosas$() cerca tuya. Una vez crafteado, haz $(o)click derecho$() con la flauta en la mano para tocar una $(music)agradable$() melodía que atraerá y reunirá las ranas cercanas. Sólo sé paciente, ¡son unos lentos saltarines!",
   "symphonia.page.frog_flute1": "Las ranas talentosas se ven atraídas naturalmente por la música, de ahí sus impulsos de seguir la dulce melodía de la flauta.",
 
+  "symphonia.entry.sound_sensor": "Sensor de sonido",
+  "symphonia.page.sound_sensor0": "¡El $(l)Sensor de sonido$() es un objeto muy útil si buscas $(thing)criaturas musicales$() específicas! Funciona $(o)emitiendo una señal de redstone$() que imita el sonido del instrumento que toca la criatura elegida.",
+  "symphonia.page.sound_sensor1": "Por ejemplo, si buscas un $(l)pingüino$(), ¡configura el sensor para emitir una señal semejante a una $(item)Flauta$()!$(br)¡Así encontrarás fácil a los animales que quieras reclutar para tu orquesta!",
+
   "symphonia.entry.music_bottle": "Música líquida",
   "symphonia.page.music_bottle0": "Parece que finalmente has obtenido $(l)música líquida$(), la base de todas las $(o)recetas melománticas$(). Como quizás sepas, esta es la manifestación física de música sublime, cuya principal forma de obtención es por $(music)Escuchadores$() $(o)(más sobre éstos próximamente)$(). Por ahora, debes saber que la recolecta de este ingrediente es $(o)fundamental$().",
 
@@ -804,6 +808,10 @@
   "symphonia.page.boogie_bomb0": "¿Has intentado comerte una $(item)Fruta boogie$()? ¡No podrás parar de bailar! Ese efecto se llama $(thing)Coreomanía$(), capaz de desactivar tus sentidos. Si quieres usarlo con enemigos, ¡intenta crear una $(l)Boogie Bomb$()! La receta en el $(music)Caldero de melomancia$() es: $(li)$(item)3x Pólvora $(li)2x Arena$()$(br).",
   "symphonia.page.boogie_bomb1": "Tras esa mezcla explosiva, hazle click con una $(item)Fruta boogie$() para imbuirla. Tras esto, ¡lánzalo contra tus enemigos para hacerlos inútiles ante ese ritmo! No podrán hacer nada más que $(music)bailar$() mientras el efecto esté activo.",
 
+  "symphonia.entry.everfruit": "Frutaeterna",
+  "symphonia.page.everfruit0": "¡La $(l)Frutaeterna$() es la clave de la $(thing)eterna juventud$()! Si se la das a $(o)cualquier criatura$(), ¡podrá mantenerse joven y sana para siempre! ¡Sin desventajas!$(br)La receta de la $(item)Frutaeterna$() en el $(music)Caldero de melomancia$() es: $(li)$(item)2x Humo sónico $(li)1x Bambú perfumado $(li)1x Comida de mantis $(li)1x Taiyaki$(li)1x Zanahoria$()",
+  "symphonia.page.everfruit1": "¡Tras la mezcla, dale con una $(item)Manzana$() para obtener la fruta final!$(br2)Ten $(careful)cuidado$(), eso sí. El proceso es irreversible: las ranas pasarán a ser $(o)renacuajos$(), los pingüinos emperador a $(o)pingüinos bebés$(), etc.",
+
   "symphonia.entry.great_baton": "La Gran Batuta",
   "symphonia.page.great_baton0": "Todo tu esfuerzo ha merecido la pena: has derrotado al $(music)Gran Compositor$() y liberado nuestra tierra de sus horrores. A cambio, has conseguido un poderoso $(item)item$(): la $(l)Gran Batuta$(), el núcleo de su poder. $(br)Si es utilizada por un $(o)gran director$(), podrá elevar la música de su orquesta a un $(music)nuevo nivel$() mientras estés cerca.",
   "symphonia.page.great_baton1": "Dependiendo de la $(item)partitura$() que se toque, provocará distintos efectos. $(li)$(item)Air de Bach:$() El sol siempre brillará $(li)$(item)Blues de Mindlin$(): La luna siempre observará $(li)$(item)Greensleeves$(): Tendrás corazones extra $(li)$(item)La Bamba$(): Tendrás suerte $(li)$(item)Jazz de Für Elise$(): No tendrás hambre $(li)$(item)Danza de los Pequeños Cisnes$(): Defenderán tu hogar $(li)$(item)Resurrección$(): Obtendrás un canon a tu imagen",
@@ -837,6 +845,18 @@
   "symphonia.entry.amplifier_crystal": "Cristal amplificador",
   "symphonia.page.amplifier_crystal0": "Contener las $(item)voces$() es aún más difícil que la música: tienen una $(o)naturaleza errante y efímera$(), por lo que el $(item)acerónico$() no es suficiente. Para canalizarlos, necesitamos un $(l)Cristal amplificador$(). Es bastante caro de hacer en el $(music)Caldero de melomancia$(), pero merece la pena. Son indispensables para la práctica de $(thing)biofilia$().",
   "symphonia.page.amplifier_crystal1": "La receta para este valioso $(item)item$() es: $(li)$(item)5x Diamantes $(li)3x Notas ambulantes $(li)2x Lingotes de acerónico$()$(br)Finalmente, imbuye un $(item)Fragmento de amatista$() con la mezcla y obtendrás tu $(item)Cristal amplificador$().",
+
+  "symphonia.entry.biosonic_ingot": "Lingote de biosónico",
+  "symphonia.page.biosonic_ingot0": "El $(l)Lingote de biosónico$() es el último paso para la síntesis de $(thing)vida$(), $(thing)música$() y $(thing)acero$(). Al fusionar los distintos $(item)humos$() hechos, obtendrás este metal potente. La receta de $(item)1x Lingote de biosónico$() sin recipiente es:$(li)$(item)1x Lingote de acerónico$(li)1x Humo sónico$(li)1x Humo ártico$(li)1x Humo floral$(li)1x Humo de la naturaleza$()",
+  "symphonia.page.biosonic_ingot1": "El primer objeto que querrás fabricar es este $(item)Puñal biosónico$(). ¡Al hacer click derecho a una entidad tendrás la opción de extraer $(l:biophilia/living_music)Música viva$() de su cuerpo!",
+
+  "symphonia.entry.living_music": "Música viva",
+  "symphonia.page.living_music0": "La $(l)Música viva$() es la forma más pura de música, la que proviene del $(music)alma$() de una criatura; representa la comunión entre $(o)vida y canción$(). Se obtiene usando un $(item)Puñal biosónico$() en cualquier criatura, pero no es seguro que consigas algo.$(br) Escapará y desaparecerá en segundos, así que tendrás que $(careful)matarla rápido$() o $(l:musicians/red_panda#bamboo_trap)atraparla$().",
+  "symphonia.page.living_music1": "Si decides matarla, conseguirás algo de $(item)Extracto de música viva$(), útil para recetas.",
+
+  "symphonia.entry.floating_blossom": "Florecer flotante",
+  "symphonia.page.floating_blossom0": "¿Quieres una flor especial que no encuentras? ¿O quizás quieres $(o)muchas y muchas$() de ellas? ¡La síntesis de un $(l)Florecer flotante$() es la solución! Su receta en el $(music)Caldero de melomancia$() es:$(li)$(item)32x Tierra$(li)3x Humo floral$(li)2x Humo de la naturaleza$(li)2x Extracto de música viva$()$(br)Tras la mezcla, dale con una $(item)Flor de esporas$().",
+  "symphonia.page.floating_blossom1": "¡Colócalo en el césped y mira cómo crecen montones de $(item)flores$() a su alrededor!",
 
   "symphonia.entry.singing_sproutling": "Brotecito cantarín",
   "symphonia.page.singing_sproutling0": "¡Estas $(o)pequeñas criaturas$() eran los brotecitos cantarines! Son el epítome de lo que es la $(thing)biofilia$(): el casamiento entre $(o)música y vida$(). $(br)¡Les encanta deambular, especialmente junto a otros brotes, y cantar! $(br2)¡Tiene una $(o)voz tan angelical$() que cuando cantan los $(music)cultivos y césped$() a su alrededor $(o)crecen mágicamente$()!",
@@ -919,6 +939,43 @@
   "symphonia.entry.anya": "Anya",
 
   "symphonia.entry.herbalism_basics": "Herbalismo: Primeros pasos",
+  "symphonia.page.herbalism_basics0": "¿Craftear puede ser un poco... artificial, no? Para eso existen las $(thing)Recetas Naturales$(), un método más orgánico que consiste en verter ingredientes en una $(item)Jarra$() y colgarla sobre un $(thing)combustible$() para que infusione. ¡Va desde $(item)Fuego$() hasta $(item)Agua$() o incluso $(item)Hielo$()!$(br2)Este proceso requiere una $(item)Jarra colgante$() y un $(thing)Cuelgajarras$(), ¡pero merece la pena!",
+  "symphonia.page.herbalism_basics1": "Primero, coloca la $(item)Jarra$() en el suelo y ya sea que $(item)sueltes$() los objetos sobre ella o los $(o)introduzcas$() tú mismo. Tras esto, rómpela y sus contenidos quedarán $(o)guardados dentro$().$(br2)Finalmente, pon el $(item)Cuelgajarras$() en la pared $(o)(a un bloque del suelo mínimo)$() y cuelga la jarra. Dependiendo del $(thing)combustible de abajo$() o de la $(thing)receta$(), tomará más o menos tiempo.",
+  "symphonia.page.herbalism_basics2": "¡Puedes elaborar la misma receta repetidas veces, solo asegúrate de $(o)dejar un espacio libre para los resultados$()!",
+
+  "symphonia.entry.taiyaki": "Taiyaki",
+  "symphonia.page.taiyaki0": "¡El $(l)Taiyaki$() es la comida favorita del pingüino! Es un pastel con forma de pez hecho de su comida favorita $(o)(¡apto para consumo humano también!)$(). La receta natural en el $(thing)Cuelgajarras$() es:$(li)$(item)1x Cualquier pescado crudo$(li)2x Azúcar$(li)1x Huevo$()$(br)El combustible necesario es cualquier tipo de $(item)Fuego$().",
+
+  "symphonia.entry.mantis_food": "Comida de mantis",
+  "symphonia.page.mantis_food0": "La $(l)Comida de mantis$() es la única que la orgullosa tribu mantis aceptará. Aunque comen distintos $(l:natural_recipes/bugs)Bichos$() en su hábitat natural, son demasiado orgullosas para aceptarlos de un humano. $(br)La receta natural en el $(thing)Cuelgajarras$() usando $(item)Fuego de combustible$() es:$(li)$(item)2x Bichos$(li)1x Amor de hortelano$(li)1x Ojo de araña$().",
+
+  "symphonia.entry.bugs": "Bichos",
+  "symphonia.page.bugs0": "Los bichos son una comida muy común para muchas de las especies de nuestro mundo. ¡Son una gran fuente de proteínas y nutrientes, y son fáciles de atrapar!$(br2)¡Agarra un $(item)Hacha$() y úsala en $(o)Troncos$() o una $(item)Pala$() en el $(o)Césped$()! Acabarás encontrando $(item)Insectos$() o $(item)Gusanos$().",
+
+  "symphonia.entry.perfumed_bamboo": "Bambú perfumado",
+  "symphonia.page.perfumed_bamboo0": "El $(l)Bambú perfumado$() es un tipo de bambú empapado en un dulce aroma que atrae a su consumidor principal: los $(o)Pandas Rojos$().$(br)Su $(thing)Receta Natural$(), junto a algo de $(item)Agua de combustible$(), requiere los siguientes ingredientes:$(li)$(item)1x Bambú$(li)2x Humo floral$(li)2x Azúcar$()",
+
+  "symphonia.entry.seedy_apple": "Manzana con semillas",
+  "symphonia.page.seedy_apple0": "La $(l)Manzana con semillas$() es un tipo de manzana especial que contiene muchas semillas. Es la comida principal de los $(o)Guacamayos$(), ¡así que es muy útil si quieres aparear a algunos!$(br)Su $(thing)Receta Natural$(), junto a algo de $(item)Fuego de combustible$(), requiere los siguientes ingredientes:$(li)$(item)1x Manzana$(li)5x Semillas de remolacha$(li)3x Semillas de trigo$()",
+
+  "symphonia.entry.catchweed": "Amor de hortelano",
+  "symphonia.page.catchweed0": "El $(l)Amor de hortelano$() es una planta muy común que crece de forma salvaje. ¡Es una gran fuente de alimento para muchos animales y es muy fácil de encontrar!$(br2)¡La puedes encontrar en $(thing)prados, cuevas frondosas o bosques de flores$()!$(br2)¡Puede ser bastante $(o)pegajosa$(), así que ten cuidado al huir de los mobs!",
+  "symphonia.page.catchweed1": "También es un gran ingrediente para muchas recetas, por lo que otra forma de conseguirlo es crafteando $(item)Polvo de hierbajo$(). Su $(thing)Receta Natural$() con $(item)Agua de combustible$() es:$(li)$(item)6x Tierra$(li)2x Polvo de hueso$(li)1x Humo de la naturaleza$()",
+
+  "symphonia.entry.fumes": "Humos",
+  "symphonia.page.fumes0": "Los humos son una parte esencial de las $(thing)Recetas Naturales$(), usándose en muchísimas recetas, ¡así que necesitarás un montón!$(br2)El principal es el $(l)Humo de la naturaleza$(), que se hace usando $(item)Fuego de combustible$() con:$(li)$(item)2x Brotes$(li)2x Cañas de azúcar$(li)1x Semillas de trigo$(li)1x Ladrillo$()",
+  "symphonia.page.fumes1": "Otro muy útil es el $(l)Humo ártico$(), ¡hecho con los objetos más fríos!$(br2)Necesitarás algo de $(item)Hielo de combustible$() y:$(li)$(item)6x Bolas de nieve$(li)2x Taiyaki$(li)1x Pluma de pingüino$(li)1x Ladrillo$()",
+  "symphonia.page.fumes2": "Finalmente, ¡el $(l)Humo floral$() llegó para agudizar tus sentidos con potentes aromas!$(br2)Necesitarás algo de $(item)Agua de combustible$() y:$(li)$(item)3x Amapolas$(li)2x Lilas$(li)5x Dientes de león$(li)3x Margaritas$(li)1x Ladrillo$()",
+  "symphonia.page.fumes3": "La $(l)Música$() de hecho tiene su propio aroma, ¡y puedes hacerlo con los ingredientes recolectados en tu aventura!$(br2)Se hace con $(item)Fuego de combustible$() y:$(li)$(item)5x Amor de hortelano$(li)2x Frutas boogie$(li)2x Música líquida$(li)1x Lingote de acerónico$()",
+
+  "symphonia.entry.music_jam": "Mermelada musical",
+  "symphonia.page.music_jam0": "La $(l)Mermelada musical$() es un tipo de mermelada especial con un dulce sabor a $(music)sonido$(). No es apta para todos los animales, pero es adorada por los $(thing)Koalas$(). $(br)Su $(thing)Receta Natural$() se hace con $(item)Hielo de combustible$() y:$(li)$(item)2x Extracto de música viva$(li)2x Azúcar$(li)3x Ginkgo biloba$(li)1x Humo sónico$(li)1x Botella de miel$()",
+
+  "symphonia.entry.cotton": "Algodón",
+  "symphonia.page.cotton0": "El $(l)Algodón$() es una planta suave y esponjosa que crece de forma salvaje. ¡Es una gran fuente de alimento para muchos animales y es muy fácil de encontrar!$(br2)Puedes conseguir $(item)Semillas de algodón$() rompiendo césped. Tras eso, plántalas y espera un poco. ¡Tendrás algodón para días!",
+
+  "symphonia.entry.writing_ink": "Tinta de escribir",
+  "symphonia.page.writing_ink0": "La $(l)Tinta de escribir$() es un tipo de tinta especial que sirve para escribir en papel. ¡Es muy útil si quieres enviar correo a tus amigos! No te atreverías a escribir con sacos de tinta crudos, ¿verdad?$(br)Su $(thing)Receta Natural$() se hace con $(item)Agua de combustible$() y:$(li)$(item)2x Saco de tinta$(li)1x Botella de cristal$(li)1x Pluma$()",
 
   "symphonia.entry.mailbox": "Buzones & Mensajeros",
   "symphonia.page.mailbox0": "Los amigos normalmente viven muy, muy lejos... Es bastante difícil $(o)comunicarse$() con ellos. ¡Para esto está el $(item)correo$()! Te presento los $(l)Buzones$(), ¡la mejor manera de enviar regalos y cartas a tus amigos!$(br2)Primero de todo, necesitarás tu propia $(item)Carta y pluma$() para que tu $(music)Pájaro mensajero$() pueda saber a dónde ir.",
@@ -926,6 +983,19 @@
   "symphonia.page.mailbox2": "Una vez tu ítem tiene la dirección correcta, es hora de mandarlo. Para ello, necesitarás un $(l)Buzón$() con su propio $(music)Guacamayo mensajero$(). Para conseguir tu propio cartero, necesitarás una $(item)pluma única$() de un $(o)$(l:musicians/macaw)$(thing)Guacamayo$(), símbolo de su confianza en ti.$(br2)Tras craftear el bloque, vendrá a esperar y repartir tu correo. Sólo los objetos con una $(thing)dirección$() o $(o)$(l:befriend_em_all/business_card)$(item)tarjetas de negocio$() se pueden colocar en su interior.",
   "symphonia.page.mailbox3": "Tras enviarlo, el $(o)mensajero$() se tomará un tiempo en entregarlo y volver a tu buzón. Si el $(item)buzón$() del receptor está lleno o no hay uno con esa dirección, el $(o)guacamayo$() volverá con el correo.",
 
+  "symphonia.entry.business_card": "Tarjeta de negocios y kits",
+  "symphonia.page.business_card0": "¿No te cansas de hacerlo todo tú mismo? Yo sí $(o)(hace mucho...)$(). ¿Por qué no buscas ayuda? Agricultura, melomancia... ¡incluso nuevas tareas como la $(thing)costura$()!$(br)Para ello, primero necesitas una $(item)Tarjeta de negocios$(). La mayoría de koalas tienen una de sus amigos, pero suelen pedir $(l:natural_recipes/music_jam)algo caro a cambio.$()",
+  "symphonia.page.business_card1": "Una vez la tengas, el paso siguiente es conseguir un $(l:befriend_em_all/mailbox)Buzón$() y enviársela al interesado. Tras un tiempo, un $(l)Koala$() vendrá a tu hogar y deambulará hasta que le hables y le des un $(item)Kit$(). ¡No tardes mucho o se marchará!$(br2)Lo bueno de los $(l)Koalas Trabajadores$() es que no piden mucho, solo un poco de $(item)música$(). ¡Si no la tienen, pararán y se $(o)quedarán dormidos$()!",
+  "symphonia.page.business.card2": "Estos son los distintos $(item)kits$() que puedes fabricar. ¡Dale uno al Koala y empezará a trabajar al instante! Los agricultores $(thing)cultivarán$(), los sastres $(thing)coserán$(), etc.",
+
+  "symphonia.entry.tailor": "Koala Sastre",
+  "symphonia.page.tailor0": "A diferencia de otros koalas, ¡los $(l)Koalas Sastre$() son los únicos que pueden hacer su labor! Mientras los $(o)melomantes$() necesitan un caldero, los $(o)sastres$() necesitan una $(item)Máquina de coser$(). Tras colocarla, como con los demás koalas, debes guiarlo a su máquina con una $(item)Batuta$().$(br2)Finalmente, ¡toca algo de música y ya estará listo para trabajar!",
+  "symphonia.page.tailor1": "¡Los $(l)Koalas Sastre$() pueden fabricar distintas prendas de $(item)ropa$() que darán color a tu orquesta!$(br2)Es importante, eso sí, fabricar un $(item)Neceser$() para poder cambiarles la ropa. Puedes ver la receta en la $(o)siguiente página$().",
+
+  "symphonia.entry.flora_enhancer": "Potenciador floral",
+  "symphonia.page.flora_enhancer0": "El $(l)Potenciador floral$() es un objeto especial que sirve para realzar las $(thing)capacidades$() de las plantas. No podrán hablar $(o)(aún...)$() pero te comunicarán sus necesidades $(music)musicales$(). Quizás, si las satisfaces bastante, ¡te den algo de $(item)Flora Forta$()! ¡Aunque necesitarás muchas partituras, su conocimiento es mayor que el tuyo!",
+  "symphonia.page.flora_enhancer1": "Para usarlo, coloca el $(item)Potenciador$() sobre una $(item)Planta en maceta$() y háblale. Ten cuidado de no romper la maceta ni cambiar la planta, porque el $(item)Potenciador$() está enlazado a ella y $(careful)se romperá solo$()!",
+  
   "symphonia.entry.find_myths": "How to Find Myths",
   "symphonia.page.find_myths0": "Myths are the key to unlock the secrets of this world. They're the ones who can teach you about the wonders of $(music)Melomancy$() and the mysteries of $(thing)our world$(). While you explore the world and complete both $(item)Minecraft and Fauna & Orchestra advancements$(), Dan B. from the $(l)Jazzy Dammys$() might learn new myths. So don't forget to visit him every once in a while!",
   "symphonia.page.find_myths1": "If you want to be notified when $(l)Dan B.$() learns a new myth, you can place a $(item)$(l:mailbox)Mailbox$() near your home, and he'll send you a letter every time he learns something new!",
