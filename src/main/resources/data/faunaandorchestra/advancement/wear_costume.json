@@ -1,0 +1,48 @@
+{
+  "display": {
+    "icon": {
+      "count": 1,
+      "id": "faunaandorchestra:sewing_machine_item"
+    },
+    "title": {
+      "translate": "advancements.faunaandorchestra.wear_costume"
+    },
+    "description": {
+      "translate": "advancements.faunaandorchestra.wear_costume.desc"
+    },
+    "frame": "goal"
+  },
+  "parent": "faunaandorchestra:worker_koala",
+  "criteria": {
+    "has_costume": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "predicates": {
+              "minecraft:item_id": "#faunaandorchestra:is_costume"
+            }
+          }
+        ]
+      }
+    },
+    "has_hat": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "predicates": {
+              "minecraft:item_id": "#faunaandorchestra:is_hat"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_costume",
+      "has_hat"
+    ]
+  ]
+}

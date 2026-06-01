@@ -30,6 +30,7 @@ public class ModAdvancements {
     public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> TAME_FROG = register("tame_frog");
     public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> FIRST_RESOLVED_MYTH = register("diskinserted");
     public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> LIVING_MUSIC = register("living_music");
+    public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> BRED_MUSICIANS = register("bred_musicians");
 
     // DAN MYTHS
     public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> DAN_MYTH0 = register("dan_myth0");
