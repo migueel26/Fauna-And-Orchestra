@@ -45,7 +45,8 @@ public class MelomancyCauldronModel extends GeoModel<MelomancyCauldronBlockEntit
             return INK_TEXTURE;
         }
 
-        else if (resultItem == ModItems.OFFERING.get()) {
+        else if (resultItem == ModItems.OFFERING.get() ||
+                 resultItem == ModItems.EVERFRUIT.get()) {
             return OFFERING_TEXTURE;
         }
         else if (resultItem == Items.POTION) {

@@ -1,0 +1,17 @@
+{
+  "name": "symphonia.entry.everfruit",
+  "category": "faunaandorchestra:melomancy",
+  "icon": "faunaandorchestra:everfruit",
+  "advancement": "faunaandorchestra:boogie_fruit",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "faunaandorchestra:everfruit",
+      "text": "symphonia.page.everfruit0"
+    },
+    {
+      "type": "text",
+      "text": "symphonia.page.everfruit1"
+    }
+  ]
+}

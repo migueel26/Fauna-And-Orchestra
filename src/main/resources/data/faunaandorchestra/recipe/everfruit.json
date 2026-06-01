@@ -3,21 +3,29 @@
   "ingredients": [
     {
       "ingredient": {
-        "item": "minecraft:diamond"
-      },
-      "amount": 5
-    },
-    {
-      "ingredient": {
-        "item": "faunaandorchestra:wandering_note"
-      },
-      "amount": 3
-    },
-    {
-      "ingredient": {
-        "item": "faunaandorchestra:steelsonic_ingot"
+        "item": "faunaandorchestra:sonic_fumes"
       },
       "amount": 2
+    },
+    {
+      "ingredient": {
+        "item": "faunaandorchestra:taiyaki"
+      }
+    },
+    {
+      "ingredient": {
+        "item": "faunaandorchestra:perfumed_bamboo"
+      }
+    },
+    {
+      "ingredient": {
+          "item": "faunaandorchestra:mantis_food"
+      }
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:carrot"
+      }
     }
   ],
   "catalyst": {

@@ -79,11 +79,15 @@ public class FaunaJEIPlugin implements IModPlugin {
         registration.addIngredientInfo(ModBlocks.DISCORDED_FLOWER.asItem(), symphoniaComponent("discorded_flower"));
 
         registration.addIngredientInfo(ModItems.DISCORD_NUCLEI_ITEM, symphoniaDefaultText());
-        //registration.addIngredientInfo(ModItems.WANDERING_NOTE, symphoniaDefaultText());
+        registration.addIngredientInfo(ModItems.WANDERING_NOTE, symphoniaDefaultText());
         registration.addIngredientInfo(ModItems.FRUIT_OF_LIFE, symphoniaDefaultText());
         registration.addIngredientInfo(ModItems.PETALS_OF_DEATH, symphoniaDefaultText());
         registration.addIngredientInfo(ModItems.GLOVE, symphoniaDefaultText());
         registration.addIngredientInfo(ModItems.GINKGO_BILOBA, symphoniaDefaultText());
+        registration.addIngredientInfo(ModItems.FLORA_FORTA, symphoniaDefaultText());
+        registration.addIngredientInfo(ModItems.REALLY_GOOD_STICK, symphoniaDefaultText());
+        registration.addIngredientInfo(ModItems.FORTUNE_COOKIE, symphoniaDefaultText());
+        registration.addIngredientInfo(ModItems.BUSINESS_CARD, symphoniaDefaultText());
 
     }
 
