@@ -119,10 +119,17 @@ public class ModBlockEntities {
                     MailboxBlockEntity::new,
                     ModBlocks.MAILBOX.get()
             ).build(null));
+
     public static final Supplier<BlockEntityType<FloraEnhancerBlockEntity>> FLORA_ENHANCER =
             BLOCK_ENTITES.register("flora_enhancer_be", () -> BlockEntityType.Builder.of(
                     FloraEnhancerBlockEntity::new,
                     ModBlocks.FLORA_ENHANCER.get()
+            ).build(null));
+
+    public static final Supplier<BlockEntityType<CrawlingDiscordBlockEntity>> CRAWLING_DISCORD_BE =
+            BLOCK_ENTITES.register("crawling_discord_be", () -> BlockEntityType.Builder.of(
+                    CrawlingDiscordBlockEntity::new,
+                    ModBlocks.CRAWLING_DISCORD.get()
             ).build(null));
 
     // MISC (CREATIVE ONLY)
@@ -131,6 +138,7 @@ public class ModBlockEntities {
                     TavernSpawnerBlockEntity::new,
                     ModBlocks.TAVERN_SPAWNER.get()
             ).build(null));
+
     public static final Supplier<BlockEntityType<PaintingSpawnerBlockEntity>> PAINTING_SPAWNER_BE =
             BLOCK_ENTITES.register("painting_spawner_be", () -> BlockEntityType.Builder.of(
                     PaintingSpawnerBlockEntity::new,
