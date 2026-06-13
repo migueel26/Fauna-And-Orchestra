@@ -11,9 +11,10 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.items.ItemStackHandler;
@@ -27,6 +28,10 @@ import javax.annotation.Nullable;
 public class FloraEnhancerBlockEntity extends BlockEntity implements GeoBlockEntity, ListeningBlockEntity {
     private final AnimationController<FloraEnhancerBlockEntity> controller = new AnimationController<>(this, "flora_enhancer_controller", 0, this::animController);
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
+
+    private int moisture = 0;
+    private int wetTime = 0;
+    private int tickDelay = 0;
     public final ItemStackHandler inventory = new ItemStackHandler(1) {
         @Override
         protected int getStackLimit(int slot, ItemStack stack) {
@@ -43,6 +48,39 @@ public class FloraEnhancerBlockEntity extends BlockEntity implements GeoBlockEnt
         super(ModBlockEntities.FLORA_ENHANCER.get(), pos, blockState);
     }
 
+    public static void tick(Level level, BlockPos pos, BlockState state, FloraEnhancerBlockEntity entity) {
+        if (level.isClientSide()) return;
+
+        if (entity.wetTime > 0) {
+            if (entity.tickDelay > 0) {
+                entity.tickDelay--;
+            } else {
+                entity.wetTime--;
+                entity.tickDelay = 20;
+
+                // Cuando el tiempo de mojado termina, aumentamos el crecimiento automáticamente
+                if (entity.wetTime == 0 && entity.moisture < FloraEnhancerBlock.MAX_MOISTURE) {
+                    entity.moisture++;
+                    entity.setSheetMusic(FloraEnhancerBlock.getNewSheetMusic(level));
+                    FloraEnhancerBlock.tryToStartListening((ServerLevel) level, pos, entity);
+                }
+                entity.markUpdated();
+            }
+        }
+    }
+
+    public int getMoisture() { return this.moisture; }
+    public void setMoisture(int moisture) {
+        this.moisture = moisture;
+        markUpdated();
+    }
+
+    public int getWetTime() { return this.wetTime; }
+    public void setWetTime(int wetTime) {
+        this.wetTime = wetTime;
+        markUpdated();
+    }
+
     public ItemStack getSheetMusic() {
         return inventory.getStackInSlot(0);
     }
@@ -55,16 +93,29 @@ public class FloraEnhancerBlockEntity extends BlockEntity implements GeoBlockEnt
         inventory.setStackInSlot(0, ItemStack.EMPTY);
     }
 
+    public void markUpdated() {
+        setChanged();
+        if (level != null && !level.isClientSide()) {
+            level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
+        }
+    }
+
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         tag.put("Inventory", inventory.serializeNBT(registries));
+        tag.putInt("Moisture", this.moisture);
+        tag.putInt("WetTime", this.wetTime);
+        tag.putInt("TickDelay", this.tickDelay);
     }
 
     @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
         inventory.deserializeNBT(registries, tag.getCompound("Inventory"));
+        this.moisture = tag.getInt("Moisture");
+        this.wetTime = tag.getInt("WetTime");
+        this.tickDelay = tag.getInt("TickDelay");
     }
 
     @Nullable
@@ -100,11 +151,12 @@ public class FloraEnhancerBlockEntity extends BlockEntity implements GeoBlockEnt
         }
 
         if (getSheetMusic().is(conductor.getSheetMusic()) &&
-                getBlockState().getValue(FloraEnhancerBlock.MOISTURE) < FloraEnhancerBlock.MAX_MOSITURE &&
-                getBlockState().getValue(FloraEnhancerBlock.WET_TIME) == 0) {
+                this.moisture < FloraEnhancerBlock.MAX_MOISTURE &&
+                this.wetTime == 0) {
             // Water
-            level.setBlock(getBlockPos(), getBlockState().setValue(FloraEnhancerBlock.WET_TIME, FloraEnhancerBlock.DEFAULT_WET_TIME), 3);
-            level.scheduleTick(getBlockPos(), getBlockState().getBlock(), 20);
+            this.wetTime = FloraEnhancerBlock.DEFAULT_WET_TIME;
+            this.tickDelay = 20;
+            markUpdated();
         }
     }
 

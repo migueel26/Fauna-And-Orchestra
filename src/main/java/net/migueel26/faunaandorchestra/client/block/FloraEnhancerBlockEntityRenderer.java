@@ -39,7 +39,7 @@ public class FloraEnhancerBlockEntityRenderer extends GeoBlockRenderer<FloraEnha
     @Override
     public void renderRecursively(PoseStack poseStack, FloraEnhancerBlockEntity animatable, GeoBone bone, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, int colour) {
         if (bone.getName().equals("flora_forta")) {
-            bone.setHidden(!(animatable.getBlockState().getValue(FloraEnhancerBlock.MOISTURE) == 3));
+            bone.setHidden(!(animatable.getMoisture() == FloraEnhancerBlock.MAX_MOISTURE));
         }
         super.renderRecursively(poseStack, animatable, bone, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, colour);
     }
