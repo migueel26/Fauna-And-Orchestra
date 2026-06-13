@@ -31,7 +31,7 @@ public class FloraEnhancerBlockEntity extends BlockEntity implements GeoBlockEnt
 
     private int moisture = 0;
     private int wetTime = 0;
-    private int tickDelay = 0;
+    private int tickCount = 0;
     public final ItemStackHandler inventory = new ItemStackHandler(1) {
         @Override
         protected int getStackLimit(int slot, ItemStack stack) {
@@ -52,11 +52,11 @@ public class FloraEnhancerBlockEntity extends BlockEntity implements GeoBlockEnt
         if (level.isClientSide()) return;
 
         if (entity.wetTime > 0) {
-            if (entity.tickDelay > 0) {
-                entity.tickDelay--;
+            if (entity.tickCount > 0) {
+                entity.tickCount--;
             } else {
                 entity.wetTime--;
-                entity.tickDelay = 20;
+                entity.tickCount = 20;
 
                 // Cuando el tiempo de mojado termina, aumentamos el crecimiento automáticamente
                 if (entity.wetTime == 0 && entity.moisture < FloraEnhancerBlock.MAX_MOISTURE) {
@@ -106,7 +106,7 @@ public class FloraEnhancerBlockEntity extends BlockEntity implements GeoBlockEnt
         tag.put("Inventory", inventory.serializeNBT(registries));
         tag.putInt("Moisture", this.moisture);
         tag.putInt("WetTime", this.wetTime);
-        tag.putInt("TickDelay", this.tickDelay);
+        tag.putInt("TickDelay", this.tickCount);
     }
 
     @Override
@@ -115,7 +115,7 @@ public class FloraEnhancerBlockEntity extends BlockEntity implements GeoBlockEnt
         inventory.deserializeNBT(registries, tag.getCompound("Inventory"));
         this.moisture = tag.getInt("Moisture");
         this.wetTime = tag.getInt("WetTime");
-        this.tickDelay = tag.getInt("TickDelay");
+        this.tickCount = tag.getInt("TickDelay");
     }
 
     @Nullable
@@ -155,7 +155,7 @@ public class FloraEnhancerBlockEntity extends BlockEntity implements GeoBlockEnt
                 this.wetTime == 0) {
             // Water
             this.wetTime = FloraEnhancerBlock.DEFAULT_WET_TIME;
-            this.tickDelay = 20;
+            this.tickCount = 20;
             markUpdated();
         }
     }

@@ -3,6 +3,7 @@ package net.migueel26.faunaandorchestra.block.custom;
 import net.migueel26.faunaandorchestra.block.ModBlockEntities;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.block.entity.DiscordNucleiBlockEntity;
+import net.migueel26.faunaandorchestra.block.entity.FlowerGrowerDiscordBlockEntity;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.util.RecipesUtil;
 import net.minecraft.core.BlockPos;
@@ -123,7 +124,10 @@ public class DiscordNucleiBlock extends Block implements EntityBlock {
         BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos(pos.getX(), pos.below().getY(), pos.getZ());
         while (level.getBlockState(mutableBlockPos).isAir()) mutableBlockPos.move(Direction.DOWN);
 
-        level.setBlock(mutableBlockPos, ModBlocks.FLOWER_DISCORD_BLOCK.get().defaultBlockState().setValue(FlowerGrowerDiscordBlock.MAX_GENERATION, 13), 3);
+        level.setBlock(pos, ModBlocks.FLOWER_DISCORD_BLOCK.get().defaultBlockState(), 3);
+        if (level.getBlockEntity(pos) instanceof FlowerGrowerDiscordBlockEntity be) {
+            be.setMaxGeneration(13);
+        }
     }
 
     public static int getNextUnstableTick(int instability, int nextInstability) {

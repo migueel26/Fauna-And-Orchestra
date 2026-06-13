@@ -3,6 +3,7 @@ package net.migueel26.faunaandorchestra.block.custom;
 import com.mojang.serialization.MapCodec;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.block.entity.DiscordedFlowerBlockEntity;
+import net.migueel26.faunaandorchestra.block.entity.FlowerGrowerDiscordBlockEntity;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
@@ -108,9 +109,14 @@ public class DiscordedFlowerBlock extends BaseEntityBlock {
 
         int hunger = be.getHunger();
         int newHunger = hunger + food;
+
         if (newHunger >= 400 || hunger >= 400) {
-            level.setBlock(pos.below(), ModBlocks.FLOWER_DISCORD_BLOCK.get().defaultBlockState()
-                    .setValue(FlowerGrowerDiscordBlock.MAX_GENERATION, NEW_GENERATIONS.get(400)), 3);
+            level.setBlock(pos.below(), ModBlocks.FLOWER_DISCORD_BLOCK.get().defaultBlockState(), 3);
+
+            if (level.getBlockEntity(pos.below()) instanceof FlowerGrowerDiscordBlockEntity growerBe) {
+                growerBe.setMaxGeneration(NEW_GENERATIONS.get(400));
+            }
+
             if (!level.isClientSide()) {
                 ((ServerLevel) level).sendParticles(ParticleTypes.SOUL_FIRE_FLAME, pos.getCenter().x, pos.getCenter().y, pos.getCenter().z, 80, 0.5, 0.5, 0.5, 0.3);
             }
@@ -120,7 +126,7 @@ public class DiscordedFlowerBlock extends BaseEntityBlock {
         } else {
             int goal = GENERATIONS_INDEX.getFirst();
 
-            for (int i = 0; i < NEW_GENERATIONS.keySet().size() && goal == GENERATIONS_INDEX.getFirst(); i++) {
+            for (int i = 0; i < NEW_GENERATIONS.size() && goal == GENERATIONS_INDEX.getFirst(); i++) {
                 if (GENERATIONS_INDEX.get(i) <= hunger && hunger < GENERATIONS_INDEX.get(i + 1)) {
                     goal = GENERATIONS_INDEX.get(i+1);
                 }
@@ -128,19 +134,21 @@ public class DiscordedFlowerBlock extends BaseEntityBlock {
 
             if (newHunger >= goal) {
                 int lastGoal = GENERATIONS_INDEX.getFirst();
-                for (int i = 0; i < NEW_GENERATIONS.keySet().size() && lastGoal == GENERATIONS_INDEX.getFirst(); i++) {
+                for (int i = 0; i < NEW_GENERATIONS.size() && lastGoal == GENERATIONS_INDEX.getFirst(); i++) {
                     if (GENERATIONS_INDEX.get(i) < newHunger && newHunger <= GENERATIONS_INDEX.get(i + 1)) {
                         lastGoal = GENERATIONS_INDEX.get(i);
                     }
                 }
-                level.setBlock(pos.below(), ModBlocks.FLOWER_DISCORD_BLOCK.get().defaultBlockState()
-                        .setValue(FlowerGrowerDiscordBlock.MAX_GENERATION, NEW_GENERATIONS.get(lastGoal)), 3);
+
+                level.setBlock(pos.below(), ModBlocks.FLOWER_DISCORD_BLOCK.get().defaultBlockState(), 3);
+
+                if (level.getBlockEntity(pos.below()) instanceof FlowerGrowerDiscordBlockEntity growerBe) {
+                    growerBe.setMaxGeneration(NEW_GENERATIONS.get(lastGoal));
+                }
             }
 
             be.setHunger(newHunger);
         }
-
-
     }
 
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {

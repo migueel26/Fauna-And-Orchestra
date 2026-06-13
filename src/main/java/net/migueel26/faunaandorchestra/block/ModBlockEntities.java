@@ -1,12 +1,10 @@
 package net.migueel26.faunaandorchestra.block;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
-import net.migueel26.faunaandorchestra.block.custom.MailboxBlock;
 import net.migueel26.faunaandorchestra.block.entity.*;
 import net.migueel26.faunaandorchestra.block.entity.spawners.PaintingSpawnerBlockEntity;
 import net.migueel26.faunaandorchestra.block.entity.spawners.TavernSpawnerBlockEntity;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -130,6 +128,12 @@ public class ModBlockEntities {
             BLOCK_ENTITES.register("crawling_discord_be", () -> BlockEntityType.Builder.of(
                     CrawlingDiscordBlockEntity::new,
                     ModBlocks.CRAWLING_DISCORD.get()
+            ).build(null));
+
+    public static final Supplier<BlockEntityType<FlowerGrowerDiscordBlockEntity>> FLOWER_DISCORD_BE =
+            BLOCK_ENTITES.register("flower_grower_discord_be", () -> BlockEntityType.Builder.of(
+                    FlowerGrowerDiscordBlockEntity::new,
+                    ModBlocks.FLOWER_DISCORD_BLOCK.get()
             ).build(null));
 
     public static final Supplier<BlockEntityType<DiscordedFlowerBlockEntity>> DISCORDED_FLOWER_BE =
