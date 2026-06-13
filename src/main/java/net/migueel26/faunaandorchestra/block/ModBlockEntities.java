@@ -132,6 +132,12 @@ public class ModBlockEntities {
                     ModBlocks.CRAWLING_DISCORD.get()
             ).build(null));
 
+    public static final Supplier<BlockEntityType<DiscordedFlowerBlockEntity>> DISCORDED_FLOWER_BE =
+            BLOCK_ENTITES.register("discorded_flower_be", () -> BlockEntityType.Builder.of(
+                    DiscordedFlowerBlockEntity::new,
+                    ModBlocks.DISCORDED_FLOWER.get()
+            ).build(null));
+
     // MISC (CREATIVE ONLY)
     public static final Supplier<BlockEntityType<TavernSpawnerBlockEntity>> TAVERN_SPAWNER_BE =
             BLOCK_ENTITES.register("tavern_spawner_be", () -> BlockEntityType.Builder.of(
