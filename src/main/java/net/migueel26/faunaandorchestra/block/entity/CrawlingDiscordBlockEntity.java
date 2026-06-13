@@ -18,7 +18,6 @@ public class CrawlingDiscordBlockEntity extends BlockEntity {
     private int maxGeneration = CrawlingDiscordBlock.DEFAULT_MAX_GENERATION;
     private boolean father = false;
     private boolean difficult = false;
-    private boolean migrated = false;
 
     private int actionTimer = -1;
 
@@ -28,28 +27,6 @@ public class CrawlingDiscordBlockEntity extends BlockEntity {
 
     public static void tick(Level level, BlockPos pos, BlockState state, CrawlingDiscordBlockEntity entity) {
         if (level.isClientSide()) return;
-
-        // MIGRATION FROM BLOCKSTATE TO BLOCKENTITY
-        if (!entity.migrated) {
-            if (state.hasProperty(CrawlingDiscordBlock.GENERATION)) {
-                int oldGen = state.getValue(CrawlingDiscordBlock.GENERATION);
-                int oldMaxGen = state.getValue(CrawlingDiscordBlock.MAX_GENERATION);
-                boolean oldFather = state.getValue(CrawlingDiscordBlock.FATHER);
-
-                if (oldGen > 0 || oldMaxGen != CrawlingDiscordBlock.DEFAULT_MAX_GENERATION || oldFather) {
-                    entity.generation = oldGen;
-                    entity.maxGeneration = oldMaxGen;
-                    entity.father = oldFather;
-
-                    BlockState cleanState = state.setValue(CrawlingDiscordBlock.GENERATION, 0)
-                            .setValue(CrawlingDiscordBlock.MAX_GENERATION, CrawlingDiscordBlock.DEFAULT_MAX_GENERATION)
-                            .setValue(CrawlingDiscordBlock.FATHER, false);
-                    level.setBlock(pos, cleanState, 3);
-                }
-            }
-            entity.migrated = true;
-            entity.setChanged();
-        }
 
         // START THE TIMER
         if (entity.actionTimer == -1) {
@@ -177,6 +154,11 @@ public class CrawlingDiscordBlockEntity extends BlockEntity {
         this.setChanged();
     }
 
+    public void setMaxGeneration(int maxGeneration) {
+        this.maxGeneration = maxGeneration;
+        this.setChanged();
+    }
+
     @Override
     protected void saveAdditional(CompoundTag tag, net.minecraft.core.HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
@@ -185,7 +167,6 @@ public class CrawlingDiscordBlockEntity extends BlockEntity {
         tag.putBoolean("Father", this.father);
         tag.putBoolean("Difficult", this.difficult);
         tag.putInt("ActionTimer", this.actionTimer);
-        tag.putBoolean("Migrated", this.migrated);
     }
 
     @Override
@@ -196,6 +177,5 @@ public class CrawlingDiscordBlockEntity extends BlockEntity {
         this.father = tag.getBoolean("Father");
         this.difficult = tag.getBoolean("Difficult");
         this.actionTimer = tag.getInt("ActionTimer");
-        this.migrated = tag.getBoolean("Migrated");
     }
 }

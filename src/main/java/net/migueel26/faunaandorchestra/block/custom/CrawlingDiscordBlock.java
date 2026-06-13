@@ -35,11 +35,7 @@ public class CrawlingDiscordBlock extends BaseEntityBlock {
     public static final int DEFAULT_MAX_GENERATION = 40;
     public static int  DIFFICULT_CHILD_TIME = 2;
 
-    public static final IntegerProperty GENERATION = IntegerProperty.create("generation", 0, DEFAULT_MAX_GENERATION);
-    public static final BooleanProperty FATHER = BooleanProperty.create("father");
     public static final BooleanProperty CLIMBER = BooleanProperty.create("climber");
-    public static final IntegerProperty MAX_GENERATION = IntegerProperty.create("max_generation", 0, DEFAULT_MAX_GENERATION);
-
     private static final VoxelShape CRAWLER_SHAPE = Block.box(0, 0, 0, 16, 2, 16);
     private static final VoxelShape CLIMBER_SHAPE = Shapes.block();
 
@@ -49,10 +45,7 @@ public class CrawlingDiscordBlock extends BaseEntityBlock {
         super(properties);
 
         this.registerDefaultState(this.getStateDefinition().any()
-                .setValue(GENERATION, 0)
-                .setValue(FATHER, false)
-                .setValue(CLIMBER, false)
-                .setValue(MAX_GENERATION, DEFAULT_MAX_GENERATION));
+                .setValue(CLIMBER, false));
     }
 
     @Override
@@ -97,7 +90,7 @@ public class CrawlingDiscordBlock extends BaseEntityBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(GENERATION, FATHER, CLIMBER, MAX_GENERATION);
+        builder.add(CLIMBER);
     }
 
     @Override
