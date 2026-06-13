@@ -36,7 +36,7 @@ public class DiscordNucleiModel extends GeoModel<DiscordNucleiBlockEntity> {
         GeoBone cube3 = getAnimationProcessor().getBone("cube3");
         GeoBone cube4 = getAnimationProcessor().getBone("cube4");
 
-        int essence = animatable.getBlockState().getValue(DiscordNucleiBlock.ESSENCE);
+        int essence = animatable.getEssence();
 
         cube3.setHidden(essence < 1);
         cube2.setHidden(essence < 7);

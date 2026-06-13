@@ -8,13 +8,10 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.world.Containers;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
@@ -27,6 +24,11 @@ public class DiscordNucleiBlockEntity extends BlockEntity implements GeoBlockEnt
     private final static RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
     private final static RawAnimation UNSTABLE = RawAnimation.begin().thenPlay("unstable");
     private final static RawAnimation VERY_UNSTABLE = RawAnimation.begin().thenPlay("very_unstable");
+
+    private int essence = 0;
+    private int instability = 0;
+    private int actionTimer = -1;
+
     private final AnimationController<DiscordNucleiBlockEntity> controller = new AnimationController<>(this, "discord_nuclei_controller", 5, this::animController);
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
     public final ItemStackHandler inventory = new ItemStackHandler(1) {
@@ -37,10 +39,7 @@ public class DiscordNucleiBlockEntity extends BlockEntity implements GeoBlockEnt
 
         @Override
         protected void onContentsChanged(int slot) {
-            setChanged();
-            if(!level.isClientSide()) {
-                level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
-            }
+            markUpdated();
         }
     };
     private float rotation;
@@ -50,11 +49,57 @@ public class DiscordNucleiBlockEntity extends BlockEntity implements GeoBlockEnt
     }
 
     protected <E extends DiscordNucleiBlockEntity> PlayState animController(final AnimationState<E> state) {
-        int instability = getBlockState().getValue(DiscordNucleiBlock.INSTABILITY);
         if (instability < 20) state.getController().setAnimation(IDLE);
         else if (instability < 60) state.getController().setAnimation(UNSTABLE);
         else state.getController().setAnimation(VERY_UNSTABLE);
         return PlayState.CONTINUE;
+    }
+
+    public static void tick(Level level, BlockPos pos, BlockState state, DiscordNucleiBlockEntity entity) {
+        if (level.isClientSide()) return;
+
+        if (entity.instability > 0 && entity.essence > 0) {
+            if (entity.actionTimer > 0) {
+                entity.actionTimer--;
+            } else if (entity.actionTimer == 0) {
+                entity.instability++;
+                if (entity.instability >= 100) {
+                    DiscordNucleiBlock.instabilityExplosion(level, pos);
+                } else {
+                    entity.actionTimer = DiscordNucleiBlock.getNextUnstableTick(entity.instability - 1, entity.instability);
+                    entity.markUpdated();
+                }
+            }
+        }
+    }
+
+    public int getEssence() {
+        return essence;
+    }
+    public int getInstability() {
+        return instability;
+    }
+
+    public void setEssence(int essence) {
+        this.essence = essence;
+        markUpdated();
+    }
+
+    public void setInstability(int instability) {
+        this.instability = Math.max(0, instability);
+        markUpdated();
+    }
+
+    public void setActionTimer(int time) {
+        this.actionTimer = time;
+        this.setChanged();
+    }
+
+    private void markUpdated() {
+        setChanged();
+        if (level != null && !level.isClientSide()) {
+            level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
+        }
     }
 
     public float getRenderingRotation() {
@@ -73,12 +118,18 @@ public class DiscordNucleiBlockEntity extends BlockEntity implements GeoBlockEnt
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         tag.put("Inventory", inventory.serializeNBT(registries));
+        tag.putInt("Essence", this.essence);
+        tag.putInt("Instability", this.instability);
+        tag.putInt("ActionTimer", this.actionTimer);
     }
 
     @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
         inventory.deserializeNBT(registries, tag.getCompound("Inventory"));
+        this.essence = tag.getInt("Essence");
+        this.instability = tag.getInt("Instability");
+        this.actionTimer = tag.getInt("ActionTimer");
     }
 
     @Nullable

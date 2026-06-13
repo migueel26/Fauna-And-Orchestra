@@ -1,5 +1,6 @@
 package net.migueel26.faunaandorchestra.block.custom;
 
+import net.migueel26.faunaandorchestra.block.ModBlockEntities;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.block.entity.DiscordNucleiBlockEntity;
 import net.migueel26.faunaandorchestra.item.ModItems;
@@ -23,6 +24,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
@@ -33,21 +36,18 @@ import org.jetbrains.annotations.Nullable;
 import oshi.util.tuples.Pair;
 
 public class DiscordNucleiBlock extends Block implements EntityBlock {
-    public static final IntegerProperty INSTABILITY = IntegerProperty.create("instability", 0, 100);
-    public static final IntegerProperty ESSENCE = IntegerProperty.create("essence", 0, 100);
     protected static final VoxelShape SHAPE = Block.box(1.0, 0, 1.0, 15.0, 2.0, 15.0);
     public DiscordNucleiBlock(Properties properties) {
         super(properties);
-
-        this.registerDefaultState(getStateDefinition().any().setValue(INSTABILITY, 0).setValue(ESSENCE, 0));
     }
 
     @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         if (level.getBlockEntity(pos) instanceof DiscordNucleiBlockEntity discordNucleiBE) {
-            int essence = state.getValue(ESSENCE);
-            int instability = state.getValue(INSTABILITY);
+            int essence = discordNucleiBE.getEssence();
+            int instability = discordNucleiBE.getInstability();
             ItemStack stackInSlot = discordNucleiBE.inventory.getStackInSlot(0);
+
             if (!stackInSlot.isEmpty()) {
                 if (stack.is(ModItems.DISCORD_ESSENCE)) {
                     level.playSound(player, pos, SoundEvents.WARDEN_LISTENING, SoundSource.BLOCKS);
@@ -56,13 +56,13 @@ public class DiscordNucleiBlock extends Block implements EntityBlock {
                     }
                     stack.consume(1, player);
 
-                    applyEffect(stackInSlot, level, state, pos, discordNucleiBE, essence ,instability);
+                    applyEffect(stackInSlot, level, pos, discordNucleiBE, essence ,instability);
 
                     return ItemInteractionResult.SUCCESS;
 
                 } else if (stack.is(ModItems.WANDERING_NOTE)) {
                     int reduction = getInstabilityReduction(instability);
-                    level.setBlock(pos, state.setValue(INSTABILITY, instability - reduction), 3);
+                    discordNucleiBE.setInstability(instability - reduction);
 
                     if (!level.isClientSide()) {
                         ((ServerLevel) level).sendParticles(ParticleTypes.WAX_OFF, pos.getCenter().x, pos.getY()+0.75f, pos.getZ(), 10, 0.2, 0.2, 0.2, 0);
@@ -88,27 +88,31 @@ public class DiscordNucleiBlock extends Block implements EntityBlock {
         return (instability*3)/4;
     }
 
-    private void applyEffect(ItemStack stack, Level level, BlockState state, BlockPos pos, DiscordNucleiBlockEntity blockEntity, int essence, int instability) {
+    private void applyEffect(ItemStack stack, Level level, BlockPos pos, DiscordNucleiBlockEntity blockEntity, int essence, int instability) {
         Pair<Integer, Float> indexes = RecipesUtil.getDiscordNucleiIndexes(stack);
         int nextInstability = (int) (instability + indexes.getA() + indexes.getB()*level.random.nextFloat()* indexes.getB());
 
         if (nextInstability >= 100) {
             instabilityExplosion(level, pos);
-        } else if (essence + 1 == RecipesUtil.getDiscordNucleiResult(stack).getA()) {
+        } else if (essence + 1 >= RecipesUtil.getDiscordNucleiResult(stack).getA()) {
             if (!level.isClientSide()) {
                 ((ServerLevel) level).sendParticles(ParticleTypes.SOUL_FIRE_FLAME, pos.getCenter().x, pos.getY()+0.75f, pos.getCenter().z, 100, 0.5, 0.5, 0.5, 0.3);
             }
             level.playSound(null, pos, SoundEvents.SCULK_SHRIEKER_SHRIEK, SoundSource.BLOCKS, 1.0f, 1.0f);
             popResourceFromFace(level, pos, Direction.UP, new ItemStack(RecipesUtil.getDiscordNucleiResult(stack).getB()));
+
             blockEntity.clearContents();
-            level.setBlock(pos, state.setValue(ESSENCE, 0).setValue(INSTABILITY, 0), 3);
+            blockEntity.setEssence(0);
+            blockEntity.setInstability(0);
+            blockEntity.setActionTimer(-1);
         } else {
-            level.setBlock(pos, state.setValue(ESSENCE, essence+1).setValue(INSTABILITY, nextInstability),3);
-            level.scheduleTick(pos, this, getNextUnstableTick(instability, nextInstability));
+            blockEntity.setEssence(essence+1);
+            blockEntity.setInstability(nextInstability);
+            blockEntity.setActionTimer(getNextUnstableTick(instability, nextInstability));
         }
     }
 
-    private static void instabilityExplosion(Level level, BlockPos pos) {
+    public static void instabilityExplosion(Level level, BlockPos pos) {
         level.explode(null, pos.getX(), pos.getY(), pos.getZ(), 4, Level.ExplosionInteraction.BLOCK);
         level.playSound(null, pos, SoundEvents.WARDEN_SONIC_BOOM, SoundSource.BLOCKS, 1.0f, 1.0f);
         if (!level.isClientSide()) {
@@ -122,26 +126,12 @@ public class DiscordNucleiBlock extends Block implements EntityBlock {
         level.setBlock(mutableBlockPos, ModBlocks.FLOWER_DISCORD_BLOCK.get().defaultBlockState().setValue(FlowerGrowerDiscordBlock.MAX_GENERATION, 13), 3);
     }
 
-    private int getNextUnstableTick(int instability, int nextInstability) {
+    public static int getNextUnstableTick(int instability, int nextInstability) {
         if (nextInstability < 20) {
             return 50;
         } else {
             return (int) ((1.0f / (float) nextInstability) * 1000);
         }
-    }
-
-    @Override
-    protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        int instability = state.getValue(INSTABILITY);
-        if (instability > 0 && state.getValue(ESSENCE) > 0) {
-            if (instability+1 == 100) {
-                instabilityExplosion(level, pos);
-            } else {
-                level.setBlock(pos, state.setValue(INSTABILITY, instability+1), 3);
-                level.scheduleTick(pos, this, getNextUnstableTick(instability, instability+1));
-            }
-        }
-        super.tick(state, level, pos, random);
     }
 
     @Override
@@ -166,8 +156,11 @@ public class DiscordNucleiBlock extends Block implements EntityBlock {
         return new DiscordNucleiBlockEntity(blockPos, blockState);
     }
 
+    @Nullable
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(INSTABILITY, ESSENCE);
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+        if (level.isClientSide()) return null;
+        return type == ModBlockEntities.DISCORD_NUCLEI_BE.get() ?
+                (BlockEntityTicker<T>) (lvl, pos, st, be) -> DiscordNucleiBlockEntity.tick(lvl, pos, st, (DiscordNucleiBlockEntity) be) : null;
     }
 }

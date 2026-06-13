@@ -34,8 +34,8 @@ public class DiscordNucleiScreen {
             if (level.getBlockEntity(pos) instanceof DiscordNucleiBlockEntity discordNuclei) {
                 ItemStack stack = discordNuclei.inventory.getStackInSlot(0);
                 if (!stack.isEmpty()) {
-                    int essence = discordNuclei.getBlockState().getValue(DiscordNucleiBlock.ESSENCE);
-                    int normInstability = discordNuclei.getBlockState().getValue(DiscordNucleiBlock.INSTABILITY);
+                    int essence = discordNuclei.getEssence();
+                    int normInstability = discordNuclei.getInstability();
                     int normEssence = (essence*100) / RecipesUtil.getDiscordNucleiResult(stack).getA();
 
                     String essenceString = Component.translatable("block.faunaandorchestra.discord_nuclei.essence").getString() + normEssence + "%";
