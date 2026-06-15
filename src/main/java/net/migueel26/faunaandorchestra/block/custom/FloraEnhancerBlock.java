@@ -44,7 +44,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class FloraEnhancerBlock extends HorizontalDirectionalBlock implements EntityBlock {
+public class FloraEnhancerBlock extends HorizontalDirectionalBlock implements EntityBlock, ListeningBlock {
     public static final MapCodec<FloraEnhancerBlock> CODEC = simpleCodec(FloraEnhancerBlock::new);
 
     public static final Integer MAX_MOISTURE = 3;
@@ -107,14 +107,6 @@ public class FloraEnhancerBlock extends HorizontalDirectionalBlock implements En
             }
         }
         return super.playerWillDestroy(level, pos, state, player);
-    }
-
-    public static void tryToStartListening(ServerLevel level, BlockPos pos, FloraEnhancerBlockEntity blockEntity) {
-        ConductorEntity conductor = MusicUtil.lookForConductor(level, AABB.ofSize(pos.getCenter(), 0.5f, 0.5f, 0.5f));
-
-        if (conductor != null) {
-            blockEntity.onStartListening(conductor);
-        }
     }
 
     @Override

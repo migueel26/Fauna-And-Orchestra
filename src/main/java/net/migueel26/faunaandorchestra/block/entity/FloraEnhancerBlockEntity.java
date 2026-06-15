@@ -62,7 +62,7 @@ public class FloraEnhancerBlockEntity extends BlockEntity implements GeoBlockEnt
                 if (entity.wetTime == 0 && entity.moisture < FloraEnhancerBlock.MAX_MOISTURE) {
                     entity.moisture++;
                     entity.setSheetMusic(FloraEnhancerBlock.getNewSheetMusic(level));
-                    FloraEnhancerBlock.tryToStartListening((ServerLevel) level, pos, entity);
+                    entity.tryToStartListening((ServerLevel) level, pos);
                 }
                 entity.markUpdated();
             }

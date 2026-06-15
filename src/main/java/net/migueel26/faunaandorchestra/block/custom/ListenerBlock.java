@@ -3,6 +3,7 @@ package net.migueel26.faunaandorchestra.block.custom;
 import com.mojang.serialization.MapCodec;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.block.entity.ListenerBlockEntity;
+import net.migueel26.faunaandorchestra.block.entity.ListenerContainerBlockEntity;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
@@ -12,8 +13,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -26,7 +25,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.PushReaction;
-import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
@@ -57,16 +55,18 @@ public class ListenerBlock extends HorizontalDirectionalBlock implements EntityB
         BlockState listenerContainerState = level.getBlockState(pos.below());
 
         if (!oldState.is(ModBlocks.LISTENER)
-                && listenerContainerState.is(ModBlocks.LISTENER_CONTAINER)
-                && listenerContainerState.getValue(ListenerContainerBlock.BOTTLE)) {
-            level.scheduleTick(pos.below(), listenerContainerState.getBlock(), ListenerContainerBlock.NEXT_TICK_SCHEDULED);
+                && listenerContainerState.is(ModBlocks.LISTENER_CONTAINER)) {
             if (!level.isClientSide()) {
                 ((ServerLevel) level).sendParticles(ParticleTypes.POOF, pos.getCenter().x, pos.getY() + 0.5, pos.getCenter().z, 25, 0.1, 0.5, 0.1, 0.2);
                 level.playSound(null, pos, SoundEvents.ANVIL_USE, SoundSource.BLOCKS, 1.0F, 2.0F);
             }
+            if (level.getBlockEntity(pos.below()) instanceof ListenerContainerBlockEntity listenerContainerBE
+            && listenerContainerBE.isListening() && listenerContainerState.getValue(ListenerContainerBlock.BOTTLE)) {
+                level.setBlock(pos, state.setValue(LISTENING, true), 3);
+            }
+        } else {
+            super.onPlace(state, level, pos, oldState, movedByPiston);
         }
-
-        super.onPlace(state, level, pos, oldState, movedByPiston);
     }
 
     @Nullable

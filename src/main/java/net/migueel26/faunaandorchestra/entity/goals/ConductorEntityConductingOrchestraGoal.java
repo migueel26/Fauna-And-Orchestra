@@ -87,6 +87,14 @@ public class ConductorEntityConductingOrchestraGoal extends Goal {
             ((ListeningEntity) mob).onStopListening();
         }
 
+        // All blocks stop listening
+        BlockPos.betweenClosedStream(conductor.getBoundingBox().inflate(50.0, 50.0, 50.0)).forEach(pos -> {
+            BlockEntity blockEntity = conductor.level().getBlockEntity(pos);
+            if (blockEntity instanceof ListeningBlockEntity listeningBlockEntity) {
+                listeningBlockEntity.onStopListening();
+            }
+        });
+
         this.entitiesListening = new ArrayList<>();
 
         // Parrot dance
