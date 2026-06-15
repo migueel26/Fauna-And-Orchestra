@@ -142,6 +142,12 @@ public class ModBlockEntities {
                     ModBlocks.DISCORDED_FLOWER.get()
             ).build(null));
 
+    public static final Supplier<BlockEntityType<FlowerPathBlockEntity>> FLOWER_PATH_BE =
+            BLOCK_ENTITES.register("flower_path_be", () -> BlockEntityType.Builder.of(
+                    FlowerPathBlockEntity::new,
+                    ModBlocks.FLOWER_PATH.get()
+            ).build(null));
+
     // MISC (CREATIVE ONLY)
     public static final Supplier<BlockEntityType<TavernSpawnerBlockEntity>> TAVERN_SPAWNER_BE =
             BLOCK_ENTITES.register("tavern_spawner_be", () -> BlockEntityType.Builder.of(
