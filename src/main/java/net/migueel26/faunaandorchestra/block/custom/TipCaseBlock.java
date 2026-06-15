@@ -55,7 +55,6 @@ public class TipCaseBlock extends HorizontalDirectionalBlock implements EntityBl
     public static final int FIRST_REWARD = 6;
     public static final int SECOND_REWARD = 24;
     public static final int THIRD_REWARD = 64;
-    public static final IntegerProperty TIPS = IntegerProperty.create("tip_amount", 0, THIRD_REWARD);
     public static final BooleanProperty FIRST = BooleanProperty.create("first");
     public static final BooleanProperty SECOND = BooleanProperty.create("second");
     public static final BooleanProperty THIRD = BooleanProperty.create("third");
@@ -85,7 +84,6 @@ public class TipCaseBlock extends HorizontalDirectionalBlock implements EntityBl
         super(properties);
         this.registerDefaultState(this.getStateDefinition().any()
                 .setValue(PART, BedPart.FOOT)
-                .setValue(TIPS, 0)
                 .setValue(FIRST, true)
                 .setValue(SECOND, true)
                 .setValue(THIRD, true));
@@ -120,9 +118,7 @@ public class TipCaseBlock extends HorizontalDirectionalBlock implements EntityBl
     @Override
     protected @NotNull BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
         if (direction == getNeighbourDirection(state.getValue(PART), state.getValue(FACING))) {
-            if (neighborState.is(this) && neighborState.getValue(PART) != state.getValue(PART)) {
-                return state.setValue(TIPS, neighborState.getValue(TIPS));
-            } else {
+            if (!neighborState.is(this) || neighborState.getValue(PART) == state.getValue(PART)) {
                 return Blocks.AIR.defaultBlockState();
             }
         }
@@ -157,7 +153,7 @@ public class TipCaseBlock extends HorizontalDirectionalBlock implements EntityBl
     public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack tool) {
         if (player.getUUID().equals(((TipCaseBlockEntity) blockEntity).getOwner())) {
             level.addFreshEntity(new ItemEntity(level, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(Items.GOLD_INGOT,
-                    state.getValue(TIPS))));
+                    ((TipCaseBlockEntity) blockEntity).getTips())));
         }
         super.playerDestroy(level, player, pos, state, blockEntity, tool);
     }
@@ -169,50 +165,47 @@ public class TipCaseBlock extends HorizontalDirectionalBlock implements EntityBl
 
     @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        if (level.getBlockEntity(pos) instanceof TipCaseBlockEntity tipCase) {
+            int tips = tipCase.getTips();
+            if (player.getItemInHand(hand).is(Items.GOLD_INGOT) && tips < THIRD_REWARD) {
+                // Tip gold
+                stack.consume(1, player);
+                int nextTips = tips + 1;
 
-        if (player.getItemInHand(hand).is(Items.GOLD_INGOT) && state.getValue(TIPS) < THIRD_REWARD) {
-            // Tip gold
-            stack.consume(1, player);
-            int tips = state.getValue(TIPS) + 1;
-            level.setBlock(pos, state.setValue(TIPS, tips), 3);
+                updateTipsBothHalves(level, pos, state, nextTips);
+
+                if (!level.isClientSide()) {
+                    Entity entity = null;
+                    if (tipCase.getOwner() != null) entity = ((ServerLevel) level).getEntity(tipCase.getOwner());
+                    if (entity instanceof Faust) giveRingtailsTipAward(state, level, pos, player, nextTips);
+                }
+
+            } else if (player.getItemInHand(hand).is(Items.GOLD_INGOT) && tips == THIRD_REWARD) {
+                // Try to tip gold but it's full
+                return ItemInteractionResult.FAIL;
+
+            } else if (player.getItemInHand(hand).isEmpty() && tips > 0 && !level.isClientSide()) {
+                // Try to get gold (you may be the owner or not)
+                UUID tipCaseUUID = ((TipCaseBlockEntity) level.getBlockEntity(pos)).getOwner();
+                UUID playerUUID = player.getUUID();
+
+                if (tipCaseUUID.equals(playerUUID)) {
+                    player.setItemInHand(hand, new ItemStack(Items.GOLD_INGOT, tips));
+                    updateTipsBothHalves(level, pos, state, 0);
+                } else {
+                    player.displayClientMessage(Component.translatable("block.faunaandorchestra.tip_case_theft"), true);
+                }
+
+            }
 
             if (!level.isClientSide()) {
-
-                TipCaseBlockEntity blockEntity = (TipCaseBlockEntity) level.getBlockEntity(pos);
-                Entity entity = null;
-                if (blockEntity.getOwner() != null) entity = ((ServerLevel) level).getEntity(blockEntity.getOwner());
-                if (entity instanceof Faust) giveRingtailsTipAward(state, level, pos, player, tips);
-
-            }
-
-        } else if (player.getItemInHand(hand).is(Items.GOLD_INGOT) && state.getValue(TIPS) == THIRD_REWARD) {
-            // Try to tip gold but it's full
-            return ItemInteractionResult.FAIL;
-
-        } else if (player.getItemInHand(hand).isEmpty() && state.getValue(TIPS) > 0 && !level.isClientSide()) {
-            // Try to get gold (you may be the owner or not)
-            UUID tipCaseUUID = ((TipCaseBlockEntity) level.getBlockEntity(pos)).getOwner();
-            UUID playerUUID = player.getUUID();
-
-            if (tipCaseUUID.equals(playerUUID)) {
-                int tips = state.getValue(TIPS);
-                player.setItemInHand(hand, new ItemStack(Items.GOLD_INGOT, tips));
-                level.setBlock(pos, state.setValue(TIPS, 0), 3);
+                Vec3 center = pos.getCenter();
+                ((ServerLevel) level).sendParticles(ParticleTypes.WAX_ON, center.x, center.y, center.z,
+                        2, 0.15,0.15, 0.15, 0.5);
             } else {
-                player.displayClientMessage(Component.translatable("block.faunaandorchestra.tip_case_theft"), true);
+                level.playSound(player, pos, SoundEvents.AMETHYST_BLOCK_HIT, SoundSource.BLOCKS, 1.0F, 1.0F);
             }
-
         }
-
-        if (!level.isClientSide()) {
-            Vec3 center = pos.getCenter();
-            ((ServerLevel) level).sendParticles(ParticleTypes.WAX_ON, center.x, center.y, center.z,
-                    2, 0.15,0.15, 0.15, 0.5);
-        } else {
-            level.playSound(player, pos, SoundEvents.AMETHYST_BLOCK_HIT, SoundSource.BLOCKS, 1.0F, 1.0F);
-        }
-
-
         return ItemInteractionResult.SUCCESS;
     }
 
@@ -229,6 +222,17 @@ public class TipCaseBlock extends HorizontalDirectionalBlock implements EntityBl
             popResourceFromFace(level, pos, Direction.UP, new ItemStack(ModItems.RINGTAILS_POSTER.get()));
             level.playSound(null, pos,
                     ModSounds.SUCCESSFUL_TAME.get(), SoundSource.NEUTRAL, 1.0F, 1.0F);
+        }
+    }
+
+    private void updateTipsBothHalves(Level level, BlockPos pos, BlockState state, int newTips) {
+        if (level.getBlockEntity(pos) instanceof TipCaseBlockEntity be) {
+            be.setTips(newTips);
+        }
+
+        BlockPos otherHalfPos = pos.relative(getConnectedDirection(state));
+        if (level.getBlockEntity(otherHalfPos) instanceof TipCaseBlockEntity otherBe) {
+            otherBe.setTips(newTips);
         }
     }
 
@@ -274,6 +278,6 @@ public class TipCaseBlock extends HorizontalDirectionalBlock implements EntityBl
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, PART, TIPS, FIRST, SECOND, THIRD);
+        builder.add(FACING, PART, FIRST, SECOND, THIRD);
     }
 }
