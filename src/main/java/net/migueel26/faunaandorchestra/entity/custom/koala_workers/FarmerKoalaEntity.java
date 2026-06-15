@@ -30,6 +30,7 @@ import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -69,6 +70,11 @@ public class FarmerKoalaEntity extends AbstractKoalaWorker {
 
     public FarmerKoalaEntity(EntityType<? extends FarmerKoalaEntity> type, Level level) {
         super(type, level);
+    }
+
+    @Override
+    Item getKit() {
+        return ModItems.FARMING_KIT.get();
     }
 
     @Override
@@ -153,6 +159,9 @@ public class FarmerKoalaEntity extends AbstractKoalaWorker {
 
     @Override
     protected InteractionResult mobInteract(Player player, InteractionHand hand) {
+        InteractionResult result = super.mobInteract(player, hand);
+        if (result == InteractionResult.SUCCESS) return result;
+
         ItemStack stack = player.getItemInHand(hand);
 
         if (stack.is(ModItems.BATON) && stack.get(ModDataComponents.MUSICIAN_UUID) == null) {

@@ -1,9 +1,12 @@
 package net.migueel26.faunaandorchestra.entity.custom.koala_workers;
 
 import net.migueel26.faunaandorchestra.block.ModBlocks;
+import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.entity.custom.ConductorEntity;
 import net.migueel26.faunaandorchestra.entity.custom.ListeningEntity;
 import net.migueel26.faunaandorchestra.entity.custom.TalkableEntity;
+import net.migueel26.faunaandorchestra.util.BlocksUtil;
+import net.minecraft.BlockUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
@@ -14,15 +17,17 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.npc.Npc;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Block;
@@ -49,6 +54,8 @@ public abstract class AbstractKoalaWorker extends AgeableMob implements Npc, Tal
         super(entityType, level);
     }
 
+    abstract Item getKit();
+
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
@@ -63,6 +70,17 @@ public abstract class AbstractKoalaWorker extends AgeableMob implements Npc, Tal
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
         lookForConductor(level);
         return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
+    }
+
+    @Override
+    protected InteractionResult mobInteract(Player player, InteractionHand hand) {
+        if (!level().isClientSide() && player.getItemInHand(hand).is(Items.SHEARS) && player.isSecondaryUseActive()) {
+            spawnAtLocation(getKit());
+            level().playSound(null, this.blockPosition(), SoundEvents.SHEEP_SHEAR, this.getSoundSource(), 1.0F, 1.0F);
+            convertTo(ModEntities.WORKER_KOALA.get(), true);
+            return InteractionResult.SUCCESS;
+        }
+        return InteractionResult.FAIL;
     }
 
     @Override
@@ -193,6 +211,18 @@ public abstract class AbstractKoalaWorker extends AgeableMob implements Npc, Tal
     public void resetWorkTime() {
         this.workTime = 0;
         entityData.set(WORK_TIME, workTime);
+    }
+
+    @Override
+    public @Nullable <T extends Mob> T convertTo(EntityType<T> entityType, boolean transferInventory) {
+        T entity = super.convertTo(entityType, transferInventory);
+        if (entity instanceof WorkerKoalaEntity koalaWorker) {
+            koalaWorker.setYBodyRot(this.getYRot());
+            koalaWorker.setYHeadRot(this.getYHeadRot());
+            koalaWorker.setXRot(this.getXRot());
+
+        }
+        return entity;
     }
 
     @Nullable

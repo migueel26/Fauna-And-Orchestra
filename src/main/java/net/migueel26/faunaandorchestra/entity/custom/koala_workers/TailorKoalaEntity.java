@@ -98,6 +98,11 @@ public class TailorKoalaEntity extends AbstractKoalaWorker {
     }
 
     @Override
+    Item getKit() {
+        return ModItems.SEWING_KIT.get();
+    }
+
+    @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(CATALOG_CHOICE, ItemStack.EMPTY);
@@ -334,6 +339,9 @@ public class TailorKoalaEntity extends AbstractKoalaWorker {
 
     @Override
     protected InteractionResult mobInteract(Player player, InteractionHand hand) {
+        InteractionResult result = super.mobInteract(player, hand);
+        if (result == InteractionResult.SUCCESS) return result;
+
         ItemStack stack = player.getItemInHand(hand);
 
         if (stack.is(ModItems.BATON) && stack.get(ModDataComponents.MUSICIAN_UUID) == null) {

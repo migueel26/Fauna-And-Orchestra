@@ -40,6 +40,7 @@ import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -93,6 +94,11 @@ public class MelomancerKoalaEntity extends AbstractKoalaWorker {
 
     public MelomancerKoalaEntity(EntityType<? extends AgeableMob> entityType, Level level) {
         super(entityType, level);
+    }
+
+    @Override
+    Item getKit() {
+        return ModItems.MELOMANCY_KIT.get();
     }
 
     @Override
@@ -408,6 +414,9 @@ public class MelomancerKoalaEntity extends AbstractKoalaWorker {
 
     @Override
     protected InteractionResult mobInteract(Player player, InteractionHand hand) {
+        InteractionResult result = super.mobInteract(player, hand);
+        if (result == InteractionResult.SUCCESS) return result;
+
         ItemStack stack = player.getItemInHand(hand);
 
         if (stack.is(ModItems.BATON) && stack.get(ModDataComponents.MUSICIAN_UUID) == null) {
