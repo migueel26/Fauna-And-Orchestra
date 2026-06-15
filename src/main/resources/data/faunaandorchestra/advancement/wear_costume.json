@@ -1,7 +1,6 @@
 {
   "display": {
     "icon": {
-      "count": 1,
       "id": "faunaandorchestra:sewing_machine_item"
     },
     "title": {
@@ -19,9 +18,7 @@
       "conditions": {
         "items": [
           {
-            "predicates": {
-              "minecraft:item_id": "#faunaandorchestra:is_costume"
-            }
+            "items": "#faunaandorchestra:is_costume"
           }
         ]
       }
@@ -31,9 +28,7 @@
       "conditions": {
         "items": [
           {
-            "predicates": {
-              "minecraft:item_id": "#faunaandorchestra:is_hat"
-            }
+            "items": "#faunaandorchestra:is_hat"
           }
         ]
       }
