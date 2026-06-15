@@ -55,7 +55,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class MailboxBlock extends HorizontalDirectionalBlock implements EntityBlock {
-    public static final int TIME_TO_SEND = 200; //6000; // SECONDS
+    public static final int TIME_TO_SEND = 6000; // TICKS
     public static final MapCodec<MailboxBlock> CODEC = simpleCodec(MailboxBlock::new);
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
     public static final BooleanProperty MAILBIRD = BooleanProperty.create("mailbird");
