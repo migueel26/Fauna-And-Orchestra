@@ -1,6 +1,7 @@
 package net.migueel26.faunaandorchestra.networking;
 
 import net.migueel26.faunaandorchestra.block.ModBlocks;
+import net.migueel26.faunaandorchestra.block.entity.MailboxBlockEntity;
 import net.migueel26.faunaandorchestra.block.entity.TipCaseBlockEntity;
 import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.entity.custom.ConductorEntity;
@@ -120,8 +121,8 @@ public class ServerPayloadHandler {
         Player player = context.player();
         ServerLevel level = (ServerLevel) player.level();
 
-        if (level.getBlockState(pos).is(ModBlocks.MAILBOX)) {
-            level.scheduleTick(pos, ModBlocks.MAILBOX.get(), 1);
+        if (level.getBlockEntity(pos) instanceof MailboxBlockEntity mailbox) {
+            mailbox.triggerDelivery();
         }
     }
 }

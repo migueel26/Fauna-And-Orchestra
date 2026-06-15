@@ -2,6 +2,7 @@ package net.migueel26.faunaandorchestra.block.custom;
 
 import com.mojang.serialization.MapCodec;
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
+import net.migueel26.faunaandorchestra.block.ModBlockEntities;
 import net.migueel26.faunaandorchestra.block.entity.MailboxBlockEntity;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.entity.custom.jazzy_dammys.DanB;
@@ -38,6 +39,8 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.*;
@@ -52,11 +55,10 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class MailboxBlock extends HorizontalDirectionalBlock implements EntityBlock {
-    protected static final int TIME_TO_SEND = 10; //300; // SECONDS
+    public static final int TIME_TO_SEND = 200; //6000; // SECONDS
     public static final MapCodec<MailboxBlock> CODEC = simpleCodec(MailboxBlock::new);
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
     public static final BooleanProperty MAILBIRD = BooleanProperty.create("mailbird");
-    public static final IntegerProperty TIME_AWAY = IntegerProperty.create("time_away", 0, 300);
     protected final VoxelShape LOWER_SHAPE = Shapes.or(
             Block.box(5f, 0f, 5f, 11f, 2f, 11f),
             Block.box(6.5f, 2f, 6.5f, 9.5f, 14f, 9.5f),
@@ -67,25 +69,14 @@ public class MailboxBlock extends HorizontalDirectionalBlock implements EntityBl
     public MailboxBlock(Properties properties) {
         super(properties);
 
-        this.registerDefaultState(this.getStateDefinition().any().setValue(HALF, DoubleBlockHalf.LOWER).setValue(MAILBIRD, true).setValue(TIME_AWAY, 0));
+        this.registerDefaultState(this.getStateDefinition().any().setValue(HALF, DoubleBlockHalf.LOWER).setValue(MAILBIRD, true));
     }
 
     @Override
     protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
         super.onPlace(state, level, pos, oldState, movedByPiston);
         if (level.getBlockEntity(pos) instanceof MailboxBlockEntity blockEntity && state.getValue(MAILBIRD) && state.getValue(HALF) == DoubleBlockHalf.LOWER) {
-            macawArriveAnimation(state, level, pos, blockEntity);
-        }
-    }
-
-    private static void macawArriveAnimation(BlockState state, Level level, BlockPos pos, MailboxBlockEntity blockEntity) {
-        blockEntity.arrive();
-        if (!level.isClientSide()) {
-            Direction direction = state.getValue(FACING).getOpposite();
-            Vec3 particlePos = pos.above().relative(direction, 2).getCenter();
-            ((ServerLevel) level).sendParticles(ParticleTypes.CLOUD, particlePos.x, particlePos.y + 1, particlePos.z,
-                    20, 0.5, 0.5, 0.5, 0.15);
-            level.playSound(null, pos, SoundEvents.PARROT_AMBIENT, SoundSource.BLOCKS, 2.0f, 1.0f);
+            blockEntity.macawArriveAnimation(state, level, pos);
         }
     }
 
@@ -172,41 +163,12 @@ public class MailboxBlock extends HorizontalDirectionalBlock implements EntityBl
                 && AdvancementUtil.hasAdvancement(player, ResourceLocation.DEFAULT_NAMESPACE, "nether/explore_nether");
     }
 
+    @Nullable
     @Override
-    protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        int time = state.getValue(TIME_AWAY);
-        BlockPos topPos = state.getValue(HALF) == DoubleBlockHalf.UPPER ? pos : pos.above();
-
-        if (time == 0) {
-            MailbirdMacawEntity entity = new MailbirdMacawEntity(ModEntities.MACAW.get(), level);
-
-            // Above to place it on top of the mailbox
-            entity.moveTo(topPos.above(), 0f, 0f);
-            entity.setYHeadRot(getYRot(state.getValue(FACING)));
-            entity.setYBodyRot(entity.getYRot());
-            level.addFreshEntity(entity);
-            entity.flyAway();
-
-            level.scheduleTick(pos, this, 20);
-            level.setBlock(pos, state.setValue(MAILBIRD, false).setValue(TIME_AWAY, 1), 3);
-
-            level.playSound(null, pos, SoundEvents.PARROT_AMBIENT, SoundSource.BLOCKS);
-        } else if (time == TIME_TO_SEND) {
-            BlockPos lowerPos = state.getValue(HALF) == DoubleBlockHalf.LOWER ? pos : pos.below();
-            // The lower inventory
-            if (level.getBlockEntity(lowerPos) instanceof MailboxBlockEntity blockEntity) {
-                blockEntity.deliverMail();
-                macawArriveAnimation(state, level, pos, blockEntity);
-
-                // Reset the mailbox
-                level.setBlock(pos, state.setValue(MAILBIRD, true).setValue(TIME_AWAY, 0), 3);
-            }
-        } else {
-            level.setBlock(pos, state.setValue(MAILBIRD, false).setValue(TIME_AWAY, time + 1), 3);
-            level.scheduleTick(pos, this, 20);
-        }
-
-        super.tick(state, level, pos, random);
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+        if (level.isClientSide()) return null;
+        return type == ModBlockEntities.MAILBOX_BE.get() ?
+                (BlockEntityTicker<T>) (lvl, p, st, be) -> MailboxBlockEntity.tick(lvl, p, st, (MailboxBlockEntity) be) : null;
     }
 
     @Override
@@ -224,7 +186,7 @@ public class MailboxBlock extends HorizontalDirectionalBlock implements EntityBl
 
         if (facing.getAxis() == Direction.Axis.Y && (half == DoubleBlockHalf.LOWER) == (facing == Direction.UP)) {
             if (facingState.is(this) && facingState.getValue(HALF) != half) {
-                return state.setValue(MAILBIRD, facingState.getValue(MAILBIRD)).setValue(TIME_AWAY, facingState.getValue(TIME_AWAY));
+                return state.setValue(MAILBIRD, facingState.getValue(MAILBIRD));
             } else {
                 return Blocks.AIR.defaultBlockState();
             }
@@ -272,7 +234,7 @@ public class MailboxBlock extends HorizontalDirectionalBlock implements EntityBl
         }
     }
 
-    private float getYRot(Direction facing) {
+    public static float getYRot(Direction facing) {
         return switch (facing) {
             case NORTH -> 180f;
             case SOUTH -> 0f;
@@ -299,6 +261,6 @@ public class MailboxBlock extends HorizontalDirectionalBlock implements EntityBl
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, HALF, MAILBIRD, TIME_AWAY);
+        builder.add(FACING, HALF, MAILBIRD);
     }
 }
