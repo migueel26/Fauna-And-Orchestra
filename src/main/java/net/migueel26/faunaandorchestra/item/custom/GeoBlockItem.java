@@ -21,19 +21,16 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class GeoBlockItem extends BlockItem implements GeoItem {
-    private final Supplier<? extends GeoItemRenderer<?>> rendererFactory;
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private final boolean tooltip;
 
-    public GeoBlockItem(Block block, Supplier<? extends GeoItemRenderer<?>> renderer, Properties settings) {
+    public GeoBlockItem(Block block, Properties settings) {
         super(block, settings);
-        this.rendererFactory = renderer;
         this.tooltip = false;
     }
 
-    public GeoBlockItem(Block block, Supplier<? extends GeoItemRenderer<?>> renderer, boolean tooltip, Properties settings) {
+    public GeoBlockItem(Block block, boolean tooltip, Properties settings) {
         super(block, settings);
-        this.rendererFactory = renderer;
         this.tooltip = tooltip;
     }
 
@@ -59,7 +56,7 @@ public class GeoBlockItem extends BlockItem implements GeoItem {
             @Override
             public BlockEntityWithoutLevelRenderer getGeoItemRenderer() {
                 if (renderer == null) {
-                    renderer = rendererFactory.get();
+                    renderer = ModItemRenderers.getRenderer(GeoBlockItem.this);
                 }
                 return renderer;
             }

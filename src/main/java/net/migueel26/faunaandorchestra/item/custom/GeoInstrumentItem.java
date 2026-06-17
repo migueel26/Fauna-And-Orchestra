@@ -13,11 +13,9 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class GeoInstrumentItem extends InstrumentItem implements GeoItem {
-    private final Supplier<? extends GeoItemRenderer<?>> rendererFactory;
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-    public GeoInstrumentItem(Properties properties, SoundEvent sound, Supplier<? extends GeoItemRenderer<?>> renderer) {
+    public GeoInstrumentItem(Properties properties, SoundEvent sound) {
         super(properties, sound);
-        this.rendererFactory = renderer;
     }
 
     @Override
@@ -28,7 +26,7 @@ public class GeoInstrumentItem extends InstrumentItem implements GeoItem {
             @Override
             public BlockEntityWithoutLevelRenderer getGeoItemRenderer() {
                 if (renderer == null) {
-                    renderer = rendererFactory.get();
+                    renderer = ModItemRenderers.getRenderer(GeoInstrumentItem.this);
                 }
                 return renderer;
             }

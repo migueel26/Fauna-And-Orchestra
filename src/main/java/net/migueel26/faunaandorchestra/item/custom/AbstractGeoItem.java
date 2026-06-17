@@ -12,10 +12,8 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public abstract class AbstractGeoItem extends Item implements GeoItem {
-    private final Supplier<? extends GeoItemRenderer<?>> rendererFactory;
-    public AbstractGeoItem(Properties properties, Supplier<? extends GeoItemRenderer<?>> renderer) {
+    public AbstractGeoItem(Properties properties) {
         super(properties);
-        this.rendererFactory = renderer;
     }
 
     @Override
@@ -25,10 +23,10 @@ public abstract class AbstractGeoItem extends Item implements GeoItem {
 
             @Override
             public BlockEntityWithoutLevelRenderer getGeoItemRenderer() {
-                if (renderer == null) {
-                    renderer = rendererFactory.get();
+                if (this.renderer == null) {
+                    this.renderer = ModItemRenderers.getRenderer(AbstractGeoItem.this);
                 }
-                return renderer;
+                return this.renderer;
             }
         });
     }

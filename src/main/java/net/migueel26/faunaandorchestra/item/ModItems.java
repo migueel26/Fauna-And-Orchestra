@@ -1,7 +1,6 @@
 package net.migueel26.faunaandorchestra.item;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
-import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.client.item.*;
 import net.migueel26.faunaandorchestra.component.ModDataComponents;
@@ -38,7 +37,6 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import software.bernie.geckolib.renderer.GeoItemRenderer;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -63,7 +61,7 @@ public class ModItems {
     public static final DeferredItem<Item> CELLO = ITEMS.register("cello",
             () -> new InstrumentItem(new Item.Properties().stacksTo(1), ModSounds.CELLO_USE.get()));
     public static final DeferredItem<Item> DRUM = ITEMS.register("drum",
-            () -> new GeoInstrumentItem(new Item.Properties().stacksTo(1), ModSounds.DRUM_USE.get(), DrumItemRenderer::new));
+            () -> new GeoInstrumentItem(new Item.Properties().stacksTo(1), ModSounds.DRUM_USE.get()));
     public static final DeferredItem<Item> PAN_FLUTE = ITEMS.register("pan_flute",
             () -> new PanFluteItem(new Item.Properties()
                     .stacksTo(1)
@@ -253,10 +251,10 @@ public class ModItems {
     public static final DeferredItem<Item> ROSE = createHeadwearItem("rose", ModTags.EntityTypes.WEARS_ROSE);
     public static final DeferredItem<Item> IMAGINAL_DISK = createHeadwearItem("imaginal_disk", ModTags.EntityTypes.WEARS_IMAGINAL_DISK, Rarity.RARE);
     public static final DeferredItem<Item> MASK_OF_THE_ENLIGHTENED = createHeadwearItem("mask_of_the_enlightened", ModTags.EntityTypes.WEARS_MASK_OF_THE_ENLIGHTENED, Rarity.RARE);
-    public static final DeferredItem<Item> PROPELLER_HAT = createHeadwearItem("propeller_hat", ModTags.EntityTypes.WEARS_PROPELLER_HAT, Rarity.RARE, PropellerHatItemRenderer::new);
-    public static final DeferredItem<Item> TOP_HAT = createHeadwearItem("top_hat", ModTags.EntityTypes.WEARS_TOP_HAT, TopHatItemRenderer::new);
-    public static final DeferredItem<Item> SANTA_HAT = createHeadwearItem("santa_hat", ModTags.EntityTypes.WEARS_SANTA_HAT, SantaHatItemRenderer::new);
-    public static final DeferredItem<Item> BASEBALL_CAP = createHeadwearItem("baseball_cap", ModTags.EntityTypes.WEARS_BASEBALL_CAP, BaseballCapItemRenderer::new);
+    public static final DeferredItem<Item> PROPELLER_HAT = create3dHeadwearItem("propeller_hat", ModTags.EntityTypes.WEARS_PROPELLER_HAT, Rarity.RARE);
+    public static final DeferredItem<Item> TOP_HAT = create3dHeadwearItem("top_hat", ModTags.EntityTypes.WEARS_TOP_HAT);
+    public static final DeferredItem<Item> SANTA_HAT = create3dHeadwearItem("santa_hat", ModTags.EntityTypes.WEARS_SANTA_HAT);
+    public static final DeferredItem<Item> BASEBALL_CAP = create3dHeadwearItem("baseball_cap", ModTags.EntityTypes.WEARS_BASEBALL_CAP);
     public static final DeferredItem<Item> SILVER_TINT = createClothingItem("silver_tint", ModTags.EntityTypes.WEARS_SILVER_TINT);
     public static final DeferredItem<Item> GOLDEN_TINT = createClothingItem("golden_tint", ModTags.EntityTypes.WEARS_GOLDEN_TINT);
     public static final DeferredItem<Item> COLORFUL_TINT = createClothingItem("colorful_tint", ModTags.EntityTypes.WEARS_COLORFUL_TINT);
@@ -344,15 +342,15 @@ public class ModItems {
     public static final DeferredItem<Item> DISCORD_NUCLEI_ITEM = ITEMS.register("discord_nuclei_item",
             () -> new DiscordNucleiItem(ModBlocks.DISCORD_NUCLEI.get(), new Item.Properties()));
     public static final DeferredItem<Item> MOTHER_STATUE_ITEM = ITEMS.register("mother_statue_item",
-            () -> new GeoBlockItem(ModBlocks.MOTHER_STATUE.get(), MotherStatueItemRenderer::new, new Item.Properties()));
+            () -> new GeoBlockItem(ModBlocks.MOTHER_STATUE.get(), new Item.Properties()));
     public static final DeferredItem<Item> BAMBOO_TRAP_ITEM = ITEMS.register("bamboo_trap_item",
-            () -> new GeoBlockItem(ModBlocks.BAMBOO_TRAP.get(), BambooTrapItemRenderer::new, new Item.Properties()));
+            () -> new GeoBlockItem(ModBlocks.BAMBOO_TRAP.get(), new Item.Properties()));
     public static final DeferredItem<Item> BEAVER_STATUE_ITEM = ITEMS.register("beaver_statue_item",
-            () -> new GeoBlockItem(ModBlocks.BEAVER_STATUE.get(), BeaverStatueItemRenderer::new, new Item.Properties()));
+            () -> new GeoBlockItem(ModBlocks.BEAVER_STATUE.get(), new Item.Properties()));
     public static final DeferredItem<Item> SEWING_MACHINE_ITEM = ITEMS.register("sewing_machine_item",
-            () -> new GeoBlockItem(ModBlocks.SEWING_MACHINE.get(), SewingMachineItemRenderer::new, new Item.Properties()));
+            () -> new GeoBlockItem(ModBlocks.SEWING_MACHINE.get(), new Item.Properties()));
     public static final DeferredItem<Item> MAILBOX_ITEM = ITEMS.register("mailbox_item",
-            () -> new GeoBlockItem(ModBlocks.MAILBOX.get(), MailboxItemRenderer::new, true, new Item.Properties()));
+            () -> new GeoBlockItem(ModBlocks.MAILBOX.get(), true, new Item.Properties()));
 
     // MISC
     public static final DeferredItem<Item> VOICE = ITEMS.register("voice",
@@ -474,9 +472,9 @@ public class ModItems {
                 });
     }
 
-    private static DeferredItem<Item> createHeadwearItem(String name, TagKey<EntityType<?>> tag, Supplier<? extends GeoItemRenderer<?>> renderer) {
+    private static DeferredItem<Item> create3dHeadwearItem(String name, TagKey<EntityType<?>> tag) {
         return ITEMS.register(name,
-                () -> new CosmeticItem(new Item.Properties(), renderer) {
+                () -> new CosmeticItem(new Item.Properties()) {
                     @Override
                     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
                         tooltipComponents.add(Component.translatable("item.faunaandorchestra_headwear.desc").withStyle(ChatFormatting.LIGHT_PURPLE));
@@ -546,9 +544,9 @@ public class ModItems {
         });
     }
 
-    private static DeferredItem<Item> createHeadwearItem(String name, TagKey<EntityType<?>> tag, Rarity rarity, Supplier<? extends GeoItemRenderer<?>> renderer) {
+    private static DeferredItem<Item> create3dHeadwearItem(String name, TagKey<EntityType<?>> tag, Rarity rarity) {
         return ITEMS.register(name,
-                () -> new CosmeticItem(new Item.Properties().rarity(rarity), renderer) {
+                () -> new CosmeticItem(new Item.Properties().rarity(rarity)) {
                     @Override
                     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
                         tooltipComponents.add(Component.translatable("item.faunaandorchestra_headwear.desc").withStyle(ChatFormatting.LIGHT_PURPLE));

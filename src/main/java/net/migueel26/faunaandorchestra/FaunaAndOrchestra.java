@@ -13,11 +13,13 @@ import net.migueel26.faunaandorchestra.client.entity.projectile.MusicNoteProject
 import net.migueel26.faunaandorchestra.client.entity.projectile.PhantomNoteProjectileRenderer;
 import net.migueel26.faunaandorchestra.client.entity.projectile.SensorNoteRenderer;
 import net.migueel26.faunaandorchestra.client.entity.projectile.WanderingNoteRenderer;
+import net.migueel26.faunaandorchestra.client.item.*;
 import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.effect.ModEffects;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.item.ModCreativeModeTabs;
 import net.migueel26.faunaandorchestra.item.ModItems;
+import net.migueel26.faunaandorchestra.item.custom.ModItemRenderers;
 import net.migueel26.faunaandorchestra.loot_tables.ModLootTables;
 import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
 import net.migueel26.faunaandorchestra.particles.custom.*;
@@ -155,6 +157,23 @@ public class FaunaAndOrchestra {
             EntityRenderers.register(ModEntities.THROWN_DISCORD_BOMB.get(), ThrownItemRenderer::new);
             EntityRenderers.register(ModEntities.SENSOR_NOTE.get(), SensorNoteRenderer::new);
             EntityRenderers.register(ModEntities.FLOATING_BLOSSOM.get(), FloatingBlossomRenderer::new);
+
+            // Headwear
+            ModItemRenderers.register(ModItems.PROPELLER_HAT.get(), PropellerHatItemRenderer::new);
+            ModItemRenderers.register(ModItems.TOP_HAT.get(), TopHatItemRenderer::new);
+            ModItemRenderers.register(ModItems.SANTA_HAT.get(), SantaHatItemRenderer::new);
+            ModItemRenderers.register(ModItems.BASEBALL_CAP.get(), BaseballCapItemRenderer::new);
+
+            // Items
+            ModItemRenderers.register(ModItems.DRUM.get(), DrumItemRenderer::new);
+            ModItemRenderers.register(ModItems.FLOATING_BLOSSOM.get(), FloatingBlossomItemRenderer::new);
+
+            // Blocks
+            ModItemRenderers.register(ModItems.MOTHER_STATUE_ITEM.get(), MotherStatueItemRenderer::new);
+            ModItemRenderers.register(ModItems.BAMBOO_TRAP_ITEM.get(), BambooTrapItemRenderer::new);
+            ModItemRenderers.register(ModItems.BEAVER_STATUE_ITEM.get(), BeaverStatueItemRenderer::new);
+            ModItemRenderers.register(ModItems.SEWING_MACHINE_ITEM.get(), SewingMachineItemRenderer::new);
+            ModItemRenderers.register(ModItems.MAILBOX_ITEM.get(), MailboxItemRenderer::new);
         }
 
         @SubscribeEvent

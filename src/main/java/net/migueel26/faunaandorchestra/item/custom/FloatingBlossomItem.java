@@ -29,7 +29,7 @@ public class FloatingBlossomItem extends AbstractGeoItem {
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
 
     public FloatingBlossomItem(Properties properties) {
-        super(properties, FloatingBlossomItemRenderer::new);
+        super(properties);
     }
 
     @Override
