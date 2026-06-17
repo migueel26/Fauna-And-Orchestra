@@ -10,7 +10,7 @@ public class CITestHandler {
 
     @SubscribeEvent
     public static void onServerStarted(ServerStartedEvent event) {
-        if (System.getenv("CI") != null) {
+        if (System.getenv("FAUNA_IS_TEST_SERVER") != null) {
             FaunaAndOrchestra.LOGGER.info("[Fauna & Orchestra CI] The server was started successfully. Shutting down server after CI test.");
 
             event.getServer().halt(false);

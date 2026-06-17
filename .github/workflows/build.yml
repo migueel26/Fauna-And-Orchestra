@@ -22,7 +22,9 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
 
       - name: Test server run
-        run: ./gradlew runServer --no-daemon --stacktrace --info
+        env:
+          FAUNA_IS_TEST_SERVER: "true"
+        run: ./gradlew runServer --no-daemon
 
       - name: Upload crash reports and logs on failure
         uses: actions/upload-artifact@v4
