@@ -1,4 +1,4 @@
-All graphical assets in this repository (excluding Dan B's piano model), including but not limited to textures, 3D models and animations are the sole property of Owlest (Sowl) © 2025 All Rights Resereved.
+All graphical assets in this repository (excluding Dan B's piano model), including but not limited to textures, 3D models and animations are the sole property of Owlest (Sowl) © 2025 All Rights Reserved.
 
 You may not:
 a) Extract these assets to use in your own projects, mods, or games.
