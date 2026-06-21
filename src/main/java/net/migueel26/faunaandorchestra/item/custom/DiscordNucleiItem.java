@@ -80,6 +80,6 @@ public class DiscordNucleiItem extends BlockItem implements GeoItem {
     @Override
     public boolean canEquip(ItemStack stack, EquipmentSlot armorType, Entity entity) {
         if (armorType == EquipmentSlot.HEAD) return true;
-        else return canEquip(stack, armorType, entity);
+        else return super.canEquip(stack, armorType, entity);
     }
 }
