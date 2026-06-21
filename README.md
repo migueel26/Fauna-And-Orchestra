@@ -65,7 +65,9 @@ If you wish to contribute or test the latest features:
 
 ## Credits & License
 * **Lead Developer:** [migueel26](https://github.com/migueel26) *(alias Owlest, Sowl, etc.)*
-* **License:** [GNU Lesser General Public License v3.0](https://www.gnu.org/licenses/lgpl-3.0.en.html)
+* **License:** 
+  * **Code:** [GNU Lesser General Public License v3.0](https://www.gnu.org/licenses/lgpl-3.0.en.html)
+  * **Most Assets:** Owned by Owlest (Sowl) © 2025 [All Rights Reserved](https://github.com/migueel26/Fauna-And-Orchestra/blob/neoforge-1.21.1/LICENSE.txt)
 * **Special Thanks:** To the NeoForge, MuseScore and Pixabay community. Also to the amazing creators of Geckolib and Patchouli!
 
 ---
