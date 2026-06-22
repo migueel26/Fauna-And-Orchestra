@@ -2,6 +2,8 @@ package net.migueel26.faunaandorchestra.block;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.block.entity.*;
+import net.migueel26.faunaandorchestra.block.entity.spawners.PaintingSpawnerBlockEntity;
+import net.migueel26.faunaandorchestra.block.entity.spawners.TavernSpawnerBlockEntity;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.Block;
@@ -74,6 +76,91 @@ public class ModBlockEntities {
             BLOCK_ENTITES.register("the_great_head_be", () -> BlockEntityType.Builder.of(
                     TheGreatHeadBlockEntity::new,
                     ModBlocks.THE_GREAT_HEAD.get()
+            ).build(null));
+
+    public static final Supplier<BlockEntityType<MotherStatueBlockEntity>> MOTHER_STATUE_BE =
+            BLOCK_ENTITES.register("mother_statue_be", () -> BlockEntityType.Builder.of(
+                    MotherStatueBlockEntity::new,
+                    ModBlocks.MOTHER_STATUE.get()
+            ).build(null));
+
+    public static final Supplier<BlockEntityType<HangingJarBlockEntity>> HANGING_JAR_BE =
+            BLOCK_ENTITES.register("hanging_jar_be", () -> BlockEntityType.Builder.of(
+                    HangingJarBlockEntity::new,
+                    ModBlocks.HANGING_JAR.get()
+            ).build(null));
+
+    public static final Supplier<BlockEntityType<JarRackBlockEntity>> JAR_RACK_BE =
+            BLOCK_ENTITES.register("jar_rack_be", () -> BlockEntityType.Builder.of(
+                    JarRackBlockEntity::new,
+                    ModBlocks.JAR_RACK.get()
+            ).build(null));
+
+    public static final Supplier<BlockEntityType<BambooTrapBlockEntity>> BAMBOO_TRAP_BE =
+            BLOCK_ENTITES.register("bamboo_trap_be", () -> BlockEntityType.Builder.of(
+                    BambooTrapBlockEntity::new,
+                    ModBlocks.BAMBOO_TRAP.get()
+            ).build(null));
+
+    public static final Supplier<BlockEntityType<BeaverStatueBlockEntity>> BEAVER_STATUE_BE =
+            BLOCK_ENTITES.register("beaver_statue_be", () -> BlockEntityType.Builder.of(
+                    BeaverStatueBlockEntity::new,
+                    ModBlocks.BEAVER_STATUE.get()
+            ).build(null));
+
+    public static final Supplier<BlockEntityType<SewingMachineBlockEntity>> SEWING_MACHINE_BE =
+            BLOCK_ENTITES.register("sewing_machine_be", () -> BlockEntityType.Builder.of(
+                    SewingMachineBlockEntity::new,
+                    ModBlocks.SEWING_MACHINE.get()
+            ).build(null));
+
+    public static final Supplier<BlockEntityType<MailboxBlockEntity>> MAILBOX_BE =
+            BLOCK_ENTITES.register("mailbox_be", () -> BlockEntityType.Builder.of(
+                    MailboxBlockEntity::new,
+                    ModBlocks.MAILBOX.get()
+            ).build(null));
+
+    public static final Supplier<BlockEntityType<FloraEnhancerBlockEntity>> FLORA_ENHANCER =
+            BLOCK_ENTITES.register("flora_enhancer_be", () -> BlockEntityType.Builder.of(
+                    FloraEnhancerBlockEntity::new,
+                    ModBlocks.FLORA_ENHANCER.get()
+            ).build(null));
+
+    public static final Supplier<BlockEntityType<CrawlingDiscordBlockEntity>> CRAWLING_DISCORD_BE =
+            BLOCK_ENTITES.register("crawling_discord_be", () -> BlockEntityType.Builder.of(
+                    CrawlingDiscordBlockEntity::new,
+                    ModBlocks.CRAWLING_DISCORD.get()
+            ).build(null));
+
+    public static final Supplier<BlockEntityType<FlowerGrowerDiscordBlockEntity>> FLOWER_DISCORD_BE =
+            BLOCK_ENTITES.register("flower_grower_discord_be", () -> BlockEntityType.Builder.of(
+                    FlowerGrowerDiscordBlockEntity::new,
+                    ModBlocks.FLOWER_DISCORD_BLOCK.get()
+            ).build(null));
+
+    public static final Supplier<BlockEntityType<DiscordedFlowerBlockEntity>> DISCORDED_FLOWER_BE =
+            BLOCK_ENTITES.register("discorded_flower_be", () -> BlockEntityType.Builder.of(
+                    DiscordedFlowerBlockEntity::new,
+                    ModBlocks.DISCORDED_FLOWER.get()
+            ).build(null));
+
+    public static final Supplier<BlockEntityType<FlowerPathBlockEntity>> FLOWER_PATH_BE =
+            BLOCK_ENTITES.register("flower_path_be", () -> BlockEntityType.Builder.of(
+                    FlowerPathBlockEntity::new,
+                    ModBlocks.FLOWER_PATH.get()
+            ).build(null));
+
+    // MISC (CREATIVE ONLY)
+    public static final Supplier<BlockEntityType<TavernSpawnerBlockEntity>> TAVERN_SPAWNER_BE =
+            BLOCK_ENTITES.register("tavern_spawner_be", () -> BlockEntityType.Builder.of(
+                    TavernSpawnerBlockEntity::new,
+                    ModBlocks.TAVERN_SPAWNER.get()
+            ).build(null));
+
+    public static final Supplier<BlockEntityType<PaintingSpawnerBlockEntity>> PAINTING_SPAWNER_BE =
+            BLOCK_ENTITES.register("painting_spawner_be", () -> BlockEntityType.Builder.of(
+                    PaintingSpawnerBlockEntity::new,
+                    ModBlocks.PAINTING_SPAWNER.get()
             ).build(null));
 
     public static void register(IEventBus eventBus) {

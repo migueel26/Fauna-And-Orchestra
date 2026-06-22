@@ -2,6 +2,8 @@ package net.migueel26.faunaandorchestra.block;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.block.custom.*;
+import net.migueel26.faunaandorchestra.block.custom.spawners.PaintingSpawnerBlock;
+import net.migueel26.faunaandorchestra.block.custom.spawners.TavernSpawnerBlock;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.worldgen.tree.GinkgoBilobaTreeGrower;
 import net.minecraft.core.BlockPos;
@@ -180,6 +182,78 @@ public class ModBlocks {
     public static final RegistryObject<Block> THE_GREAT_HEAD = registerBlock("the_great_head",
             () -> new TheGreatHeadBlock(BlockBehaviour.Properties.of()
                     .strength(1.0F)));
+    public static final RegistryObject<Block> MOTHER_STATUE = registerBlock("mother_statue",
+            () -> new MotherStatueBlock(BlockBehaviour.Properties.of()
+                    .noOcclusion()
+                    .strength(2.0F, 6.0F)
+                    .mapColor(MapColor.STONE)));
+    public static final RegistryObject<Block> HANGING_JAR = registerBlock("hanging_jar",
+            () -> new HangingJarBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
+
+    public static final RegistryObject<Block> JAR_RACK = registerBlock("jar_rack",
+            () -> new JarRackBlock(BlockBehaviour.Properties.of()
+                    .strength(2.0F)
+                    .noOcclusion()
+                    .sound(SoundType.WOOD)
+                    .mapColor(MapColor.WOOD)));
+
+    public static final RegistryObject<Block> MANTIS_EGG = registerBlock("mantis_egg",
+            () -> new MantisEggBlock(BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG)));
+
+    public static final RegistryObject<Block> CATCHWEED = registerBlock("catchweed",
+            () -> new TallFlowerBlock(BlockBehaviour.Properties.copy(Blocks.PEONY).speedFactor(0.25F)) {
+                @Override
+                protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
+                    return super.mayPlaceOn(state, level, pos) || state.is(Blocks.CLAY);
+                }
+            });
+
+    public static final RegistryObject<Block> BAMBOO_TRAP = registerBlock("bamboo_trap",
+            () -> new BambooTrapBlock(BlockBehaviour.Properties.copy(Blocks.BAMBOO_FENCE)));
+
+    public static final RegistryObject<Block> BEAVER_STATUE = registerBlock("beaver_statue",
+            () -> new BeaverStatueBlock(BlockBehaviour.Properties.copy(ModBlocks.ALTAR.get()).randomTicks()));
+
+    public static final RegistryObject<Block> SEWING_MACHINE = registerBlock("sewing_machine",
+            () -> new SewingMachineBlock(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)));
+    public static final RegistryObject<Block> MAILBOX = registerBlock("mailbox",
+            () -> new MailboxBlock(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)));
+    public static final RegistryObject<Block> LETTER_AND_QUILL = registerBlock("letter_and_quill",
+            () -> new LetterAndQuillBlock(BlockBehaviour.Properties.copy(Blocks.FLOWER_POT)));
+    public static final RegistryObject<Block> FLOWER_PATH = registerBlock("flower_path",
+            () -> new FlowerPathBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.PLANT)
+                    .strength(0.2F)
+                    .noOcclusion()
+                    .sound(SoundType.VINE)
+                    .ignitedByLava()
+                    .pushReaction(PushReaction.DESTROY)));
+    public static final RegistryObject<Block> COTTON_PLANT = registerBlock("cotton_plant",
+            () -> new CropBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.PLANT)
+                    .noCollission()
+                    .randomTicks()
+                    .instabreak()
+                    .sound(SoundType.CROP)
+                    .pushReaction(PushReaction.DESTROY)));
+    public static final RegistryObject<Block> FLORA_ENHANCER = registerBlock("flora_enhancer",
+            () -> new FloraEnhancerBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.PLANT)
+                    .strength(2.0F)
+                    .sound(SoundType.STONE)));
+
+    // MISC (CREATIVE-ONLY)
+    public static final RegistryObject<Block> TAVERN_SPAWNER = registerBlock("tavern_spawner",
+            () -> new TavernSpawnerBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.NONE)
+                    .noCollission()
+                    .instabreak()));
+    public static final RegistryObject<Block> PAINTING_SPAWNER = registerBlock("painting_spawner",
+            () -> new PaintingSpawnerBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.NONE)
+                    .noCollission()
+                    .instabreak()));
+
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
