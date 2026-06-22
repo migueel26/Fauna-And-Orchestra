@@ -4,36 +4,45 @@ import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.resources.ResourceLocation;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 public class ModAdvancements {
-    public static final CustomSimpleTrigger FULL_ORCHESTRA = new CustomSimpleTrigger(new ResourceLocation(FaunaAndOrchestra.MOD_ID, "full_orchestra"));
-    public static final CustomSimpleTrigger MEET_RINGTAILS = new CustomSimpleTrigger(new ResourceLocation(FaunaAndOrchestra.MOD_ID, "meet_ringtails"));
-    public static final CustomSimpleTrigger BEFRIEND_ORION = new CustomSimpleTrigger(new ResourceLocation(FaunaAndOrchestra.MOD_ID, "befriend_orion"));
-    public static final CustomSimpleTrigger BEFRIEND_FAUST = new CustomSimpleTrigger(new ResourceLocation(FaunaAndOrchestra.MOD_ID, "befriend_faust"));
-    public static final CustomSimpleTrigger USE_MELOMANCY_CAULDRON = new CustomSimpleTrigger(new ResourceLocation(FaunaAndOrchestra.MOD_ID, "use_melomancy_cauldron"));
-    public static final CustomSimpleTrigger WISE_TREE = new CustomSimpleTrigger(new ResourceLocation(FaunaAndOrchestra.MOD_ID, "wise_tree"));
-    public static final CustomSimpleTrigger DISCORD_NUCLEI = new CustomSimpleTrigger(new ResourceLocation(FaunaAndOrchestra.MOD_ID, "discord_nuclei"));
-    public static final CustomSimpleTrigger USE_DISCORD_BOMB = new CustomSimpleTrigger(new ResourceLocation(FaunaAndOrchestra.MOD_ID, "use_discord_bomb"));
-    public static final CustomSimpleTrigger PAN_FLUTE = new CustomSimpleTrigger(new ResourceLocation(FaunaAndOrchestra.MOD_ID, "pan_flute"));
-    public static final CustomSimpleTrigger PAN_FLUTE_COMPLETE = new CustomSimpleTrigger(new ResourceLocation(FaunaAndOrchestra.MOD_ID, "pan_flute_complete"));
-    public static final CustomSimpleTrigger KILL_COMPOSER = new CustomSimpleTrigger(new ResourceLocation(FaunaAndOrchestra.MOD_ID, "kill_composer"));
-    public static final CustomSimpleTrigger PLAYER_CANON = new CustomSimpleTrigger(new ResourceLocation(FaunaAndOrchestra.MOD_ID, "player_canon"));
-    public static final CustomSimpleTrigger TAME_MUSICIAN = new CustomSimpleTrigger(new ResourceLocation(FaunaAndOrchestra.MOD_ID, "tame_musician"));
-    public static final CustomSimpleTrigger TAME_FROG = new CustomSimpleTrigger(new ResourceLocation(FaunaAndOrchestra.MOD_ID, "tame_frog"));
+    public static List<CustomSimpleTrigger> TRIGGERS = new ArrayList<>();
+
+    public static final CustomSimpleTrigger FULL_ORCHESTRA = register("full_orchestra");
+    public static final CustomSimpleTrigger MEET_RINGTAILS = register("meet_ringtails");
+    public static final CustomSimpleTrigger BEFRIEND_ORION = register("befriend_orion");
+    public static final CustomSimpleTrigger BEFRIEND_FAUST = register("befriend_faust");
+    public static final CustomSimpleTrigger USE_MELOMANCY_CAULDRON = register("use_melomancy_cauldron");
+    public static final CustomSimpleTrigger WISE_TREE = register("wise_tree");
+    public static final CustomSimpleTrigger DISCORD_NUCLEI = register("discord_nuclei");
+    public static final CustomSimpleTrigger USE_DISCORD_BOMB = register("use_discord_bomb");
+    public static final CustomSimpleTrigger PAN_FLUTE = register("pan_flute");
+    public static final CustomSimpleTrigger PAN_FLUTE_COMPLETE = register("pan_flute_complete");
+    public static final CustomSimpleTrigger KILL_COMPOSER = register("kill_composer");
+    public static final CustomSimpleTrigger PLAYER_CANON = register("player_canon");
+    public static final CustomSimpleTrigger TAME_MUSICIAN = register("tame_musician");
+    public static final CustomSimpleTrigger TAME_FROG = register("tame_frog");
+    public static final CustomSimpleTrigger FIRST_RESOLVED_MYTH = register("diskinserted");
+    public static final CustomSimpleTrigger LIVING_MUSIC = register("living_music");
+    public static final CustomSimpleTrigger BRED_MUSICIANS = register("bred_musicians");
+
+    // DAN MYTHS
+    public static final CustomSimpleTrigger DAN_MYTH0 = register("dan_myth0");
+    public static final CustomSimpleTrigger DAN_MYTH1 = register("dan_myth1");
+    public static final CustomSimpleTrigger DAN_MYTH2 = register("dan_myth2");
+
+    public static CustomSimpleTrigger register(String path) {
+        CustomSimpleTrigger trigger = new CustomSimpleTrigger(ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, path));
+        TRIGGERS.add(trigger);
+        return trigger;
+    }
 
     public static void register() {
-        CriteriaTriggers.register(FULL_ORCHESTRA);
-        CriteriaTriggers.register(MEET_RINGTAILS);
-        CriteriaTriggers.register(BEFRIEND_ORION);
-        CriteriaTriggers.register(BEFRIEND_FAUST);
-        CriteriaTriggers.register(USE_MELOMANCY_CAULDRON);
-        CriteriaTriggers.register(WISE_TREE);
-        CriteriaTriggers.register(DISCORD_NUCLEI);
-        CriteriaTriggers.register(USE_DISCORD_BOMB);
-        CriteriaTriggers.register(PAN_FLUTE);
-        CriteriaTriggers.register(PAN_FLUTE_COMPLETE);
-        CriteriaTriggers.register(KILL_COMPOSER);
-        CriteriaTriggers.register(PLAYER_CANON);
-        CriteriaTriggers.register(TAME_MUSICIAN);
-        CriteriaTriggers.register(TAME_FROG);
+        for (CustomSimpleTrigger trigger : TRIGGERS) {
+            CriteriaTriggers.register(trigger);
+        }
     }
 }
