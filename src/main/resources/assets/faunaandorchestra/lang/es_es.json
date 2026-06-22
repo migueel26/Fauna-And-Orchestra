@@ -166,6 +166,8 @@
   "entity.faunaandorchestra.singing_sproutling": "Brotecito Cantarín",
   "entity.faunaandorchestra.butterfly": "Mariposa",
   "entity.faunaandorchestra.the_great_composer": "Tiego, el Gran Compositor",
+  "entity.faunaandorchestra.the_great_composer.name": "Tiego",
+  "entity.faunaandorchestra.the_great_composer.nickname": "el Gran Compositor",
   "entity.faunaandorchestra.the_great_composer_canon": "Canon del Gran Compositor",
   "entity.faunaandorchestra.player_canon": "Canon de Jugador",
   "entity.faunaandorchestra.music_note_projectile": "Proyectil de Nota Musical",

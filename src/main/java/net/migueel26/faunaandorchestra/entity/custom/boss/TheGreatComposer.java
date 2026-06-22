@@ -434,17 +434,8 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
                 playStateSound(ModSounds.SPAWN.get());
                 ((ServerLevel) level()).sendParticles(ParticleTypes.SOUL_FIRE_FLAME, position().x, position().y, position().z, 100, 0.1, 0.1, 0.1, 0.3);
 
-                String rawName = Component.translatable("entity.faunaandorchestra.the_great_composer").getString();
-
-                // Regular comma and chinese comma + length check
-                String[] fullName = rawName.split("[,，]");
-
-                String name = fullName[0].trim();
-                String nickname = "";
-
-                if (fullName.length > 1) {
-                    nickname = fullName[1].trim();
-                }
+                String name = Component.translatable("entity.faunaandorchestra.the_great_composer.name").getString();
+                String nickname = Component.translatable("entity.faunaandorchestra.the_great_composer.nickname").getString();
 
                 for (ServerPlayer player : bossEvent.getPlayers()) {
                     ModNetwork.sendToPlayer(new ShowTitlePlayerS2CPacket(name, nickname), player);
