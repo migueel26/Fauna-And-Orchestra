@@ -346,6 +346,8 @@
   "entity.faunaandorchestra.living_music": "Living Music",
   "entity.faunaandorchestra.butterfly": "Butterfly",
   "entity.faunaandorchestra.the_great_composer": "Tiego, the Great Composer",
+  "entity.faunaandorchestra.the_great_composer.name": "Tiego",
+  "entity.faunaandorchestra.the_great_composer.nickname": "The Great Composer",
   "entity.faunaandorchestra.the_great_composer_canon": "Canon of the Great Composer",
   "entity.faunaandorchestra.dan_b": "Dan B.",
   "entity.faunaandorchestra.delroy": "Delroy",
