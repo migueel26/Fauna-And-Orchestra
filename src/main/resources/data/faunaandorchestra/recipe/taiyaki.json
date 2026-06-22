@@ -1,0 +1,27 @@
+{
+  "type": "faunaandorchestra:natural_recipe",
+  "ingredients": [
+    {
+      "ingredient": {
+        "tag": "c:foods/raw_fish"
+      }
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:sugar"
+      },
+      "amount": 2
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:egg"
+      }
+    }
+  ],
+  "fuel": "#faunaandorchestra:jar_fire_fuel",
+  "result": {
+    "id": "faunaandorchestra:taiyaki",
+    "count": 1
+  },
+  "time": 1520
+}

@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "count": 1,
+      "id": "faunaandorchestra:colorful_tint"
+    },
+    "title": {
+      "translate": "advancements.faunaandorchestra.colorful_tint"
+    },
+    "description": {
+      "translate": "advancements.faunaandorchestra.colorful_tint.desc"
+    },
+    "frame": "goal"
+  },
+  "parent": "faunaandorchestra:worker_koala",
+  "criteria": {
+    "unique": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "faunaandorchestra:colorful_tint"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "unique"
+    ]
+  ]
+}

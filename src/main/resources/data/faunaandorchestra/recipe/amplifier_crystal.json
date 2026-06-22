@@ -1,0 +1,30 @@
+{
+  "type": "faunaandorchestra:melomancy",
+  "ingredients": [
+    {
+      "ingredient": {
+        "item": "minecraft:diamond"
+      },
+      "amount": 5
+    },
+    {
+      "ingredient": {
+        "item": "faunaandorchestra:wandering_note"
+      },
+      "amount": 3
+    },
+    {
+      "ingredient": {
+        "item": "faunaandorchestra:steelsonic_ingot"
+      },
+      "amount": 2
+    }
+  ],
+  "catalyst": {
+    "id": "minecraft:amethyst_shard"
+  },
+  "result": {
+    "id": "faunaandorchestra:amplifier_crystal",
+    "count": 1
+  }
+}

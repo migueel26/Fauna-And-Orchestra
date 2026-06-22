@@ -1,0 +1,17 @@
+{
+  "name": "symphonia.entry.sound_sensor",
+  "category": "faunaandorchestra:musicians",
+  "icon": "faunaandorchestra:sound_sensor",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "faunaandorchestra:sound_sensor",
+      "text": "symphonia.page.sound_sensor0"
+    },
+    {
+      "type": "crafting",
+      "recipe": "faunaandorchestra:sound_sensor",
+      "text": "symphonia.page.sound_sensor1"
+    }
+  ]
+}

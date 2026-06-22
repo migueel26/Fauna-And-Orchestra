@@ -1,0 +1,29 @@
+{
+  "name": "symphonia.entry.herbalism_basics",
+  "category": "faunaandorchestra:natural_recipes",
+  "icon": "faunaandorchestra:hanging_jar",
+  "priority": true,
+  "sortnum": -10,
+  "pages": [
+    {
+      "type": "text",
+      "text": "symphonia.page.herbalism_basics0"
+    },
+    {
+      "type": "crafting",
+      "recipe": "faunaandorchestra:hanging_jar",
+      "recipe2": "faunaandorchestra:jar_rack"
+    },
+    {
+      "type": "text",
+      "text": "symphonia.page.herbalism_basics1"
+    },
+    {
+      "type": "image",
+      "images": [
+        "faunaandorchestra:textures/gui/entries/herbalism.png"
+      ],
+      "text": "symphonia.page.herbalism_basics2"
+    }
+  ]
+}

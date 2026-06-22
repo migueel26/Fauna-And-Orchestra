@@ -1,0 +1,15 @@
+{
+  "name": "faunaandorchestra:mothers_pond",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "faunaandorchestra:mothers_pond/only",
+        "projection": "rigid",
+        "processors": "minecraft:empty"
+      }
+    }
+  ]
+}

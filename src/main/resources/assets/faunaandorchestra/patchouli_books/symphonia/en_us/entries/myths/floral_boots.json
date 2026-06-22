@@ -1,0 +1,12 @@
+{
+  "name": "symphonia.entry.floral_boots",
+  "category": "faunaandorchestra:myths",
+  "icon": "faunaandorchestra:floral_boots",
+  "advancement": "faunaandorchestra:myths/dan_myth2",
+  "pages": [
+    {
+      "type": "text",
+      "text": "symphonia.page.floral_boots0"
+    }
+  ]
+}

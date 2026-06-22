@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "faunaandorchestra:block/flower_path" },
+    "facing=south": { "model": "faunaandorchestra:block/flower_path", "y": 180 },
+    "facing=west":  { "model": "faunaandorchestra:block/flower_path", "y": 270 },
+    "facing=east":  { "model": "faunaandorchestra:block/flower_path", "y": 90 }
+  }
+}

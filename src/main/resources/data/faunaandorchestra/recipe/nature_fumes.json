@@ -1,0 +1,33 @@
+{
+  "type": "faunaandorchestra:natural_recipe",
+  "ingredients": [
+    {
+      "ingredient": {
+        "tag": "minecraft:saplings"
+      },
+      "amount": 2
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:sugar_cane"
+      },
+      "amount": 2
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:wheat_seeds"
+      }
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:brick"
+      }
+    }
+  ],
+  "fuel": "#faunaandorchestra:jar_fire_fuel",
+  "result": {
+    "id": "faunaandorchestra:nature_fumes",
+    "count": 2
+  },
+  "time": 1000
+}

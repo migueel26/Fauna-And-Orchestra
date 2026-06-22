@@ -1,0 +1,6 @@
+{
+  "parent": "faunaandorchestra:block/template_four_mantis_eggs",
+  "textures": {
+    "all": "faunaandorchestra:block/mantis_egg"
+  }
+}

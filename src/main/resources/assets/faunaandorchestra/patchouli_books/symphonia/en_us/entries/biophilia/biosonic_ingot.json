@@ -1,0 +1,18 @@
+{
+  "name": "symphonia.entry.biosonic_ingot",
+  "category": "faunaandorchestra:biophilia",
+  "icon": "faunaandorchestra:biosonic_ingot",
+  "advancement": "faunaandorchestra:boogie_fruit",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "faunaandorchestra:biosonic_ingot",
+      "text": "symphonia.page.biosonic_ingot0"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "faunaandorchestra:biosonic_dirk",
+      "text": "symphonia.page.biosonic_ingot1"
+    }
+  ]
+}

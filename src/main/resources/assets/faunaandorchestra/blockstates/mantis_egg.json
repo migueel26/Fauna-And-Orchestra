@@ -1,0 +1,208 @@
+{
+  "variants": {
+    "eggs=1,hatch=0": [
+      {
+        "model": "faunaandorchestra:block/mantis_egg"
+      },
+      {
+        "model": "faunaandorchestra:block/mantis_egg",
+        "y": 90
+      },
+      {
+        "model": "faunaandorchestra:block/mantis_egg",
+        "y": 180
+      },
+      {
+        "model": "faunaandorchestra:block/mantis_egg",
+        "y": 270
+      }
+    ],
+    "eggs=1,hatch=1": [
+      {
+        "model": "faunaandorchestra:block/slightly_cracked_mantis_egg"
+      },
+      {
+        "model": "faunaandorchestra:block/slightly_cracked_mantis_egg",
+        "y": 90
+      },
+      {
+        "model": "faunaandorchestra:block/slightly_cracked_mantis_egg",
+        "y": 180
+      },
+      {
+        "model": "faunaandorchestra:block/slightly_cracked_mantis_egg",
+        "y": 270
+      }
+    ],
+    "eggs=1,hatch=2": [
+      {
+        "model": "faunaandorchestra:block/very_cracked_mantis_egg"
+      },
+      {
+        "model": "faunaandorchestra:block/very_cracked_mantis_egg",
+        "y": 90
+      },
+      {
+        "model": "faunaandorchestra:block/very_cracked_mantis_egg",
+        "y": 180
+      },
+      {
+        "model": "faunaandorchestra:block/very_cracked_mantis_egg",
+        "y": 270
+      }
+    ],
+    "eggs=2,hatch=0": [
+      {
+        "model": "faunaandorchestra:block/two_mantis_eggs"
+      },
+      {
+        "model": "faunaandorchestra:block/two_mantis_eggs",
+        "y": 90
+      },
+      {
+        "model": "faunaandorchestra:block/two_mantis_eggs",
+        "y": 180
+      },
+      {
+        "model": "faunaandorchestra:block/two_mantis_eggs",
+        "y": 270
+      }
+    ],
+    "eggs=2,hatch=1": [
+      {
+        "model": "faunaandorchestra:block/two_slightly_cracked_mantis_eggs"
+      },
+      {
+        "model": "faunaandorchestra:block/two_slightly_cracked_mantis_eggs",
+        "y": 90
+      },
+      {
+        "model": "faunaandorchestra:block/two_slightly_cracked_mantis_eggs",
+        "y": 180
+      },
+      {
+        "model": "faunaandorchestra:block/two_slightly_cracked_mantis_eggs",
+        "y": 270
+      }
+    ],
+    "eggs=2,hatch=2": [
+      {
+        "model": "faunaandorchestra:block/two_very_cracked_mantis_eggs"
+      },
+      {
+        "model": "faunaandorchestra:block/two_very_cracked_mantis_eggs",
+        "y": 90
+      },
+      {
+        "model": "faunaandorchestra:block/two_very_cracked_mantis_eggs",
+        "y": 180
+      },
+      {
+        "model": "faunaandorchestra:block/two_very_cracked_mantis_eggs",
+        "y": 270
+      }
+    ],
+    "eggs=3,hatch=0": [
+      {
+        "model": "faunaandorchestra:block/three_mantis_eggs"
+      },
+      {
+        "model": "faunaandorchestra:block/three_mantis_eggs",
+        "y": 90
+      },
+      {
+        "model": "faunaandorchestra:block/three_mantis_eggs",
+        "y": 180
+      },
+      {
+        "model": "faunaandorchestra:block/three_mantis_eggs",
+        "y": 270
+      }
+    ],
+    "eggs=3,hatch=1": [
+      {
+        "model": "faunaandorchestra:block/three_slightly_cracked_mantis_eggs"
+      },
+      {
+        "model": "faunaandorchestra:block/three_slightly_cracked_mantis_eggs",
+        "y": 90
+      },
+      {
+        "model": "faunaandorchestra:block/three_slightly_cracked_mantis_eggs",
+        "y": 180
+      },
+      {
+        "model": "faunaandorchestra:block/three_slightly_cracked_mantis_eggs",
+        "y": 270
+      }
+    ],
+    "eggs=3,hatch=2": [
+      {
+        "model": "faunaandorchestra:block/three_very_cracked_mantis_eggs"
+      },
+      {
+        "model": "faunaandorchestra:block/three_very_cracked_mantis_eggs",
+        "y": 90
+      },
+      {
+        "model": "faunaandorchestra:block/three_very_cracked_mantis_eggs",
+        "y": 180
+      },
+      {
+        "model": "faunaandorchestra:block/three_very_cracked_mantis_eggs",
+        "y": 270
+      }
+    ],
+    "eggs=4,hatch=0": [
+      {
+        "model": "faunaandorchestra:block/four_mantis_eggs"
+      },
+      {
+        "model": "faunaandorchestra:block/four_mantis_eggs",
+        "y": 90
+      },
+      {
+        "model": "faunaandorchestra:block/four_mantis_eggs",
+        "y": 180
+      },
+      {
+        "model": "faunaandorchestra:block/four_mantis_eggs",
+        "y": 270
+      }
+    ],
+    "eggs=4,hatch=1": [
+      {
+        "model": "faunaandorchestra:block/four_slightly_cracked_mantis_eggs"
+      },
+      {
+        "model": "faunaandorchestra:block/four_slightly_cracked_mantis_eggs",
+        "y": 90
+      },
+      {
+        "model": "faunaandorchestra:block/four_slightly_cracked_mantis_eggs",
+        "y": 180
+      },
+      {
+        "model": "faunaandorchestra:block/four_slightly_cracked_mantis_eggs",
+        "y": 270
+      }
+    ],
+    "eggs=4,hatch=2": [
+      {
+        "model": "faunaandorchestra:block/four_very_cracked_mantis_eggs"
+      },
+      {
+        "model": "faunaandorchestra:block/four_very_cracked_mantis_eggs",
+        "y": 90
+      },
+      {
+        "model": "faunaandorchestra:block/four_very_cracked_mantis_eggs",
+        "y": 180
+      },
+      {
+        "model": "faunaandorchestra:block/four_very_cracked_mantis_eggs",
+        "y": 270
+      }
+    ]
+  }
+}

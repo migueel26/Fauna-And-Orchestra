@@ -1,0 +1,19 @@
+{
+  "name": "symphonia.entry.bugs",
+  "category": "faunaandorchestra:natural_recipes",
+  "icon": "faunaandorchestra:insect",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "faunaandorchestra:insect,faunaandorchestra:worm,faunaandorchestra:butterfly_spawn_egg",
+      "text": "symphonia.page.bugs0"
+    },
+    {
+      "type": "patchouli:image",
+      "border": true,
+      "images": [
+        "faunaandorchestra:textures/gui/entries/bugs.png"
+      ]
+    }
+  ]
+}

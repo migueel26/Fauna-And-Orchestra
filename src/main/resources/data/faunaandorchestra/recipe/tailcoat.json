@@ -1,0 +1,27 @@
+{
+  "type": "faunaandorchestra:sewing",
+  "ingredients": [
+    {
+      "ingredient": {
+        "item": "minecraft:black_dye"
+      },
+      "amount": 4
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:white_dye"
+      },
+      "amount": 4
+    },
+    {
+      "ingredient": {
+        "item": "faunaandorchestra:cotton"
+      },
+      "amount": 12
+    }
+  ],
+  "result": {
+    "id": "faunaandorchestra:tailcoat",
+    "count": 1
+  }
+}

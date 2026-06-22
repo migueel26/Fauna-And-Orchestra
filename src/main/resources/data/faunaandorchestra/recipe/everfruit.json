@@ -1,0 +1,38 @@
+{
+  "type": "faunaandorchestra:melomancy",
+  "ingredients": [
+    {
+      "ingredient": {
+        "item": "faunaandorchestra:sonic_fumes"
+      },
+      "amount": 2
+    },
+    {
+      "ingredient": {
+        "item": "faunaandorchestra:taiyaki"
+      }
+    },
+    {
+      "ingredient": {
+        "item": "faunaandorchestra:perfumed_bamboo"
+      }
+    },
+    {
+      "ingredient": {
+          "item": "faunaandorchestra:mantis_food"
+      }
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:carrot"
+      }
+    }
+  ],
+  "catalyst": {
+    "id": "minecraft:apple"
+  },
+  "result": {
+    "id": "faunaandorchestra:everfruit",
+    "count": 1
+  }
+}

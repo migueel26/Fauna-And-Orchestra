@@ -1,0 +1,20 @@
+{
+  "name": "symphonia.entry.sea_lion",
+  "category": "faunaandorchestra:musicians",
+  "icon": "faunaandorchestra:sea_lion_spawn_egg",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "text",
+      "text": "symphonia.page.sea_lion0"
+    },
+    {
+      "type": "entity",
+      "entity": "faunaandorchestra:sea_lion",
+      "rotate": false,
+      "scale": 0.9,
+      "default_rotation": 30,
+      "text": "symphonia.page.sea_lion1"
+    }
+  ]
+}

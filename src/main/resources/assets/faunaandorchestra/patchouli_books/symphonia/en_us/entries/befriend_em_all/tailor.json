@@ -1,0 +1,21 @@
+{
+  "name": "symphonia.entry.tailor",
+  "category": "faunaandorchestra:befriend_em_all",
+  "icon": "faunaandorchestra:sewing_machine_item",
+  "advancement": "faunaandorchestra:worker_koala",
+  "pages": [
+    {
+      "type": "text",
+      "text": "symphonia.page.tailor0"
+    },
+    {
+      "type": "crafting",
+      "recipe": "faunaandorchestra:sewing_machine",
+      "text": "symphonia.page.tailor1"
+    },
+    {
+      "type": "crafting",
+      "recipe": "faunaandorchestra:prop_case"
+    }
+  ]
+}

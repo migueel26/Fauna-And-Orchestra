@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "count": 1,
+      "id": "faunaandorchestra:macaw_feather"
+    },
+    "title": {
+      "translate": "advancements.faunaandorchestra.macaw_feather"
+    },
+    "description": {
+      "translate": "advancements.faunaandorchestra.macaw_feather.desc"
+    },
+    "frame": "goal"
+  },
+  "parent": "faunaandorchestra:root",
+  "criteria": {
+    "unique": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "faunaandorchestra:macaw_feather"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "unique"
+    ]
+  ]
+}

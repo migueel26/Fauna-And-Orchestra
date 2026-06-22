@@ -1,0 +1,21 @@
+{
+  "parent": "minecraft:item/handheld",
+  "loader": "neoforge:separate_transforms",
+  "base": {
+    "parent": "faunaandorchestra:item/mantis_dagger_2d"
+  },
+  "perspectives": {
+    "thirdperson_righthand": {
+      "parent": "faunaandorchestra:item/mantis_dagger_3d"
+    },
+    "thirdperson_lefthand": {
+      "parent": "faunaandorchestra:item/mantis_dagger_3d"
+    },
+    "firstperson_righthand": {
+      "parent": "faunaandorchestra:item/mantis_dagger_3d"
+    },
+    "firstperson_lefthand": {
+      "parent": "faunaandorchestra:item/mantis_dagger_3d"
+    }
+  }
+}

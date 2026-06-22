@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:jigsaw",
+  "biomes": "#c:is_mountain",
+  "step": "surface_structures",
+  "start_pool": "faunaandorchestra:mothers_pond",
+  "size": 6,
+  "max_distance_from_center": 8,
+  "project_start_to_heightmap": "WORLD_SURFACE_WG",
+  "start_height": {
+    "absolute": 0
+  },
+  "terrain_adaptation": "beard_thin",
+  "use_expansion_hack": false,
+  "spawn_overrides": {}
+}

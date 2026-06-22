@@ -1,0 +1,12 @@
+{
+  "name": "symphonia.entry.mantis_food",
+  "category": "faunaandorchestra:natural_recipes",
+  "icon": "faunaandorchestra:mantis_food",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "faunaandorchestra:mantis_food",
+      "text": "symphonia.page.mantis_food0"
+    }
+  ]
+}

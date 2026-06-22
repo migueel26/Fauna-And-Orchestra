@@ -1,0 +1,98 @@
+{
+  "credit": "Made with Blockbench",
+  "parent": "builtin/entity",
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [
+        52.5,
+        90,
+        0
+      ],
+      "translation": [
+        0,
+        -2,
+        -1
+      ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [
+        27,
+        -89.75,
+        -29.5
+      ],
+      "translation": [
+        0,
+        -2,
+        -1
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        15,
+        80,
+        0
+      ],
+      "translation": [
+        0,
+        -0.25,
+        2.75
+      ],
+      "scale": [
+        0.8,
+        0.8,
+        0.8
+      ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [
+        -155,
+        -86.75,
+        180
+      ],
+      "translation": [
+        1.5,
+        -0.5,
+        1
+      ],
+      "scale": [
+        0.8,
+        0.8,
+        0.8
+      ]
+    },
+    "ground": {
+      "translation": [
+        1,
+        -2.25,
+        -2.5
+      ]
+    },
+    "gui": {
+      "translation": [
+        0,
+        -6,
+        0
+      ]
+    },
+    "fixed": {
+      "rotation": [
+        0,
+        90,
+        0
+      ],
+      "translation": [
+        -4,
+        -8.75,
+        0.5
+      ],
+      "scale": [
+        1.5,
+        1.5,
+        1.5
+      ]
+    }
+  },
+  "textures": {
+    "particle": "faunaandorchestra:item/mantis_dagger"
+  }
+}

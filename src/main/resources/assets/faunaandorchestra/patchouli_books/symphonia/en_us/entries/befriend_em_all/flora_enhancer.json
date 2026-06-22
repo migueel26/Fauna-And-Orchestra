@@ -1,0 +1,18 @@
+{
+  "name": "symphonia.entry.flora_enhancer",
+  "category": "faunaandorchestra:befriend_em_all",
+  "icon": "faunaandorchestra:flora_enhancer",
+  "advancement": "faunaandorchestra:living_music",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "faunaandorchestra:flora_forta",
+      "text": "symphonia.page.flora_enhancer0"
+    },
+    {
+      "type": "crafting",
+      "recipe": "faunaandorchestra:flora_enhancer",
+      "text": "symphonia.page.flora_enhancer1"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "name": "symphonia.entry.jazzy_dammys",
+  "category": "faunaandorchestra:quests",
+  "icon": "faunaandorchestra:saxophone",
+  "turnin": "faunaandorchestra:meet_jazzy_dammys",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "quest",
+      "trigger": "faunaandorchestra:meet_jazzy_dammys",
+      "text": "symphonia.page.jazzy_dammys0"
+    },
+    {
+      "type": "image",
+      "images": [
+        "faunaandorchestra:textures/gui/entries/jazzy_dammys.png"
+      ],
+      "advancement": "faunaandorchestra:meet_jazzy_dammys",
+      "text": "symphonia.page.jazzy_dammys1"
+    },
+    {
+      "type": "text",
+      "advancement": "faunaandorchestra:meet_jazzy_dammys",
+      "title": "symphonia.entry.jazzy_dammys",
+      "text": "symphonia.page.jazzy_dammys2"
+    }
+  ]
+}

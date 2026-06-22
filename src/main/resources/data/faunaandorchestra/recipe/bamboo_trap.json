@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "///",
+    "F#F",
+    "///"
+  ],
+  "key": {
+    "#": {
+      "item": "faunaandorchestra:catchweed"
+    },
+    "F": {
+      "item": "faunaandorchestra:sharp_bamboo"
+    },
+    "/": {
+      "item": "minecraft:bamboo"
+    }
+  },
+  "result": {
+    "id": "faunaandorchestra:bamboo_trap_item",
+    "count": 1
+  }
+}

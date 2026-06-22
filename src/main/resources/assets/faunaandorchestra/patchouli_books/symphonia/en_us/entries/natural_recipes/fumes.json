@@ -1,0 +1,28 @@
+{
+  "name": "symphonia.entry.fumes",
+  "category": "faunaandorchestra:natural_recipes",
+  "icon": "faunaandorchestra:nature_fumes",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "faunaandorchestra:nature_fumes",
+      "text": "symphonia.page.fumes0"
+    },
+    {
+      "type": "spotlight",
+      "item": "faunaandorchestra:arctic_fumes",
+      "text": "symphonia.page.fumes1"
+    },
+    {
+      "type": "spotlight",
+      "item": "faunaandorchestra:floral_fumes",
+      "text": "symphonia.page.fumes2"
+    },
+    {
+      "type": "spotlight",
+      "advancement": "faunaandorchestra:boogie_fruit",
+      "item": "faunaandorchestra:sonic_fumes",
+      "text": "symphonia.page.fumes3"
+    }
+  ]
+}

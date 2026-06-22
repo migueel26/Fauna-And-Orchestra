@@ -1,0 +1,36 @@
+{
+  "display": {
+    "icon": {
+      "count": 1,
+      "id": "faunaandorchestra:business_card"
+    },
+    "title": {
+      "translate": "advancements.faunaandorchestra.worker_koala"
+    },
+    "description": {
+      "translate": "advancements.faunaandorchestra.worker_koala.desc"
+    },
+    "frame": "task"
+  },
+  "parent": "faunaandorchestra:living_music",
+  "criteria": {
+    "interact_with_kit": {
+      "trigger": "minecraft:player_interacted_with_entity",
+      "conditions": {
+        "item": {
+          "predicates": {
+            "minecraft:item_id": "#faunaandorchestra:kits"
+          }
+        },
+        "entity": {
+          "type": "faunaandorchestra:worker_koala"
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "interact_with_kit"
+    ]
+  ]
+}

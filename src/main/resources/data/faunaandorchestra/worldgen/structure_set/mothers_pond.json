@@ -1,0 +1,17 @@
+{
+  "structures": [
+    {
+      "structure": "faunaandorchestra:mothers_pond",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 30,
+    "separation": 20,
+    "salt": 420691325,
+    "exclude_biomes": [
+      "minecraft:cherry_grove"
+    ]
+  }
+}

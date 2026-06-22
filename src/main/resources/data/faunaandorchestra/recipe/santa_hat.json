@@ -1,0 +1,27 @@
+{
+  "type": "faunaandorchestra:sewing",
+  "ingredients": [
+    {
+      "ingredient": {
+        "item": "minecraft:red_dye"
+      },
+      "amount": 3
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:white_wool"
+      },
+      "amount": 5
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:snowball"
+      },
+      "amount": 3
+    }
+  ],
+  "result": {
+    "id": "faunaandorchestra:santa_hat",
+    "count": 1
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "name": "symphonia.entry.mask_of_the_enlightened",
+  "category": "faunaandorchestra:myths",
+  "icon": "faunaandorchestra:mask_of_the_enlightened",
+  "advancement": "faunaandorchestra:myths/dan_myth1",
+  "pages": [
+    {
+      "type": "text",
+      "text": "symphonia.page.mask_of_the_enlightened0"
+    },
+    {
+      "type": "multiblock",
+      "name": "symphonia.page.mask_of_the_enlightened1",
+      "multiblock": {
+        "pattern": [
+          ["       ", "G     G", "       ", "       ", "       ", "       "],
+          ["   G   ", "P     P", "       ", "G     G", "       ", "       "],
+          ["   P   ", "P     P", "  OOO  ", "P O0O P", "  OOO  ", "  SSS  "]
+        ],
+        "mapping": {
+          "G": "minecraft:gold_block",
+          "P": "minecraft:quartz_pillar",
+          "O": "minecraft:quartz_block",
+          "S": "minecraft:quartz_stairs[facing=west,half=bottom]",
+          "0": "minecraft:quartz_block"
+        },
+        "symmetrical": true
+      },
+      "enable_visualize": true,
+      "text": "symphonia.page.mask_of_the_enlightened2"
+    }
+  ]
+}

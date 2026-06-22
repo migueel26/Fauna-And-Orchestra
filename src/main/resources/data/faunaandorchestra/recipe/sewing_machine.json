@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "ggi",
+    "g n",
+    "ttt"
+  ],
+  "key": {
+    "g": {
+      "item": "minecraft:iron_ingot"
+    },
+    "n": {
+      "item": "minecraft:iron_nugget"
+    },
+    "i": {
+      "item": "faunaandorchestra:steelsonic_ingot"
+    },
+    "t": {
+      "tag": "minecraft:planks"
+    }
+  },
+  "result": {
+    "id": "faunaandorchestra:sewing_machine_item",
+    "count": 1
+  }
+}

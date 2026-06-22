@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#faunaandorchestra:spawns_penguin",
+  "spawners": {
+    "type": "faunaandorchestra:emperor_penguin",
+    "maxCount": 3,
+    "minCount": 2,
+    "weight": 8
+  }
+}

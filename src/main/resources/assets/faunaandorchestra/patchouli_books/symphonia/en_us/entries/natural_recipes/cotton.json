@@ -1,0 +1,12 @@
+{
+  "name": "symphonia.entry.cotton",
+  "category": "faunaandorchestra:natural_recipes",
+  "icon": "faunaandorchestra:cotton",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "faunaandorchestra:cotton",
+      "text": "symphonia.page.cotton0"
+    }
+  ]
+}

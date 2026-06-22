@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "faunaandorchestra:block/catchweed_top"
+  }
+}

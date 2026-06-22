@@ -1,0 +1,12 @@
+{
+  "name": "symphonia.entry.writing_ink",
+  "category": "faunaandorchestra:natural_recipes",
+  "icon": "faunaandorchestra:writing_ink",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "faunaandorchestra:writing_ink",
+      "text": "symphonia.page.writing_ink0"
+    }
+  ]
+}

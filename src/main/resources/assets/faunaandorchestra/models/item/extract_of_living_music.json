@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "faunaandorchestra:item/extract_of_living_music"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "symphonia.entry.frog_flute",
+  "category": "faunaandorchestra:musicians",
+  "icon": "faunaandorchestra:frog_flute",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "faunaandorchestra:frog_flute",
+      "text": "symphonia.page.frog_flute0"
+    },
+    {
+      "type": "crafting",
+      "recipe": "faunaandorchestra:frog_flute",
+      "text": "symphonia.page.frog_flute1"
+    }
+  ]
+}

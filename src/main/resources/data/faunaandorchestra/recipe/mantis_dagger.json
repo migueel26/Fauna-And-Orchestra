@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "  D",
+    " # ",
+    "I  "
+  ],
+  "key": {
+    "D": {
+      "item": "faunaandorchestra:mantis_claw"
+    },
+    "#": {
+      "item": "minecraft:string"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "result": {
+    "id": "faunaandorchestra:mantis_dagger",
+    "count": 1
+  }
+}

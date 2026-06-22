@@ -1,0 +1,36 @@
+{
+  "type": "faunaandorchestra:melomancy",
+  "ingredients": [
+    {
+      "ingredient": {
+        "item": "minecraft:dirt"
+      },
+      "amount": 32
+    },
+    {
+      "ingredient": {
+        "item": "faunaandorchestra:floral_fumes"
+      },
+      "amount": 3
+    },
+    {
+      "ingredient": {
+        "item": "faunaandorchestra:nature_fumes"
+      },
+      "amount": 2
+    },
+    {
+      "ingredient": {
+        "item": "faunaandorchestra:extract_of_living_music"
+      },
+      "amount": 2
+    }
+  ],
+  "catalyst": {
+    "id": "minecraft:spore_blossom"
+  },
+  "result": {
+    "id": "faunaandorchestra:floating_blossom",
+    "count": 1
+  }
+}

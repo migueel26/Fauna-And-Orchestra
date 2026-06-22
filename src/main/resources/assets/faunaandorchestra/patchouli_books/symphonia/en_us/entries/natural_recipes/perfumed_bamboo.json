@@ -1,0 +1,12 @@
+{
+  "name": "symphonia.entry.perfumed_bamboo",
+  "category": "faunaandorchestra:natural_recipes",
+  "icon": "faunaandorchestra:perfumed_bamboo",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "faunaandorchestra:perfumed_bamboo",
+      "text": "symphonia.page.perfumed_bamboo0"
+    }
+  ]
+}

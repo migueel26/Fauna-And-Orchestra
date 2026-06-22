@@ -1,0 +1,15 @@
+{
+  "criteria": {
+    "triggered": {
+      "trigger": "faunaandorchestra:dan_myth1"
+    }
+  },
+  "rewards": {
+    "items": [
+      {
+        "id": "faunaandorchestra:unlit_mask",
+        "count": 1
+      }
+    ]
+  }
+}
