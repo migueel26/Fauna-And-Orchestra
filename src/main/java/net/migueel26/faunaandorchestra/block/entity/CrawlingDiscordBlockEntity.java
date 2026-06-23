@@ -63,7 +63,7 @@ public class CrawlingDiscordBlockEntity extends BlockEntity {
                     if (time % 2 != 0) {
                         if (level.getBlockState(nextPos).is(ModTags.Blocks.REPLACEABLE_BY_DISCORD) &&
                                 !level.getBlockState(nextPos.below()).isAir() &&
-                                !level.getBlockState(nextPos.below()).is(ModBlocks.CRAWLING_DISCORD)) {
+                                !level.getBlockState(nextPos.below()).is(ModBlocks.CRAWLING_DISCORD.get())) {
 
                             spawnChild(level, nextPos, state.setValue(CrawlingDiscordBlock.CLIMBER, false));
                         }
@@ -133,10 +133,10 @@ public class CrawlingDiscordBlockEntity extends BlockEntity {
     }
 
     private boolean canGrab(BlockPos newPos, Level level) {
-        return !level.getBlockState(newPos.east()).isAir() && !level.getBlockState(newPos.east()).is(ModBlocks.CRAWLING_DISCORD) ||
-                !level.getBlockState(newPos.west()).isAir() && !level.getBlockState(newPos.west()).is(ModBlocks.CRAWLING_DISCORD) ||
-                !level.getBlockState(newPos.north()).isAir() && !level.getBlockState(newPos.north()).is(ModBlocks.CRAWLING_DISCORD) ||
-                !level.getBlockState(newPos.south()).isAir() && !level.getBlockState(newPos.south()).is(ModBlocks.CRAWLING_DISCORD);
+        return !level.getBlockState(newPos.east()).isAir() && !level.getBlockState(newPos.east()).is(ModBlocks.CRAWLING_DISCORD.get()) ||
+                !level.getBlockState(newPos.west()).isAir() && !level.getBlockState(newPos.west()).is(ModBlocks.CRAWLING_DISCORD.get()) ||
+                !level.getBlockState(newPos.north()).isAir() && !level.getBlockState(newPos.north()).is(ModBlocks.CRAWLING_DISCORD.get()) ||
+                !level.getBlockState(newPos.south()).isAir() && !level.getBlockState(newPos.south()).is(ModBlocks.CRAWLING_DISCORD.get());
     }
 
     public int getNewChildTime(Level level) {
@@ -160,8 +160,8 @@ public class CrawlingDiscordBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, net.minecraft.core.HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
+    protected void saveAdditional(CompoundTag tag) {
+        super.saveAdditional(tag);
         tag.putInt("Generation", this.generation);
         tag.putInt("MaxGeneration", this.maxGeneration);
         tag.putBoolean("Father", this.father);
@@ -170,8 +170,8 @@ public class CrawlingDiscordBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, net.minecraft.core.HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
+    public void load(CompoundTag tag) {
+        super.load(tag);
         this.generation = tag.getInt("Generation");
         this.maxGeneration = tag.getInt("MaxGeneration");
         this.father = tag.getBoolean("Father");

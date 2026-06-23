@@ -1,6 +1,8 @@
 package net.migueel26.faunaandorchestra.block.custom;
 
+import net.migueel26.faunaandorchestra.block.ModBlockEntities;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
+import net.migueel26.faunaandorchestra.block.entity.CrawlingDiscordBlockEntity;
 import net.migueel26.faunaandorchestra.util.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -12,6 +14,9 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
@@ -20,18 +25,16 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import javax.annotation.Nullable;
 import java.util.Iterator;
 
-public class CrawlingDiscordBlock extends Block {
+public class CrawlingDiscordBlock extends BaseEntityBlock {
     public static int NEW_CHILD_TIME = 5;
     public static int DIE_TIME = 200;
     public static final int DEFAULT_MAX_GENERATION = 40;
-    protected static int  DIFFICULT_CHILD_TIME = 2;
-    private boolean difficult = false;
-    public static final IntegerProperty GENERATION = IntegerProperty.create("generation", 0, DEFAULT_MAX_GENERATION);
-    public static final BooleanProperty FATHER = BooleanProperty.create("father");
+    public static int  DIFFICULT_CHILD_TIME = 2;
+
     public static final BooleanProperty CLIMBER = BooleanProperty.create("climber");
-    public static final IntegerProperty MAX_GENERATION = IntegerProperty.create("max_generation", 0, DEFAULT_MAX_GENERATION);
     private static final VoxelShape CRAWLER_SHAPE = Block.box(0, 0, 0, 16, 2, 16);
     private static final VoxelShape CLIMBER_SHAPE = Shapes.block();
 
@@ -39,10 +42,7 @@ public class CrawlingDiscordBlock extends Block {
         super(properties);
 
         this.registerDefaultState(this.getStateDefinition().any()
-                .setValue(GENERATION, 0)
-                .setValue(FATHER, false)
-                .setValue(CLIMBER, false)
-                .setValue(MAX_GENERATION, DEFAULT_MAX_GENERATION));
+                .setValue(CLIMBER, false));
     }
 
     @Override
@@ -72,113 +72,26 @@ public class CrawlingDiscordBlock extends Block {
         super.entityInside(state, level, pos, entity);
     }
 
+    @Nullable
     @Override
-    public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
-        super.onPlace(state, level, pos, oldState, movedByPiston);
-        if (!oldState.is(ModBlocks.CRAWLING_DISCORD.get())) level.scheduleTick(pos, this, getNewChildTime(level));
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+        if (level.isClientSide()) return null;
+        return type == ModBlockEntities.CRAWLING_DISCORD_BE.get() ?
+                (BlockEntityTicker<T>) (lvl, pos, st, be) -> CrawlingDiscordBlockEntity.tick(lvl, pos, st, (CrawlingDiscordBlockEntity) be) : null;
     }
 
     @Override
-    public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        boolean climber = state.getValue(CLIMBER);
-        if (!state.getValue(FATHER) && state.getValue(GENERATION) < state.getValue(MAX_GENERATION)) {
-            int myGeneration = state.getValue(GENERATION);
-            int maxGeneration = state.getValue(MAX_GENERATION);
-            if (!climber) {
-                // If it's not a climber
-                boolean transformToClimber = false;
-
-                Iterator<BlockPos> iteratorUp = BlockPos.betweenClosed(pos.north().west(), pos.south().east()).iterator();
-                Iterator<BlockPos> iteratorDown = BlockPos.betweenClosed(pos.below().north().west(), pos.below().south().east()).iterator();
-                int time = 0;
-
-                while (iteratorUp.hasNext()) {
-                    BlockPos nextPos = iteratorUp.next();
-                    BlockPos downPos = iteratorDown.next();
-                    if (time % 2 != 0) {
-                        if (level.getBlockState(nextPos).is(ModTags.Blocks.REPLACEABLE_BY_DISCORD) &&
-                                !level.getBlockState(nextPos.below()).isAir() &&
-                                !level.getBlockState(nextPos.below()).is(ModBlocks.CRAWLING_DISCORD.get())) {
-
-                            level.setBlock(nextPos, ModBlocks.CRAWLING_DISCORD.get().defaultBlockState()
-                                    .setValue(GENERATION, myGeneration + 1).setValue(MAX_GENERATION, maxGeneration), 3);
-                        }
-
-                        if (level.getBlockState(downPos).is(ModTags.Blocks.REPLACEABLE_BY_DISCORD) &&
-                                canGrab(downPos, level) &&
-                                level.getBlockState(downPos.above()).isAir()) {
-
-                            level.setBlock(downPos, ModBlocks.CRAWLING_DISCORD.get().defaultBlockState()
-                                    .setValue(GENERATION, myGeneration + 1).setValue(CLIMBER, true).setValue(MAX_GENERATION, maxGeneration), 3);
-                        }
-
-                    }
-                    time++;
-                }
-
-                if (canGrab(pos, level)) transformToClimber = true;
-
-                if (!transformToClimber) {
-                    // We schedule death
-                    level.setBlock(pos, state.setValue(FATHER, true).setValue(GENERATION, myGeneration).setValue(MAX_GENERATION, maxGeneration), 3);
-                    level.scheduleTick(pos, this, maxGeneration == DEFAULT_MAX_GENERATION ? DIE_TIME : 100);
-                } else {
-                    // We transform it
-                    level.setBlock(pos, state.setValue(FATHER, false).setValue(GENERATION, myGeneration).setValue(CLIMBER, true).setValue(MAX_GENERATION, maxGeneration), 3);
-                    level.scheduleTick(pos, this, getNewChildTime(level));
-                }
-
-            } else {
-                // It's a climber
-                Iterator<BlockPos> iterator = BlockPos.betweenClosed(
-                        new BlockPos(pos.getX()+1,pos.getY()+1,pos.getZ()+1),
-                        new BlockPos(pos.getX()-1, pos.getY()-1, pos.getZ()-1)).iterator();
-
-                int time = 0;
-                while (iterator.hasNext()) {
-                    BlockPos nextPos = iterator.next();
-                    if (time % 2 == 0) {
-                        if (level.getBlockState(nextPos).is(ModTags.Blocks.REPLACEABLE_BY_DISCORD) && canGrab(nextPos, level)) {
-                            level.setBlock(nextPos, ModBlocks.CRAWLING_DISCORD.get().defaultBlockState()
-                                    .setValue(GENERATION, myGeneration + 1).setValue(CLIMBER, true).setValue(MAX_GENERATION, maxGeneration), 3);
-                        }
-                    }
-
-                    time++;
-                }
-
-                level.setBlock(pos, state.setValue(FATHER, true).setValue(GENERATION, myGeneration).setValue(CLIMBER, true), 3);
-                level.scheduleTick(pos, this, maxGeneration == DEFAULT_MAX_GENERATION ? DIE_TIME : 100);
-                if (level.getBlockState(pos.above()).is(ModTags.Blocks.REPLACEABLE_BY_DISCORD)) {
-                    level.setBlock(pos.above(), ModBlocks.CRAWLING_DISCORD.get().defaultBlockState()
-                            .setValue(GENERATION, myGeneration + 1).setValue(MAX_GENERATION, maxGeneration), 3);
-                }
-            }
-
-
-        } else {
-            level.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
-        }
-    }
-
-    private boolean canGrab(BlockPos newPos, ServerLevel level) {
-        return !level.getBlockState(newPos.east()).isAir() && !level.getBlockState(newPos.east()).is(ModBlocks.CRAWLING_DISCORD.get()) ||
-                !level.getBlockState(newPos.west()).isAir() && !level.getBlockState(newPos.west()).is(ModBlocks.CRAWLING_DISCORD.get()) ||
-                !level.getBlockState(newPos.north()).isAir() && !level.getBlockState(newPos.north()).is(ModBlocks.CRAWLING_DISCORD.get()) ||
-                !level.getBlockState(newPos.south()).isAir() && !level.getBlockState(newPos.south()).is(ModBlocks.CRAWLING_DISCORD.get());
+    public RenderShape getRenderShape(BlockState state) {
+        return RenderShape.MODEL;
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(GENERATION, FATHER, CLIMBER, MAX_GENERATION);
+        builder.add(CLIMBER);
     }
 
-    private int getNewChildTime(Level level) {
-        return difficult ? level.random.nextInt(DIFFICULT_CHILD_TIME, DIFFICULT_CHILD_TIME + 7)
-                : level.random.nextInt(NEW_CHILD_TIME, NEW_CHILD_TIME + 10);
-    }
-
-    public void setDifficult(boolean difficult) {
-        this.difficult = difficult;
+    @Override
+    public @Nullable BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
+        return new CrawlingDiscordBlockEntity(blockPos, blockState);
     }
 }
