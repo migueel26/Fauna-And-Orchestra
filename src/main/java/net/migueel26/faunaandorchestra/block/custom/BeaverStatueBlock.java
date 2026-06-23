@@ -1,6 +1,5 @@
 package net.migueel26.faunaandorchestra.block.custom;
 
-import com.mojang.serialization.MapCodec;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.block.entity.BeaverStatueBlockEntity;
 import net.migueel26.faunaandorchestra.entity.custom.BeaverEntity;
@@ -11,6 +10,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -42,7 +42,6 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class BeaverStatueBlock extends HorizontalDirectionalBlock implements EntityBlock {
-    public static final MapCodec<BeaverStatueBlock> CODEC = simpleCodec(BeaverStatueBlock::new);
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
     public static final BooleanProperty ENABLED = BlockStateProperties.ENABLED;
     protected final VoxelShape LOWER_SHAPE = Shapes.or(
@@ -58,7 +57,7 @@ public class BeaverStatueBlock extends HorizontalDirectionalBlock implements Ent
     }
 
     @Override
-    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         DoubleBlockHalf half = state.getValue(HALF);
 
         return switch (half) {
@@ -67,14 +66,15 @@ public class BeaverStatueBlock extends HorizontalDirectionalBlock implements Ent
         };
     }
 
+    @SuppressWarnings("deprecation")
     @Override
-    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         state = state.cycle(ENABLED);
         level.setBlock(pos, state, 10);
 
         if (state.getValue(HALF) == DoubleBlockHalf.LOWER)  {
             this.transitionAnimation(state, level, pos);
-        } else if (level.getBlockState(pos.below()).is(ModBlocks.BEAVER_STATUE)) {
+        } else if (level.getBlockState(pos.below()).is(ModBlocks.BEAVER_STATUE.get())) {
             this.transitionAnimation(state, level, pos.below());
         }
         this.playSound(player, level, pos, state.getValue(ENABLED));
@@ -105,7 +105,7 @@ public class BeaverStatueBlock extends HorizontalDirectionalBlock implements Ent
     }
 
     @Override
-    protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         List<BeaverEntity> beavers = level.getEntitiesOfClass(BeaverEntity.class, new AABB(pos).inflate(160f), getBeaverCondition(state));
         for (BeaverEntity beaver : beavers) {
             Boolean isEnabled = state.getValue(ENABLED);
@@ -120,7 +120,7 @@ public class BeaverStatueBlock extends HorizontalDirectionalBlock implements Ent
         return state.getValue(ENABLED) ? beaverEntity -> !beaverEntity.canBuild() : BeaverEntity::canBuild;
     }
 
-    protected BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor level, BlockPos currentPos, BlockPos facingPos) {
+    public BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor level, BlockPos currentPos, BlockPos facingPos) {
         DoubleBlockHalf half = state.getValue(HALF);
 
         if (facing.getAxis() == Direction.Axis.Y && (half == DoubleBlockHalf.LOWER) == (facing == Direction.UP)) {
@@ -158,7 +158,7 @@ public class BeaverStatueBlock extends HorizontalDirectionalBlock implements Ent
         super.playerDestroy(level, player, pos, Blocks.AIR.defaultBlockState(), te, stack);
     }
 
-    protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+    public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
         if (state.getValue(HALF) != DoubleBlockHalf.UPPER) {
             return super.canSurvive(state, level, pos);
         } else {
@@ -172,13 +172,8 @@ public class BeaverStatueBlock extends HorizontalDirectionalBlock implements Ent
     }
 
     @Override
-    protected RenderShape getRenderShape(BlockState state) {
+    public RenderShape getRenderShape(BlockState state) {
         return RenderShape.ENTITYBLOCK_ANIMATED;
-    }
-
-    @Override
-    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
-        return CODEC;
     }
 
     @Override
