@@ -4,7 +4,7 @@ import net.migueel26.faunaandorchestra.block.ModBlockEntities;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.screen.custom.HangingJarMenu;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
@@ -17,7 +17,12 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
@@ -26,7 +31,7 @@ public class HangingJarBlockEntity extends BlockEntity implements MenuProvider {
         @Override
         public boolean isItemValid(int slot, ItemStack stack) {
             // TODO: TAG
-            return !stack.is(ModBlocks.HANGING_JAR.asItem());
+            return !stack.is(ModBlocks.HANGING_JAR.get().asItem());
         }
 
         @Override
@@ -37,7 +42,7 @@ public class HangingJarBlockEntity extends BlockEntity implements MenuProvider {
             super.onContentsChanged(slot);
         }
     };
-
+    private final LazyOptional<IItemHandler> inventoryOptional = LazyOptional.of(() -> this.inventory);
     public HangingJarBlockEntity(BlockPos pos, BlockState blockState) {
         super(ModBlockEntities.HANGING_JAR_BE.get(), pos, blockState);
     }
@@ -55,15 +60,29 @@ public class HangingJarBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        tag.put("Inventory", inventory.serializeNBT(registries));
-        super.saveAdditional(tag, registries);
+    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
+        if (cap == ForgeCapabilities.ITEM_HANDLER) {
+            return inventoryOptional.cast();
+        }
+        return super.getCapability(cap, side);
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        inventory.deserializeNBT(registries, tag.getCompound("Inventory"));
-        super.loadAdditional(tag, registries);
+    public void invalidateCaps() {
+        super.invalidateCaps();
+        inventoryOptional.invalidate();
+    }
+
+    @Override
+    protected void saveAdditional(CompoundTag tag) {
+        tag.put("Inventory", inventory.serializeNBT());
+        super.saveAdditional(tag);
+    }
+
+    @Override
+    public void load(CompoundTag tag) {
+        inventory.deserializeNBT(tag.getCompound("Inventory"));
+        super.load(tag);
     }
 
     @Nullable
@@ -73,8 +92,8 @@ public class HangingJarBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     @Override
-    public CompoundTag getUpdateTag(HolderLookup.Provider pRegistries) {
-        return saveWithoutMetadata(pRegistries);
+    public CompoundTag getUpdateTag() {
+        return saveWithoutMetadata();
     }
 
     @Override
