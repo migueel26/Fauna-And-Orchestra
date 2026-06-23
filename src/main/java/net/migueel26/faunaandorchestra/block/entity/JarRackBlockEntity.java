@@ -7,29 +7,27 @@ import net.migueel26.faunaandorchestra.recipe.NaturalRecipe;
 import net.migueel26.faunaandorchestra.recipe.SizedIngredient;
 import net.migueel26.faunaandorchestra.util.ModTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.Containers;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.Tags;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -41,7 +39,7 @@ public class JarRackBlockEntity extends BlockEntity {
     public ItemStackHandler inventory = new ItemStackHandler(6) {
         @Override
         public boolean isItemValid(int slot, ItemStack stack) {
-            return !stack.is(ModBlocks.HANGING_JAR.asItem());
+            return !stack.is(ModBlocks.HANGING_JAR.get().asItem());
         }
 
         @Override
@@ -52,6 +50,7 @@ public class JarRackBlockEntity extends BlockEntity {
             super.onContentsChanged(slot);
         }
     };
+    private final LazyOptional<IItemHandler> inventoryOptional = LazyOptional.of(() -> this.inventory);
 
     public JarRackBlockEntity(BlockPos pos, BlockState blockState) {
         super(ModBlockEntities.JAR_RACK_BE.get(), pos, blockState);
@@ -70,11 +69,11 @@ public class JarRackBlockEntity extends BlockEntity {
 
             NaturalRecipe.RecipeInput recipeInput = new NaturalRecipe.RecipeInput(ingredients, fuel);
 
-            Optional<RecipeHolder<NaturalRecipe>> recipeOptional = level.getRecipeManager()
+            Optional<NaturalRecipe> recipeOptional = level.getRecipeManager()
                     .getRecipeFor(ModRecipes.NATURAL_TYPE.get(), recipeInput, level);
 
             if (recipeOptional.isPresent()) {
-                NaturalRecipe recipe = recipeOptional.get().value();
+                NaturalRecipe recipe = recipeOptional.get();
 
                 if (jarRack.progress % 10 == 0) {
                     spawnCookingParticles(pos, serverLevel, fuel);
@@ -99,12 +98,15 @@ public class JarRackBlockEntity extends BlockEntity {
     }
 
     private static void spawnCookingParticles(BlockPos pos, ServerLevel serverLevel, BlockState fuel) {
-        SimpleParticleType particle = switch (fuel) {
-            case BlockState block when block.is(ModTags.Blocks.JAR_FIRE_FUEL) -> ParticleTypes.CAMPFIRE_COSY_SMOKE;
-            case BlockState block when block.is(ModTags.Blocks.JAR_WATER_FUEL) -> ParticleTypes.BUBBLE_POP;
-            case BlockState block when block.is(BlockTags.ICE) -> ParticleTypes.DUST_PLUME;
-            default -> ParticleTypes.CLOUD;
-        };
+        SimpleParticleType particle = ParticleTypes.CLOUD;
+
+        if (fuel.is(ModTags.Blocks.JAR_FIRE_FUEL)) {
+            particle = ParticleTypes.CAMPFIRE_COSY_SMOKE;
+        } else if (fuel.is(ModTags.Blocks.JAR_WATER_FUEL)) {
+            particle = ParticleTypes.BUBBLE_POP;
+        } else if (fuel.is(BlockTags.ICE)) {
+            particle = ParticleTypes.SNOWFLAKE;
+        }
 
         serverLevel.sendParticles(particle, pos.getCenter().x, pos.getY(), pos.getCenter().z,
                 2, 0.25f, 0.15f, 0.25f, 0.01);
@@ -154,19 +156,33 @@ public class JarRackBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        tag.put("Inventory", inventory.serializeNBT(registries));
-        tag.putInt("Progress", progress);
-        super.saveAdditional(tag, registries);
+    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
+        if (cap == ForgeCapabilities.ITEM_HANDLER) {
+            return inventoryOptional.cast();
+        }
+        return super.getCapability(cap, side);
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        inventory.deserializeNBT(registries, tag.getCompound("Inventory"));
+    public void invalidateCaps() {
+        super.invalidateCaps();
+        inventoryOptional.invalidate();
+    }
+
+    @Override
+    protected void saveAdditional(CompoundTag tag) {
+        tag.put("Inventory", inventory.serializeNBT());
+        tag.putInt("Progress", progress);
+        super.saveAdditional(tag);
+    }
+
+    @Override
+    public void load(CompoundTag tag) {
+        inventory.deserializeNBT(tag.getCompound("Inventory"));
         if (tag.contains("Progress")) {
             this.progress = tag.getInt("Progress");
         }
-        super.loadAdditional(tag, registries);
+        super.load(tag);
     }
 
     @Nullable
@@ -176,9 +192,9 @@ public class JarRackBlockEntity extends BlockEntity {
     }
 
     @Override
-    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+    public CompoundTag getUpdateTag() {
         CompoundTag compoundTag = new CompoundTag();
-        compoundTag.put("Inventory", inventory.serializeNBT(registries));
+        compoundTag.put("Inventory", inventory.serializeNBT());
         compoundTag.putInt("Progress", this.progress);
         return compoundTag;
     }

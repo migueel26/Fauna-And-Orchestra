@@ -4,24 +4,20 @@ import com.mojang.serialization.MapCodec;
 import net.migueel26.faunaandorchestra.block.ModBlockEntities;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.block.entity.JarRackBlockEntity;
-import net.migueel26.faunaandorchestra.block.entity.MelomancyCauldronBlockEntity;
 import net.migueel26.faunaandorchestra.util.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.BlockItemStateProperties;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -34,17 +30,15 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
 public class JarRackBlock extends HorizontalDirectionalBlock implements EntityBlock {
-    public static final MapCodec<JarRackBlock> CODEC = simpleCodec(JarRackBlock::new);
     public static final BooleanProperty JAR = BooleanProperty.create("jar");
     protected static VoxelShape NORTH_SHAPE = Shapes.or(
             Block.box(7, 7, 5, 9, 9, 16),
@@ -69,7 +63,7 @@ public class JarRackBlock extends HorizontalDirectionalBlock implements EntityBl
     }
 
     @Override
-    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return switch (state.getValue(FACING)) {
             case NORTH -> NORTH_SHAPE;
             case SOUTH -> SOUTH_SHAPE;
@@ -79,27 +73,29 @@ public class JarRackBlock extends HorizontalDirectionalBlock implements EntityBl
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        if (stack.is(ModBlocks.HANGING_JAR.asItem()) && !state.getValue(JAR) && level.getBlockEntity(pos) instanceof JarRackBlockEntity blockEntity) {
-            if (level.getBlockState(pos.below()).is(ModTags.Blocks.JAR_FUEL) || level.getBlockState(pos.below()).isEmpty()) {
-                CompoundTag tag = stack.getOrDefault(DataComponents.BLOCK_ENTITY_DATA, CustomData.EMPTY).copyTag();
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        ItemStack stack = player.getItemInHand(hand);
+
+        if (stack.is(ModBlocks.HANGING_JAR.get().asItem()) && !state.getValue(JAR) && level.getBlockEntity(pos) instanceof JarRackBlockEntity blockEntity) {
+            if (level.getBlockState(pos.below()).is(ModTags.Blocks.JAR_FUEL) || level.getBlockState(pos.below()).isAir()) {
+                CompoundTag tag = BlockItem.getBlockEntityData(stack);
                 if (tag.contains("Inventory")) {
                     // We introduce the items
                     ItemStackHandler inventory = new ItemStackHandler(6);
-                    inventory.deserializeNBT(level.registryAccess(), tag.getCompound("Inventory"));
+                    inventory.deserializeNBT(tag.getCompound("Inventory"));
                     blockEntity.setInventory(inventory);
                 }
                 // We eliminate the jar from the inventory
-                stack.consume(1, player);
-                player.playSound(SoundEvents.ARMOR_EQUIP_LEATHER.value(), 1.5f, 1.0f + ((level.random.nextFloat()/2)-0.25f));
+                stack.shrink(1);
+                player.playSound(SoundEvents.ARMOR_EQUIP_LEATHER, 1.5f, 1.0f + ((level.random.nextFloat()/2)-0.25f));
 
                 // We replace the current block
                 level.setBlock(pos, state.setValue(JAR, true), 3);
 
-                return ItemInteractionResult.SUCCESS;
+                return InteractionResult.SUCCESS;
             } else {
                 player.displayClientMessage(Component.translatable("block.faunaandorchestra.jar_rack.not_placed"), true);
-                return ItemInteractionResult.CONSUME;
+                return InteractionResult.CONSUME;
             }
         } else if (stack.isEmpty() && state.getValue(JAR) && level.getBlockEntity(pos) instanceof JarRackBlockEntity blockEntity) {
             if (!level.isClientSide()) {
@@ -108,17 +104,17 @@ public class JarRackBlock extends HorizontalDirectionalBlock implements EntityBl
                 player.setItemInHand(hand, jar);
             }
             // We clear the contents of the jar
-            player.playSound(SoundEvents.ARMOR_EQUIP_LEATHER.value(), 1.5f, 1.0f + ((level.random.nextFloat()/2)-0.25f));
+            player.playSound(SoundEvents.ARMOR_EQUIP_LEATHER, 1.5f, 1.0f + ((level.random.nextFloat()/2)-0.25f));
             level.setBlock(pos, state.setValue(JAR, false), 3);
             blockEntity.clearContents();
 
-            return ItemInteractionResult.SUCCESS;
+            return InteractionResult.SUCCESS;
         }
-        return ItemInteractionResult.FAIL;
+        return InteractionResult.FAIL;
     }
 
     @Override
-    public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
+    public void playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
         if (level.getBlockEntity(pos) instanceof JarRackBlockEntity blockEntity && state.getValue(JAR)) {
             if (!level.isClientSide()) {
                 ItemStack jar = getJar(level, blockEntity);
@@ -130,18 +126,17 @@ public class JarRackBlock extends HorizontalDirectionalBlock implements EntityBl
                 level.addFreshEntity(itemEntity);
             }
         }
-        return super.playerWillDestroy(level, pos, state, player);
     }
 
     public ItemStack getJar(Level level, JarRackBlockEntity blockEntity) {
-        ItemStack itemStack = new ItemStack(ModBlocks.HANGING_JAR);
+        ItemStack itemStack = new ItemStack(ModBlocks.HANGING_JAR.get());
 
-        CompoundTag nbt = blockEntity.saveWithoutMetadata(level.registryAccess());
+        CompoundTag nbt = blockEntity.saveWithoutMetadata();
         if (!nbt.isEmpty() && nbt.contains("Inventory")) {
-            ResourceLocation id = BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(blockEntity.getType());
+            ResourceLocation id = ForgeRegistries.BLOCK_ENTITY_TYPES.getKey(blockEntity.getType());
             if (id != null) {
                 nbt.putString("id", id.toString());
-                itemStack.set(DataComponents.BLOCK_ENTITY_DATA, CustomData.of(nbt));
+                itemStack.addTagElement("BlockEntityTag", nbt);
             }
         }
 
@@ -177,7 +172,7 @@ public class JarRackBlock extends HorizontalDirectionalBlock implements EntityBl
         BlockPos wallPos = pos.relative(wallDirection);
         BlockState wallState = level.getBlockState(wallPos);
 
-        return wallState.isFaceSturdy(level, wallPos, facing) && (level.getBlockState(pos.below()).is(ModTags.Blocks.JAR_FUEL) || !state.getValue(JAR) || level.getBlockState(pos.below()).isEmpty());
+        return wallState.isFaceSturdy(level, wallPos, facing) && (level.getBlockState(pos.below()).is(ModTags.Blocks.JAR_FUEL) || !state.getValue(JAR) || level.getBlockState(pos.below()).isAir());
     }
 
     @Override
@@ -221,11 +216,6 @@ public class JarRackBlock extends HorizontalDirectionalBlock implements EntityBl
             BlockEntityType<A> serverType, BlockEntityType<E> clientType, BlockEntityTicker<? super E> ticker
     ) {
         return clientType == serverType ? (BlockEntityTicker<A>) ticker : null;
-    }
-
-    @Override
-    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
-        return CODEC;
     }
 
     @Override
