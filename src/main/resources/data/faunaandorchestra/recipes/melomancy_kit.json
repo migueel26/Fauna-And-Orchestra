@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "faunaandorchestra:steelsonic_ingot"
+    },
+    {
+      "item": "faunaandorchestra:gingko_biloba"
+    },
+    {
+      "item": "faunaandorchestra:music_bottle"
+    },
+    {
+      "item": "faunaandorchestra:really_good_stick"
+    },
+    {
+      "item": "faunaandorchestra:boogie_fruit"
+    }
+  ],
+  "result": {
+    "item": "faunaandorchestra:melomancy_kit",
+    "count": 1
+  }
+}

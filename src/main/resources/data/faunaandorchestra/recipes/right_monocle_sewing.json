@@ -1,0 +1,20 @@
+{
+  "type": "faunaandorchestra:sewing",
+  "ingredients": [
+    {
+      "ingredient": {
+        "item": "minecraft:gold_ingot"
+      },
+      "amount": 3
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:glass_pane"
+      }
+    }
+  ],
+  "result": {
+    "item": "faunaandorchestra:right_monocle",
+    "count": 1
+  }
+}

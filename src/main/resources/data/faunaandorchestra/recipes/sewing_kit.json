@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "faunaandorchestra:steelsonic_ingot"
+    },
+    {
+      "item": "faunaandorchestra:cotton"
+    },
+    {
+      "item": "minecraft:shears"
+    },
+    {
+      "tag": "minecraft:wool"
+    },
+    {
+      "item": "minecraft:lapis_lazuli"
+    },
+    {
+      "item": "minecraft:leather"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "item": "faunaandorchestra:sewing_kit"
+  }
+}

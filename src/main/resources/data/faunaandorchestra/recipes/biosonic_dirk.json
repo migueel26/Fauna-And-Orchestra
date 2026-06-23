@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " #",
+    "I "
+  ],
+  "key": {
+    "#": {
+      "item": "faunaandorchestra:biosonic_ingot"
+    },
+    "I": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "faunaandorchestra:biosonic_dirk",
+    "count": 1
+  }
+}

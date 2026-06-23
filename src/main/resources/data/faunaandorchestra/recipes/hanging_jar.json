@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##~",
+    "GG ",
+    "GG "
+  ],
+  "key": {
+    "#": {
+      "tag": "minecraft:planks"
+    },
+    "~": {
+      "item": "minecraft:string"
+    },
+    "G": {
+      "item": "minecraft:glass"
+    }
+  },
+  "result": {
+    "item": "faunaandorchestra:hanging_jar"
+  }
+}

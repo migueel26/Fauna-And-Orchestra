@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#C#",
+    "CLC",
+    "#C#"
+  ],
+  "key": {
+    "#": {
+      "tag": "minecraft:logs"
+    },
+    "C": {
+      "item": "faunaandorchestra:cotton"
+    },
+    "L": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "result": {
+    "item": "faunaandorchestra:sound_sensor",
+    "count": 1
+  }
+}

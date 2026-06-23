@@ -1,0 +1,27 @@
+{
+  "type": "faunaandorchestra:natural_recipe",
+  "ingredients": [
+    {
+      "ingredient": {
+        "item": "minecraft:ink_sac"
+      },
+      "amount": 2
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:glass_bottle"
+      }
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:feather"
+      }
+    }
+  ],
+  "fuel": "#faunaandorchestra:jar_water_fuel",
+  "result": {
+    "item": "faunaandorchestra:writing_ink",
+    "count": 1
+  },
+  "time": 600
+}

@@ -1,0 +1,26 @@
+{
+  "type": "faunaandorchestra:sewing",
+  "ingredients": [
+    {
+      "ingredient": {
+        "item": "minecraft:black_dye"
+      },
+      "amount": 2
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:string"
+      },
+      "amount": 6
+    },
+    {
+      "ingredient": {
+        "item": "faunaandorchestra:catchweed"
+      }
+    }
+  ],
+  "result": {
+    "item": "faunaandorchestra:fake_moustache",
+    "count": 1
+  }
+}

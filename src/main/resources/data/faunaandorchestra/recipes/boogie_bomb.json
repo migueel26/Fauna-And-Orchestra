@@ -1,0 +1,24 @@
+{
+  "type": "faunaandorchestra:melomancy",
+  "ingredients": [
+    {
+      "ingredient": {
+        "item": "minecraft:gunpowder"
+      },
+      "amount": 3
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:sand"
+      },
+      "amount": 2
+    }
+  ],
+  "catalyst": {
+    "item": "faunaandorchestra:boogie_fruit"
+  },
+  "result": {
+    "item": "faunaandorchestra:boogie_bomb",
+    "count": 1
+  }
+}

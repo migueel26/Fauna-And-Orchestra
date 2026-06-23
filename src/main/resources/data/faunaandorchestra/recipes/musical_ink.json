@@ -1,0 +1,22 @@
+{
+  "type": "faunaandorchestra:melomancy",
+  "ingredients": [
+    {
+      "ingredient": {
+        "item": "minecraft:feather"
+      }
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:glow_ink_sac"
+      }
+    }
+  ],
+  "catalyst": {
+    "item": "minecraft:feather"
+  },
+  "result": {
+    "item": "faunaandorchestra:musical_ink",
+    "count": 3
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "white_dye",
+  "ingredients": [
+    {
+      "item": "faunaandorchestra:catchweed"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "item": "minecraft:white_dye"
+  }
+}

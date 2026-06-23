@@ -1,0 +1,36 @@
+{
+  "type": "faunaandorchestra:melomancy",
+  "ingredients": [
+    {
+      "ingredient": {
+        "item": "minecraft:beetroot_seeds"
+      },
+      "amount": 3
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:honeycomb"
+      },
+      "amount": 2
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:carrot"
+      },
+      "amount": 5
+    },
+    {
+      "ingredient": {
+        "item": "faunaandorchestra:wandering_note"
+      },
+      "amount": 3
+    }
+  ],
+  "catalyst": {
+    "item": "minecraft:wheat_seeds"
+  },
+  "result": {
+    "item": "faunaandorchestra:singing_seed",
+    "count": 1
+  }
+}

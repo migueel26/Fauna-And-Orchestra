@@ -7,15 +7,14 @@ modId = "faunaandorchestra"
 version = "${mod_version}"
 displayName = "Fauna & Orchestra"
 authors = "Owlest"
-description = "Add a little bit of music to your world! Whether you only want a little bit more of life (Mantises, Red Pandas, Baby Penguins...) or create your perfect orchestra, this is the perfect mod!"
+description = "A magical exploration mod where nature meets symphony! Tame unique musical fauna to build your orchestra and gain powerful buffs. Craft costumes with the Sewing Machine, send letters via Mailbirds, collect music droplets, and dive into arcane sound magic to restore harmony against the Great Composer."
 
 # --- MIXINS ---
 [[mixins]]
 config = "mixins.faunaandorchestra.json"
 
-# --- DEPENDENCIAS ---
+# --- DEPENDENCIES ---
 
-# 1. Minecraft
 [[dependencies.faunaandorchestra]]
 modId = "minecraft"
 mandatory = true
@@ -23,7 +22,6 @@ versionRange = "[1.20.1,1.20.2)"
 ordering = "NONE"
 side = "BOTH"
 
-# 2. Forge
 [[dependencies.faunaandorchestra]]
 modId = "forge"
 mandatory = true
@@ -38,7 +36,6 @@ versionRange = "[4.4.5,)"
 ordering = "NONE"
 side = "BOTH"
 
-# 4. Patchouli (OBLIGATORIA)
 [[dependencies.faunaandorchestra]]
 modId = "patchouli"
 mandatory = true

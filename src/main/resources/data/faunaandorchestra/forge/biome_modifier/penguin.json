@@ -2,9 +2,9 @@
   "type": "forge:add_spawns",
   "biomes": "#faunaandorchestra:spawns_penguin",
   "spawners": {
-    "type": "faunaandorchestra:penguin",
-    "maxCount": 4,
-    "minCount": 3,
+    "type": "faunaandorchestra:emperor_penguin",
+    "maxCount": 3,
+    "minCount": 2,
     "weight": 8
   }
 }

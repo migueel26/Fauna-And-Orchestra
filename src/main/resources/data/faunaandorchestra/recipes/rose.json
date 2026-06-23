@@ -1,0 +1,26 @@
+{
+  "type": "faunaandorchestra:sewing",
+  "ingredients": [
+    {
+      "ingredient": {
+        "item": "minecraft:poppy"
+      }
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:red_dye"
+      },
+      "amount": 2
+    },
+    {
+      "ingredient": {
+        "item": "faunaandorchestra:gingko_biloba"
+      },
+      "amount": 3
+    }
+  ],
+  "result": {
+    "item": "faunaandorchestra:rose",
+    "count": 1
+  }
+}

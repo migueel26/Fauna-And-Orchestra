@@ -1,0 +1,26 @@
+{
+  "type": "faunaandorchestra:sewing",
+  "ingredients": [
+    {
+      "ingredient": {
+        "item": "minecraft:black_dye"
+      },
+      "amount": 4
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:red_dye"
+      }
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:leather"
+      },
+      "amount": 3
+    }
+  ],
+  "result": {
+    "item": "faunaandorchestra:top_hat",
+    "count": 1
+  }
+}

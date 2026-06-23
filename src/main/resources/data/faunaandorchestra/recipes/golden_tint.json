@@ -1,0 +1,26 @@
+{
+  "type": "faunaandorchestra:sewing",
+  "ingredients": [
+    {
+      "ingredient": {
+        "item": "minecraft:gold_ingot"
+      },
+      "amount": 3
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:lava_bucket"
+      }
+    },
+    {
+      "ingredient": {
+        "item": "faunaandorchestra:music_bottle"
+      },
+      "amount": 3
+    }
+  ],
+  "result": {
+    "item": "faunaandorchestra:golden_tint",
+    "count": 1
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "type": "faunaandorchestra:melomancy",
+  "ingredients": [
+    {
+      "ingredient": {
+        "item": "faunaandorchestra:nature_fumes"
+      }
+    },
+    {
+      "ingredient": {
+        "item": "faunaandorchestra:sonic_fumes"
+      }
+    },
+    {
+      "ingredient": {
+        "item": "faunaandorchestra:arctic_fumes"
+      }
+    },
+    {
+      "ingredient": {
+        "item": "faunaandorchestra:floral_fumes"
+      }
+    },
+    {
+      "ingredient": {
+        "item": "faunaandorchestra:steelsonic_ingot"
+      }
+    }
+  ],
+  "result": {
+    "item": "faunaandorchestra:biosonic_ingot",
+    "count": 1
+  }
+}

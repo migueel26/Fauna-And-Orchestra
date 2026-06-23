@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "faunaandorchestra:left_monocle"
+    }
+  ],
+  "result": {
+    "item": "faunaandorchestra:right_monocle",
+    "count": 1
+  }
+}

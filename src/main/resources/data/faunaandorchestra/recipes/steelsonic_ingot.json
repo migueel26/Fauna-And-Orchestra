@@ -1,0 +1,26 @@
+{
+  "type": "faunaandorchestra:melomancy",
+  "ingredients": [
+    {
+      "ingredient": {
+        "item": "minecraft:iron_ingot"
+      },
+      "amount": 5
+    },
+    {
+      "ingredient": {
+        "item": "faunaandorchestra:wandering_note"
+      },
+      "amount": 3
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:lava_bucket"
+      }
+    }
+  ],
+  "result": {
+    "item": "faunaandorchestra:steelsonic_ingot",
+    "count": 2
+  }
+}

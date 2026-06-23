@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "#D#",
+    "GGG"
+  ],
+  "key": {
+    "#": {
+      "item": "faunaandorchestra:biosonic_ingot"
+    },
+    "D": {
+      "item": "minecraft:dirt"
+    },
+    "G": {
+      "item": "minecraft:glass"
+    }
+  },
+  "result": {
+    "item": "faunaandorchestra:flora_enhancer",
+    "count": 1
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "type": "faunaandorchestra:natural_recipe",
+  "ingredients": [
+    {
+      "ingredient": {
+        "item": "faunaandorchestra:catchweed"
+      },
+      "amount": 5
+    },
+    {
+      "ingredient": {
+        "item": "faunaandorchestra:boogie_fruit"
+      },
+      "amount": 2
+    },
+    {
+      "ingredient": {
+        "item": "faunaandorchestra:music_bottle"
+      },
+      "amount": 2
+    },
+    {
+      "ingredient": {
+        "item": "faunaandorchestra:steelsonic_ingot"
+      }
+    }
+  ],
+  "fuel": "#faunaandorchestra:jar_fire_fuel",
+  "result": {
+    "item": "faunaandorchestra:sonic_fumes",
+    "count": 1
+  },
+  "time": 2100
+}
