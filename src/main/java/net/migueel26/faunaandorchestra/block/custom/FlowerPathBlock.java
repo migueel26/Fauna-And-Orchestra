@@ -31,8 +31,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 public class FlowerPathBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock, EntityBlock {
-    protected static final MapCodec<FlowerPathBlock> CODEC = simpleCodec(FlowerPathBlock::new);
-
     public static final int SPREAD_DELAY = 4;     // How fast the circle spreads
     public static final int SHRINK_DELAY = 8;     // Time difference between rings
     public static final int STAY_TIME = 40;       // Time the circle stays full
@@ -56,22 +54,17 @@ public class FlowerPathBlock extends HorizontalDirectionalBlock implements Simpl
     }
 
     @Override
-    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
-        return CODEC;
-    }
-
-    @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }
 
     @Override
-    protected FluidState getFluidState(BlockState state) {
+    public FluidState getFluidState(BlockState state) {
         return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
     @Override
-    protected BlockState updateShape(BlockState state, Direction direction, BlockState state2, LevelAccessor levelAccessor, BlockPos blockPos, BlockPos blockPos2) {
+    public BlockState updateShape(BlockState state, Direction direction, BlockState state2, LevelAccessor levelAccessor, BlockPos blockPos, BlockPos blockPos2) {
         if (state.getValue(WATERLOGGED)) {
             levelAccessor.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelAccessor));
         }

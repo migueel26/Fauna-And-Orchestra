@@ -90,8 +90,8 @@ public class FlowerPathBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
+    protected void saveAdditional(CompoundTag tag) {
+        super.saveAdditional(tag);
         tag.putInt("Generation", this.generation);
         tag.putBoolean("Father", this.father);
         tag.putInt("MaxGeneration", this.maxGeneration);
@@ -99,8 +99,8 @@ public class FlowerPathBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
+    public void load(CompoundTag tag) {
+        super.load(tag);
         this.generation = tag.getInt("Generation");
         this.father = tag.getBoolean("Father");
         this.maxGeneration = tag.getInt("MaxGeneration");
