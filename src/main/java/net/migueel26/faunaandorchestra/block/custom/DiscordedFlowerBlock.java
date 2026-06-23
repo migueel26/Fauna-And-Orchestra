@@ -1,6 +1,8 @@
 package net.migueel26.faunaandorchestra.block.custom;
 
 import net.migueel26.faunaandorchestra.block.ModBlocks;
+import net.migueel26.faunaandorchestra.block.entity.DiscordedFlowerBlockEntity;
+import net.migueel26.faunaandorchestra.block.entity.FlowerGrowerDiscordBlockEntity;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
@@ -21,8 +23,11 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
@@ -32,11 +37,12 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class DiscordedFlowerBlock extends Block {
+public class DiscordedFlowerBlock extends BaseEntityBlock {
     protected final Map<Item, Integer> FOOD = Map.ofEntries(
             Map.entry(Items.ROTTEN_FLESH, 1),
             Map.entry(Items.BONE, 1),
@@ -74,14 +80,10 @@ public class DiscordedFlowerBlock extends Block {
     );
 
     protected final List<Integer> GENERATIONS_INDEX = new ArrayList<>(List.of(5, 40, 80, 120, 160, 200, 240, 280, 320, 360, 400));
-    public static final IntegerProperty HUNGER = IntegerProperty.create("hunger", 0, 400);
     protected static final VoxelShape SHAPE = Block.box(5.0, 0.0, 5.0, 11.0, 10.0, 11.0);
-    ;
 
     public DiscordedFlowerBlock(Properties properties) {
         super(properties);
-
-        this.registerDefaultState(this.getStateDefinition().any().setValue(HUNGER, 0));
     }
 
     @SuppressWarnings("deprecation")
@@ -105,12 +107,18 @@ public class DiscordedFlowerBlock extends Block {
     }
 
     private void feed(BlockState state, Level level, BlockPos pos, int food) {
-        int hunger = state.getValue(HUNGER);
+        if (!(level.getBlockEntity(pos) instanceof DiscordedFlowerBlockEntity be)) return;
+
+        int hunger = be.getHunger();
         int newHunger = hunger + food;
 
         if (newHunger >= 400 || hunger >= 400) {
-            level.setBlock(pos.below(), ModBlocks.FLOWER_DISCORD_BLOCK.get().defaultBlockState()
-                    .setValue(FlowerGrowerDiscordBlock.MAX_GENERATION, NEW_GENERATIONS.get(400)), 3);
+            level.setBlock(pos.below(), ModBlocks.FLOWER_DISCORD_BLOCK.get().defaultBlockState(), 3);
+
+            if (level.getBlockEntity(pos.below()) instanceof FlowerGrowerDiscordBlockEntity growerBe) {
+                growerBe.setMaxGeneration(NEW_GENERATIONS.get(400));
+            }
+
             if (!level.isClientSide()) {
                 ((ServerLevel) level).sendParticles(ParticleTypes.SOUL_FIRE_FLAME, pos.getCenter().x, pos.getCenter().y, pos.getCenter().z, 80, 0.5, 0.5, 0.5, 0.3);
             }
@@ -120,7 +128,7 @@ public class DiscordedFlowerBlock extends Block {
         } else {
             int goal = GENERATIONS_INDEX.get(0);
 
-            for (int i = 0; i < NEW_GENERATIONS.keySet().size() && goal == GENERATIONS_INDEX.get(0); i++) {
+            for (int i = 0; i < NEW_GENERATIONS.size() && goal == GENERATIONS_INDEX.get(0); i++) {
                 if (GENERATIONS_INDEX.get(i) <= hunger && hunger < GENERATIONS_INDEX.get(i + 1)) {
                     goal = GENERATIONS_INDEX.get(i+1);
                 }
@@ -128,18 +136,21 @@ public class DiscordedFlowerBlock extends Block {
 
             if (newHunger >= goal) {
                 int lastGoal = GENERATIONS_INDEX.get(0);
-                for (int i = 0; i < NEW_GENERATIONS.keySet().size() && lastGoal == GENERATIONS_INDEX.get(0); i++) {
+                for (int i = 0; i < NEW_GENERATIONS.size() && lastGoal == GENERATIONS_INDEX.get(0); i++) {
                     if (GENERATIONS_INDEX.get(i) < newHunger && newHunger <= GENERATIONS_INDEX.get(i + 1)) {
                         lastGoal = GENERATIONS_INDEX.get(i);
                     }
                 }
-                level.setBlock(pos.below(), ModBlocks.FLOWER_DISCORD_BLOCK.get().defaultBlockState()
-                        .setValue(FlowerGrowerDiscordBlock.MAX_GENERATION, NEW_GENERATIONS.get(lastGoal)), 3);
+
+                level.setBlock(pos.below(), ModBlocks.FLOWER_DISCORD_BLOCK.get().defaultBlockState(), 3);
+
+                if (level.getBlockEntity(pos.below()) instanceof FlowerGrowerDiscordBlockEntity growerBe) {
+                    growerBe.setMaxGeneration(NEW_GENERATIONS.get(lastGoal));
+                }
             }
-            level.setBlock(pos, state.setValue(HUNGER, newHunger), 3);
+
+            be.setHunger(newHunger);
         }
-
-
     }
 
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
@@ -165,7 +176,12 @@ public class DiscordedFlowerBlock extends Block {
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(HUNGER);
+    public @Nullable BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
+        return new DiscordedFlowerBlockEntity(blockPos, blockState);
+    }
+
+    @Override
+    public RenderShape getRenderShape(BlockState state) {
+        return RenderShape.MODEL;
     }
 }
