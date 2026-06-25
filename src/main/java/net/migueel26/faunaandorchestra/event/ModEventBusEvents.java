@@ -126,11 +126,6 @@ public class ModEventBusEvents {
                 (payload, context) -> ServerPayloadHandler.handleRestartOrchestraOnNetwork(payload, context)
         );
         registrar.playToServer(
-                SyncTipCaseOwnerPayloadC2S.TYPE,
-                SyncTipCaseOwnerPayloadC2S.STREAM_CODEC,
-                (payload, context) -> ServerPayloadHandler.handleSyncTipCaseOnNetwork(payload, context)
-        );
-        registrar.playToServer(
                 TailorKoalaStartSewingC2SPayload.TYPE,
                 TailorKoalaStartSewingC2SPayload.STREAM_CODEC,
                 (payload, context) -> ServerPayloadHandler.handleTailorKoalaStartSewingOnNetwork(payload, context)

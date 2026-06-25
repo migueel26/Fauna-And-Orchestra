@@ -49,19 +49,6 @@ public class ServerPayloadHandler {
         }
      }
 
-    public static void handleSyncTipCaseOnNetwork(SyncTipCaseOwnerPayloadC2S payload, IPayloadContext context) {
-        UUID uuid = payload.owner();
-        BlockPos blockPos = new BlockPos(payload.x(), payload.y(), payload.z());
-        ServerLevel level = (ServerLevel) context.player().level();
-
-        BlockState state = level.getBlockState(blockPos);
-        Entity entity = level.getEntity(uuid);
-        if (state.getBlock() == ModBlocks.TIP_CASE.get() && entity != null) {
-            BlockEntity blockEntity = level.getBlockEntity(blockPos);
-            ((TipCaseBlockEntity) blockEntity).setOwner(uuid);
-        }
-    }
-
     public static void handleTailorKoalaStartSewingOnNetwork(TailorKoalaStartSewingC2SPayload payload, IPayloadContext context) {
         UUID uuid = payload.tailorUUID();
         Player player = context.player();
