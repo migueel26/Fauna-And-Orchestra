@@ -7,6 +7,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.stats.Stats;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleMenuProvider;
@@ -35,7 +36,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class LetterAndQuillBlock extends HorizontalDirectionalBlock {
-    public static final MapCodec<LetterAndQuillBlock> CODEC = simpleCodec(LetterAndQuillBlock::new);
     protected static final VoxelShape NORTH_SHAPE = Shapes.or(
             Block.box(4.5, 0, 2, 11.5, 0.5, 13),
             Block.box(0.75, 0, 11.25, 3.5, 2, 14)
@@ -61,9 +61,8 @@ public class LetterAndQuillBlock extends HorizontalDirectionalBlock {
     }
 
     @Override
-    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         Direction direction = state.getValue(HorizontalDirectionalBlock.FACING);
-
         return switch (direction) {
             case SOUTH -> SOUTH_SHAPE;
             case EAST -> EAST_SHAPE;
@@ -79,7 +78,8 @@ public class LetterAndQuillBlock extends HorizontalDirectionalBlock {
         return this.defaultBlockState().setValue(FACING, direction);
     }
 
-    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+    @Override
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         if (level.isClientSide) {
             return InteractionResult.SUCCESS;
         } else {
@@ -89,17 +89,12 @@ public class LetterAndQuillBlock extends HorizontalDirectionalBlock {
     }
 
     @Nullable
-    protected MenuProvider getMenuProvider(BlockState state, Level level, BlockPos pos) {
+    public MenuProvider getMenuProvider(BlockState state, Level level, BlockPos pos) {
         return new SimpleMenuProvider((id, inventory, player) -> new LetterAndQuillMenu(id, inventory, ContainerLevelAccess.create(level, pos)), CONTAINER_TITLE);
     }
 
-
     @Override
-    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
-        return CODEC;
-    }
-
-    protected BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor level, BlockPos currentPos, BlockPos facingPos) {
+    public BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor level, BlockPos currentPos, BlockPos facingPos) {
         return !state.canSurvive(level, currentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, facing, facingState, level, currentPos, facingPos);
     }
 
@@ -107,19 +102,20 @@ public class LetterAndQuillBlock extends HorizontalDirectionalBlock {
         return !state.getCollisionShape(level, pos).getFaceShape(Direction.UP).isEmpty() || state.isFaceSturdy(level, pos, Direction.UP);
     }
 
-    protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+    @Override
+    public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
         BlockPos blockpos = pos.below();
         return this.mayPlaceOn(level.getBlockState(blockpos), level, blockpos);
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack stack, BlockGetter blockGetter, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         if (Screen.hasShiftDown()) {
             tooltipComponents.add(Component.translatable("block.faunaandorchestra.letter_and_quill.tooltip"));
         } else {
             tooltipComponents.add(Component.translatable("tooltip.faunaandorchestra.shift"));
         }
-        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+        super.appendHoverText(stack, blockGetter, tooltipComponents, tooltipFlag);
     }
 
     @Override
