@@ -6,8 +6,9 @@ import net.migueel26.faunaandorchestra.entity.custom.TravellingMusician;
 import net.migueel26.faunaandorchestra.entity.goals.DanBFindJazzyDammysGoal;
 import net.migueel26.faunaandorchestra.entity.goals.JazzyDammysRunAwayGoal;
 import net.migueel26.faunaandorchestra.item.ModItems;
-import net.migueel26.faunaandorchestra.networking.StartAmbientMusicS2CPayload;
-import net.migueel26.faunaandorchestra.networking.StopMusicS2CPayload;
+import net.migueel26.faunaandorchestra.networking.ModNetwork;
+import net.migueel26.faunaandorchestra.networking.packets.StartAmbientMusicS2CPacket;
+import net.migueel26.faunaandorchestra.networking.packets.StopMusicS2CPacket;
 import net.migueel26.faunaandorchestra.util.AdvancementUtil;
 import net.migueel26.faunaandorchestra.util.ModSavedData;
 import net.migueel26.faunaandorchestra.util.RecipesUtil;
@@ -207,12 +208,12 @@ public class DanB extends TravellingMusician implements Npc, GeoEntity {
                 newPlayers.removeAll(playersListening);
 
                 for (Player player : newPlayers) {
-                    PacketDistributor.sendToPlayer((ServerPlayer) player, new StartAmbientMusicS2CPayload(this.uuid));
+                    ModNetwork.sendToPlayer(new StartAmbientMusicS2CPacket(this.uuid), (ServerPlayer) player);
                     ModAdvancements.MEET_JAZZY_DAMMYS.get().trigger((ServerPlayer) player);
                 }
 
                 for (Player player : exitPlayers) {
-                    PacketDistributor.sendToPlayer((ServerPlayer) player, new StopMusicS2CPayload(this.uuid));
+                    ModNetwork.sendToPlayer(new StopMusicS2CPacket(this.uuid), (ServerPlayer) player);
                 }
 
                 playersListening = nearbyPlayers;

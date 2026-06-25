@@ -9,22 +9,14 @@ import java.util.List;
 import java.util.UUID;
 import java.util.function.Supplier;
 
-public class StopOrchestraMusicS2CPacket {
-    private final List<UUID> orchestra;
-    public StopOrchestraMusicS2CPacket(List<UUID> orchestra) {
-        this.orchestra = orchestra;
-    }
+public record StopOrchestraMusicS2CPacket(List<UUID> orchestra) {
 
     public StopOrchestraMusicS2CPacket(FriendlyByteBuf buf) {
-        this.orchestra = BufferUtil.readUUIDList(buf);
+        this(BufferUtil.readUUIDList(buf));
     }
 
     public void toBytes(FriendlyByteBuf buf) {
         BufferUtil.writeUUIDList(buf, orchestra);
-    }
-
-    public List<UUID> getOrchestra() {
-        return orchestra;
     }
 
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
@@ -32,7 +24,7 @@ public class StopOrchestraMusicS2CPacket {
 
         context.enqueueWork(() -> {
             ClientPacketHandler.handleStopOrchestraOnNetwork(
-                    getOrchestra());
+                    orchestra());
         });
 
         return true;

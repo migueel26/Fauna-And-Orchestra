@@ -39,12 +39,8 @@ public class ModDataComponents {
                 builder -> builder.persistent(Codec.INT));
 
         public static String POSITION = "target_position";
-
-        public static final DeferredHolder<DataComponentType<?>, DataComponentType<String>> SENDER = register("sender",
-                builder -> builder.persistent(Codec.STRING));
-
-        public static final DeferredHolder<DataComponentType<?>, DataComponentType<String>> RECEIVER = register("receiver",
-                builder -> builder.persistent(Codec.STRING));
+        public static String SENDER = "sender";
+        public static String RECEIVER = "receiver";
 
     private static <T> DeferredHolder<DataComponentType<?>, DataComponentType<T>> register(String name, UnaryOperator<DataComponentType.Builder<T>> builderOperator) {
         return DATA_COMPONENT_TYPES.register(name, () -> builderOperator.apply(DataComponentType.builder()).build());

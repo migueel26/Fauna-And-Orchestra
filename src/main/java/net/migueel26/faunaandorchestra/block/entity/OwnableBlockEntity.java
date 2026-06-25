@@ -1,8 +1,8 @@
 package net.migueel26.faunaandorchestra.block.entity;
 
-import net.migueel26.faunaandorchestra.networking.SyncOwnableBEPayloadS2C;
+import net.migueel26.faunaandorchestra.networking.ModNetwork;
+import net.migueel26.faunaandorchestra.networking.packets.SyncOwnableBEPacketS2C;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -10,7 +10,6 @@ import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
@@ -23,22 +22,22 @@ public abstract class OwnableBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+    public void load(CompoundTag tag) {
         if (tag.hasUUID("Owner")) {
             this.owner = tag.getUUID("Owner");
         }
-        super.loadAdditional(tag, registries);
+        super.load(tag);
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+    protected void saveAdditional(CompoundTag tag) {
         if (owner != null) tag.putUUID("Owner", owner);
-        super.saveAdditional(tag, registries);
+        super.saveAdditional(tag);
     }
 
     public void setOwner(@Nullable UUID owner) {
         this.owner = owner;
-        PacketDistributor.sendToAllPlayers(new SyncOwnableBEPayloadS2C(
+        ModNetwork.sendToClients(new SyncOwnableBEPacketS2C(
                 worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(),
                 owner));
         markUpdated();
@@ -51,7 +50,7 @@ public abstract class OwnableBlockEntity extends BlockEntity {
     }
 
     @Override
-    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+    public CompoundTag getUpdateTag() {
         CompoundTag compoundTag = new CompoundTag();
         if (owner != null) compoundTag.putUUID("Owner", owner);
         return compoundTag;

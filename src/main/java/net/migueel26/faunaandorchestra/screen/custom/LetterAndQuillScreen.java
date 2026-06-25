@@ -3,8 +3,9 @@ package net.migueel26.faunaandorchestra.screen.custom;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.component.ModDataComponents;
-import net.migueel26.faunaandorchestra.networking.EraseMailC2SPayload;
+import net.migueel26.faunaandorchestra.networking.ModNetwork;
 import net.migueel26.faunaandorchestra.networking.WriteMailC2SPayload;
+import net.migueel26.faunaandorchestra.networking.packets.EraseMailC2SPacket;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -15,8 +16,8 @@ import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
-import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
 import net.minecraft.network.chat.MutableComponent;
@@ -180,11 +181,19 @@ public class LetterAndQuillScreen extends AbstractContainerScreen<LetterAndQuill
         ItemStack stack = menu.getLetterItem();
 
         if (!stack.isEmpty()) {
-            PacketDistributor.sendToServer(new EraseMailC2SPayload(stack));
+            ModNetwork.sendToServer(new EraseMailC2SPacket(stack));
 
-            stack.remove(ModDataComponents.SENDER);
-            stack.remove(ModDataComponents.RECEIVER);
-            stack.remove(ModDataComponents.POSITION);
+            if (stack.hasTag()) {
+                CompoundTag tag = stack.getTag();
+
+                tag.remove(ModDataComponents.SENDER);
+                tag.remove(ModDataComponents.RECEIVER);
+                tag.remove(ModDataComponents.POSITION);
+
+                if (tag.isEmpty()) {
+                    stack.setTag(null);
+                }
+            }
 
             Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(ModSounds.ERASE.get(), 1.0f));
         }

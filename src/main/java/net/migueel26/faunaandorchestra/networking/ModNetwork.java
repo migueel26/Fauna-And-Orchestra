@@ -19,7 +19,7 @@ public class ModNetwork {
 
     public static void register() {
         SimpleChannel net = NetworkRegistry.ChannelBuilder
-                .named(new ResourceLocation(FaunaAndOrchestra.MOD_ID, "messages"))
+                .named(ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "messages"))
                 .networkProtocolVersion(() -> "1.0")
                 .clientAcceptedVersions(s -> true)
                 .serverAcceptedVersions(s -> true)
@@ -33,10 +33,28 @@ public class ModNetwork {
                 .consumerMainThread(RestartOrchestraMusicC2SPacket::handle)
                 .add();
 
-        net.messageBuilder(SyncTipCaseOwnerC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
-                .decoder(SyncTipCaseOwnerC2SPacket::new)
-                .encoder(SyncTipCaseOwnerC2SPacket::toBytes)
-                .consumerMainThread(SyncTipCaseOwnerC2SPacket::handle)
+        net.messageBuilder(EraseMailC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(EraseMailC2SPacket::new)
+                .encoder(EraseMailC2SPacket::toBytes)
+                .consumerMainThread(EraseMailC2SPacket::handle)
+                .add();
+
+        net.messageBuilder(WriteEmailC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(WriteEmailC2SPacket::new)
+                .encoder(WriteEmailC2SPacket::toBytes)
+                .consumerMainThread(WriteEmailC2SPacket::handle)
+                .add();
+
+        net.messageBuilder(MailbirdFlyAwayC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(MailbirdFlyAwayC2SPacket::new)
+                .encoder(MailbirdFlyAwayC2SPacket::toBytes)
+                .consumerMainThread(MailbirdFlyAwayC2SPacket::handle)
+                .add();
+
+        net.messageBuilder(TailorKoalaStartSewingC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(TailorKoalaStartSewingC2SPacket::new)
+                .encoder(TailorKoalaStartSewingC2SPacket::toBytes)
+                .consumerMainThread(TailorKoalaStartSewingC2SPacket::handle)
                 .add();
 
         net.messageBuilder(RestartOrchestraMusicS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
@@ -75,10 +93,10 @@ public class ModNetwork {
                 .consumerMainThread(StopOrchestraMusicS2CPacket::handle)
                 .add();
 
-        net.messageBuilder(SyncTipCaseOwnerS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
-                .decoder(SyncTipCaseOwnerS2CPacket::new)
-                .encoder(SyncTipCaseOwnerS2CPacket::toBytes)
-                .consumerMainThread(SyncTipCaseOwnerS2CPacket::handle)
+        net.messageBuilder(SyncOwnableBEPacketS2C.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(SyncOwnableBEPacketS2C::new)
+                .encoder(SyncOwnableBEPacketS2C::toBytes)
+                .consumerMainThread(SyncOwnableBEPacketS2C::handle)
                 .add();
     }
     public static <MSG> void sendToServer(MSG message) {

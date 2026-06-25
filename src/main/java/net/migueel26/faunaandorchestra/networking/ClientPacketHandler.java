@@ -1,10 +1,10 @@
 package net.migueel26.faunaandorchestra.networking;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
-import net.migueel26.faunaandorchestra.block.ModBlocks;
-import net.migueel26.faunaandorchestra.block.entity.TipCaseBlockEntity;
+import net.migueel26.faunaandorchestra.block.entity.OwnableBlockEntity;
 import net.migueel26.faunaandorchestra.entity.custom.*;
 import net.migueel26.faunaandorchestra.entity.custom.boss.TheGreatComposer;
+import net.migueel26.faunaandorchestra.entity.custom.jazzy_dammys.DanB;
 import net.migueel26.faunaandorchestra.mixins.client.accessors.ClientLevelAccessor;
 import net.migueel26.faunaandorchestra.mixins.interfaces.ISoundManagerMixin;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
@@ -18,16 +18,12 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.List;
@@ -85,7 +81,7 @@ public class ClientPacketHandler {
                 List<MusicalEntity> orchestra = UUIDorchestra.stream().map(uuid -> (MusicalEntity) level.callGetEntities().get(uuid)).toList();
                 for (MusicalEntity musician : orchestra) {
                     // For each musician, we get the location of its song
-                    ResourceLocation musician_song = new ResourceLocation(FaunaAndOrchestra.MOD_ID,
+                    ResourceLocation musician_song = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID,
                             MusicUtil.getLocation(newSheetMusic, musician.getInstrument().get()));
 
                     // We stop all current instrument sounds
@@ -126,15 +122,20 @@ public class ClientPacketHandler {
                 Minecraft.getInstance().getSoundManager().play(new FrogSongSoundInstance(
                         ModSounds.FROG_SONG.get(),
                         quirkyFrog));
-            } else if (musician instanceof TravellingMusician travellingMusician) {
+            } else if (musician instanceof Faust faust) {
                 Minecraft.getInstance().getSoundManager().play(new TravellingMusicianSoundInstance(
                         ModSounds.RINGTAILS_SONG.get(),
-                        travellingMusician
+                        faust
                 ));
             } else if (musician instanceof TheGreatComposer theGreatComposer) {
                 SoundEvent soundEvent = theGreatComposer.isFinalPhase() ? ModSounds.THE_GREAT_COMPOSER_FINAL_THEME.get() : ModSounds.THE_GREAT_COMPOSER_THEME.get();
                 Minecraft.getInstance().getSoundManager().play(new BossSoundInstance(
                         soundEvent, theGreatComposer
+                ));
+            } else if (musician instanceof DanB danB) {
+                Minecraft.getInstance().getSoundManager().play(new TravellingMusicianSoundInstance(
+                        ModSounds.JAZZY_DAMMYS_SONG.get(),
+                        danB
                 ));
             } else {
                 System.err.println("The UUID in the StartAmbientMusicPayload is for an entity that does not exist");
@@ -160,15 +161,15 @@ public class ClientPacketHandler {
         gui.setSubtitle(Component.literal(subtitle).withStyle(ChatFormatting.GREEN));
     }
 
-    public static void handleSyncTipCaseOnNetwork(UUID uuid, int x, int y, int z) {
+    public static void handleSyncOwnableBEOnNetwork(UUID uuid, int x, int y, int z) {
         BlockPos blockPos = new BlockPos(x, y, z);
         ClientLevel level = Minecraft.getInstance().level;
 
-        BlockState state = level.getBlockState(blockPos);
-        Entity entity = ((ClientLevelAccessor) level).callGetEntities().get(uuid);
-        if (state.getBlock() == ModBlocks.TIP_CASE.get() && entity != null) {
-            BlockEntity blockEntity = level.getBlockEntity(blockPos);
-            ((TipCaseBlockEntity) blockEntity).setOwner(uuid);
+        if (level != null) {
+            Entity entity = ((ClientLevelAccessor) level).callGetEntities().get(uuid);
+            if (entity != null && level.getBlockEntity(blockPos) instanceof OwnableBlockEntity be) {
+                be.setOwner(uuid);
+            }
         }
     }
 }

@@ -2,10 +2,10 @@ package net.migueel26.faunaandorchestra.screen.custom;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
-import net.migueel26.faunaandorchestra.networking.MailbirdFlyAwayC2SPayload;
+import net.migueel26.faunaandorchestra.networking.ModNetwork;
+import net.migueel26.faunaandorchestra.networking.packets.MailbirdFlyAwayC2SPacket;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
-import net.minecraft.client.gui.components.ImageWidget;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -37,7 +37,7 @@ public class MailboxScreen extends AbstractContainerScreen<MailboxMenu> {
         int y = (height - imageHeight) / 2;
 
         this.sendButton = new ExtendedButton(x + 66, y + 53, 54, 15, Component.translatable("block.faunaandorchestra.mailbox.send"), onPress -> {
-            PacketDistributor.sendToServer(new MailbirdFlyAwayC2SPayload(menu.blockEntity.getBlockPos()));
+            ModNetwork.sendToServer(new MailbirdFlyAwayC2SPacket(menu.blockEntity.getBlockPos()));
             minecraft.player.closeContainer();
         });
 

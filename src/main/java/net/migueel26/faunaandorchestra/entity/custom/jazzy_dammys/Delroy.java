@@ -3,20 +3,14 @@ package net.migueel26.faunaandorchestra.entity.custom.jazzy_dammys;
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.entity.custom.TravellingMusician;
 import net.migueel26.faunaandorchestra.entity.goals.JazzyDammysRunAwayGoal;
-import net.migueel26.faunaandorchestra.networking.StartAmbientMusicS2CPayload;
-import net.migueel26.faunaandorchestra.networking.StopMusicS2CPayload;
-import net.migueel26.faunaandorchestra.util.ModSavedData;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.npc.Npc;
 import net.minecraft.world.entity.player.Player;
@@ -27,9 +21,6 @@ import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.util.GeckoLibUtil;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Delroy extends TravellingMusician implements Npc, GeoEntity {
     // ANIMATION

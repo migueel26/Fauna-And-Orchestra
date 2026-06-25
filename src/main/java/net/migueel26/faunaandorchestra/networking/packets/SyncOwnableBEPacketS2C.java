@@ -7,22 +7,26 @@ import net.minecraftforge.network.NetworkEvent;
 import java.util.UUID;
 import java.util.function.Supplier;
 
-public record StopMusicS2CPacket(UUID entityUUID) {
+public record SyncOwnableBEPacketS2C(int x, int y, int z, UUID owner) {
 
-    public StopMusicS2CPacket(FriendlyByteBuf buf) {
-        this(buf.readUUID());
+    public SyncOwnableBEPacketS2C(FriendlyByteBuf buf) {
+        this(buf.readInt(), buf.readInt(), buf.readInt(), buf.readUUID());
     }
 
     public void toBytes(FriendlyByteBuf buf) {
-        buf.writeUUID(entityUUID);
+        buf.writeInt(this.x);
+        buf.writeInt(this.y);
+        buf.writeInt(this.z);
+        buf.writeUUID(this.owner);
     }
 
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
         NetworkEvent.Context context = supplier.get();
 
         context.enqueueWork(() -> {
-            ClientPacketHandler.handleStopMusicOnNetwork(
-                    entityUUID()
+            ClientPacketHandler.handleSyncOwnableBEOnNetwork(
+                    owner,
+                    x, y, z
             );
         });
 
