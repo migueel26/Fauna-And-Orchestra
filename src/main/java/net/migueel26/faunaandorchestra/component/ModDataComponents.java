@@ -19,10 +19,6 @@ public class ModDataComponents {
     public static final DeferredRegister<DataComponentType<?>> DATA_COMPONENT_TYPES =
             DeferredRegister.create(BuiltInRegistries.DATA_COMPONENT_TYPE, FaunaAndOrchestra.MOD_ID);
     public static final int MAX_SIZE = 6;
-
-        public static final DeferredHolder<DataComponentType<?>, DataComponentType<UUID>> MUSICIAN_UUID = register("musician_uuid",
-            builder -> builder.persistent(UUIDUtil.CODEC));
-
         public static final DeferredHolder<DataComponentType<?>, DataComponentType<String>> FAUNA_NAME = register("whistle_name",
                 builder -> builder.persistent(Codec.STRING));
 
@@ -37,16 +33,8 @@ public class ModDataComponents {
 
         public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> LIST_INDEX = register("index_list",
                 builder -> builder.persistent(Codec.INT));
-
-        public static String POSITION = "target_position";
-        public static String SENDER = "sender";
-        public static String RECEIVER = "receiver";
-
-    private static <T> DeferredHolder<DataComponentType<?>, DataComponentType<T>> register(String name, UnaryOperator<DataComponentType.Builder<T>> builderOperator) {
-        return DATA_COMPONENT_TYPES.register(name, () -> builderOperator.apply(DataComponentType.builder()).build());
-    }
-
-    public static void register(IEventBus eventBus) {
-        DATA_COMPONENT_TYPES.register(eventBus);
-    }
+    public static final String MUSICIAN_UUID = "MusicianUUID";
+    public static String POSITION = "target_position";
+    public static String SENDER = "sender";
+    public static String RECEIVER = "receiver";
 }

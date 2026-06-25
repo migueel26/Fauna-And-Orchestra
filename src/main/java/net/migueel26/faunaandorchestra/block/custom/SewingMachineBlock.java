@@ -16,7 +16,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -48,7 +48,6 @@ import java.util.List;
 import java.util.UUID;
 
 public class SewingMachineBlock extends HorizontalDirectionalBlock implements EntityBlock {
-    public static final MapCodec<SewingMachineBlock> CODEC = simpleCodec(SewingMachineBlock::new);
     public static final EnumProperty<BedPart> PART = BlockStateProperties.BED_PART;
     public static final BooleanProperty OCCUPIED = BlockStateProperties.OCCUPIED;
     public static final BooleanProperty SEWING = BooleanProperty.create("sewing");
@@ -74,7 +73,7 @@ public class SewingMachineBlock extends HorizontalDirectionalBlock implements En
     }
 
     @Override
-    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return switch (state.getValue(PART)) {
             case HEAD -> SHAPE_TABLE;
             case FOOT -> switch (state.getValue(FACING)) {
@@ -87,7 +86,8 @@ public class SewingMachineBlock extends HorizontalDirectionalBlock implements En
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        ItemStack stack = player.getItemInHand(hand);
         BlockPos tablePos = pos;
         if (state.getValue(PART) == BedPart.FOOT) {
             tablePos = pos.relative(state.getValue(FACING));
@@ -95,23 +95,23 @@ public class SewingMachineBlock extends HorizontalDirectionalBlock implements En
         if (level.getBlockEntity(tablePos) instanceof SewingMachineBlockEntity blockEntity) {
             if (stack.is(ModTags.Items.IS_BATON)) {
                 // ASSIGN
-                if (!level.isClientSide()) {
-                    UUID uuid = stack.get(ModDataComponents.MUSICIAN_UUID);
+                if (!level.isClientSide() && stack.hasTag() && stack.getTag().contains(ModDataComponents.MUSICIAN_UUID)) {
+                    UUID uuid = stack.getTag().getUUID(ModDataComponents.MUSICIAN_UUID);
                     if (uuid != null && level instanceof ServerLevel serverLevel) {
                         Entity entity = serverLevel.getEntity(uuid);
                         if (entity instanceof TailorKoalaEntity koala && koala.isAlive() && entity.distanceToSqr(pos.getCenter()) < 150) {
                             // We clear the UUID
-                            stack.set(ModDataComponents.MUSICIAN_UUID, null);
+                            stack.getTag().remove(ModDataComponents.MUSICIAN_UUID);
                             BlockPos stoolPos = pos.equals(tablePos) ? pos.relative(state.getValue(FACING)) : pos;
 
-                            koala.getNavigation().moveTo(stoolPos.getCenter().x, stoolPos.getY(), stoolPos.getCenter().z, 0, 1.0f);
+                            koala.getNavigation().moveTo(stoolPos.getCenter().x, stoolPos.getY(), stoolPos.getCenter().z, 1.0f);
                         }
                     }
                 }
-                return ItemInteractionResult.SUCCESS;
+                return InteractionResult.SUCCESS;
             } else if (state.getValue(SEWING)) {
                 player.displayClientMessage(Component.translatable("block.faunaandorchestra.sewing_machine.is_sewing"), true);
-                return ItemInteractionResult.CONSUME_PARTIAL;
+                return InteractionResult.CONSUME_PARTIAL;
             } else {
                 // EMPTY HAND AND NOT SEWING
                 blockEntity.oops();
@@ -122,15 +122,15 @@ public class SewingMachineBlock extends HorizontalDirectionalBlock implements En
                             tablePos.getCenter().x, tablePos.getCenter().y, tablePos.getCenter().z, 5, 0.3f, 0.2f, 0.3f, 1.0f);
                 }
 
-                return ItemInteractionResult.SUCCESS;
+                return InteractionResult.SUCCESS;
             }
         }
 
-        return ItemInteractionResult.FAIL;
+        return InteractionResult.FAIL;
     }
 
     @Override
-    protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
+    public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
         boolean occupied = state.getValue(OCCUPIED);
         // We set the working station to the koala when it arrives the stool
         if (state.getValue(PART) == BedPart.FOOT && entity instanceof TailorKoalaEntity koala && !koala.hasWorkingStation() && !occupied) {
@@ -177,17 +177,12 @@ public class SewingMachineBlock extends HorizontalDirectionalBlock implements En
     }
 
     @Override
-    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
-        return CODEC;
-    }
-
-    @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
         return new SewingMachineBlockEntity(blockPos, blockState);
     }
 
     @Override
-    protected @NotNull BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
+    public @NotNull BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
         if (direction == getNeighbourDirection(state.getValue(PART), state.getValue(FACING))) {
             if (neighborState.is(this) && neighborState.getValue(PART) != state.getValue(PART)) {
                 return state.setValue(SEWING, neighborState.getValue(SEWING))
@@ -200,7 +195,7 @@ public class SewingMachineBlock extends HorizontalDirectionalBlock implements En
     }
 
     @Override
-    protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+    public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         level.setBlock(pos, state.setValue(SewingMachineBlock.SEWING, false).setValue(SewingMachineBlock.OCCUPIED, false), 3);
         super.tick(state, level, pos, random);
     }
@@ -256,7 +251,7 @@ public class SewingMachineBlock extends HorizontalDirectionalBlock implements En
     }
 
     @Override
-    protected RenderShape getRenderShape(BlockState state) {
+    public RenderShape getRenderShape(BlockState state) {
         return RenderShape.ENTITYBLOCK_ANIMATED;
     }
 
@@ -265,13 +260,13 @@ public class SewingMachineBlock extends HorizontalDirectionalBlock implements En
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack stack, BlockGetter blockGetter, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         if (Screen.hasShiftDown()) {
             tooltipComponents.add(Component.translatable("block.faunaandorchestra.sewing_machine.tooltip"));
         } else {
             tooltipComponents.add(Component.translatable("tooltip.faunaandorchestra.shift"));
         }
-        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+        super.appendHoverText(stack, blockGetter, tooltipComponents, tooltipFlag);
     }
 
     @Override

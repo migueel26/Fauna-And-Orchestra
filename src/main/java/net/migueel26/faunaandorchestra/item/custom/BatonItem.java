@@ -1,5 +1,6 @@
 package net.migueel26.faunaandorchestra.item.custom;
 
+import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class BatonItem extends Item {
+
     public BatonItem(Properties properties) {
         super(properties);
     }
@@ -25,16 +27,16 @@ public class BatonItem extends Item {
     public static void setMusicianUUID(ItemStack stack, UUID uuid) {
         if (uuid == null) {
             if (stack.hasTag()) {
-                stack.getTag().remove("MusicianUUID");
+                stack.getTag().remove(ModDataComponents.MUSICIAN_UUID);
             }
         } else {
-            stack.getOrCreateTag().putUUID("MusicianUUID", uuid);
+            stack.getOrCreateTag().putUUID(ModDataComponents.MUSICIAN_UUID, uuid);
         }
     }
 
     public static UUID getMusicianUUID(ItemStack stack) {
-        if (stack.hasTag() && stack.getTag().contains("MusicianUUID")) {
-            return stack.getTag().getUUID("MusicianUUID");
+        if (stack.hasTag() && stack.getTag().contains(ModDataComponents.MUSICIAN_UUID)) {
+            return stack.getTag().getUUID(ModDataComponents.MUSICIAN_UUID);
         }
         return null;
     }
