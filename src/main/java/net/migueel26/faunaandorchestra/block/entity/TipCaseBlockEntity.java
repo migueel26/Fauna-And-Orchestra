@@ -18,8 +18,9 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.UUID;
 
-public class TipCaseBlockEntity extends BlockEntity implements GeoBlockEntity {
-    UUID owner;
+public class TipCaseBlockEntity extends OwnableBlockEntity implements GeoBlockEntity {
+    private int tips = 0;
+
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
     public TipCaseBlockEntity(BlockPos pos, BlockState blockState) {
         super(ModBlockEntities.TIP_CASE_BE.get(), pos, blockState);
@@ -28,28 +29,14 @@ public class TipCaseBlockEntity extends BlockEntity implements GeoBlockEntity {
 
     @Override
     public void load(CompoundTag tag) {
-        if (tag.hasUUID("Owner")) {
-            this.owner = tag.getUUID("Owner");
-        }
+        this.tips = tag.getInt("Tips");
         super.load(tag);
     }
 
     @Override
     public void saveAdditional(CompoundTag tag) {
-        if (owner != null) tag.putUUID("Owner", owner);
+        tag.putInt("Tips", tips);
         super.saveAdditional(tag);
-    }
-
-    public UUID getOwner() {
-        return owner;
-    }
-
-    public void setOwner(@Nullable UUID owner) {
-        this.owner = owner;
-        ModNetwork.sendToClients(new SyncOwnableBEPacketS2C(
-                worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(),
-                owner));
-        markUpdated();
     }
 
     @Nullable
@@ -60,14 +47,18 @@ public class TipCaseBlockEntity extends BlockEntity implements GeoBlockEntity {
 
     @Override
     public CompoundTag getUpdateTag() {
-        CompoundTag compoundTag = new CompoundTag();
-        compoundTag.putUUID("Owner", owner);
-        return compoundTag;
+        CompoundTag tag = super.getUpdateTag();
+        tag.putInt("Tips", tips);
+        return tag;
     }
 
-    private void markUpdated() {
-        this.setChanged();
-        this.getLevel().sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 3);
+    public int getTips() {
+        return tips;
+    }
+
+    public void setTips(int tips) {
+        this.tips = tips;
+        markUpdated();
     }
 
     @Override
