@@ -1,6 +1,5 @@
 package net.migueel26.faunaandorchestra.block.custom;
 
-import net.migueel26.faunaandorchestra.block.entity.FloraEnhancerBlockEntity;
 import net.migueel26.faunaandorchestra.entity.custom.ConductorEntity;
 import net.migueel26.faunaandorchestra.entity.custom.ListeningBlockEntity;
 import net.migueel26.faunaandorchestra.util.MusicUtil;

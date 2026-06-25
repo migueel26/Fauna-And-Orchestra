@@ -3,6 +3,7 @@ package net.migueel26.faunaandorchestra.block.custom;
 import com.mojang.serialization.MapCodec;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.block.entity.ListenerBlockEntity;
+import net.migueel26.faunaandorchestra.block.entity.ListenerContainerBlockEntity;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
@@ -56,16 +57,18 @@ public class ListenerBlock extends HorizontalDirectionalBlock implements EntityB
         BlockState listenerContainerState = level.getBlockState(pos.below());
 
         if (!oldState.is(ModBlocks.LISTENER.get())
-                && listenerContainerState.is(ModBlocks.LISTENER_CONTAINER.get())
-                && listenerContainerState.getValue(ListenerContainerBlock.BOTTLE)) {
-            level.scheduleTick(pos.below(), listenerContainerState.getBlock(), ListenerContainerBlock.NEXT_TICK_SCHEDULED);
+                && listenerContainerState.is(ModBlocks.LISTENER_CONTAINER.get())) {
             if (!level.isClientSide()) {
                 ((ServerLevel) level).sendParticles(ParticleTypes.POOF, pos.getCenter().x, pos.getY() + 0.5, pos.getCenter().z, 25, 0.1, 0.5, 0.1, 0.2);
                 level.playSound(null, pos, SoundEvents.ANVIL_USE, SoundSource.BLOCKS, 1.0F, 2.0F);
             }
+            if (level.getBlockEntity(pos.below()) instanceof ListenerContainerBlockEntity listenerContainerBE
+                    && listenerContainerBE.isListening() && listenerContainerState.getValue(ListenerContainerBlock.BOTTLE)) {
+                level.setBlock(pos, state.setValue(LISTENING, true), 3);
+            }
+        } else {
+            super.onPlace(state, level, pos, oldState, movedByPiston);
         }
-
-        super.onPlace(state, level, pos, oldState, movedByPiston);
     }
 
     @Nullable
