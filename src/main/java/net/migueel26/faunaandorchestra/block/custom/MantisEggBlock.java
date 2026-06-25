@@ -1,12 +1,9 @@
 package net.migueel26.faunaandorchestra.block.custom;
 
-import com.mojang.serialization.MapCodec;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.entity.custom.MantisEntity;
 import net.migueel26.faunaandorchestra.entity.custom.variants.MantisVariant;
-import net.migueel26.faunaandorchestra.item.ModItems;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -23,7 +20,6 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.TurtleEggBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -31,12 +27,11 @@ import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.event.EventHooks;
+import net.minecraftforge.event.ForgeEventFactory;
 
 import javax.annotation.Nullable;
 
 public class MantisEggBlock extends Block {
-    public static final MapCodec<TurtleEggBlock> CODEC = simpleCodec(TurtleEggBlock::new);
     public static final int MAX_HATCH_LEVEL = 2;
     public static final int MIN_EGGS = 1;
     public static final int MAX_EGGS = 4;
@@ -49,9 +44,6 @@ public class MantisEggBlock extends Block {
     public static final BooleanProperty FATHER_MUSICAL;
     public static final BooleanProperty MOTHER_MUSICAL;
 
-    public MapCodec<TurtleEggBlock> codec() {
-        return CODEC;
-    }
     public MantisEggBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any()
@@ -99,7 +91,8 @@ public class MantisEggBlock extends Block {
 
     }
 
-    protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+    @Override
+    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         if (this.shouldUpdateHatchLevel(level) && onLand(level, pos)) {
             int i = state.getValue(HATCH);
             if (i < 2) {
@@ -158,7 +151,8 @@ public class MantisEggBlock extends Block {
         return reader.getBlockState(pos).is(BlockTags.FROGS_SPAWNABLE_ON);
     }
 
-    protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean isMoving) {
+    @Override
+    public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean isMoving) {
         if (onLand(level, pos) && !level.isClientSide) {
             level.levelEvent(2012, pos, 15);
         }
@@ -175,7 +169,8 @@ public class MantisEggBlock extends Block {
         this.decreaseEggs(level, pos, state);
     }
 
-    protected boolean canBeReplaced(BlockState state, BlockPlaceContext useContext) {
+    @Override
+    public boolean canBeReplaced(BlockState state, BlockPlaceContext useContext) {
         return !useContext.isSecondaryUseActive() && useContext.getItemInHand().is(this.asItem()) && state.getValue(EGGS) < 4 ? true : super.canBeReplaced(state, useContext);
     }
 
@@ -185,7 +180,8 @@ public class MantisEggBlock extends Block {
         return blockstate.is(this) ? blockstate.setValue(EGGS, Math.min(4, blockstate.getValue(EGGS) + 1)) : super.getStateForPlacement(context);
     }
 
-    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+    @Override
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return state.getValue(EGGS) > 1 ? MULTIPLE_EGGS_AABB : ONE_EGG_AABB;
     }
 
@@ -195,7 +191,7 @@ public class MantisEggBlock extends Block {
 
     private boolean canDestroyEgg(Level level, Entity entity) {
         if (!(entity instanceof Turtle) && !(entity instanceof Bat)) {
-            return !(entity instanceof LivingEntity) ? false : entity instanceof Player || EventHooks.canEntityGrief(level, entity);
+            return !(entity instanceof LivingEntity) ? false : entity instanceof Player || ForgeEventFactory.getMobGriefingEvent(level, entity);
         } else {
             return false;
         }
