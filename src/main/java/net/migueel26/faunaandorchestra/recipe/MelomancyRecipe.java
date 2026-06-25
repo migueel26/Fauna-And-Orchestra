@@ -1,21 +1,24 @@
 package net.migueel26.faunaandorchestra.recipe;
 
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.network.codec.StreamCodec;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.Level;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public record MelomancyRecipe(List<SizedIngredient> ingredients, ItemStack catalyst, ItemStack output) implements Recipe<MelomancyRecipe.RecipeInput> {
+public record MelomancyRecipe(ResourceLocation id, List<SizedIngredient> ingredients, ItemStack catalyst, ItemStack output) implements Recipe<MelomancyRecipe.RecipeInput> {
     @Override
     public boolean matches(MelomancyRecipe.RecipeInput input, Level level) {
         /* The catalyst matching is handled by the block
@@ -28,7 +31,7 @@ public record MelomancyRecipe(List<SizedIngredient> ingredients, ItemStack catal
     }
 
     public boolean matchesIngredientsOnly(MelomancyRecipe.RecipeInput input) {
-        List<ItemStack> inputItems = input.items().stream().filter(s -> !s.isEmpty()).toList();
+        List<ItemStack> inputItems = input.getItems().stream().filter(s -> !s.isEmpty()).toList();
 
         if (inputItems.size() != this.ingredients.size()) return false;
 
@@ -52,7 +55,7 @@ public record MelomancyRecipe(List<SizedIngredient> ingredients, ItemStack catal
     }
 
     @Override
-    public ItemStack assemble(MelomancyRecipe.RecipeInput melomancyInput, HolderLookup.Provider provider) {
+    public ItemStack assemble(RecipeInput recipeInput, RegistryAccess registryAccess) {
         return output.copy();
     }
 
@@ -62,8 +65,13 @@ public record MelomancyRecipe(List<SizedIngredient> ingredients, ItemStack catal
     }
 
     @Override
-    public ItemStack getResultItem(HolderLookup.Provider provider) {
+    public ItemStack getResultItem(RegistryAccess registryAccess) {
         return output;
+    }
+
+    @Override
+    public ResourceLocation getId() {
+        return this.id;
     }
 
     @Override
@@ -76,40 +84,65 @@ public record MelomancyRecipe(List<SizedIngredient> ingredients, ItemStack catal
         return ModRecipes.MELOMANCY_TYPE.get();
     }
 
-    public record RecipeInput(List<ItemStack> items, ItemStack catalyst) implements net.minecraft.world.item.crafting.RecipeInput {
-        @Override
-        public ItemStack getItem(int index) {
-            return items.get(index);
+    public static class RecipeInput extends SimpleContainer {
+        public final ItemStack catalyst;
+
+        public RecipeInput(List<ItemStack> items, ItemStack catalyst) {
+            super(items.toArray(new ItemStack[0]));
+            this.catalyst = catalyst;
         }
 
-        @Override
-        public int size() {
-            return items.size();
+        public List<ItemStack> getItems() {
+            List<ItemStack> list = new ArrayList<>();
+            for (int i = 0; i < this.getContainerSize(); i++) {
+                list.add(this.getItem(i));
+            }
+            return list;
         }
     }
 
     public static class Serializer implements RecipeSerializer<MelomancyRecipe> {
-        public static final MapCodec<MelomancyRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
-                SizedIngredient.CODEC.codec().listOf().fieldOf("ingredients").forGetter(MelomancyRecipe::ingredients),
-                ItemStack.STRICT_CODEC.optionalFieldOf("catalyst", ItemStack.EMPTY).forGetter(MelomancyRecipe::catalyst),
-                ItemStack.STRICT_CODEC.fieldOf("result").forGetter(MelomancyRecipe::output)
-        ).apply(inst, MelomancyRecipe::new));
-
-        public static final StreamCodec<RegistryFriendlyByteBuf, MelomancyRecipe> STREAM_CODEC = StreamCodec.composite(
-                SizedIngredient.STREAM_CODEC.apply(ByteBufCodecs.list()), MelomancyRecipe::ingredients,
-                ItemStack.OPTIONAL_STREAM_CODEC, MelomancyRecipe::catalyst,
-                ItemStack.STREAM_CODEC, MelomancyRecipe::output,
-                MelomancyRecipe::new
-        );
-
         @Override
-        public MapCodec<MelomancyRecipe> codec() {
-            return CODEC;
+        public MelomancyRecipe fromJson(ResourceLocation id, JsonObject json) {
+            JsonArray ingredientsJson = GsonHelper.getAsJsonArray(json, "ingredients");
+            List<SizedIngredient> ingredients = new ArrayList<>();
+            for (JsonElement element : ingredientsJson) {
+                ingredients.add(SizedIngredient.fromJson(element.getAsJsonObject()));
+            }
+
+            ItemStack catalyst = ItemStack.EMPTY;
+            if (json.has("catalyst")) {
+                catalyst = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "catalyst"));
+            }
+
+            ItemStack result = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "result"));
+
+            return new MelomancyRecipe(id, ingredients, catalyst, result);
         }
 
         @Override
-        public StreamCodec<RegistryFriendlyByteBuf, MelomancyRecipe> streamCodec() {
-            return STREAM_CODEC;
+        public MelomancyRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buf) {
+            int size = buf.readVarInt();
+            List<SizedIngredient> ingredients = new ArrayList<>(size);
+            for (int i = 0; i < size; i++) {
+                ingredients.add(SizedIngredient.fromNetwork(buf));
+            }
+
+            ItemStack catalyst = buf.readItem();
+            ItemStack result = buf.readItem();
+
+            return new MelomancyRecipe(id, ingredients, catalyst, result);
+        }
+
+        @Override
+        public void toNetwork(FriendlyByteBuf buf, MelomancyRecipe recipe) {
+            buf.writeVarInt(recipe.ingredients().size());
+            for (SizedIngredient ingredient : recipe.ingredients()) {
+                ingredient.toNetwork(buf);
+            }
+
+            buf.writeItem(recipe.catalyst());
+            buf.writeItem(recipe.output());
         }
     }
 }

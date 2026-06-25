@@ -1,16 +1,19 @@
 package net.migueel26.faunaandorchestra.recipe;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.core.HolderSet;
-import net.minecraft.core.RegistryCodecs;
+import net.minecraft.core.*;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
@@ -20,14 +23,14 @@ import net.minecraft.world.level.block.state.BlockState;
 import java.util.ArrayList;
 import java.util.List;
 
-public record NaturalRecipe(List<SizedIngredient> ingredients, ItemStack output, HolderSet<Block> fuel, int time) implements Recipe<NaturalRecipe.RecipeInput> {
+public record NaturalRecipe(ResourceLocation id, List<SizedIngredient> ingredients, ItemStack output, HolderSet<Block> fuel, int time) implements Recipe<NaturalRecipe.RecipeInput> {
     @Override
     public boolean matches(RecipeInput input, Level level) {
-        if (!input.fuel().is(this.fuel)) {
+        if (!input.fuel.is(this.fuel)) {
             return false;
         }
 
-        List<ItemStack> inputs = new ArrayList<>(input.items());
+        List<ItemStack> inputs = new ArrayList<>(input.getItems());
         inputs.removeIf(ItemStack::isEmpty);
 
         for (SizedIngredient required : this.ingredients) {
@@ -52,7 +55,7 @@ public record NaturalRecipe(List<SizedIngredient> ingredients, ItemStack output,
     }
 
     @Override
-    public ItemStack assemble(RecipeInput recipeInput, HolderLookup.Provider provider) {
+    public ItemStack assemble(RecipeInput recipeInput, RegistryAccess registryAccess) {
         return output.copy();
     }
 
@@ -62,8 +65,13 @@ public record NaturalRecipe(List<SizedIngredient> ingredients, ItemStack output,
     }
 
     @Override
-    public ItemStack getResultItem(HolderLookup.Provider provider) {
+    public ItemStack getResultItem(RegistryAccess registryAccess) {
         return output;
+    }
+
+    @Override
+    public ResourceLocation getId() {
+        return this.id;
     }
 
     @Override
@@ -76,42 +84,82 @@ public record NaturalRecipe(List<SizedIngredient> ingredients, ItemStack output,
         return ModRecipes.NATURAL_TYPE.get();
     }
 
-    public record RecipeInput(List<ItemStack> items, BlockState fuel) implements net.minecraft.world.item.crafting.RecipeInput {
-        @Override
-        public ItemStack getItem(int index) {
-            return items.get(index);
+    public static class RecipeInput extends SimpleContainer {
+        public final BlockState fuel;
+        public RecipeInput(List<ItemStack> items, BlockState fuel) {
+            super(items.toArray(new ItemStack[0]));
+            this.fuel = fuel;
         }
 
-        @Override
-        public int size() {
-            return items.size();
+        public List<ItemStack> getItems() {
+            List<ItemStack> list = new ArrayList<>();
+            for (int i = 0; i < this.getContainerSize(); i++) {
+                list.add(this.getItem(i));
+            }
+            return list;
         }
     }
 
     public static class Serializer implements RecipeSerializer<NaturalRecipe> {
-        public static final MapCodec<NaturalRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
-                SizedIngredient.CODEC.codec().listOf().fieldOf("ingredients").forGetter(NaturalRecipe::ingredients),
-                ItemStack.STRICT_CODEC.fieldOf("result").forGetter(NaturalRecipe::output),
-                RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("fuel").forGetter(NaturalRecipe::fuel),
-                Codec.INT.fieldOf("time").forGetter(NaturalRecipe::time)
-        ).apply(inst, NaturalRecipe::new));
-
-        public static final StreamCodec<RegistryFriendlyByteBuf, NaturalRecipe> STREAM_CODEC = StreamCodec.composite(
-                SizedIngredient.STREAM_CODEC.apply(ByteBufCodecs.list()), NaturalRecipe::ingredients,
-                ItemStack.STREAM_CODEC, NaturalRecipe::output,
-                ByteBufCodecs.holderSet(Registries.BLOCK), NaturalRecipe::fuel,
-                ByteBufCodecs.VAR_INT, NaturalRecipe::time,
-                NaturalRecipe::new
-        );
-
         @Override
-        public MapCodec<NaturalRecipe> codec() {
-            return CODEC;
+        public NaturalRecipe fromJson(ResourceLocation id, JsonObject json) {
+            JsonArray ingredientsJson = GsonHelper.getAsJsonArray(json, "ingredients");
+            List<SizedIngredient> ingredients = new ArrayList<>();
+            for (JsonElement element : ingredientsJson) {
+                ingredients.add(SizedIngredient.fromJson(element.getAsJsonObject()));
+            }
+
+            JsonObject resultJson = GsonHelper.getAsJsonObject(json, "result");
+            ItemStack result = ShapedRecipe.itemStackFromJson(resultJson);
+
+            com.google.gson.JsonElement fuelJson = json.get("fuel");
+            HolderSet<Block> fuel = BuiltInRegistries.BLOCK
+                    .getOrCreateTag(TagKey.create(Registries.BLOCK,
+                            ResourceLocation.parse(fuelJson.getAsString().replace("#", ""))));
+
+            int time = GsonHelper.getAsInt(json, "time");
+
+            return new NaturalRecipe(id, ingredients, result, fuel, time);
         }
 
         @Override
-        public StreamCodec<RegistryFriendlyByteBuf, NaturalRecipe> streamCodec() {
-            return STREAM_CODEC;
+        public NaturalRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buf) {
+            int size = buf.readVarInt();
+            List<SizedIngredient> ingredients = new ArrayList<>(size);
+            for (int i = 0; i < size; i++) {
+                ingredients.add(SizedIngredient.fromNetwork(buf));
+            }
+
+            ItemStack result = buf.readItem();
+
+            int fuelSize = buf.readVarInt();
+            List<Holder<Block>> holders = new ArrayList<>(fuelSize);
+            for (int i = 0; i < fuelSize; i++) {
+                int blockId = buf.readVarInt();
+                BuiltInRegistries.BLOCK.getHolder(blockId).ifPresent(holders::add);
+            }
+            HolderSet<Block> fuel = HolderSet.direct(holders);
+
+            int time = buf.readVarInt();
+
+            return new NaturalRecipe(id, ingredients, result, fuel, time);
+        }
+
+        @Override
+        public void toNetwork(FriendlyByteBuf buf, NaturalRecipe recipe) {
+            buf.writeVarInt(recipe.ingredients().size());
+            for (SizedIngredient ingredient : recipe.ingredients()) {
+                ingredient.toNetwork(buf);
+            }
+
+            buf.writeItem(recipe.output());
+
+            buf.writeVarInt(recipe.fuel().size());
+            for (Holder<Block> holder : recipe.fuel()) {
+                buf.writeVarInt(BuiltInRegistries.BLOCK.getId(holder.value()));
+            }
+
+            buf.writeVarInt(recipe.time());
         }
     }
 }

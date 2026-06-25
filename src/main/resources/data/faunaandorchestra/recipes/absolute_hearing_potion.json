@@ -24,8 +24,6 @@
   "result": {
     "item": "minecraft:potion",
     "count": 1,
-    "components": {
-      "minecraft:potion_contents": "faunaandorchestra:absolute_hearing_potion"
-    }
+    "nbt": "{Potion:\"faunaandorchestra:absolute_hearing_potion\"}"
   }
 }
