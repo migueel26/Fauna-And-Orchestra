@@ -3,7 +3,6 @@ package net.migueel26.faunaandorchestra.block.entity;
 import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.block.ModBlockEntities;
 import net.migueel26.faunaandorchestra.block.custom.MotherStatueBlock;
-import net.migueel26.faunaandorchestra.entity.custom.MusicalEntity;
 import net.migueel26.faunaandorchestra.entity.custom.RedPandaEntity;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
@@ -21,15 +20,18 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LightningBolt;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.*;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.UUID;
@@ -70,7 +72,7 @@ public class MotherStatueBlockEntity extends BlockEntity implements GeoBlockEnti
 
                 if (animationTick % 20 == 0) {
                     level.playSound(null, pos, ModSounds.VESSEL_COLLECT.get(), SoundSource.NEUTRAL, 1.0f, 1.0f);
-                    PlayerUtil.spawnParticlesFromTo(ParticleTypes.CLOUD, 1, serverLevel, pos.getBottomCenter().add(0,1,0), redPanda.getEyePosition());
+                    PlayerUtil.spawnParticlesFromTo(ParticleTypes.CLOUD, 1, serverLevel, Vec3.atBottomCenterOf(pos).add(0,1,0), redPanda.getEyePosition());
                     fixRedPandaLookAtStatue(state, redPanda);
                 }
 
@@ -94,7 +96,7 @@ public class MotherStatueBlockEntity extends BlockEntity implements GeoBlockEnti
                     motherStatue.setAnimationTick(0);
 
                     if (redPanda.getOwner() != null) {
-                        ModAdvancements.FIRST_RESOLVED_MYTH.get().trigger((ServerPlayer) redPanda.getOwner());
+                        ModAdvancements.FIRST_RESOLVED_MYTH.trigger((ServerPlayer) redPanda.getOwner());
                     }
 
                     return;
@@ -162,7 +164,7 @@ public class MotherStatueBlockEntity extends BlockEntity implements GeoBlockEnti
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+    public void load(CompoundTag tag) {
         if (tag.contains("IsPlayingDiskAnimation")) {
             this.isPlayingDiskAnimation = tag.getBoolean("IsPlayingDiskAnimation");
         }
@@ -172,17 +174,17 @@ public class MotherStatueBlockEntity extends BlockEntity implements GeoBlockEnti
         if (tag.contains("AnimationTick")) {
             this.animationTick = tag.getInt("AnimationTick");
         }
-        super.loadAdditional(tag, registries);
+        super.load(tag);
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+    protected void saveAdditional(CompoundTag tag) {
         tag.putBoolean("IsPlayingDiskAnimation", this.isPlayingDiskAnimation);
         if (redPandaUUID != null) {
             tag.putUUID("RedPandaUUID", this.redPandaUUID);
         }
         tag.putInt("AnimationTick", this.animationTick);
-        super.saveAdditional(tag, registries);
+        super.saveAdditional(tag);
     }
 
     @Nullable
@@ -192,7 +194,7 @@ public class MotherStatueBlockEntity extends BlockEntity implements GeoBlockEnti
     }
 
     @Override
-    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+    public CompoundTag getUpdateTag() {
         CompoundTag compoundTag = new CompoundTag();
         compoundTag.putBoolean("IsPlayingDiskAnimation", isPlayingDiskAnimation);
         if (this.redPandaUUID != null) {

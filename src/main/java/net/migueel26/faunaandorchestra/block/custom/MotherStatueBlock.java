@@ -6,7 +6,6 @@ import net.migueel26.faunaandorchestra.block.ModBlockEntities;
 import net.migueel26.faunaandorchestra.block.entity.MotherStatueBlockEntity;
 import net.migueel26.faunaandorchestra.entity.custom.RedPandaEntity;
 import net.migueel26.faunaandorchestra.item.ModItems;
-import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.migueel26.faunaandorchestra.util.AdvancementUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -16,9 +15,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -43,13 +41,12 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.common.Tags;
+import net.minecraftforge.common.Tags;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
 public class MotherStatueBlock extends HorizontalDirectionalBlock implements EntityBlock {
-    public static final MapCodec<MotherStatueBlock> CODEC = simpleCodec(MotherStatueBlock::new);
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
     public static final BooleanProperty LEGENDARY = BooleanProperty.create("legendary");
     public static final VoxelShape LOWER_NORTH = Shapes.or(
@@ -109,7 +106,7 @@ public class MotherStatueBlock extends HorizontalDirectionalBlock implements Ent
     }
 
     @Override
-    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         DoubleBlockHalf half = state.getValue(HALF);
         Direction facing = state.getValue(FACING);
 
@@ -130,11 +127,6 @@ public class MotherStatueBlock extends HorizontalDirectionalBlock implements Ent
         }
     }
 
-    @Override
-    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
-        return CODEC;
-    }
-
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
@@ -142,7 +134,7 @@ public class MotherStatueBlock extends HorizontalDirectionalBlock implements Ent
     }
 
     @Override
-    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         //changeFormCreativeOnly(state, level, pos, player);
         DoubleBlockHalf half = state.getValue(HALF);
         BlockPos blockPos = pos;
@@ -166,9 +158,9 @@ public class MotherStatueBlock extends HorizontalDirectionalBlock implements Ent
             AABB area = AABB.ofSize(pos.getCenter(), 12, 6, 12);
             Optional<RedPandaEntity> redPanda = level.getEntitiesOfClass(RedPandaEntity.class, area, entity -> entity.isInWater() && entity.isTame() && entity.getHat() == Items.AIR).stream().findFirst();
             if (redPanda.isPresent()) {
-                Optional<ItemEntity> disc = level.getEntitiesOfClass(ItemEntity.class, area, item -> item.isInWater() && item.getItem().is(Tags.Items.MUSIC_DISCS)).stream().findFirst();
+                Optional<ItemEntity> disc = level.getEntitiesOfClass(ItemEntity.class, area, item -> item.isInWater() && item.getItem().is(ItemTags.MUSIC_DISCS)).stream().findFirst();
                 Optional<ItemEntity> tear = level.getEntitiesOfClass(ItemEntity.class, area, item -> item.isInWater() && item.getItem().is(Items.GHAST_TEAR)).stream().findFirst();
-                Optional<ItemEntity> musicExtract = level.getEntitiesOfClass(ItemEntity.class, area, item -> item.isInWater() && item.getItem().is(ModItems.EXTRACT_OF_LIVING_MUSIC)).stream().findFirst();
+                Optional<ItemEntity> musicExtract = level.getEntitiesOfClass(ItemEntity.class, area, item -> item.isInWater() && item.getItem().is(ModItems.EXTRACT_OF_LIVING_MUSIC.get())).stream().findFirst();
 
                 if (disc.isPresent() && tear.isPresent() && musicExtract.isPresent()) {
                     level.playSound(null, pos, SoundEvents.LAVA_EXTINGUISH, SoundSource.NEUTRAL, 1.0f, 1.0f);
@@ -206,7 +198,7 @@ public class MotherStatueBlock extends HorizontalDirectionalBlock implements Ent
     }
 
     @Override
-    protected BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor level, BlockPos currentPos, BlockPos facingPos) {
+    public BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor level, BlockPos currentPos, BlockPos facingPos) {
         DoubleBlockHalf doubleblockhalf = state.getValue(HALF);
         if (facing.getAxis() != Direction.Axis.Y || doubleblockhalf == DoubleBlockHalf.LOWER != (facing == Direction.UP)) {
             return doubleblockhalf == DoubleBlockHalf.LOWER && facing == Direction.DOWN && !state.canSurvive(level, currentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, facing, facingState, level, currentPos, facingPos);
@@ -256,14 +248,15 @@ public class MotherStatueBlock extends HorizontalDirectionalBlock implements Ent
     }
 
     @Override
-    protected float getDestroyProgress(BlockState state, Player player, BlockGetter level, BlockPos pos) {
+    public float getDestroyProgress(BlockState state, Player player, BlockGetter level, BlockPos pos) {
         if (state.getValue(LEGENDARY)) {
             return 0.0F;
         }
         return super.getDestroyProgress(state, player, level, pos);
     }
 
-    protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+    @Override
+    public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
         if (state.getValue(HALF) != DoubleBlockHalf.UPPER) {
             return super.canSurvive(state, level, pos);
         } else {
@@ -277,7 +270,7 @@ public class MotherStatueBlock extends HorizontalDirectionalBlock implements Ent
     }
 
     @Override
-    protected RenderShape getRenderShape(BlockState state) {
+    public RenderShape getRenderShape(BlockState state) {
         return RenderShape.ENTITYBLOCK_ANIMATED;
     }
 
