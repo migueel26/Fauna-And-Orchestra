@@ -32,10 +32,14 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.minecraftforge.items.ItemStackHandler;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.*;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
@@ -54,7 +58,7 @@ public class MailboxBlockEntity extends OwnableBlockEntity implements GeoBlockEn
     public ItemStackHandler inventory = new ItemStackHandler(6) {
         @Override
         public boolean isItemValid(int slot, ItemStack stack) {
-            return stack.has(ModDataComponents.POSITION) || stack.is(ModItems.BUSINESS_CARD);
+            return (stack.hasTag() && stack.getTag().contains(ModDataComponents.POSITION)) || stack.is(ModItems.BUSINESS_CARD.get());
         }
 
         @Override
@@ -92,7 +96,7 @@ public class MailboxBlockEntity extends OwnableBlockEntity implements GeoBlockEn
 
                 // Update top
                 BlockPos topPos = pos.above();
-                if (level.getBlockState(topPos).is(ModBlocks.MAILBOX)) {
+                if (level.getBlockState(topPos).is(ModBlocks.MAILBOX.get())) {
                     level.setBlock(topPos, level.getBlockState(topPos).setValue(MailboxBlock.MAILBIRD, true), 3);
                 }
 
@@ -121,7 +125,7 @@ public class MailboxBlockEntity extends OwnableBlockEntity implements GeoBlockEn
 
             // Remove visual Mailbird
             level.setBlock(getBlockPos(), state.setValue(MailboxBlock.MAILBIRD, false), 3);
-            if (level.getBlockState(topPos).is(ModBlocks.MAILBOX)) {
+            if (level.getBlockState(topPos).is(ModBlocks.MAILBOX.get())) {
                 level.setBlock(topPos, level.getBlockState(topPos).setValue(MailboxBlock.MAILBIRD, false), 3);
             }
 
@@ -168,9 +172,16 @@ public class MailboxBlockEntity extends OwnableBlockEntity implements GeoBlockEn
         for (int i = 0; i < inventory.getSlots(); i++) {
             ItemStack stack = inventory.getStackInSlot(i);
             if (!stack.isEmpty()) {
-                if (!stack.is(ModItems.BUSINESS_CARD)) {
-                    BlockPos address = stack.get(ModDataComponents.POSITION);
+                BlockPos address = null;
 
+                if (stack.hasTag() && stack.getTag().contains(ModDataComponents.POSITION)) {
+                    int[] posArray = stack.getTag().getIntArray(ModDataComponents.POSITION);
+                    if (posArray.length == 3) {
+                        address = new BlockPos(posArray[0], posArray[1], posArray[2]);
+                    }
+                }
+
+                if (address != null && !stack.is(ModItems.BUSINESS_CARD.get())) {
                     Optional<BlockPos> optionalMailBoxPos = BlockPos.findClosestMatch(address,6, 6, pos -> level.getBlockState(pos).is(ModBlocks.MAILBOX));
 
                     if (optionalMailBoxPos.isPresent()) {
@@ -221,7 +232,7 @@ public class MailboxBlockEntity extends OwnableBlockEntity implements GeoBlockEn
         // We find a possible empty block
         BlockPos foundSpace = null;
         for (BlockPos pos : BlockPos.betweenClosed(getBlockPos().west().north().above(), getBlockPos().east().south().below())) {
-            if (level.getBlockState(pos).isEmpty()) {
+            if (level.getBlockState(pos).isAir()) {
                 inventory.setStackInSlot(i, ItemStack.EMPTY);
                 foundSpace = pos;
                 break;
@@ -262,19 +273,19 @@ public class MailboxBlockEntity extends OwnableBlockEntity implements GeoBlockEn
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        tag.put("Inventory", inventory.serializeNBT(registries));
+    protected void saveAdditional(CompoundTag tag) {
+        tag.put("Inventory", inventory.serializeNBT());
         tag.putBoolean("Warning", this.showWarning);
         tag.putInt("TimeAway", this.timeAway);
-        super.saveAdditional(tag, registries);
+        super.saveAdditional(tag);
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        inventory.deserializeNBT(registries, tag.getCompound("Inventory"));
+    public void load(CompoundTag tag) {
+        inventory.deserializeNBT(tag.getCompound("Inventory"));
         this.showWarning = tag.getBoolean("Warning");
         this.timeAway = tag.getInt("TimeAway");
-        super.loadAdditional(tag, registries);
+        super.load(tag);
     }
 
     @Nullable

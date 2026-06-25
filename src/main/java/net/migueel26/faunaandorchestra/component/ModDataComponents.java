@@ -15,6 +15,7 @@ import java.util.UUID;
 import java.util.function.UnaryOperator;
 
 public class ModDataComponents {
+    // Since the original mod is from Neoforge, I use this class as a substitute with the names of the tags
     public static final DeferredRegister<DataComponentType<?>> DATA_COMPONENT_TYPES =
             DeferredRegister.create(BuiltInRegistries.DATA_COMPONENT_TYPE, FaunaAndOrchestra.MOD_ID);
     public static final int MAX_SIZE = 6;
@@ -37,8 +38,7 @@ public class ModDataComponents {
         public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> LIST_INDEX = register("index_list",
                 builder -> builder.persistent(Codec.INT));
 
-        public static final DeferredHolder<DataComponentType<?>, DataComponentType<BlockPos>> POSITION = register("position",
-                builder -> builder.persistent(BlockPos.CODEC));
+        public static String POSITION = "target_position";
 
         public static final DeferredHolder<DataComponentType<?>, DataComponentType<String>> SENDER = register("sender",
                 builder -> builder.persistent(Codec.STRING));
