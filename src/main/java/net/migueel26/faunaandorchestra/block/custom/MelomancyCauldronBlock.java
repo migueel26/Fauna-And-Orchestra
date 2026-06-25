@@ -3,8 +3,11 @@ package net.migueel26.faunaandorchestra.block.custom;
 import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.block.ModBlockEntities;
 import net.migueel26.faunaandorchestra.block.entity.MelomancyCauldronBlockEntity;
+import net.migueel26.faunaandorchestra.entity.custom.koala_workers.MelomancerKoalaEntity;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
+import net.migueel26.faunaandorchestra.recipe.MelomancyRecipe;
+import net.migueel26.faunaandorchestra.recipe.ModRecipes;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.migueel26.faunaandorchestra.util.RecipesUtil;
 import net.minecraft.core.BlockPos;
@@ -34,11 +37,15 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
+import java.util.Optional;
 
 public class MelomancyCauldronBlock extends HorizontalDirectionalBlock implements EntityBlock {
     public static final IntegerProperty LIQUID = IntegerProperty.create("liquid", 0, 3);
@@ -84,39 +91,62 @@ public class MelomancyCauldronBlock extends HorizontalDirectionalBlock implement
                 return InteractionResult.SUCCESS;
 
             } else if (melomancyCauldronBE.hasFinishedCooking()) {
-                // If the player wants to take the item
-                if (RecipesUtil.isCorrectItem(stack, melomancyCauldronBE)) {
-                    player.addItem(melomancyCauldronBE.getResult());
-                    if (RecipesUtil.needsItem(melomancyCauldronBE)) {
-                        stack.shrink(1);
-                    }
-                    if (!level.isClientSide()) {
-                        ModAdvancements.USE_MELOMANCY_CAULDRON.trigger((ServerPlayer) player);
+                MelomancyRecipe.RecipeInput input = new MelomancyRecipe.RecipeInput(melomancyCauldronBE.getIngredients(), stack);
+                Optional<MelomancyRecipe> recipeHolder = level.getRecipeManager().getRecipeFor(ModRecipes.MELOMANCY_TYPE.get(), input, level);
+
+                if (recipeHolder.isPresent()) {
+                    // We've got a recipe (it's not discord essence)
+                    MelomancyRecipe recipe = recipeHolder.get();
+
+                    if (recipe.catalyst().is(stack.getItem())) {
+                        // If holding the right item
+                        if (!level.isClientSide()) {
+                            ModAdvancements.USE_MELOMANCY_CAULDRON.trigger((ServerPlayer) player);
+
+                            // We play the corresponding sound
+                            if (recipe.output().is(ModItems.RESURRECTION_SONG.get())) {
+                                level.playSound(null, pos, SoundEvents.WARDEN_EMERGE, SoundSource.BLOCKS, 1.0f, 1.0f);
+                                ((ServerLevel) level).sendParticles(ParticleTypes.SCULK_SOUL, pos.getCenter().x, pos.getY()+0.75f, pos.getCenter().z, 40, 0.2, 0.2, 0.2, 0.3);
+                            } else {
+                                level.playSound(null, pos, ModSounds.CAULDRON_ITEM.get(), SoundSource.BLOCKS, 1.0F, 0.75F + level.random.nextFloat()/2);
+                            }
+                        }
+
+                        if (!player.isCreative()) {
+                            // We reduce the stack
+                            if (stack.hasCraftingRemainingItem()) {
+                                player.setItemInHand(hand, stack.getCraftingRemainingItem());
+                            } else {
+                                stack.shrink(1);
+                            }
+                        }
+
+                        player.addItem(recipe.output().copy());
+
+                        melomancyCauldronBE.clearContent(false);
+                        level.setBlock(pos, state.setValue(LIQUID, 0).setValue(COOKING, false), 3);
+
+                        return InteractionResult.SUCCESS;
+                    } else {
+                        // We skip
+                        return InteractionResult.FAIL;
                     }
 
-                    if (melomancyCauldronBE.getMixResult().equalsIgnoreCase("resurrection")) {
-                        level.playSound(player,
-                                pos,
-                                SoundEvents.WARDEN_EMERGE, SoundSource.BLOCKS);
-                        if (!level.isClientSide()) {
-                            ((ServerLevel) level).sendParticles(ParticleTypes.SCULK_SOUL, pos.getCenter().x, pos.getY()+0.75f, pos.getCenter().z,
-                                    40, 0.2, 0.2, 0.2, 0.3);
-                        }
-                    } else {
-                        level.playSound(player,
-                                pos.getX(), pos.getY(), pos.getZ(),
-                                ModSounds.CAULDRON_ITEM.get(), SoundSource.BLOCKS, 1.0F, 0.75F + level.random.nextFloat()/2);
+                } else {
+                    // It's discord, so we calculate the number of discord essence
+                    int totalItems = melomancyCauldronBE.getIngredients().stream().mapToInt(ItemStack::getCount).sum();
+                    int discordAmount = Math.max(1, totalItems / 2);
+
+                    player.addItem(new ItemStack(ModItems.DISCORD_ESSENCE.get(), discordAmount));
+
+                    if (!level.isClientSide()) {
+                        level.playSound(null, pos, ModSounds.CAULDRON_ITEM.get(), SoundSource.BLOCKS, 1.0F, 0.75F + level.random.nextFloat()/2);
                     }
 
                     melomancyCauldronBE.clearContent(false);
                     level.setBlock(pos, state.setValue(LIQUID, 0).setValue(COOKING, false), 3);
-
                     return InteractionResult.SUCCESS;
-                } else {
-                    return InteractionResult.FAIL;
                 }
-
-
             } else if (!state.getValue(COOKING)) {
                 // If it's NOT cooking
                 if (stack.is(ModItems.MUSIC_BOTTLE.get()) && liquid < 3) {
@@ -203,11 +233,28 @@ public class MelomancyCauldronBlock extends HorizontalDirectionalBlock implement
         return this.defaultBlockState().setValue(FACING, direction);
     }
 
-    @javax.annotation.Nullable
+    @Nullable
     protected static <E extends BlockEntity, A extends BlockEntity> BlockEntityTicker<A> createTickerHelper(
             BlockEntityType<A> serverType, BlockEntityType<E> clientType, BlockEntityTicker<? super E> ticker
     ) {
         return clientType == serverType ? (BlockEntityTicker<A>) ticker : null;
+    }
+
+    @Override
+    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
+        if (!state.is(newState.getBlock())) {
+            AABB searchArea = new AABB(pos).inflate(2);
+
+            List<MelomancerKoalaEntity> nearbyKoalas = level.getEntitiesOfClass(MelomancerKoalaEntity.class, searchArea);
+
+            for (MelomancerKoalaEntity koala : nearbyKoalas) {
+                if (koala.getCauldronPos() != null && pos.equals(koala.getCauldronPos())) {
+                    MelomancerKoalaEntity.onLeaveCauldronWhileMixing(koala, true);
+                }
+            }
+        }
+
+        super.onRemove(state, level, pos, newState, movedByPiston);
     }
 
     @Nullable
