@@ -33,6 +33,8 @@ public class ModEntities {
             () -> EntityType.Builder.of(MantisEntity::new, MobCategory.CREATURE).sized(1f, 2.25f).build("mantis"));
     public static final RegistryObject<EntityType<PenguinEntity>> PENGUIN = ENTITY_TYPES.register("penguin",
             () -> EntityType.Builder.of(PenguinEntity::new, MobCategory.CREATURE).sized(0.75f, 0.75f).build("penguin"));
+    public static final RegistryObject<EntityType<EmperorPenguinEntity>> EMPEROR_PENGUIN = ENTITY_TYPES.register("emperor_penguin",
+            () -> EntityType.Builder.of(EmperorPenguinEntity::new, MobCategory.CREATURE).sized(0.75f, 1.25f).build("emperor_penguin"));
     public static final RegistryObject<EntityType<RedPandaEntity>> RED_PANDA = ENTITY_TYPES.register("red_panda",
             () -> EntityType.Builder.of(RedPandaEntity::new, MobCategory.CREATURE).sized(0.75f, 1f).build("red_panda"));
     public static final RegistryObject<EntityType<MacawEntity>> MACAW = ENTITY_TYPES.register("macaw",
