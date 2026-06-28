@@ -646,6 +646,9 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
                         }
 
                         level().setBlock(currentPos, block.defaultBlockState(), 3);
+                        if (isDifficult && level().getBlockEntity(currentPos) instanceof CrawlingDiscordBlockEntity be) {
+                            be.setDifficult(true);
+                        }
                         EntityType.LIGHTNING_BOLT.spawn((ServerLevel) level(), currentPos, MobSpawnType.MOB_SUMMONED);
                     }
                 }
