@@ -69,18 +69,17 @@ public class BadgrassMealItem extends Item {
             if (stateAtPos.isAir()) {
                 BlockState stateToPlace;
 
-                // --- SISTEMA DE PROBABILIDADES ---
-                int roll = random.nextInt(100); // Tira un dado del 0 al 99
+                int roll = random.nextInt(100);
 
                 if (roll < 10) {
                     stateToPlace = ModBlocks.CATCHWEED.get().defaultBlockState();
                 } else if (roll < 30) {
                     stateToPlace = Blocks.TALL_GRASS.defaultBlockState();
                 } else {
-                    stateToPlace = Blocks.SHORT_GRASS.defaultBlockState();
+                    stateToPlace = Blocks.GRASS.defaultBlockState();
                 }
 
-                if (stateToPlace.is(Blocks.TALL_GRASS) || stateToPlace.is(ModBlocks.CATCHWEED)) {
+                if (stateToPlace.is(Blocks.TALL_GRASS) || stateToPlace.is(ModBlocks.CATCHWEED.get())) {
                     if (level.isEmptyBlock(currentPos.above())) {
                         DoublePlantBlock.placeAt(level, stateToPlace, currentPos, 3);
                     }
