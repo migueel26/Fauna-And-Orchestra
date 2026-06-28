@@ -3,6 +3,7 @@ package net.migueel26.faunaandorchestra.entity.custom.boss;
 import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.block.custom.CrawlingDiscordBlock;
+import net.migueel26.faunaandorchestra.block.entity.CrawlingDiscordBlockEntity;
 import net.migueel26.faunaandorchestra.effect.ModEffects;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.entity.custom.projectile.MusicNoteProjectileEntity;
@@ -55,6 +56,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -576,8 +578,8 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
                     int rx = random.nextInt(12, 19);
                     int rz = random.nextInt(12, 19);
 
-                    CrawlingDiscordBlock block = (CrawlingDiscordBlock) ModBlocks.CRAWLING_DISCORD.get();
-                    if (this.isSecondPhase()) block.setDifficult(true);
+                    Block block = ModBlocks.CRAWLING_DISCORD.get();
+                    boolean isDifficult = this.isSecondPhase();
 
                     switch (direction) {
                         case NORTH -> {
@@ -608,7 +610,12 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
                         sw = !sw;
                     }
 
+                    // We place the Crawling Discord block and set it to difficult if needed
                     level().setBlock(currentPos, block.defaultBlockState(), 3);
+                    if (isDifficult && level().getBlockEntity(currentPos) instanceof CrawlingDiscordBlockEntity be) {
+                        be.setDifficult(true);
+                    }
+
                     EntityType.LIGHTNING_BOLT.spawn((ServerLevel) level(), currentPos, MobSpawnType.MOB_SUMMONED);
 
                     // Create two crawling discord based on the composer
@@ -651,6 +658,10 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
                         }
 
                         level().setBlock(currentPos, block.defaultBlockState(), 3);
+                        if (isDifficult && level().getBlockEntity(currentPos) instanceof CrawlingDiscordBlockEntity be) {
+                            be.setDifficult(true);
+                        }
+
                         EntityType.LIGHTNING_BOLT.spawn((ServerLevel) level(), currentPos, MobSpawnType.MOB_SUMMONED);
                     }
                 }
