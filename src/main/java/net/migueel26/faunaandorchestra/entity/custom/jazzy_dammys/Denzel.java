@@ -15,10 +15,14 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.npc.Npc;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.*;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class Denzel extends TravellingMusician implements Npc, GeoEntity {
@@ -48,10 +52,10 @@ public class Denzel extends TravellingMusician implements Npc, GeoEntity {
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        super.defineSynchedData(builder);
-        builder.define(CONFIDENCE, 0);
-        builder.define(GOOD_MORNING, true);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        entityData.define(CONFIDENCE, 0);
+        entityData.define(GOOD_MORNING, true);
     }
 
     @Override
