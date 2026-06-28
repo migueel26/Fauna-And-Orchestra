@@ -1,12 +1,9 @@
 package net.migueel26.faunaandorchestra.item.custom.armor;
 
-import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.client.item.armor.FluffyBootsRenderer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -21,24 +18,25 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import software.bernie.geckolib.animatable.GeoItem;
-import software.bernie.geckolib.animatable.client.GeoRenderProvider;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.AnimatableManager;
-import software.bernie.geckolib.animation.AnimationController;
-import software.bernie.geckolib.animation.AnimationState;
-import software.bernie.geckolib.animation.PlayState;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.renderer.GeoArmorRenderer;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-import javax.annotation.Nullable;
 import java.util.List;
+import java.util.UUID;
 import java.util.function.Consumer;
 
 public class FluffyBootsItem extends ArmorItem implements GeoItem {
-    public static final ResourceLocation FLUFFY_SPEED_ID = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "fluffy_speed_boost");
+    public static final UUID FLUFFY_SPEED_UUID = UUID.fromString("d838b0fb-59c4-42ea-a417-640fb09e7c10");
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
-    public FluffyBootsItem(Holder<ArmorMaterial> material, Type type, Properties properties) {
+
+    public FluffyBootsItem(ArmorMaterial material, Type type, Properties properties) {
         super(material, type, properties);
     }
 
@@ -51,20 +49,20 @@ public class FluffyBootsItem extends ArmorItem implements GeoItem {
             if (speedAttribute != null) {
                 BlockState stateBelow = level.getBlockState(player.blockPosition().below());
 
-                boolean hasBoost = speedAttribute.hasModifier(FLUFFY_SPEED_ID);
+                boolean hasBoost = speedAttribute.getModifier(FLUFFY_SPEED_UUID) != null;
                 boolean isWearingBoots = player.getItemBySlot(EquipmentSlot.FEET) == stack;
                 boolean isOnSnow = player.onGround() &&
                         (stateBelow.is(BlockTags.SNOW) || stateBelow.is(BlockTags.SAND));
 
                 if (isWearingBoots && isOnSnow) {
                     if (!hasBoost) {
-                        AttributeModifier modifier = new AttributeModifier(FLUFFY_SPEED_ID, 0.4D, AttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+                        AttributeModifier modifier = new AttributeModifier(FLUFFY_SPEED_UUID, "Fluffy Boots Speed Boost",0.4D, AttributeModifier.Operation.MULTIPLY_BASE);
 
                         speedAttribute.addTransientModifier(modifier);
                     }
                 } else {
                     if (hasBoost) {
-                        speedAttribute.removeModifier(FLUFFY_SPEED_ID);
+                        speedAttribute.removeModifier(FLUFFY_SPEED_UUID);
                     }
                 }
             }
@@ -78,14 +76,17 @@ public class FluffyBootsItem extends ArmorItem implements GeoItem {
     }
 
     @Override
-    public void createGeoRenderer(Consumer<GeoRenderProvider> consumer) {
-        consumer.accept(new GeoRenderProvider() {
+    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+        consumer.accept(new IClientItemExtensions() {
             private GeoArmorRenderer<?> renderer;
 
             @Override
-            public <T extends LivingEntity> HumanoidModel<?> getGeoArmorRenderer(@Nullable T livingEntity, ItemStack itemStack, @Nullable EquipmentSlot equipmentSlot, @Nullable HumanoidModel<T> original) {
-                if(this.renderer == null)
+            public HumanoidModel<?> getHumanoidArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
+                if (this.renderer == null) {
                     this.renderer = new FluffyBootsRenderer();
+                }
+
+                this.renderer.prepForRender(livingEntity, itemStack, equipmentSlot, original);
 
                 return this.renderer;
             }
@@ -98,10 +99,10 @@ public class FluffyBootsItem extends ArmorItem implements GeoItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack stack, Level level, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         tooltipComponents.add(Component.translatable("item.faunaandorchestra.fluffy_boots.desc1").withStyle(ChatFormatting.BLUE));
         tooltipComponents.add(Component.translatable("item.faunaandorchestra.fluffy_boots.desc2").withStyle(ChatFormatting.BLUE));
-        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+        super.appendHoverText(stack, level, tooltipComponents, tooltipFlag);
     }
 
     @Override

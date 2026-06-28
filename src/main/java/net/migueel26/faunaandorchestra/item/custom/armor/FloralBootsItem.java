@@ -2,13 +2,10 @@ package net.migueel26.faunaandorchestra.item.custom.armor;
 
 import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
-import net.migueel26.faunaandorchestra.block.custom.FlowerPathBlock;
 import net.migueel26.faunaandorchestra.client.item.armor.FloralBootsRenderer;
-import net.migueel26.faunaandorchestra.client.item.armor.FluffyBootsRenderer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -25,11 +22,15 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import software.bernie.geckolib.animatable.GeoItem;
-import software.bernie.geckolib.animatable.client.GeoRenderProvider;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.constant.DataTickets;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.renderer.GeoArmorRenderer;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
@@ -42,7 +43,8 @@ public class FloralBootsItem extends ArmorItem implements GeoItem {
     protected final RawAnimation WALK = RawAnimation.begin().thenPlay("walk");
     protected final AnimationController<FloralBootsItem> controller = new AnimationController<>(this, "floral_boots_controller", 0, this::predicate);
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
-    public FloralBootsItem(Holder<ArmorMaterial> material, Type type, Properties properties) {
+
+    public FloralBootsItem(ArmorMaterial material, Type type, Properties properties) {
         super(material, type, properties);
     }
 
@@ -74,9 +76,8 @@ public class FloralBootsItem extends ArmorItem implements GeoItem {
                 // -1 Durability every second on top of the flower path
                 if (level.getBlockState(posBelow).is(ModBlocks.FLOWER_PATH.get()) || level.getBlockState(player.blockPosition()).is(ModBlocks.FLOWER_PATH.get())) {
                     if (player.tickCount % 20 == 0) {
-                        stack.hurtAndBreak(1, (ServerLevel) level, player instanceof ServerPlayer sp ? sp : null,
-                                item -> player.onEquippedItemBroken(item, EquipmentSlot.FEET));
-                        ModAdvancements.FIRST_RESOLVED_MYTH.get().trigger((ServerPlayer) player);
+                        stack.hurtAndBreak(1, player, e -> e.broadcastBreakEvent(EquipmentSlot.FEET));
+                        ModAdvancements.FIRST_RESOLVED_MYTH.trigger((ServerPlayer) player);
                     }
                 }
 
@@ -107,14 +108,17 @@ public class FloralBootsItem extends ArmorItem implements GeoItem {
     }
 
     @Override
-    public void createGeoRenderer(Consumer<GeoRenderProvider> consumer) {
-        consumer.accept(new GeoRenderProvider() {
+    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+        consumer.accept(new IClientItemExtensions() {
             private GeoArmorRenderer<?> renderer;
 
             @Override
-            public <T extends LivingEntity> HumanoidModel<?> getGeoArmorRenderer(@Nullable T livingEntity, ItemStack itemStack, @Nullable EquipmentSlot equipmentSlot, @Nullable HumanoidModel<T> original) {
-                if(this.renderer == null)
+            public HumanoidModel<?> getHumanoidArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
+                if (this.renderer == null) {
                     this.renderer = new FloralBootsRenderer();
+                }
+
+                this.renderer.prepForRender(livingEntity, itemStack, equipmentSlot, original);
 
                 return this.renderer;
             }
@@ -122,9 +126,9 @@ public class FloralBootsItem extends ArmorItem implements GeoItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack stack, Level level, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         tooltipComponents.add(Component.translatable("item.faunaandorchestra.floral_boots.desc").withStyle(ChatFormatting.BLUE));
-        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+        super.appendHoverText(stack, level, tooltipComponents, tooltipFlag);
     }
 
     @Override

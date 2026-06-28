@@ -238,10 +238,11 @@ public class ModItems {
     public static final RegistryObject<Item> MUSIC_JAM = createRegularDescriptionItem("music_jam", new Item.Properties().food(Foods.MUSHROOM_STEW));
 
     // ARMOR
+    // ARMOR
     public static final RegistryObject<Item> FLUFFY_BOOTS = ITEMS.register("fluffy_boots",
-            () -> new FluffyBootsItem(ModArmorMaterials.PENGUIN_FEATHER, ArmorItem.Type.BOOTS, new Item.Properties().durability(ArmorItem.Type.BOOTS.getDurability(25))));
+            () -> new FluffyBootsItem(ModArmorMaterials.PENGUIN_FEATHER, ArmorItem.Type.BOOTS, new Item.Properties()));
     public static final RegistryObject<Item> FLORAL_BOOTS = ITEMS.register("floral_boots",
-            () -> new FloralBootsItem(ModArmorMaterials.FLORA_FORTA, ArmorItem.Type.BOOTS, new Item.Properties().durability(ArmorItem.Type.BOOTS.getDurability(50)).rarity(Rarity.RARE)));
+            () -> new FloralBootsItem(ModArmorMaterials.FLORA_FORTA, ArmorItem.Type.BOOTS, new Item.Properties().rarity(Rarity.RARE)));
 
     // KITS
     public static final RegistryObject<Item> SEWING_KIT =  createKoalaKit("sewing_kit", ModEntities.TAILOR_KOALA);
