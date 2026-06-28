@@ -905,7 +905,7 @@
   "symphonia.page.ringtails2": "$(l)Faust$() and $(l)Orion$() have been traveling around the world for a long time. You can talk directly to them and get to know them and their history better. Trust me, it's $(o)worth it$(). They're also pretty into $(l)melomancy$(), so try to tip them some $(o)gold in their tip case$() and they might give you just what you need to begin your adventure in $(music)Melomancy$()! Who knows what might happen if you tip them a lot...",
 
   "symphonia.entry.jazzy_dammys": "The Jazz Band",
-  "symphonia.page.jazzy_dammys0": "Have you ever wandered far away from your home, having to spend the night outside? Scary, right?$(br)Well, if you're lucky, you might find a $(o)lovely inn$() run by a charming koala. If you enter, you might find a $(l)jazz band$() playing some tunes. Some say $(o)its pianist$() is a well-known myth collector!",
+  "symphonia.page.jazzy_dammys0": "Have you ever wandered far away from your home, having to spend the night outside? Scary, right?$(br)Well, if you're lucky, you might find a $(o)lovely inn$() at $(thing)plains, forests$() or $(thing)meadows$(). If you enter, you might find a $(l)jazz band$() playing some tunes. Some say $(o)its pianist$() is a well-known myth collector!",
   "symphonia.page.jazzy_dammys1": "Meet the Jazzy Dammys! Conformed by $(l)Delroy$(), $(l)Denise$(), $(l)Delroy$() and $(l)Dan B.$()",
   "symphonia.page.jazzy_dammys2": "These lovely $(o)beavers$() travel from inn to inn playing their jazz music to the travelers. Strangely, despite their kindness, the only one who talks to the customers is the pianist, $(l)Dan B$(). He seems to be a pretty knowledgeable guy and a well-known $(music)myth collector$(), so try to talk to him if you want to know more about the world!",
 
@@ -1005,7 +1005,7 @@
 
   "symphonia.entry.imaginal_disk": "The Imaginal Disk",
   "symphonia.page.imaginal_disk0": "The $(l)Imaginal Disk$() is said to be a legendary artifact capable of enhancing its host to $(o)new heights$(). According to Dan B., it was created by $(thing)Mother$() herself.$(br2)In order to obtain it, you need to find a $(item)Statue of Mother$() on great heights and drop in the pond: $(li)$(item)1x Music Disc$()$(li)$(item)1x Ghast Tear$()$(li)$(item)1x Extract of Living Music$()",
-  "symphonia.page.imaginal_disk1": "The $(item)Red Panda$() musician he only creature apt for the $(l)Disk$(), so get one in the pond and $(o)click the Statue$().",
+  "symphonia.page.imaginal_disk1": "The $(item)Red Panda$() musician is the only one apt, so get one in the pond and $(o)click the Statue$().",
 
   "symphonia.entry.mask_of_the_enlightened": "The Mask of Light",
   "symphonia.page.mask_of_the_enlightened0": "Ages ago, a great civilization praised the Sun and its light, channeling its power through the $(l)Mask of the Enlightened$().$(br2)In order to regain its power from the $(thing)Unlit Mask$() you have, you'll need to build an altar in $(item)$(t:Y >= 170)great heights$() and give it to your $(item)Mantis$() musician. It must be $(item)dawn$(), when the sun is rising behind the horizon.",
