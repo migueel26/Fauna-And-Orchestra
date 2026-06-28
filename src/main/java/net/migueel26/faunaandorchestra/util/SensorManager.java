@@ -38,7 +38,7 @@ public class SensorManager {
 
         ResourceLocation tagId = ResourceLocation.fromNamespaceAndPath(
                 entityId.getNamespace(),
-                "spawns_" + entityId.getPath() // <--- LA CONVENCIÓN
+                "spawns_" + entityId.getPath()
         );
 
         return TagKey.create(Registries.BIOME, tagId);

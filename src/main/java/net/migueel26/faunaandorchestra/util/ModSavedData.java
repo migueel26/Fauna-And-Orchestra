@@ -4,6 +4,7 @@ import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.entity.custom.Faust;
 import net.migueel26.faunaandorchestra.entity.custom.Orion;
 import net.migueel26.faunaandorchestra.entity.custom.TalkableEntity;
+import net.migueel26.faunaandorchestra.entity.custom.jazzy_dammys.DanB;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -111,6 +112,8 @@ public class ModSavedData extends SavedData {
             return "faust";
         } else if (entity instanceof Orion) {
             return "orion";
+        } else if (entity instanceof DanB) {
+            return "dan_b";
         }
         return null;
     }

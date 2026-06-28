@@ -8,7 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 public class ModItemProperties {
     public static void addCustomItemProperties() {
         ItemProperties.register(ModItems.BRIEFCASE.get(),
-                new ResourceLocation(FaunaAndOrchestra.MOD_ID, "opened"),
+                ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "opened"),
                 (stack, level, entity, seed) -> {
                     boolean isOpen = stack.hasTag() && stack.getTag().getBoolean("opened");
                     return isOpen ? 1 : 0;

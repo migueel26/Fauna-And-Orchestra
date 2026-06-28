@@ -11,6 +11,8 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.phys.AABB;
 
 import java.util.*;
 
@@ -63,6 +65,28 @@ public class MusicUtil {
             ModItems.VIOLIN.get(), ModSounds.BAMBA_VIOLIN.get().getLocation()
     );
 
+    public static final Map<Item, ResourceLocation> SAINTS = Map.of(
+            ModItems.CELLO.get(), ModSounds.SAINTS_CELLO.get().getLocation(),
+            ModItems.DOUBLE_BASS.get(), ModSounds.SAINTS_DOUBLE_BASS.get().getLocation(),
+            ModItems.FLUTE.get(), ModSounds.SAINTS_FLUTE.get().getLocation(),
+            ModItems.DRUM.get(), ModSounds.SAINTS_DRUM.get().getLocation(),
+            ModItems.SAXOPHONE.get(), ModSounds.SAINTS_SAXOPHONE.get().getLocation(),
+            ModItems.VIOLIN.get(), ModSounds.SAINTS_VIOLIN.get().getLocation(),
+            ModItems.OBOE.get(), ModSounds.SAINTS_OBOE.get().getLocation()
+    );
+
+    public static final Map<Item, ResourceLocation> OH_SUSANNA = Map.of(
+            ModItems.OBOE.get(), ModSounds.OH_SUSANNA_OBOE.get().getLocation(),
+            ModItems.DOUBLE_BASS.get(), ModSounds.OH_SUSANNA_DOUBLE_BASS.get().getLocation(),
+            ModItems.SAXOPHONE.get(), ModSounds.OH_SUSANNA_SAXOPHONE.get().getLocation()
+    );
+
+    public static final Map<Item, ResourceLocation> ENTERTAINER = Map.of(
+            ModItems.KEYTAR.get(), ModSounds.THE_ENTERTAINER_KEYTAR.get().getLocation(),
+            ModItems.FLUTE.get(), ModSounds.THE_ENTERTAINER_FLUTE.get().getLocation(),
+            ModItems.OBOE.get(), ModSounds.THE_ENTERTAINER_OBOE.get().getLocation()
+    );
+
     private static final Map<Item, Map<Item, ResourceLocation>> SONG = Map.of(
             ModItems.BACH_AIR_SHEET_MUSIC.get(), BACH_AIR,
             ModItems.GREENSLEEVES_SHEET_MUSIC.get(), GREENSLEEVES,
@@ -70,17 +94,23 @@ public class MusicUtil {
             ModItems.JAZZY_FUR_ELISE_SHEET_MUSIC.get(), JAZZY_FUR_ELISE,
             ModItems.DANCE_OF_THE_LITTLE_SWANS.get(), SWANS,
             ModItems.LA_BAMBA_SHEET_MUSIC.get(), LA_BAMBA,
-            ModItems.RESURRECTION_SONG.get(), RESURRECTION
+            ModItems.RESURRECTION_SONG.get(), RESURRECTION,
+            ModItems.SAINTS_SHEET_MUSIC.get(), SAINTS,
+            ModItems.OH_SUSANNA_SHEET_MUSIC.get(), OH_SUSANNA,
+            ModItems.THE_ENTERTAINER_SHEET_MUSIC.get(), ENTERTAINER
     );
 
     private static final Map<String, Item> STRING_TO_SHEET = Map.of(
-            "bach_air_sheet_music", ModItems.BACH_AIR_SHEET_MUSIC.get(),
-            "greensleeves_sheet_music", ModItems.GREENSLEEVES_SHEET_MUSIC.get(),
-            "blues_sheet_music", ModItems.BLUES_SHEET_MUSIC.get(),
-            "jazzy_fur_elise_sheet_music", ModItems.JAZZY_FUR_ELISE_SHEET_MUSIC.get(),
-            "dance_of_the_little_swans_sheet_music", ModItems.DANCE_OF_THE_LITTLE_SWANS.get(),
-            "la_bamba_sheet_music", ModItems.LA_BAMBA_SHEET_MUSIC.get(),
-            "resurrection_song", ModItems.RESURRECTION_SONG.get()
+            "faunaandorchestra:bach_air_sheet_music", ModItems.BACH_AIR_SHEET_MUSIC.get(),
+            "faunaandorchestra:greensleeves_sheet_music", ModItems.GREENSLEEVES_SHEET_MUSIC.get(),
+            "faunaandorchestra:blues_sheet_music", ModItems.BLUES_SHEET_MUSIC.get(),
+            "faunaandorchestra:jazzy_fur_elise_sheet_music", ModItems.JAZZY_FUR_ELISE_SHEET_MUSIC.get(),
+            "faunaandorchestra:dance_of_the_little_swans_sheet_music", ModItems.DANCE_OF_THE_LITTLE_SWANS.get(),
+            "faunaandorchestra:la_bamba_sheet_music", ModItems.LA_BAMBA_SHEET_MUSIC.get(),
+            "faunaandorchestra:resurrection_song", ModItems.RESURRECTION_SONG.get(),
+            "faunaandorchestra:saints_sheet_music", ModItems.SAINTS_SHEET_MUSIC.get(),
+            "faunaandorchestra:oh_susanna_sheet_music", ModItems.OH_SUSANNA_SHEET_MUSIC.get(),
+            "faunaandorchestra:the_entertainer_sheet_music", ModItems.THE_ENTERTAINER_SHEET_MUSIC.get()
     );
 
     private static final Map<Item, Integer> DURATION = Map.of(
@@ -90,7 +120,10 @@ public class MusicUtil {
             ModItems.JAZZY_FUR_ELISE_SHEET_MUSIC.get(), 1775,
             ModItems.DANCE_OF_THE_LITTLE_SWANS.get(), 1895,
             ModItems.LA_BAMBA_SHEET_MUSIC.get(), 1115,
-            ModItems.RESURRECTION_SONG.get(), 4990
+            ModItems.RESURRECTION_SONG.get(), 4990,
+            ModItems.SAINTS_SHEET_MUSIC.get(), 1880,
+            ModItems.OH_SUSANNA_SHEET_MUSIC.get(), 1440,
+            ModItems.THE_ENTERTAINER_SHEET_MUSIC.get(), 1890
     );
 
     public static final List<Item> INSTRUMENTS = new ArrayList<>(List.of(
@@ -100,8 +133,10 @@ public class MusicUtil {
             ModItems.CELLO.get(),
             ModItems.DOUBLE_BASS.get(),
             ModItems.VIOLIN.get(),
-            ModItems.KEYTAR.get())
+            ModItems.KEYTAR.get(),
+            ModItems.DRUM.get())
     );
+
 
     private static Map<UUID, Item> CURRENT_ORCHESTRAS = new HashMap<>();
 
@@ -135,6 +170,12 @@ public class MusicUtil {
             CURRENT_ORCHESTRAS.put(conductorUUID, sheetMusic);
             return true;
         }
+    }
+
+    public static ConductorEntity lookForConductor(ServerLevelAccessor level, AABB bb) {
+        Optional<ConductorEntity> conductor = level.getEntitiesOfClass(ConductorEntity.class,
+                bb.inflate(50.0, 50.0, 50.0), ConductorEntity::isConducting).stream().findAny();
+        return conductor.orElse(null);
     }
 
     public static String musicalAnimalToString(Entity entity) {
