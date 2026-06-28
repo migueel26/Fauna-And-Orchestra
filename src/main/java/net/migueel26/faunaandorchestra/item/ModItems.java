@@ -321,9 +321,9 @@ public class ModItems {
             () -> new ForgeSpawnEggItem(ModEntities.WISE_TREE, 0x5f4a2b, 0x567e22,
                     new Item.Properties()));
     public static final RegistryObject<Item> RINGTAILS_SPAWN_EGG = ITEMS.register("ringtails_spawn_egg",
-            () -> new CustomSpawnEggItem(new Item.Properties(), ModEntities.FAUST.get(), ModEntities.ORION.get()));
+            () -> new CustomSpawnEggItem(new Item.Properties(), ModEntities.FAUST, ModEntities.ORION));
     public static final RegistryObject<Item> JAZZY_DAMMYS_SPAWN_EGG = ITEMS.register("jazzy_dammys_spawn_egg",
-            () -> new CustomSpawnEggItem(new Item.Properties(), ModEntities.DENZEL.get(), ModEntities.DENISE.get(), ModEntities.DELROY.get(), ModEntities.DAN_B.get()));
+            () -> new CustomSpawnEggItem(new Item.Properties(), ModEntities.DENZEL, ModEntities.DENISE, ModEntities.DELROY, ModEntities.DAN_B));
     public static final RegistryObject<Item> THE_GREAT_COMPOSER_SPAWN_EGG = ITEMS.register("the_great_composer_spawn_egg",
             () -> new ForgeSpawnEggItem(ModEntities.THE_GREAT_COMPOSER, 0xe2d7a8, 0x23ab53, new Item.Properties()) {
                 @Override

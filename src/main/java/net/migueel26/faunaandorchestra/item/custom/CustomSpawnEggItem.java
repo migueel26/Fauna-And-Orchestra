@@ -1,7 +1,10 @@
 package net.migueel26.faunaandorchestra.item.custom;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -13,6 +16,7 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
@@ -31,7 +35,6 @@ public class CustomSpawnEggItem extends Item {
     private final List<Supplier<? extends EntityType<? extends AgeableMob>>> musicians;
 
     @SafeVarargs
-    // CAMBIO 2: El constructor ahora acepta Suppliers (o RegistryObjects)
     public CustomSpawnEggItem(Item.Properties properties, Supplier<? extends EntityType<? extends AgeableMob>>... musicians) {
         super(properties);
         this.musicians = Arrays.asList(musicians);
@@ -99,5 +102,29 @@ public class CustomSpawnEggItem extends Item {
                 return InteractionResultHolder.fail(itemstack);
             }
         }
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, Level level, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+        if (!musicians.isEmpty()) {
+            MutableComponent combinedTooltip = null;
+
+            for (int i = 0; i < musicians.size(); i++) {
+                Component entityName = musicians.get(i).get().getDescription();
+
+                if (combinedTooltip == null) {
+                    combinedTooltip = entityName.copy();
+                } else if (i == musicians.size() - 1) {
+                    combinedTooltip.append(" & ").append(entityName);
+                } else {
+                    combinedTooltip.append(", ").append(entityName);
+                }
+            }
+
+            if (combinedTooltip != null) {
+                tooltipComponents.add(combinedTooltip.withStyle(ChatFormatting.GRAY));
+            }
+        }
+        super.appendHoverText(stack, level, tooltipComponents, tooltipFlag);
     }
 }
