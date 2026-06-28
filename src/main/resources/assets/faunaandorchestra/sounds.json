@@ -41,6 +41,12 @@
       "faunaandorchestra:sfx/cello"
     ]
   },
+  "drum_use": {
+    "subtitles": "sounds.faunaandorchestra.drum_use",
+    "sounds": [
+      "faunaandorchestra:sfx/drum"
+    ]
+  },
   "pan_flute_use": {
     "subtitles": "sounds.faunaandorchestra.pan_flute_use",
     "sounds": [
@@ -258,6 +264,84 @@
       "faunaandorchestra:music/bamba_violin"
     ]
   },
+  "when_the_saints_go_marching_cello": {
+    "subtitles": "sounds.faunaandorchestra.when_the_saints_go_marching_cello",
+    "sounds": [
+      "faunaandorchestra:music/when_the_saints_go_marching_cello"
+    ]
+  },
+  "when_the_saints_go_marching_double_bass": {
+    "subtitles": "sounds.faunaandorchestra.when_the_saints_go_marching_double_bass",
+    "sounds": [
+      "faunaandorchestra:music/when_the_saints_go_marching_double_bass"
+    ]
+  },
+  "when_the_saints_go_marching_drum": {
+    "subtitles": "sounds.faunaandorchestra.when_the_saints_go_marching_drum",
+    "sounds": [
+      "faunaandorchestra:music/when_the_saints_go_marching_drum"
+    ]
+  },
+  "when_the_saints_go_marching_flute": {
+    "subtitles": "sounds.faunaandorchestra.when_the_saints_go_marching_flute",
+    "sounds": [
+      "faunaandorchestra:music/when_the_saints_go_marching_flute"
+    ]
+  },
+  "when_the_saints_go_marching_oboe": {
+    "subtitles": "sounds.faunaandorchestra.when_the_saints_go_marching_oboe",
+    "sounds": [
+      "faunaandorchestra:music/when_the_saints_go_marching_oboe"
+    ]
+  },
+  "when_the_saints_go_marching_saxophone": {
+    "subtitles": "sounds.faunaandorchestra.when_the_saints_go_marching_saxophone",
+    "sounds": [
+      "faunaandorchestra:music/when_the_saints_go_marching_saxophone"
+    ]
+  },
+  "when_the_saints_go_marching_violin": {
+    "subtitles": "sounds.faunaandorchestra.when_the_saints_go_marching_violin",
+    "sounds": [
+      "faunaandorchestra:music/when_the_saints_go_marching_violin"
+    ]
+  },
+  "oh_susana_saxophone": {
+    "subtitles": "sounds.faunaandorchestra.oh_susana_saxophone",
+    "sounds": [
+      "faunaandorchestra:music/oh_susana_saxophone"
+    ]
+  },
+  "oh_susana_double_bass": {
+    "subtitles": "sounds.faunaandorchestra.oh_susana_double_bass",
+    "sounds": [
+      "faunaandorchestra:music/oh_susana_double_bass"
+    ]
+  },
+  "oh_susana_oboe": {
+    "subtitles": "sounds.faunaandorchestra.oh_susana_oboe",
+    "sounds": [
+      "faunaandorchestra:music/oh_susana_oboe"
+    ]
+  },
+  "the_entertainer_keytar": {
+    "subtitles": "sounds.faunaandorchestra.the_entertainer_keytar",
+    "sounds": [
+      "faunaandorchestra:music/the_entertainer_keytar"
+    ]
+  },
+  "the_entertainer_oboe": {
+    "subtitles": "sounds.faunaandorchestra.the_entertainer_oboe",
+    "sounds": [
+      "faunaandorchestra:music/the_entertainer_oboe"
+    ]
+  },
+  "the_entertainer_flute": {
+    "subtitles": "sounds.faunaandorchestra.the_entertainer_flute",
+    "sounds": [
+      "faunaandorchestra:music/the_entertainer_flute"
+    ]
+  },
   "frog_song": {
     "subtitles": "sounds.faunaandorchestra.frog_song",
     "sounds": [
@@ -295,6 +379,26 @@
       "faunaandorchestra:sfx/baby_penguin_ambient1",
       "faunaandorchestra:sfx/baby_penguin_ambient2",
       "faunaandorchestra:sfx/baby_penguin_ambient3"
+    ]
+  },
+  "sea_lion_ambient": {
+    "subtitles": "sounds.faunaandorchestra.sea_lion_ambient",
+    "sounds": [
+      "faunaandorchestra:sfx/sea_lion0",
+      "faunaandorchestra:sfx/sea_lion1",
+      "faunaandorchestra:sfx/sea_lion2"
+    ]
+  },
+  "koala_serve": {
+    "subtitles": "sounds.faunaandorchestra.koala_serve",
+    "sounds": [
+      "faunaandorchestra:sfx/koala_serve"
+    ]
+  },
+  "dagger_charge": {
+    "subtitles": "sounds.faunaandorchestra.dagger_charge",
+    "sounds": [
+      "faunaandorchestra:sfx/dagger_charge"
     ]
   },
   "beaver_teeth": {
@@ -361,6 +465,30 @@
       "faunaandorchestra:sfx/whistle_call"
     ]
   },
+  "gong": {
+    "subtitles": "sounds.faunaandorchestra.gong",
+    "sounds": [
+      "faunaandorchestra:sfx/gong"
+    ]
+  },
+  "wow": {
+    "subtitles": "sounds.faunaandorchestra.wow",
+    "sounds": [
+      "faunaandorchestra:sfx/wow"
+    ]
+  },
+  "write": {
+    "subtitles": "sounds.faunaandorchestra.write",
+    "sounds": [
+      "faunaandorchestra:sfx/write"
+    ]
+  },
+  "erase": {
+    "subtitles": "sounds.faunaandorchestra.erase",
+    "sounds": [
+      "faunaandorchestra:sfx/erase"
+    ]
+  },
   "singing_sproutling_sound": {
     "subtitles": "sounds.faunaandorchestra.singing_sproutling_sound",
     "sounds": [
@@ -415,6 +543,14 @@
       "faunaandorchestra:sfx/vessel_collect"
     ]
   },
+  "sewing": {
+    "subtitles": "sounds.faunaandorchestra.sewing",
+    "sounds": [
+      "faunaandorchestra:sfx/sewing1",
+      "faunaandorchestra:sfx/sewing2",
+      "faunaandorchestra:sfx/sewing3"
+    ]
+  },
   "pan_flute_altar_quake": {
     "subtitles": "sounds.faunaandorchestra.pan_flute_altar_quake",
     "sounds": [
@@ -434,6 +570,24 @@
       "faunaandorchestra:sfx/discorded_flower1"
     ]
   },
+  "insert_disk": {
+    "subtitles": "sounds.faunaandorchestra.insert_disk",
+    "sounds": [
+      "faunaandorchestra:sfx/insert_disk"
+    ]
+  },
+  "propel": {
+    "subtitles": "sounds.faunaandorchestra.propel",
+    "sounds": [
+      "faunaandorchestra:sfx/propel"
+    ]
+  },
+  "enlighten": {
+    "subtitles": "sounds.faunaandorchestra.enlighten",
+    "sounds": [
+      "faunaandorchestra:sfx/enlighten"
+    ]
+  },
   "dialogue": {
     "subtitles": "sounds.faunaandorchestra.dialogue",
     "sounds": [
@@ -450,6 +604,12 @@
     "subtitles": "sounds.faunaandorchestra.hona_bildots_eztia",
     "sounds": [
       "faunaandorchestra:music/hona_bildots_eztia"
+    ]
+  },
+  "soleram": {
+    "subtitles": "sounds.faunaandorchestra.soleram",
+    "sounds": [
+      "faunaandorchestra:music/soleram"
     ]
   },
   "the_great_composer_theme": {

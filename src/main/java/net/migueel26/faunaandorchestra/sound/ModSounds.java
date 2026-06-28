@@ -23,6 +23,7 @@ public class ModSounds {
     public static final Supplier<SoundEvent> SAXOPHONE_USE = registerSoundEvent("saxophone_use");
     public static final Supplier<SoundEvent> OBOE_USE = registerSoundEvent("oboe_use");
     public static final Supplier<SoundEvent> CELLO_USE = registerSoundEvent("cello_use");
+    public static final Supplier<SoundEvent> DRUM_USE = registerSoundEvent("drum_use");
     public static final Supplier<SoundEvent> PAN_FLUTE_USE = registerSoundEvent("pan_flute_use");
 
     public static final Supplier<SoundEvent> PAN_FLUTE_NOTES = registerSoundEvent("pan_flute_notes");
@@ -68,9 +69,26 @@ public class ModSounds {
     public static final Supplier<SoundEvent> BAMBA_SAXOPHONE = registerSoundEvent("bamba_saxophone");
     public static final Supplier<SoundEvent> BAMBA_VIOLIN = registerSoundEvent("bamba_violin");
 
+    public static final Supplier<SoundEvent> SAINTS_CELLO = registerSoundEvent("when_the_saints_go_marching_cello");
+    public static final Supplier<SoundEvent> SAINTS_DOUBLE_BASS = registerSoundEvent("when_the_saints_go_marching_double_bass");
+    public static final Supplier<SoundEvent> SAINTS_FLUTE = registerSoundEvent("when_the_saints_go_marching_flute");
+    public static final Supplier<SoundEvent> SAINTS_VIOLIN = registerSoundEvent("when_the_saints_go_marching_violin");
+    public static final Supplier<SoundEvent> SAINTS_OBOE = registerSoundEvent("when_the_saints_go_marching_oboe");
+    public static final Supplier<SoundEvent> SAINTS_DRUM = registerSoundEvent("when_the_saints_go_marching_drum");
+    public static final Supplier<SoundEvent> SAINTS_SAXOPHONE = registerSoundEvent("when_the_saints_go_marching_saxophone");
+
+    public static final Supplier<SoundEvent> OH_SUSANNA_SAXOPHONE = registerSoundEvent("oh_susana_saxophone");
+    public static final Supplier<SoundEvent> OH_SUSANNA_DOUBLE_BASS = registerSoundEvent("oh_susana_double_bass");
+    public static final Supplier<SoundEvent> OH_SUSANNA_OBOE = registerSoundEvent("oh_susana_oboe");
+
+    public static final Supplier<SoundEvent> THE_ENTERTAINER_KEYTAR= registerSoundEvent("the_entertainer_keytar");
+    public static final Supplier<SoundEvent> THE_ENTERTAINER_FLUTE = registerSoundEvent("the_entertainer_flute");
+    public static final Supplier<SoundEvent> THE_ENTERTAINER_OBOE = registerSoundEvent("the_entertainer_oboe");
+
     public static final Supplier<SoundEvent> FROG_SONG = registerSoundEvent("frog_song");
     public static final Supplier<SoundEvent> SPROUTLING_SONG = registerSoundEvent("sproutling_song");
     public static final Supplier<SoundEvent> RINGTAILS_SONG = registerSoundEvent("hona_bildots_eztia");
+    public static final Supplier<SoundEvent> JAZZY_DAMMYS_SONG = registerSoundEvent("soleram");
     public static final Supplier<SoundEvent> THE_GREAT_COMPOSER_THEME = registerSoundEvent("the_great_composer_theme");
     public static final Supplier<SoundEvent> THE_GREAT_COMPOSER_FINAL_THEME = registerSoundEvent("the_great_composer_theme2");
 
@@ -81,6 +99,8 @@ public class ModSounds {
     public static final Supplier<SoundEvent> MANTIS_ANGRY = registerSoundEvent("mantis_angry");
 
     public static final Supplier<SoundEvent> BABY_PENGUIN_AMBIENT = registerSoundEvent("baby_penguin_ambient");
+    public static final Supplier<SoundEvent> SEA_LION_AMBIENT = registerSoundEvent("sea_lion_ambient");
+    public static final Supplier<SoundEvent> KOALA_SERVE = registerSoundEvent("koala_serve");
     public static final Supplier<SoundEvent> BEAVER_TEETH = registerSoundEvent("beaver_teeth");
     public static final Supplier<SoundEvent> WISE_TREE_AMBIENT = registerSoundEvent("wise_tree_ambient");
     public static final Supplier<SoundEvent> WISE_TREE_DROP = registerSoundEvent("wise_tree_drop");
@@ -111,8 +131,11 @@ public class ModSounds {
 
     public static final Supplier<SoundEvent> SUCCESSFUL_TAME = registerSoundEvent("successful_tame");
     public static final Supplier<SoundEvent> MAGIC_GROWTH = registerSoundEvent("magic_growth");
+    public static final Supplier<SoundEvent> INSERT_DISK = registerSoundEvent("insert_disk");
+    public static final Supplier<SoundEvent> PROPEL = registerSoundEvent("propel");
+    public static final Supplier<SoundEvent> ENLIGHTEN = registerSoundEvent("enlighten");
     public static final Supplier<SoundEvent> SINGING_SPROUTLING_SOUND = registerSoundEvent("singing_sproutling_sound");
-    public static final Supplier<SoundEvent> SPROUTLING_TWINKLE = registerSoundEvent("sproutling_twinkle");
+    public static final Supplier<SoundEvent> TWINKLE = registerSoundEvent("sproutling_twinkle");
     public static final Supplier<SoundEvent> WHISTLE_CALL = registerSoundEvent("whistle_call");
     public static final Supplier<SoundEvent> CAULDRON_BUBBLING = registerSoundEvent("cauldron_bubbling");
     public static final Supplier<SoundEvent> CAULDRON_ITEM = registerSoundEvent("cauldron_item");
@@ -122,10 +145,16 @@ public class ModSounds {
     public static final Supplier<SoundEvent> PAN_FLUTE_ALTAR_THUNDER = registerSoundEvent("pan_flute_altar_thunder");
     public static final Supplier<SoundEvent> PAN_FLUTE_ALTAR_QUAKE = registerSoundEvent("pan_flute_altar_quake");
     public static final Supplier<SoundEvent> BOOGIE_BOMB_DANCE = registerSoundEvent("boogie_bomb_dance");
+    public static final Supplier<SoundEvent> GONG = registerSoundEvent("gong");
+    public static final Supplier<SoundEvent> DAGGER_CHARGE = registerSoundEvent("dagger_charge");
+    public static final Supplier<SoundEvent> WOW = registerSoundEvent("wow");
+    public static final Supplier<SoundEvent> WRITE = registerSoundEvent("write");
+    public static final Supplier<SoundEvent> ERASE = registerSoundEvent("erase");
+    public static final Supplier<SoundEvent> SEWING = registerSoundEvent("sewing");
     public static final Supplier<SoundEvent> DIALOGUE = registerSoundEvent("dialogue");
 
     private static Supplier<SoundEvent> registerSoundEvent(String name) {
-        ResourceLocation path = new ResourceLocation(FaunaAndOrchestra.MOD_ID, name);
+        ResourceLocation path = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, name);
         return SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(path));
     }
 
