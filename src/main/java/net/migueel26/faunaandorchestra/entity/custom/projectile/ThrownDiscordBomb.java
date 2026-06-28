@@ -2,6 +2,7 @@ package net.migueel26.faunaandorchestra.entity.custom.projectile;
 
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.block.custom.CrawlingDiscordBlock;
+import net.migueel26.faunaandorchestra.block.entity.CrawlingDiscordBlockEntity;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.minecraft.core.BlockPos;
@@ -51,8 +52,11 @@ public class ThrownDiscordBomb extends ThrowableItemProjectile implements ItemSu
             level().playSound(null, vec3.x, vec3.y, vec3.z, SoundEvents.GENERIC_EXPLODE, SoundSource.NEUTRAL, 1.0f, 0.5f);
             ((ServerLevel) level()).sendParticles(ParticleTypes.SOUL_FIRE_FLAME, vec3.x, vec3.y, vec3.z, 50, 0.25, 0.25, 0.25, 0.1);
             ((ServerLevel) level()).sendParticles(ParticleTypes.SCULK_SOUL, vec3.x, vec3.y, vec3.z, 80, 0.75, 0.75, 0.75, 0.2);
-            level().setBlock(BlockPos.containing(vec3.x, vec3.y, vec3.z), ModBlocks.CRAWLING_DISCORD.get().defaultBlockState().setValue(CrawlingDiscordBlock.MAX_GENERATION, 7), 3);
-
+            BlockPos hitPos = BlockPos.containing(vec3.x, vec3.y, vec3.z);
+            level().setBlock(hitPos, ModBlocks.CRAWLING_DISCORD.get().defaultBlockState(), 3);
+            if (level().getBlockEntity(hitPos) instanceof CrawlingDiscordBlockEntity be) {
+                be.setMaxGeneration(7);
+            }
             this.discard();
         }
     }
