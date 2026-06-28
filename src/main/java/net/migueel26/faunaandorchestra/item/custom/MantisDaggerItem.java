@@ -1,5 +1,7 @@
 package net.migueel26.faunaandorchestra.item.custom;
 
+import com.google.common.collect.ImmutableMultimap;
+import com.google.common.collect.Multimap;
 import net.migueel26.faunaandorchestra.client.item.MantisDaggerItemRenderer;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.minecraft.client.gui.screens.Screen;
@@ -14,9 +16,9 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.decoration.ArmorStand;
@@ -24,19 +26,22 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.component.ItemAttributeModifiers;
-import net.minecraft.world.item.component.Tool;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.common.ItemAbilities;
-import net.neoforged.neoforge.common.ItemAbility;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
+import net.minecraftforge.common.ToolAction;
+import net.minecraftforge.common.ToolActions;
 import software.bernie.geckolib.animatable.GeoItem;
 import software.bernie.geckolib.animatable.SingletonGeoAnimatable;
-import software.bernie.geckolib.animatable.client.GeoRenderProvider;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.*;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.renderer.GeoItemRenderer;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.List;
@@ -52,17 +57,21 @@ public class MantisDaggerItem extends Item implements GeoItem {
             .triggerableAnim("use", USE)
             .triggerableAnim("nothing", NOTHING);
 
+    private final Multimap<Attribute, AttributeModifier> defaultModifiers;
+
     public MantisDaggerItem(Properties properties) {
         super(properties);
         SingletonGeoAnimatable.registerSyncedAnimatable(this);
+
+        ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
+        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", DEFAULT_DAMAGE, AttributeModifier.Operation.ADDITION));
+        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", -2.9f, AttributeModifier.Operation.ADDITION));
+        this.defaultModifiers = builder.build();
     }
 
-    public static ItemAttributeModifiers createAttributes() {
-        return ItemAttributeModifiers.builder().add(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_ID, DEFAULT_DAMAGE, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND).add(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_ID, -2.9000000953674316, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND).build();
-    }
-
-    public static Tool createToolProperties() {
-        return new Tool(List.of(), 1.0F, 2);
+    @Override
+    public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot slot) {
+        return slot == EquipmentSlot.MAINHAND ? this.defaultModifiers : super.getDefaultAttributeModifiers(slot);
     }
 
     private <T extends GeoItem> PlayState predicate(AnimationState<T> state) {
@@ -79,7 +88,7 @@ public class MantisDaggerItem extends Item implements GeoItem {
     }
 
     @Override
-    public int getUseDuration(ItemStack stack, LivingEntity entity) {
+    public int getUseDuration(ItemStack stack) {
         return CHARGE_TIME + 15;
     }
 
@@ -102,7 +111,6 @@ public class MantisDaggerItem extends Item implements GeoItem {
         if (remainingUseDuration == 15) {
             if (livingEntity instanceof Player player) {
                 float speed = 2f;
-                float damage = DEFAULT_DAMAGE;
 
                 float f7 = player.getYRot();
                 float f1 = player.getXRot();
@@ -120,20 +128,9 @@ public class MantisDaggerItem extends Item implements GeoItem {
                 }
 
                 if (!level.isClientSide()) {
-                    float baseDamage = (float) player.getAttributeValue(Attributes.ATTACK_DAMAGE);
-                    ArmorStand dummy = new ArmorStand(level, player.getX(), player.getY(), player.getZ());
+                    player.startAutoSpinAttack(20);
 
-                    damage = EnchantmentHelper.modifyDamage(
-                            (ServerLevel) level,
-                            stack,
-                            dummy,
-                            player.damageSources().playerAttack(player),
-                            baseDamage
-                    );
-
-                    player.startAutoSpinAttack(20, damage, stack);
-
-                    stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(player.getUsedItemHand()));
+                    stack.hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(player.getUsedItemHand()));
                     player.getCooldowns().addCooldown(stack.getItem(), 20);
                     ((ServerLevel) level).sendParticles(ParticleTypes.CLOUD, player.getX(), player.getY(), player.getZ(), 20, 0.1, 0.1, 0.1, 0.1);
                 }
@@ -153,40 +150,39 @@ public class MantisDaggerItem extends Item implements GeoItem {
         super.releaseUsing(stack, level, livingEntity, timeCharged);
     }
 
+    @Override
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+        stack.hurtAndBreak(1, attacker, (entity) -> entity.broadcastBreakEvent(EquipmentSlot.MAINHAND));
         return true;
     }
 
-    public void postHurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        stack.hurtAndBreak(1, attacker, EquipmentSlot.MAINHAND);
-    }
-
-    public boolean canPerformAction(ItemStack stack, ItemAbility itemAbility) {
-        return ItemAbilities.DEFAULT_SWORD_ACTIONS.contains(itemAbility);
+    @Override
+    public boolean canPerformAction(ItemStack stack, ToolAction toolAction) {
+        return ToolActions.DEFAULT_SWORD_ACTIONS.contains(toolAction);
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack stack, Level level, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         if (Screen.hasShiftDown()) {
             tooltipComponents.add(Component.translatable("item.faunaandorchestra.mantis_dagger.desc"));
         } else {
             tooltipComponents.add(Component.translatable("tooltip.faunaandorchestra.shift"));
         }
 
-        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+        super.appendHoverText(stack, level, tooltipComponents, tooltipFlag);
     }
 
     @Override
-    public void createGeoRenderer(Consumer<GeoRenderProvider> consumer) {
-        consumer.accept(new GeoRenderProvider() {
-            private MantisDaggerItemRenderer renderer;
+    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+        consumer.accept(new IClientItemExtensions() {
+            private GeoItemRenderer<?> renderer;
 
             @Override
-            public BlockEntityWithoutLevelRenderer getGeoItemRenderer() {
-                if (renderer == null) {
-                    renderer = new MantisDaggerItemRenderer();
+            public BlockEntityWithoutLevelRenderer getCustomRenderer() {
+                if (this.renderer == null) {
+                    this.renderer = new MantisDaggerItemRenderer();
                 }
-                return renderer;
+                return this.renderer;
             }
         });
     }
