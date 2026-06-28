@@ -38,9 +38,13 @@ public abstract class OwnableBlockEntity extends BlockEntity {
 
     public void setOwner(@Nullable UUID owner) {
         this.owner = owner;
-        PacketDistributor.sendToAllPlayers(new SyncOwnableBEPayloadS2C(
-                worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(),
-                owner));
+
+        if (this.level != null && !this.level.isClientSide()) {
+            PacketDistributor.sendToAllPlayers(new SyncOwnableBEPayloadS2C(
+                    worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(),
+                    owner));
+        }
+
         markUpdated();
     }
 
