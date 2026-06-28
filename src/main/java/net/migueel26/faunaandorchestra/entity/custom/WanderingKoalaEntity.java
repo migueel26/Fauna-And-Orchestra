@@ -1,7 +1,6 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
 import com.google.common.collect.Lists;
-import com.mojang.logging.LogUtils;
 import net.migueel26.faunaandorchestra.entity.goals.FaunaRandomLookAroundGoal;
 import net.migueel26.faunaandorchestra.entity.goals.KoalaRandomChangeStanceGoal;
 import net.migueel26.faunaandorchestra.entity.goals.LookAtTradingPlayerGoal;
@@ -15,9 +14,6 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -27,18 +23,13 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.npc.Npc;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.trading.Merchant;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.item.trading.MerchantOffers;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.Nullable;
-import org.slf4j.Logger;
-import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -50,7 +41,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.ArrayList;
 
-public class WanderingKoalaEntity extends AgeableMob implements Merchant, Npc, GeoEntity {
+public class WanderingKoalaEntity extends AbstractKoalaMerchant {
     private static final RawAnimation SLEEP = RawAnimation.begin().thenPlay("sleep");
     private static final RawAnimation WALK = RawAnimation.begin().thenPlay("walk");
     private static final RawAnimation SIT = RawAnimation.begin().thenPlay("sit");
@@ -60,11 +51,6 @@ public class WanderingKoalaEntity extends AgeableMob implements Merchant, Npc, G
     private static final RawAnimation SIT_DOWN = RawAnimation.begin().thenPlay("sit_down");
     private static final EntityDataAccessor<Boolean> SITTING = SynchedEntityData.defineId(WanderingKoalaEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> SLEEPING = SynchedEntityData.defineId(WanderingKoalaEntity.class, EntityDataSerializers.BOOLEAN);
-    @Nullable
-    private Player tradingPlayer;
-    @Nullable
-    protected MerchantOffers offers;
-    private static final Logger LOGGER = LogUtils.getLogger();
     protected boolean isSleeping;
     protected boolean isSitting;
     // SERVER ANIMATION CONTROL
@@ -83,8 +69,8 @@ public class WanderingKoalaEntity extends AgeableMob implements Merchant, Npc, G
 
     @Override
     protected void defineSynchedData() {
-        this.entityData.define(SITTING, false);
-        this.entityData.define(SLEEPING, false);
+        entityData.define(SITTING, false);
+        entityData.define(SLEEPING, false);
         super.defineSynchedData();
     }
 
@@ -139,12 +125,12 @@ public class WanderingKoalaEntity extends AgeableMob implements Merchant, Npc, G
     }
 
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficultyInstance, MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag compoundTag) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData, CompoundTag tag) {
         float prob = level.getRandom().nextFloat();
         if (prob > 0.5) {
             setSleeping(true);
         }
-        return super.finalizeSpawn(level, difficultyInstance, mobSpawnType, spawnGroupData, compoundTag);
+        return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData, tag);
     }
 
     private <E extends GeoAnimatable> PlayState koalaState(AnimationState<E> state) {
@@ -201,28 +187,14 @@ public class WanderingKoalaEntity extends AgeableMob implements Merchant, Npc, G
                 .add(Attributes.FOLLOW_RANGE, 24D);
     }
 
-    @Override
-    public MerchantOffers getOffers() {
-        if (this.level().isClientSide) {
-            throw new IllegalStateException("Cannot load Villager offers on the client");
-        } else {
-            if (this.offers == null) {
-                this.offers = new MerchantOffers();
-                this.updateTrades();
-            }
-
-            return this.offers;
-        }
-    }
-
-    private void updateTrades() {
+    protected void updateTrades() {
         VillagerTrades.ItemListing[] sheets = KoalaTrades.WANDERING_KOALA_TRADES.get(1);
         VillagerTrades.ItemListing[] instruments = KoalaTrades.WANDERING_KOALA_TRADES.get(2);
         VillagerTrades.ItemListing[] panFlutes = KoalaTrades.WANDERING_KOALA_TRADES.get(3);
         VillagerTrades.ItemListing[] gingkoBilobas = KoalaTrades.WANDERING_KOALA_TRADES.get(4);
         if (sheets != null && instruments != null) {
             MerchantOffers merchantOffers = this.getOffers();
-            this.addOffersFromItemListings(merchantOffers, sheets, instruments, panFlutes, gingkoBilobas, 6);
+            this.addOffersFromItemListings(merchantOffers, sheets, instruments, panFlutes, gingkoBilobas, 7);
 
             /*int i = this.random.nextInt(sheets.length);
             VillagerTrades.ItemListing itemListing = sheets[i];
@@ -250,6 +222,8 @@ public class WanderingKoalaEntity extends AgeableMob implements Merchant, Npc, G
                 merchantoffer = panFluteList.remove(this.random.nextInt(panFluteList.size())).getOffer(this, this.random);
             if (i == 5)
                 merchantoffer = gingkoBilobaList.remove(this.random.nextInt(gingkoBilobaList.size())).getOffer(this, this.random);
+            if (i == 6)
+                merchantoffer = KoalaTrades.WANDERING_KOALA_TRADES.get(6)[0].getOffer(this, this.random);
             if (merchantoffer != null) {
                 givenMerchantOffers.add(merchantoffer);
                 i++;
@@ -264,8 +238,8 @@ public class WanderingKoalaEntity extends AgeableMob implements Merchant, Npc, G
                 if (this.getOffers().isEmpty()) {
                     return InteractionResult.CONSUME;
                 } else if (player.getInventory().hasAnyMatching(item ->item.is(ModItems.BOOGIE_FRUIT.get()))
-                    && offers != null && !offers.contains(KoalaTrades.WANDERING_KOALA_TRADES.get(5)[0].getOffer(player, random))) {
-                   offers.add(KoalaTrades.WANDERING_KOALA_TRADES.get(5)[0].getOffer(player, random));
+                        && offers != null && !offers.contains(KoalaTrades.WANDERING_KOALA_TRADES.get(5)[0].getOffer(player, random))) {
+                    offers.add(KoalaTrades.WANDERING_KOALA_TRADES.get(5)[0].getOffer(player, random));
                 }
 
                 this.setTradingPlayer(player);
@@ -292,128 +266,19 @@ public class WanderingKoalaEntity extends AgeableMob implements Merchant, Npc, G
         return super.hurt(source, amount);
     }
 
-    @Nullable
-    @Override
-    protected SoundEvent getHurtSound(DamageSource damageSource) {
-        return SoundEvents.PANDA_HURT;
-    }
-
-    @Nullable
-    @Override
-    protected SoundEvent getDeathSound() {
-        return SoundEvents.PANDA_DEATH;
-    }
-
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-
-        // CAMBIO: Carga directa usando el constructor que acepta CompoundTag
-        if (compound.contains("Offers")) {
-            this.offers = new MerchantOffers(compound.getCompound("Offers"));
-        }
-
         this.entityData.set(SITTING, compound.getBoolean("IsSitting"));
         this.entityData.set(SLEEPING, compound.getBoolean("IsSleeping"));
-    }
 
+        super.readAdditionalSaveData(compound);
+    }
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-
-        if (!this.level().isClientSide) {
-            MerchantOffers merchantoffers = this.getOffers();
-            if (!merchantoffers.isEmpty()) {
-                compound.put("Offers", merchantoffers.createTag());
-            }
-        }
-
         compound.putBoolean("IsSitting", this.isSitting());
         compound.putBoolean("IsSleeping", this.isKoalaSleeping());
-    }
-    @Nullable
-    @Override
-    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
-        return null;
-    }
 
-    @Override
-    public boolean isPersistenceRequired() {
-        return true;
-    }
-
-    @Override
-    public void setTradingPlayer(@Nullable Player tradingPlayer) {
-        this.tradingPlayer = tradingPlayer;
-    }
-
-    @Nullable
-    @Override
-    public Player getTradingPlayer() {
-        return this.tradingPlayer;
-    }
-
-    public boolean isTrading() {
-        return this.tradingPlayer != null;
-    }
-
-    @Override
-    public void overrideOffers(MerchantOffers offers) {
-        this.offers = offers;
-    }
-
-    @Override
-    public void notifyTrade(MerchantOffer offer) {
-        offer.increaseUses();
-        this.ambientSoundTime = -this.getAmbientSoundInterval();
-        this.rewardTradeXp(offer);
-        if (this.tradingPlayer instanceof ServerPlayer) {
-            //CriteriaTriggers.TRADE.trigger((ServerPlayer)this.tradingPlayer, this, offer.getResult());
-        }
-    }
-
-    protected void rewardTradeXp(MerchantOffer offer) {
-        if (offer.shouldRewardExp()) {
-            int i = 3 + this.random.nextInt(4);
-            this.level().addFreshEntity(new ExperienceOrb(this.level(), this.getX(), this.getY() + 0.5, this.getZ(), i));
-        }
-    }
-
-    @Override
-    public void notifyTradeUpdated(ItemStack stack) {
-        if (!this.level().isClientSide && this.ambientSoundTime > -this.getAmbientSoundInterval() + 20) {
-            this.ambientSoundTime = -this.getAmbientSoundInterval();
-            this.playSound(this.getTradeUpdatedSound(!stack.isEmpty()));
-        }
-    }
-
-    protected SoundEvent getTradeUpdatedSound(boolean getYesSound) {
-        return getYesSound ? SoundEvents.WANDERING_TRADER_YES : SoundEvents.WANDERING_TRADER_NO;
-    }
-
-    @Override
-    public int getVillagerXp() {
-        return 0;
-    }
-
-    @Override
-    public void overrideXp(int xp) {
-
-    }
-
-    @Override
-    public boolean showProgressBar() {
-        return false;
-    }
-
-    @Override
-    public SoundEvent getNotifyTradeSound() {
-        return SoundEvents.VILLAGER_YES;
-    }
-
-    @Override
-    public boolean isClientSide() {
-        return this.level().isClientSide();
+        super.addAdditionalSaveData(compound);
     }
 
     public boolean isKoalaSleeping() {
@@ -452,7 +317,7 @@ public class WanderingKoalaEntity extends AgeableMob implements Merchant, Npc, G
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<GeoAnimatable>(this, "koala_controller", 5, this::koalaState)
+        controllers.add(new AnimationController<>(this, "koala_controller", 5, this::koalaState)
                 .triggerableAnim("stand_up", STAND_UP)
                 .triggerableAnim("sit_down", SIT_DOWN)
                 .triggerableAnim("wake_up", WAKE_UP));

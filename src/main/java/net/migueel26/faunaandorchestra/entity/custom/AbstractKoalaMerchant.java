@@ -52,10 +52,7 @@ public abstract class AbstractKoalaMerchant extends AgeableMob implements Npc, M
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         if (compound.contains("Offers")) {
-            MerchantOffers.CODEC
-                    .parse(this.registryAccess().createSerializationContext(NbtOps.INSTANCE), compound.get("Offers"))
-                    .resultOrPartial(Util.prefix("Failed to load offers: ", LOGGER::warn))
-                    .ifPresent(p_323775_ -> this.offers = p_323775_);
+            this.offers = new MerchantOffers(compound.getCompound("Offers"));
         }
 
         super.readAdditionalSaveData(compound);
@@ -66,9 +63,7 @@ public abstract class AbstractKoalaMerchant extends AgeableMob implements Npc, M
         if (!this.level().isClientSide) {
             MerchantOffers merchantoffers = this.getOffers();
             if (!merchantoffers.isEmpty()) {
-                compound.put(
-                        "Offers", MerchantOffers.CODEC.encodeStart(this.registryAccess().createSerializationContext(NbtOps.INSTANCE), merchantoffers).getOrThrow()
-                );
+                compound.put("Offers", merchantoffers.createTag());
             }
         }
 
@@ -121,7 +116,7 @@ public abstract class AbstractKoalaMerchant extends AgeableMob implements Npc, M
     public void notifyTradeUpdated(ItemStack stack) {
         if (!this.level().isClientSide && this.ambientSoundTime > -this.getAmbientSoundInterval() + 20) {
             this.ambientSoundTime = -this.getAmbientSoundInterval();
-            this.makeSound(this.getTradeUpdatedSound(!stack.isEmpty()));
+            this.playSound(this.getTradeUpdatedSound(!stack.isEmpty()));
         }
     }
 
