@@ -1,13 +1,9 @@
 package net.migueel26.faunaandorchestra.mixins.client;
 
-import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
-import net.migueel26.faunaandorchestra.entity.custom.KoalaEntity;
 import net.migueel26.faunaandorchestra.mixins.client.accessors.StructurePieceAccessor;
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.StructureManager;

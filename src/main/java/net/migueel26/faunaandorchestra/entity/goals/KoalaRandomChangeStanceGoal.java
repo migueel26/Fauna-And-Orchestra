@@ -1,15 +1,14 @@
 package net.migueel26.faunaandorchestra.entity.goals;
 
-import net.migueel26.faunaandorchestra.entity.custom.KoalaEntity;
-import net.migueel26.faunaandorchestra.entity.custom.RedPandaEntity;
+import net.migueel26.faunaandorchestra.entity.custom.WanderingKoalaEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 
 public class KoalaRandomChangeStanceGoal extends Goal {
     private final int threshold = 500;
-    private final KoalaEntity koala;
+    private final WanderingKoalaEntity koala;
     private final float probability;
     private int timeSpentInCurrentStance = 0;
-    public KoalaRandomChangeStanceGoal(KoalaEntity koala, float probability) {
+    public KoalaRandomChangeStanceGoal(WanderingKoalaEntity koala, float probability) {
         this.koala = koala;
         this.probability = probability/20;
     }

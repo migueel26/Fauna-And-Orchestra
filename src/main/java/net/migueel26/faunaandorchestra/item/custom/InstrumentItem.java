@@ -1,29 +1,23 @@
 package net.migueel26.faunaandorchestra.item.custom;
 
-import net.migueel26.faunaandorchestra.entity.custom.KoalaEntity;
+import net.migueel26.faunaandorchestra.entity.custom.WanderingKoalaEntity;
 import net.migueel26.faunaandorchestra.entity.custom.MusicalEntity;
 import net.migueel26.faunaandorchestra.entity.custom.WiseTree;
-import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.levelgen.structure.BoundingBox;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.common.ForgeMod;
-import org.checkerframework.checker.units.qual.A;
 
 import java.util.List;
 
@@ -57,7 +51,7 @@ public class InstrumentItem extends Item {
                     // If MusicalEntity
                     musicalEntity.tryToTame(player);
 
-                } else if (entity instanceof KoalaEntity koala && koala.isKoalaSleeping()) {
+                } else if (entity instanceof WanderingKoalaEntity koala && koala.isKoalaSleeping()) {
                     // If Sleeping Koala
                     koala.wakeUp();
 

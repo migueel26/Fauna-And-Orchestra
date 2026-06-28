@@ -6,7 +6,6 @@ import net.migueel26.faunaandorchestra.entity.custom.*;
 import net.migueel26.faunaandorchestra.entity.custom.boss.ComposerCanonEntity;
 import net.migueel26.faunaandorchestra.entity.custom.boss.TheGreatComposer;
 import net.migueel26.faunaandorchestra.item.ModCreativeModeTabs;
-import net.migueel26.faunaandorchestra.networking.*;
 import net.migueel26.faunaandorchestra.potion.ModPotions;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.animal.Animal;
@@ -33,7 +32,7 @@ public class ModEventBusEvents {
         event.put(ModEntities.BEAVER.get(), BeaverEntity.createAttributes().build());
         event.put(ModEntities.LEMUR.get(), LemurEntity.createAttributes().build());
         event.put(ModEntities.MADAME_BUTTERFLY.get(), MadameButterflyEntity.createAttributes().build());
-        event.put(ModEntities.WANDERING_KOALA.get(), KoalaEntity.createAttributes().build());
+        event.put(ModEntities.WANDERING_KOALA.get(), WanderingKoalaEntity.createAttributes().build());
         event.put(ModEntities.FAUST.get(), Faust.createAttributes().build());
         event.put(ModEntities.ORION.get(), Orion.createAttributes().build());
         event.put(ModEntities.ANYA_GHOST.get(), AnyaGhost.createAttributes().build());

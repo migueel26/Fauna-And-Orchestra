@@ -2,11 +2,9 @@ package net.migueel26.faunaandorchestra.client.entity;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.entity.custom.Faust;
-import net.migueel26.faunaandorchestra.entity.custom.KoalaEntity;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
-import software.bernie.geckolib.model.data.EntityModelData;
 
 public class FaustModel extends GeoModel<Faust> {
     private static final ResourceLocation TEXTURE = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/entity/faust.png");

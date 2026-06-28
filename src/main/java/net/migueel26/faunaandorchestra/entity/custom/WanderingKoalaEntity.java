@@ -9,9 +9,7 @@ import net.migueel26.faunaandorchestra.entity.goals.TradeWithPlayerGoal;
 import net.migueel26.faunaandorchestra.entity.trades.KoalaTrades;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
-import net.minecraft.Util;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -52,7 +50,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.ArrayList;
 
-public class KoalaEntity extends AgeableMob implements Merchant, Npc, GeoEntity {
+public class WanderingKoalaEntity extends AgeableMob implements Merchant, Npc, GeoEntity {
     private static final RawAnimation SLEEP = RawAnimation.begin().thenPlay("sleep");
     private static final RawAnimation WALK = RawAnimation.begin().thenPlay("walk");
     private static final RawAnimation SIT = RawAnimation.begin().thenPlay("sit");
@@ -60,8 +58,8 @@ public class KoalaEntity extends AgeableMob implements Merchant, Npc, GeoEntity 
     private static final RawAnimation WAKE_UP = RawAnimation.begin().thenPlay("wake_up");
     private static final RawAnimation STAND_UP = RawAnimation.begin().thenPlay("stand_up");
     private static final RawAnimation SIT_DOWN = RawAnimation.begin().thenPlay("sit_down");
-    private static final EntityDataAccessor<Boolean> SITTING = SynchedEntityData.defineId(KoalaEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> SLEEPING = SynchedEntityData.defineId(KoalaEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> SITTING = SynchedEntityData.defineId(WanderingKoalaEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> SLEEPING = SynchedEntityData.defineId(WanderingKoalaEntity.class, EntityDataSerializers.BOOLEAN);
     @Nullable
     private Player tradingPlayer;
     @Nullable
@@ -74,7 +72,7 @@ public class KoalaEntity extends AgeableMob implements Merchant, Npc, GeoEntity 
     protected int tick = 0;
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
 
-    public KoalaEntity(EntityType<? extends AgeableMob> entityType, Level level) {
+    public WanderingKoalaEntity(EntityType<? extends AgeableMob> entityType, Level level) {
         super(entityType, level);
         this.isSitting = false;
         this.isSleeping = false;
@@ -106,35 +104,35 @@ public class KoalaEntity extends AgeableMob implements Merchant, Npc, GeoEntity 
         goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 8.0F) {
             @Override
             public boolean canUse() {
-                return super.canUse() && !((KoalaEntity) mob).isKoalaSleeping();
+                return super.canUse() && !((WanderingKoalaEntity) mob).isKoalaSleeping();
             }
 
             @Override
             public boolean canContinueToUse() {
-                return super.canContinueToUse() && !((KoalaEntity) mob).isKoalaSleeping();
+                return super.canContinueToUse() && !((WanderingKoalaEntity) mob).isKoalaSleeping();
             }
         });
         goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 0.75D) {
             @Override
             public boolean canUse() {
-                return super.canUse() && !((KoalaEntity) mob).isSitting();
+                return super.canUse() && !((WanderingKoalaEntity) mob).isSitting();
             }
 
             @Override
             public boolean canContinueToUse() {
-                return super.canContinueToUse() && !((KoalaEntity) mob).isSitting();
+                return super.canContinueToUse() && !((WanderingKoalaEntity) mob).isSitting();
             }
         });
 
         goalSelector.addGoal(1, new PanicGoal(this, 1.5) {
             @Override
             public boolean canUse() {
-                return super.canUse() && !((KoalaEntity) mob).isKoalaSleeping();
+                return super.canUse() && !((WanderingKoalaEntity) mob).isKoalaSleeping();
             }
 
             @Override
             public void start() {
-                if (mob instanceof KoalaEntity koala && !koala.isKoalaSleeping()) koala.setSitting(false);
+                if (mob instanceof WanderingKoalaEntity koala && !koala.isKoalaSleeping()) koala.setSitting(false);
                 super.start();
             }
         });

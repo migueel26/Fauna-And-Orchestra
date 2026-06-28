@@ -3,7 +3,6 @@ package net.migueel26.faunaandorchestra.client.entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.migueel26.faunaandorchestra.entity.custom.Faust;
-import net.migueel26.faunaandorchestra.entity.custom.KoalaEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.world.entity.Pose;
