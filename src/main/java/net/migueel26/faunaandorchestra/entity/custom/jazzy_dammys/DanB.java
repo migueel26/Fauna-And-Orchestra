@@ -28,11 +28,14 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.npc.Npc;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.network.PacketDistributor;
-import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.*;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.ArrayList;
@@ -73,11 +76,11 @@ public class DanB extends TravellingMusician implements Npc, GeoEntity {
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        super.defineSynchedData(builder);
-        builder.define(CONFIDENCE, 0);
-        builder.define(GOOD_MORNING, true);
-        builder.define(CURRENT_MYTH, -1);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(CONFIDENCE, 0);
+        this.entityData.define(GOOD_MORNING, true);
+        this.entityData.define(CURRENT_MYTH, -1);
     }
 
     @Override
@@ -126,19 +129,19 @@ public class DanB extends TravellingMusician implements Npc, GeoEntity {
         boolean updatePersistentData = false;
 
         if (!AdvancementUtil.hasAdvancement(player, FaunaAndOrchestra.MOD_ID, "myths/dan_myth0") && AdvancementUtil.hasAdvancement(player, ResourceLocation.DEFAULT_NAMESPACE, "story/lava_bucket")) {
-            ModAdvancements.DAN_MYTH0.get().trigger((ServerPlayer) player);
+            ModAdvancements.DAN_MYTH0.trigger((ServerPlayer) player);
             setCurrentMyth(0);
             setGoodMorning(false);
             data.putInt(MYTHS_DATA_KEY, myths | 1);
             updatePersistentData = true;
         } else if (!AdvancementUtil.hasAdvancement(player, FaunaAndOrchestra.MOD_ID, "myths/dan_myth1") && AdvancementUtil.hasAdvancement(player, ResourceLocation.DEFAULT_NAMESPACE, "adventure/hero_of_the_village")) {
-            ModAdvancements.DAN_MYTH1.get().trigger((ServerPlayer) player);
+            ModAdvancements.DAN_MYTH1.trigger((ServerPlayer) player);
             setCurrentMyth(1);
             setGoodMorning(false);
             data.putInt(MYTHS_DATA_KEY, myths | 2);
             updatePersistentData = true;
         } else if (!AdvancementUtil.hasAdvancement(player, FaunaAndOrchestra.MOD_ID, "myths/dan_myth2") && AdvancementUtil.hasAdvancement(player, ResourceLocation.DEFAULT_NAMESPACE, "nether/explore_nether")) {
-            ModAdvancements.DAN_MYTH2.get().trigger((ServerPlayer) player);
+            ModAdvancements.DAN_MYTH2.trigger((ServerPlayer) player);
             setCurrentMyth(2);
             data.putInt(MYTHS_DATA_KEY, myths | 4);
             setGoodMorning(false);
@@ -209,7 +212,7 @@ public class DanB extends TravellingMusician implements Npc, GeoEntity {
 
                 for (Player player : newPlayers) {
                     ModNetwork.sendToPlayer(new StartAmbientMusicS2CPacket(this.uuid), (ServerPlayer) player);
-                    ModAdvancements.MEET_JAZZY_DAMMYS.get().trigger((ServerPlayer) player);
+                    ModAdvancements.MEET_JAZZY_DAMMYS.trigger((ServerPlayer) player);
                 }
 
                 for (Player player : exitPlayers) {
