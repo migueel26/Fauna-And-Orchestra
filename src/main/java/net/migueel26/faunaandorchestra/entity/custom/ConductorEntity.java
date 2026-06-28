@@ -4,12 +4,15 @@ import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.block.custom.ComposerGravestoneBlock;
 import net.migueel26.faunaandorchestra.block.entity.ComposerGravestoneBlockEntity;
+import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.effect.ModEffects;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.entity.custom.boss.TheGreatComposer;
 import net.migueel26.faunaandorchestra.entity.custom.projectile.PhantomNoteProjectileEntity;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.item.custom.BriefcaseItem;
+import net.migueel26.faunaandorchestra.networking.ModNetwork;
+import net.migueel26.faunaandorchestra.networking.packets.RestartOrchestraMusicS2CPacket;
 import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
 import net.migueel26.faunaandorchestra.screen.custom.ConductorMenu;
 import net.migueel26.faunaandorchestra.util.ModTags;
@@ -22,9 +25,12 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -55,6 +61,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.network.NetworkHooks;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -66,6 +73,7 @@ public abstract class ConductorEntity extends TamableAnimal {
     protected static final EntityDataAccessor<Boolean> IS_MUSICAL = SynchedEntityData.defineId(ConductorEntity.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Boolean> IS_CONDUCTING = SynchedEntityData.defineId(ConductorEntity.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Boolean> IS_READY = SynchedEntityData.defineId(ConductorEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<ItemStack> COSTUME_ITEM = SynchedEntityData.defineId(ConductorEntity.class, EntityDataSerializers.ITEM_STACK);
     protected static final EntityDataAccessor<Float> VOLUME = SynchedEntityData.defineId(ConductorEntity.class, EntityDataSerializers.FLOAT);
     protected boolean holdingBaton = false;
     protected boolean isConducting = false;
@@ -107,6 +115,7 @@ public abstract class ConductorEntity extends TamableAnimal {
         this.entityData.define(IS_READY, false);
         this.entityData.define(IS_MUSICAL, false);
         this.entityData.define(VOLUME, 1.0F);
+        this.entityData.define(COSTUME_ITEM, ItemStack.EMPTY);
     }
 
     @Override
@@ -139,11 +148,9 @@ public abstract class ConductorEntity extends TamableAnimal {
         this.entityData.set(IS_READY, compound.getBoolean("IsReady"));
         this.entityData.set(VOLUME, compound.getFloat("Volume"));
 
-        if (compound.contains("SheetMusic")) {
-            ItemStack itemstack = ItemStack.of(compound.getCompound("SheetMusic"));
-            if (itemstack.is(ModTags.Items.SHEET_MUSIC)) {
-                this.inventory.setStackInSlot(0, itemstack);
-            }
+        if (compound.contains("Inventory")) {
+            this.inventory.deserializeNBT(compound.getCompound("Inventory"));
+            this.entityData.set(COSTUME_ITEM, this.inventory.getStackInSlot(1));
         }
     }
 
@@ -156,12 +163,7 @@ public abstract class ConductorEntity extends TamableAnimal {
         compound.putBoolean("IsReady", isConducting());
         compound.putFloat("Volume", currentVolume);
 
-        ItemStack stack = this.inventory.getStackInSlot(0);
-        if (!stack.isEmpty()) {
-            CompoundTag itemTag = new CompoundTag();
-            stack.save(itemTag);
-            compound.put("SheetMusic", itemTag);
-        }
+        compound.put("Inventory", this.inventory.serializeNBT());
     }
 
     @Override
@@ -371,15 +373,10 @@ public abstract class ConductorEntity extends TamableAnimal {
 
     @Override
     public @NotNull InteractionResult mobInteract(Player player, InteractionHand hand) {
-        ItemStack stack = player.getItemInHand(hand);
-        if (isTame()) {
-            if (hand == InteractionHand.MAIN_HAND && isHoldingBaton() && !player.isSecondaryUseActive()
-                    && !this.level().isClientSide()) {
+        ItemStack itemStack = player.getItemInHand(hand);
+        if (isTame() && !level().isClientSide()) {
 
-                this.openCustomMenu(player);
-                return InteractionResult.SUCCESS;
-
-            } else if (stack.isEmpty() && isHoldingBaton() && player.isSecondaryUseActive()) {
+            if (itemStack.isEmpty() && isHoldingBaton() && player.isSecondaryUseActive()) {
 
                 Item item = isHoldingLegendaryBaton() ? ModItems.LEGENDARY_BATON.get() : ModItems.BATON.get();
                 player.setItemInHand(hand, new ItemStack(item, 1));
@@ -388,16 +385,19 @@ public abstract class ConductorEntity extends TamableAnimal {
                 setOrderedToSit(false);
                 return InteractionResult.SUCCESS;
 
-            } else if (stack.is(ModItems.BATON.get()) && !isHoldingBaton()) {
+            } else if (itemStack.is(ModItems.BATON.get()) && !isHoldingBaton()) {
 
                 level().addParticle(ParticleTypes.NOTE, this.getX(), this.getY() + 2.5, this.getZ(), 0F, 0.5F, 0F);
                 player.setItemInHand(hand, ItemStack.EMPTY);
                 setHoldingBaton(true);
                 setLegendaryBaton(false);
                 setOrderedToSit(true);
+
+                ((ServerLevel) level()).sendParticles(ParticleTypes.WAX_OFF, getX(), getY()+0.5f, getZ(), 20, 0.2, 0.2, 0.2, 0.05);
+
                 return InteractionResult.CONSUME;
 
-            } else if (stack.is(ModItems.LEGENDARY_BATON.get()) && !isHoldingBaton()) {
+            } else if (itemStack.is(ModItems.LEGENDARY_BATON.get()) && !isHoldingBaton()) {
 
                 level().addParticle(ParticleTypes.NOTE, this.getX(), this.getY() + 2.5, this.getZ(), 0F, 0.5F, 0F);
                 player.setItemInHand(hand, ItemStack.EMPTY);
@@ -406,39 +406,63 @@ public abstract class ConductorEntity extends TamableAnimal {
                 setOrderedToSit(true);
 
 
-            } else if (stack.is(ModItems.BRIEFCASE.get()) && BriefcaseItem.isOpened(stack)
+            } else if (itemStack.is(ModItems.BRIEFCASE.get()) && itemStack.hasTag() && itemStack.getTag().getBoolean(ModDataComponents.OPENED)
                     && getOwnerUUID().equals(player.getUUID())) {
-                List<String> animals = BriefcaseItem.getAnimalList(stack);
 
-                if (!stack.hasTag()) {
-                    // If it's not initialized, we store it
-                    animals = new ArrayList<>(6);
-                    BriefcaseItem.setAnimalList(stack, animals);
+                CompoundTag itemTag = itemStack.getOrCreateTag();
+                ListTag entityList;
+
+                // We get the list if there is one
+                if (itemTag.contains(ModDataComponents.BRIEFCASE_ANIMAL_LIST, Tag.TAG_LIST)) {
+                    entityList = itemTag.getList(ModDataComponents.BRIEFCASE_ANIMAL_LIST, Tag.TAG_COMPOUND);
+                } else {
+                    entityList = new ListTag();
                 }
 
-                if (animals.size() < 6) {
-                    if (!level().isClientSide()) {
-                        List<String> newAnimals = new ArrayList<>(animals);
-                        newAnimals.add(MusicUtil.musicalAnimalToString(this));
-                        BriefcaseItem.setAnimalList(stack, newAnimals);
+                if (entityList.size() < BriefcaseItem.MAX_CAPACITY) {
+                    // Tag for the new entity data
+                    CompoundTag entityData = new CompoundTag();
 
-                        if (newAnimals.size() == 6) {
-                            BriefcaseItem.setOpened(stack, false);
+                    if (this.save(entityData)) {
+                        ResourceLocation key = ForgeRegistries.ENTITY_TYPES.getKey(this.getType());
+                        entityData.putString("id", key.toString());
+
+                        // Remove the UUID
+                        entityData.remove("UUID");
+
+                        // We save the custom name if it has one
+                        if (this.hasCustomName()) {
+                            entityData.putString("DisplayName", this.getCustomName().getString());
                         }
 
-                        ((ServerLevel) level()).sendParticles(ParticleTypes.PORTAL,
-                                this.getX(), this.getY(), this.getZ(),
-                                60, 0.5, 0.5, 0.5, 0F);
-                        this.discard();
-                    } else {
+                        // Add to list
+                        entityList.add(entityData);
+                        itemTag.put(ModDataComponents.BRIEFCASE_ANIMAL_LIST, entityList);
+
+                        // Play sound and particles
                         level().playSound(player, this.blockPosition(), SoundEvents.ENDERMAN_TELEPORT, SoundSource.BLOCKS);
+                        if (!level().isClientSide()) {
+                            ((ServerLevel) level()).sendParticles(ParticleTypes.PORTAL,
+                                    this.getX(), this.getY(), this.getZ(),
+                                    60, 0.5, 0.5, 0.5, 0F);
+                        }
+
+                        // Close the briefcase if full
+                        if (entityList.size() == BriefcaseItem.MAX_CAPACITY) {
+                            itemStack.getOrCreateTag().putBoolean(ModDataComponents.OPENED, false);
+                        }
+
+                        // Eliminate entity
+                        this.discard();
+
+                        return InteractionResult.SUCCESS;
                     }
-                    return InteractionResult.SUCCESS;
-                } else {
-                    return InteractionResult.FAIL;
+
                 }
+            } else if (hand == InteractionHand.MAIN_HAND && isHoldingBaton() && !player.isSecondaryUseActive()) {
 
-
+                this.openCustomMenu(player);
+                return InteractionResult.SUCCESS;
             }
         }
         return InteractionResult.PASS;
@@ -488,6 +512,17 @@ public abstract class ConductorEntity extends TamableAnimal {
         };
     }
 
+    @Override
+    public void remove(RemovalReason reason) {
+        List<Mob> listeningEntities = level().getEntitiesOfClass(Mob.class, this.getBoundingBox().inflate(64),
+                entity -> entity instanceof ListeningEntity listeningEntity && listeningEntity.isListening());
+
+        for (Mob mob : listeningEntities) {
+            ((ListeningEntity) mob).onStopListening();
+        }
+        super.remove(reason);
+    }
+
     public void activateParticles(boolean particlesActivated) {
         this.particlesActivated = particlesActivated;
     }
@@ -532,6 +567,9 @@ public abstract class ConductorEntity extends TamableAnimal {
     public Item getSheetMusic() {
         return inventory.getStackInSlot(0).getItem();
     }
+    public Item getCostume() {
+        return this.entityData.get(COSTUME_ITEM).getItem();
+    }
 
     public boolean isHoldingASheetMusic() {
         return !inventory.getStackInSlot(0).isEmpty();
@@ -547,19 +585,54 @@ public abstract class ConductorEntity extends TamableAnimal {
 
     public void addMusician(MusicalEntity musicalEntity) {
         orchestra.add(musicalEntity);
-        if (!isConducting) this.entityData.set(IS_CONDUCTING, true);
-        isConducting = true;
+        if (!isConducting) {
+            this.entityData.set(IS_CONDUCTING, true);
+            this.isConducting = true;
+        }
     }
 
     public void removeMusician(MusicalEntity musicalEntity) {
         orchestra.remove(musicalEntity);
-        if (orchestra.isEmpty()) this.entityData.set(IS_CONDUCTING, false);
-        isConducting = false;
+        if (orchestra.isEmpty()) {
+            this.entityData.set(IS_CONDUCTING, false);
+            this.isConducting = false;
+        }
     }
 
     public void setConducting(boolean setConducting) {
         this.entityData.set(IS_CONDUCTING, setConducting);
         this.isConducting = setConducting;
+    }
+
+    public void onStartConducting() {
+        if (!this.isOrchestraFull() && this.isHoldingASheetMusic()) {
+            List<MusicalEntity> musicians = level().getEntitiesOfClass(
+                    MusicalEntity.class, this.getBoundingBox().inflate(7),
+                    musician ->
+                            !musician.isDeadOrDying() && musician.getConductor() == null && musician.isHoldingInstrument()
+                                    && this.isMusicianApt(musician) && this.getOrchestra().stream().noneMatch(musician.getClass()::isInstance)
+            );
+
+            Iterator<MusicalEntity> iterator = musicians.iterator();
+            while (iterator.hasNext() && !this.isOrchestraFull()) {
+                MusicalEntity musician = iterator.next();
+                musician.setConductor(this);
+            }
+        }
+    }
+
+    public void onNewMember() {
+        List<Player> nearbyPlayers = this.level().getEntitiesOfClass(
+                Player.class, this.getBoundingBox().inflate(32.0, 32.0, 32.0), EntitySelector.LIVING_ENTITY_STILL_ALIVE);
+
+        for (Player player : nearbyPlayers) {
+            ModNetwork.sendToPlayer(new RestartOrchestraMusicS2CPacket(
+                    getUUID(),
+                    getOrchestra().stream().map(Entity::getUUID).toList(),
+                    getTicksPlaying(),
+                    getCurrentVolume(),
+                    getSheetMusic().toString()), (ServerPlayer) player);
+        }
     }
 
     public boolean isOrchestraEmpty() {
