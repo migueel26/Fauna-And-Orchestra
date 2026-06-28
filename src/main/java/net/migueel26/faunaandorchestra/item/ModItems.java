@@ -180,10 +180,7 @@ public class ModItems {
     public static final RegistryObject<Item> MANTIS_CLAW = ITEMS.register("mantis_claw",
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> MANTIS_DAGGER = ITEMS.register("mantis_dagger",
-            () -> new MantisDaggerItem(new Item.Properties()
-                    .durability(250)
-                    .attributes(MantisDaggerItem.createAttributes())
-                    .component(DataComponents.TOOL, MantisDaggerItem.createToolProperties())));
+            () -> new MantisDaggerItem(new Item.Properties().durability(250)));
     public static final RegistryObject<Item> MANTIS_FOOD = createRegularDescriptionItem("mantis_food");
     public static final RegistryObject<Item> WORM = ITEMS.register("worm",
             () -> new Item(new Item.Properties()));
