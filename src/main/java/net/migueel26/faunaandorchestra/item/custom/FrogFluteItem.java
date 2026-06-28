@@ -45,7 +45,7 @@ public class FrogFluteItem extends Item {
         // Call all the frogs nearby
         List<QuirkyFrogEntity> frogs = level.getEntitiesOfClass(QuirkyFrogEntity.class, player.getBoundingBox().inflate(48), frog -> !frog.isTame());
         for (QuirkyFrogEntity frog : frogs) {
-            frog.getNavigation().moveTo(player.getX(), player.getY(), player.getZ(), 4, 1.0f);
+            frog.getNavigation().moveTo(player.getX(), player.getY(), player.getZ(), 4F);
             if (level.isClientSide()) {
                 level.addParticle(ParticleTypes.NOTE, frog.getX(), frog.getY() + 2.5, frog.getZ(), 0F, 0.5F, 0F);
             }
@@ -55,13 +55,13 @@ public class FrogFluteItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack stack, Level level, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         if (Screen.hasShiftDown()) {
             tooltipComponents.add(Component.translatable("item.faunaandorchestra.frog_flute.desc"));
         } else {
             tooltipComponents.add(Component.translatable("tooltip.faunaandorchestra.shift"));
         }
 
-        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+        super.appendHoverText(stack, level, tooltipComponents, tooltipFlag);
     }
 }
