@@ -5,9 +5,6 @@ import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.block.custom.SewingMachineBlock;
 import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.entity.custom.ConductorEntity;
-import net.migueel26.faunaandorchestra.entity.custom.ListeningEntity;
-import net.migueel26.faunaandorchestra.entity.custom.TalkableEntity;
-import net.migueel26.faunaandorchestra.entity.custom.WanderingKoalaEntity;
 import net.migueel26.faunaandorchestra.entity.goals.FaunaRandomLookAroundGoal;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
@@ -22,9 +19,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -41,31 +36,32 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
-import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.npc.Npc;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.network.NetworkHooks;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
-import oshi.util.tuples.Pair;
-import software.bernie.geckolib.animatable.GeoAnimatable;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.*;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.ArrayList;
@@ -93,6 +89,7 @@ public class TailorKoalaEntity extends AbstractKoalaWorker {
     protected static final EntityDataAccessor<ItemStack> CATALOG_CHOICE = SynchedEntityData.defineId(TailorKoalaEntity.class, EntityDataSerializers.ITEM_STACK);
     protected static final EntityDataAccessor<Integer> LEARNT_RECIPES = SynchedEntityData.defineId(TailorKoalaEntity.class, EntityDataSerializers.INT);
     public ItemStackHandler inventory = new ItemStackHandler(12);
+    private final LazyOptional<IItemHandler> inventoryOptional = LazyOptional.of(() -> this.inventory);
     public TailorKoalaEntity(EntityType<? extends AgeableMob> entityType, Level level) {
         super(entityType, level);
     }
@@ -103,11 +100,11 @@ public class TailorKoalaEntity extends AbstractKoalaWorker {
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        super.defineSynchedData(builder);
-        builder.define(CATALOG_CHOICE, ItemStack.EMPTY);
-        builder.define(SEWING, false);
-        builder.define(LEARNT_RECIPES, 0);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        entityData.define(CATALOG_CHOICE, ItemStack.EMPTY);
+        entityData.define(SEWING, false);
+        entityData.define(LEARNT_RECIPES, 0);
     }
 
     @Override
@@ -157,10 +154,10 @@ public class TailorKoalaEntity extends AbstractKoalaWorker {
         this.entityData.set(SEWING, compound.getBoolean("Sewing"));
         this.entityData.set(LEARNT_RECIPES, compound.getInt("LearntRecipes"));
         if (compound.contains("Inventory")) {
-            this.inventory.deserializeNBT(this.registryAccess(), compound.getCompound("Inventory"));
+            this.inventory.deserializeNBT(compound.getCompound("Inventory"));
         }
         if (compound.contains("CatalogChoice")) {
-            this.entityData.set(CATALOG_CHOICE, ItemStack.parseOptional(this.registryAccess(), compound.getCompound("CatalogChoice")));
+            this.entityData.set(CATALOG_CHOICE, ItemStack.of(compound.getCompound("CatalogChoice")));
         }
         super.readAdditionalSaveData(compound);
     }
@@ -168,10 +165,10 @@ public class TailorKoalaEntity extends AbstractKoalaWorker {
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         compound.putInt("LearntRecipes", this.entityData.get(LEARNT_RECIPES));
-        compound.put("Inventory", this.inventory.serializeNBT(this.registryAccess()));
+        compound.put("Inventory", this.inventory.serializeNBT());
         compound.putBoolean("Sewing", isSewing());
         if (!getCatalogChoice().isEmpty()) {
-            compound.put("CatalogChoice", this.getCatalogChoice().save(this.registryAccess()));
+            compound.put("CatalogChoice", this.getCatalogChoice().save(new CompoundTag()));
         }
         super.addAdditionalSaveData(compound);
     }
@@ -184,17 +181,17 @@ public class TailorKoalaEntity extends AbstractKoalaWorker {
 
         SewingRecipe.RecipeInput recipeInput = new SewingRecipe.RecipeInput(ingredients);
 
-        List<RecipeHolder<SewingRecipe>> possibleRecipes = level().getRecipeManager()
+        List<SewingRecipe> possibleRecipes = level().getRecipeManager()
                 .getRecipesFor(ModRecipes.SEWING_TYPE.get(), recipeInput, level());
 
-        for (RecipeHolder<SewingRecipe> recipeHolder : possibleRecipes) {
-            if (ItemStack.isSameItem(recipeHolder.value().output(), this.getCatalogChoice())) {
+        for (SewingRecipe recipeHolder : possibleRecipes) {
+            if (ItemStack.isSameItem(recipeHolder.output(), this.getCatalogChoice())) {
                 // If the output matches the catalog choice the koala starts sewing
                 this.setSewing(true);
                 this.lookAt(EntityAnchorArgument.Anchor.FEET, workingStation.getCenter());
                 this.level().setBlock(workingStation, level().getBlockState(workingStation).setValue(SewingMachineBlock.SEWING, true), 3);
 
-                consumeIngredients(recipeHolder.value(), this);
+                consumeIngredients(recipeHolder, this);
                 return true;
             }
         }
@@ -264,7 +261,7 @@ public class TailorKoalaEntity extends AbstractKoalaWorker {
 
             if (workTime == END_PAUSE - 4) {
                 BlockPos stoolPos = workingStation.relative(level().getBlockState(workingStation).getValue(SewingMachineBlock.FACING));
-                this.getNavigation().moveTo(stoolPos.getX(), stoolPos.getY(), stoolPos.getZ(), 0, 1.0f);
+                this.getNavigation().moveTo(stoolPos.getX(), stoolPos.getY(), stoolPos.getZ(), 1.0f);
             }
 
             if (workTime == EAT_TIME || workTime == EAT_TIME*2) {
@@ -289,7 +286,7 @@ public class TailorKoalaEntity extends AbstractKoalaWorker {
 
             if (workTime >= END_PAUSE && workTime <= END_PAUSE + 2) {
                 this.level().setBlock(workingStation, level().getBlockState(workingStation).setValue(SewingMachineBlock.SEWING, true), 3);
-                this.stopInPlace();
+                this.getNavigation().stop();
                 Direction facing = level().getBlockState(workingStation).getValue(SewingMachineBlock.FACING);
                 BlockPos stoolPos = workingStation.relative(facing);
                 SewingMachineBlock.moveKoalaToStool(stoolPos, this, facing);
@@ -330,10 +327,17 @@ public class TailorKoalaEntity extends AbstractKoalaWorker {
 
     private void openCustomMenu(Player player) {
         if (!this.level().isClientSide()) {
-            ((ServerPlayer) player).openMenu(new SimpleMenuProvider((id, playerInventory, playerEntity) ->
-                    new TailorMenu(id, playerInventory, this), this.getDisplayName()), buf -> {
-                buf.writeUUID(getUUID());
-            });
+            if (!this.level().isClientSide() && player instanceof ServerPlayer serverPlayer) {
+
+                SimpleMenuProvider menuProvider = new SimpleMenuProvider(
+                        (id, playerInventory, playerEntity) -> new TailorMenu(id, playerInventory, this),
+                        this.getDisplayName()
+                );
+
+                NetworkHooks.openScreen(serverPlayer, menuProvider, buf -> {
+                    buf.writeUUID(this.getUUID());
+                });
+            }
         }
     }
 
@@ -344,9 +348,9 @@ public class TailorKoalaEntity extends AbstractKoalaWorker {
 
         ItemStack stack = player.getItemInHand(hand);
 
-        if (stack.is(ModItems.BATON) && stack.get(ModDataComponents.MUSICIAN_UUID) == null) {
+        if (stack.is(ModItems.BATON.get()) && !stack.getOrCreateTag().hasUUID(ModDataComponents.MUSICIAN_UUID)) {
             // We link the tailor to the baton
-            stack.set(ModDataComponents.MUSICIAN_UUID, this.uuid);
+            stack.getOrCreateTag().putUUID(ModDataComponents.MUSICIAN_UUID, this.uuid);
             if (!level().isClientSide()) {
                 ((ServerLevel) level()).sendParticles(ParticleTypes.WAX_OFF, getX(), getY() + 0.5f, getZ(), 20, 0.2, 0.2, 0.2, 0.05);
             }
@@ -356,10 +360,10 @@ public class TailorKoalaEntity extends AbstractKoalaWorker {
             player.displayClientMessage(Component.translatable("text.faunaandorchestra.sleeping_worker_koala"), true);
             return InteractionResult.SUCCESS;
 
-        } else if (stack.is(ModItems.SEWING_RECIPE)) {
-            String itemString = stack.get(ModDataComponents.FAUNA_NAME);
+        } else if (stack.is(ModItems.SEWING_RECIPE.get()) && !stack.getOrCreateTag().hasUUID(ModDataComponents.FAUNA_CUSTOM_NAME)) {
+            String itemString = stack.getOrCreateTag().getString(ModDataComponents.FAUNA_CUSTOM_NAME);
             ResourceLocation location = ResourceLocation.parse(itemString);
-            Item item = BuiltInRegistries.ITEM.get(location);
+            Item item = ForgeRegistries.ITEMS.getValue(location);
 
             if (item.equals(ModItems.FLORAL_BOOTS.get()) && (getLearntRecipes() & 1) == 0) {
                 if (!level().isClientSide() && level() instanceof ServerLevel serverLevel) {
@@ -420,6 +424,20 @@ public class TailorKoalaEntity extends AbstractKoalaWorker {
             currentDialogue = dialogue;
         }
         return dialogue;
+    }
+
+    @Override
+    public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
+        if (capability == ForgeCapabilities.ITEM_HANDLER) {
+            return inventoryOptional.cast();
+        }
+        return super.getCapability(capability, facing);
+    }
+
+    @Override
+    public void invalidateCaps() {
+        super.invalidateCaps();
+        inventoryOptional.invalidate();
     }
 
     public ItemStack getCatalogChoice() {
@@ -489,7 +507,7 @@ public class TailorKoalaEntity extends AbstractKoalaWorker {
 
     @Override
     public boolean isWorkingStation(BlockState state) {
-        return state.is(ModBlocks.SEWING_MACHINE);
+        return state.is(ModBlocks.SEWING_MACHINE.get());
     }
 
     @Override

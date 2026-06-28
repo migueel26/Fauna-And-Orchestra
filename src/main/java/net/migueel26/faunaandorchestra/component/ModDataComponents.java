@@ -4,7 +4,7 @@ public class ModDataComponents {
     // Since the original mod is from Neoforge, I use this class as a substitute with the names of the tags
     public static final int MAX_SIZE = 6;
 
-    public static final String MUSICIAN_CUSTOM_NAME = "MusicianCustomName";
+    public static final String FAUNA_CUSTOM_NAME = "MusicianCustomName";
     public static final String OPENED = "Opened";
     public static final String BRIEFCASE_ANIMAL_LIST = "BriefcaseAnimals";
     public static final String PAN_FLUTE_LIST = "Powers";

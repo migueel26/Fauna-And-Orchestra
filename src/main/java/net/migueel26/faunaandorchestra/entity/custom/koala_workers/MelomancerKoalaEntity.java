@@ -14,6 +14,7 @@ import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.recipe.MelomancyRecipe;
 import net.migueel26.faunaandorchestra.recipe.ModRecipes;
 import net.migueel26.faunaandorchestra.recipe.SizedIngredient;
+import net.migueel26.faunaandorchestra.screen.custom.FarmerMenu;
 import net.migueel26.faunaandorchestra.screen.custom.MelomancerMenu;
 import net.migueel26.faunaandorchestra.util.BlocksUtil;
 import net.migueel26.faunaandorchestra.util.RecipesUtil;
@@ -24,6 +25,7 @@ import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -42,17 +44,25 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.common.Tags;
-import net.neoforged.neoforge.items.ItemStackHandler;
-import software.bernie.geckolib.animatable.GeoAnimatable;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.*;
+import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.network.NetworkHooks;
+import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.ArrayList;
@@ -82,6 +92,7 @@ public class MelomancerKoalaEntity extends AbstractKoalaWorker {
     protected BlockPos cauldronPos;
     // This is the "real" inventory
     public ItemStackHandler inventory = getNewInventory();
+    private final LazyOptional<IItemHandler> inventoryOptional = LazyOptional.of(() -> this.inventory);
     // This is the inventory after mixing
     protected ItemStackHandler nextInventory = getNewInventory();
     // Lock for the inventory
@@ -102,10 +113,10 @@ public class MelomancerKoalaEntity extends AbstractKoalaWorker {
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        super.defineSynchedData(builder);
-        builder.define(CURRENT_STATE, MelomancerState.NOTHING.getId());
-        builder.define(CAULDRON_POS, BlockPos.ZERO);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        entityData.define(CURRENT_STATE, MelomancerState.NOTHING.getId());
+        entityData.define(CAULDRON_POS, BlockPos.ZERO);
     }
 
     @Override
@@ -159,7 +170,7 @@ public class MelomancerKoalaEntity extends AbstractKoalaWorker {
         super.onSyncedDataUpdated(key);
         if (key.equals(CAULDRON_POS)) {
             BlockPos pos = this.entityData.get(CAULDRON_POS);
-            this.cauldronPos = pos.equals(BlockPos.ZERO) || !level().getBlockState(pos).is(ModBlocks.MELOMANCY_CAULDRON) ? null : pos;
+            this.cauldronPos = pos.equals(BlockPos.ZERO) || !level().getBlockState(pos).is(ModBlocks.MELOMANCY_CAULDRON.get()) ? null : pos;
         }
     }
 
@@ -183,10 +194,10 @@ public class MelomancerKoalaEntity extends AbstractKoalaWorker {
             }
 
             // Try to find the catalyst
-            for (RecipeHolder<MelomancyRecipe> holder : recipeManager.getAllRecipesFor(ModRecipes.MELOMANCY_TYPE.get())) {
-                if (ItemStack.isSameItem(holder.value().catalyst(), inventory.getStackInSlot(CATALYST_SLOT))) {
+            for (MelomancyRecipe holder : recipeManager.getAllRecipesFor(ModRecipes.MELOMANCY_TYPE.get())) {
+                if (ItemStack.isSameItem(holder.catalyst(), inventory.getStackInSlot(CATALYST_SLOT))) {
                     // The catalyst is the same
-                    recipe = holder.value();
+                    recipe = holder;
                     break;
                 }
             }
@@ -400,7 +411,7 @@ public class MelomancerKoalaEntity extends AbstractKoalaWorker {
         return new ItemStackHandler(9) {
             @Override
             public boolean isItemValid(int slot, ItemStack stack) {
-                return (slot == LIQUID_MUSIC_SLOT) == stack.is(ModItems.MUSIC_BOTTLE);
+                return (slot == LIQUID_MUSIC_SLOT) == stack.is(ModItems.MUSIC_BOTTLE.get());
             }
 
             @Override
@@ -413,15 +424,29 @@ public class MelomancerKoalaEntity extends AbstractKoalaWorker {
     }
 
     @Override
+    public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
+        if (capability == ForgeCapabilities.ITEM_HANDLER) {
+            return inventoryOptional.cast();
+        }
+        return super.getCapability(capability, facing);
+    }
+
+    @Override
+    public void invalidateCaps() {
+        super.invalidateCaps();
+        inventoryOptional.invalidate();
+    }
+
+    @Override
     protected InteractionResult mobInteract(Player player, InteractionHand hand) {
         InteractionResult result = super.mobInteract(player, hand);
         if (result == InteractionResult.SUCCESS) return result;
 
         ItemStack stack = player.getItemInHand(hand);
 
-        if (stack.is(ModItems.BATON) && stack.get(ModDataComponents.MUSICIAN_UUID) == null) {
+        if (stack.is(ModItems.BATON.get()) && !stack.getOrCreateTag().hasUUID(ModDataComponents.MUSICIAN_UUID)) {
             // We link the tailor to the baton
-            stack.set(ModDataComponents.MUSICIAN_UUID, this.uuid);
+            stack.getOrCreateTag().putUUID(ModDataComponents.MUSICIAN_UUID, this.uuid);
             if (!level().isClientSide()) {
                 ((ServerLevel) level()).sendParticles(ParticleTypes.WAX_OFF, getX(), getY() + 0.5f, getZ(), 20, 0.2, 0.2, 0.2, 0.05);
             }
@@ -447,10 +472,15 @@ public class MelomancerKoalaEntity extends AbstractKoalaWorker {
     }
 
     private void openCustomMenu(Player player) {
-        if (!this.level().isClientSide()) {
-            ((ServerPlayer) player).openMenu(new SimpleMenuProvider((id, playerInventory, playerEntity) ->
-                    new MelomancerMenu(id, playerInventory, this), this.getDisplayName()), buf -> {
-                buf.writeUUID(getUUID());
+        if (!this.level().isClientSide() && player instanceof ServerPlayer serverPlayer) {
+
+            SimpleMenuProvider menuProvider = new SimpleMenuProvider(
+                    (id, playerInventory, playerEntity) -> new MelomancerMenu(id, playerInventory, this),
+                    this.getDisplayName()
+            );
+
+            NetworkHooks.openScreen(serverPlayer, menuProvider, buf -> {
+                buf.writeUUID(this.getUUID());
             });
         }
     }
@@ -458,15 +488,18 @@ public class MelomancerKoalaEntity extends AbstractKoalaWorker {
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        NbtUtils.readBlockPos(compound, "Cauldron").ifPresent(pos -> setCauldronPos(pos));
+        if (compound.contains("Cauldron", Tag.TAG_COMPOUND)) {
+            BlockPos pos = NbtUtils.readBlockPos(compound.getCompound("Cauldron"));
+            setCauldronPos(pos);
+        }
         if (compound.contains("CurrentState")) {
             this.entityData.set(CURRENT_STATE, compound.getInt("CurrentState"));
         }
         if (compound.contains("Inventory")) {
-            this.inventory.deserializeNBT(this.registryAccess(), compound.getCompound("Inventory"));
+            this.inventory.deserializeNBT(compound.getCompound("Inventory"));
         }
         if (compound.contains("NextInventory")) {
-            this.nextInventory.deserializeNBT(this.registryAccess(), compound.getCompound("NextInventory"));
+            this.nextInventory.deserializeNBT(compound.getCompound("NextInventory"));
         }
         if (compound.contains("ConsecutiveItems")) {
             this.consecutiveItems = compound.getInt("ConsecutiveItems");
@@ -476,11 +509,11 @@ public class MelomancerKoalaEntity extends AbstractKoalaWorker {
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.put("Inventory", this.inventory.serializeNBT(this.registryAccess()));
-        compound.put("NextInventory", this.nextInventory.serializeNBT(this.registryAccess()));
+        compound.put("Inventory", this.inventory.serializeNBT());
+        compound.put("NextInventory", this.nextInventory.serializeNBT());
         compound.putInt("CurrentState", getState().getId());
         compound.putInt("ConsecutiveItems", this.consecutiveItems);
-        if (cauldronPos != null && level().getBlockState(cauldronPos).is(ModBlocks.MELOMANCY_CAULDRON)) {
+        if (cauldronPos != null && level().getBlockState(cauldronPos).is(ModBlocks.MELOMANCY_CAULDRON.get())) {
             compound.put("Cauldron", NbtUtils.writeBlockPos(this.cauldronPos));
         }
     }

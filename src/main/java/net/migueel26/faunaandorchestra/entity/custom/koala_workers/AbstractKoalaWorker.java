@@ -1,15 +1,13 @@
 package net.migueel26.faunaandorchestra.entity.custom.koala_workers;
 
-import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.entity.custom.ConductorEntity;
 import net.migueel26.faunaandorchestra.entity.custom.ListeningEntity;
 import net.migueel26.faunaandorchestra.entity.custom.TalkableEntity;
-import net.migueel26.faunaandorchestra.util.BlocksUtil;
-import net.minecraft.BlockUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -30,7 +28,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import oshi.util.tuples.Pair;
@@ -57,19 +54,19 @@ public abstract class AbstractKoalaWorker extends AgeableMob implements Npc, Tal
     abstract Item getKit();
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        super.defineSynchedData(builder);
-        builder.define(SLEEPING, true);
-        builder.define(WORKING_STATION, BlockPos.ZERO);
-        builder.define(WORK_TIME, 0);
-        builder.define(DIALOGUE_TIMER, 0);
-        builder.define(GOOD_MORNING, true);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        entityData.define(SLEEPING, true);
+        entityData.define(WORKING_STATION, BlockPos.ZERO);
+        entityData.define(WORK_TIME, 0);
+        entityData.define(DIALOGUE_TIMER, 0);
+        entityData.define(GOOD_MORNING, true);
     }
 
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData, CompoundTag tag) {
         lookForConductor(level);
-        return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
+        return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData, tag);
     }
 
     @Override
@@ -97,7 +94,10 @@ public abstract class AbstractKoalaWorker extends AgeableMob implements Npc, Tal
 
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
-        NbtUtils.readBlockPos(compound, "WorkingStation").ifPresent(pos -> this.entityData.set(WORKING_STATION, pos));
+        if (compound.contains("WorkingStation", Tag.TAG_COMPOUND)) {
+            BlockPos pos = NbtUtils.readBlockPos(compound.getCompound("WorkingStation"));
+            this.entityData.set(WORKING_STATION, pos);
+        }
         this.entityData.set(WORK_TIME, compound.getInt("WorkTime"));
         super.readAdditionalSaveData(compound);
     }

@@ -1,16 +1,12 @@
 package net.migueel26.faunaandorchestra.util;
 
 import net.migueel26.faunaandorchestra.block.ModBlocks;
-import net.migueel26.faunaandorchestra.block.entity.MelomancyCauldronBlockEntity;
 import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.item.ModItems;
-import net.migueel26.faunaandorchestra.potion.ModPotions;
-import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.registries.ForgeRegistries;
 import oshi.util.tuples.Pair;
@@ -55,7 +51,7 @@ public class RecipesUtil {
                 .append(Component.translatable("item.faunaandorchestra.sewing_recipe")));
 
         stack.getOrCreateTag().putString(
-                ModDataComponents.MUSICIAN_CUSTOM_NAME,
+                ModDataComponents.FAUNA_CUSTOM_NAME,
                 ForgeRegistries.ITEMS.getKey(item).toString()
         );
 

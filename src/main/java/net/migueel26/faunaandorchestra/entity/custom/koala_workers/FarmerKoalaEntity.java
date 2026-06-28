@@ -5,9 +5,10 @@ import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.entity.custom.ConductorEntity;
 import net.migueel26.faunaandorchestra.entity.goals.*;
 import net.migueel26.faunaandorchestra.item.ModItems;
+import net.migueel26.faunaandorchestra.screen.custom.ConductorMenu;
 import net.migueel26.faunaandorchestra.screen.custom.FarmerMenu;
-import net.migueel26.faunaandorchestra.screen.custom.TailorMenu;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -35,12 +36,22 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.common.Tags;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.network.NetworkHooks;
+import org.jetbrains.annotations.Nullable;
 import oshi.util.tuples.Pair;
-import software.bernie.geckolib.animatable.GeoAnimatable;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.*;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class FarmerKoalaEntity extends AbstractKoalaWorker {
@@ -67,6 +78,7 @@ public class FarmerKoalaEntity extends AbstractKoalaWorker {
     protected int consecutiveCrops = 0;
     // Inventory
     public ItemStackHandler inventory = new ItemStackHandler(12);
+    private final LazyOptional<IItemHandler> inventoryOptional = LazyOptional.of(() -> this.inventory);
 
     public FarmerKoalaEntity(EntityType<? extends FarmerKoalaEntity> type, Level level) {
         super(type, level);
@@ -78,9 +90,9 @@ public class FarmerKoalaEntity extends AbstractKoalaWorker {
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        super.defineSynchedData(builder);
-        builder.define(CONSECUTIVE_CROPS, 0);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        entityData.define(CONSECUTIVE_CROPS, 0);
     }
 
     @Override
@@ -144,14 +156,14 @@ public class FarmerKoalaEntity extends AbstractKoalaWorker {
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         compound.putInt("ConsecutiveCrops", this.consecutiveCrops);
-        compound.put("Inventory", this.inventory.serializeNBT(this.registryAccess()));
+        compound.put("Inventory", this.inventory.serializeNBT());
         super.addAdditionalSaveData(compound);
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         if (compound.contains("Inventory")) {
-            this.inventory.deserializeNBT(this.registryAccess(), compound.getCompound("Inventory"));
+            this.inventory.deserializeNBT(compound.getCompound("Inventory"));
         }
         this.entityData.set(CONSECUTIVE_CROPS, compound.getInt("ConsecutiveCrops"));
         super.readAdditionalSaveData(compound);
@@ -164,9 +176,9 @@ public class FarmerKoalaEntity extends AbstractKoalaWorker {
 
         ItemStack stack = player.getItemInHand(hand);
 
-        if (stack.is(ModItems.BATON) && stack.get(ModDataComponents.MUSICIAN_UUID) == null) {
+        if (stack.is(ModItems.BATON.get()) && stack.hasTag() && !stack.getOrCreateTag().hasUUID(ModDataComponents.MUSICIAN_UUID)) {
             // We link the tailor to the baton
-            stack.set(ModDataComponents.MUSICIAN_UUID, this.uuid);
+            stack.getOrCreateTag().putUUID(ModDataComponents.MUSICIAN_UUID, this.uuid);
             if (!level().isClientSide()) {
                 ((ServerLevel) level()).sendParticles(ParticleTypes.WAX_OFF, getX(), getY() + 0.5f, getZ(), 20, 0.2, 0.2, 0.2, 0.05);
             }
@@ -192,10 +204,15 @@ public class FarmerKoalaEntity extends AbstractKoalaWorker {
     }
 
     private void openCustomMenu(Player player) {
-        if (!this.level().isClientSide()) {
-            ((ServerPlayer) player).openMenu(new SimpleMenuProvider((id, playerInventory, playerEntity) ->
-                    new FarmerMenu(id, playerInventory, this), this.getDisplayName()), buf -> {
-                buf.writeUUID(getUUID());
+        if (!this.level().isClientSide() && player instanceof ServerPlayer serverPlayer) {
+
+            SimpleMenuProvider menuProvider = new SimpleMenuProvider(
+                    (id, playerInventory, playerEntity) -> new FarmerMenu(id, playerInventory, this),
+                    this.getDisplayName()
+            );
+
+            NetworkHooks.openScreen(serverPlayer, menuProvider, buf -> {
+                buf.writeUUID(this.getUUID());
             });
         }
     }
@@ -340,6 +357,20 @@ public class FarmerKoalaEntity extends AbstractKoalaWorker {
             currentDialogue = dialogue;
         }
         return dialogue;
+    }
+
+    @Override
+    public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
+        if (capability == ForgeCapabilities.ITEM_HANDLER) {
+            return inventoryOptional.cast();
+        }
+        return super.getCapability(capability, facing);
+    }
+
+    @Override
+    public void invalidateCaps() {
+        super.invalidateCaps();
+        inventoryOptional.invalidate();
     }
 
     @Override

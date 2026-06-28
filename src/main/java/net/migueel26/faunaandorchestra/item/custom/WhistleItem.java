@@ -12,7 +12,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
@@ -52,12 +51,12 @@ public class WhistleItem extends Item {
     }
 
     public void setMusicianCustomName(ItemStack stack, String name) {
-        stack.getOrCreateTag().putString(ModDataComponents.MUSICIAN_CUSTOM_NAME, name);
+        stack.getOrCreateTag().putString(ModDataComponents.FAUNA_CUSTOM_NAME, name);
     }
 
     public static String getMusicianCustomName(ItemStack stack) {
-        if (stack.hasTag() && stack.getTag().contains(ModDataComponents.MUSICIAN_CUSTOM_NAME)) {
-            return stack.getTag().getString(ModDataComponents.MUSICIAN_CUSTOM_NAME);
+        if (stack.hasTag() && stack.getTag().contains(ModDataComponents.FAUNA_CUSTOM_NAME)) {
+            return stack.getTag().getString(ModDataComponents.FAUNA_CUSTOM_NAME);
         }
         return null;
     }
