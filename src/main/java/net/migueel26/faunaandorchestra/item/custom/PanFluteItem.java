@@ -1,5 +1,6 @@
 package net.migueel26.faunaandorchestra.item.custom;
 
+import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.entity.custom.SproutlingEntity;
 import net.migueel26.faunaandorchestra.entity.custom.decorative.HealthFluteEntity;
 import net.migueel26.faunaandorchestra.entity.custom.projectile.PhantomNoteProjectileEntity;
@@ -55,24 +56,24 @@ public class PanFluteItem extends Item {
     }
 
     public static void setSound(ItemStack stack, int soundId) {
-        stack.getOrCreateTag().putInt("PanFluteSound", soundId);
+        stack.getOrCreateTag().putInt(ModDataComponents.CURRENT_SOUND, soundId);
     }
 
     public static int getSound(ItemStack stack) {
-        return stack.hasTag() ? stack.getTag().getInt("PanFluteSound") : 0;
+        return stack.hasTag() ? stack.getTag().getInt(ModDataComponents.CURRENT_SOUND) : 0;
     }
 
     // CHANGE THIS METHOD
     public static void setSoundList(ItemStack stack, List<Integer> sounds) { // Change input to List<Integer>
         CompoundTag nbt = stack.getOrCreateTag();
         int[] array = sounds.stream().mapToInt(i -> i).toArray();
-        nbt.putIntArray("Powers", array);
+        nbt.putIntArray(ModDataComponents.PAN_FLUTE_LIST, array);
     }
 
     public static List<Integer> getSoundList(ItemStack stack) {
         List<Integer> list = new ArrayList<>();
-        if (stack.hasTag() && stack.getTag().contains("Powers")) {
-            int[] arr = stack.getTag().getIntArray("Powers");
+        if (stack.hasTag() && stack.getTag().contains(ModDataComponents.PAN_FLUTE_LIST)) {
+            int[] arr = stack.getTag().getIntArray(ModDataComponents.PAN_FLUTE_LIST);
             for (int i : arr) list.add(i);
         }
         return list;

@@ -1,5 +1,6 @@
 package net.migueel26.faunaandorchestra.item.custom;
 
+import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.mixins.client.accessors.ClientLevelAccessor;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.minecraft.ChatFormatting;
@@ -36,27 +37,27 @@ public class WhistleItem extends Item {
     public void setMusicianUUID(ItemStack stack, UUID uuid) {
         if (uuid == null) {
             if (stack.hasTag()) {
-                stack.getTag().remove("MusicianUUID");
+                stack.getTag().remove(ModDataComponents.MUSICIAN_UUID);
             }
         } else {
-            stack.getOrCreateTag().putUUID("MusicianUUID", uuid);
+            stack.getOrCreateTag().putUUID(ModDataComponents.MUSICIAN_UUID, uuid);
         }
     }
 
     public static UUID getMusicianUUID(ItemStack stack) {
-        if (stack.hasTag() && stack.getTag().contains("MusicianUUID")) {
-            return stack.getTag().getUUID("MusicianUUID");
+        if (stack.hasTag() && stack.getTag().contains(ModDataComponents.MUSICIAN_UUID)) {
+            return stack.getTag().getUUID(ModDataComponents.MUSICIAN_UUID);
         }
         return null;
     }
 
     public void setMusicianCustomName(ItemStack stack, String name) {
-        stack.getOrCreateTag().putString("MusicianCustomName", name);
+        stack.getOrCreateTag().putString(ModDataComponents.MUSICIAN_CUSTOM_NAME, name);
     }
 
     public static String getMusicianCustomName(ItemStack stack) {
-        if (stack.hasTag() && stack.getTag().contains("MusicianCustomName")) {
-            return stack.getTag().getString("MusicianCustomName");
+        if (stack.hasTag() && stack.getTag().contains(ModDataComponents.MUSICIAN_CUSTOM_NAME)) {
+            return stack.getTag().getString(ModDataComponents.MUSICIAN_CUSTOM_NAME);
         }
         return null;
     }
