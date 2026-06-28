@@ -1,6 +1,7 @@
 package net.migueel26.faunaandorchestra.item.custom;
 
 import com.mojang.datafixers.util.Pair;
+import net.migueel26.faunaandorchestra.client.item.MantisDaggerItemRenderer;
 import net.migueel26.faunaandorchestra.client.item.SoundSensorItemRenderer;
 import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.entity.custom.MusicalEntity;
@@ -29,12 +30,17 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.GeoItem;
 import software.bernie.geckolib.animatable.SingletonGeoAnimatable;
-import software.bernie.geckolib.animatable.client.GeoRenderProvider;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.*;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.renderer.GeoItemRenderer;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.List;
@@ -114,7 +120,7 @@ public class SoundSensorItem extends Item implements GeoItem {
                     float f = Mth.lerp(level.random.nextFloat(), 0.33F, 0.5F);
                     level.playSound(null, player.blockPosition(), SoundEvents.ENDER_PEARL_THROW, SoundSource.NEUTRAL, 1.0F, f);
                     level.playSound(null, player.blockPosition(), ((InstrumentItem)((MusicalEntity) targetEntity.create(level)).getInstrument().get()).getSound(), SoundSource.NEUTRAL);
-                    stack.hurtAndBreak(1, player, getEquipmentSlot(stack));
+                    stack.hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(player.getUsedItemHand()));
                     level.addFreshEntity(sensorNote);
                 } else {
                     player.displayClientMessage(Component.translatable("item.faunaandorchestra.sound_sensor.not_found").withStyle(ChatFormatting.RED), true);
@@ -134,18 +140,16 @@ public class SoundSensorItem extends Item implements GeoItem {
                 .append(Component.literal(((MusicalEntity) nextEntity.create(level)).getInstrument().get().getDescription().getString()).withStyle(ChatFormatting.GOLD));
     }
 
-    private int getCurrentSound(ItemStack stack) {
-        Integer currentSound = stack.get(ModDataComponents.LIST_INDEX);
-
-        return currentSound != null ? currentSound : 0;
+    public static void setSound(ItemStack stack, int soundId) {
+        stack.getOrCreateTag().putInt(ModDataComponents.CURRENT_SOUND, soundId);
     }
 
-    private void setSound(ItemStack stack, int sound) {
-        stack.set(ModDataComponents.LIST_INDEX, sound);
+    public static int getCurrentSound(ItemStack stack) {
+        return stack.hasTag() ? stack.getTag().getInt(ModDataComponents.CURRENT_SOUND) : 0;
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack stack, Level level, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
 
         if (Screen.hasShiftDown()) {
             tooltipComponents.add(Component.translatable("item.faunaandorchestra.sound_sensor.tooltip1"));
@@ -154,32 +158,32 @@ public class SoundSensorItem extends Item implements GeoItem {
             tooltipComponents.add(Component.translatable("tooltip.faunaandorchestra.shift"));
         }
 
-        if (context.level() != null) {
-            List<EntityType<?>> entities = SensorManager.getScannableEntities(context.level());
+        if (level != null) {
+            List<EntityType<?>> entities = SensorManager.getScannableEntities(level);
             int current = getCurrentSound(stack);
             if (current >= entities.size()) current = 0;
 
             EntityType<?> targetEntity = entities.get(current);
-            Component original = getInstrumentComponent(context.level(), targetEntity);
+            Component original = getInstrumentComponent(level, targetEntity);
 
             tooltipComponents.add(Component.literal(original.getString())
                     .withStyle(ChatFormatting.GRAY));
         }
 
-        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+        super.appendHoverText(stack, level, tooltipComponents, tooltipFlag);
     }
 
     @Override
-    public void createGeoRenderer(Consumer<GeoRenderProvider> consumer) {
-        consumer.accept(new GeoRenderProvider() {
-            private SoundSensorItemRenderer renderer;
+    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+        consumer.accept(new IClientItemExtensions() {
+            private GeoItemRenderer<?> renderer;
 
             @Override
-            public BlockEntityWithoutLevelRenderer getGeoItemRenderer() {
-                if (renderer == null) {
-                    renderer = new SoundSensorItemRenderer();
+            public BlockEntityWithoutLevelRenderer getCustomRenderer() {
+                if (this.renderer == null) {
+                    this.renderer = new SoundSensorItemRenderer();
                 }
-                return renderer;
+                return this.renderer;
             }
         });
     }
