@@ -22,11 +22,8 @@ public class ModDataComponents {
         public static final DeferredHolder<DataComponentType<?>, DataComponentType<String>> FAUNA_NAME = register("whistle_name",
                 builder -> builder.persistent(Codec.STRING));
 
-        public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> OPENED = register("briefcase_opened",
-                builder -> builder.persistent(Codec.BOOL));
-
-        public static final DeferredHolder<DataComponentType<?>, DataComponentType<List<String>>> BRIEFCASE_ANIMAL_LIST = register("briefcase_animal_list",
-                builder -> builder.persistent(Codec.list(Codec.STRING, 0, MAX_SIZE)));
+    public static final String OPENED = "Opened";
+    public static final String BRIEFCASE_ANIMAL_LIST = "BriefcaseAnimals";
 
         public static final DeferredHolder<DataComponentType<?>, DataComponentType<List<Integer>>> PAN_FLUTE_LIST = register("pan_flute_list",
                 builder -> builder.persistent(Codec.list(Codec.INT)));
@@ -34,7 +31,7 @@ public class ModDataComponents {
         public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> LIST_INDEX = register("index_list",
                 builder -> builder.persistent(Codec.INT));
     public static final String MUSICIAN_UUID = "MusicianUUID";
-    public static String POSITION = "target_position";
-    public static String SENDER = "sender";
-    public static String RECEIVER = "receiver";
+    public static final String POSITION = "target_position";
+    public static final String SENDER = "sender";
+    public static final String RECEIVER = "receiver";
 }
