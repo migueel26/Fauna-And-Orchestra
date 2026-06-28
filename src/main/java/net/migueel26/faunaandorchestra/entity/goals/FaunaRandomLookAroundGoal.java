@@ -1,16 +1,14 @@
 package net.migueel26.faunaandorchestra.entity.goals;
 
-import net.migueel26.faunaandorchestra.entity.custom.WanderingKoalaEntity;
-import net.migueel26.faunaandorchestra.entity.custom.MusicalEntity;
-import net.migueel26.faunaandorchestra.entity.custom.QuirkyFrogEntity;
-import net.migueel26.faunaandorchestra.entity.custom.SproutlingEntity;
+import net.migueel26.faunaandorchestra.entity.custom.*;
+import net.migueel26.faunaandorchestra.entity.custom.koala_workers.AbstractKoalaWorker;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;
 
 import java.util.EnumSet;
 
 public class FaunaRandomLookAroundGoal extends Goal {
-    private final Mob mob;
+    protected final Mob mob;
     private double relX;
     private double relZ;
     private int lookTime;
@@ -21,7 +19,7 @@ public class FaunaRandomLookAroundGoal extends Goal {
     }
 
     public enum Fauna {
-        MusicalEntity, ConductorEntity, AgeableMob, QuirkyFrogEntity, KoalaEntity, SproutlingEntity
+        MusicalEntity, ConductorEntity, AgeableMob, QuirkyFrogEntity, AbstractKoalaMerchant, WanderingKoalaEntity, ButlerKoalaEntity, SproutlingEntity, AbstractKoalaWorker, LivingMusicEntity
     }
 
     @Override
@@ -29,14 +27,21 @@ public class FaunaRandomLookAroundGoal extends Goal {
         boolean condition = this.mob.getRandom().nextFloat() < 0.02F;
         if (condition) {
             Fauna mobType = Fauna.valueOf(this.mob.getClass().getSuperclass().getSimpleName());
-            if (mobType != Fauna.MusicalEntity) mobType = Fauna.valueOf(this.mob.getClass().getSimpleName());
+            if (mobType != Fauna.MusicalEntity &&
+                    mobType != Fauna.AbstractKoalaWorker) mobType = Fauna.valueOf(this.mob.getClass().getSimpleName());
 
             switch (mobType) {
                 case MusicalEntity -> condition = !((MusicalEntity) mob).isPlayingInstrument();
                 case QuirkyFrogEntity -> condition = !((QuirkyFrogEntity) mob).isConducting()
                         && !((QuirkyFrogEntity) mob).isSinging();
-                case KoalaEntity -> condition = !((WanderingKoalaEntity) mob).isKoalaSleeping();
+                case AbstractKoalaMerchant -> condition = !((WanderingKoalaEntity) mob).isKoalaSleeping();
+                case ButlerKoalaEntity -> condition = !((ButlerKoalaEntity) mob).isServing();
                 case SproutlingEntity  -> condition = !((SproutlingEntity) mob).isSinging();
+                case LivingMusicEntity -> condition = !((LivingMusicEntity) mob).isTrapped();
+                case AbstractKoalaWorker -> {
+                    AbstractKoalaWorker koala = (AbstractKoalaWorker) mob;
+                    condition = !koala.isKoalaSleeping() && (!koala.isWorking() || koala.isInLunchBreak());
+                }
             }
         }
 

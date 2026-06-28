@@ -2,18 +2,23 @@ package net.migueel26.faunaandorchestra.entity.goals;
 
 import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.entity.custom.ConductorEntity;
+import net.migueel26.faunaandorchestra.entity.custom.ListeningBlockEntity;
+import net.migueel26.faunaandorchestra.entity.custom.ListeningEntity;
 import net.migueel26.faunaandorchestra.entity.custom.MusicalEntity;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.networking.ModNetwork;
 import net.migueel26.faunaandorchestra.networking.packets.RestartOrchestraMusicS2CPacket;
 import net.migueel26.faunaandorchestra.networking.packets.StopOrchestraMusicS2CPacket;
 import net.migueel26.faunaandorchestra.util.MusicUtil;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.*;
@@ -21,6 +26,7 @@ import java.util.*;
 public class ConductorEntityConductingOrchestraGoal extends Goal {
     private final ConductorEntity conductor;
     private List<Player> playersListening;
+    private List<Mob> entitiesListening;
     private int lookCooldown;
     private int waitForMoreMusicians;
     private int currentOrchestraSize;
@@ -40,23 +46,54 @@ public class ConductorEntityConductingOrchestraGoal extends Goal {
 
     @Override
     public void start() {
-        //System.out.println("Conductor IN!");
         MusicUtil.addNewOrchestra(conductor.getUUID(), conductor.getSheetMusic());
         this.lookCooldown = 0;
         this.playersListening = this.conductor.level().getEntitiesOfClass(
                 Player.class, this.conductor.getBoundingBox().inflate(50.0, 50.0, 50.0), EntitySelector.LIVING_ENTITY_STILL_ALIVE);
-
         this.currentOrchestraSize = this.conductor.getOrchestra().size();
         this.waitForMoreMusicians = conductor.isReady() ? 140 : -1;
-        super.start();
+        this.entitiesListening = this.conductor.level().getEntitiesOfClass(
+                Mob.class, this.conductor.getBoundingBox().inflate(50.0, 50.0, 50.0), this::isNotListening);
 
+        for (Mob mob : entitiesListening) {
+            ListeningEntity entity = (ListeningEntity) mob;
+            entity.onStartListening(conductor);
+        }
+
+        BlockPos.betweenClosedStream(conductor.getBoundingBox().inflate(50.0, 50.0, 50.0)).forEach(pos -> {
+            BlockEntity blockEntity = conductor.level().getBlockEntity(pos);
+            if (blockEntity instanceof ListeningBlockEntity listeningBlockEntity && !listeningBlockEntity.isListening()) {
+                listeningBlockEntity.onStartListening(conductor);
+            }
+        });
+
+        super.start();
+    }
+
+    private boolean isNotListening(Mob entity) {
+        return entity instanceof ListeningEntity listeningEntity && !listeningEntity.isListening();
     }
 
     @Override
     public void stop() {
-        //System.out.println("Conductor OUT!");
         MusicUtil.deleteOrchestra(conductor.getUUID());
-        // PARROT DANCE
+
+        // All mobs stop listening
+        for (Mob mob : this.entitiesListening) {
+            ((ListeningEntity) mob).onStopListening();
+        }
+
+        // All blocks stop listening
+        BlockPos.betweenClosedStream(conductor.getBoundingBox().inflate(50.0, 50.0, 50.0)).forEach(pos -> {
+            BlockEntity blockEntity = conductor.level().getBlockEntity(pos);
+            if (blockEntity instanceof ListeningBlockEntity listeningBlockEntity) {
+                listeningBlockEntity.onStopListening();
+            }
+        });
+
+        this.entitiesListening = new ArrayList<>();
+
+        // Parrot dance
         conductor.level().levelEvent(null, 1011, this.conductor.blockPosition(), 0);
         super.stop();
     }
@@ -78,6 +115,8 @@ public class ConductorEntityConductingOrchestraGoal extends Goal {
         }
 
         if (waitForMoreMusicians > 0) {
+            // The currentOrchestraSize should be obsolete now since new members cannot join on their own now.
+            // I'm keeping it just in case for the future
             if (currentOrchestraSize != this.conductor.getOrchestra().size()) {
                 waitForMoreMusicians = 140;
                 this.currentOrchestraSize = this.conductor.getOrchestra().size();

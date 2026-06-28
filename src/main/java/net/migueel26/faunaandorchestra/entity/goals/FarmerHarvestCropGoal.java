@@ -13,7 +13,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
+import net.minecraftforge.items.ItemHandlerHelper;
 
 import java.util.List;
 import java.util.Optional;
@@ -137,7 +137,7 @@ public class FarmerHarvestCropGoal extends Goal {
 
             if (--this.pathUpdateCountdown <= 0) {
                 this.pathUpdateCountdown = 15;
-                this.farmer.getNavigation().moveTo(this.targetCrop.getX() + 0.5D, this.targetCrop.getY(), this.targetCrop.getZ() + 0.5D, 1, this.speedModifier);
+                this.farmer.getNavigation().moveTo(this.targetCrop.getX() + 0.5D, this.targetCrop.getY(), this.targetCrop.getZ() + 0.5D, this.speedModifier);
             }
         }
     }

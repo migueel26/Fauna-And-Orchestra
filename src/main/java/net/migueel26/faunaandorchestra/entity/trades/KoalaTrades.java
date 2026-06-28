@@ -24,12 +24,15 @@ public class KoalaTrades {
             ImmutableMap.of(
                     1,
                     new VillagerTrades.ItemListing[]{
-                        new ItemsForEmeralds(ModItems.BACH_AIR_SHEET_MUSIC.get(), 5, 1, 1, 1),
-                        new ItemsForEmeralds(ModItems.BLUES_SHEET_MUSIC.get(), 5, 1, 1, 1),
-                        new ItemsForEmeralds(ModItems.GREENSLEEVES_SHEET_MUSIC.get(), 5, 1, 1,1),
-                        new ItemsForEmeralds(ModItems.JAZZY_FUR_ELISE_SHEET_MUSIC.get(), 5, 1, 1, 1),
-                        new ItemsForEmeralds(ModItems.DANCE_OF_THE_LITTLE_SWANS.get(), 5, 1, 1, 1),
-                        new ItemsForEmeralds(ModItems.LA_BAMBA_SHEET_MUSIC.get(), 5, 1, 1, 1)
+                            new ItemsForEmeralds(ModItems.BACH_AIR_SHEET_MUSIC.get(), 5, 1, 1, 1),
+                            new ItemsForEmeralds(ModItems.BLUES_SHEET_MUSIC.get(), 5, 1, 1, 1),
+                            new ItemsForEmeralds(ModItems.GREENSLEEVES_SHEET_MUSIC.get(), 5, 1, 1,1),
+                            new ItemsForEmeralds(ModItems.JAZZY_FUR_ELISE_SHEET_MUSIC.get(), 5, 1, 1, 1),
+                            new ItemsForEmeralds(ModItems.DANCE_OF_THE_LITTLE_SWANS.get(), 5, 1, 1, 1),
+                            new ItemsForEmeralds(ModItems.LA_BAMBA_SHEET_MUSIC.get(), 5, 1, 1, 1),
+                            new ItemsForEmeralds(ModItems.SAINTS_SHEET_MUSIC.get(), 5, 1, 1, 1),
+                            new ItemsForEmeralds(ModItems.OH_SUSANNA_SHEET_MUSIC.get(), 5, 1, 1, 1),
+                            new ItemsForEmeralds(ModItems.THE_ENTERTAINER_SHEET_MUSIC.get(), 5, 1, 1, 1),
                     },
                     2,
                     new VillagerTrades.ItemListing[]{
@@ -53,6 +56,36 @@ public class KoalaTrades {
                     5,
                     new VillagerTrades.ItemListing[]{
                             new ItemsForEmeralds(ModItems.GLOVE.get().getDefaultInstance(), 3, 1, 5, 1, 0.05f, ModItems.BOOGIE_FRUIT.get())
+                    },
+                    6,
+                    new VillagerTrades.ItemListing[]{
+                            new ItemsForEmeralds(ModItems.BUSINESS_CARD.get().getDefaultInstance(), 1, 1, 1, 1, 1, ModItems.MUSIC_JAM.get()),
+                    }
+            )
+    );
+
+    public static final Int2ObjectMap<VillagerTrades.ItemListing[]> BUTLER_KOALA_TRADES = toIntMap(
+            ImmutableMap.of(
+                    1,
+                    new VillagerTrades.ItemListing[]{
+                            new ItemsForEmeralds(Items.BREAD.getDefaultInstance(), 3, 2, 5, 1, 0.05f, Items.WHEAT_SEEDS),
+                            new ItemsForEmeralds(Items.CAKE.getDefaultInstance(), 5, 1, 5, 1, 0.05f, Items.BEEF),
+                            new ItemsForEmeralds(Items.RABBIT_STEW.getDefaultInstance(), 1, 8, 5, 1, 0.05f, Items.BEETROOT),
+                            new ItemsForEmeralds(Items.ENCHANTED_GOLDEN_APPLE.getDefaultInstance(), 10, 1, 1, 1, 0.05f, ModItems.BOOGIE_FRUIT.get()),
+                            new ItemsForEmeralds(Items.HONEY_BOTTLE.getDefaultInstance(), 3, 1, 10, 5, 0.05f),
+                            new ItemsForEmeralds(Items.GLOW_BERRIES.getDefaultInstance(), 2, 4, 10, 5, 0.05f, Items.SWEET_BERRIES),
+                            new ItemsForEmeralds(Items.SUSPICIOUS_STEW.getDefaultInstance(), 4, 1, 8, 5, 0.05f, Items.BROWN_MUSHROOM),
+                            new ItemsForEmeralds(Items.GOLDEN_CARROT.getDefaultInstance(), 3, 3, 12, 10, 0.05f),
+                            new ItemsForEmeralds(Items.GOLDEN_APPLE.getDefaultInstance(), 5, 1, 12, 10, 0.05f),
+                            new ItemsForEmeralds(Items.COOKIE.getDefaultInstance(), 1, 12, 20, 10, 0.05f)
+                    },
+                    2,
+                    new VillagerTrades.ItemListing[]{
+                            new ItemsForEmeralds(ModItems.FORTUNE_COOKIE.get().getDefaultInstance(), 3, 1, 8, 5, 1),
+                    },
+                    3,
+                    new VillagerTrades.ItemListing[]{
+                            new ItemsForEmeralds(ModItems.BUSINESS_CARD.get().getDefaultInstance(), 1, 1, 1, 1, 1, ModItems.MUSIC_JAM.get()),
                     }
             )
     );

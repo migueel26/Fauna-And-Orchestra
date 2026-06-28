@@ -3,8 +3,12 @@ package net.migueel26.faunaandorchestra.entity.goals;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.block.custom.DamBlock;
 import net.migueel26.faunaandorchestra.entity.custom.BeaverEntity;
+import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -20,7 +24,7 @@ import java.util.Iterator;
 import java.util.Optional;
 
 public class BeaverBuildsDamGoal extends Goal {
-    public static final int DEFAULT_COOLDOWN = 100;
+    public static final int DEFAULT_COOLDOWN = 200;
     public static final int INITIAL_DEFAULT_COOLDOWN = 200;
 
     protected final BeaverEntity beaver;
@@ -40,7 +44,7 @@ public class BeaverBuildsDamGoal extends Goal {
     @Override
     public boolean canUse() {
         cooldown--;
-        if (!beaver.isHoldingInstrument() && cooldown <= 0) {
+        if (!beaver.isHoldingInstrument() && cooldown <= 0 && beaver.canBuild()) {
             Pair<Vec3, BlockPos> pair = getDamPosition();
             if (pair != null) {
                 wantedPathBlock = pair.getA();
@@ -84,9 +88,9 @@ public class BeaverBuildsDamGoal extends Goal {
         Optional<BlockPos> water = BlockPos.findClosestMatch(beaver.blockPosition(), 20, 3, this::isWaterApt);
         Optional<BlockPos> dam = BlockPos.findClosestMatch(beaver.blockPosition(), 20, 3, pred -> level.getBlockState(pred).getBlock() == ModBlocks.DAM_BLOCK.get());
         BlockPos waterPos = null;
-    if (water.isPresent()
+        if (water.isPresent()
             //&& level.getBiome(water.get()).getKey() == Biomes.RIVER
-    ) {
+        ) {
             int x, y, z;
 
             // Default to water
@@ -97,7 +101,7 @@ public class BeaverBuildsDamGoal extends Goal {
             isDam = false;
 
             if (dam.isPresent()
-                    //&& level.getBiome(dam.get()).getKey() == Biomes.RIVER
+                //&& level.getBiome(dam.get()).getKey() == Biomes.RIVER
             ) {
                 //isDam = level.getRandom().nextFloat() <= 0.25;
                 if (isDam) {
@@ -115,7 +119,7 @@ public class BeaverBuildsDamGoal extends Goal {
                 if (blockPos != waterPos
                         && level.getBlockState(blockPos).getBlock() != Blocks.WATER
                         && level.getBlockState(blockPos.above()).getBlock() == Blocks.AIR) {
-                        pathBlock = blockPos.immutable();
+                    pathBlock = blockPos.immutable();
                 }
             }
         }
@@ -142,6 +146,12 @@ public class BeaverBuildsDamGoal extends Goal {
         }
 
         if (tick >= 0) {
+            if (tick % 5 == 0 && level instanceof ServerLevel serverLevel) {
+                serverLevel.sendParticles(
+                        new BlockParticleOption(ParticleTypes.BLOCK, Blocks.OAK_LOG.defaultBlockState()),
+                        beaver.getX(), beaver.getY() + 0.4, beaver.getZ(), 5, 0.05, 0.05, 0.05, 0.05
+                );
+            }
             if (tick == 80) {
                 finish = true;
             } else {
