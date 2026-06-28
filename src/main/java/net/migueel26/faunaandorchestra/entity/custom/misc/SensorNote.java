@@ -34,8 +34,8 @@ public class SensorNote extends Entity {
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        builder.define(TEXTURE_INDEX, this.random.nextInt(8));
+    protected void defineSynchedData() {
+        entityData.define(TEXTURE_INDEX, this.random.nextInt(8));
     }
 
     @Override

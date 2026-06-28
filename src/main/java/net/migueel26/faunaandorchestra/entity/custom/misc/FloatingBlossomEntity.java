@@ -1,6 +1,5 @@
 package net.migueel26.faunaandorchestra.entity.custom.misc;
 
-import net.migueel26.faunaandorchestra.entity.custom.BeaverEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
@@ -23,11 +22,14 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.entity.EntityTypeTest;
-import net.neoforged.neoforge.common.Tags;
-import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.*;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.ArrayList;
@@ -52,8 +54,8 @@ public class FloatingBlossomEntity extends Entity implements GeoEntity {
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        builder.define(LIFETIME, MAX_LIFETIME);
+    protected void defineSynchedData() {
+        entityData.define(LIFETIME, MAX_LIFETIME);
     }
 
     @Override
@@ -115,12 +117,12 @@ public class FloatingBlossomEntity extends Entity implements GeoEntity {
 
                     tries = 0;
 
-                    while (!level().getBlockState(posToPlace).isEmpty() && tries <= DIAMETER) {
+                    while (!level().getBlockState(posToPlace).isAir() && tries <= DIAMETER) {
                         posToPlace.move(0, 1, 0);
                         tries++;
                     }
 
-                    while (!(level().getBlockState(posToPlace.below()).is(BlockTags.DIRT) && level().getBlockState(posToPlace).isEmpty()) && tries <= DIAMETER) {
+                    while (!(level().getBlockState(posToPlace.below()).is(BlockTags.DIRT) && level().getBlockState(posToPlace).isAir()) && tries <= DIAMETER) {
                         posToPlace.move(0, -1, 0);
                         tries++;
                     }
