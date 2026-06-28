@@ -11,6 +11,7 @@ import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class SpeechBubbleParticle extends TextureSheetParticle {
     private final ItemStack itemStack;
@@ -56,7 +57,7 @@ public class SpeechBubbleParticle extends TextureSheetParticle {
     }
 
     private TextureAtlasSprite getItemSprite() {
-        ResourceLocation itemId = net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(this.itemStack.getItem());
+        ResourceLocation itemId = ForgeRegistries.ITEMS.getKey(this.itemStack.getItem());
         
         TextureAtlasSprite inventorySprite = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS)
                 .apply(itemId.withPrefix("item/"));

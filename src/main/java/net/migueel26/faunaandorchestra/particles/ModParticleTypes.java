@@ -1,6 +1,9 @@
 package net.migueel26.faunaandorchestra.particles;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
+import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -8,6 +11,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Supplier;
 
@@ -24,6 +28,8 @@ public class ModParticleTypes {
             PARTICLE_TYPES.register("dripping_music", () -> new SimpleParticleType(true));
     public static final Supplier<SimpleParticleType> MAGICAL_NOTE =
             PARTICLE_TYPES.register("magical_note", () -> new SimpleParticleType(true));
+    public static final Supplier<SimpleParticleType> REGULAR_NOTE =
+            PARTICLE_TYPES.register("regular_note", () -> new SimpleParticleType(true));
     public static final Supplier<SimpleParticleType> STAR =
             PARTICLE_TYPES.register("star", () -> new SimpleParticleType(true));
     public static final Supplier<SimpleParticleType> CAULDRON_POP =
@@ -34,6 +40,13 @@ public class ModParticleTypes {
             PARTICLE_TYPES.register("sleep_particle", () -> new SimpleParticleType(true));
     public static final Supplier<SimpleParticleType> BASS_CLEF =
             PARTICLE_TYPES.register("bass_clef", () -> new SimpleParticleType(true));
+    public static final RegistryObject<ParticleType<ItemParticleOption>> SPEECH_BUBBLE =
+            PARTICLE_TYPES.register("speech_bubble", () -> new ParticleType<ItemParticleOption>(false, ItemParticleOption.DESERIALIZER) {
+                @Override
+                public Codec<ItemParticleOption> codec() {
+                    return ItemParticleOption.codec(this);
+                }
+            });
     public static void register(IEventBus eventBus) {
         PARTICLE_TYPES.register(eventBus);
     }
