@@ -1,10 +1,7 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
 import net.migueel26.faunaandorchestra.entity.goals.FaunaRandomLookAroundGoal;
-import net.migueel26.faunaandorchestra.entity.goals.SingingSproutlingGatherGoal;
 import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
-import net.migueel26.faunaandorchestra.sound.ModSounds;
-import net.migueel26.faunaandorchestra.util.ModSavedData;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -22,24 +19,20 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.PanicGoal;
-import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.*;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 public class LivingMusicEntity extends AgeableMob implements GeoEntity {
     protected static final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
@@ -56,10 +49,10 @@ public class LivingMusicEntity extends AgeableMob implements GeoEntity {
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        super.defineSynchedData(builder);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
 
-        builder.define(TICKS_UNTIL_DEATH, BASE_TICKS_UNTIL_DEATH);
+        entityData.define(TICKS_UNTIL_DEATH, BASE_TICKS_UNTIL_DEATH);
     }
 
     @Override
