@@ -13,10 +13,10 @@ import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
 public class CanonEntityModel extends GeoModel<AbstractCanonEntity> {
-    private static final ResourceLocation DEFAULT_TEXTURE = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/entity/anya_ghost.png");
-    private static final ResourceLocation ANIMATIONS = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "animations/entity/player_canon.animation.json");
-    private static final ResourceLocation ANYA_MODEL = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "geo/entity/anya_ghost.geo.json");
-    private static final ResourceLocation PLAYER_CANON_MODEL = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "geo/entity/player_canon.geo.json");
+    private static final ResourceLocation DEFAULT_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/anya_ghost.png");
+    private static final ResourceLocation ANIMATIONS = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "animations/entity/player_canon.animation.json");
+    private static final ResourceLocation ANYA_MODEL = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "geo/entity/anya_ghost.geo.json");
+    private static final ResourceLocation PLAYER_CANON_MODEL = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "geo/entity/player_canon.geo.json");
     @Override
     public ResourceLocation getModelResource(AbstractCanonEntity animatable) {
         return animatable instanceof PlayerCanonEntity ? PLAYER_CANON_MODEL : ANYA_MODEL;

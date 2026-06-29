@@ -5,9 +5,10 @@ import net.migueel26.faunaandorchestra.entity.custom.koala_workers.TailorKoalaEn
 import net.migueel26.faunaandorchestra.entity.custom.koala_workers.WorkerKoalaEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.constant.DataTickets;
+import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
+import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
@@ -33,7 +34,7 @@ public class TailorKoalaModel extends GeoModel<TailorKoalaEntity> {
 
     @Override
     public void setCustomAnimations(TailorKoalaEntity koala, long instanceId, AnimationState<TailorKoalaEntity> animationState) {
-        GeoBone head = getAnimationProcessor().getBone("head");
+        CoreGeoBone head = getAnimationProcessor().getBone("head");
         if (head != null && (!koala.isSewing() || koala.isInLunchBreak()) && (!koala.isKoalaSleeping() || !koala.hasWorkingStation())) {
             EntityModelData entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
 

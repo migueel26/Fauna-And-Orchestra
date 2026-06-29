@@ -20,6 +20,11 @@ public class MantisRenderer extends GeoEntityRenderer<MantisEntity> {
     }
 
     @Override
+    public void scaleModelForRender(float widthScale, float heightScale, PoseStack poseStack, MantisEntity animatable, BakedGeoModel model, boolean isReRender, float partialTick, int packedLight, int packedOverlay) {
+        super.scaleModelForRender(animatable.getScale(), animatable.getMaxSpawnClusterSize(), poseStack, animatable, model, isReRender, partialTick, packedLight, packedOverlay);
+    }
+
+    @Override
     public void preRender(PoseStack poseStack, MantisEntity animatable, BakedGeoModel model, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         this.shadowRadius = animatable.getDimensions(Pose.STANDING).width * 0.85F;
         super.preRender(poseStack, animatable, model, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);

@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.world.entity.Pose;
+import software.bernie.geckolib.cache.object.BakedGeoModel;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
@@ -17,18 +18,19 @@ public class FarmerKoalaRenderer extends GeoEntityRenderer<FarmerKoalaEntity> {
     }
 
     @Override
-    protected float getShadowRadius(FarmerKoalaEntity entity) {
-        return entity.getDimensions(Pose.STANDING).width() * 0.65F;
+    public void preRender(PoseStack poseStack, FarmerKoalaEntity entity, BakedGeoModel model, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+        this.shadowRadius = entity.getDimensions(Pose.STANDING).width * 0.65F;
+        super.preRender(poseStack, entity, model, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
     }
 
     @Override
-    public void renderRecursively(PoseStack poseStack, FarmerKoalaEntity koala, GeoBone bone, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, int colour) {
+    public void renderRecursively(PoseStack poseStack, FarmerKoalaEntity koala, GeoBone bone, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         if (bone.getName().equals("gingko_biloba")) {
             bone.setHidden(!koala.isInLunchBreak());
         }
         if (bone.getName().equals("iron_hoe")) {
             bone.setHidden(koala.isInLunchBreak());
         }
-        super.renderRecursively(poseStack, koala, bone, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, colour);
+        super.renderRecursively(poseStack, koala, bone, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
     }
 }

@@ -20,15 +20,16 @@ public class FloatingBlossomRenderer extends GeoEntityRenderer<FloatingBlossomEn
     }
 
     @Override
-    protected float getShadowRadius(FloatingBlossomEntity entity) {
-        return entity.getDimensions(Pose.STANDING).width() * 0.35F;
+    public void preRender(PoseStack poseStack, FloatingBlossomEntity animatable, BakedGeoModel model, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+        this.shadowRadius = animatable.getDimensions(Pose.STANDING).width * 0.35F;
+        super.preRender(poseStack, animatable, model, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
     }
 
     @Override
-    public void renderRecursively(PoseStack poseStack, FloatingBlossomEntity animatable, GeoBone bone, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, int colour) {
+    public void renderRecursively(PoseStack poseStack, FloatingBlossomEntity animatable, GeoBone bone, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         if (bone.getName().equals("floating_blossom")) {
             bone.setHidden(animatable.getLifetime() == animatable.MAX_LIFETIME);
         }
-        super.renderRecursively(poseStack, animatable, bone, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, colour);
+        super.renderRecursively(poseStack, animatable, bone, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
     }
 }

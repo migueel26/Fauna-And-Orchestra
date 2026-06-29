@@ -24,12 +24,30 @@ public class RedPandaRenderer extends GeoEntityRenderer<RedPandaEntity> {
     }
 
     @Override
-    public void renderRecursively(PoseStack poseStack, RedPandaEntity animatable, GeoBone bone, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+    public void scaleModelForRender(float widthScale, float heightScale, PoseStack poseStack, RedPandaEntity animatable, BakedGeoModel model, boolean isReRender, float partialTick, int packedLight, int packedOverlay) {
+        super.scaleModelForRender(animatable.getScale(), animatable.getScale(), poseStack, animatable, model, isReRender, partialTick, packedLight, packedOverlay);
+    }
+
+    @Override
+    public void renderRecursively(PoseStack poseStack, RedPandaEntity redPanda, GeoBone bone, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         if (bone.getName().equals("keytar")) {
-            if (!animatable.isHoldingInstrument()) {
+            if (!redPanda.isHoldingInstrument()) {
                 bone.setHidden(true);
             }
         }
-        super.renderRecursively(poseStack, animatable, bone, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
+
+        if (bone.getName().equals("head")) {
+            if (redPanda.isBaby()) {
+                bone.setScaleX(1.35F);
+                bone.setScaleY(1.35F);
+                bone.setScaleZ(1.35F);
+            } else {
+                bone.setScaleX(1.0F);
+                bone.setScaleY(1.0F);
+                bone.setScaleZ(1.0F);
+            }
+        }
+
+        super.renderRecursively(poseStack, redPanda, bone, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
     }
 }

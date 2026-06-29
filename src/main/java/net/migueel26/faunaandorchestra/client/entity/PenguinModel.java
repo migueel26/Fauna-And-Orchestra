@@ -2,8 +2,10 @@ package net.migueel26.faunaandorchestra.client.entity;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.entity.custom.PenguinEntity;
+import net.migueel26.faunaandorchestra.item.ModItems;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.world.item.Item;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.constant.DataTickets;
 import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
@@ -12,9 +14,13 @@ import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
 public class PenguinModel extends GeoModel<PenguinEntity> {
-    private static final ResourceLocation TEXTURE = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/entity/penguin.png");
-    private static final ResourceLocation ANIMATIONS = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "animations/entity/penguin.animation.json");
-    private static final ResourceLocation MODEL = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "geo/entity/penguin.geo.json");
+    private static final ResourceLocation NORMAL_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/penguin.png");
+    private static final ResourceLocation TUXEDO_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/penguin_tuxedo.png");
+    private static final ResourceLocation WHITE_TUXEDO_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/penguin_white_tuxedo.png");
+    private static final ResourceLocation SANTA_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/penguin_santa.png");
+    private static final ResourceLocation BASEBALL_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/penguin_baseball.png");
+    private static final ResourceLocation ANIMATIONS = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "animations/entity/penguin.animation.json");
+    private static final ResourceLocation MODEL = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "geo/entity/penguin.geo.json");
 
     @Override
     public ResourceLocation getModelResource(PenguinEntity animatable) {
@@ -22,8 +28,18 @@ public class PenguinModel extends GeoModel<PenguinEntity> {
     }
 
     @Override
-    public ResourceLocation getTextureResource(PenguinEntity animatable) {
-        return TEXTURE;
+    public ResourceLocation getTextureResource(PenguinEntity penguin) {
+        if (penguin.getCostume() == ModItems.TUXEDO.get()) {
+            return TUXEDO_TEXTURE;
+        } else if (penguin.getCostume() == ModItems.WHITE_TUXEDO.get()) {
+            return WHITE_TUXEDO_TEXTURE;
+        } else if (penguin.getCostume() == ModItems.SANTA_COSTUME.get()) {
+            return SANTA_TEXTURE;
+        } else if (penguin.getCostume() == ModItems.BASEBALL_JACKET.get()) {
+            return BASEBALL_TEXTURE;
+        } else {
+            return NORMAL_TEXTURE;
+        }
     }
 
     @Override
@@ -35,7 +51,7 @@ public class PenguinModel extends GeoModel<PenguinEntity> {
     public void setCustomAnimations(PenguinEntity penguin, long instanceId, AnimationState<PenguinEntity> animationState) {
         CoreGeoBone head = getAnimationProcessor().getBone("head");
 
-        if (head != null && !penguin.isPlayingInstrument() && !animationState.isMoving()) {
+        if (head != null && !penguin.isPlayingInstrument() && !animationState.isMoving() && !penguin.isBusy()) {
             EntityModelData entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
 
             head.setRotX(entityData.headPitch() * Mth.DEG_TO_RAD);
@@ -43,6 +59,10 @@ public class PenguinModel extends GeoModel<PenguinEntity> {
         }
 
         CoreGeoBone flute = getAnimationProcessor().getBone("long_flute");
+
+        getAnimationProcessor().getBone("santa_hat").setHidden(penguin.getHat() != ModItems.SANTA_HAT.get());
+        getAnimationProcessor().getBone("propeller_hat").setHidden(penguin.getHat() != ModItems.PROPELLER_HAT.get());
+        getAnimationProcessor().getBone("baseball_cap").setHidden(penguin.getHat() != ModItems.BASEBALL_CAP.get());
 
         flute.setHidden(!penguin.isHoldingInstrument());
     }

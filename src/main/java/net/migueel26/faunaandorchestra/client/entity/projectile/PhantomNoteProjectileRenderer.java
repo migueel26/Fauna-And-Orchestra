@@ -17,7 +17,7 @@ import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 
 public class PhantomNoteProjectileRenderer extends EntityRenderer<PhantomNoteProjectileEntity> {
-    private static final ResourceLocation DEFAULT_TEXTURE_LOCATION = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/entity/phantom_note.png");
+    private static final ResourceLocation DEFAULT_TEXTURE_LOCATION = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/phantom_note.png");
 
     public PhantomNoteProjectileRenderer(EntityRendererProvider.Context context) {
         super(context);

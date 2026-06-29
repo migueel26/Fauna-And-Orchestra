@@ -4,7 +4,6 @@ import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.entity.custom.ButterflyEntity;
 import net.migueel26.faunaandorchestra.entity.custom.misc.FloatingBlossomEntity;
 import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 
 public class FloatingBlossomModel extends GeoModel<FloatingBlossomEntity> {
@@ -25,10 +24,5 @@ public class FloatingBlossomModel extends GeoModel<FloatingBlossomEntity> {
     @Override
     public ResourceLocation getAnimationResource(FloatingBlossomEntity animatable) {
         return ANIMATIONS;
-    }
-
-    @Override
-    public void setCustomAnimations(FloatingBlossomEntity animatable, long instanceId, AnimationState<FloatingBlossomEntity> animationState) {
-        super.setCustomAnimations(animatable, instanceId, animationState);
     }
 }

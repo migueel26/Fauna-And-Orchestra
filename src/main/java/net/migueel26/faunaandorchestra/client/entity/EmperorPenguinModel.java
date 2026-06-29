@@ -6,9 +6,10 @@ import net.migueel26.faunaandorchestra.item.ModItems;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.Item;
-import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.constant.DataTickets;
+import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
+import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
@@ -28,13 +29,17 @@ public class EmperorPenguinModel extends GeoModel<EmperorPenguinEntity> {
 
     @Override
     public ResourceLocation getTextureResource(EmperorPenguinEntity penguin) {
-        return switch (penguin.getCostume()) {
-            case Item costume when costume == ModItems.TUXEDO.get() -> TUXEDO_TEXTURE;
-            case Item costume when costume == ModItems.WHITE_TUXEDO.get() -> WHITE_TUXEDO_TEXTURE;
-            case Item costume when costume == ModItems.SANTA_COSTUME.get() -> SANTA_TEXTURE;
-            case Item costume when costume == ModItems.BASEBALL_JACKET.get() -> BASEBALL_TEXTURE;
-            default -> NORMAL_TEXTURE;
-        };
+        if (penguin.getCostume() == ModItems.TUXEDO.get()) {
+            return TUXEDO_TEXTURE;
+        } else if (penguin.getCostume() == ModItems.WHITE_TUXEDO.get()) {
+            return WHITE_TUXEDO_TEXTURE;
+        } else if (penguin.getCostume() == ModItems.SANTA_COSTUME.get()) {
+            return SANTA_TEXTURE;
+        } else if (penguin.getCostume() == ModItems.BASEBALL_JACKET.get()) {
+            return BASEBALL_TEXTURE;
+        } else {
+            return NORMAL_TEXTURE;
+        }
     }
 
     @Override
@@ -44,7 +49,7 @@ public class EmperorPenguinModel extends GeoModel<EmperorPenguinEntity> {
 
     @Override
     public void setCustomAnimations(EmperorPenguinEntity penguin, long instanceId, AnimationState<EmperorPenguinEntity> animationState) {
-        GeoBone head = getAnimationProcessor().getBone("head");
+        CoreGeoBone head = getAnimationProcessor().getBone("head");
 
         if (head != null && !penguin.isPlayingInstrument() && !animationState.isMoving() && !penguin.isBusy()) {
             EntityModelData entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
@@ -53,7 +58,7 @@ public class EmperorPenguinModel extends GeoModel<EmperorPenguinEntity> {
             head.setRotY(entityData.netHeadYaw() * Mth.DEG_TO_RAD);
         }
 
-        GeoBone flute = getAnimationProcessor().getBone("long_flute");
+        CoreGeoBone flute = getAnimationProcessor().getBone("long_flute");
 
         getAnimationProcessor().getBone("santa_hat").setHidden(penguin.getHat() != ModItems.SANTA_HAT.get());
         getAnimationProcessor().getBone("baseball_cap").setHidden(penguin.getHat() != ModItems.BASEBALL_CAP.get());

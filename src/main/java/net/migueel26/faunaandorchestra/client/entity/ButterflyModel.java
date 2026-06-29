@@ -9,10 +9,11 @@ import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
 public class ButterflyModel extends GeoModel<ButterflyEntity> {
-    private static final ResourceLocation TEXTURE = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/entity/butterfly.png");
-    private static final ResourceLocation ANIMATIONS = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "animations/entity/butterfly.animation.json");
-    private static final ResourceLocation MODEL = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "geo/entity/butterfly.geo.json");
-
+    private static final ResourceLocation BLUE_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/butterfly_blue.png");
+    private static final ResourceLocation ORANGE_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/butterfly_orange.png");
+    private static final ResourceLocation MAGENTA_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/butterfly_magenta.png");
+    private static final ResourceLocation ANIMATIONS = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "animations/entity/butterfly.animation.json");
+    private static final ResourceLocation MODEL = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "geo/entity/butterfly.geo.json");
     @Override
     public ResourceLocation getModelResource(ButterflyEntity animatable) {
         return MODEL;
@@ -20,7 +21,11 @@ public class ButterflyModel extends GeoModel<ButterflyEntity> {
 
     @Override
     public ResourceLocation getTextureResource(ButterflyEntity animatable) {
-        return TEXTURE;
+        return switch (animatable.getVariant()) {
+            case BLUE -> BLUE_TEXTURE;
+            case ORANGE -> ORANGE_TEXTURE;
+            case MAGENTA -> MAGENTA_TEXTURE;
+        };
     }
 
     @Override

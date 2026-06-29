@@ -7,9 +7,10 @@ import net.migueel26.faunaandorchestra.item.ModItems;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.Item;
-import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.constant.DataTickets;
+import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
+import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
@@ -26,11 +27,13 @@ public class SeaLionModel extends GeoModel<SeaLionEntity> {
 
     @Override
     public ResourceLocation getTextureResource(SeaLionEntity beaver) {
-        return switch (beaver.getCostume()) {
-            case Item costume when costume == ModItems.TUXEDO.get() -> TUXEDO_TEXTURE;
-            case Item costume when costume == ModItems.WHITE_TUXEDO.get() -> WHITE_TUXEDO_TEXTURE;
-            default -> NORMAL_TEXTURE;
-        };
+        if (beaver.getCostume() == ModItems.TUXEDO.get()) {
+            return TUXEDO_TEXTURE;
+        } else if (beaver.getCostume() == ModItems.WHITE_TUXEDO.get()) {
+            return WHITE_TUXEDO_TEXTURE;
+        } else {
+            return NORMAL_TEXTURE;
+        }
     }
 
     @Override
@@ -41,7 +44,7 @@ public class SeaLionModel extends GeoModel<SeaLionEntity> {
 
     @Override
     public void setCustomAnimations(SeaLionEntity seaLion, long instanceId, AnimationState<SeaLionEntity> animationState) {
-        GeoBone head = getAnimationProcessor().getBone("head");
+        CoreGeoBone head = getAnimationProcessor().getBone("head");
 
         if (head != null && !seaLion.isPlayingInstrument() && !animationState.isMoving()) {
             EntityModelData entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);

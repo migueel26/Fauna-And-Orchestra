@@ -2,8 +2,10 @@ package net.migueel26.faunaandorchestra.client.entity;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.entity.custom.RedPandaEntity;
+import net.migueel26.faunaandorchestra.item.ModItems;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.world.item.Item;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.constant.DataTickets;
 import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
@@ -12,17 +14,25 @@ import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
 public class RedPandaModel extends GeoModel<RedPandaEntity> {
-    private static final ResourceLocation TEXTURE = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/entity/red_panda.png");
-    private static final ResourceLocation ANIMATIONS = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "animations/entity/red_panda.animation.json");
-    private static final ResourceLocation MODEL = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "geo/entity/red_panda.geo.json");
+    private static final ResourceLocation NORMAL_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/red_panda.png");
+    private static final ResourceLocation TUXEDO_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/red_panda_tuxedo.png");
+    private static final ResourceLocation WHITE_TUXEDO_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/entity/red_panda_white_tuxedo.png");
+    private static final ResourceLocation ANIMATIONS = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "animations/entity/red_panda.animation.json");
+    private static final ResourceLocation MODEL = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "geo/entity/red_panda.geo.json");
     @Override
     public ResourceLocation getModelResource(RedPandaEntity animatable) {
         return MODEL;
     }
 
     @Override
-    public ResourceLocation getTextureResource(RedPandaEntity animatable) {
-        return TEXTURE;
+    public ResourceLocation getTextureResource(RedPandaEntity redPanda) {
+        if (redPanda.getCostume() == ModItems.TUXEDO.get()) {
+            return TUXEDO_TEXTURE;
+        } else if (redPanda.getCostume() == ModItems.WHITE_TUXEDO.get()) {
+            return WHITE_TUXEDO_TEXTURE;
+        } else {
+            return NORMAL_TEXTURE;
+        }
     }
 
     @Override
@@ -35,7 +45,7 @@ public class RedPandaModel extends GeoModel<RedPandaEntity> {
         CoreGeoBone head = getAnimationProcessor().getBone("head");
 
 
-        if (head != null && !redPanda.isPlayingInstrument() && !animationState.isMoving() && redPanda.isCurrentlyNotChangingStances()) {
+        if (head != null && !redPanda.isPlayingInstrument() && !animationState.isMoving() && redPanda.isCurrentlyNotChangingStances() && !redPanda.isEating()) {
             EntityModelData entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);;
 
             if (redPanda.isHoldingInstrument() || redPanda.isStanding()) {
@@ -48,6 +58,10 @@ public class RedPandaModel extends GeoModel<RedPandaEntity> {
         }
 
         CoreGeoBone keytar = getAnimationProcessor().getBone("keytar");
+
+        getAnimationProcessor().getBone("fake_moustache").setHidden(redPanda.getHat() != ModItems.FAKE_MOUSTACHE.get());
+        getAnimationProcessor().getBone("top_hat").setHidden(redPanda.getHat() != ModItems.TOP_HAT.get());
+        getAnimationProcessor().getBone("imaginal_disk").setHidden(redPanda.getHat() != ModItems.IMAGINAL_DISK.get());
 
         keytar.setHidden(!redPanda.isHoldingInstrument());
     }
