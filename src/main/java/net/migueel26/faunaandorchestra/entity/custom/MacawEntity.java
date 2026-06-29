@@ -1,15 +1,31 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
+import net.migueel26.faunaandorchestra.entity.ModEntities;
+import net.migueel26.faunaandorchestra.entity.custom.misc.MailbirdMacawEntity;
 import net.migueel26.faunaandorchestra.entity.goals.MusicalEntityPlayingInstrumentGoal;
 import net.migueel26.faunaandorchestra.item.ModItems;
+import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
+import net.migueel26.faunaandorchestra.util.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderSet;
+import net.minecraft.core.particles.ItemParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -42,7 +58,9 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class MacawEntity extends MusicalEntity implements GeoEntity, FlyingAnimal {
+import java.util.Optional;
+
+public class MacawEntity extends MusicalEntity implements FlyingAnimal {
     protected static final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
     protected static final RawAnimation ROTATING = RawAnimation.begin().thenPlay("rotating");
     protected static final RawAnimation FLYING = RawAnimation.begin().thenPlay("flying");
@@ -56,6 +74,8 @@ public class MacawEntity extends MusicalEntity implements GeoEntity, FlyingAnima
     private float flapping = 1.0F;
     private float nextFlap = 1.0F;
     private boolean changingInstrument = false;
+    private static final EntityDataAccessor<ItemStack> RIDDLE =
+            SynchedEntityData.defineId(MacawEntity.class, EntityDataSerializers.ITEM_STACK);
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
 
     public MacawEntity(EntityType<? extends TamableAnimal> entityType, Level level) {
@@ -65,6 +85,12 @@ public class MacawEntity extends MusicalEntity implements GeoEntity, FlyingAnima
         this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, -1.0F);
 
         addOverridenGoals();
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        entityData.define(RIDDLE, ItemStack.EMPTY);
     }
 
     @Override
@@ -93,6 +119,28 @@ public class MacawEntity extends MusicalEntity implements GeoEntity, FlyingAnima
                 }
             }
         });
+
+        this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, TravellingMusician.class, 8.0F) {
+            @Override
+            public void tick() {
+                super.tick();
+                if (this.lookAt.isAlive() && ((MusicalEntity) this.mob).isHoldingInstrument()) {
+                    this.mob.getLookControl().setLookAt(this.lookAt.getX(), this.lookAt.getEyeY()-5, this.lookAt.getZ());
+                }
+            }
+
+            @Override
+            public boolean canUse() {
+                return super.canUse() && !((MusicalEntity) mob).isPlayingInstrument();
+            }
+        });
+
+        this.goalSelector.addGoal(3, new BreedGoal(this, 1.0f) {
+            @Override
+            public boolean canUse() {
+                return super.canUse() && !((MacawEntity) animal).isFlying() && !((MacawEntity) animal).isHoldingInstrument();
+            }
+        });
     }
 
     private <E extends GeoAnimatable> PlayState macawState(AnimationState<E> state) {
@@ -110,6 +158,98 @@ public class MacawEntity extends MusicalEntity implements GeoEntity, FlyingAnima
             state.getController().setAnimation(IDLE);
         }
         return PlayState.CONTINUE;
+    }
+
+    @Override
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+        InteractionResult result = super.mobInteract(player, hand);
+
+        ItemStack stack  = player.getItemInHand(hand);
+        if (!isTame() && (result == InteractionResult.PASS || result == InteractionResult.FAIL)) {
+            // Create new riddle or try to guess
+            if (getRiddle().isEmpty()) {
+                if (!level().isClientSide()) {
+                    setRiddle(getNewRiddle());
+
+                    ((ServerLevel) level()).sendParticles(new ItemParticleOption(ModParticleTypes.SPEECH_BUBBLE.get(), getRiddle()),
+                            getX(), getY() + 1.1, getZ(), 1, 0.05, 0.02, 0.05, 0.02);
+                }
+            } else if (ItemStack.isSameItem(stack, getRiddle())) {
+                level().playSound(player, blockPosition(), SoundEvents.VILLAGER_YES, SoundSource.NEUTRAL);
+
+                this.spawnAtLocation(ModItems.MACAW_FEATHER.get());
+
+                if (!level().isClientSide()) {
+                    ((ServerLevel) level()).sendParticles(ParticleTypes.HAPPY_VILLAGER, getX(), getY(), getZ(), 30, 1, 1, 1, 0.05);
+                    MailbirdMacawEntity mailbird = new MailbirdMacawEntity(ModEntities.MACAW.get(), level());
+                    mailbird.setPos(getX(), getY(), getZ());
+                    mailbird.setYHeadRot(this.getYHeadRot());
+                    mailbird.setYBodyRot(this.getYRot());
+                    mailbird.setXRot(this.getXRot());
+                    level().addFreshEntity(mailbird);
+                    mailbird.flyAway();
+                }
+
+                this.discard();
+
+            } else {
+                if (!stack.isEmpty()) {
+                    level().playSound(player, blockPosition(), SoundEvents.VILLAGER_NO, SoundSource.NEUTRAL);
+                    if (!level().isClientSide()) {
+                        ((ServerLevel) level()).sendParticles(ParticleTypes.ANGRY_VILLAGER, getX(), getY(), getZ(), 10, 1, 1, 1, 0.05);
+                    }
+                }
+
+                if (!level().isClientSide()) {
+                    ((ServerLevel) level()).sendParticles(new ItemParticleOption(ModParticleTypes.SPEECH_BUBBLE.get(), getRiddle()),
+                            getX(), getY() + 1.1, getZ(), 1, 0.05, 0.02, 0.05, 0.02);
+                }
+            }
+
+            // Anim wise
+            this.lookControl.setLookAt(player.getEyePosition());
+            this.navigation.stop();
+
+            return InteractionResult.SUCCESS;
+        }
+
+        return InteractionResult.PASS;
+    }
+
+    private ItemStack getNewRiddle() {
+        HolderLookup.RegistryLookup<Item> registry = this.level().registryAccess().lookupOrThrow(Registries.ITEM);
+
+        Optional<HolderSet.Named<Item>> tagContents = registry.get(ModTags.Items.RIDDLE_ITEMS);
+
+        return tagContents.flatMap(holders ->
+                holders.getRandomElement(this.random)
+        ).map(holder ->
+                new ItemStack(holder.value())
+        ).orElse(ItemStack.EMPTY);
+    }
+
+    public ItemStack getRiddle() {
+        return entityData.get(RIDDLE);
+    }
+
+    public void setRiddle(ItemStack stack) {
+        entityData.set(RIDDLE, stack);
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        if (!this.getRiddle().isEmpty()) {
+            compound.put("Riddle", this.getRiddle().save(new CompoundTag()));
+        }
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        if (compound.contains("Riddle")) {
+            this.setRiddle(ItemStack.of(compound.getCompound("Riddle")));
+        }
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -174,7 +314,7 @@ public class MacawEntity extends MusicalEntity implements GeoEntity, FlyingAnima
         if (isHoldingInstrument()) {
             return super.getDimensions(pose).scale(1.5F, 2.75F);
         } else {
-            return super.getDimensions(pose);
+            return this.isBaby() ? ModEntities.MACAW.get().getDimensions().scale(0.7f) : super.getDimensions(pose);
         }
     }
 
@@ -238,13 +378,18 @@ public class MacawEntity extends MusicalEntity implements GeoEntity, FlyingAnima
 
     @Override
     public boolean isFood(ItemStack stack) {
-        return false;
+        return stack.is(ModItems.SEEDY_APPLE.get());
     }
 
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
-        return null;
+        return createBaby(ModEntities.MACAW.get(), (MacawEntity) otherParent);
+    }
+
+    @Override
+    public float getScale() {
+        return this.isBaby() ? 0.7F : 1.0F;
     }
 
     @Override
