@@ -44,7 +44,7 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class MadameButterflyEntity extends MusicalEntity implements GeoEntity, FlyingAnimal {
+public class MadameButterflyEntity extends MusicalEntity implements FlyingAnimal {
     protected static final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
     protected static final RawAnimation IDLE_CELLO = RawAnimation.begin().thenPlay("idle_cello");
     protected static final RawAnimation PLAYING_CELLO = RawAnimation.begin().thenPlay("playing_cello");
@@ -92,6 +92,21 @@ public class MadameButterflyEntity extends MusicalEntity implements GeoEntity, F
                 if (this.lookAt.isAlive() && ((MusicalEntity) this.mob).isHoldingInstrument()) {
                     this.mob.getLookControl().setLookAt(this.lookAt.getX(), this.lookAt.getEyeY()-5, this.lookAt.getZ());
                 }
+            }
+        });
+
+        this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, TravellingMusician.class, 8.0F) {
+            @Override
+            public void tick() {
+                super.tick();
+                if (this.lookAt.isAlive() && ((MusicalEntity) this.mob).isHoldingInstrument()) {
+                    this.mob.getLookControl().setLookAt(this.lookAt.getX(), this.lookAt.getEyeY()-5, this.lookAt.getZ());
+                }
+            }
+
+            @Override
+            public boolean canUse() {
+                return super.canUse() && !((MusicalEntity) mob).isPlayingInstrument();
             }
         });
     }
