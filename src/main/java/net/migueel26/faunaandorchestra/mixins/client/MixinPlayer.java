@@ -18,7 +18,7 @@ public abstract class MixinPlayer {
             cancellable = true
     )
     private void cancelAnimationForMantis(int ticks, float damage, ItemStack itemStack, CallbackInfo ci) {
-        if (itemStack.is(ModItems.MANTIS_DAGGER.asItem())) {
+        if (itemStack.is(ModItems.MANTIS_DAGGER.get())) {
             ci.cancel();
         }
     }
