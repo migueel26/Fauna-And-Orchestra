@@ -325,6 +325,12 @@ public abstract class MusicalEntity extends TamableAnimal {
         return mob;
     }
 
+    @Override
+    public void setBaby(boolean isBaby) {
+        super.setBaby(isBaby);
+        refreshDimensions();
+    }
+
     protected MusicalEntity createBaby(EntityType<? extends MusicalEntity> entityType, MusicalEntity parent) {
         MusicalEntity baby = entityType.create(level());
 

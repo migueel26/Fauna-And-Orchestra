@@ -155,7 +155,7 @@ public class AnyaGhost extends AbstractCanonEntity implements GeoEntity {
             if (tickCount == 350) {
                 ((ServerLevel) level()).sendParticles(ParticleTypes.POOF, position().x, position().y+0.5f, position().z, 40, 0.2, 0.5, 0.2, 0.3);
                 ItemEntity itemEntity = new ItemEntity(level(), position().x, position().y+0.5f, position().z,
-                        PatchouliAPI.get().getBookStack(new ResourceLocation(FaunaAndOrchestra.MOD_ID, "symphonia")));
+                        PatchouliAPI.get().getBookStack(ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "symphonia")));
                 itemEntity.addDeltaMovement(new Vec3(0, 0.3, 0));
                 level().addFreshEntity(itemEntity);
             } else if (tickCount == 356) {

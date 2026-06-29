@@ -38,6 +38,7 @@ public class EverfruitItem extends Item {
             }
 
             mob.setAge(Integer.MIN_VALUE);
+            mob.refreshDimensions();
 
             if (!level.isClientSide()) {
                 interactionTarget.playSound(SoundEvents.CAMEL_EAT);
