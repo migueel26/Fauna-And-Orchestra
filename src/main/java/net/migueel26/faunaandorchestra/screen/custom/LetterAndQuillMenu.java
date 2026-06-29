@@ -1,7 +1,6 @@
 package net.migueel26.faunaandorchestra.screen.custom;
 
 import net.migueel26.faunaandorchestra.block.ModBlocks;
-import net.migueel26.faunaandorchestra.block.entity.MailboxBlockEntity;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.screen.ModMenuTypes;
 import net.minecraft.network.FriendlyByteBuf;
@@ -14,8 +13,6 @@ import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.neoforge.items.SlotItemHandler;
 
 public class LetterAndQuillMenu extends AbstractContainerMenu {
     private final Level level;
@@ -38,7 +35,7 @@ public class LetterAndQuillMenu extends AbstractContainerMenu {
         this.addSlot(new Slot(this.container, 0, 143, 29) {
             @Override
             public boolean mayPlace(ItemStack stack) {
-                return !stack.is(ModItems.BUSINESS_CARD);
+                return !stack.is(ModItems.BUSINESS_CARD.get());
             }
         });
     }

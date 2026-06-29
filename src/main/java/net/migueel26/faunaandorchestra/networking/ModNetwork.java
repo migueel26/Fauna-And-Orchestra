@@ -39,10 +39,10 @@ public class ModNetwork {
                 .consumerMainThread(EraseMailC2SPacket::handle)
                 .add();
 
-        net.messageBuilder(WriteEmailC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
-                .decoder(WriteEmailC2SPacket::new)
-                .encoder(WriteEmailC2SPacket::toBytes)
-                .consumerMainThread(WriteEmailC2SPacket::handle)
+        net.messageBuilder(WriteMailC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(WriteMailC2SPacket::new)
+                .encoder(WriteMailC2SPacket::toBytes)
+                .consumerMainThread(WriteMailC2SPacket::handle)
                 .add();
 
         net.messageBuilder(MailbirdFlyAwayC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)

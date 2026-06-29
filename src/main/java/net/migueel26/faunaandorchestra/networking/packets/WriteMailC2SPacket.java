@@ -7,8 +7,8 @@ import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public record WriteEmailC2SPacket(String sender, String receiver, int x, int y, int z) {
-    public WriteEmailC2SPacket(FriendlyByteBuf buf) {
+public record WriteMailC2SPacket(String sender, String receiver, int x, int y, int z) {
+    public WriteMailC2SPacket(FriendlyByteBuf buf) {
         this(buf.readUtf(), buf.readUtf(), buf.readInt(), buf.readInt(), buf.readInt());
     }
 

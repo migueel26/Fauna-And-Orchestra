@@ -12,15 +12,17 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-import net.neoforged.neoforge.client.gui.widget.ExtendedButton;
-import net.neoforged.neoforge.network.PacketDistributor;
+import net.minecraftforge.client.gui.widget.ExtendedButton;
 
 public class MailboxScreen extends AbstractContainerScreen<MailboxMenu> {
     private static final ResourceLocation GUI_TEXTURE =
             ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/gui/block/mailbox_gui.png");
-    public static final net.minecraft.network.chat.MutableComponent UNDELIVERED_MAIL = Component.translatable("screen.faunaandorchestra.undelivered");
+    private final ResourceLocation SPRITE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/gui/sprites/warning.png");
+    private final ResourceLocation HOVERED_SPRITE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/gui/sprites/warning_hover.png");
+    public static final MutableComponent UNDELIVERED_MAIL = Component.translatable("screen.faunaandorchestra.undelivered");
     private ExtendedButton sendButton;
     private AbstractWidget warningSign;
 
@@ -46,7 +48,8 @@ public class MailboxScreen extends AbstractContainerScreen<MailboxMenu> {
             private final ResourceLocation hoveredSprite = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "warning_hover");
             @Override
             protected void renderWidget(GuiGraphics guiGraphics, int i, int i1, float v) {
-                guiGraphics.blitSprite(isHovered ? this.hoveredSprite : this.sprite, this.getX(), this.getY(), this.getWidth(), this.getHeight());
+                ResourceLocation currentTexture = this.isHovered ? HOVERED_SPRITE : SPRITE;
+                guiGraphics.blit(currentTexture, this.getX(), this.getY(), 0.0F, 0.0F, this.width, this.height, this.width, this.height);
             }
 
             @Override

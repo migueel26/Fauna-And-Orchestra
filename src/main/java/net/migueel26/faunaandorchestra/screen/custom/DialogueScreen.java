@@ -7,6 +7,7 @@ import net.migueel26.faunaandorchestra.block.entity.TipCaseBlockEntity;
 import net.migueel26.faunaandorchestra.entity.custom.Faust;
 import net.migueel26.faunaandorchestra.entity.custom.Orion;
 import net.migueel26.faunaandorchestra.entity.custom.TalkableEntity;
+import net.migueel26.faunaandorchestra.entity.custom.jazzy_dammys.DanB;
 import net.migueel26.faunaandorchestra.mixins.client.accessors.ClientLevelAccessor;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.minecraft.client.Minecraft;
@@ -29,7 +30,7 @@ import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import oshi.util.tuples.Pair;
 
 public class DialogueScreen {
-    public static final ResourceLocation BACKGROUND = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/gui/entity/dialogue.png");
+    public static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/gui/entity/dialogue.png");
     public static final int DEFAULT_OFFSET = 80;
     public static final int DEFAULT_BACKGROUND_Y = 160;
     public static final int DEFAULT_BACKGROUND_X = 100;
@@ -88,6 +89,10 @@ public class DialogueScreen {
                 if (entity.getDialogueTimer() > 260) {
                     entity.resetDialogueTimer();
                     entity.setGoodMorning(false);
+
+                    if (entity instanceof DanB danB) {
+                        danB.setCurrentMyth(-1);
+                    }
                 }
 
                 guiGraphics.blit(BACKGROUND, DEFAULT_BACKGROUND_X + xOffset(guiGraphics), currBackY - currOffset + yOffset(guiGraphics),0,0,223, TRANSITION_DURATION);
@@ -104,10 +109,10 @@ public class DialogueScreen {
             BlockState state = minecraft.level.getBlockState(blockPos);
             BlockEntity blockEntity = minecraft.level.getBlockEntity(blockPos);
             if (blockEntity instanceof TipCaseBlockEntity tipCaseBE
-                && tipCaseBE.getOwner() != null
-                && ((ClientLevelAccessor) minecraft.level).callGetEntities().get(tipCaseBE.getOwner()) instanceof Faust faust) {
+                    && tipCaseBE.getOwner() != null
+                    && ((ClientLevelAccessor) minecraft.level).callGetEntities().get(tipCaseBE.getOwner()) instanceof Faust faust) {
                 // The tip case is property of Faust & Orion
-                int tips = state.getValue(TipCaseBlock.TIPS);
+                int tips = tipCaseBE.getTips();
                 if (tips == TipCaseBlock.FIRST_REWARD && state.getValue(TipCaseBlock.FIRST)) {
                     minecraft.level.setBlock(blockPos, state.setValue(TipCaseBlock.FIRST, false), 3);
                     prize = 1;
@@ -127,8 +132,8 @@ public class DialogueScreen {
         // We show the dialogue associated with the prize
         if (prizeTimer >= 1) {
             ResourceLocation icon;
-            ResourceLocation faust = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/gui/entity/faust_icon.png");
-            ResourceLocation orion = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/gui/entity/orion_icon.png");
+            ResourceLocation faust = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/gui/entity/faust_icon.png");
+            ResourceLocation orion = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/gui/entity/orion_icon.png");
             Pair<Integer, Integer> size = new Pair<>(49, 60);
             Pair<Integer, Integer> location = new Pair<>(107, 136);
             String text = Component.translatable("dialogue.faunaandorchestra.ringtails_prize" + prize).getString();

@@ -22,9 +22,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeHolder;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,8 +32,7 @@ import java.util.Optional;
 public class TailorScreen extends AbstractContainerScreen<TailorMenu> {
     private static final int CATALOG_SIZE = 30;
     public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/gui/entity/tailor_gui.png");
-    private static final ResourceLocation SCROLLER_SPRITE = ResourceLocation.withDefaultNamespace("container/villager/scroller");
-    private static final ResourceLocation SCROLLER_DISABLED_SPRITE = ResourceLocation.withDefaultNamespace("container/villager/scroller_disabled");
+    private static final ResourceLocation VILLAGER_TEXTURE = ResourceLocation.withDefaultNamespace("textures/gui/container/villager2.png");
     private static final int TEXTURE_WIDTH = 512;
     private static final int TEXTURE_HEIGHT = 256;
     private static final int SCROLLER_HEIGHT = 27;
@@ -64,7 +62,7 @@ public class TailorScreen extends AbstractContainerScreen<TailorMenu> {
         if (level != null) {
             catalogSize = 0;
             for (var recipe : level.getRecipeManager().getAllRecipesFor(ModRecipes.SEWING_TYPE.get())) {
-                if (isAptRecipe(recipe.value())) {
+                if (isAptRecipe(recipe)) {
                     this.catalogOfferButtons[catalogSize] = this.addRenderableWidget(
                             new CatalogOfferButton(leftPos + 5, 0, catalogSize, recipe, button -> {
                                 ModNetwork.sendToServer(new TailorKoalaStartSewingC2SPacket(tailor.getUUID(), true, recipe.output()));
@@ -78,7 +76,7 @@ public class TailorScreen extends AbstractContainerScreen<TailorMenu> {
 
     public boolean isAptRecipe(SewingRecipe recipe) {
         ItemStack item = recipe.output();
-        if (item.is(ModItems.FLORAL_BOOTS)) {
+        if (item.is(ModItems.FLORAL_BOOTS.get())) {
             return (tailor.getLearntRecipes() & 1) != 0;
         }
         return true;
@@ -95,9 +93,9 @@ public class TailorScreen extends AbstractContainerScreen<TailorMenu> {
                 i1 = 113;
             }
 
-            guiGraphics.blitSprite(SCROLLER_SPRITE, posX + 94, posY + 18 + i1, 0, 6, 27);
+            guiGraphics.blit(VILLAGER_TEXTURE, posX + 94, posY + 18 + i1, 0, 199, 6, 27);
         } else {
-            guiGraphics.blitSprite(SCROLLER_DISABLED_SPRITE, posX + 94, posY + 18, 0, 6, 27);
+            guiGraphics.blit(VILLAGER_TEXTURE, posX + 94, posY + 18, 6, 199, 6, 27);
         }
 
     }
@@ -113,8 +111,18 @@ public class TailorScreen extends AbstractContainerScreen<TailorMenu> {
 
         guiGraphics.blit(TEXTURE, x , y, 0,0, 0, imageWidth, imageHeight, TEXTURE_WIDTH, TEXTURE_HEIGHT);
 
-        InventoryScreen.renderEntityInInventoryFollowsMouse(guiGraphics, x + 207, y + 16, x + 259, y + 70, 50, 0.25F,
-                this.xMouse, this.yMouse, this.tailor);
+        int entityX = x + 233;
+        int entityY = y + 70;
+
+        InventoryScreen.renderEntityInInventoryFollowsMouse(
+                guiGraphics,
+                entityX,
+                entityY,
+                50, // Skaal
+                (float) entityX - this.xMouse,
+                (float) (entityY - 50) - this.yMouse,
+                this.tailor
+        );
     }
 
     @Override
@@ -124,7 +132,7 @@ public class TailorScreen extends AbstractContainerScreen<TailorMenu> {
         this.xMouse = (float)mouseX;
         this.yMouse = (float)mouseY;
 
-        renderBackground(guiGraphics, mouseX, mouseY, partialTick);
+        renderBackground(guiGraphics);
         super.render(guiGraphics, mouseX, mouseY, partialTick);
 
         if (getCatalogSize() > 0) {
@@ -145,19 +153,13 @@ public class TailorScreen extends AbstractContainerScreen<TailorMenu> {
                     catalogButton.setY(j1);
                     catalogButton.visible = true;
 
-                    SewingRecipe recipe = catalogButton.recipe.value();
+                    SewingRecipe recipe = catalogButton.recipe;
                     ItemStack itemstack = recipe.output().copy();
 
                     guiGraphics.pose().pushPose();
                     guiGraphics.pose().translate(0.0F, 0.0F, 100.0F);
                     guiGraphics.renderFakeItem(itemstack, l + 2, j1 + 1);
-                    if (mouseX >= l && mouseX <= l + 81 && mouseY >= j1 && mouseY <= j1 + 18 && font.width(itemstack.getHoverName()) >= 64) {
-                        // If mouse over the text, the text scrolls if big enough
-                        guiGraphics.drawScrollingString(font, itemstack.getHoverName(), l + 22, l + 81, j1 + 5, 0xffffff);
-                    } else {
-                        // If not
-                        guiGraphics.drawString(font, font.substrByWidth(itemstack.getHoverName(), 64).getString(), l + 22, j1 + 6, 0xffffff);
-                    }
+                    guiGraphics.drawString(font, font.substrByWidth(itemstack.getHoverName(), 64).getString(), l + 22, j1 + 6, 0xffffff);
 
                     guiGraphics.pose().popPose();
 
@@ -228,10 +230,10 @@ public class TailorScreen extends AbstractContainerScreen<TailorMenu> {
 
     @OnlyIn(Dist.CLIENT)
     class CatalogOfferButton extends Button {
-        private final RecipeHolder<SewingRecipe> recipe;
+        private final SewingRecipe recipe;
         private final int index;
 
-        public CatalogOfferButton(int x, int y, int index, RecipeHolder<SewingRecipe> recipe, OnPress onPress) {
+        public CatalogOfferButton(int x, int y, int index, SewingRecipe recipe, OnPress onPress) {
             super(x, y, 88, 20, CommonComponents.EMPTY, onPress, DEFAULT_NARRATION);
             this.index = index;
             this.visible = false;
@@ -242,7 +244,7 @@ public class TailorScreen extends AbstractContainerScreen<TailorMenu> {
             if (this.isHovered && this.visible) {
                 List<ItemStack> requiredItems = new ArrayList<>();
 
-                for (var ingredient : this.recipe.value().ingredients()) {
+                for (var ingredient : this.recipe.ingredients()) {
                     ItemStack displayStack = ingredient.ingredient().getItems()[0].copy();
                     displayStack.setCount(ingredient.amount());
                     requiredItems.add(displayStack);

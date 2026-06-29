@@ -10,8 +10,6 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-import net.neoforged.neoforge.client.gui.widget.ExtendedSlider;
-import net.neoforged.neoforge.network.PacketDistributor;
 
 public class MusicianScreen extends AbstractContainerScreen<MusicianMenu> {
     public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/gui/entity/musician_gui.png");
@@ -43,8 +41,18 @@ public class MusicianScreen extends AbstractContainerScreen<MusicianMenu> {
 
         guiGraphics.blit(TEXTURE, x , y, 0,0, imageWidth, imageHeight);
 
-        InventoryScreen.renderEntityInInventoryFollowsMouse(guiGraphics, x + 26, y + 22, x + 78, y + 70, 30, 0.25F,
-                this.xMouse, this.yMouse, this.musician);
+        int entityX = x + 52;
+        int entityY = y + 65;
+
+        InventoryScreen.renderEntityInInventoryFollowsMouse(
+                guiGraphics,
+                entityX,
+                entityY,
+                30,
+                (float)entityX - this.xMouse,
+                (float)(entityY - 50) - this.yMouse,
+                this.musician
+        );
     }
 
     @Override
@@ -52,7 +60,7 @@ public class MusicianScreen extends AbstractContainerScreen<MusicianMenu> {
         this.xMouse = (float)mouseX;
         this.yMouse = (float)mouseY;
 
-        renderBackground(guiGraphics, mouseX, mouseY, partialTick);
+        renderBackground(guiGraphics);
         super.render(guiGraphics, mouseX, mouseY, partialTick);
         renderTooltip(guiGraphics, mouseX, mouseY);
     }

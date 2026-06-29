@@ -51,8 +51,18 @@ public class MelomancerScreen extends AbstractContainerScreen<MelomancerMenu> {
 
         guiGraphics.blit(TEXTURE, x , y, 0,0, imageWidth, imageHeight);
 
-        InventoryScreen.renderEntityInInventoryFollowsMouse(guiGraphics, x + 26, y + 22, x + 78, y + 70, 50, 0.25F,
-                this.xMouse, this.yMouse, this.melomancer);
+        int entityX = x + 52;
+        int entityY = y + 70;
+
+        InventoryScreen.renderEntityInInventoryFollowsMouse(
+                guiGraphics,
+                entityX,
+                entityY,
+                50,
+                (float) entityX - this.xMouse,
+                (float) (entityY - 50) - this.yMouse,
+                this.melomancer
+        );
     }
 
     @Override
@@ -73,7 +83,7 @@ public class MelomancerScreen extends AbstractContainerScreen<MelomancerMenu> {
             guiGraphics.renderTooltip(font, wrappedTooltip, mouseX, mouseY);
         }
 
-        renderBackground(guiGraphics, mouseX, mouseY, partialTick);
+        renderBackground(guiGraphics);
         super.render(guiGraphics, mouseX, mouseY, partialTick);
         renderTooltip(guiGraphics, mouseX, mouseY);
     }

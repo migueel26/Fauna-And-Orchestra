@@ -4,15 +4,16 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.networking.ModNetwork;
-import net.migueel26.faunaandorchestra.networking.WriteMailC2SPayload;
 import net.migueel26.faunaandorchestra.networking.packets.EraseMailC2SPacket;
+import net.migueel26.faunaandorchestra.networking.packets.WriteMailC2SPacket;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
-import net.minecraft.client.gui.components.SpriteIconButton;
+import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.components.Tooltip;
+import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
@@ -24,11 +25,12 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.network.PacketDistributor;
 
 public class LetterAndQuillScreen extends AbstractContainerScreen<LetterAndQuillMenu> {
     private static final ResourceLocation GUI_TEXTURE =
             ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/gui/block/letter_and_quill_gui.png");
+    ResourceLocation ERASE_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/gui/sprites/erase_icon.png");
+    ResourceLocation WRITE_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/gui/sprites/write_icon.png");
     public static final int DEAREST_TEXTBOX_X = 62;
     public static final int DEAREST_TEXTBOX_Y = 5;
     public static final int DEAREST_TEXTBOX_WIDTH = 66;
@@ -61,8 +63,8 @@ public class LetterAndQuillScreen extends AbstractContainerScreen<LetterAndQuill
     private EditBox yText;
     private EditBox zText;
     protected EditBox[] textBoxes = new EditBox[5];
-    private SpriteIconButton eraseButton;
-    private SpriteIconButton writeButton;
+    private ImageButton eraseButton;
+    private ImageButton writeButton;
 
 
     public LetterAndQuillScreen(LetterAndQuillMenu menu, Inventory playerInventory, Component title) {
@@ -79,21 +81,22 @@ public class LetterAndQuillScreen extends AbstractContainerScreen<LetterAndQuill
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
-        //this.eraseButton = new ExtendedButton(x + 142, y + 7, 18, 18, Component.empty(), button -> {});
-        this.eraseButton = new SpriteIconButton.Builder(Component.empty(), this::onErase, true)
-                .sprite(ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "erase_icon"), 16, 16)
-                .size(18, 18)
-                .build();
-        eraseButton.setX(x + 142);
-        eraseButton.setY(y + 7);
+        this.eraseButton = new ImageButton(
+                x + 142, y + 7, 18, 18, // X, Y, width, height
+                0, 0, 0,               // xTexStart, yTexStart, yDiffTex
+                ERASE_TEXTURE,
+                18, 18,
+                this::onErase, Component.empty()
+        );
         eraseButton.setTooltip(Tooltip.create(ERASE_TOOLTIP));
 
-        this.writeButton = new SpriteIconButton.Builder(Component.empty(), this::onWrite, true)
-                .sprite(ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "write_icon"), 16, 16)
-                .size(18, 18)
-                .build();
-        writeButton.setX(x + 142);
-        writeButton.setY(y + 48);
+        this.writeButton = new ImageButton(
+                x + 142, y + 48, 18, 18,
+                0, 0, 0,
+                WRITE_TEXTURE,
+                18, 18,
+                this::onWrite, Component.empty()
+        );
         writeButton.setTooltip(Tooltip.create(WRITE_TOOLTIP));
 
         this.myDearestText = new EditBox(this.font, x + DEAREST_TEXTBOX_X, y + DEAREST_TEXTBOX_Y, DEAREST_TEXTBOX_WIDTH, DEFAULT_TEXTBOX_HEIGHT, Component.literal("Hello"));
@@ -115,7 +118,6 @@ public class LetterAndQuillScreen extends AbstractContainerScreen<LetterAndQuill
         for (int i = 0; i < textBoxes.length; i++) {
             textBoxes[i].setBordered(false);
             textBoxes[i].setTextColor(0x0);
-            textBoxes[i].setTextShadow(false);
             textBoxes[i].setValue("");
             this.addRenderableWidget(textBoxes[i]);
         }
@@ -153,25 +155,25 @@ public class LetterAndQuillScreen extends AbstractContainerScreen<LetterAndQuill
                 x = Integer.parseInt(xText.getValue());
                 y = Integer.parseInt(yText.getValue());
                 z = Integer.parseInt(zText.getValue());
-            } else if (!stack.has(ModDataComponents.POSITION)) {
+            } else if (!stack.hasTag() || !stack.getTag().contains(ModDataComponents.POSITION)) {
                 return;
             }
 
             if (!sincerelyText.getValue().isEmpty()) {
                 sender = sincerelyText.getValue();
-                stack.set(ModDataComponents.SENDER, sender);
+                stack.getOrCreateTag().putString(ModDataComponents.SENDER, sender);
             }
 
             if (!myDearestText.getValue().isEmpty()) {
                 receiver = myDearestText.getValue();
-                stack.set(ModDataComponents.RECEIVER, receiver);
+                stack.getOrCreateTag().putString(ModDataComponents.RECEIVER, receiver);
             }
 
             if (x != -1) {
-                stack.set(ModDataComponents.POSITION, new BlockPos(x, y, z));
+                stack.getOrCreateTag().putIntArray(ModDataComponents.POSITION, new int[]{x, y, z});
             }
 
-            PacketDistributor.sendToServer(new WriteMailC2SPayload(sender, receiver, x, y, z));
+            ModNetwork.sendToServer(new WriteMailC2SPacket(sender, receiver, x, y, z));
 
             Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(ModSounds.WRITE.get(), 1.0f));
         }
@@ -200,7 +202,7 @@ public class LetterAndQuillScreen extends AbstractContainerScreen<LetterAndQuill
     }
 
     @Override
-    protected void setInitialFocus() {
+    protected void setInitialFocus(GuiEventListener guiEventListener) {
         this.setInitialFocus(this.myDearestText);
     }
 
