@@ -7,9 +7,9 @@ import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.GeoModel;
 
 public class MelomancyCauldronItemModel extends GeoModel<MelomancyCauldronItem> {
-    private static final ResourceLocation TEXTURE = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/block/melomancy_cauldron.png");
-    private static final ResourceLocation ANIMATIONS = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "animations/block/melomancy_cauldron.animation.json");
-    private static final ResourceLocation MODEL = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "geo/item/melomancy_cauldron.geo.json");
+    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/block/melomancy_cauldron.png");
+    private static final ResourceLocation ANIMATIONS = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "animations/block/melomancy_cauldron.animation.json");
+    private static final ResourceLocation MODEL = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "geo/item/melomancy_cauldron.geo.json");
     @Override
     public ResourceLocation getModelResource(MelomancyCauldronItem animatable) {
         return MODEL;
