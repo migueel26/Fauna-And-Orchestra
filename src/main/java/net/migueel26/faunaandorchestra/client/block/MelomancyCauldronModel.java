@@ -3,21 +3,25 @@ package net.migueel26.faunaandorchestra.client.block;
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.block.custom.MelomancyCauldronBlock;
 import net.migueel26.faunaandorchestra.block.entity.MelomancyCauldronBlockEntity;
+import net.migueel26.faunaandorchestra.item.ModItems;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
 import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 
 public class MelomancyCauldronModel extends GeoModel<MelomancyCauldronBlockEntity> {
-    private static final ResourceLocation DEFAULT_TEXTURE = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/block/melomancy_cauldron.png");
-    private static final ResourceLocation INK_TEXTURE = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/block/melomancy_cauldron_ink.png");
-    private static final ResourceLocation DISCORD_TEXTURE = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/block/melomancy_cauldron_discord.png");
-    private static final ResourceLocation OFFERING_TEXTURE = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/block/melomancy_cauldron_offering.png");
-    private static final ResourceLocation HEARING_TEXTURE = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/block/melomancy_cauldron_hearing.png");
-    private static final ResourceLocation SEED_TEXTURE = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/block/melomancy_cauldron_seed.png");
-    private static final ResourceLocation ANIMATIONS = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "animations/block/melomancy_cauldron.animation.json");
-    private static final ResourceLocation MODEL = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "geo/block/melomancy_cauldron.geo.json");
+    private static final ResourceLocation DEFAULT_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/block/melomancy_cauldron.png");
+    private static final ResourceLocation INK_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/block/melomancy_cauldron_ink.png");
+    private static final ResourceLocation DISCORD_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/block/melomancy_cauldron_discord.png");
+    private static final ResourceLocation OFFERING_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/block/melomancy_cauldron_offering.png");
+    private static final ResourceLocation HEARING_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/block/melomancy_cauldron_hearing.png");
+    private static final ResourceLocation SEED_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/block/melomancy_cauldron_seed.png");
+    public static final ResourceLocation BIOSONIC_TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/block/melomancy_cauldron_biosonic.png");
+    private static final ResourceLocation ANIMATIONS = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "animations/block/melomancy_cauldron.animation.json");
+    private static final ResourceLocation MODEL = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "geo/block/melomancy_cauldron.geo.json");
     @Override
     public ResourceLocation getModelResource(MelomancyCauldronBlockEntity animatable) {
         return MODEL;
@@ -25,21 +29,38 @@ public class MelomancyCauldronModel extends GeoModel<MelomancyCauldronBlockEntit
 
     @Override
     public ResourceLocation getTextureResource(MelomancyCauldronBlockEntity animatable) {
-        String result = animatable.getMixResult();
+        if (animatable.getVisualResult().isEmpty()) {
+            return DEFAULT_TEXTURE;
+        }
 
-        if (result == null) return DEFAULT_TEXTURE;
+        Item resultItem = animatable.getVisualResult().getItem();
 
-        if (result.startsWith("discord") || result.equals("resurrection")) {
+        if (resultItem == ModItems.DISCORD_ESSENCE.get() || resultItem == ModItems.RESURRECTION_SONG.get()) {
             return DISCORD_TEXTURE;
         }
 
-        return switch (result) {
-            case "musical_ink", "steelsonic", "boogie_bomb", "amplifier_crystal" -> INK_TEXTURE;
-            case "offering" -> OFFERING_TEXTURE;
-            case "absolute_hearing" -> HEARING_TEXTURE;
-            case "singing_seed" -> SEED_TEXTURE;
-            default -> DEFAULT_TEXTURE;
-        };
+        else if (resultItem == ModItems.MUSICAL_INK.get() ||
+                resultItem == ModItems.STEELSONIC_INGOT.get() ||
+                resultItem == ModItems.BOOGIE_BOMB.get() ||
+                resultItem == ModItems.AMPLIFIER_CRYSTAL.get()) {
+            return INK_TEXTURE;
+        }
+
+        else if (resultItem == ModItems.OFFERING.get() ||
+                resultItem == ModItems.EVERFRUIT.get()) {
+            return OFFERING_TEXTURE;
+        }
+        else if (resultItem == Items.POTION) {
+            return HEARING_TEXTURE;
+        }
+        else if (resultItem == ModItems.SINGING_SEED.get()) {
+            return SEED_TEXTURE;
+        }
+        else if (resultItem == ModItems.BIOSONIC_INGOT.get()) {
+            return BIOSONIC_TEXTURE;
+        }
+
+        return DEFAULT_TEXTURE;
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.migueel26.faunaandorchestra.block.custom.MotherStatueBlock;
 import net.migueel26.faunaandorchestra.block.entity.BeaverStatueBlockEntity;
+import net.migueel26.faunaandorchestra.block.entity.ComposerGravestoneBlockEntity;
 import net.migueel26.faunaandorchestra.block.entity.MotherStatueBlockEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -27,19 +28,11 @@ public class BeaverStatueBlockEntityRenderer extends GeoBlockRenderer<BeaverStat
     }
 
     @Override
-    public AABB getRenderBoundingBox(BeaverStatueBlockEntity blockEntity) {
-        return new AABB(
-                blockEntity.getBlockPos().offset(-16, -16, -16).getCenter(),
-                blockEntity.getBlockPos().offset(16, 16, 16).getCenter()
-        );
-    }
-
-    @Override
-    public void actuallyRender(PoseStack poseStack, BeaverStatueBlockEntity statue, BakedGeoModel model, @Nullable RenderType renderType, MultiBufferSource bufferSource, @Nullable VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, int colour) {
+    public void actuallyRender(PoseStack poseStack, BeaverStatueBlockEntity statue, BakedGeoModel model, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         BlockState state = statue.getBlockState();
         if (state.getValue(MotherStatueBlock.HALF) == DoubleBlockHalf.UPPER) {
             return;
         }
-        super.actuallyRender(poseStack, statue, model, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, colour);
+        super.actuallyRender(poseStack, statue, model, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
     }
 }

@@ -31,6 +31,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
@@ -167,9 +168,9 @@ public class MailboxBlockEntity extends OwnableBlockEntity implements GeoBlockEn
     }
 
     @Override
-    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
-        CompoundTag tag = super.getUpdateTag(registries);
-        saveAdditional(tag, registries);
+    public CompoundTag getUpdateTag() {
+        CompoundTag tag = super.getUpdateTag();
+        saveAdditional(tag);
         return tag;
     }
 
@@ -188,7 +189,7 @@ public class MailboxBlockEntity extends OwnableBlockEntity implements GeoBlockEn
                 }
 
                 if (address != null && !stack.is(ModItems.BUSINESS_CARD.get())) {
-                    Optional<BlockPos> optionalMailBoxPos = BlockPos.findClosestMatch(address,6, 6, pos -> level.getBlockState(pos).is(ModBlocks.MAILBOX));
+                    Optional<BlockPos> optionalMailBoxPos = BlockPos.findClosestMatch(address,6, 6, pos -> level.getBlockState(pos).is(ModBlocks.MAILBOX.get()));
 
                     if (optionalMailBoxPos.isPresent()) {
                         BlockPos pos = optionalMailBoxPos.get();
@@ -312,6 +313,14 @@ public class MailboxBlockEntity extends OwnableBlockEntity implements GeoBlockEn
     public void invalidateCaps() {
         super.invalidateCaps();
         inventoryOptional.invalidate();
+    }
+
+    @Override
+    public AABB getRenderBoundingBox() {
+        return new AABB(
+                this.getBlockPos().offset(-16, -16, -16).getCenter(),
+                this.getBlockPos().offset(16, 16, 16).getCenter()
+        );
     }
 
     @Override

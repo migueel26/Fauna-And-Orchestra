@@ -61,7 +61,10 @@ public class ComposerGravestoneBlockEntity extends BlockEntity implements GeoBlo
 
     @Override
     public AABB getRenderBoundingBox() {
-        return new AABB(this.worldPosition).inflate(16);
+        return new AABB(
+                this.getBlockPos().offset(-16, -16, -16).getCenter(),
+                this.getBlockPos().offset(16, 16, 16).getCenter()
+        );
     }
 
     @Override

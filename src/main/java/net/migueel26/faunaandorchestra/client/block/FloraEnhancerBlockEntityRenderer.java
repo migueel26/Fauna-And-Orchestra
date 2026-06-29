@@ -29,18 +29,10 @@ public class FloraEnhancerBlockEntityRenderer extends GeoBlockRenderer<FloraEnha
     }
 
     @Override
-    public AABB getRenderBoundingBox(FloraEnhancerBlockEntity blockEntity) {
-        return new AABB(
-                blockEntity.getBlockPos().offset(-16, -16, -16).getCenter(),
-                blockEntity.getBlockPos().offset(16, 16, 16).getCenter()
-        );
-    }
-
-    @Override
-    public void renderRecursively(PoseStack poseStack, FloraEnhancerBlockEntity animatable, GeoBone bone, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, int colour) {
+    public void renderRecursively(PoseStack poseStack, FloraEnhancerBlockEntity animatable, GeoBone bone, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         if (bone.getName().equals("flora_forta")) {
             bone.setHidden(!(animatable.getMoisture() == FloraEnhancerBlock.MAX_MOISTURE));
         }
-        super.renderRecursively(poseStack, animatable, bone, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, colour);
+        super.renderRecursively(poseStack, animatable, bone, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
     }
 }

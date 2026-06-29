@@ -11,9 +11,9 @@ import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 
 public class DiscordNucleiModel extends GeoModel<DiscordNucleiBlockEntity> {
-    private static final ResourceLocation TEXTURE = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/block/discord_nuclei.png");
-    private static final ResourceLocation ANIMATIONS = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "animations/block/discord_nuclei.animation.json");
-    private static final ResourceLocation MODEL = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "geo/block/discord_nuclei.geo.json");
+    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/block/discord_nuclei.png");
+    private static final ResourceLocation ANIMATIONS = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "animations/block/discord_nuclei.animation.json");
+    private static final ResourceLocation MODEL = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "geo/block/discord_nuclei.geo.json");
     @Override
     public ResourceLocation getModelResource(DiscordNucleiBlockEntity animatable) {
         return MODEL;
@@ -37,7 +37,7 @@ public class DiscordNucleiModel extends GeoModel<DiscordNucleiBlockEntity> {
         CoreGeoBone cube3 = getAnimationProcessor().getBone("cube3");
         CoreGeoBone cube4 = getAnimationProcessor().getBone("cube4");
 
-        int essence = animatable.getBlockState().getValue(DiscordNucleiBlock.ESSENCE);
+        int essence = animatable.getEssence();
 
         cube3.setHidden(essence < 1);
         cube2.setHidden(essence < 7);

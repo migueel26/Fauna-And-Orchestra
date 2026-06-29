@@ -30,7 +30,7 @@ public class ListenerContainerBlockEntityRenderer extends GeoBlockRenderer<Liste
             bottle.setHidden(true);
         } else {
             bottle.setHidden(false);
-            int droplets = state.getValue(ListenerContainerBlock.DROPLETS);
+            int droplets = listener.getDroplets();
             if (droplets < 32) {
                 water.setHidden(true);
             } else {

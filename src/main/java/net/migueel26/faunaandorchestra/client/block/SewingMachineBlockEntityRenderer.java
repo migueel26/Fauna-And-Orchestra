@@ -29,19 +29,11 @@ public class SewingMachineBlockEntityRenderer extends GeoBlockRenderer<SewingMac
     }
 
     @Override
-    public AABB getRenderBoundingBox(SewingMachineBlockEntity blockEntity) {
-        return new AABB(
-                blockEntity.getBlockPos().offset(-16, -16, -16).getCenter(),
-                blockEntity.getBlockPos().offset(16, 16, 16).getCenter()
-        );
-    }
-
-    @Override
-    public void actuallyRender(PoseStack poseStack, SewingMachineBlockEntity statue, BakedGeoModel model, @Nullable RenderType renderType, MultiBufferSource bufferSource, @Nullable VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, int colour) {
-        BlockState state = statue.getBlockState();
+    public void actuallyRender(PoseStack poseStack, SewingMachineBlockEntity animatable, BakedGeoModel model, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+        BlockState state = animatable.getBlockState();
         if (state.getValue(SewingMachineBlock.PART) == BedPart.FOOT) {
             return;
         }
-        super.actuallyRender(poseStack, statue, model, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, colour);
+        super.actuallyRender(poseStack, animatable, model, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
     }
 }

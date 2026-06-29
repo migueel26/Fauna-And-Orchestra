@@ -29,22 +29,13 @@ public class MailboxBlockEntityRenderer extends GeoBlockRenderer<MailboxBlockEnt
     }
 
     @Override
-    public AABB getRenderBoundingBox(MailboxBlockEntity blockEntity) {
-        return new AABB(
-                blockEntity.getBlockPos().offset(-16, -16, -16).getCenter(),
-                blockEntity.getBlockPos().offset(16, 16, 16).getCenter()
-        );
-    }
-
-    @Override
-    public void actuallyRender(PoseStack poseStack, MailboxBlockEntity statue, BakedGeoModel model, @Nullable RenderType renderType, MultiBufferSource bufferSource, @Nullable VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, int colour) {
-        BlockState state = statue.getBlockState();
+    public void actuallyRender(PoseStack poseStack, MailboxBlockEntity mailbox, BakedGeoModel model, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+        BlockState state = mailbox.getBlockState();
         if (state.getValue(MailboxBlock.HALF) == DoubleBlockHalf.UPPER) {
             return;
         }
 
         model.getBone("body").get().setHidden(!state.getValue(MailboxBlock.MAILBIRD));
-
-        super.actuallyRender(poseStack, statue, model, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, colour);
+        super.actuallyRender(poseStack, mailbox, model, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
     }
 }

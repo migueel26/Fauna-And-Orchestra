@@ -30,27 +30,19 @@ public class MotherStatueBlockEntityRenderer extends GeoBlockRenderer<MotherStat
     }
 
     @Override
-    public AABB getRenderBoundingBox(MotherStatueBlockEntity blockEntity) {
-        return new AABB(
-                blockEntity.getBlockPos().offset(-16, -16, -16).getCenter(),
-                blockEntity.getBlockPos().offset(16, 16, 16).getCenter()
-        );
-    }
-
-    @Override
-    public void renderRecursively(PoseStack poseStack, MotherStatueBlockEntity animatable, GeoBone bone, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, int colour) {
+    public void renderRecursively(PoseStack poseStack, MotherStatueBlockEntity animatable, GeoBone bone, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         if (bone.getName().equals("crown")) {
             bone.setHidden(!animatable.getBlockState().getValue(MotherStatueBlock.LEGENDARY));
         }
-        super.renderRecursively(poseStack, animatable, bone, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, colour);
+        super.renderRecursively(poseStack, animatable, bone, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
     }
 
     @Override
-    public void actuallyRender(PoseStack poseStack, MotherStatueBlockEntity gravestone, BakedGeoModel model, @Nullable RenderType renderType, MultiBufferSource bufferSource, @Nullable VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, int colour) {
-        BlockState state = gravestone.getBlockState();
+    public void actuallyRender(PoseStack poseStack, MotherStatueBlockEntity statue, BakedGeoModel model, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+        BlockState state = statue.getBlockState();
         if (state.getValue(MotherStatueBlock.HALF) == DoubleBlockHalf.UPPER) {
             return;
         }
-        super.actuallyRender(poseStack, gravestone, model, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, colour);
+        super.actuallyRender(poseStack, statue, model, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
     }
 }

@@ -23,6 +23,7 @@ import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
@@ -88,7 +89,7 @@ public class MotherStatueBlockEntity extends BlockEntity implements GeoBlockEnti
                     }
 
                     redPanda.setNoGravity(false);
-                    redPanda.inventory.setStackInSlot(RedPandaEntity.HAT_SLOT, ModItems.IMAGINAL_DISK.toStack());
+                    redPanda.inventory.setStackInSlot(RedPandaEntity.HAT_SLOT, ModItems.IMAGINAL_DISK.get().getDefaultInstance());
 
                     motherStatue.setPlayingDiskAnimation(false);
                     motherStatue.setRedPanda(null);
@@ -207,6 +208,14 @@ public class MotherStatueBlockEntity extends BlockEntity implements GeoBlockEnti
     protected void markUpdated() {
         this.setChanged();
         this.getLevel().sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 3);
+    }
+
+    @Override
+    public AABB getRenderBoundingBox() {
+        return new AABB(
+                this.getBlockPos().offset(-16, -16, -16).getCenter(),
+                this.getBlockPos().offset(16, 16, 16).getCenter()
+        );
     }
 
     @Override

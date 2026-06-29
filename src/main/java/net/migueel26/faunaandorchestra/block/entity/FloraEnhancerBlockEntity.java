@@ -18,6 +18,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
@@ -184,6 +185,14 @@ public class FloraEnhancerBlockEntity extends BlockEntity implements GeoBlockEnt
             this.tickCount = 20;
             markUpdated();
         }
+    }
+
+    @Override
+    public AABB getRenderBoundingBox() {
+        return new AABB(
+                this.getBlockPos().offset(-16, -16, -16).getCenter(),
+                this.getBlockPos().offset(16, 16, 16).getCenter()
+        );
     }
 
     @Override

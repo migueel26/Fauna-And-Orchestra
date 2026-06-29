@@ -34,17 +34,20 @@ public class TipCaseBlockEntityRenderer extends GeoBlockRenderer<TipCaseBlockEnt
         coins2.setHidden(true);
         coins3.setHidden(true);
 
-        if (state.getValue(TipCaseBlock.TIPS) >= TipCaseBlock.FIRST_REWARD) {
+        int tips = tipCase.getTips();
+
+        if (tips >= TipCaseBlock.FIRST_REWARD) {
             coins1.setHidden(false);
         }
 
-        if (state.getValue(TipCaseBlock.TIPS) >= TipCaseBlock.SECOND_REWARD) {
+        if (tips >= TipCaseBlock.SECOND_REWARD) {
             coins2.setHidden(false);
         }
 
-        if (state.getValue(TipCaseBlock.TIPS) >= TipCaseBlock.THIRD_REWARD) {
+        if (tips >= TipCaseBlock.THIRD_REWARD) {
             coins3.setHidden(false);
         }
+
         super.actuallyRender(poseStack, animatable, model, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
     }
 }

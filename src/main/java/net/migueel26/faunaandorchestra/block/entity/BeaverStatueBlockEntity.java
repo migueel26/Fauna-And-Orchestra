@@ -5,6 +5,7 @@ import net.migueel26.faunaandorchestra.block.custom.BeaverStatueBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -35,6 +36,14 @@ public class BeaverStatueBlockEntity extends BlockEntity implements GeoBlockEnti
             state.getController().setAnimation(OFF);
         }
         return PlayState.CONTINUE;
+    }
+
+    @Override
+    public AABB getRenderBoundingBox() {
+        return new AABB(
+                this.getBlockPos().offset(-16, -16, -16).getCenter(),
+                this.getBlockPos().offset(16, 16, 16).getCenter()
+        );
     }
 
     public void activate() {

@@ -232,6 +232,10 @@ public class MelomancyCauldronBlockEntity extends BlockEntity implements GeoBloc
         return this.cookTime == 0;
     }
 
+    public ItemStack getVisualResult() {
+        return this.visualResult;
+    }
+
     public void clearContent(boolean animate) {
         if (animate) triggerAnim("melomancy_cauldron_controller", "empty");
         this.ingredients.clear();
