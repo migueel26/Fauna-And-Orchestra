@@ -40,7 +40,7 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class BeaverEntity extends MusicalEntity implements GeoEntity {
+public class BeaverEntity extends MusicalEntity {
     protected static final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
     protected static final RawAnimation IDLE_SAXOPHONE = RawAnimation.begin().thenPlay("holding_sax");
     protected static final RawAnimation WALKING = RawAnimation.begin().thenPlay("walk");

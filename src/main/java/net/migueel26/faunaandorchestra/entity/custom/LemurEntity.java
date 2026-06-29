@@ -32,7 +32,7 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class LemurEntity extends MusicalEntity implements GeoEntity {
+public class LemurEntity extends MusicalEntity {
     protected static final RawAnimation WALK = RawAnimation.begin().thenPlay("walk");
     public static final RawAnimation WALK_OBOE = RawAnimation.begin().thenPlay("walk_oboe");
     protected static final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
@@ -76,6 +76,17 @@ public class LemurEntity extends MusicalEntity implements GeoEntity {
             }
         });
 
+        this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, TravellingMusician.class, 6.0F) {
+            @Override
+            public boolean canUse() {
+                return super.canUse() && !((MusicalEntity) mob).isPlayingInstrument();
+            }
+
+            @Override
+            public boolean canContinueToUse() {
+                return super.canContinueToUse() && !((MusicalEntity) mob).isPlayingInstrument();
+            }
+        });
     }
 
     private <E extends GeoAnimatable> PlayState lemurState(AnimationState<E> state) {
