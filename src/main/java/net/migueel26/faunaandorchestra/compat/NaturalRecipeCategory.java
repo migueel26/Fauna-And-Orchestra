@@ -90,11 +90,11 @@ public class NaturalRecipeCategory implements IRecipeCategory<NaturalRecipe> {
                     Block block = blockHolder.value();
 
                     if (block == Blocks.FIRE) {
-                        return new ItemStack(ModItems.FIRE_ICON.asItem());
+                        return new ItemStack(ModItems.FIRE_ICON.get());
                     } else if (block == Blocks.SOUL_FIRE) {
-                        return new ItemStack(ModItems.SOUL_FIRE_ICON.asItem());
+                        return new ItemStack(ModItems.SOUL_FIRE_ICON.get());
                     } else if (block == Blocks.WATER) {
-                        return new ItemStack(ModItems.WATER_ICON.asItem());
+                        return new ItemStack(ModItems.WATER_ICON.get());
                     }
 
                     return new ItemStack(block);
