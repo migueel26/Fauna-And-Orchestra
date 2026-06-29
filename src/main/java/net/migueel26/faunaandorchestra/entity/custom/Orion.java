@@ -34,14 +34,13 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class Orion extends TravellingMusician implements Npc, GeoEntity, TalkableEntity {
+public class Orion extends TravellingMusician implements Npc, GeoEntity {
     private static final RawAnimation PLAYING = RawAnimation.begin().thenPlay("playing");
     private static final RawAnimation WALK = RawAnimation.begin().thenPlay("walk");
     private static final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
-    protected static final EntityDataAccessor<Integer> DIALOGUE_TIMER = SynchedEntityData.defineId(Orion.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> CONFIDENCE = SynchedEntityData.defineId(Orion.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Boolean> GOOD_MORNING = SynchedEntityData.defineId(Orion.class, EntityDataSerializers.BOOLEAN);
-    public static final ResourceLocation ICON = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/gui/entity/orion_icon.png");
+    public static final ResourceLocation ICON = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/gui/entity/orion_icon.png");
     public static final int COOL_CONFIDENCE = 35;
     public static final String RESOURCE = "dialogue.faunaandorchestra.orion";
     public String currentDialogue;
@@ -49,6 +48,7 @@ public class Orion extends TravellingMusician implements Npc, GeoEntity, Talkabl
     private final AnimationController<Orion> orionController = new AnimationController<>(this, "orion_controller", 5, this::orionState);
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
     int confidence;
+
     public Orion(EntityType<? extends AgeableMob> entityType, Level level) {
         super(entityType, level);
 
@@ -59,7 +59,6 @@ public class Orion extends TravellingMusician implements Npc, GeoEntity, Talkabl
     protected void defineSynchedData() {
         super.defineSynchedData();
 
-        this.entityData.define(DIALOGUE_TIMER, 0);
         this.entityData.define(CONFIDENCE, 0);
         this.entityData.define(GOOD_MORNING, true);
     }
@@ -91,11 +90,6 @@ public class Orion extends TravellingMusician implements Npc, GeoEntity, Talkabl
                 .add(Attributes.MAX_HEALTH, 1000d)
                 .add(Attributes.MOVEMENT_SPEED, 0.25D)
                 .add(Attributes.FOLLOW_RANGE, 24D);
-    }
-
-    @Override
-    public void checkDespawn() {
-
     }
 
     @Override
@@ -171,11 +165,6 @@ public class Orion extends TravellingMusician implements Npc, GeoEntity, Talkabl
     }
 
     @Override
-    public boolean canBeLeashed(@NotNull Player player) {
-        return false;
-    }
-
-    @Override
     public Pair<Integer, Integer> getIconSize() {
         return new Pair<>(49, 60);
     }
@@ -183,21 +172,6 @@ public class Orion extends TravellingMusician implements Npc, GeoEntity, Talkabl
     @Override
     public Pair<Integer, Integer> getIconLocation() {
         return new Pair<>(107, 136);
-    }
-
-    @Override
-    public int getDialogueTimer() {
-        return entityData.get(DIALOGUE_TIMER);
-    }
-
-    @Override
-    public void increaseDialogueTimer() {
-        entityData.set(DIALOGUE_TIMER, getDialogueTimer() + 1);
-    }
-
-    @Override
-    public void resetDialogueTimer() {
-        entityData.set(DIALOGUE_TIMER, 0);
     }
 
     public void setGoodMorning(boolean goodMorning) {

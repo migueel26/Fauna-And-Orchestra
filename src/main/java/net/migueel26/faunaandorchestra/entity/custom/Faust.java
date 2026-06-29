@@ -2,9 +2,6 @@ package net.migueel26.faunaandorchestra.entity.custom;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
-import net.migueel26.faunaandorchestra.block.ModBlocks;
-import net.migueel26.faunaandorchestra.block.custom.TipCaseBlock;
-import net.migueel26.faunaandorchestra.block.entity.TipCaseBlockEntity;
 import net.migueel26.faunaandorchestra.entity.goals.FaustFindOrionGoal;
 import net.migueel26.faunaandorchestra.entity.goals.RingtailsRunAwayGoal;
 import net.migueel26.faunaandorchestra.networking.*;
@@ -47,19 +44,19 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.*;
 
-public class Faust extends TravellingMusician implements Npc, GeoEntity, TalkableEntity {
+public class Faust extends TravellingMusician implements Npc, GeoEntity {
     private static final RawAnimation PLAYING = RawAnimation.begin().thenPlay("playing");
     private static final RawAnimation WALK = RawAnimation.begin().thenPlay("walk");
     private static final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
-    protected static final EntityDataAccessor<Integer> DIALOGUE_TIMER = SynchedEntityData.defineId(Faust.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> CONFIDENCE = SynchedEntityData.defineId(Faust.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Boolean> GOOD_MORNING = SynchedEntityData.defineId(Faust.class, EntityDataSerializers.BOOLEAN);
-    public static final ResourceLocation ICON = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/gui/entity/faust_icon.png");
+    public static final ResourceLocation ICON = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/gui/entity/faust_icon.png");
     public static final int COOL_CONFIDENCE = 35;
     public static final int DEFAULT_LOOK_TIME = 60;
     public static final String RESOURCE = "dialogue.faunaandorchestra.faust";
     public String currentDialogue;
     private List<Player> playersListening = new ArrayList<>();
+    private int nearbyPlayersSearchDelay = 0;
 
     protected Orion orion;
     protected BlockPos tipCasePos;
@@ -79,7 +76,6 @@ public class Faust extends TravellingMusician implements Npc, GeoEntity, Talkabl
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(DIALOGUE_TIMER, 0);
         this.entityData.define(CONFIDENCE, 0);
         this.entityData.define(GOOD_MORNING, true);
     }
@@ -142,13 +138,6 @@ public class Faust extends TravellingMusician implements Npc, GeoEntity, Talkabl
 
     }
 
-    public static AttributeSupplier.Builder createAttributes() {
-        return Animal.createLivingAttributes()
-                .add(Attributes.MAX_HEALTH, 1000d)
-                .add(Attributes.MOVEMENT_SPEED, 0.25D)
-                .add(Attributes.FOLLOW_RANGE, 24D);
-    }
-
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_146746_, DifficultyInstance p_146747_, MobSpawnType p_146748_, @Nullable SpawnGroupData p_146749_, @Nullable CompoundTag p_146750_) {
         return super.finalizeSpawn(p_146746_, p_146747_, p_146748_, p_146749_, p_146750_);
@@ -165,31 +154,32 @@ public class Faust extends TravellingMusician implements Npc, GeoEntity, Talkabl
     @Override
     public void tick() {
         if (isPlaying() && !level().isClientSide()) {
-            List<Player> nearbyPlayers = this.level().getEntitiesOfClass(
-                    Player.class, this.getBoundingBox().inflate(32.0, 32.0, 32.0), EntitySelector.LIVING_ENTITY_STILL_ALIVE);
+            if (nearbyPlayersSearchDelay < 60) {
+                nearbyPlayersSearchDelay++;
+                playersListening = new ArrayList<>();
+            } else {
+                List<Player> nearbyPlayers = this.level().getEntitiesOfClass(
+                        Player.class, this.getBoundingBox().inflate(32.0, 32.0, 32.0), EntitySelector.LIVING_ENTITY_STILL_ALIVE);
 
-            List<Player> newPlayers = new ArrayList<>(nearbyPlayers);
-            List<Player> exitPlayers = new ArrayList<>(playersListening);
-            exitPlayers.removeAll(nearbyPlayers);
-            newPlayers.removeAll(playersListening);
+                List<Player> newPlayers = new ArrayList<>(nearbyPlayers);
+                List<Player> exitPlayers = new ArrayList<>(playersListening);
+                exitPlayers.removeAll(nearbyPlayers);
+                newPlayers.removeAll(playersListening);
 
-            for (Player player : newPlayers) {
-                if (player instanceof ServerPlayer serverPlayer) {
-                    ModNetwork.sendToPlayer(new StartAmbientMusicS2CPacket(this.getUUID()), serverPlayer);
-                    ModAdvancements.MEET_RINGTAILS.trigger(serverPlayer);
+                for (Player player : newPlayers) {
+                    ModNetwork.sendToPlayer(new StartAmbientMusicS2CPacket(this.uuid), (ServerPlayer) player);
+                    ModAdvancements.MEET_RINGTAILS.trigger((ServerPlayer) player);
                 }
+
+                for (Player player : exitPlayers) {
+                    ModNetwork.sendToPlayer(new StopMusicS2CPacket(this.uuid), (ServerPlayer) player);
+                }
+
+                playersListening = nearbyPlayers;
             }
-
-            for (Player player : exitPlayers) {
-                if (player instanceof ServerPlayer serverPlayer) {
-                    ModNetwork.sendToPlayer(new StopMusicS2CPacket(this.uuid), serverPlayer);
-                };
-            }
-
-            playersListening = nearbyPlayers;
-
         } else {
             playersListening = new ArrayList<>();
+            this.nearbyPlayersSearchDelay = 0;
         }
 
         if (tipCasePos != null && orion != null) {
@@ -204,21 +194,6 @@ public class Faust extends TravellingMusician implements Npc, GeoEntity, Talkabl
         }
 
         super.tick();
-    }
-
-    @Override
-    public void checkDespawn() {
-
-    }
-
-    @Override
-    public boolean canBeLeashed(Player p_21418_) {
-        return false;
-    }
-
-    @Override
-    public void setPlaying(boolean playing) {
-        super.setPlaying(playing);
     }
 
     @Nullable
@@ -288,21 +263,6 @@ public class Faust extends TravellingMusician implements Npc, GeoEntity, Talkabl
     @Override
     public Pair<Integer, Integer> getIconLocation() {
         return new Pair<>(107, 136);
-    }
-
-    @Override
-    public int getDialogueTimer() {
-        return entityData.get(DIALOGUE_TIMER);
-    }
-
-    @Override
-    public void increaseDialogueTimer() {
-        entityData.set(DIALOGUE_TIMER, getDialogueTimer() + 1);
-    }
-
-    @Override
-    public void resetDialogueTimer() {
-        entityData.set(DIALOGUE_TIMER, 0);
     }
 
     public void setGoodMorning(boolean goodMorning) {
