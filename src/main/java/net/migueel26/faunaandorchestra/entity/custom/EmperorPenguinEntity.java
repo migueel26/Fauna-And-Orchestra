@@ -9,6 +9,7 @@ import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -17,9 +18,11 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -37,13 +40,15 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.Tags;
-import net.neoforged.neoforge.registries.DeferredItem;
+import net.minecraftforge.common.Tags;
+import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.animatable.GeoAnimatable;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.*;
-import software.bernie.geckolib.animation.AnimationState;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.UUID;
@@ -77,15 +82,15 @@ public class EmperorPenguinEntity extends MusicalEntity implements NeutralMob {
     }
 
     @Override
-    public DeferredItem<Item> getInstrument() {
+    public RegistryObject<Item> getInstrument() {
         return ModItems.FLUTE;
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        super.defineSynchedData(builder);
-        builder.define(IS_RUNNING, false);
-        builder.define(REMAINING_ANGER_TIME, 0);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        entityData.define(IS_RUNNING, false);
+        entityData.define(REMAINING_ANGER_TIME, 0);
     }
 
     @Override
@@ -107,7 +112,7 @@ public class EmperorPenguinEntity extends MusicalEntity implements NeutralMob {
     }
 
     private void addOverriddenGoals() {
-        this.goalSelector.addGoal(0, new TamableAnimalPanicGoal(2.0D, DamageTypeTags.PANIC_CAUSES) {
+        this.goalSelector.addGoal(0, new PanicGoal(this, 2.0D) {
             final EmperorPenguinEntity penguin = (EmperorPenguinEntity) super.mob;
 
             @Override
@@ -186,14 +191,14 @@ public class EmperorPenguinEntity extends MusicalEntity implements NeutralMob {
 
         this.goalSelector.addGoal(5, new MeleeAttackGoal(this, 1.25D, false) {
             @Override
-            protected void checkAndPerformAttack(LivingEntity target) {
-                if (this.canPerformAttack(target)) {
+            protected void checkAndPerformAttack(LivingEntity target, double distance) {
+                double d0 = this.getAttackReachSqr(target);
+                if (distance <= d0 && isTimeToAttack()) {
                     ((EmperorPenguinEntity) this.mob).attack();
                     mob.playSound(SoundEvents.PARROT_EAT, 1.5F, 1.25F);
 
                     this.resetAttackCooldown();
                     this.mob.doHurtTarget(target);
-
                 }
             }
         });
@@ -208,7 +213,7 @@ public class EmperorPenguinEntity extends MusicalEntity implements NeutralMob {
     }
 
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData, CompoundTag tag) {
         if (!(spawnType.equals(MobSpawnType.SPAWN_EGG) || spawnType.equals(MobSpawnType.MOB_SUMMONED))
                 && random.nextFloat() <= 0.5f) {
             int times = random.nextFloat() <= 0.5f ? 2 : 1;
@@ -219,15 +224,15 @@ public class EmperorPenguinEntity extends MusicalEntity implements NeutralMob {
                 level.addFreshEntity(penguin);
             }
         }
-        return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
+        return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData, tag);
     }
 
     @Override
-    public float getAgeScale() {
+    public float getScale() {
         return 1.0f;
     }
 
-    private <E extends GeoAnimatable> PlayState penguinState(AnimationState<E> state) {
+    private <E extends GeoAnimatable> PlayState penguinState(software.bernie.geckolib.core.animation.AnimationState<E> state) {
         if (isPlayingInstrument()) {
             state.getController().setAnimation(PLAYING);
         } else if (state.isMoving() && isRunning()) {
@@ -242,7 +247,7 @@ public class EmperorPenguinEntity extends MusicalEntity implements NeutralMob {
         return PlayState.CONTINUE;
     }
 
-    private <E extends GeoAnimatable> PlayState emptyState(AnimationState<E> state) {
+    private <E extends GeoAnimatable> PlayState emptyState(software.bernie.geckolib.core.animation.AnimationState<E> state) {
         return PlayState.CONTINUE;
     }
 
@@ -300,7 +305,7 @@ public class EmperorPenguinEntity extends MusicalEntity implements NeutralMob {
 
     @Override
     public boolean isFood(ItemStack itemStack) {
-        return isTame() && itemStack.is(Tags.Items.FOODS_RAW_FISH) || itemStack.is(Tags.Items.FOODS_COOKED_FISH);
+        return isTame() && itemStack.is(ItemTags.FISHES);
     }
 
     @Nullable
