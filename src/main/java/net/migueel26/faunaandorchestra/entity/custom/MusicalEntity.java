@@ -12,6 +12,7 @@ import net.migueel26.faunaandorchestra.screen.custom.MusicianMenu;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.migueel26.faunaandorchestra.util.ModTags;
 import net.migueel26.faunaandorchestra.util.MusicUtil;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -27,14 +28,17 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -347,6 +351,14 @@ public abstract class MusicalEntity extends TamableAnimal implements GeoEntity {
         }
 
         return baby;
+    }
+
+    @Override
+    public void finalizeSpawnChildFromBreeding(ServerLevel level, Animal animal, @Nullable AgeableMob otherAnimal) {
+        super.finalizeSpawnChildFromBreeding(level, animal, otherAnimal);
+        Optional.ofNullable(this.getLoveCause()).or(() -> {
+            return Optional.ofNullable(animal.getLoveCause());
+        }).ifPresent(ModAdvancements.BRED_MUSICIANS::trigger);
     }
 
     public void setHoldingInstrument(boolean holdingInstrument) {
