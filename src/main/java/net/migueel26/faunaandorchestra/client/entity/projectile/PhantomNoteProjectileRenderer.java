@@ -62,7 +62,7 @@ public class PhantomNoteProjectileRenderer extends EntityRenderer<PhantomNotePro
      * Returns the location of an entity's texture.
      */
     public ResourceLocation getTextureLocation(PhantomNoteProjectileEntity entity) {
-        return entity.isBad() ? DEFAULT_TEXTURE_LOCATION : new ResourceLocation(
+        return entity.isBad() ? DEFAULT_TEXTURE_LOCATION : ResourceLocation.fromNamespaceAndPath(
                 FaunaAndOrchestra.MOD_ID, "textures/particle/fauna_note_" + entity.getTextureIndex() + ".png");
     }
 }

@@ -55,11 +55,11 @@ public class TheGreatComposerScreen {
                 String text;
 
                 if (spawnTime < POP_UP_TIME) {
-                    icon = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/gui/entity/composer_spawn_icon.png");
+                    icon = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/gui/entity/composer_spawn_icon.png");
                     text = Component.translatable("dialogue.faunaandorchestra.the_great_composer0").getString();
 
                 } else {
-                    icon = new ResourceLocation(FaunaAndOrchestra.MOD_ID, "textures/gui/entity/composer_default_icon.png");
+                    icon = ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "textures/gui/entity/composer_default_icon.png");
                     text = Component.translatable("dialogue.faunaandorchestra.the_great_composer1").getString();
                 }
 

@@ -145,7 +145,7 @@ public class SingingCropBlock extends BushBlock implements EntityBlock, Bonemeal
                 ((ServerLevel) level).sendParticles(ModParticleTypes.STAR.get(),
                         pos.getCenter().x, pos.getY()+0.45, pos.getCenter().z,
                         10, 0.1f, 0.1f, 0.1f, 0.025f);
-                level.playSound(null, pos, ModSounds.SPROUTLING_TWINKLE.get(), SoundSource.NEUTRAL);
+                level.playSound(null, pos, ModSounds.TWINKLE.get(), SoundSource.NEUTRAL);
             }
             level.scheduleTick(pos, this, 20);
             level.setBlock(pos, state.setValue(FINAL, true), 3);

@@ -61,7 +61,7 @@ public class WanderingNoteRenderer extends EntityRenderer<WanderingNoteEntity> {
     @Override
     public ResourceLocation getTextureLocation(WanderingNoteEntity entity) {
         int index = entity.getTextureIndex();
-        return new ResourceLocation(
+        return ResourceLocation.fromNamespaceAndPath(
                 FaunaAndOrchestra.MOD_ID, "textures/particle/fauna_note_" + index + ".png");
     }
 }
