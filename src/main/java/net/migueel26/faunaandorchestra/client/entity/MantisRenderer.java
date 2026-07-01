@@ -16,12 +16,12 @@ public class MantisRenderer extends GeoEntityRenderer<MantisEntity> {
     public MantisRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new MantisModel());
 
-        addRenderLayer(new AutoGlowingGeoLayer<>(this));
+        //addRenderLayer(new AutoGlowingGeoLayer<>(this));
     }
 
     @Override
     public void scaleModelForRender(float widthScale, float heightScale, PoseStack poseStack, MantisEntity animatable, BakedGeoModel model, boolean isReRender, float partialTick, int packedLight, int packedOverlay) {
-        super.scaleModelForRender(animatable.getScale(), animatable.getMaxSpawnClusterSize(), poseStack, animatable, model, isReRender, partialTick, packedLight, packedOverlay);
+        super.scaleModelForRender(animatable.getScale(), animatable.getScale(), poseStack, animatable, model, isReRender, partialTick, packedLight, packedOverlay);
     }
 
     @Override
