@@ -1,8 +1,7 @@
 {
   "display": {
     "icon": {
-      "count": 1,
-      "id": "faunaandorchestra:extract_of_living_music"
+      "item": "faunaandorchestra:extract_of_living_music"
     },
     "title": {
       "translate": "advancements.faunaandorchestra.living_music"

@@ -1,8 +1,7 @@
 {
   "display": {
     "icon": {
-      "count": 1,
-      "id": "faunaandorchestra:business_card"
+      "item": "faunaandorchestra:business_card"
     },
     "title": {
       "translate": "advancements.faunaandorchestra.worker_koala"

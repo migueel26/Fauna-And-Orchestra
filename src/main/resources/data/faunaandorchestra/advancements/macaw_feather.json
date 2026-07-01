@@ -1,8 +1,7 @@
 {
   "display": {
     "icon": {
-      "count": 1,
-      "id": "faunaandorchestra:macaw_feather"
+      "item": "faunaandorchestra:macaw_feather"
     },
     "title": {
       "translate": "advancements.faunaandorchestra.macaw_feather"

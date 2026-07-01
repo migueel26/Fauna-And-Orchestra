@@ -8,6 +8,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +26,8 @@ public class SensorManager {
 
         List<EntityType<?>> sortedList = new ArrayList<>(entities);
         sortedList.sort((e1, e2) -> {
-            ResourceLocation id1 = BuiltInRegistries.ENTITY_TYPE.getKey(e1);
-            ResourceLocation id2 = BuiltInRegistries.ENTITY_TYPE.getKey(e2);
+            ResourceLocation id1 = ForgeRegistries.ENTITY_TYPES.getKey(e1);
+            ResourceLocation id2 = ForgeRegistries.ENTITY_TYPES.getKey(e2);
             return id1.compareTo(id2);
         });
 

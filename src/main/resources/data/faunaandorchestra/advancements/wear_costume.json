@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "id": "faunaandorchestra:sewing_machine_item"
+      "item": "faunaandorchestra:sewing_machine_item"
     },
     "title": {
       "translate": "advancements.faunaandorchestra.wear_costume"

@@ -1,8 +1,7 @@
 {
   "display": {
     "icon": {
-      "count": 1,
-      "id": "faunaandorchestra:imaginal_disk"
+      "item": "faunaandorchestra:imaginal_disk"
     },
     "title": {
       "translate": "advancements.faunaandorchestra.diskinserted"
