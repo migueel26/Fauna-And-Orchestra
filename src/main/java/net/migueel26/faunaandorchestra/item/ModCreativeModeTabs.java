@@ -2,6 +2,7 @@ package net.migueel26.faunaandorchestra.item;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
+import net.migueel26.faunaandorchestra.item.custom.PanFluteItem;
 import net.migueel26.faunaandorchestra.util.RecipesUtil;
 import net.migueel26.faunaandorchestra.util.VesselUtil;
 import net.minecraft.core.registries.Registries;
@@ -11,6 +12,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
+
+import java.util.List;
 
 public class ModCreativeModeTabs {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TAB =
@@ -29,7 +32,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.CELLO.get());
                         output.accept(ModItems.DRUM.get());
                         output.accept(ModItems.PAN_FLUTE.get());
-                        output.accept(ModItems.PAN_FLUTE_CREATIVE.get());
+                        output.accept(getCreativePanFlute());
                         output.accept(ModItems.BATON.get());
                         output.accept(ModItems.LEGENDARY_BATON.get());
                         output.accept(ModItems.BRIEFCASE.get());
@@ -174,6 +177,12 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.UNLOCKER.get());
                     }).build());
 
+    public static ItemStack getCreativePanFlute() {
+        ItemStack creativeFlute = new ItemStack(ModItems.PAN_FLUTE_CREATIVE.get());
+        PanFluteItem.setSoundList(creativeFlute, List.of(1, 2, 3, 4, 5));
+        PanFluteItem.setSound(creativeFlute, 0);
+        return creativeFlute;
+    }
 
     public static void register(IEventBus eventBus) {
         CREATIVE_MODE_TAB.register(eventBus);
