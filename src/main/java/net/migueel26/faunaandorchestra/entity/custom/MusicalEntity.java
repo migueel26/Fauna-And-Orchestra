@@ -35,9 +35,11 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -338,6 +340,14 @@ public abstract class MusicalEntity extends TamableAnimal implements GeoEntity {
         }
 
         return baby;
+    }
+
+    @Override
+    public void finalizeSpawnChildFromBreeding(ServerLevel level, Animal animal, @Nullable AgeableMob baby) {
+        super.finalizeSpawnChildFromBreeding(level, animal, baby);
+        Optional.ofNullable(this.getLoveCause()).or(() -> {
+            return Optional.ofNullable(animal.getLoveCause());
+        }).ifPresent(ModAdvancements.BRED_MUSICIANS.get()::trigger);
     }
 
     public void setHoldingInstrument(boolean holdingInstrument) {
