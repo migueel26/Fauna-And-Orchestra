@@ -1,7 +1,7 @@
 {
   "name": "symphonia.entry.mantis",
   "category": "faunaandorchestra:musicians",
-  "icon": "faunaandorchestra:mantis_spawn_egg",
+  "icon": "faunaandorchestra:mantis_claw",
   "sortnum": 1,
   "pages": [
     {
@@ -15,6 +15,15 @@
       "offset": 0.15,
       "default_rotation": 15,
       "text": "symphonia.page.mantis1"
+    },
+    {
+        "type": "text",
+        "text": "symphonia.page.mantis2"
+    },
+    {
+      "type": "crafting",
+      "recipe": "faunaandorchestra:mantis_dagger",
+      "text": "symphonia.page.mantis3"
     }
   ]
 }

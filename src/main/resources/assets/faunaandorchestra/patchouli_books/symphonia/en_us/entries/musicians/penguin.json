@@ -1,7 +1,7 @@
 {
   "name": "symphonia.entry.penguin",
   "category": "faunaandorchestra:musicians",
-  "icon": "faunaandorchestra:penguin_spawn_egg",
+  "icon": "faunaandorchestra:penguin_feather",
   "sortnum": 1,
   "pages": [
     {
@@ -16,6 +16,15 @@
       "scale": 0.8,
       "default_rotation": 35,
       "text": "symphonia.page.penguin1"
+    },
+    {
+      "type": "text",
+      "text": "symphonia.page.penguin2"
+    },
+    {
+      "type": "crafting",
+      "recipe": "faunaandorchestra:fluffy_boots",
+      "text": "symphonia.page.penguin3"
     }
   ]
 }

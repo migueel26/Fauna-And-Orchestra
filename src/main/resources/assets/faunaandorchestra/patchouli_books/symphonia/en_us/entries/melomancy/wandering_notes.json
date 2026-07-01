@@ -11,7 +11,7 @@
     },
     {
       "type": "spotlight",
-      "item": "minecraft:potion{Potion:\"faunaandorchestra:absolute_hearing_potion\"}",
+      "item": "minecraft:potion[potion_contents={potion:'faunaandorchestra:absolute_hearing_potion'}]",
       "text": "symphonia.page.wandering_notes1"
     }
   ]

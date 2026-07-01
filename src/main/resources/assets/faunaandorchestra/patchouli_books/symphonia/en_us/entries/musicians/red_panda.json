@@ -1,7 +1,7 @@
 {
   "name": "symphonia.entry.red_panda",
   "category": "faunaandorchestra:musicians",
-  "icon": "faunaandorchestra:red_panda_spawn_egg",
+  "icon": "faunaandorchestra:sharp_bamboo",
   "sortnum": 1,
   "pages": [
     {
@@ -15,6 +15,17 @@
       "offset": 0.1,
       "default_rotation": 20,
       "text": "symphonia.page.red_panda1"
+    },
+    {
+      "type": "spotlight",
+      "item": "faunaandorchestra:sharp_bamboo",
+      "text": "symphonia.page.red_panda2"
+    },
+    {
+      "type": "crafting",
+      "anchor": "bamboo_trap",
+      "recipe": "faunaandorchestra:bamboo_trap",
+      "text": "symphonia.page.red_panda3"
     }
   ]
 }
