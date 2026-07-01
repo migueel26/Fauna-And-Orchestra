@@ -2,7 +2,6 @@ package net.migueel26.faunaandorchestra.entity.custom.koala_workers;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
-import net.migueel26.faunaandorchestra.entity.custom.Faust;
 import net.migueel26.faunaandorchestra.entity.custom.TalkableEntity;
 import net.migueel26.faunaandorchestra.entity.goals.RandomWalkToPlayerGoal;
 import net.migueel26.faunaandorchestra.item.ModItems;
@@ -24,9 +23,9 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.animal.Animal;
@@ -37,11 +36,14 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.Nullable;
 import oshi.util.tuples.Pair;
-import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.*;
-import software.bernie.geckolib.animation.AnimationState;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class WorkerKoalaEntity extends AgeableMob implements Npc, GeoEntity, TalkableEntity {
@@ -68,10 +70,10 @@ public class WorkerKoalaEntity extends AgeableMob implements Npc, GeoEntity, Tal
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        super.defineSynchedData(builder);
-        builder.define(DIALOGUE_TIMER, 0);
-        builder.define(GOOD_MORNING, true);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        entityData.define(DIALOGUE_TIMER, 0);
+        entityData.define(GOOD_MORNING, true);
     }
 
     @Override
@@ -121,9 +123,9 @@ public class WorkerKoalaEntity extends AgeableMob implements Npc, GeoEntity, Tal
     }
 
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData, CompoundTag tag) {
         this.despawnDelay = DESPAWN_DELAY;
-        return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
+        return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData, tag);
     }
 
     public void aiStep() {
@@ -219,11 +221,11 @@ public class WorkerKoalaEntity extends AgeableMob implements Npc, GeoEntity, Tal
     }
 
     public EntityType<? extends AbstractKoalaWorker> getKoala(ItemStack stack) {
-        if (stack.is(ModItems.SEWING_KIT)) {
+        if (stack.is(ModItems.SEWING_KIT.get())) {
             return ModEntities.TAILOR_KOALA.get();
-        } else if (stack.is(ModItems.MELOMANCY_KIT)) {
+        } else if (stack.is(ModItems.MELOMANCY_KIT.get())) {
             return ModEntities.MELOMANCER_KOALA.get();
-        } else if (stack.is(ModItems.FARMING_KIT)) {
+        } else if (stack.is(ModItems.FARMING_KIT.get())) {
             return ModEntities.FARMER_KOALA.get();
         }
         return null;
