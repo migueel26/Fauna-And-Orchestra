@@ -36,6 +36,9 @@ public class ConductorEntityConductingOrchestraGoal extends Goal {
 
     @Override
     public boolean canUse() {
+        if (conductor.isReady()) {
+            conductor.onStartConducting();
+        }
         return !conductor.isOrchestraEmpty() && !conductor.isDeadOrDying() && conductor.isHoldingBaton();
     }
 

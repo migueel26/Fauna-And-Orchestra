@@ -21,8 +21,12 @@ import java.util.List;
 public record SewingRecipe(ResourceLocation id, List<SizedIngredient> ingredients, ItemStack output) implements Recipe<SewingRecipe.RecipeInput> {
     @Override
     public boolean matches(SewingRecipe.RecipeInput input, Level level) {
-        List<ItemStack> inputs = new ArrayList<>(input.getItems());
-        inputs.removeIf(ItemStack::isEmpty);
+        List<ItemStack> inputs = new ArrayList<>();
+        for (ItemStack stack : input.getItems()) {
+            if (!stack.isEmpty()) {
+                inputs.add(stack.copy());
+            }
+        }
 
         for (SizedIngredient required : this.ingredients) {
             int amountNeeded = required.amount();

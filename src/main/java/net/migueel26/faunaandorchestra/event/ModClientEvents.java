@@ -3,9 +3,11 @@ package net.migueel26.faunaandorchestra.event;
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.networking.*;
+import net.migueel26.faunaandorchestra.screen.ClientRecipeItemsTooltip;
 import net.minecraft.Util;
 import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -25,5 +27,10 @@ public class ModClientEvents {
             }
             return 0xFFFFFFFF;
         }, ModItems.EVERFRUIT.get()); // Reemplaza con tu ítem
+    }
+
+    @SubscribeEvent
+    public static void registerTooltipComponents(RegisterClientTooltipComponentFactoriesEvent event) {
+        event.register(ClientRecipeItemsTooltip.RecipeItemsTooltip.class, ClientRecipeItemsTooltip::new);
     }
 }

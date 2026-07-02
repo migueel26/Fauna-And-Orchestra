@@ -176,7 +176,7 @@ public class FarmerKoalaEntity extends AbstractKoalaWorker {
 
         ItemStack stack = player.getItemInHand(hand);
 
-        if (stack.is(ModItems.BATON.get()) && stack.hasTag() && !stack.getOrCreateTag().hasUUID(ModDataComponents.MUSICIAN_UUID)) {
+        if (stack.is(ModItems.BATON.get()) && !stack.getOrCreateTag().hasUUID(ModDataComponents.MUSICIAN_UUID)) {
             // We link the tailor to the baton
             stack.getOrCreateTag().putUUID(ModDataComponents.MUSICIAN_UUID, this.uuid);
             if (!level().isClientSide()) {

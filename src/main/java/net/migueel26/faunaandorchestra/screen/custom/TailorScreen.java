@@ -93,11 +93,10 @@ public class TailorScreen extends AbstractContainerScreen<TailorMenu> {
                 i1 = 113;
             }
 
-            guiGraphics.blit(VILLAGER_TEXTURE, posX + 94, posY + 18 + i1, 0, 199, 6, 27);
+            guiGraphics.blit(VILLAGER_TEXTURE, posX + 94, posY + 18 + i1, 0.0F, 199.0F, 6, 27, 512, 256);
         } else {
-            guiGraphics.blit(VILLAGER_TEXTURE, posX + 94, posY + 18, 6, 199, 6, 27);
+            guiGraphics.blit(VILLAGER_TEXTURE, posX + 94, posY + 18, 6.0F, 199.0F, 6, 27, 512, 256);
         }
-
     }
 
     @Override
@@ -112,17 +111,21 @@ public class TailorScreen extends AbstractContainerScreen<TailorMenu> {
         guiGraphics.blit(TEXTURE, x , y, 0,0, 0, imageWidth, imageHeight, TEXTURE_WIDTH, TEXTURE_HEIGHT);
 
         int entityX = x + 233;
-        int entityY = y + 70;
+        int entityY = y + 80;
+
+        guiGraphics.enableScissor(x + 207, y + 16, x + 259, y + 70);
 
         InventoryScreen.renderEntityInInventoryFollowsMouse(
                 guiGraphics,
                 entityX,
                 entityY,
-                50, // Skaal
+                50,
                 (float) entityX - this.xMouse,
                 (float) (entityY - 50) - this.yMouse,
                 this.tailor
         );
+
+        guiGraphics.disableScissor();
     }
 
     @Override
@@ -177,11 +180,13 @@ public class TailorScreen extends AbstractContainerScreen<TailorMenu> {
         renderTooltip(guiGraphics, mouseX, mouseY);
     }
 
-    public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
+    @Override
+    public boolean mouseScrolled(double mouseX, double mouseY, double scrollDelta) {
         int i = catalogSize;
+
         if (this.canScroll(i)) {
             int j = i - 7;
-            this.scrollOff = Mth.clamp((int)((double)this.scrollOff - scrollY), 0, j);
+            this.scrollOff = Mth.clamp((int)((double)this.scrollOff - scrollDelta), 0, j);
         }
 
         return true;

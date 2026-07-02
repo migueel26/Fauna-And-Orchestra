@@ -52,7 +52,9 @@ public class MelomancerScreen extends AbstractContainerScreen<MelomancerMenu> {
         guiGraphics.blit(TEXTURE, x , y, 0,0, imageWidth, imageHeight);
 
         int entityX = x + 52;
-        int entityY = y + 70;
+        int entityY = y + 85;
+
+        guiGraphics.enableScissor(x + 26, y + 22, x + 78, y + 70);
 
         InventoryScreen.renderEntityInInventoryFollowsMouse(
                 guiGraphics,
@@ -63,6 +65,8 @@ public class MelomancerScreen extends AbstractContainerScreen<MelomancerMenu> {
                 (float) (entityY - 50) - this.yMouse,
                 this.melomancer
         );
+
+        guiGraphics.disableScissor();
     }
 
     @Override

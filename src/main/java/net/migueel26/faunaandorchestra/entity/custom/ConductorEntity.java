@@ -1,5 +1,6 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
+import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.block.custom.ComposerGravestoneBlock;
@@ -24,6 +25,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -35,6 +37,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
@@ -85,14 +88,33 @@ public abstract class ConductorEntity extends TamableAnimal {
 
     // Client
     private boolean particlesActivated;
-    public final ItemStackHandler inventory = new ItemStackHandler(1) {
+    public ItemStackHandler inventory = new ItemStackHandler(2) {
         @Override
-        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            return stack.is(ModTags.Items.SHEET_MUSIC);
+        public boolean isItemValid(int slot, ItemStack stack) {
+            // Slot 0 -> SheetMusic
+            // Slot 1 -> Is_Costume ItemTag and Wears_ITEMSTACK EntityTypeTag
+            return (slot == 0 && stack.is(ModTags.Items.SHEET_MUSIC) ||
+                    (slot == 1 && stack.is(ModTags.Items.IS_COSTUME) && (getType().is(TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, "wears_" + stack.getItem().getDescriptionId().split("\\.")[2]))))));
         }
+
         @Override
-        public int getSlotLimit(int slot) {
+        protected int getStackLimit(int slot, ItemStack stack) {
             return 1;
+        }
+
+        @Override
+        protected void onContentsChanged(int slot) {
+
+            if (slot == 1) {
+                entityData.set(COSTUME_ITEM, getStackInSlot(1));
+                playSound(SoundEvents.ARMOR_EQUIP_LEATHER, 1.0F, 1.0F + ((random.nextFloat() / 2) - 0.25F));
+            }
+
+            if (slot == 0) {
+                onStartConducting();
+            }
+
+            super.onContentsChanged(slot);
         }
     };
     private LazyOptional<IItemHandler> inventoryOptional = LazyOptional.of(() -> this.inventory);
