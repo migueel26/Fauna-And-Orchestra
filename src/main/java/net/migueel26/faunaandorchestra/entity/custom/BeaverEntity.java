@@ -78,10 +78,12 @@ public class BeaverEntity extends MusicalEntity {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new PanicGoal(this,2D));
+        this.goalSelector.addGoal(1, new PanicGoal(this, 2D));
         this.goalSelector.addGoal(1, new MusicalEntityPlayingInstrumentGoal(this));
         this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
         // LookAtPlayerGoal (3)
+        // BreedGoal
+        // LookAtPlayerGoal (3, TravellingMusician)
         this.goalSelector.addGoal(3, new BeaverBuildsDamGoal(this, 1.0D));
         this.goalSelector.addGoal(4, new AnimalEatGoal(this, Items.OAK_LOG, this::onEat));
         // RandomStrollGoal (4)

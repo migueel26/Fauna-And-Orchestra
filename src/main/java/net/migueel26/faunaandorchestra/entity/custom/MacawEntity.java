@@ -2,6 +2,7 @@ package net.migueel26.faunaandorchestra.entity.custom;
 
 import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.entity.custom.misc.MailbirdMacawEntity;
+import net.migueel26.faunaandorchestra.entity.goals.AnimalEatGoal;
 import net.migueel26.faunaandorchestra.entity.goals.MusicalEntityPlayingInstrumentGoal;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
@@ -104,8 +105,11 @@ public class MacawEntity extends MusicalEntity implements FlyingAnimal {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new MusicalEntityPlayingInstrumentGoal(this));
         // LookAtPlayerGoal (2)
+        // LookAtPlayerGoal (2, TravellingMusician)
+        // BreedGoal (3)
         this.goalSelector.addGoal(3, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(3, new MacawWanderGoal(this, 1.0));
+        this.goalSelector.addGoal(4, new AnimalEatGoal(this, ModItems.SEEDY_APPLE.get(), this::onEat));
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
     }
 
