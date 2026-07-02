@@ -98,6 +98,7 @@ public class FaunaAndOrchestra {
         ModEffects.register(modEventBus);
         ModPotions.register(modEventBus);
         ModRecipes.register(modEventBus);
+        ModPaintings.register(modEventBus);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

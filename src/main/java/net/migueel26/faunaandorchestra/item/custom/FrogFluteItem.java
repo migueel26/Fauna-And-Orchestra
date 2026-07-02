@@ -51,6 +51,8 @@ public class FrogFluteItem extends Item {
             }
         }
 
+        player.getCooldowns().addCooldown(this, 60);
+
         return InteractionResultHolder.consume(player.getItemInHand(usedHand));
     }
 
