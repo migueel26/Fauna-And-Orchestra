@@ -1008,7 +1008,7 @@
   "symphonia.page.imaginal_disk1": "The $(item)Red Panda$() musician is the only one apt, so get one in the pond and $(o)click the Statue$().",
 
   "symphonia.entry.mask_of_the_enlightened": "The Mask of Light",
-  "symphonia.page.mask_of_the_enlightened0": "Ages ago, a great civilization praised the Sun and its light, channeling its power through the $(l)Mask of the Enlightened$().$(br2)In order to regain its power from the $(thing)Unlit Mask$() you have, you'll need to build an altar in $(item)$(t:Y >= 170)great heights$() and give it to your $(item)Mantis$() musician. It must be $(item)dawn$(), when the sun is rising behind the horizon.",
+  "symphonia.page.mask_of_the_enlightened0": "Ages ago, a great civilization praised the Sun and its light, channeling its power through the $(l)Mask of the Enlightened$().$(br2)In order to regain its power from the $(thing)Unlit Mask$() you have, you'll need to build an altar $(item)$(t:Y >= 170)over the clouds$() and give it to your $(item)Mantis$() musician. It must be $(item)dawn$(), when the sun is rising behind the horizon.",
   "symphonia.page.mask_of_the_enlightened1": "Altar of the Light",
   "symphonia.page.mask_of_the_enlightened2": "The altar must be oriented to the $(item)east$(), with its light going through the $(o)Gold Block$().",
 

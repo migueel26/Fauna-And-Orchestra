@@ -1,6 +1,6 @@
 {
   "type": "minecraft:jigsaw",
-  "biomes": "#c:is_mountain",
+  "biomes": "#minecraft:is_mountain",
   "step": "surface_structures",
   "start_pool": "faunaandorchestra:mothers_pond",
   "size": 6,
