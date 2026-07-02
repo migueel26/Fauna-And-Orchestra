@@ -2,6 +2,7 @@ package net.migueel26.faunaandorchestra.block.custom;
 
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.block.entity.HangingJarBlockEntity;
+import net.migueel26.faunaandorchestra.screen.custom.ConductorMenu;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
@@ -33,6 +34,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
@@ -52,12 +54,18 @@ public class HangingJarBlock extends BaseEntityBlock {
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         if (level.getBlockEntity(pos) instanceof HangingJarBlockEntity hangingJarBlockEntity) {
             if (!level.isClientSide()) {
-                ((ServerPlayer) player).openMenu(new SimpleMenuProvider(hangingJarBlockEntity, hangingJarBlockEntity.getDisplayName()));
+                openCustomMenu(player, level, pos, hangingJarBlockEntity);
             } else {
                 player.playSound(SoundEvents.ARMOR_EQUIP_LEATHER, 1.5f, 1.0f + ((level.random.nextFloat()/2)-0.25f));
             }
         }
         return InteractionResult.SUCCESS;
+    }
+
+    private void openCustomMenu(Player player, Level level, BlockPos pos, HangingJarBlockEntity jarBlockEntity) {
+        if (!level.isClientSide() && player instanceof ServerPlayer serverPlayer) {
+            NetworkHooks.openScreen(serverPlayer, jarBlockEntity, pos);
+        }
     }
 
     @Override

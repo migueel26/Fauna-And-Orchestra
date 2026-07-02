@@ -38,19 +38,19 @@ public class VoiceChamberBlockEntity extends BlockEntity implements GeoBlockEnti
 
     @Override
     public void load(CompoundTag tag) {
+        super.load(tag);
         if (tag.contains("Voice")) {
             this.voice = tag.getString("Voice");
         }
         if (tag.contains("Locked")) {
             this.locked = tag.getBoolean("Locked");
         }
-        super.load(tag);
     }
 
     @Override
     public void saveAdditional(CompoundTag tag) {
-        tag.putString("Voice", this.voice);
         super.saveAdditional(tag);
+        tag.putString("Voice", this.voice);
     }
 
     @Nullable

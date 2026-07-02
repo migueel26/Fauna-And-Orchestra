@@ -6,6 +6,7 @@ import net.migueel26.faunaandorchestra.component.ModDataComponents;
 import net.migueel26.faunaandorchestra.networking.ModNetwork;
 import net.migueel26.faunaandorchestra.networking.packets.EraseMailC2SPacket;
 import net.migueel26.faunaandorchestra.networking.packets.WriteMailC2SPacket;
+import net.migueel26.faunaandorchestra.screen.PaperEditBox;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -57,11 +58,11 @@ public class LetterAndQuillScreen extends AbstractContainerScreen<LetterAndQuill
     public final int coordinateY = 47;
     public final int yCoordinateX = 54;
     public final int zCoordinateX = 92;
-    protected EditBox myDearestText;
-    private EditBox sincerelyText;
-    private EditBox xText;
-    private EditBox yText;
-    private EditBox zText;
+    protected PaperEditBox myDearestText;
+    private PaperEditBox sincerelyText;
+    private PaperEditBox xText;
+    private PaperEditBox yText;
+    private PaperEditBox zText;
     protected EditBox[] textBoxes = new EditBox[5];
     private ImageButton eraseButton;
     private ImageButton writeButton;
@@ -99,11 +100,11 @@ public class LetterAndQuillScreen extends AbstractContainerScreen<LetterAndQuill
         );
         writeButton.setTooltip(Tooltip.create(WRITE_TOOLTIP));
 
-        this.myDearestText = new EditBox(this.font, x + DEAREST_TEXTBOX_X, y + DEAREST_TEXTBOX_Y, DEAREST_TEXTBOX_WIDTH, DEFAULT_TEXTBOX_HEIGHT, Component.literal("Hello"));
-        this.sincerelyText = new EditBox(this.font, x + SINCERELY_TEXTBOX_X, y + SINCERELY_TEXTBOX_Y, SINCERELY_TEXTBOX_WIDTH, DEFAULT_TEXTBOX_HEIGHT, Component.translatable("Hello,"));
-        this.xText = new EditBox(this.font, x + X_TEXTBOX_X, y + COORDINATE_TEXTBOX_Y, COORDINATE_TEXTBOX_WIDTH, DEFAULT_TEXTBOX_HEIGHT, Component.literal("Hello"));
-        this.yText = new EditBox(this.font, x + Y_TEXTBOX_X, y + COORDINATE_TEXTBOX_Y, COORDINATE_TEXTBOX_WIDTH, DEFAULT_TEXTBOX_HEIGHT, Component.literal("Hello"));
-        this.zText = new EditBox(this.font, x + Z_TEXTBOX_X, y + COORDINATE_TEXTBOX_Y, COORDINATE_TEXTBOX_WIDTH, DEFAULT_TEXTBOX_HEIGHT, Component.literal("Hello"));
+        this.myDearestText = new PaperEditBox(this.font, x + DEAREST_TEXTBOX_X, y + DEAREST_TEXTBOX_Y, DEAREST_TEXTBOX_WIDTH, DEFAULT_TEXTBOX_HEIGHT, Component.literal("Hello"));
+        this.sincerelyText = new PaperEditBox(this.font, x + SINCERELY_TEXTBOX_X, y + SINCERELY_TEXTBOX_Y, SINCERELY_TEXTBOX_WIDTH, DEFAULT_TEXTBOX_HEIGHT, Component.translatable("Hello,"));
+        this.xText = new PaperEditBox(this.font, x + X_TEXTBOX_X, y + COORDINATE_TEXTBOX_Y, COORDINATE_TEXTBOX_WIDTH, DEFAULT_TEXTBOX_HEIGHT, Component.literal("Hello"));
+        this.yText = new PaperEditBox(this.font, x + Y_TEXTBOX_X, y + COORDINATE_TEXTBOX_Y, COORDINATE_TEXTBOX_WIDTH, DEFAULT_TEXTBOX_HEIGHT, Component.literal("Hello"));
+        this.zText = new PaperEditBox(this.font, x + Z_TEXTBOX_X, y + COORDINATE_TEXTBOX_Y, COORDINATE_TEXTBOX_WIDTH, DEFAULT_TEXTBOX_HEIGHT, Component.literal("Hello"));
 
         this.xText.setFilter(this::isInteger);
         this.yText.setFilter(this::isInteger);
@@ -246,6 +247,7 @@ public class LetterAndQuillScreen extends AbstractContainerScreen<LetterAndQuill
 
     @Override
     public void render(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
+        renderBackground(pGuiGraphics);
         super.render(pGuiGraphics, pMouseX, pMouseY, pPartialTick);
 
         int x = (width - imageWidth) / 2;

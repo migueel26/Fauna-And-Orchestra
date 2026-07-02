@@ -28,16 +28,16 @@ public class AltarOfThePanFluteBlockEntity extends BlockEntity {
 
     @Override
     public void load(CompoundTag tag) {
+        super.load(tag);
         if (tag.contains("Powers")) {
             this.powers = intArrayToList(tag.getIntArray("Powers"));
         }
-        super.load(tag);
     }
 
     @Override
     public void saveAdditional(CompoundTag tag) {
-        tag.putIntArray("Powers", this.powers);
         super.saveAdditional(tag);
+        tag.putIntArray("Powers", this.powers);
     }
 
     @Nullable

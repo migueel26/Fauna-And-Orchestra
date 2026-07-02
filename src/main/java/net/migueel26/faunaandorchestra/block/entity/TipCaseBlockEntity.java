@@ -29,14 +29,14 @@ public class TipCaseBlockEntity extends OwnableBlockEntity implements GeoBlockEn
 
     @Override
     public void load(CompoundTag tag) {
-        this.tips = tag.getInt("Tips");
         super.load(tag);
+        this.tips = tag.getInt("Tips");
     }
 
     @Override
     public void saveAdditional(CompoundTag tag) {
-        tag.putInt("Tips", tips);
         super.saveAdditional(tag);
+        tag.putInt("Tips", tips);
     }
 
     @Nullable

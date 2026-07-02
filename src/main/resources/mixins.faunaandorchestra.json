@@ -16,6 +16,7 @@
     "MixinSoundManager",
     "MixinMusicManager",
     "MixinLevelRenderer",
+    "MixinEditBox",
     "accessors.SoundBufferAccessor",
     "accessors.ClientLevelAccessor"
   ],

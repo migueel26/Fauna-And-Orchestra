@@ -180,12 +180,12 @@ public class MotherStatueBlockEntity extends BlockEntity implements GeoBlockEnti
 
     @Override
     protected void saveAdditional(CompoundTag tag) {
+        super.saveAdditional(tag);
         tag.putBoolean("IsPlayingDiskAnimation", this.isPlayingDiskAnimation);
         if (redPandaUUID != null) {
             tag.putUUID("RedPandaUUID", this.redPandaUUID);
         }
         tag.putInt("AnimationTick", this.animationTick);
-        super.saveAdditional(tag);
     }
 
     @Nullable

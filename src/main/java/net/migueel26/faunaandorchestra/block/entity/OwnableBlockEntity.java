@@ -23,16 +23,16 @@ public abstract class OwnableBlockEntity extends BlockEntity {
 
     @Override
     public void load(CompoundTag tag) {
+        super.load(tag);
         if (tag.hasUUID("Owner")) {
             this.owner = tag.getUUID("Owner");
         }
-        super.load(tag);
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag) {
-        if (owner != null) tag.putUUID("Owner", owner);
         super.saveAdditional(tag);
+        if (owner != null) tag.putUUID("Owner", owner);
     }
 
     public void setOwner(@Nullable UUID owner) {

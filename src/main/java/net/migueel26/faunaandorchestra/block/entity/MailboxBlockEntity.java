@@ -281,18 +281,18 @@ public class MailboxBlockEntity extends OwnableBlockEntity implements GeoBlockEn
 
     @Override
     protected void saveAdditional(CompoundTag tag) {
+        super.saveAdditional(tag);
         tag.put("Inventory", inventory.serializeNBT());
         tag.putBoolean("Warning", this.showWarning);
         tag.putInt("TimeAway", this.timeAway);
-        super.saveAdditional(tag);
     }
 
     @Override
     public void load(CompoundTag tag) {
+        super.load(tag);
         inventory.deserializeNBT(tag.getCompound("Inventory"));
         this.showWarning = tag.getBoolean("Warning");
         this.timeAway = tag.getInt("TimeAway");
-        super.load(tag);
     }
 
     @Nullable

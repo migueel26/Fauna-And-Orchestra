@@ -41,6 +41,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -88,7 +89,7 @@ public class MailboxBlock extends HorizontalDirectionalBlock implements EntityBl
         if (state.getValue(MAILBIRD) && level.getBlockEntity(bePos) instanceof MailboxBlockEntity mailbox) {
             if (!level.isClientSide()) {
                 addDanLetter(mailbox, player);
-                player.openMenu(new SimpleMenuProvider(mailbox, mailbox.getDisplayName()));
+                NetworkHooks.openScreen((ServerPlayer) player, mailbox, bePos);
             } else {
                 player.playSound(SoundEvents.BARREL_OPEN, 1.5f, 1.0f + ((level.random.nextFloat()/2)-0.25f));
             }

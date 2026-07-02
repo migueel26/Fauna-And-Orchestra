@@ -75,14 +75,14 @@ public class HangingJarBlockEntity extends BlockEntity implements MenuProvider {
 
     @Override
     protected void saveAdditional(CompoundTag tag) {
-        tag.put("Inventory", inventory.serializeNBT());
         super.saveAdditional(tag);
+        tag.put("Inventory", inventory.serializeNBT());
     }
 
     @Override
     public void load(CompoundTag tag) {
-        inventory.deserializeNBT(tag.getCompound("Inventory"));
         super.load(tag);
+        inventory.deserializeNBT(tag.getCompound("Inventory"));
     }
 
     @Nullable

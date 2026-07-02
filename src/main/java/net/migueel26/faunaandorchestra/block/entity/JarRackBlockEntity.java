@@ -171,18 +171,18 @@ public class JarRackBlockEntity extends BlockEntity {
 
     @Override
     protected void saveAdditional(CompoundTag tag) {
+        super.saveAdditional(tag);
         tag.put("Inventory", inventory.serializeNBT());
         tag.putInt("Progress", progress);
-        super.saveAdditional(tag);
     }
 
     @Override
     public void load(CompoundTag tag) {
+        super.load(tag);
         inventory.deserializeNBT(tag.getCompound("Inventory"));
         if (tag.contains("Progress")) {
             this.progress = tag.getInt("Progress");
         }
-        super.load(tag);
     }
 
     @Nullable
