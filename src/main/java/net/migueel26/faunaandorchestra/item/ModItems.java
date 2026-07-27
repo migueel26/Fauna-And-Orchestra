@@ -252,6 +252,7 @@ public class ModItems {
     public static final DeferredItem<Item> IMAGINAL_DISK = createHeadwearItem("imaginal_disk", ModTags.EntityTypes.WEARS_IMAGINAL_DISK, Rarity.RARE);
     public static final DeferredItem<Item> MASK_OF_THE_ENLIGHTENED = createHeadwearItem("mask_of_the_enlightened", ModTags.EntityTypes.WEARS_MASK_OF_THE_ENLIGHTENED, Rarity.RARE);
     public static final DeferredItem<Item> PROPELLER_HAT = create3dHeadwearItem("propeller_hat", ModTags.EntityTypes.WEARS_PROPELLER_HAT, Rarity.RARE);
+    public static final DeferredItem<Item> PHANTOM_MASK = createHeadwearItem("phantom_mask", ModTags.EntityTypes.WEARS_PHANTOM_MASK, Rarity.RARE);
     public static final DeferredItem<Item> TOP_HAT = create3dHeadwearItem("top_hat", ModTags.EntityTypes.WEARS_TOP_HAT);
     public static final DeferredItem<Item> SANTA_HAT = create3dHeadwearItem("santa_hat", ModTags.EntityTypes.WEARS_SANTA_HAT);
     public static final DeferredItem<Item> BASEBALL_CAP = create3dHeadwearItem("baseball_cap", ModTags.EntityTypes.WEARS_BASEBALL_CAP);

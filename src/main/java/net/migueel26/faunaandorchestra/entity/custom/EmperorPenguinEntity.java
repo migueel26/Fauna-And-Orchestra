@@ -9,9 +9,12 @@ import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -37,6 +40,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
+import net.minecraft.world.level.levelgen.structure.Structure;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.jetbrains.annotations.Nullable;
@@ -56,8 +61,10 @@ public class EmperorPenguinEntity extends MusicalEntity implements NeutralMob {
     protected static final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
     protected static final RawAnimation IDLE_FLUTE = RawAnimation.begin().thenPlay("holding_flute");
     protected static final RawAnimation PLAYING = RawAnimation.begin().thenPlay("playing");
+    protected static final RawAnimation PLAYING_PHANTOM = RawAnimation.begin().thenPlay("playing_phantom");
     protected static final RawAnimation ATTACK = RawAnimation.begin().thenPlay("attack");
     protected static final RawAnimation ACCEPT = RawAnimation.begin().thenPlay("accept");
+    protected static final RawAnimation PHANTOM_OPERA = RawAnimation.begin().thenPlay("phantom_opera");
     private static final EntityDataAccessor<Integer> REMAINING_ANGER_TIME = SynchedEntityData.defineId(EmperorPenguinEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> IS_RUNNING = SynchedEntityData.defineId(EmperorPenguinEntity.class, EntityDataSerializers.BOOLEAN);
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
@@ -67,7 +74,8 @@ public class EmperorPenguinEntity extends MusicalEntity implements NeutralMob {
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
     private final AnimationController<EmperorPenguinEntity> penguinController = new AnimationController<>(this, "emperor_penguin_controller", 5, this::penguinState)
             .triggerableAnim("wave", WAVE)
-            .triggerableAnim("attack", ATTACK);
+            .triggerableAnim("attack", ATTACK)
+            .triggerableAnim("phantom_opera", PHANTOM_OPERA);
     private final AnimationController<EmperorPenguinEntity> acceptController = new AnimationController<>(this, "emperor_penguin_accept_controller", 2, this::emptyState)
             .triggerableAnim("accept", ACCEPT);
     public EmperorPenguinEntity(EntityType<? extends TamableAnimal> entityType, Level level) {
@@ -229,7 +237,11 @@ public class EmperorPenguinEntity extends MusicalEntity implements NeutralMob {
 
     private <E extends GeoAnimatable> PlayState penguinState(AnimationState<E> state) {
         if (isPlayingInstrument()) {
-            state.getController().setAnimation(PLAYING);
+            if (getHat() == ModItems.PHANTOM_MASK.get()) {
+                state.getController().setAnimation(PLAYING_PHANTOM);
+            } else {
+                state.getController().setAnimation(PLAYING);
+            }
         } else if (state.isMoving() && isRunning()) {
             state.getController().setAnimation(RUN);
         } else if (isHoldingInstrument()) {
@@ -307,6 +319,34 @@ public class EmperorPenguinEntity extends MusicalEntity implements NeutralMob {
     @Override
     public AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
         return createBaby(ModEntities.PENGUIN.get(), (EmperorPenguinEntity) ageableMob);
+    }
+
+    @Override
+    public boolean hurt(DamageSource source, float amount) {
+        Entity entity = source.getEntity();
+        if (entity instanceof Player player && !level().isClientSide() && level() instanceof ServerLevel serverLevel) {
+            // Check if conditions are met
+            if (isPlayerInWoodlandMansion(player) && getHealth() - amount <= 0) {
+                this.playSound(getDeathSound() != null ? getDeathSound() : SoundEvents.PARROT_DEATH);
+                serverLevel.sendParticles(ParticleTypes.POOF, this.getX(), this.getY(), this.getZ(), 15, 0.2, 0.2, 0.2, 0.1);
+                serverLevel.sendParticles(ParticleTypes.SMOKE, this.getX(), this.getY(), this.getZ(), 30, 0.3, 0, 0.3, 0.1);
+                this.inventory.setStackInSlot(HAT_SLOT, ModItems.PHANTOM_MASK.toStack());
+                this.setHealth(getMaxHealth());
+                return true;
+            }
+        }
+
+        return super.hurt(source, amount);
+    }
+
+    public static boolean isPlayerInWoodlandMansion(Player player) {
+        if (player.level() instanceof ServerLevel serverLevel) {
+            BlockPos pos = player.blockPosition();
+            Structure structure = serverLevel.structureManager().registryAccess().registryOrThrow(Registries.STRUCTURE).get(BuiltinStructures.WOODLAND_MANSION);
+
+            return structure != null && serverLevel.structureManager().getStructureAt(pos, structure).isValid();
+        }
+        return false;
     }
 
     @Override
@@ -390,6 +430,24 @@ public class EmperorPenguinEntity extends MusicalEntity implements NeutralMob {
 
     public boolean isRunning() {
         return isRunning;
+    }
+
+    @Override
+    public @Nullable <T extends Mob> T convertTo(EntityType<T> entityType, boolean transferInventory) {
+        // Baby penguins can't wear the phantom of the opera mask
+        if (this.getHat().equals(ModItems.PHANTOM_MASK.get())) {
+            this.inventory.setStackInSlot(0, ItemStack.EMPTY);
+            this.spawnAtLocation(ModItems.PHANTOM_MASK, 1);
+        }
+        return super.convertTo(entityType, transferInventory);
+    }
+
+    @Override
+    public void playSpecialClothingAnimation(ItemStack stack) {
+        if (stack.is(ModItems.PHANTOM_MASK)) {
+            triggerAnim("emperor_penguin_controller", "phantom_opera");
+            playSound(ModSounds.PHANTOM_MASK.get());
+        }
     }
 
     @Override

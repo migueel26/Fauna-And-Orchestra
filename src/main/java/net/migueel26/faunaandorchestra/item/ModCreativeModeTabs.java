@@ -162,6 +162,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.ROSE);
                         output.accept(ModItems.IMAGINAL_DISK);
                         output.accept(ModItems.MASK_OF_THE_ENLIGHTENED);
+                        output.accept(ModItems.PHANTOM_MASK);
                         output.accept(ModItems.TOP_HAT);
                         output.accept(ModItems.SANTA_HAT);
                         output.accept(ModItems.BASEBALL_CAP);
