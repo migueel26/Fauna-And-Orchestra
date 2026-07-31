@@ -36,6 +36,7 @@ public class ModAdvancements {
     public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> DAN_MYTH0 = register("dan_myth0");
     public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> DAN_MYTH1 = register("dan_myth1");
     public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> DAN_MYTH2 = register("dan_myth2");
+    public static final DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> DAN_MYTH3 = register("dan_myth3");
 
     public static <T extends CriterionTrigger<?>> DeferredHolder<CriterionTrigger<?>, CustomSimpleTrigger> register(String name) {
         return TRIGGERS.register(name, CustomSimpleTrigger::new);

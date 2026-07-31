@@ -1,21 +1,26 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
+import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
+import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
+import net.migueel26.faunaandorchestra.effect.ModEffects;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.entity.goals.AnimalEatGoal;
 import net.migueel26.faunaandorchestra.entity.goals.FaunaRandomLookAroundGoal;
 import net.migueel26.faunaandorchestra.entity.goals.MusicalEntityPlayingInstrumentGoal;
 import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
+import net.migueel26.faunaandorchestra.util.AdvancementUtil;
+import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -23,7 +28,10 @@ import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -42,6 +50,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 import net.minecraft.world.level.levelgen.structure.Structure;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.jetbrains.annotations.Nullable;
@@ -71,6 +80,7 @@ public class EmperorPenguinEntity extends MusicalEntity implements NeutralMob {
     @Nullable
     private UUID persistentAngerTarget;
     private boolean isRunning = false;
+    private int emergingTicks = -1;
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
     private final AnimationController<EmperorPenguinEntity> penguinController = new AnimationController<>(this, "emperor_penguin_controller", 5, this::penguinState)
             .triggerableAnim("wave", WAVE)
@@ -231,6 +241,18 @@ public class EmperorPenguinEntity extends MusicalEntity implements NeutralMob {
     }
 
     @Override
+    public void tick() {
+        if (!level().isClientSide() && emergingTicks >= 0 && emergingTicks <= 100) {
+            if (emergingTicks % 5 == 0) {
+                Vec3 pos = this.position();
+                ((ServerLevel) level()).sendParticles(ParticleTypes.SMOKE, pos.x, pos.y, pos.z, 40, 0.4, 0.1, 0.4, 0);
+            }
+            emergingTicks++;
+        }
+        super.tick();
+    }
+
+    @Override
     public float getAgeScale() {
         return 1.0f;
     }
@@ -324,24 +346,38 @@ public class EmperorPenguinEntity extends MusicalEntity implements NeutralMob {
     @Override
     public boolean hurt(DamageSource source, float amount) {
         Entity entity = source.getEntity();
-        if (entity instanceof Player player && !level().isClientSide() && level() instanceof ServerLevel serverLevel) {
+        boolean secondChance = this.hasSecondLife();
+        // We apply the second life
+        boolean wasHurt = super.hurt(source, amount);
+        // If before we had a second life, and now we don't, we used it
+        boolean wastedSecondChance = secondChance && !hasSecondLife();
+        if (wastedSecondChance && !level().isClientSide() && level() instanceof ServerLevel serverLevel) {
             // Check if conditions are met
-            if (isPlayerInWoodlandMansion(player) && getHealth() - amount <= 0) {
-                this.playSound(getDeathSound() != null ? getDeathSound() : SoundEvents.PARROT_DEATH);
-                serverLevel.sendParticles(ParticleTypes.POOF, this.getX(), this.getY(), this.getZ(), 15, 0.2, 0.2, 0.2, 0.1);
-                serverLevel.sendParticles(ParticleTypes.SMOKE, this.getX(), this.getY(), this.getZ(), 30, 0.3, 0, 0.3, 0.1);
-                this.inventory.setStackInSlot(HAT_SLOT, ModItems.PHANTOM_MASK.toStack());
-                this.setHealth(getMaxHealth());
+            if (isEntityInWoodlandMansion(this) && this.getOwner() instanceof Player player) {
+                if (!AdvancementUtil.hasAdvancement(player, FaunaAndOrchestra.MOD_ID, "myths/dan_myth3")) {
+                    player.displayClientMessage(Component.translatable("text.faunaandorchestra.myth_locked"), true);
+                } else {
+                    this.inventory.setStackInSlot(HAT_SLOT, ModItems.PHANTOM_MASK.toStack());
+                    ModAdvancements.FIRST_RESOLVED_MYTH.get().trigger((ServerPlayer) player);
+
+                    this.getNavigation().stop();
+                    this.addEffect(new MobEffectInstance(ModEffects.OVERWHELMING_SLOWNESS, 100, 255, false, false, false));
+                    player.addEffect(new MobEffectInstance(MobEffects.DARKNESS, 40, 5, false, false, false));
+                    player.lookAt(EntityAnchorArgument.Anchor.EYES, this.getEyePosition());
+                    this.lookAt(EntityAnchorArgument.Anchor.FEET, player.getEyePosition());
+
+                    this.emergingTicks = 0;
+                }
                 return true;
             }
         }
 
-        return super.hurt(source, amount);
+        return wasHurt;
     }
 
-    public static boolean isPlayerInWoodlandMansion(Player player) {
-        if (player.level() instanceof ServerLevel serverLevel) {
-            BlockPos pos = player.blockPosition();
+    public static boolean isEntityInWoodlandMansion(Entity entity) {
+        if (entity.level() instanceof ServerLevel serverLevel) {
+            BlockPos pos = entity.blockPosition();
             Structure structure = serverLevel.structureManager().registryAccess().registryOrThrow(Registries.STRUCTURE).get(BuiltinStructures.WOODLAND_MANSION);
 
             return structure != null && serverLevel.structureManager().getStructureAt(pos, structure).isValid();

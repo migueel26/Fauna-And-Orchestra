@@ -73,6 +73,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.BADGRASS_MEAL);
                         output.accept(ModItems.FLORA_FORTA);
                         output.accept(ModItems.EVERFRUIT);
+                        output.accept(ModItems.EVERJELLY);
                         output.accept(ModItems.FLOATING_BLOSSOM);
                         output.accept(ModItems.FLORAL_BOOTS);
                         output.accept(ModItems.FLORAL_FUMES);

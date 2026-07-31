@@ -126,6 +126,9 @@ public class MailboxBlock extends HorizontalDirectionalBlock implements EntityBl
         } else if (canReceiveMythTwo(player, myths)) {
             data.putInt(DanB.MYTHS_DATA_KEY, myths | 4);
             addLetter = true;
+        } else if (canReceiveMythThree(player, myths)) {
+            data.putInt(DanB.MYTHS_DATA_KEY, myths | 8);
+            addLetter = true;
         }
 
         if (addLetter) {
@@ -153,6 +156,12 @@ public class MailboxBlock extends HorizontalDirectionalBlock implements EntityBl
         return (myths & 4) == 0
                 && !AdvancementUtil.hasAdvancement(player, FaunaAndOrchestra.MOD_ID, "dan_myth2")
                 && AdvancementUtil.hasAdvancement(player, ResourceLocation.DEFAULT_NAMESPACE, "nether/explore_nether");
+    }
+
+    public boolean canReceiveMythThree(Player player, int myths) {
+        return (myths & 4) == 0
+                && !AdvancementUtil.hasAdvancement(player, FaunaAndOrchestra.MOD_ID, "dan_myth3")
+                && AdvancementUtil.hasAdvancement(player, FaunaAndOrchestra.MOD_ID, "pan_flute");
     }
 
     @Nullable

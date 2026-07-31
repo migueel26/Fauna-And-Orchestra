@@ -13,6 +13,7 @@ import net.migueel26.faunaandorchestra.util.ModTags;
 import net.migueel26.faunaandorchestra.util.MusicUtil;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -30,6 +31,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
@@ -51,6 +53,7 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Vector3f;
 import software.bernie.geckolib.animatable.GeoEntity;
 
 import java.util.*;
@@ -60,9 +63,11 @@ public abstract class MusicalEntity extends TamableAnimal implements GeoEntity {
     protected static final EntityDataAccessor<Boolean> HOLDING_INSTRUMENT = SynchedEntityData.defineId(MusicalEntity.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Optional<UUID>> CONDUCTOR_ID = SynchedEntityData.defineId(MusicalEntity.class, EntityDataSerializers.OPTIONAL_UUID);
     protected static final EntityDataAccessor<Boolean> IS_MUSICAL = SynchedEntityData.defineId(MusicalEntity.class, EntityDataSerializers.BOOLEAN);
+    protected static final EntityDataAccessor<Boolean> SECOND_LIFE = SynchedEntityData.defineId(MusicalEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<ItemStack> COSTUME_ITEM = SynchedEntityData.defineId(MusicalEntity.class, EntityDataSerializers.ITEM_STACK);
     private static final EntityDataAccessor<ItemStack> HAT_ITEM = SynchedEntityData.defineId(MusicalEntity.class, EntityDataSerializers.ITEM_STACK);
     protected boolean isHoldingInstrument;
+    protected boolean secondLife;
     protected UUID conductorUUID;
     private int ticksSinceLoaded;
     // Costumes
@@ -108,6 +113,7 @@ public abstract class MusicalEntity extends TamableAnimal implements GeoEntity {
         super(entityType, level);
         this.instrument = getInstrument();
         this.conductorUUID = null;
+        this.secondLife = false;
         this.ticksSinceLoaded = 0;
     }
 
@@ -117,6 +123,7 @@ public abstract class MusicalEntity extends TamableAnimal implements GeoEntity {
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         builder.define(HOLDING_INSTRUMENT, false);
         builder.define(IS_MUSICAL, false);
+        builder.define(SECOND_LIFE, false);
         builder.define(CONDUCTOR_ID, Optional.empty());
         builder.define(COSTUME_ITEM, ItemStack.EMPTY);
         builder.define(HAT_ITEM, ItemStack.EMPTY);
@@ -133,6 +140,10 @@ public abstract class MusicalEntity extends TamableAnimal implements GeoEntity {
             this.conductorUUID = this.entityData.get(CONDUCTOR_ID).orElse(null);
         }
 
+        if (SECOND_LIFE.equals(key)) {
+            this.secondLife = this.entityData.get(SECOND_LIFE);
+        }
+
         super.onSyncedDataUpdated(key);
     }
 
@@ -142,6 +153,7 @@ public abstract class MusicalEntity extends TamableAnimal implements GeoEntity {
 
         compound.putBoolean("HoldingInstrument", this.isHoldingInstrument());
         compound.putBoolean("IsMusical", this.isMusical());
+        compound.putBoolean("SecondLife", this.hasSecondLife());
 
         compound.put("Inventory", this.inventory.serializeNBT(this.registryAccess()));
     }
@@ -152,6 +164,7 @@ public abstract class MusicalEntity extends TamableAnimal implements GeoEntity {
 
         this.entityData.set(HOLDING_INSTRUMENT, compound.getBoolean("HoldingInstrument"));
         this.entityData.set(IS_MUSICAL, compound.getBoolean("IsMusical"));
+        this.entityData.set(SECOND_LIFE, compound.getBoolean("SecondLife"));
 
         if (compound.contains("Inventory")) {
             this.inventory.deserializeNBT(this.registryAccess(), compound.getCompound("Inventory"));
@@ -169,6 +182,20 @@ public abstract class MusicalEntity extends TamableAnimal implements GeoEntity {
                 this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(),
                         new ItemStack((Holder<Item>) instrument, 1)));
             }
+
+            if (getHealth() - amount <= 0 && hasSecondLife()) {
+                this.setSecondLife(false);
+                this.setHealth(this.getMaxHealth());
+
+                // Flashy unimportant stuff
+                this.setDeltaMovement(0, 0.5, 0);
+                this.level().broadcastDamageEvent(this, source);
+                this.level().playSound(null, this.blockPosition(), SoundEvents.TOTEM_USE, SoundSource.NEUTRAL, 1.0f, 1.0f);
+                this.playSound(getDeathSound() != null ? getDeathSound() : SoundEvents.PARROT_DEATH);
+                ((ServerLevel) level()).sendParticles(ParticleTypes.POOF, this.getX(), this.getY(), this.getZ(), 15, 0.2, 0.2, 0.2, 0.1);
+                this.level().broadcastEntityEvent(this, (byte)35);
+                return true;
+            }
         }
         return super.hurt(source, amount);
     }
@@ -177,6 +204,45 @@ public abstract class MusicalEntity extends TamableAnimal implements GeoEntity {
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
         if (isTame() && getOwnerUUID().equals(player.getUUID())) {
+            if (itemStack.is(ModItems.EVERJELLY) && !hasSecondLife()) {
+                // The animal now has a second life
+                setSecondLife(true);
+                player.displayClientMessage(Component.translatable("text.faunaandorchestra.second_life"), true);
+                itemStack.shrink(1);
+
+                // We play some nice particles and sounds
+                if (!level().isClientSide()) {
+                    this.playSound(SoundEvents.CAMEL_EAT);
+                    this.playSound(ModSounds.WOW.get());
+                    level().playSound(null, player.blockPosition(), ModSounds.WOW.get(), SoundSource.NEUTRAL);
+
+                    ServerLevel serverLevel = (ServerLevel) level();
+
+                    if (!player.isCreative()) itemStack.shrink(1);
+
+                    for (int i = 0; i < 20; i++) {
+                        float hue = serverLevel.random.nextFloat();
+                        int rgbColor = Mth.hsvToRgb(hue, 1.0f, 1.0f);
+
+                        float r = ((rgbColor >> 16) & 0xFF) / 255.0f;
+                        float g = ((rgbColor >> 8) & 0xFF) / 255.0f;
+                        float b = (rgbColor & 0xFF) / 255.0f;
+
+                        DustParticleOptions rainbowDust = new DustParticleOptions(new Vector3f(r, g, b), 1.5f);
+
+                        double offsetX = serverLevel.random.nextGaussian() * 0.3;
+                        double offsetY = serverLevel.random.nextGaussian() * 0.3;
+                        double offsetZ = serverLevel.random.nextGaussian() * 0.3;
+
+                        serverLevel.sendParticles(rainbowDust,
+                                getX() + offsetX,
+                                getEyeY() - 0.2f + offsetY,
+                                getZ() + offsetZ,
+                                1, 0, 0, 0, 0.0);
+                    }
+                }
+                return InteractionResult.SUCCESS;
+            }
             if (itemStack.is(ModItems.PROP_CASE)) {
 
                 this.openCustomMenu(player);
@@ -368,6 +434,15 @@ public abstract class MusicalEntity extends TamableAnimal implements GeoEntity {
 
     public boolean isMusical() {
         return this.entityData.get(IS_MUSICAL);
+    }
+
+    public boolean hasSecondLife() {
+        return secondLife;
+    }
+
+    public void setSecondLife(boolean hasSecondLife) {
+        this.entityData.set(SECOND_LIFE, hasSecondLife);
+        this.secondLife = hasSecondLife;
     }
 
     public @Nullable ConductorEntity getConductor() {

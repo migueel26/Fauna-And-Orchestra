@@ -1,0 +1,33 @@
+{
+  "type": "faunaandorchestra:natural_recipe",
+  "ingredients": [
+    {
+      "ingredient": {
+        "item": "faunaandorchestra:everfruit"
+      }
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:sugar"
+      },
+      "amount": 6
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:bone"
+      },
+      "amount": 3
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:water_bucket"
+      }
+    }
+  ],
+  "fuel": "#minecraft:ice",
+  "result": {
+    "id": "faunaandorchestra:everjelly",
+    "count": 1
+  },
+  "time": 3600
+}

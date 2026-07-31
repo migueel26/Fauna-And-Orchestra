@@ -1,0 +1,7 @@
+{
+  "criteria": {
+    "triggered": {
+      "trigger": "faunaandorchestra:dan_myth3"
+    }
+  }
+}

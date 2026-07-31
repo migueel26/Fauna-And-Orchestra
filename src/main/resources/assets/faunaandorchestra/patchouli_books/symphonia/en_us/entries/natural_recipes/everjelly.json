@@ -1,0 +1,13 @@
+{
+  "name": "symphonia.entry.everjelly",
+  "category": "faunaandorchestra:natural_recipes",
+  "icon": "faunaandorchestra:everjelly",
+  "advancement": "faunaandorchestra:boogie_fruit",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "faunaandorchestra:everjelly",
+      "text": "symphonia.page.everjelly0"
+    }
+  ]
+}

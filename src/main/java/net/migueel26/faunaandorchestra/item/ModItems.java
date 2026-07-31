@@ -192,6 +192,8 @@ public class ModItems {
             () -> new BadgrassMealItem(new Item.Properties()));
     public static final DeferredItem<Item> EVERFRUIT = ITEMS.register("everfruit",
             () -> new EverfruitItem(new Item.Properties().rarity(Rarity.RARE).food(Foods.GOLDEN_APPLE)));
+    public static final DeferredItem<Item> EVERJELLY = ITEMS.register("everjelly",
+            () -> new Item(new Item.Properties().rarity(Rarity.RARE).food(Foods.GOLDEN_APPLE)));
     public static final DeferredItem<Item> FLOATING_BLOSSOM = ITEMS.register("floating_blossom",
             () -> new FloatingBlossomItem(new Item.Properties()));
     public static final DeferredItem<Item> SHARP_BAMBOO = ITEMS.register("sharp_bamboo",

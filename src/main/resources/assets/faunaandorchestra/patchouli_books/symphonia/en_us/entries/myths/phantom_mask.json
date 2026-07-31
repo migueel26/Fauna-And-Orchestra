@@ -1,0 +1,20 @@
+{
+  "name": "symphonia.entry.phantom_mask",
+  "category": "faunaandorchestra:myths",
+  "icon": "faunaandorchestra:phantom_mask",
+  "advancement": "faunaandorchestra:myths/dan_myth3",
+  "pages": [
+    {
+      "type": "text",
+      "text": "symphonia.page.phantom_mask0"
+    },
+    {
+      "type": "image",
+      "border": true,
+      "images": [
+        "faunaandorchestra:textures/gui/entries/woodland_mansion.png"
+      ],
+      "text": "symphonia.page.phantom_mask1"
+    }
+  ]
+}
