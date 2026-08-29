@@ -588,6 +588,12 @@
       "faunaandorchestra:sfx/enlighten"
     ]
   },
+  "phantom_mask": {
+    "subtitles": "sounds.faunaandorchestra.phantom_mask",
+    "sounds": [
+      "faunaandorchestra:sfx/phantom_mask"
+    ]
+  },
   "dialogue": {
     "subtitles": "sounds.faunaandorchestra.dialogue",
     "sounds": [

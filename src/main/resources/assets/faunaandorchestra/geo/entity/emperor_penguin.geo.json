@@ -215,6 +215,32 @@
 					]
 				},
 				{
+					"name": "phantom_mask",
+					"parent": "head",
+					"pivot": [-1, 17, -3.7],
+					"cubes": [
+						{
+							"origin": [-4.25, 14, -2.7],
+							"size": [5.25, 7.25, 2.5],
+							"uv": {
+								"north": {"uv": [63, 15], "uv_size": [7, 10]},
+								"east": {"uv": [60, 15], "uv_size": [3, 10]},
+								"up": {"uv": [67, 29], "uv_size": [-7, -4]}
+							}
+						},
+						{
+							"origin": [-1.1, 15.6, -5.1],
+							"size": [2.1, 2.1, 2.6],
+							"inflate": -0.01,
+							"uv": {
+								"north": {"uv": [70, 26], "uv_size": [3, 3]},
+								"east": {"uv": [67, 26], "uv_size": [3, 3]},
+								"up": {"uv": [70, 23], "uv_size": [3, 3]}
+							}
+						}
+					]
+				},
+				{
 					"name": "long_flute",
 					"parent": "chest",
 					"pivot": [-2, 1, 0],

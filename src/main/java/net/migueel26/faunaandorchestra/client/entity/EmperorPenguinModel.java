@@ -62,6 +62,7 @@ public class EmperorPenguinModel extends GeoModel<EmperorPenguinEntity> {
 
         getAnimationProcessor().getBone("santa_hat").setHidden(penguin.getHat() != ModItems.SANTA_HAT.get());
         getAnimationProcessor().getBone("baseball_cap").setHidden(penguin.getHat() != ModItems.BASEBALL_CAP.get());
+        getAnimationProcessor().getBone("phantom_mask").setHidden(penguin.getHat() != ModItems.PHANTOM_MASK.get());
 
         flute.setHidden(!penguin.isHoldingInstrument());
     }
