@@ -67,6 +67,7 @@
   "item.faunaandorchestra.badgrass_meal": "Polvo de hierbajo",
   "item.faunaandorchestra.extract_of_living_music": "Extracto de música viva",
   "item.faunaandorchestra.everfruit": "Frutaeterna",
+  "item.faunaandorchestra.everjelly": "Gelaterna",
   "item.faunaandorchestra.floating_blossom": "Florecer flotante",
   "item.faunaandorchestra.sharp_bamboo": "Bambú afilado",
   "item.faunaandorchestra.perfumed_bamboo": "Bambú perfumado",
@@ -323,6 +324,7 @@
   "text.faunaandorchestra.sleeping_worker_koala": "¡Los koalas trabajadores se duermen si no hay una orquesta tocando cerca!",
   "text.faunaandorchestra.myth_locked": "¡Este mito está bloqueado! Intenta encontrar a algún animal que te lo cuente...",
   "text.faunaandorchestra.new_recipe": "¡El koala ha aprendido una nueva receta!",
+  "text.faunaandorchestra.second_life": "¡Este animal tiene una vida extra si algo le ocurriese!",
 
   "entity.faunaandorchestra.mantis": "Mantis",
   "entity.faunaandorchestra.penguin": "Bebé Pingüino",
@@ -656,6 +658,7 @@
   "dialogue.faunaandorchestra.dan_b.myth0": "¿Has escuchado sobre el §lDisco imaginario§r de Madre?",
   "dialogue.faunaandorchestra.dan_b.myth1": "La §lMáscara de Luz§r es un artefacto de una arcaica tribu.",
   "dialogue.faunaandorchestra.dan_b.myth2": "Algunos habla de botas con las que §landas en el aire§r.",
+  "dialogue.faunaandorchestra.dan_b.myth3": "Bajo las circunstancias correctas, los fantasmas traen §lMáscaras§r.",
 
   "dialogue.faunaandorchestra.delroy0": "...",
   "dialogue.faunaandorchestra.denise0": "...",
@@ -975,6 +978,9 @@
   "symphonia.entry.music_jam": "Mermelada musical",
   "symphonia.page.music_jam0": "La $(l)Mermelada musical$() es un tipo de mermelada especial con un dulce sabor a $(music)sonido$(). No es apta para todos los animales, pero es adorada por los $(thing)Koalas$(). $(br)Su $(thing)Receta Natural$() se hace con $(item)Hielo de combustible$() y:$(li)$(item)2x Extracto de música viva$(li)2x Azúcar$(li)3x Ginkgo biloba$(li)1x Humo sónico$(li)1x Botella de miel$()",
 
+  "symphonia.entry.everjelly": "Gelaterna",
+  "symphonia.page.everjelly0": "Si quieres cuidar de tus pequeños músicos, dándoles $(l)Gelaterna$() puedes darles una $(thing)segunda vida$() en caso de que fallezcan, ¡salvándolos!$(br)Su $(thing)Receta Natural$() se hace con $(item)Hielo de combustible$() y:$(li)$(item)1x Frutaeterna$(li)6x Azúcar$(li)3x Huesos$(li)1x Cubo de agua$()",
+
   "symphonia.entry.cotton": "Algodón",
   "symphonia.page.cotton0": "El $(l)Algodón$() es una planta suave y esponjosa que crece de forma salvaje. ¡Es una gran fuente de alimento para muchos animales y es muy fácil de encontrar!$(br2)Puedes conseguir $(item)Semillas de algodón$() rompiendo césped. Tras eso, plántalas y espera un poco. ¡Tendrás algodón para días!",
 
@@ -1015,6 +1021,10 @@
 
   "symphonia.entry.floral_boots": "Las botas florales",
   "symphonia.page.floral_boots0": "Se dice que las $(l)Botas Florales$() son un calzado hecho con la esencia de las flores. Te permiten $(item)caminar por el aire$() conjurando un lecho de flores bajo tus pies.$(br2)Según Dan B., el $(item)libro$() que recibiste contiene la receta de estas botas, pero está escrita de forma muy críptica. ¿Conoces a alguien que pueda ayudarte a $(o)descifrarla y crearla$()?",
+
+  "symphonia.entry.phantom_mask": "La máscara fantasma",
+  "symphonia.page.phantom_mask0": "Algunos dicen que un espíritu maligno acecha en las $(thing)Mansiones del bosque$(), esperando a un huésped al que poseer. $(br2)Para invocar su $(l)Máscara$(), debes llevar a un músico $(item)Pingüino Emperador$() a la $(thing)mansión$() y darle $(item)Gelaterna$() para darle una segunda vida. Una vez hecho, necesita $(careful)morir allí$() y con su resurrección, se creará la máscara.",
+  "symphonia.page.phantom_mask1": "¡Ten $(careful)cuidado$() de no matar a tu Pingüino Emperador sin darle $(item)Gelaterna$()!",
 
   "jei.faunaandorchestra.natural_recipe": "Recetas naturales",
   "jei.faunaandorchestra.requires_below": "Este bloque es requerido bajo el §eCuelgajarras§r como combustible",

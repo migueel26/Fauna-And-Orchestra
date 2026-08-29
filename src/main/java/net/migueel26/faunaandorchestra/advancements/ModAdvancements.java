@@ -34,6 +34,7 @@ public class ModAdvancements {
     public static final CustomSimpleTrigger DAN_MYTH0 = register("dan_myth0");
     public static final CustomSimpleTrigger DAN_MYTH1 = register("dan_myth1");
     public static final CustomSimpleTrigger DAN_MYTH2 = register("dan_myth2");
+    public static final CustomSimpleTrigger DAN_MYTH3 = register("dan_myth3");
 
     public static CustomSimpleTrigger register(String path) {
         CustomSimpleTrigger trigger = new CustomSimpleTrigger(ResourceLocation.fromNamespaceAndPath(FaunaAndOrchestra.MOD_ID, path));

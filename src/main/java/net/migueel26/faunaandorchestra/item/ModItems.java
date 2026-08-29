@@ -188,6 +188,8 @@ public class ModItems {
             () -> new BadgrassMealItem(new Item.Properties()));
     public static final RegistryObject<Item> EVERFRUIT = ITEMS.register("everfruit",
             () -> new EverfruitItem(new Item.Properties().rarity(Rarity.RARE).food(Foods.GOLDEN_APPLE)));
+    public static final RegistryObject<Item> EVERJELLY = ITEMS.register("everjelly",
+            () -> new Item(new Item.Properties().rarity(Rarity.RARE).food(Foods.GOLDEN_APPLE)));
     public static final RegistryObject<Item> FLOATING_BLOSSOM = ITEMS.register("floating_blossom",
             () -> new FloatingBlossomItem(new Item.Properties()));
     public static final RegistryObject<Item> SHARP_BAMBOO = ITEMS.register("sharp_bamboo",

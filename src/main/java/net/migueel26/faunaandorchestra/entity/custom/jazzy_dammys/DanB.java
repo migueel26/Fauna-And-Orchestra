@@ -148,6 +148,12 @@ public class DanB extends TravellingMusician implements Npc, GeoEntity {
             updatePersistentData = true;
 
             player.addItem(RecipesUtil.recipeOfItem(ModItems.FLORAL_BOOTS.get()));
+        } else if (!AdvancementUtil.hasAdvancement(player, FaunaAndOrchestra.MOD_ID, "myths/dan_myth3") && AdvancementUtil.hasAdvancement(player, FaunaAndOrchestra.MOD_ID, "pan_flute")) {
+            ModAdvancements.DAN_MYTH3.trigger((ServerPlayer) player);
+            setCurrentMyth(3);
+            data.putInt(MYTHS_DATA_KEY, myths | 8);
+            setGoodMorning(false);
+            updatePersistentData = true;
         }
 
         if (updatePersistentData) {

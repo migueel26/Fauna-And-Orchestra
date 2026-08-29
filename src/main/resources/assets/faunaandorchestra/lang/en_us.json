@@ -67,6 +67,7 @@
   "item.faunaandorchestra.badgrass_meal": "Badgrass Meal",
   "item.faunaandorchestra.extract_of_living_music": "Extract of Living Music",
   "item.faunaandorchestra.everfruit": "Everfruit",
+  "item.faunaandorchestra.everjelly": "Everjelly",
   "item.faunaandorchestra.floating_blossom": "Floating Blossom",
   "item.faunaandorchestra.sharp_bamboo": "Sharp Bamboo",
   "item.faunaandorchestra.perfumed_bamboo": "Perfumed Bamboo",
@@ -323,6 +324,7 @@
   "text.faunaandorchestra.sleeping_worker_koala": "Koala Workers fall asleep if there isn't an orchestra playing nearby!",
   "text.faunaandorchestra.myth_locked": "This myth is locked! Try to find the right musical animal to tell it to you",
   "text.faunaandorchestra.new_recipe": "The Koala has learned a new recipe!",
+  "text.faunaandorchestra.second_life": "This musician now has a second life!",
 
   "entity.faunaandorchestra.mantis": "Mantis",
   "entity.faunaandorchestra.penguin": "Baby Penguin",
@@ -656,6 +658,7 @@
   "dialogue.faunaandorchestra.dan_b.myth0": "Have you ever heard of Mother's §lImaginal Disk§r?",
   "dialogue.faunaandorchestra.dan_b.myth1": "The §lMask of the Light§r is the remnant of an ancient city.",
   "dialogue.faunaandorchestra.dan_b.myth2": "Some say Floral Boots can make you §lwalk on air§r.",
+  "dialogue.faunaandorchestra.dan_b.myth3": "Under the right circumstances, §lPhantoms§r can come back.",
 
   "dialogue.faunaandorchestra.delroy0": "...",
   "dialogue.faunaandorchestra.denise0": "...",
@@ -975,6 +978,9 @@
   "symphonia.entry.music_jam": "Music Jam",
   "symphonia.page.music_jam0": "The $(l)Music Jam$() is a special type of jam with a sweet taste of $(music)sound$(). Not apt for every animal, but especially loved by the $(thing)Koalas$(). $(br)Its $(thing)Natural Recipe$() is made with $(item)Ice Fuel$() and:$(li)$(item)2x Extract of Living Music$(li)2x Sugar$(li)3x Ginkgo Biloba$(li)1x Sonic Fumes$(li)1x Honey Bottle$()",
 
+  "symphonia.entry.everjelly": "Everjelly",
+  "symphonia.page.everjelly0": "If you want to take care of your little musicians, by feeding them $(l)Everjelly$() you can give them a $(thing)second life$() in case they pass away, saving them!$(br)Its $(thing)Natural Recipe$() is made with $(item)Ice Fuel$() and:$(li)$(item)1x Everfruit$(li)6x Sugar$(li)3x Bones$(li)1x Water Bucket$()",
+
   "symphonia.entry.cotton": "Cotton",
   "symphonia.page.cotton0": "The $(l)Cotton$() is a soft and fluffy plant that grows in the wild. It's a great source of food for many animals, and it's really easy to find!$(br2)You can $(item)Cotton Seeds$() by breaking some grass. After that, plant it and wait for a while. You'll get cotton for days!",
 
@@ -1015,6 +1021,10 @@
 
   "symphonia.entry.floral_boots": "The Floral Boots",
   "symphonia.page.floral_boots0": "The $(l)Floral Boots$() are a pair of boots that are said to be made of the essence of flowers. They allow you to $(item)walk on air$() conjuring a bed of flowers under your feet.$(br2)According to Dan B., the $(item)book$() given to you contains the recipe for these boots, but it's written in a very cryptic way. Do you know somebody that could help you $(o)decipher and make it$()?",
+
+  "symphonia.entry.phantom_mask": "The Phantom Mask",
+  "symphonia.page.phantom_mask0": "Some say that an evil spirit lurks in the $(thing)Woodland Mansions$(), waiting for a host to possess. $(br2)In order to summon its $(l)Mask$(), you need to bring an $(item)Emperor Penguin$() musician to the $(thing)mansion$() and feed him $(item)Everjelly$() to give him a second life. Once done, he needs to $(careful)die there$() and with its resurrection, the mask will be created.",
+  "symphonia.page.phantom_mask1": "Be $(careful)careful$() not to kill your Emperor Penguin without feeding it $(item)Everjelly$()!",
 
   "jei.faunaandorchestra.natural_recipe": "Natural Recipe",
   "jei.faunaandorchestra.requires_below": "This block is required below the §eJar Rack§r with the jar",
