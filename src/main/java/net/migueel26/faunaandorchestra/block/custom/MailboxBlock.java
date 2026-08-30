@@ -159,7 +159,7 @@ public class MailboxBlock extends HorizontalDirectionalBlock implements EntityBl
     }
 
     public boolean canReceiveMythThree(Player player, int myths) {
-        return (myths & 4) == 0
+        return (myths & 8) == 0
                 && !AdvancementUtil.hasAdvancement(player, FaunaAndOrchestra.MOD_ID, "dan_myth3")
                 && AdvancementUtil.hasAdvancement(player, FaunaAndOrchestra.MOD_ID, "pan_flute");
     }

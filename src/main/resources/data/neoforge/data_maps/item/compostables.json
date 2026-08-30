@@ -1,0 +1,10 @@
+{
+  "values": {
+    "faunaandorchestra:cotton_seeds": {
+      "chance": 0.3
+    },
+    "faunaandorchestra:cotton": {
+      "chance": 0.65
+    }
+  }
+}
