@@ -9,6 +9,7 @@ import mezz.jei.api.runtime.IJeiRuntime;
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.item.ModItems;
+import net.migueel26.faunaandorchestra.recipe.DiscordRecipe;
 import net.migueel26.faunaandorchestra.recipe.MelomancyRecipe;
 import net.migueel26.faunaandorchestra.recipe.ModRecipes;
 import net.migueel26.faunaandorchestra.recipe.NaturalRecipe;
@@ -41,6 +42,7 @@ public class FaunaJEIPlugin implements IModPlugin {
     public void registerCategories(IRecipeCategoryRegistration registration) {
         registration.addRecipeCategories(new NaturalRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new MelomancyRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new DiscordRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
@@ -53,15 +55,21 @@ public class FaunaJEIPlugin implements IModPlugin {
                 .map(RecipeHolder::value)
                 .toList();
 
-        registration.addRecipes(NaturalRecipeCategory.RECIPE_TYPE, naturalRecipes);
-
         // Melomancy Recipes
         List<MelomancyRecipe> melomancyRecipes = recipeManager.getAllRecipesFor(ModRecipes.MELOMANCY_TYPE.get())
                 .stream()
                 .map(RecipeHolder::value)
                 .toList();
 
+        // Discord Recipes
+        List<DiscordRecipe> discordRecipes = recipeManager.getAllRecipesFor(ModRecipes.DISCORD_TYPE.get())
+                .stream()
+                .map(RecipeHolder::value)
+                .toList();
+
         registration.addRecipes(MelomancyRecipeCategory.RECIPE_TYPE, melomancyRecipes);
+        registration.addRecipes(NaturalRecipeCategory.RECIPE_TYPE, naturalRecipes);
+        registration.addRecipes(DiscordRecipeCategory.RECIPE_TYPE, discordRecipes);
 
         // Melomancy Info
         registration.addIngredientInfo(ModItems.MUSIC_BOTTLE, symphoniaComponent("music_bottle"));
@@ -74,9 +82,9 @@ public class FaunaJEIPlugin implements IModPlugin {
         //registration.addIngredientInfo(ModItems.BOOGIE_BOMB, melomancyComponent("boogie_bomb"));
         registration.addIngredientInfo(ModItems.RESURRECTION_SONG, melomancyComponent("resurrection_song"));
 
-        registration.addIngredientInfo(ModItems.TRANSMUTED_VOICE, symphoniaComponent("transmuted_voice"));
-        registration.addIngredientInfo(ModItems.DISCORD_BOMB, symphoniaComponent("discord_bomb"));
-        registration.addIngredientInfo(ModBlocks.DISCORDED_FLOWER.asItem(), symphoniaComponent("discorded_flower"));
+        //registration.addIngredientInfo(ModItems.TRANSMUTED_VOICE, symphoniaComponent("transmuted_voice"));
+        //registration.addIngredientInfo(ModItems.DISCORD_BOMB, symphoniaComponent("discord_bomb"));
+        //registration.addIngredientInfo(ModBlocks.DISCORDED_FLOWER.asItem(), symphoniaComponent("discorded_flower"));
 
         registration.addIngredientInfo(ModItems.DISCORD_NUCLEI_ITEM, symphoniaDefaultText());
         registration.addIngredientInfo(ModItems.WANDERING_NOTE, symphoniaDefaultText());

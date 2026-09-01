@@ -1,0 +1,16 @@
+{
+  "type": "faunaandorchestra:discord",
+  "ingredient": {
+    "ingredient": {
+      "item": "minecraft:oxeye_daisy"
+    },
+    "amount": 1
+  },
+  "essence": 50,
+  "base_instability": 15,
+  "extra_proportion": 3.0,
+  "result": {
+    "id": "faunaandorchestra:discorded_flower",
+    "count": 1
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "faunaandorchestra:discord",
+  "ingredient": {
+    "ingredient": {
+      "item": "faunaandorchestra:voice"
+    },
+    "amount": 1
+  },
+  "essence": 30,
+  "base_instability": 10,
+  "extra_proportion": 3.5,
+  "result": {
+    "id": "faunaandorchestra:transmuted_voice",
+    "count": 1
+  }
+}

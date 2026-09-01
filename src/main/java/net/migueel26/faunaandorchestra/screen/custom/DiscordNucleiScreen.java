@@ -1,23 +1,19 @@
 package net.migueel26.faunaandorchestra.screen.custom;
 
-import net.migueel26.faunaandorchestra.block.custom.DiscordNucleiBlock;
 import net.migueel26.faunaandorchestra.block.entity.DiscordNucleiBlockEntity;
-import net.migueel26.faunaandorchestra.block.entity.MelomancyCauldronBlockEntity;
-import net.migueel26.faunaandorchestra.util.RecipesUtil;
+import net.migueel26.faunaandorchestra.recipe.DiscordRecipe;
+import net.migueel26.faunaandorchestra.recipe.ModRecipes;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
-
-import java.util.StringJoiner;
 
 public class DiscordNucleiScreen {
     public static final int DEFAULT_TEXT_WIDTH = 160;
@@ -36,7 +32,15 @@ public class DiscordNucleiScreen {
                 if (!stack.isEmpty()) {
                     int essence = discordNuclei.getEssence();
                     int normInstability = discordNuclei.getInstability();
-                    int normEssence = (essence*100) / RecipesUtil.getDiscordNucleiResult(stack).getA();
+
+                    int targetEssence = 1;
+                    var recipeOpt = level.getRecipeManager().getRecipeFor(ModRecipes.DISCORD_TYPE.get(), new DiscordRecipe.RecipeInput(stack), level);
+
+                    if (recipeOpt.isPresent()) {
+                        targetEssence = recipeOpt.get().value().essence();
+                    }
+
+                    int normEssence = Math.min(100, (essence * 100) / targetEssence);
 
                     String essenceString = Component.translatable("block.faunaandorchestra.discord_nuclei.essence").getString() + normEssence + "%";
                     String instabilityString = "\n" + Component.translatable("block.faunaandorchestra.discord_nuclei.instability").getString() + normInstability + "%";
