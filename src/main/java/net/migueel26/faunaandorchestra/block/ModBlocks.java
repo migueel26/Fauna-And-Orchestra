@@ -242,6 +242,11 @@ public class ModBlocks {
                     .mapColor(MapColor.PLANT)
                     .strength(2.0F)
                     .sound(SoundType.STONE)));
+    public static final DeferredBlock<TermiteMoundBlock> TERMITE_MOUND = registerBlock("termite_mound",
+            () -> new TermiteMoundBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.DIRT)
+                    .strength(2.0F)
+                    .sound(SoundType.MUD)));
 
     // MISC (CREATIVE-ONLY)
     public static final DeferredBlock<Block> TAVERN_SPAWNER = registerBlock("tavern_spawner",
