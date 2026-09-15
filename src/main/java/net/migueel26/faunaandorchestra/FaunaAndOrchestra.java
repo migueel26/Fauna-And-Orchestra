@@ -31,6 +31,7 @@ import net.migueel26.faunaandorchestra.recipe.ModRecipes;
 import net.migueel26.faunaandorchestra.screen.ModMenuTypes;
 import net.migueel26.faunaandorchestra.screen.custom.*;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
+import net.migueel26.faunaandorchestra.util.ModCompostingData;
 import net.migueel26.faunaandorchestra.util.ModItemProperties;
 import net.migueel26.faunaandorchestra.worldgen.structures.ModStructures;
 import net.minecraft.client.gui.screens.MenuScreens;
@@ -44,6 +45,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -106,6 +108,8 @@ public class FaunaAndOrchestra {
             // REGISTERS
             ModNetwork.register();
             ModAdvancements.register();
+            ModCompostingData.register();
+
             // PROJECTILES
             DispenserBlock.registerBehavior(ModItems.BOOGIE_BOMB.get(), new AbstractProjectileDispenseBehavior() {
                 @Override
