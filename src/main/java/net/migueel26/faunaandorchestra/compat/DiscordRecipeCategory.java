@@ -58,7 +58,7 @@ public class DiscordRecipeCategory implements IRecipeCategory<DiscordRecipe> {
         builder.setShapeless();
 
         // OUTPUT
-        builder.addOutputSlot(107, 31).addItemStack(recipe.output());
+        builder.addOutputSlot(107, 32).addItemStack(recipe.output());
 
         // INPUT
         builder.addInputSlot(45, 31).addIngredients(recipe.ingredient().ingredient());
