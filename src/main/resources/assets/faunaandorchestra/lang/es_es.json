@@ -279,6 +279,7 @@
   "item.faunaandorchestra.jazzy_dammys_spawn_egg": "Generar a Los Jazzy Dammys",
   "item.faunaandorchestra.wise_tree_spawn_egg": "Generar al Árbol Sabio",
   "item.faunaandorchestra.the_great_composer_spawn_egg": "Generar al Gran Compositor",
+  "item.faunaandorchestra.termite_queen_spawn_egg": "Generar a la Termita reina",
   "item.faunaandorchestra.sproutling_spawn_egg": "Generar Brotecito Cantarín",
   "item.faunaandorchestra.living_music_spawn_egg": "Generar Música Viva",
   "item.faunaandorchestra.butterfly_spawn_egg": "Mariposa",
@@ -358,6 +359,7 @@
   "entity.faunaandorchestra.delroy": "Delroy",
   "entity.faunaandorchestra.denzel": "Denzel",
   "entity.faunaandorchestra.denise": "Denise",
+  "entity.faunaandorchestra.termite_queen": "Termita reina",
   "entity.faunaandorchestra.floating_blossom": "Florecer flotante",
   "entity.faunaandorchestra.music_note_projectile": "Proyectil de Nota Musical",
   "entity.faunaandorchestra.phantom_note_projectile": "Proyectil Fantasma de Nota Musical",
@@ -664,6 +666,9 @@
   "dialogue.faunaandorchestra.delroy0": "...",
   "dialogue.faunaandorchestra.denise0": "...",
   "dialogue.faunaandorchestra.denzel0": "...",
+
+  "dialogue.faunaandorchestra.termite_queen0": "Os saludo, ¿habéis visto a mis hijos? No hallo donde pueden estar.",
+  "dialogue.faunaandorchestra.termite_queen1": "Deleítanse con el sonar de mi armónica, mas la hube perdido tiempo ha.",
 
   "item.faunaandorchestra.unlocker": "Sabiduría de Symphonia — Creativo",
   "item.faunaandorchestra.unlocker.desc": "Si haces §eright-click§r con este libro desbloquearás casi todas las páginas de Symphonia",

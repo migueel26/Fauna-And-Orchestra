@@ -66,6 +66,7 @@ public class ModEventBusEvents {
         event.put(ModEntities.DELROY.get(), Delroy.createMusicianAttributes().build());
         event.put(ModEntities.DENISE.get(), Denise.createMusicianAttributes().build());
         event.put(ModEntities.DENZEL.get(), Denzel.createMusicianAttributes().build());
+        event.put(ModEntities.TERMITE_QUEEN.get(), TermiteQueen.createTermiteQueenAttributes().build());
 
         event.put(ModEntities.SINGING_SPROUTLING.get(), SproutlingEntity.createAttributes().build());
         event.put(ModEntities.LIVING_MUSIC.get(), LivingMusicEntity.createAttributes().build());

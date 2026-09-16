@@ -99,7 +99,7 @@ public class DialogueScreen {
 
                 guiGraphics.blit(icon, location.getA() + xOffset(guiGraphics), currIconY - currOffset + yOffset(guiGraphics), 0, 0, size.getA(), size.getB(), size.getA(), size.getB());
 
-                guiGraphics.drawWordWrap(minecraft.font, FormattedText.of(currentText), 157 + xOffset(guiGraphics) + entity.getTextBoxOffset(), currTextY - currOffset + yOffset(guiGraphics), DEFAULT_TEXT_WIDTH - entity.getTextBoxOffset(), 0xffffff);
+                guiGraphics.drawWordWrap(minecraft.font, FormattedText.of(currentText), 157 + xOffset(guiGraphics) + entity.getTextBoxOffset(), currTextY - currOffset + yOffset(guiGraphics, entity), DEFAULT_TEXT_WIDTH - entity.getTextBoxOffset(), 0xffffff);
             }
         }
 
@@ -190,6 +190,10 @@ public class DialogueScreen {
 
     private static int yOffset(GuiGraphics guiGraphics) {
         return (int) Math.round(My * (double) guiGraphics.guiHeight() + Ny);
+    }
+
+    private static int yOffset(GuiGraphics guiGraphics, TalkableEntity entity) {
+        return (int) Math.round(My * (double) guiGraphics.guiHeight() + Ny) - (entity.hasThreeLines() ? 5 : 0);
     }
 
     private static String typewritify(String fullText, int dialogueTimer, GuiGraphics guiGraphics, int currentTextY, int currentOffset) {

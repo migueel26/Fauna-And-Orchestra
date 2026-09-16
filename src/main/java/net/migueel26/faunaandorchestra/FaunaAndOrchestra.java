@@ -143,6 +143,7 @@ public class FaunaAndOrchestra {
             EntityRenderers.register(ModEntities.DELROY.get(), DelroyRenderer::new);
             EntityRenderers.register(ModEntities.DENISE.get(), DeniseRenderer::new);
             EntityRenderers.register(ModEntities.DENZEL.get(), DenzelRenderer::new);
+            EntityRenderers.register(ModEntities.TERMITE_QUEEN.get(),  TermiteQueenRenderer::new);
 
             EntityRenderers.register(ModEntities.SINGING_SPROUTLING.get(), SproutlingRenderer::new);
             EntityRenderers.register(ModEntities.LIVING_MUSIC.get(), LivingMusicRenderer::new);

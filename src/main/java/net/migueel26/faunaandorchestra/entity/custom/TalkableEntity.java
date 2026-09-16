@@ -17,4 +17,7 @@ public interface TalkableEntity {
         return 0;
     }
     boolean getGoodMorning();
+    default boolean hasThreeLines() {
+        return false;
+    };
 }
