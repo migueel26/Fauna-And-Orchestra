@@ -1032,6 +1032,7 @@
   "jei.faunaandorchestra.requires_music_bottle": "This cauldron requires to be filled with §d3x Liquid Music§r",
   "jei.faunaandorchestra.requires_catalyst": "To retrieve the result you need to §eright-click §rthe cauldron with ",
   "jei.faunaandorchestra.no_requires_catalyst": "§eRight-click§r with your bare hand to retrieve the result",
+  "jei.faunaandorchestra.discord": "Discord Nuclei",
 
   "jei.faunaandorchestra.melomancy.info": "After filling the Melomancy Cauldron with §53x Liquid Music§r, you need to place the following ingredients:",
   "jei.faunaandorchestra.symphonia": "Read the §4Symphonia§r guide for more information.",

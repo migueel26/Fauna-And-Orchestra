@@ -5,6 +5,8 @@ import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.block.entity.DiscordNucleiBlockEntity;
 import net.migueel26.faunaandorchestra.block.entity.FlowerGrowerDiscordBlockEntity;
 import net.migueel26.faunaandorchestra.item.ModItems;
+import net.migueel26.faunaandorchestra.recipe.DiscordRecipe;
+import net.migueel26.faunaandorchestra.recipe.ModRecipes;
 import net.migueel26.faunaandorchestra.util.RecipesUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -36,6 +38,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 import oshi.util.tuples.Pair;
 
+import java.util.Optional;
+
 public class DiscordNucleiBlock extends Block implements EntityBlock {
     protected static final VoxelShape SHAPE = Block.box(1.0, 0, 1.0, 15.0, 2.0, 15.0);
     public DiscordNucleiBlock(Properties properties) {
@@ -53,15 +57,21 @@ public class DiscordNucleiBlock extends Block implements EntityBlock {
 
             if (!stackInSlot.isEmpty()) {
                 if (stack.is(ModItems.DISCORD_ESSENCE.get())) {
-                    level.playSound(player, pos, SoundEvents.WARDEN_LISTENING, SoundSource.BLOCKS);
-                    if (!level.isClientSide()) {
-                        ((ServerLevel) level).sendParticles(ParticleTypes.SCULK_SOUL, pos.getCenter().x, pos.getY()+0.75f, pos.getCenter().z, 20, 0.2, 0.2, 0.2, 0.01);
+                    // We search for the recipe of the item in the Discord Nuclei
+                    Optional<DiscordRecipe> recipeOpt = level.getRecipeManager()
+                            .getRecipeFor(ModRecipes.DISCORD_TYPE.get(), new DiscordRecipe.RecipeInput(stackInSlot), level);
+
+                    if (recipeOpt.isPresent()) {
+                        level.playSound(player, pos, SoundEvents.WARDEN_LISTENING, SoundSource.BLOCKS);
+                        if (!level.isClientSide()) {
+                            ((ServerLevel) level).sendParticles(ParticleTypes.SCULK_SOUL, pos.getCenter().x, pos.getY()+0.75f, pos.getCenter().z, 20, 0.2, 0.2, 0.2, 0.01);
+                        }
+                        stack.shrink(1);
+
+                        applyEffect(recipeOpt.get(), level, pos, discordNucleiBE, essence, instability);
+
+                        return InteractionResult.SUCCESS;
                     }
-                    stack.shrink(1);
-
-                    applyEffect(stackInSlot, level, pos, discordNucleiBE, essence ,instability);
-
-                    return InteractionResult.SUCCESS;
 
                 } else if (stack.is(ModItems.WANDERING_NOTE.get())) {
                     int reduction = getInstabilityReduction(instability);
@@ -74,14 +84,20 @@ public class DiscordNucleiBlock extends Block implements EntityBlock {
                     stack.shrink(1);
                     return InteractionResult.SUCCESS;
                 }
-            } else if (RecipesUtil.isDiscordNucleiIngredient(stack)) {
-                discordNucleiBE.inventory.setStackInSlot(0, new ItemStack(stack.getItem(), 1));
-                level.playSound(player, pos, SoundEvents.WARDEN_TENDRIL_CLICKS, SoundSource.BLOCKS, 1.5f, 0.5f);
-                if (!level.isClientSide()) {
-                    ((ServerLevel) level).sendParticles(ParticleTypes.SOUL_FIRE_FLAME, pos.getCenter().x, pos.getY()+0.75f, pos.getCenter().z, 15, 0.1, 0.1, 0.1, 0.15);
+            } else {
+                // If the Discord Nuclei Block is empty, we check if the handheld item is valid
+                Optional<DiscordRecipe> recipeOpt = level.getRecipeManager()
+                        .getRecipeFor(ModRecipes.DISCORD_TYPE.get(), new DiscordRecipe.RecipeInput(stack), level);
+
+                if (recipeOpt.isPresent()) {
+                    discordNucleiBE.inventory.setStackInSlot(0, stack.copyWithCount(1));
+                    level.playSound(player, pos, SoundEvents.WARDEN_TENDRIL_CLICKS, SoundSource.BLOCKS, 1.5f, 0.5f);
+                    if (!level.isClientSide()) {
+                        ((ServerLevel) level).sendParticles(ParticleTypes.SOUL_FIRE_FLAME, pos.getCenter().x, pos.getY()+0.75f, pos.getCenter().z, 15, 0.1, 0.1, 0.1, 0.15);
+                    }
+                    stack.shrink(1);
+                    return InteractionResult.SUCCESS;
                 }
-                stack.shrink(1);
-                return InteractionResult.SUCCESS;
             }
         }
         return InteractionResult.PASS;
@@ -91,18 +107,18 @@ public class DiscordNucleiBlock extends Block implements EntityBlock {
         return (instability*3)/4;
     }
 
-    private void applyEffect(ItemStack stack, Level level, BlockPos pos, DiscordNucleiBlockEntity blockEntity, int essence, int instability) {
-        Pair<Integer, Float> indexes = RecipesUtil.getDiscordNucleiIndexes(stack);
-        int nextInstability = (int) (instability + indexes.getA() + indexes.getB()*level.random.nextFloat()* indexes.getB());
+    private void applyEffect(DiscordRecipe recipe, Level level, BlockPos pos, DiscordNucleiBlockEntity blockEntity, int essence, int instability) {
+        int nextInstability = (int) (instability + recipe.baseInstability() + recipe.extraProportion() * level.random.nextFloat() * recipe.extraProportion());
 
         if (nextInstability >= 100) {
             instabilityExplosion(level, pos);
-        } else if (essence + 1 >= RecipesUtil.getDiscordNucleiResult(stack).getA()) {
+        } else if (essence + 1 >= recipe.essence()) {
             if (!level.isClientSide()) {
                 ((ServerLevel) level).sendParticles(ParticleTypes.SOUL_FIRE_FLAME, pos.getCenter().x, pos.getY()+0.75f, pos.getCenter().z, 100, 0.5, 0.5, 0.5, 0.3);
             }
             level.playSound(null, pos, SoundEvents.SCULK_SHRIEKER_SHRIEK, SoundSource.BLOCKS, 1.0f, 1.0f);
-            popResourceFromFace(level, pos, Direction.UP, new ItemStack(RecipesUtil.getDiscordNucleiResult(stack).getB()));
+
+            popResourceFromFace(level, pos, Direction.UP, recipe.output().copy());
 
             blockEntity.clearContents();
             blockEntity.setEssence(0);

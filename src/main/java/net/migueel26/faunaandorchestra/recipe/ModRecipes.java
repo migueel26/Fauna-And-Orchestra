@@ -23,6 +23,8 @@ public class ModRecipes {
             SERIALIZERS.register("melomancy", MelomancyRecipe.Serializer::new);
     public static final Supplier<RecipeSerializer<SewingRecipe>> SEWING_SERIALIZER =
             SERIALIZERS.register("sewing", SewingRecipe.Serializer::new);
+    public static final Supplier<RecipeSerializer<DiscordRecipe>> DISCORD_SERIALIZER =
+            SERIALIZERS.register("discord", DiscordRecipe.Serializer::new);
 
     // RECIPE TYPES
     public static final Supplier<RecipeType<NaturalRecipe>> NATURAL_TYPE =
@@ -44,6 +46,13 @@ public class ModRecipes {
                 @Override
                 public String toString() {
                     return "sewing";
+                }
+            });
+    public static final Supplier<RecipeType<DiscordRecipe>> DISCORD_TYPE =
+            RECIPE_TYPES.register("discord", () -> new RecipeType<DiscordRecipe>() {
+                @Override
+                public String toString() {
+                    return "discord";
                 }
             });
 
