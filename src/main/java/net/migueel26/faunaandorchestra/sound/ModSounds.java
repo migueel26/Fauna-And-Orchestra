@@ -84,6 +84,7 @@ public class ModSounds {
 
     public static final Supplier<SoundEvent> FROG_SONG = registerSoundEvent("frog_song");
     public static final Supplier<SoundEvent> SPROUTLING_SONG = registerSoundEvent("sproutling_song");
+    public static final Supplier<SoundEvent> HARMONICA_SONG = registerSoundEvent("harmonica_song");
     public static final Supplier<SoundEvent> RINGTAILS_SONG = registerSoundEvent("hona_bildots_eztia");
     public static final Supplier<SoundEvent> JAZZY_DAMMYS_SONG = registerSoundEvent("soleram");
     public static final Supplier<SoundEvent> THE_GREAT_COMPOSER_THEME = registerSoundEvent("the_great_composer_theme");
@@ -99,6 +100,7 @@ public class ModSounds {
     public static final Supplier<SoundEvent> SEA_LION_AMBIENT = registerSoundEvent("sea_lion_ambient");
     public static final Supplier<SoundEvent> KOALA_SERVE = registerSoundEvent("koala_serve");
     public static final Supplier<SoundEvent> BEAVER_TEETH = registerSoundEvent("beaver_teeth");
+    public static final Supplier<SoundEvent> TERMITE_CRY = registerSoundEvent("termite_cry");
     public static final Supplier<SoundEvent> WISE_TREE_AMBIENT = registerSoundEvent("wise_tree_ambient");
     public static final Supplier<SoundEvent> WISE_TREE_DROP = registerSoundEvent("wise_tree_drop");
 

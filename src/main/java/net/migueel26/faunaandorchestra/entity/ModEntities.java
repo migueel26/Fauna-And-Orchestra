@@ -66,6 +66,8 @@ public class ModEntities {
             () -> EntityType.Builder.of(Denzel::new, MobCategory.CREATURE).sized(0.75f, 1.2f).build("denzel"));
     public static final Supplier<EntityType<TermiteQueen>> TERMITE_QUEEN = ENTITY_TYPES.register("termite_queen",
             () -> EntityType.Builder.of(TermiteQueen::new, MobCategory.CREATURE).sized(0.75f, 0.75f).build("termite_queen"));
+    public static final Supplier<EntityType<TermiteBaby>> TERMITE_BABY = ENTITY_TYPES.register("termite_baby",
+            () -> EntityType.Builder.of(TermiteBaby::new, MobCategory.CREATURE).sized(0.5f, 0.35f).build("termite_baby"));
 
     public static final Supplier<EntityType<WanderingKoalaEntity>> WANDERING_KOALA = ENTITY_TYPES.register("wandering_koala",
             () -> EntityType.Builder.of(WanderingKoalaEntity::new, MobCategory.CREATURE).sized(0.6f, 1.25f).build("wandering_koala"));

@@ -1,6 +1,7 @@
 package net.migueel26.faunaandorchestra.event;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
+import net.migueel26.faunaandorchestra.client.entity.TermiteBabyRenderer;
 import net.migueel26.faunaandorchestra.effect.ModEffects;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.entity.custom.*;
@@ -67,6 +68,7 @@ public class ModEventBusEvents {
         event.put(ModEntities.DENISE.get(), Denise.createMusicianAttributes().build());
         event.put(ModEntities.DENZEL.get(), Denzel.createMusicianAttributes().build());
         event.put(ModEntities.TERMITE_QUEEN.get(), TermiteQueen.createTermiteQueenAttributes().build());
+        event.put(ModEntities.TERMITE_BABY.get(), TermiteBaby.createTermiteBabyAttributes().build());
 
         event.put(ModEntities.SINGING_SPROUTLING.get(), SproutlingEntity.createAttributes().build());
         event.put(ModEntities.LIVING_MUSIC.get(), LivingMusicEntity.createAttributes().build());
@@ -180,6 +182,11 @@ public class ModEventBusEvents {
                 SyncOwnableBEPayloadS2C.TYPE,
                 SyncOwnableBEPayloadS2C.STREAM_CODEC,
                 (payload, context) -> ClientPayloadHandler.handleSyncOwnableBEOnNetwork(payload, context)
+        );
+        registrar.playToClient(
+                StartPlayerInstrumentMusicS2CPayload.TYPE,
+                StartPlayerInstrumentMusicS2CPayload.STREAM_CODEC,
+                (payload, context) -> ClientPayloadHandler.handleStartPlayerInstrumentMusicS2COnNetwork(payload, context)
         );
     }
 

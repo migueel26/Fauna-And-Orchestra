@@ -75,6 +75,8 @@ public class ModItems {
                     .component(ModDataComponents.LIST_INDEX, 0)
                     .component(ModDataComponents.PAN_FLUTE_LIST, new ArrayList<>(List.of(1,2,3,4,5)))
                     .rarity(Rarity.EPIC)));
+    public static final DeferredItem<Item> HARMONICA = ITEMS.register("harmonica",
+            () -> new HarmonicaItem(new Item.Properties().stacksTo(1)));
     public static final DeferredItem<Item> BATON = ITEMS.register("baton",
             () -> new BatonItem(new Item.Properties().stacksTo(1)));
     public static final DeferredItem<Item> LEGENDARY_BATON = ITEMS.register("legendary_baton",
@@ -229,6 +231,8 @@ public class ModItems {
     public static final DeferredItem<Item> UNLIT_MASK = createRegularDescriptionItem("unlit_mask", new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON));
     public static final DeferredItem<Item> REALLY_GOOD_STICK = createRegularDescriptionItem("really_good_stick");
     public static final DeferredItem<Item> MUSIC_JAM = createRegularDescriptionItem("music_jam", new Item.Properties().food(Foods.MUSHROOM_STEW));
+    public static final DeferredItem<Item> TERMITE = ITEMS.register("termite_item",
+            () -> new BasicGeoItem("idle", new Item.Properties()));
 
     // ARMOR
     public static final DeferredItem<Item> FLUFFY_BOOTS = ITEMS.register("fluffy_boots",

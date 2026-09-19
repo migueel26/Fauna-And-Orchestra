@@ -22,6 +22,8 @@
   "item.faunaandorchestra.pan_flute.wind": "Sound of Zephyr",
   "item.faunaandorchestra.pan_flute.nature": "Sound of the Species",
 
+  "item.faunaandorchestra.harmonica": "Harmonica",
+
   "item.faunaandorchestra.briefcase": "Briefcase",
   "item.faunaandorchestra.butterfly_net": "Butterfly Net",
   "item.faunaandorchestra.sound_sensor": "Sound Sensor",
@@ -94,6 +96,7 @@
   "item.faunaandorchestra.sewing_recipe": " Recipe",
   "item.faunaandorchestra.really_good_stick": "A Really Good Stick",
   "item.faunaandorchestra.music_jam": "Music Jam",
+  "item.faunaandorchestra.termite_item": "Termite",
 
   "item.faunaandorchestra.prop_case": "Prop Case",
   "item.faunaandorchestra_clothing.desc": "Clothing Item",
@@ -327,6 +330,8 @@
   "text.faunaandorchestra.myth_locked": "This myth is locked! Try to find the right musical animal to tell it to you",
   "text.faunaandorchestra.new_recipe": "The Koala has learned a new recipe!",
   "text.faunaandorchestra.second_life": "This musician now has a second life!",
+  "text.faunaandorchestra.talk_to_queen": "Talk to the Termite Queen to tell her the good news!",
+  "text.faunaandorchestra.termite_baby_lost": "This Termite Baby is lost... Try to find its mother!",
 
   "entity.faunaandorchestra.mantis": "Mantis",
   "entity.faunaandorchestra.penguin": "Baby Penguin",
@@ -668,7 +673,8 @@
   "dialogue.faunaandorchestra.denzel0": "...",
 
   "dialogue.faunaandorchestra.termite_queen0": "Greetings, hast thou seen my children? I cannot seem to find them.",
-  "dialogue.faunaandorchestra.termite_queen1": "They delight in the sound of my harmonica, yet I lost it some time ago.",
+  "dialogue.faunaandorchestra.termite_queen1": "They delight in the sound of my §lharmonica§r, yet I lost it some time ago.",
+  "dialogue.faunaandorchestra.termite_queen2": "I render thee most hearty thanks. Take this wood-worm to ease thy days.",
 
   "item.faunaandorchestra.unlocker": "Symphonia Wisdom — Creative",
   "item.faunaandorchestra.unlocker.desc": "If you §eright-click§r this book you'll unlock most of the Symphonia entries",

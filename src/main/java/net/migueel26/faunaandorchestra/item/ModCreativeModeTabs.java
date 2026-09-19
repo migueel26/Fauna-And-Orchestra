@@ -31,6 +31,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.DRUM);
                         output.accept(ModItems.PAN_FLUTE);
                         output.accept(ModItems.PAN_FLUTE_CREATIVE);
+                        output.accept(ModItems.HARMONICA);
                         output.accept(ModItems.BATON);
                         output.accept(ModItems.LEGENDARY_BATON);
                         output.accept(ModItems.BRIEFCASE);
@@ -65,6 +66,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.WORM);
                         output.accept(ModItems.INSECT);
                         output.accept(ModBlocks.TERMITE_MOUND);
+                        output.accept(ModItems.TERMITE);
                         output.accept(ModItems.COTTON_PLANT_SEEDS);
                         output.accept(ModItems.COTTON);
                         output.accept(ModItems.ARCTIC_FUMES);

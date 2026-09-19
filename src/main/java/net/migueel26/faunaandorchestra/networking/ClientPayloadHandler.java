@@ -8,10 +8,7 @@ import net.migueel26.faunaandorchestra.entity.custom.jazzy_dammys.DanB;
 import net.migueel26.faunaandorchestra.mixins.client.accessors.ClientLevelAccessor;
 import net.migueel26.faunaandorchestra.mixins.interfaces.ISoundManagerMixin;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
-import net.migueel26.faunaandorchestra.sound.custom.BossSoundInstance;
-import net.migueel26.faunaandorchestra.sound.custom.FrogSongSoundInstance;
-import net.migueel26.faunaandorchestra.sound.custom.InstrumentSoundInstance;
-import net.migueel26.faunaandorchestra.sound.custom.TravellingMusicianSoundInstance;
+import net.migueel26.faunaandorchestra.sound.custom.*;
 import net.migueel26.faunaandorchestra.util.MusicUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -24,6 +21,7 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
@@ -39,7 +37,7 @@ public class ClientPayloadHandler {
         iPayloadContext.enqueueWork(() -> {
             ClientLevelAccessor level = (ClientLevelAccessor) Minecraft.getInstance().level;
             UUID uuid = payload.entityID();
-            SoundEvent soundEvent = BuiltInRegistries.SOUND_EVENT.get(payload.soundPath());;
+            SoundEvent soundEvent = BuiltInRegistries.SOUND_EVENT.get(payload.soundPath());
             int ticksOffset = payload.tickOffset();
 
             if (level != null) {
@@ -179,6 +177,21 @@ public class ClientPayloadHandler {
             Entity entity = ((ClientLevelAccessor) level).callGetEntities().get(uuid);
             if (entity != null && level.getBlockEntity(blockPos) instanceof OwnableBlockEntity be) {
                 be.setOwner(uuid);
+            }
+        }
+    }
+
+    public static void handleStartPlayerInstrumentMusicS2COnNetwork(StartPlayerInstrumentMusicS2CPayload payload, IPayloadContext context) {
+        UUID uuid = payload.playerID();
+        SoundEvent soundEvent = BuiltInRegistries.SOUND_EVENT.get(payload.soundPath());
+        ClientLevel level = Minecraft.getInstance().level;
+
+        if (level != null) {
+            Player player = level.getPlayerByUUID(uuid);
+            if (player != null) {
+                Minecraft.getInstance().getSoundManager().play(new PlayerInstrumentSoundInstance(player, soundEvent, 1.0f));
+            } else {
+                System.err.println("The UUID in the StartPlayerInstrumentMusicPayload is for a player that does not exist");
             }
         }
     }

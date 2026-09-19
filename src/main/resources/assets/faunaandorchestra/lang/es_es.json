@@ -22,6 +22,8 @@
   "item.faunaandorchestra.pan_flute.wind": "Sonido del Céfiro",
   "item.faunaandorchestra.pan_flute.nature": "Sonido de las Especies",
 
+  "item.faunaandorchestra.harmonica": "Armónica",
+
   "item.faunaandorchestra.briefcase": "Maletín",
   "item.faunaandorchestra.butterfly_net": "Cazamariposas",
   "item.faunaandorchestra.sound_sensor": "Sensor de sonidos",
@@ -94,6 +96,7 @@
   "item.faunaandorchestra.sewing_recipe": ", la Receta",
   "item.faunaandorchestra.really_good_stick": "Un muy buen palo",
   "item.faunaandorchestra.music_jam": "Mermelada musical",
+  "item.faunaandorchestra.termite_item": "Termita",
 
   "item.faunaandorchestra.prop_case": "Neceser",
   "item.faunaandorchestra_clothing.desc": "Ropa para Animales",
@@ -327,6 +330,8 @@
   "text.faunaandorchestra.myth_locked": "¡Este mito está bloqueado! Intenta encontrar a algún animal que te lo cuente...",
   "text.faunaandorchestra.new_recipe": "¡El koala ha aprendido una nueva receta!",
   "text.faunaandorchestra.second_life": "¡Este animal tiene una vida extra si algo le ocurriese!",
+  "text.faunaandorchestra.talk_to_queen": "¡Habla con la Termita reina para contarle las buenas noticias!",
+  "text.faunaandorchestra.termite_baby_lost": "Esta termita bebé se ha perdido. ¡Llévala a su madre!",
 
   "entity.faunaandorchestra.mantis": "Mantis",
   "entity.faunaandorchestra.penguin": "Bebé Pingüino",
@@ -669,6 +674,7 @@
 
   "dialogue.faunaandorchestra.termite_queen0": "Os saludo, ¿habéis visto a mis hijos? No hallo donde pueden estar.",
   "dialogue.faunaandorchestra.termite_queen1": "Deleítanse con el sonar de mi armónica, mas la hube perdido tiempo ha.",
+  "dialogue.faunaandorchestra.termite_queen2": "Doyos las más cumplidas gracias. Tomad este comején, que vos aliviará la vida.",
 
   "item.faunaandorchestra.unlocker": "Sabiduría de Symphonia — Creativo",
   "item.faunaandorchestra.unlocker.desc": "Si haces §eright-click§r con este libro desbloquearás casi todas las páginas de Symphonia",

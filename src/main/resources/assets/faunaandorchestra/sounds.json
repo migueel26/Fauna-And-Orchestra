@@ -389,6 +389,13 @@
       "faunaandorchestra:sfx/sea_lion2"
     ]
   },
+  "termite_cry": {
+    "subtitles": "sounds.faunaandorchestra.termite_cry",
+    "sounds": [
+      "faunaandorchestra:sfx/termite_cry0",
+      "faunaandorchestra:sfx/termite_cry1"
+    ]
+  },
   "koala_serve": {
     "subtitles": "sounds.faunaandorchestra.koala_serve",
     "sounds": [
@@ -510,6 +517,12 @@
     "subtitles": "sounds.faunaandorchestra.sproutling_song",
     "sounds": [
       "faunaandorchestra:sfx/sproutling_song"
+    ]
+  },
+  "harmonica_song": {
+    "subtitles": "sounds.faunaandorchestra.harmonica_song",
+    "sounds": [
+      "faunaandorchestra:music/harmonica_song"
     ]
   },
   "cauldron_bubbling": {
