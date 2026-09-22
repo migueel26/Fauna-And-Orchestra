@@ -37,6 +37,11 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import software.bernie.geckolib.animatable.GeoAnimatable;
+import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.animation.AnimationController;
+import software.bernie.geckolib.animation.PlayState;
+import software.bernie.geckolib.animation.RawAnimation;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -361,6 +366,18 @@ public class ModItems {
             () -> new GeoBlockItem(ModBlocks.SEWING_MACHINE.get(), new Item.Properties()));
     public static final DeferredItem<Item> MAILBOX_ITEM = ITEMS.register("mailbox_item",
             () -> new GeoBlockItem(ModBlocks.MAILBOX.get(), true, new Item.Properties()));
+    public static final DeferredItem<Item> TERMITE_CHEST_ITEM = ITEMS.register("termite_chest_item",
+            () -> new GeoBlockItem(ModBlocks.TERMITE_CHEST.get(), new Item.Properties()) {
+                @Override
+                public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+                    controllers.add(
+                            new AnimationController<GeoAnimatable>(this, "termite_chest_item_controller", 0, event -> {
+                                event.getController().setAnimation(RawAnimation.begin().thenPlay("idle"));
+                                return PlayState.CONTINUE;
+                            }
+                    ));
+                }
+            });
 
     // MISC
     public static final DeferredItem<Item> VOICE = ITEMS.register("voice",

@@ -4,6 +4,8 @@ import net.migueel26.faunaandorchestra.block.ModBlockEntities;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.block.entity.ListenerContainerBlockEntity;
 import net.migueel26.faunaandorchestra.item.ModItems;
+import net.migueel26.faunaandorchestra.sound.ModSounds;
+import net.migueel26.faunaandorchestra.util.BlocksUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
@@ -129,11 +131,26 @@ public class ListenerContainerBlock extends Block implements EntityBlock, Listen
             boolean hasBottle = state.getValue(BOTTLE);
             int currentDrops = containerBE.getDroplets();
 
+            //////
+        // miguelito acuerdate de cambiar playerWillDestroy en el termite mound a onRemove
+            if (item.is(ModItems.EVERJELLY)) {
+                containerBE.setDroplets(ListenerContainerBlockEntity.MAX_DROPLETS);
+                ListenerContainerBlockEntity.notifyNearestTermiteChest(level, pos, containerBE);
+                return ItemInteractionResult.SUCCESS;
+            }
+            //////
+
             if (item.is(Items.GLASS_BOTTLE)) {
                 if (hasBottle && currentDrops == 64) {
                     item.consume(1, player);
                     player.addItem(new ItemStack(ModItems.MUSIC_BOTTLE.get(), 1));
-                    containerBE.setDroplets(0);
+                    containerBE.resetDroplets();
+
+                    level.playSound(null, pos, ModSounds.CAULDRON_ITEM.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
+                    if (!level.isClientSide()) {
+                        BlocksUtil.magicSoundParticles((ServerLevel) level, pos, 0.1f);
+                    }
+
                     return ItemInteractionResult.SUCCESS;
                 } else if (!hasBottle) {
                     item.consume(1, player);
@@ -143,8 +160,14 @@ public class ListenerContainerBlock extends Block implements EntityBlock, Listen
             } else if (item.isEmpty() || item.is(ModItems.MUSIC_BOTTLE.get())) {
                 if (hasBottle && currentDrops == 64) {
                     player.addItem(new ItemStack(ModItems.MUSIC_BOTTLE.get(), 1));
-                    containerBE.setDroplets(0);
+                    containerBE.resetDroplets();
                     level.setBlock(pos, state.setValue(BOTTLE, false), 3);
+
+                    level.playSound(null, pos, ModSounds.CAULDRON_ITEM.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
+                    if (!level.isClientSide()) {
+                        BlocksUtil.magicSoundParticles((ServerLevel) level, pos, 0.1f);
+                    }
+
                     return ItemInteractionResult.SUCCESS;
                 }
             }

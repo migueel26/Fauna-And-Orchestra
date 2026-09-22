@@ -97,6 +97,7 @@
   "item.faunaandorchestra.really_good_stick": "Un muy buen palo",
   "item.faunaandorchestra.music_jam": "Mermelada musical",
   "item.faunaandorchestra.termite_item": "Termita",
+  "item.faunaandorchestra.termite_chest_item": "Cofre termitero",
 
   "item.faunaandorchestra.prop_case": "Neceser",
   "item.faunaandorchestra_clothing.desc": "Ropa para Animales",
@@ -228,6 +229,7 @@
   "block.faunaandorchestra.cotton_plant": "Planta de algodón",
   "block.faunaandorchestra.flora_enhancer": "Potenciador floral",
   "block.faunaandorchestra.termite_mound": "Termitero",
+  "block.faunaandorchestra.termite_chest": "Cofre termitero",
 
   "block.faunaandorchestra.tavern_spawner": "Tavern Spawner",
 

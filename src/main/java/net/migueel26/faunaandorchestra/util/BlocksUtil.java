@@ -1,10 +1,12 @@
 package net.migueel26.faunaandorchestra.util;
 
+import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.Containers;
 import net.minecraft.world.item.Item;
@@ -36,5 +38,9 @@ public class BlocksUtil {
         ).map(holder ->
                 new ItemStack(holder.value())
         ).orElse(ItemStack.EMPTY);
+    }
+
+    public static void magicSoundParticles(ServerLevel level, BlockPos pos, float yOffset) {
+        level.sendParticles(ModParticleTypes.MAGICAL_NOTE.get(), pos.getCenter().x, pos.getY() + yOffset, pos.getCenter().z, 5, 0.4, 0.1, 0.4, 0);
     }
 }

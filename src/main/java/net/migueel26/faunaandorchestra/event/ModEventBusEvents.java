@@ -73,6 +73,8 @@ public class ModEventBusEvents {
         event.put(ModEntities.SINGING_SPROUTLING.get(), SproutlingEntity.createAttributes().build());
         event.put(ModEntities.LIVING_MUSIC.get(), LivingMusicEntity.createAttributes().build());
         event.put(ModEntities.BUTTERFLY.get(), ButterflyEntity.createAttributes().build());
+        event.put(ModEntities.TERMITE.get(), TermiteEntity.createAttributes().build());
+
         event.put(ModEntities.WANDERING_NOTE.get(), ButterflyEntity.createAttributes().build());
         event.put(ModEntities.THE_GREAT_COMPOSER.get(), TheGreatComposer.createAttributes().build());
         event.put(ModEntities.THE_GREAT_COMPOSER_CANON.get(), ComposerCanonEntity.createAttributes().build());

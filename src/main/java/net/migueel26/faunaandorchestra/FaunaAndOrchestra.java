@@ -149,6 +149,8 @@ public class FaunaAndOrchestra {
             EntityRenderers.register(ModEntities.SINGING_SPROUTLING.get(), SproutlingRenderer::new);
             EntityRenderers.register(ModEntities.LIVING_MUSIC.get(), LivingMusicRenderer::new);
             EntityRenderers.register(ModEntities.BUTTERFLY.get(), ButterflyRenderer::new);
+            EntityRenderers.register(ModEntities.TERMITE.get(), TermiteRenderer::new);
+
             EntityRenderers.register(ModEntities.WANDERING_NOTE.get(), WanderingNoteRenderer::new);
             EntityRenderers.register(ModEntities.THE_GREAT_COMPOSER.get(), TheGreatComposerRenderer::new);
             EntityRenderers.register(ModEntities.MUSIC_NOTE_PROJECTILE.get(), MusicNoteProjectileRenderer::new);
@@ -178,6 +180,7 @@ public class FaunaAndOrchestra {
             ModItemRenderers.register(ModItems.BEAVER_STATUE_ITEM.get(), BeaverStatueItemRenderer::new);
             ModItemRenderers.register(ModItems.SEWING_MACHINE_ITEM.get(), SewingMachineItemRenderer::new);
             ModItemRenderers.register(ModItems.MAILBOX_ITEM.get(), MailboxItemRenderer::new);
+            ModItemRenderers.register(ModItems.TERMITE_CHEST_ITEM.get(), TermiteChestItemRenderer::new);
         }
 
         @SubscribeEvent
@@ -199,6 +202,7 @@ public class FaunaAndOrchestra {
             event.registerBlockEntityRenderer(ModBlockEntities.SEWING_MACHINE_BE.get(), SewingMachineBlockEntityRenderer::new);
             event.registerBlockEntityRenderer(ModBlockEntities.MAILBOX_BE.get(), MailboxBlockEntityRenderer::new);
             event.registerBlockEntityRenderer(ModBlockEntities.FLORA_ENHANCER.get(), FloraEnhancerBlockEntityRenderer::new);
+            event.registerBlockEntityRenderer(ModBlockEntities.TERMITE_CHEST_BE.get(), TermiteChestBlockEntityRenderer::new);
         }
 
         @SubscribeEvent

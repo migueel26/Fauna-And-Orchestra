@@ -97,6 +97,7 @@
   "item.faunaandorchestra.really_good_stick": "A Really Good Stick",
   "item.faunaandorchestra.music_jam": "Music Jam",
   "item.faunaandorchestra.termite_item": "Termite",
+  "item.faunaandorchestra.termite_chest_item": "Termite Chest",
 
   "item.faunaandorchestra.prop_case": "Prop Case",
   "item.faunaandorchestra_clothing.desc": "Clothing Item",
@@ -228,6 +229,7 @@
   "block.faunaandorchestra.cotton_plant": "Cotton Plant",
   "block.faunaandorchestra.flora_enhancer": "Flora Enhancer",
   "block.faunaandorchestra.termite_mound": "Termite Mound",
+  "block.faunaandorchestra.termite_chest": "Termite Chest",
 
   "block.faunaandorchestra.tavern_spawner": "Tavern Spawner",
 

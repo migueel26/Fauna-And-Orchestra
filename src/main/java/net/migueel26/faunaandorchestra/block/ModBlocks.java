@@ -248,6 +248,13 @@ public class ModBlocks {
                     .strength(2.0F)
                     .sound(SoundType.MUD)));
 
+    public static final DeferredBlock<Block> TERMITE_CHEST = registerBlock("termite_chest",
+            () -> new TermiteChestBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.WOOD)
+                    .strength(2.5F)
+                    .sound(SoundType.WOOD)
+                    .ignitedByLava()));
+
     // MISC (CREATIVE-ONLY)
     public static final DeferredBlock<Block> TAVERN_SPAWNER = registerBlock("tavern_spawner",
             () -> new TavernSpawnerBlock(BlockBehaviour.Properties.of()
