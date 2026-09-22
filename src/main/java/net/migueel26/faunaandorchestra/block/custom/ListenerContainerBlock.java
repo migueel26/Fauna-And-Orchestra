@@ -131,15 +131,6 @@ public class ListenerContainerBlock extends Block implements EntityBlock, Listen
             boolean hasBottle = state.getValue(BOTTLE);
             int currentDrops = containerBE.getDroplets();
 
-            //////
-        // miguelito acuerdate de cambiar playerWillDestroy en el termite mound a onRemove
-            if (item.is(ModItems.EVERJELLY)) {
-                containerBE.setDroplets(ListenerContainerBlockEntity.MAX_DROPLETS);
-                ListenerContainerBlockEntity.notifyNearestTermiteChest(level, pos, containerBE);
-                return ItemInteractionResult.SUCCESS;
-            }
-            //////
-
             if (item.is(Items.GLASS_BOTTLE)) {
                 if (hasBottle && currentDrops == 64) {
                     item.consume(1, player);

@@ -19,11 +19,11 @@ public class TermiteMoundBlock extends Block {
     }
 
     @Override
-    public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
+    protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
         if (!level.isClientSide()) {
             Optional<TermiteQueen> termiteQueenOpt = level.getEntitiesOfClass(TermiteQueen.class, AABB.ofSize(pos.getCenter(), 10, 10, 10)).stream().findAny();
             termiteQueenOpt.ifPresent(TermiteQueen::increaseTermiteMoundsDestroyed);
         }
-        return super.playerWillDestroy(level, pos, state, player);
+        super.onRemove(state, level, pos, newState, movedByPiston);
     }
 }
