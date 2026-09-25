@@ -868,7 +868,7 @@
   "symphonia.page.amplifier_crystal1": "The recipe for this valuable $(item)item$() is: $(li)$(item)5x Diamonds $(li)3x Wandering Notes $(li)2x Steelsonic Ingots$()$(br)Finally, infuse an $(item)Amethyst Shard$() with it and you'll get your precious $(item)Amplifier Crystal$().",
 
   "symphonia.entry.biosonic_ingot": "Biosonic Ingot",
-  "symphonia.page.biosonic_ingot0": "The $(l)Biosonic Ingot$() is the last step towards the synthesis of $(thing)life$(), $(thing)music$() and $(thing)steel$(). By fusing all of the different $(item)fumes$() you've made, you can get this powerful metal. The recipe for $(item)1x Biosonic Ingot$() with no recipient needed is:$(li)$(item)1x Steelsonic Ingot$(li)1x Sonic Fumes$(li)1x Arctic Fumes$(li)1x Floral Fumes$(li)1x Nature Fumes$()",
+  "symphonia.page.biosonic_ingot0": "The $(l)Biosonic Ingot$() is the last step towards the synthesis of $(thing)life$(), $(thing)music$() and $(thing)steel$(). By fusing different $(item)fumes$() you can make the recipe for $(item)1x Biosonic Ingot$() with no recipient needed:$(li)$(item)1x Steelsonic Ingot$(li)1x Sonic Fumes$(li)1x Arctic Fumes$(li)1x Floral Fumes$(li)1x Nature Fumes$()",
   "symphonia.page.biosonic_ingot1": "The first item you might want to craft is this $(item)Biosonic Dirk$(). By right-clicking an entity you'll have a chance of taking some $(l:biophilia/living_music)Living Music$() out of their body!",
 
   "symphonia.entry.living_music": "Living Music",
