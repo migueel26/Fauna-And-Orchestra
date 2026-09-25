@@ -1,0 +1,22 @@
+{
+  "name": "symphonia.entry.termites",
+  "category": "faunaandorchestra:befriend_em_all",
+  "icon": "faunaandorchestra:termite_item",
+  "advancement": "faunaandorchestra:boogie_fruit",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "faunaandorchestra:termite_item",
+      "text": "symphonia.page.termites0"
+    },
+    {
+      "type": "crafting",
+      "recipe": "faunaandorchestra:termite_chest",
+      "text": "symphonia.page.termites1"
+    },
+    {
+      "type": "text",
+      "text": "symphonia.page.termites2"
+    }
+  ]
+}

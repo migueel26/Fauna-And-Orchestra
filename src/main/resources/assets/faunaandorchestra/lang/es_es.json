@@ -695,7 +695,7 @@
   "symphonia.category.natural_recipes": "Recetas Naturales",
   "symphonia.category.natural_recipes.desc": "Para comprender la $(o)naturaleza$() de nuestro mundo, necesitarás aprender cómo $(o)conectar$() con él. Mediante las $(thing)Recetas Naturales$() podrás conectar con las criaturas, descubrir su mundo y, finalmente, dominar el herbalismo.",
   "symphonia.category.befriend_em_all": "Befriend 'Em All!",
-  "symphonia.category.befriend_em_all.desc": "Placeholder",
+  "symphonia.category.befriend_em_all.desc": "¡La mejor forma de conocer el mundo es haciendo amigos en él! Con el capítulo $(thing)Befriend 'Em All!$() podrás encontrar y hacerte amigo de distintos animales del mundo, y aprender a usar sus dones únicos a tu favor. ¡Aunque no olvides darles un poco de cariño!",
   "symphonia.category.myths": "Mitos & Leyendas",
   "symphonia.category.myths.desc": "El mundo está $(o)lleno de historias$(), y la música no es una excepción. En este capítulo encontrarás los $(thing)Mitos y Leyendas$() más populares de todo el mundo, recopilados por nuestro querido $(o)Dan B$(). Quién sabe, tal vez incluso encuentres algunos secretos ocultos entre estas páginas...",
 
@@ -1019,7 +1019,12 @@
   "symphonia.entry.flora_enhancer": "Potenciador floral",
   "symphonia.page.flora_enhancer0": "El $(l)Potenciador floral$() es un objeto especial que sirve para realzar las $(thing)capacidades$() de las plantas. No podrán hablar $(o)(aún...)$() pero te comunicarán sus necesidades $(music)musicales$(). Quizás, si las satisfaces bastante, ¡te den algo de $(item)Flora Forta$()! ¡Aunque necesitarás muchas partituras, su conocimiento es mayor que el tuyo!",
   "symphonia.page.flora_enhancer1": "Para usarlo, coloca el $(item)Potenciador$() sobre una $(item)Planta en maceta$() y háblale. Ten cuidado de no romper la maceta ni cambiar la planta, porque el $(item)Potenciador$() está enlazado a ella y $(careful)se romperá solo$()!",
-  
+
+  "symphonia.entry.termites": "Termitas",
+  "symphonia.page.termites0": "¡Maravillosas e hipnóticas $(l)termitas$()! Aunque son musicalmente ineptas, ¡estas pequeñas son expertas en realizar tareas! Si alguna vez te sobra una $(item)Termita$(), debes fabricarle un $(item)Cofre de Termitas$() para que viva. ¡Recogerá encantada tu $(item)música líquida$() de los $(thing)Escuchadores$(), y los reemplazará con nuevas botellas vacías!",
+  "symphonia.page.termites1": "¡Asegúrate de dejar $(o)vía libre$() entre el $(thing)Cofre$() y el $(thing)Escuchador$(), o se quedarán $(careful)atascadas$() intentando llegar! Son bastante tercas.",
+  "symphonia.page.termites2": "Toda termita suele trabajar para una $(thing)reina$(), que también suele ser su madre. Podrías encontrar algún $(o)nido o montículo$() en las Sabanas, donde podrás hablar con ella y tratar de conseguir $(item)Termitas$() para tu propio uso.",
+
   "symphonia.entry.find_myths": "How to Find Myths",
   "symphonia.page.find_myths0": "Myths are the key to unlock the secrets of this world. They're the ones who can teach you about the wonders of $(music)Melomancy$() and the mysteries of $(thing)our world$(). While you explore the world and complete both $(item)Minecraft and Fauna & Orchestra advancements$(), Dan B. from the $(l)Jazzy Dammys$() might learn new myths. So don't forget to visit him every once in a while!",
   "symphonia.page.find_myths1": "If you want to be notified when $(l)Dan B.$() learns a new myth, you can place a $(item)$(l:mailbox)Mailbox$() near your home, and he'll send you a letter every time he learns something new!",
