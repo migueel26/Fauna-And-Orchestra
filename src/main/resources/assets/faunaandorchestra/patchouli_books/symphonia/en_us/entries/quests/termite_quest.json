@@ -1,0 +1,24 @@
+{
+  "name": "symphonia.entry.termite_quest",
+  "category": "faunaandorchestra:quests",
+  "icon": "faunaandorchestra:termite_item",
+  "advancement": "faunaandorchestra:hidden/termite_quest",
+  "turnin": "faunaandorchestra:help_termite_queen",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "quest",
+      "trigger": "faunaandorchestra:help_termite_queen",
+      "text": "symphonia.page.termite_quest0"
+    },
+    {
+      "type": "image",
+      "advancement": "faunaandorchestra:help_termite_queen",
+      "images": [
+        "faunaandorchestra:textures/gui/entries/termite_quest.png"
+      ],
+      "border": true,
+      "text": "symphonia.page.termite_quest1"
+    }
+  ]
+}

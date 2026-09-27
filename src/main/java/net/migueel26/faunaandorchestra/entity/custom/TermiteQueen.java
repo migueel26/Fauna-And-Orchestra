@@ -1,6 +1,7 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
+import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.item.ModItems;
@@ -156,6 +157,8 @@ public class TermiteQueen extends AgeableMob implements TalkableEntity, Npc, Geo
                     );
                     this.playSound(SoundEvents.ROOTED_DIRT_BREAK, 1.0F, 1.0F + (random.nextFloat() - 0.5f));
                 }
+
+                ModAdvancements.TERMITE_QUEST.get().trigger((ServerPlayer) player);
             }
             return InteractionResult.SUCCESS;
         }

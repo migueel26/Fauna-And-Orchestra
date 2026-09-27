@@ -98,6 +98,7 @@
   "item.faunaandorchestra.music_jam": "Music Jam",
   "item.faunaandorchestra.termite_item": "Termite",
   "item.faunaandorchestra.termite_chest_item": "Termite Chest",
+  "item.faunaandorchestra.wooden_dream": "Wooden Dream",
 
   "item.faunaandorchestra.prop_case": "Prop Case",
   "item.faunaandorchestra_clothing.desc": "Clothing Item",
@@ -475,6 +476,8 @@
   "advancements.faunaandorchestra.bred_musicians.desc": "Breed two musical animals together!",
   "advancements.faunaandorchestra.wear_costume": "Fake Denim",
   "advancements.faunaandorchestra.wear_costume.desc": "Give a little variety to your orchestra by dressing them up in some costumes!",
+  "advancements.faunaandorchestra.help_termite_queen": "God Save The Queen",
+  "advancements.faunaandorchestra.help_termite_queen.desc": "Help the Termite Queen to find her lost babies and get rewarded with a new recipe!",
 
   "dialogue.faunaandorchestra.faust0": "Nice to meet you! I'm Faust, and together we're The Ringtails",
   "dialogue.faunaandorchestra.faust1": "Nice to see you again, %! Care to join us?",
@@ -872,8 +875,12 @@
   "symphonia.page.biosonic_ingot1": "The first item you might want to craft is this $(item)Biosonic Dirk$(). By right-clicking an entity you'll have a chance of taking some $(l:biophilia/living_music)Living Music$() out of their body!",
 
   "symphonia.entry.living_music": "Living Music",
-  "symphonia.page.living_music0": "$(l)Living Music$() is the purest form of music, the one that comes from a creature's $(music)soul$() — representing the communion between $(o)life and song$(). You can obtain it by using a $(item)Biosonic Dirk$() on any creature, but it's not guaranteed that you'll get some.$(br) It'll run away and disappear in a couple of seconds, so you might need to $(careful)kill it fast$() or $(l:musicians/red_panda#bamboo_trap)trap it$().",
+  "symphonia.page.living_music0": "$(l)Living Music$() is the purest form of music, the one that comes from a creature's $(music)soul$() — representing the communion between $(o)life and song$(). You can obtain it by using a $(item)Biosonic Dirk$() on any creature, but it's not guaranteed that you'll get some.$(br)It'll run away and disappear in a couple of seconds, so you might need to $(careful)kill it fast$() or $(l:musicians/red_panda#bamboo_trap)trap it$().",
   "symphonia.page.living_music1": "If you decide to kill it, you'll get some $(item)Extract of Living Music$(), useful in recipes.",
+
+  "symphonia.entry.harmonica": "Harmonica",
+  "symphonia.page.harmonica0": "This $(l)Harmonica$() is an exact replica of the one $(thing)The Termite Queen$() used to play. It has the same $(o)melodic powers$() and can be used to $(thing)attract baby termites$() around you. $(br2)She told you this instrument has some actual musical powers, thus she recommended using some $(item)Extract of Living Music$() to enhance it.",
+  "symphonia.page.harmonica1": "I don't quite understand why you would need those $(item)ingredients$() for a simple harmonica... $(br2)Weird, huh?",
 
   "symphonia.entry.floating_blossom": "Floating Blossom",
   "symphonia.page.floating_blossom0": "Do you want a special kind of flower you can't find? Or perhaps you just want $(o)lots and lots$() of them? The synthesis of a $(l)Floating Blossom$() could be answer to all your problems! Its recipe in a $(music)Melomancy Cauldron$() is:$(li)$(item)32x Dirt$(li)3x Floral Fumes$(li)2x Nature Fumes$(li)2x Extract of Living Music$()$(br)After brewing the mixture, click it with a $(item)Spore Blossom$().",
@@ -926,6 +933,10 @@
   "symphonia.page.jazzy_dammys0": "Have you ever wandered far away from your home, having to spend the night outside? Scary, right?$(br)Well, if you're lucky, you might find a $(o)lovely inn$() at $(thing)plains, forests$() or $(thing)meadows$(). If you enter, you might find a $(l)jazz band$() playing some tunes. Some say $(o)its pianist$() is a well-known myth collector!",
   "symphonia.page.jazzy_dammys1": "Meet the Jazzy Dammys! Conformed by $(l)Delroy$(), $(l)Denise$(), $(l)Delroy$() and $(l)Dan B.$()",
   "symphonia.page.jazzy_dammys2": "These lovely $(o)beavers$() travel from inn to inn playing their jazz music to the travelers. Strangely, despite their kindness, the only one who talks to the customers is the pianist, $(l)Dan B$(). He seems to be a pretty knowledgeable guy and a well-known $(music)myth collector$(), so try to talk to him if you want to know more about the world!",
+
+  "symphonia.entry.termite_quest": "The Strayed Youngsters",
+  "symphonia.page.termite_quest0": "The $(l)Termite Queen$() has lost her $(thing)precious children$() and has asked for your help. She has mentioned that they're drawn to the song of her $(item)harmonica$(), which was misplaced some time ago. $(br2)Perhaps once found in her surroundings, you can guide them with that sound?",
+  "symphonia.page.termite_quest1": "The $(l)Queen$() is very grateful for your help. She's given you a $(item)Termite$() as a thank you!",
 
   "symphonia.entry.faust": "Faust",
   "symphonia.page.faust0": "$(l)Faust$() is the core of the Ringtails! After both him and $(l)Orion$() were kicked out of their families, they decided to partner up and travel the world together. He's quite keen on melomancy, and loves to study its relationship with $(o)Mother$(). He's quite a thinker, which sometimes clashes with Orion's impulsiveness. Despite that, they always make up their differences, especially after what happened with $(o)Tiego$().",
@@ -1000,6 +1011,9 @@
 
   "symphonia.entry.writing_ink": "Writing Ink",
   "symphonia.page.writing_ink0": "The $(l)Writing Ink$() is a special type of ink that can be used to write on paper. It's really useful if you want to send some mail to your friends! You wouldn't dare to write with raw ink sacs, wouldn't you?$(br)Its $(thing)Natural Recipe$() is made with $(item)Water Fuel$() and:$(li)$(item)2x Ink Sac$(li)1x Glass Bottle$(li)1x Feather$()",
+
+  "symphonia.entry.wooden_dream": "Wooden Dream",
+  "symphonia.page.wooden_dream0": "The $(l)Wooden Dream$() is that distinct smell of both fresh and burnt wood, that $(o)sound$() that tells you that the forest is alive and that you can make it your own.$(br)Its $(thing)Natural Recipe$() is made with $(item)Fire Fuel$() and:$(li)$(item)32x Oak Logs$(li)16x Spruce Logs$(li)16x Acacia Logs$(li)1x Really Good Stick",
 
   "symphonia.entry.mailbox": "Mailboxes & Mailbirds",
   "symphonia.page.mailbox0": "Friends usually live far, far away... It's quite hard to $(o)communicate$() with them. That's what $(item)mail$() is for! Introducing $(l)Mailboxes$(), the best method to send gifts and letters to your friends far away!$(br2)First of all, you'll need your very own $(item)Letter and Quill$() so that your $(music)Mailbirds$() can know where to go to!",

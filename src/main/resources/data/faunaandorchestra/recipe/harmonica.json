@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "///",
+    "F#F",
+    "OWO"
+  ],
+  "key": {
+    "#": {
+      "item": "faunaandorchestra:extract_of_living_music"
+    },
+    "F": {
+      "item": "minecraft:gold_ingot"
+    },
+    "/": {
+      "item": "minecraft:iron_ingot"
+    },
+    "O": {
+      "tag": "minecraft:planks"
+    },
+    "W": {
+      "item": "faunaandorchestra:wooden_dream"
+    }
+  },
+  "result": {
+    "id": "faunaandorchestra:harmonica",
+    "count": 1
+  }
+}

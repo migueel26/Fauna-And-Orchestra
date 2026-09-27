@@ -238,6 +238,8 @@ public class ModItems {
     public static final DeferredItem<Item> MUSIC_JAM = createRegularDescriptionItem("music_jam", new Item.Properties().food(Foods.MUSHROOM_STEW));
     public static final DeferredItem<Item> TERMITE = ITEMS.register("termite_item",
             () -> new BasicGeoItem("idle", new Item.Properties()));
+    public static final DeferredItem<Item> WOODEN_DREAM = ITEMS.register("wooden_dream",
+            () -> new Item(new Item.Properties()));
 
     // ARMOR
     public static final DeferredItem<Item> FLUFFY_BOOTS = ITEMS.register("fluffy_boots",
