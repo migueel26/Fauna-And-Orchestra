@@ -37,8 +37,10 @@ public class MailboxScreen extends AbstractContainerScreen<MailboxMenu> {
         int y = (height - imageHeight) / 2;
 
         this.sendButton = new ExtendedButton(x + 66, y + 53, 54, 15, Component.translatable("block.faunaandorchestra.mailbox.send"), onPress -> {
-            PacketDistributor.sendToServer(new MailbirdFlyAwayC2SPayload(menu.blockEntity.getBlockPos()));
-            minecraft.player.closeContainer();
+            if (!menu.isEmpty()) {
+                PacketDistributor.sendToServer(new MailbirdFlyAwayC2SPayload(menu.blockEntity.getBlockPos()));
+                minecraft.player.closeContainer();
+            }
         });
 
         this.warningSign = new AbstractWidget(x + 128, y + 17, 24, 29, CommonComponents.EMPTY) {
