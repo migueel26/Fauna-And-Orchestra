@@ -124,7 +124,7 @@ public class DanB extends TravellingMusician implements Npc, GeoEntity {
 
         boolean updatePersistentData = false;
 
-        if (!AdvancementUtil.hasAdvancement(player, FaunaAndOrchestra.MOD_ID, "myths/dan_myth0") && AdvancementUtil.hasAdvancement(player, ResourceLocation.DEFAULT_NAMESPACE, "story/lava_bucket")) {
+        if (!AdvancementUtil.hasAdvancement(player, FaunaAndOrchestra.MOD_ID, "myths/dan_myth0") && AdvancementUtil.hasAdvancement(player, ResourceLocation.DEFAULT_NAMESPACE, "story/form_obsidian")) {
             ModAdvancements.DAN_MYTH0.get().trigger((ServerPlayer) player);
             setCurrentMyth(0);
             setGoodMorning(false);
