@@ -138,7 +138,7 @@ public class ButterflyEntity extends Animal implements FlyingAnimal, GeoEntity, 
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 3.0)
+                .add(Attributes.MAX_HEALTH, 1.0)
                 .add(Attributes.FLYING_SPEED, 0.6F)
                 .add(Attributes.MOVEMENT_SPEED, 0.3F)
                 .add(Attributes.ATTACK_DAMAGE, 2.0)
