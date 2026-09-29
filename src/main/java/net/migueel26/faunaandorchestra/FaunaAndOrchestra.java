@@ -209,6 +209,7 @@ public class FaunaAndOrchestra {
             EntityRenderers.register(ModEntities.DENISE.get(), DeniseRenderer::new);
             EntityRenderers.register(ModEntities.DENZEL.get(), DenzelRenderer::new);
             EntityRenderers.register(ModEntities.TERMITE_QUEEN.get(),  TermiteQueenRenderer::new);
+            EntityRenderers.register(ModEntities.TERMITE_BABY.get(), TermiteBabyRenderer::new);
 
             EntityRenderers.register(ModEntities.SINGING_SPROUTLING.get(), SproutlingRenderer::new);
             EntityRenderers.register(ModEntities.LIVING_MUSIC.get(), LivingMusicRenderer::new);
@@ -232,7 +233,9 @@ public class FaunaAndOrchestra {
 
             // Items
             register(ModItems.DRUM.get(), DrumItemRenderer::new);
+            ModItemRenderers.register(ModItems.HARMONICA.get(), HarmonicaItemRenderer::new);
             register(ModItems.FLOATING_BLOSSOM.get(), FloatingBlossomItemRenderer::new);
+            ModItemRenderers.register(ModItems.TERMITE.get(), TermiteItemRenderer::new);
 
             // Blocks
             register(ModItems.MOTHER_STATUE_ITEM.get(), MotherStatueItemRenderer::new);

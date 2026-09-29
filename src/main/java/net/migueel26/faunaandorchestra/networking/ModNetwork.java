@@ -98,6 +98,12 @@ public class ModNetwork {
                 .encoder(SyncOwnableBEPacketS2C::toBytes)
                 .consumerMainThread(SyncOwnableBEPacketS2C::handle)
                 .add();
+
+        net.messageBuilder(StartPlayerInstrumentS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(StartPlayerInstrumentS2CPacket::new)
+                .encoder(StartPlayerInstrumentS2CPacket::toBytes)
+                .consumerMainThread(StartPlayerInstrumentS2CPacket::handle)
+                .add();
     }
     public static <MSG> void sendToServer(MSG message) {
         INSTANCE.sendToServer(message);

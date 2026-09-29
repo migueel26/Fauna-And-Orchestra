@@ -8,20 +8,19 @@ import net.migueel26.faunaandorchestra.entity.custom.jazzy_dammys.DanB;
 import net.migueel26.faunaandorchestra.mixins.client.accessors.ClientLevelAccessor;
 import net.migueel26.faunaandorchestra.mixins.interfaces.ISoundManagerMixin;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
-import net.migueel26.faunaandorchestra.sound.custom.BossSoundInstance;
-import net.migueel26.faunaandorchestra.sound.custom.FrogSongSoundInstance;
-import net.migueel26.faunaandorchestra.sound.custom.InstrumentSoundInstance;
-import net.migueel26.faunaandorchestra.sound.custom.TravellingMusicianSoundInstance;
+import net.migueel26.faunaandorchestra.sound.custom.*;
 import net.migueel26.faunaandorchestra.util.MusicUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -169,6 +168,20 @@ public class ClientPacketHandler {
             Entity entity = ((ClientLevelAccessor) level).callGetEntities().get(uuid);
             if (entity != null && level.getBlockEntity(blockPos) instanceof OwnableBlockEntity be) {
                 be.setOwner(uuid);
+            }
+        }
+    }
+
+    public static void handleStartPlayerInstrumentMusic(UUID uuid, ResourceLocation soundPath) {
+        SoundEvent soundEvent = ForgeRegistries.SOUND_EVENTS.getValue(soundPath);
+        ClientLevel level = Minecraft.getInstance().level;
+
+        if (level != null) {
+            Player player = level.getPlayerByUUID(uuid);
+            if (player != null) {
+                Minecraft.getInstance().getSoundManager().play(new PlayerInstrumentSoundInstance(player, soundEvent, 1.0f));
+            } else {
+                System.err.println("The UUID in the StartPlayerInstrumentMusicPayload is for a player that does not exist");
             }
         }
     }
