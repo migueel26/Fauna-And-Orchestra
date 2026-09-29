@@ -310,6 +310,9 @@ public class ModItems {
     public static final RegistryObject<Item> WISE_TREE_SPAWN_EGG = ITEMS.register("wise_tree_spawn_egg",
             () -> new ForgeSpawnEggItem(ModEntities.WISE_TREE, 0x5f4a2b, 0x567e22,
                     new Item.Properties()));
+    public static final RegistryObject<Item> TERMITE_QUEEN_SPAWN_EGG = ITEMS.register("termite_queen_spawn_egg",
+            () -> new ForgeSpawnEggItem(ModEntities.TERMITE_QUEEN, 0x572210, 0xdcb57a,
+                    new Item.Properties()));
     public static final RegistryObject<Item> RINGTAILS_SPAWN_EGG = ITEMS.register("ringtails_spawn_egg",
             () -> new CustomSpawnEggItem(new Item.Properties(), ModEntities.FAUST, ModEntities.ORION));
     public static final RegistryObject<Item> JAZZY_DAMMYS_SPAWN_EGG = ITEMS.register("jazzy_dammys_spawn_egg",

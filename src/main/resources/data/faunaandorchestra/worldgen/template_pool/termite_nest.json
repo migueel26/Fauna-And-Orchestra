@@ -1,0 +1,15 @@
+{
+  "name": "faunaandorchestra:termite_nest",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "faunaandorchestra:termite_nest/only",
+        "projection": "rigid",
+        "processors": "minecraft:empty"
+      }
+    }
+  ]
+}

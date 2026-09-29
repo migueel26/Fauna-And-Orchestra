@@ -58,6 +58,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.RINGTAILS_SPAWN_EGG.get());
                         output.accept(ModItems.JAZZY_DAMMYS_SPAWN_EGG.get());
                         output.accept(ModItems.WISE_TREE_SPAWN_EGG.get());
+                        output.accept(ModItems.TERMITE_QUEEN_SPAWN_EGG.get());
                         output.accept(ModItems.THE_GREAT_COMPOSER_SPAWN_EGG.get());
                         output.accept(ModBlocks.MANTIS_EGG.get());
                         output.accept(ModItems.MANTIS_CLAW.get());
@@ -65,6 +66,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.MANTIS_FOOD.get());
                         output.accept(ModItems.WORM.get());
                         output.accept(ModItems.INSECT.get());
+                        output.accept(ModBlocks.TERMITE_MOUND.get());
                         output.accept(ModItems.COTTON_PLANT_SEEDS.get());
                         output.accept(ModItems.COTTON.get());
                         output.accept(ModItems.ARCTIC_FUMES.get());

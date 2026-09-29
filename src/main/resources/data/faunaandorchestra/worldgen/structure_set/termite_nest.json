@@ -1,0 +1,17 @@
+{
+  "structures": [
+    {
+      "structure": "faunaandorchestra:termite_nest",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 11,
+    "separation": 6,
+    "salt": 283719345,
+    "exclude_biomes": [
+      "minecraft:windswept_savanna"
+    ]
+  }
+}
