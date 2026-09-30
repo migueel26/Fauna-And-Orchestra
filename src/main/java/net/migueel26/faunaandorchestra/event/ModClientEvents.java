@@ -20,6 +20,7 @@ public class ModClientEvents {
     public static void registerItemColors(RegisterColorHandlersEvent.Item event) {
         event.register(getRainbowEffect(), ModItems.EVERFRUIT.get());
         event.register(getRainbowEffect(), ModItems.EVERJELLY.get());
+        event.register(getRainbowEffect(), ModItems.GENERATE_ORCHESTRA.get());
     }
 
         private static @NotNull ItemColor getRainbowEffect() {

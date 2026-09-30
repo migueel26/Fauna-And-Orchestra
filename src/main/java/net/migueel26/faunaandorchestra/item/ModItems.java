@@ -382,6 +382,8 @@ public class ModItems {
                     return super.use(level, player, usedHand);
                 }
             });
+    public static final RegistryObject<Item> GENERATE_ORCHESTRA = ITEMS.register("generate_orchestra",
+            () -> new GenerateOrchestraItem(new Item.Properties().rarity(Rarity.EPIC)));
 
     // ICONS
     public static final RegistryObject<Item> ICON = ITEMS.register("icon",

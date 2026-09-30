@@ -284,6 +284,7 @@
   "item.faunaandorchestra.termite_queen_spawn_egg": "Generar a la Termita reina",
   "item.faunaandorchestra.sproutling_spawn_egg": "Generar Brotecito Cantarín",
   "item.faunaandorchestra.living_music_spawn_egg": "Generar Música Viva",
+  "item.faunaandorchestra.generate_orchestra": "Invocar una Orquesta",
   "item.faunaandorchestra.butterfly_spawn_egg": "Mariposa",
 
   "tooltip.faunaandorchestra:violin": "§7Este instrumento parece capturar la atención de algunos... §odevotos§r§7 insectos",
