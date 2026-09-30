@@ -4,6 +4,7 @@ import net.migueel26.faunaandorchestra.block.ModBlockEntities;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.block.custom.ListenerBlock;
 import net.migueel26.faunaandorchestra.block.custom.ListenerContainerBlock;
+import net.migueel26.faunaandorchestra.block.custom.TermiteChestBlock;
 import net.migueel26.faunaandorchestra.entity.custom.ConductorEntity;
 import net.migueel26.faunaandorchestra.entity.custom.ListeningBlockEntity;
 import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
@@ -26,11 +27,13 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 public class ListenerContainerBlockEntity extends BlockEntity implements GeoBlockEntity, ListeningBlockEntity {
     private final static RawAnimation LISTEN = RawAnimation.begin().thenPlay("listen");
     private final static RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
+    public static final int MAX_DROPLETS = 64;
     private final AnimationController<ListenerContainerBlockEntity> controller = new AnimationController<>(this, "listener_controller", 5, this::animController);
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
 
     private int tickCount = 0;
     private int droplets = 0;
+    private boolean notified = false;
     private boolean isListeningToOrchestra = false;
 
     public ListenerContainerBlockEntity(BlockPos pos, BlockState blockState) {
@@ -40,10 +43,11 @@ public class ListenerContainerBlockEntity extends BlockEntity implements GeoBloc
     protected <E extends ListenerContainerBlockEntity> PlayState animController(final AnimationState<E> state) {
         if (getBlockState().getValue(ListenerContainerBlock.LISTENING)) {
             state.getController().setAnimation(LISTEN);
+            return PlayState.CONTINUE;
         } else {
-            state.getController().setAnimation(IDLE);
+            state.getController().forceAnimationReset();
+            return PlayState.STOP;
         }
-        return PlayState.CONTINUE;
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, ListenerContainerBlockEntity entity) {
@@ -63,7 +67,7 @@ public class ListenerContainerBlockEntity extends BlockEntity implements GeoBloc
         if (entity.isListening()) {
             if (!isAssembled) updateListeningAssembledListener(level, pos, state, true);
 
-            if (drops < 64) {
+            if (drops < MAX_DROPLETS) {
                 if (entity.tickCount % 20 == 0) {
                     ((ServerLevel) level).sendParticles(ModParticleTypes.DRIPPING_MUSIC.get(), pos.getCenter().x, pos.getY() + 0.75, pos.getCenter().z, 3, 0, 0, 0, 0.1);
                 }
@@ -73,11 +77,28 @@ public class ListenerContainerBlockEntity extends BlockEntity implements GeoBloc
                     entity.setDroplets(drops + 1);
                     entity.tickCount = 0;
                 }
+            } else {
+                // Notify the nearest TermiteChest
+                if (!entity.hasNotified()) {
+                    notifyNearestTermiteChest(level, pos, entity);
+                }
             }
         } else {
             if (isAssembled) updateListeningAssembledListener(level, pos, state, false);
             entity.tickCount = 0;
         }
+    }
+
+    public static void notifyNearestTermiteChest(Level level, BlockPos pos, ListenerContainerBlockEntity entity) {
+        int maxDistance = TermiteChestBlock.MAX_DISTANCE_TO_LISTENER;
+        BlockPos.findClosestMatch(pos, maxDistance, maxDistance, p -> level.getBlockState(p).is(ModBlocks.TERMITE_CHEST.get())).ifPresent(chestPos -> {
+            BlockEntity chestBE = level.getBlockEntity(chestPos);
+            if (chestBE instanceof TermiteChestBlockEntity termiteChestBE) {
+                termiteChestBE.notify(pos);
+            }
+        });
+
+        entity.setHasNotified(true);
     }
 
     private static void updateListeningAssembledListener(Level level, BlockPos pos, BlockState state, boolean listening) {
@@ -93,6 +114,21 @@ public class ListenerContainerBlockEntity extends BlockEntity implements GeoBloc
 
     public void setDroplets(int droplets) {
         this.droplets = droplets;
+        this.markUpdated();
+    }
+
+    public void resetDroplets() {
+        this.droplets = 0;
+        this.setHasNotified(false);
+        this.markUpdated();
+    }
+
+    public boolean hasNotified() {
+        return this.notified;
+    }
+
+    public void setHasNotified(boolean notified) {
+        this.notified = notified;
         this.markUpdated();
     }
 
@@ -115,6 +151,7 @@ public class ListenerContainerBlockEntity extends BlockEntity implements GeoBloc
         super.saveAdditional(tag);
         tag.putInt("TickCount", this.tickCount);
         tag.putInt("Droplets", this.droplets);
+        tag.putBoolean("HasNotified", this.notified);
     }
 
     @Override
@@ -122,6 +159,7 @@ public class ListenerContainerBlockEntity extends BlockEntity implements GeoBloc
         super.load(tag);
         this.tickCount = tag.getInt("TickCount");
         this.droplets = tag.getInt("Droplets");
+        this.notified = tag.getBoolean("HasNotified");
     }
 
     @Override
@@ -147,5 +185,9 @@ public class ListenerContainerBlockEntity extends BlockEntity implements GeoBloc
     @Override
     public boolean isListening() {
         return isListeningToOrchestra;
+    }
+
+    public boolean isFull() {
+        return this.droplets >= MAX_DROPLETS;
     }
 }

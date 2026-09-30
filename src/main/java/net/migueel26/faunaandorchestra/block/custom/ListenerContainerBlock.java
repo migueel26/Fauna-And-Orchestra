@@ -4,6 +4,8 @@ import net.migueel26.faunaandorchestra.block.ModBlockEntities;
 import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.block.entity.ListenerContainerBlockEntity;
 import net.migueel26.faunaandorchestra.item.ModItems;
+import net.migueel26.faunaandorchestra.sound.ModSounds;
+import net.migueel26.faunaandorchestra.util.BlocksUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
@@ -133,7 +135,13 @@ public class ListenerContainerBlock extends Block implements EntityBlock, Listen
                 if (hasBottle && currentDrops == 64) {
                     item.shrink(1);
                     player.addItem(new ItemStack(ModItems.MUSIC_BOTTLE.get(), 1));
-                    containerBE.setDroplets(0);
+                    containerBE.resetDroplets();
+
+                    level.playSound(null, pos, ModSounds.CAULDRON_ITEM.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
+                    if (!level.isClientSide()) {
+                        BlocksUtil.magicSoundParticles((ServerLevel) level, pos, 0.1f);
+                    }
+
                     return InteractionResult.SUCCESS;
                 } else if (!hasBottle) {
                     item.shrink(1);
@@ -143,8 +151,14 @@ public class ListenerContainerBlock extends Block implements EntityBlock, Listen
             } else if (item.isEmpty() || item.is(ModItems.MUSIC_BOTTLE.get())) {
                 if (hasBottle && currentDrops == 64) {
                     player.addItem(new ItemStack(ModItems.MUSIC_BOTTLE.get(), 1));
-                    containerBE.setDroplets(0);
+                    containerBE.resetDroplets();
                     level.setBlock(pos, state.setValue(BOTTLE, false), 3);
+
+                    level.playSound(null, pos, ModSounds.CAULDRON_ITEM.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
+                    if (!level.isClientSide()) {
+                        BlocksUtil.magicSoundParticles((ServerLevel) level, pos, 0.1f);
+                    }
+
                     return InteractionResult.SUCCESS;
                 }
             }

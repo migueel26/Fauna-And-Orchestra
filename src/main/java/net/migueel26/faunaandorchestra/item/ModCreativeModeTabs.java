@@ -70,6 +70,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.INSECT.get());
                         output.accept(ModBlocks.TERMITE_MOUND.get());
                         output.accept(ModItems.TERMITE.get());
+                        output.accept(ModItems.TERMITE_CHEST_ITEM.get());
                         output.accept(ModItems.COTTON_PLANT_SEEDS.get());
                         output.accept(ModItems.COTTON.get());
                         output.accept(ModItems.ARCTIC_FUMES.get());

@@ -36,6 +36,11 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -360,7 +365,18 @@ public class ModItems {
             () -> new GeoBlockItem(ModBlocks.SEWING_MACHINE.get(), new Item.Properties()));
     public static final RegistryObject<Item> MAILBOX_ITEM = ITEMS.register("mailbox_item",
             () -> new GeoBlockItem(ModBlocks.MAILBOX.get(), true, new Item.Properties()));
-
+    public static final RegistryObject<Item> TERMITE_CHEST_ITEM = ITEMS.register("termite_chest_item",
+            () -> new GeoBlockItem(ModBlocks.TERMITE_CHEST.get(), new Item.Properties()) {
+                @Override
+                public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+                    controllers.add(
+                            new AnimationController<GeoAnimatable>(this, "termite_chest_item_controller", 0, event -> {
+                                event.getController().setAnimation(RawAnimation.begin().thenPlay("idle"));
+                                return PlayState.CONTINUE;
+                            }
+                        ));
+                }
+            });
     // MISC
     public static final RegistryObject<Item> VOICE = ITEMS.register("voice",
             () -> new Item(new Item.Properties()));

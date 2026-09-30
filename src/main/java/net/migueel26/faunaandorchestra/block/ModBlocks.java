@@ -246,7 +246,12 @@ public class ModBlocks {
                     .mapColor(MapColor.DIRT)
                     .strength(2.0F)
                     .sound(SoundType.MUD)));
-
+    public static final RegistryObject<Block> TERMITE_CHEST = registerBlock("termite_chest",
+            () -> new TermiteChestBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.WOOD)
+                    .strength(2.5F)
+                    .sound(SoundType.WOOD)
+                    .ignitedByLava()));
 
     // MISC (CREATIVE-ONLY)
     public static final RegistryObject<Block> TAVERN_SPAWNER = registerBlock("tavern_spawner",

@@ -150,6 +150,12 @@ public class ModBlockEntities {
                     ModBlocks.FLOWER_PATH.get()
             ).build(null));
 
+    public static final Supplier<BlockEntityType<TermiteChestBlockEntity>> TERMITE_CHEST_BE =
+            BLOCK_ENTITES.register("termite_chest_be", () -> BlockEntityType.Builder.of(
+                    TermiteChestBlockEntity::new,
+                    ModBlocks.TERMITE_CHEST.get()
+            ).build(null));
+
     // MISC (CREATIVE ONLY)
     public static final Supplier<BlockEntityType<TavernSpawnerBlockEntity>> TAVERN_SPAWNER_BE =
             BLOCK_ENTITES.register("tavern_spawner_be", () -> BlockEntityType.Builder.of(
