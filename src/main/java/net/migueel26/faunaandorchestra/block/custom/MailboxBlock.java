@@ -151,7 +151,7 @@ public class MailboxBlock extends HorizontalDirectionalBlock implements EntityBl
     public boolean canReceiveMythZero(Player player, int myths) {
         return (myths & 1) == 0
                 && !AdvancementUtil.hasAdvancement(player, FaunaAndOrchestra.MOD_ID, "dan_myth0")
-                && AdvancementUtil.hasAdvancement(player, ResourceLocation.DEFAULT_NAMESPACE, "story/lava_bucket");
+                && AdvancementUtil.hasAdvancement(player, ResourceLocation.DEFAULT_NAMESPACE, "story/form_obsidian");
     }
 
     public boolean canReceiveMythOne(Player player, int myths) {
