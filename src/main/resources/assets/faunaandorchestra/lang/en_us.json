@@ -1037,7 +1037,7 @@
 
   "symphonia.entry.termites": "Termites",
   "symphonia.page.termites0": "Wonderful, hypnotic $(l)termites$()! Though musically inept, these little arthropods are incredibly useful! If you have a spare $(item)Termite$(), craft a $(item)Termite Chest$() for it to live in. It will gladly harvest $(item)liquid music$() from ready $(thing)Listeners$() and restock them with empty bottles!",
-  "symphonia.page.termites1": "Make sure to have a $(o)clear path$() between the $(thing)Chest$() and the $(thing)Listener$(), or they'll get $(careful)stuck$() trying to get there! They're quite stubborn.",
+  "symphonia.page.termites1": "The Termite Chest needs to have $(item)Empty Bottles$() to function.$(br2)Make sure to have a $(o)clear path$() between the $(thing)Chest$() and the $(thing)Listener$(), or they'll get $(careful)stuck$() trying to get there! They're quite stubborn.",
   "symphonia.page.termites2": "All termites usually work for a $(thing)queen$(), who's usually their mother. You might found some sort of $(o)nest or mound$() in the Savannahs, where you can talk to her and try to get some $(item)Termites$() for your own use.",
 
   "symphonia.entry.find_myths": "How to Find Myths",
