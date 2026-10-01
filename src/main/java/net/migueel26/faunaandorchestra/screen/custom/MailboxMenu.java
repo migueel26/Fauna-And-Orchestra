@@ -112,6 +112,15 @@ public class MailboxMenu extends AbstractContainerMenu {
         }
     }
 
+    public boolean isEmpty() {
+        for (int i = 0; i < TE_INVENTORY_SLOT_COUNT; i++) {
+            if (!this.blockEntity.inventory.getStackInSlot(i).isEmpty()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public boolean showWarning() {
         return showWarning;
     }
