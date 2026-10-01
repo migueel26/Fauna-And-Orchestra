@@ -4,6 +4,7 @@ import com.mojang.datafixers.util.Pair;
 import net.migueel26.faunaandorchestra.client.item.MantisDaggerItemRenderer;
 import net.migueel26.faunaandorchestra.client.item.SoundSensorItemRenderer;
 import net.migueel26.faunaandorchestra.component.ModDataComponents;
+import net.migueel26.faunaandorchestra.entity.custom.ConductorEntity;
 import net.migueel26.faunaandorchestra.entity.custom.MusicalEntity;
 import net.migueel26.faunaandorchestra.entity.custom.misc.SensorNote;
 import net.migueel26.faunaandorchestra.item.ModItems;
@@ -119,7 +120,9 @@ public class SoundSensorItem extends Item implements GeoItem {
                     level.gameEvent(GameEvent.PROJECTILE_SHOOT, sensorNote.position(), GameEvent.Context.of(player));
                     float f = Mth.lerp(level.random.nextFloat(), 0.33F, 0.5F);
                     level.playSound(null, player.blockPosition(), SoundEvents.ENDER_PEARL_THROW, SoundSource.NEUTRAL, 1.0F, f);
-                    level.playSound(null, player.blockPosition(), ((InstrumentItem)((MusicalEntity) targetEntity.create(level)).getInstrument().get()).getSound(), SoundSource.NEUTRAL);
+                    if (targetEntity.create(level) instanceof MusicalEntity musicalEntity) {
+                        level.playSound(null, player.blockPosition(), ((InstrumentItem) musicalEntity.getInstrument().get()).getSound(), SoundSource.NEUTRAL);
+                    }
                     stack.hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(player.getUsedItemHand()));
                     level.addFreshEntity(sensorNote);
                 } else {
@@ -136,8 +139,13 @@ public class SoundSensorItem extends Item implements GeoItem {
 
     @NotNull
     private static MutableComponent getInstrumentComponent(Level level, EntityType<?> nextEntity) {
-        return Component.translatable("item.faunaandorchestra.sound_sensor.desc")
-                .append(Component.literal(((MusicalEntity) nextEntity.create(level)).getInstrument().get().getDescription().getString()).withStyle(ChatFormatting.GOLD));
+        MutableComponent component = Component.translatable("item.faunaandorchestra.sound_sensor.desc");
+        if (nextEntity.create(level) instanceof MusicalEntity musicalEntity) {
+            component.append(Component.literal(musicalEntity.getInstrument().get().getDescription().getString()).withStyle(ChatFormatting.GOLD));
+        } else if (nextEntity.create(level) instanceof ConductorEntity conductorEntity) {
+            component.append(Component.literal(ModItems.BATON.get().getDescription().getString()).withStyle(ChatFormatting.GOLD));
+        }
+        return component;
     }
 
     public static void setSound(ItemStack stack, int soundId) {
