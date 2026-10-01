@@ -40,10 +40,12 @@ public class ListenerContainerBlockEntity extends BlockEntity implements GeoBloc
     protected <E extends ListenerContainerBlockEntity> PlayState animController(final AnimationState<E> state) {
         if (getBlockState().getValue(ListenerContainerBlock.LISTENING)) {
             state.getController().setAnimation(LISTEN);
+            return PlayState.CONTINUE;
         } else {
-            state.getController().setAnimation(IDLE);
+            state.getController().forceAnimationReset();
+            return PlayState.STOP;
         }
-        return PlayState.CONTINUE;
+
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, ListenerContainerBlockEntity entity) {
@@ -147,6 +149,7 @@ public class ListenerContainerBlockEntity extends BlockEntity implements GeoBloc
         super.saveAdditional(tag, registries);
         tag.putInt("TickCount", this.tickCount);
         tag.putInt("Droplets", this.droplets);
+        tag.putBoolean("HasNotified", this.notified);
     }
 
     @Override
@@ -154,6 +157,7 @@ public class ListenerContainerBlockEntity extends BlockEntity implements GeoBloc
         super.loadAdditional(tag, registries);
         this.tickCount = tag.getInt("TickCount");
         this.droplets = tag.getInt("Droplets");
+        this.notified = tag.getBoolean("HasNotified");
     }
 
     @Override

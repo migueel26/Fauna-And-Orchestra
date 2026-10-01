@@ -6,6 +6,7 @@ import net.migueel26.faunaandorchestra.entity.custom.TermiteEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
@@ -68,6 +69,9 @@ public class TermiteChestBlock extends HorizontalDirectionalBlock implements Ent
         for (TermiteEntity termite : termites) {
             termite.discard();
         }
+
+        Containers.dropContentsOnDestroy(state, newState, level, pos);
+
         super.onRemove(state, level, pos, newState, movedByPiston);
     }
 
