@@ -19,7 +19,7 @@
       "conditions": {
         "items": [
           {
-            "items": "faunaandorchestra:propeller_hat"
+            "items": ["faunaandorchestra:propeller_hat"]
           }
         ]
       }

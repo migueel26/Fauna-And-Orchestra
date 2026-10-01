@@ -26,7 +26,7 @@
   ],
   "fuel": "#minecraft:ice",
   "result": {
-    "id": "faunaandorchestra:everjelly",
+    "item": "faunaandorchestra:everjelly",
     "count": 1
   },
   "time": 3600

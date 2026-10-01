@@ -18,7 +18,7 @@
       "conditions": {
         "items": [
           {
-            "items": "#faunaandorchestra:is_costume"
+            "items": ["#faunaandorchestra:is_costume"]
           }
         ]
       }
@@ -28,7 +28,7 @@
       "conditions": {
         "items": [
           {
-            "items": "#faunaandorchestra:is_hat"
+            "items": ["#faunaandorchestra:is_hat"]
           }
         ]
       }
