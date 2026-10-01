@@ -59,6 +59,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.WISE_TREE_SPAWN_EGG);
                         output.accept(ModItems.TERMITE_QUEEN_SPAWN_EGG);
                         output.accept(ModItems.THE_GREAT_COMPOSER_SPAWN_EGG);
+                        output.accept(ModItems.GENERATE_ORCHESTRA);
                         output.accept(ModBlocks.MANTIS_EGG);
                         output.accept(ModItems.MANTIS_CLAW);
                         output.accept(ModItems.MANTIS_DAGGER);
