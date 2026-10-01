@@ -20,7 +20,7 @@
       "conditions": {
         "items": [
           {
-            "items": "faunaandorchestra:termite_item"
+            "items": ["faunaandorchestra:termite_item"]
           }
         ]
       }

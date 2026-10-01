@@ -18,7 +18,7 @@
       "conditions": {
         "items": [
           {
-            "items": "faunaandorchestra:colorful_tint"
+            "items": ["faunaandorchestra:colorful_tint"]
           }
         ]
       }
