@@ -1,0 +1,34 @@
+{
+  "display": {
+    "announce_to_chat": true,
+    "show_toast": true,
+    "icon": {
+      "item": "faunaandorchestra:termite_chest_item"
+    },
+    "title": {
+      "translate": "advancements.faunaandorchestra.help_termite_queen"
+    },
+    "description": {
+      "translate": "advancements.faunaandorchestra.help_termite_queen.desc"
+    },
+    "frame": "goal"
+  },
+  "parent": "faunaandorchestra:boogie_fruit",
+  "criteria": {
+    "unique": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "faunaandorchestra:termite_item"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "unique"
+    ]
+  ]
+}

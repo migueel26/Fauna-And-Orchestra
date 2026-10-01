@@ -97,6 +97,7 @@
   "item.faunaandorchestra.music_jam": "Mermelada musical",
   "item.faunaandorchestra.termite_item": "Termita",
   "item.faunaandorchestra.termite_chest_item": "Cofre termitero",
+  "item.faunaandorchestra.wooden_dream": "Sueño de madera",
 
   "item.faunaandorchestra.prop_case": "Neceser",
   "item.faunaandorchestra_clothing.desc": "Ropa para Animales",
@@ -475,6 +476,8 @@
   "advancements.faunaandorchestra.bred_musicians.desc": "¡Cruza a dos animales musicales!",
   "advancements.faunaandorchestra.wear_costume": "Fake Denim",
   "advancements.faunaandorchestra.wear_costume.desc": "¡Viste a tu músico con un traje para cambiar su apariencia!",
+  "advancements.faunaandorchestra.help_termite_queen": "God Save The Queen",
+  "advancements.faunaandorchestra.help_termite_queen.desc": "¡Ayuda a la Termita reina a recuperar a sus bebés perdidos y obtén una nueva receta!",
 
   "dialogue.faunaandorchestra.faust0": "¡Encantado! Soy Fausto, y juntos somos Los Ringtails",
   "dialogue.faunaandorchestra.faust1": "¡Me alegro de verte, %! ¿Con ganas de música?",
@@ -875,6 +878,10 @@
   "symphonia.page.living_music0": "La $(l)Música viva$() es la forma más pura de música, la que proviene del $(music)alma$() de una criatura; representa la comunión entre $(o)vida y canción$(). Se obtiene usando un $(item)Puñal biosónico$() en cualquier criatura, pero no es seguro que consigas algo.$(br) Escapará y desaparecerá en segundos, así que tendrás que $(careful)matarla rápido$() o $(l:musicians/red_panda#bamboo_trap)atraparla$().",
   "symphonia.page.living_music1": "Si decides matarla, conseguirás algo de $(item)Extracto de música viva$(), útil para recetas.",
 
+  "symphonia.entry.harmonica": "Armónica",
+  "symphonia.page.harmonica0": "Esta $(l)Armónica$() es una réplica exacta de la que tocaba $(thing)La Termita Reina$(). Posee los mismos $(o)poderes melódicos$() y sirve para $(thing)atraer termitas bebé$() a tu alrededor. $(br2)Ella te dijo que este instrumento tiene verdaderos poderes musicales, por lo que recomendó usar $(item)Extracto de Música Viva$() para mejorarlo.",
+  "symphonia.page.harmonica1": "No entiendo muy bien por qué necesitarías esos $(item)ingredientes$() para una simple armónica... $(br2)Extraño, ¿no crees?",
+
   "symphonia.entry.floating_blossom": "Florecer flotante",
   "symphonia.page.floating_blossom0": "¿Quieres una flor especial que no encuentras? ¿O quizás quieres $(o)muchas y muchas$() de ellas? ¡La síntesis de un $(l)Florecer flotante$() es la solución! Su receta en el $(music)Caldero de melomancia$() es:$(li)$(item)32x Tierra$(li)3x Humo floral$(li)2x Humo de la naturaleza$(li)2x Extracto de música viva$()$(br)Tras la mezcla, dale con una $(item)Flor de esporas$().",
   "symphonia.page.floating_blossom1": "¡Colócalo en el césped y mira cómo crecen montones de $(item)flores$() a su alrededor!",
@@ -926,6 +933,10 @@
   "symphonia.page.jazzy_dammys0": "¿Te has alejado tanto de casa que te tocó dormir fuera? Da miedo, ¿no?$(br)Si tienes suerte, quizá encuentres una $(o)acogedora posada$() en $(thing)llanuras, prados o bosques$(). Si entras, puede que oigas una $(l)banda de jazz$() tocando. ¡Algunos dicen que su $(o)pianista$() es un famoso coleccionista de mitos!",
   "symphonia.page.jazzy_dammys1": "¡Conoce a los Jazzy Dammys! Formados por $(l)Delroy$(), $(l)Denise$(), $(l)Delroy$() y $(l)Dan B.$()",
   "symphonia.page.jazzy_dammys2": "Estos encantadores $(o)castores$() viajan de posada en posada tocando jazz para los viajeros. Curiosamente, pese a su amabilidad, quien habla con los clientes es el pianista, $(l)Dan B.$(). Parece saber mucho y es un conocido $(music)coleccionista de mitos$(), ¡así que háblale si quieres saber más del mundo!",
+
+  "symphonia.entry.termite_quest": "Las Crías Perdidas",
+  "symphonia.page.termite_quest0": "La $(l)Termita Reina$() ha perdido a sus $(thing)preciosas crías$() y ha pedido tu ayuda. Ha mencionado que se sienten atraídas por la melodía de su $(item)armónica$(), la cual se extravió hace un tiempo. $(br2)Quizás, si la encuentras por los alrededores, ¿podrías guiarlas con ese sonido?",
+  "symphonia.page.termite_quest1": "¡La $(l)Reina$() está muy agradecida por tu ayuda! Te ha dado una $(item)termita$() para agradecértelo.",
 
   "symphonia.entry.faust": "Fausto",
   "symphonia.page.faust0": "¡$(l)Fausto$() es el corazón de los Ringtails! Tras ser echados tanto $(l)Orión$() como él de sus familias, decidieron juntarse y tocar juntos por el mundo. Está metido en la melomancia, y le encanta aprender sobre su relación con $(o)Madre$(). Es un pensador, lo cual a veces choca con la impulsividad de Orión. A pesar de eso, siempre arreglan sus diferencias, sobre todo después de lo que pasó con $(o)Tiego$()",
@@ -1000,6 +1011,9 @@
 
   "symphonia.entry.writing_ink": "Tinta de escribir",
   "symphonia.page.writing_ink0": "La $(l)Tinta de escribir$() es un tipo de tinta especial que sirve para escribir en papel. ¡Es muy útil si quieres enviar correo a tus amigos! No te atreverías a escribir con sacos de tinta crudos, ¿verdad?$(br)Su $(thing)Receta Natural$() se hace con $(item)Agua de combustible$() y:$(li)$(item)2x Saco de tinta$(li)1x Botella de cristal$(li)1x Pluma$()",
+
+  "symphonia.entry.wooden_dream": "Sueño de madera",
+  "symphonia.page.wooden_dream0": "El $(l)sueño de madera$() es ese inconfundible olor a tanto madera fresca como quemada, ese $(o)sonido$() de que el bosque está vivo y puede ser tuyo.$(br)Su $(thing)Receta Natural$() es con $(item)Fuego de combustible$() y:$(li)$(item)32x Troncos de roble$(li)16x Troncos de abeto$(li)16x Troncos de acacia$(li)1x Un muy buen palo",
 
   "symphonia.entry.mailbox": "Buzones & Mensajeros",
   "symphonia.page.mailbox0": "Los amigos normalmente viven muy, muy lejos... Es bastante difícil $(o)comunicarse$() con ellos. ¡Para esto está el $(item)correo$()! Te presento los $(l)Buzones$(), ¡la mejor manera de enviar regalos y cartas a tus amigos!$(br2)Primero de todo, necesitarás tu propia $(item)Carta y pluma$() para que tu $(music)Pájaro mensajero$() pueda saber a dónde ir.",

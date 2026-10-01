@@ -9,7 +9,7 @@
     }
   ],
   "result": {
-    "id": "faunaandorchestra:termite_chest_item",
+    "item": "faunaandorchestra:termite_chest_item",
     "count": 1
   }
 }

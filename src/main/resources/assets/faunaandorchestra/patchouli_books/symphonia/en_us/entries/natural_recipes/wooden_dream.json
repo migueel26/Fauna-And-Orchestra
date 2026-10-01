@@ -1,0 +1,13 @@
+{
+  "name": "symphonia.entry.wooden_dream",
+  "category": "faunaandorchestra:natural_recipes",
+  "icon": "faunaandorchestra:wooden_dream",
+  "advancement": "faunaandorchestra:hidden/termite_quest",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "faunaandorchestra:wooden_dream",
+      "text": "symphonia.page.wooden_dream0"
+    }
+  ]
+}

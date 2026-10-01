@@ -30,6 +30,9 @@ public class ModAdvancements {
     public static final CustomSimpleTrigger LIVING_MUSIC = register("living_music");
     public static final CustomSimpleTrigger BRED_MUSICIANS = register("bred_musicians");
 
+    // HIDDEN
+    public static final CustomSimpleTrigger TERMITE_QUEST = register("termite_quest");
+
     // DAN MYTHS
     public static final CustomSimpleTrigger DAN_MYTH0 = register("dan_myth0");
     public static final CustomSimpleTrigger DAN_MYTH1 = register("dan_myth1");
