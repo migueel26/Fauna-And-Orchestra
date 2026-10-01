@@ -1036,7 +1036,7 @@
 
   "symphonia.entry.termites": "Termitas",
   "symphonia.page.termites0": "¡Maravillosas e hipnóticas $(l)termitas$()! Aunque son musicalmente ineptas, ¡estas pequeñas son expertas en realizar tareas! Si alguna vez te sobra una $(item)Termita$(), debes fabricarle un $(item)Cofre de Termitas$() para que viva. ¡Recogerá encantada tu $(item)música líquida$() de los $(thing)Escuchadores$(), y los reemplazará con nuevas botellas vacías!",
-  "symphonia.page.termites1": "¡Asegúrate de dejar $(o)vía libre$() entre el $(thing)Cofre$() y el $(thing)Escuchador$(), o se quedarán $(careful)atascadas$() intentando llegar! Son bastante tercas.",
+  "symphonia.page.termites1": "El Cofre termitero necesita $(item)botellas vacías$() para funcionar.$(br2)¡Asegúrate de dejar $(o)vía libre$() entre el $(thing)Cofre$() y el $(thing)Escuchador$(), o se quedarán $(careful)atascadas$() intentando llegar! Son bastante tercas.",
   "symphonia.page.termites2": "Toda termita suele trabajar para una $(thing)reina$(), que también suele ser su madre. Podrías encontrar algún $(o)nido o montículo$() en las Sabanas, donde podrás hablar con ella y tratar de conseguir $(item)Termitas$() para tu propio uso.",
 
   "symphonia.entry.find_myths": "How to Find Myths",
