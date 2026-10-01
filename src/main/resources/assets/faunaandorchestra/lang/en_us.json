@@ -695,7 +695,7 @@
   "symphonia.category.natural_recipes": "Natural Recipes",
   "symphonia.category.natural_recipes.desc": "In order to understand the $(o)nature$() of our world, you'll need to learn how to $(o)connect$() with it. With $(thing)Natural Recipes$() you'll be able to bond with the creatures, discover their world and, ultimately, master herbalism.",
   "symphonia.category.befriend_em_all": "Befriend 'Em All!",
-  "symphonia.category.befriend_em_all.desc": "The best way to learn about the world is to make friends with it! With the $(thing)Befriend 'Em All!$() chapter you'll be able to find and befriend all the different animals around the world, and learn how to use their unique gifts to your advantage. Don't forget to give them some love and care, though!",
+  "symphonia.category.befriend_em_all.desc": "The best way to learn about the world is to make friends in it! With the $(thing)Befriend 'Em All!$() chapter you'll be able to find and befriend all the different animals around the world, and learn how to use their unique gifts to your advantage. Don't forget to give them some love, though!",
   "symphonia.category.myths": "Myths & Legends",
   "symphonia.category.myths.desc": "The world is $(o)full of stories$(), and music is no exception. In this chapter you'll find the most popular $(thing)Myths and Legends$() around the world, found by our lovely $(o)Dan B$(). Who knows, maybe you'll even find some hidden secrets in these pages...",
 
@@ -1019,6 +1019,11 @@
   "symphonia.entry.flora_enhancer": "Flora Enhancer",
   "symphonia.page.flora_enhancer0": "The $(l)Flora Enhancer$() is a special item that can be used to enhance the $(thing)capabilities$() of plants. They won't be able to speak $(o)(yet...)$() but they'll communicate you their $(music)musical$() needs. Perhaps, if you satisfy them enough, they might even give you some $(item)Flora Forta$()! You'll need lots of $(item)music sheets$() though, their knowledge is even greater than your own!",
   "symphonia.page.flora_enhancer1": "To use it, place the $(item)Enhancer$() on top of a $(item)Potted Plant$() and talk to it. Be careful to not break the pot or change the plant, because the $(item)Enhancer$() is linked to it and will $(careful)break itself$()!",
+
+  "symphonia.entry.termites": "Termites",
+  "symphonia.page.termites0": "Wonderful, hypnotic $(l)termites$()! Though musically inept, these little arthropods are incredibly useful! If you have a spare $(item)Termite$(), craft a $(item)Termite Chest$() for it to live in. It will gladly harvest $(item)liquid music$() from ready $(thing)Listeners$() and restock them with empty bottles!",
+  "symphonia.page.termites1": "Make sure to have a $(o)clear path$() between the $(thing)Chest$() and the $(thing)Listener$(), or they'll get $(careful)stuck$() trying to get there! They're quite stubborn.",
+  "symphonia.page.termites2": "All termites usually work for a $(thing)queen$(), who's usually their mother. You might found some sort of $(o)nest or mound$() in the Savannahs, where you can talk to her and try to get some $(item)Termites$() for your own use.",
 
   "symphonia.entry.find_myths": "How to Find Myths",
   "symphonia.page.find_myths0": "Myths are the key to unlock the secrets of this world. They're the ones who can teach you about the wonders of $(thing)Melomancy$() and the mysteries of $(thing)our world$(). While you explore the world and complete both $(item)Minecraft and Fauna & Orchestra advancements$(), Dan B. from the Jazzy Dammys might learn new myths. So don't forget to visit him every once in a while!",

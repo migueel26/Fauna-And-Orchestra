@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:chest"
+    },
+    {
+      "item": "faunaandorchestra:termite_item"
+    }
+  ],
+  "result": {
+    "id": "faunaandorchestra:termite_chest_item",
+    "count": 1
+  }
+}
