@@ -868,7 +868,7 @@
   "symphonia.page.amplifier_crystal1": "La receta para este valioso $(item)item$() es: $(li)$(item)5x Diamantes $(li)3x Notas ambulantes $(li)2x Lingotes de acerónico$()$(br)Finalmente, imbuye un $(item)Fragmento de amatista$() con la mezcla y obtendrás tu $(item)Cristal amplificador$().",
 
   "symphonia.entry.biosonic_ingot": "Lingote de biosónico",
-  "symphonia.page.biosonic_ingot0": "El $(l)Lingote de biosónico$() es el último paso para la síntesis de $(thing)vida$(), $(thing)música$() y $(thing)acero$(). Al fusionar los distintos $(item)humos$() hechos, obtendrás este metal potente. La receta de $(item)1x Lingote de biosónico$() sin recipiente es:$(li)$(item)1x Lingote de acerónico$(li)1x Humo sónico$(li)1x Humo ártico$(li)1x Humo floral$(li)1x Humo de la naturaleza$()",
+  "symphonia.page.biosonic_ingot0": "El $(l)Lingote de biosónico$() es el último paso para la síntesis de $(thing)vida$(), $(thing)música$() y $(thing)acero$(). Al fusionar distintos $(item)humos$(), obtendrás este potente metal. La receta de $(item)1x Lingote de biosónico$() sin recipiente es:$(li)$(item)1x Lingote de acerónico$(li)1x Humo sónico$(li)1x Humo ártico$(li)1x Humo floral$(li)1x Humo de la naturaleza$()",
   "symphonia.page.biosonic_ingot1": "El primer objeto que querrás fabricar es este $(item)Puñal biosónico$(). ¡Al hacer click derecho a una entidad tendrás la opción de extraer $(l:biophilia/living_music)Música viva$() de su cuerpo!",
 
   "symphonia.entry.living_music": "Música viva",
