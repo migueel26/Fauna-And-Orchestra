@@ -4,6 +4,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.migueel26.faunaandorchestra.entity.custom.LemurEntity;
 import net.migueel26.faunaandorchestra.entity.custom.PenguinEntity;
+import net.migueel26.faunaandorchestra.item.ModItems;
+import net.migueel26.faunaandorchestra.util.ClientUtil;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -28,6 +30,14 @@ public class LemurRenderer extends GeoEntityRenderer<LemurEntity> {
                 bone.setHidden(true);
             }
         }
+
+        switch (bone.getName()) {
+            case "fake_moustache" -> ClientUtil.setHatHidden(bone, lemur.getHat(), ModItems.FAKE_MOUSTACHE.get());
+            case "top_hat" -> ClientUtil.setHatHidden(bone, lemur.getHat(), ModItems.TOP_HAT.get());
+            case "rose" -> ClientUtil.setHatHidden(bone, lemur.getHat(), ModItems.ROSE.get());
+        }
+
+        buffer = ClientUtil.renderSpecialClothesOnHoliday(poseStack, lemur, bone, renderType, bufferSource, buffer, isReRender, packedLight, packedOverlay);
 
         super.renderRecursively(poseStack, lemur, bone, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, colour);
     }

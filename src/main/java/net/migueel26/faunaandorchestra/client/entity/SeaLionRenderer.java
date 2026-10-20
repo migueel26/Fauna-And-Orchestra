@@ -4,6 +4,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.migueel26.faunaandorchestra.entity.custom.PenguinEntity;
 import net.migueel26.faunaandorchestra.entity.custom.SeaLionEntity;
+import net.migueel26.faunaandorchestra.item.ModItems;
+import net.migueel26.faunaandorchestra.util.ClientUtil;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -36,6 +38,14 @@ public class SeaLionRenderer extends GeoEntityRenderer<SeaLionEntity> {
                 bone.setHidden(true);
             }
         }
+
+        switch (bone.getName()) {
+            case "top_hat" -> ClientUtil.setHatHidden(bone, penguin.getHat(), ModItems.TOP_HAT.get());
+            case "right_monocle" -> ClientUtil.setHatHidden(bone, penguin.getHat(), ModItems.RIGHT_MONOCLE.get());
+            case "left_monocle" -> ClientUtil.setHatHidden(bone, penguin.getHat(), ModItems.LEFT_MONOCLE.get());
+        }
+
+        buffer = ClientUtil.renderSpecialClothesOnHoliday(poseStack, penguin, bone, renderType, bufferSource, buffer, isReRender, packedLight, packedOverlay);
 
         super.renderRecursively(poseStack, penguin, bone, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, colour);
     }

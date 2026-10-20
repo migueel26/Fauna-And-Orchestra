@@ -3,6 +3,8 @@ package net.migueel26.faunaandorchestra.client.entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.migueel26.faunaandorchestra.entity.custom.MantisEntity;
+import net.migueel26.faunaandorchestra.item.ModItems;
+import net.migueel26.faunaandorchestra.util.ClientUtil;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -36,6 +38,14 @@ public class MantisRenderer extends GeoEntityRenderer<MantisEntity> {
                 bone.setHidden(true);
             }
         }
+
+        switch (bone.getName()) {
+            case "fake_moustache" -> ClientUtil.setHatHidden(bone, mantis.getHat(), ModItems.FAKE_MOUSTACHE.get());
+            case "rose" -> ClientUtil.setHatHidden(bone, mantis.getHat(), ModItems.ROSE.get());
+            case "mask_of_the_enlightened" -> ClientUtil.setHatHidden(bone, mantis.getHat(), ModItems.MASK_OF_THE_ENLIGHTENED.get());
+        }
+
+        buffer = ClientUtil.renderSpecialClothesOnHoliday(poseStack, mantis, bone, renderType, bufferSource, buffer, isReRender, packedLight, packedOverlay);
 
         super.renderRecursively(poseStack, mantis, bone, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, colour);
     }
