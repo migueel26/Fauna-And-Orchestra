@@ -55,6 +55,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.ForgeMod;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -273,6 +274,7 @@ public class TheGreatComposer extends Mob implements Enemy, GeoEntity {
         return Animal.createLivingAttributes()
                 .add(Attributes.MAX_HEALTH, MAX_HEALTH)
                 .add(Attributes.MOVEMENT_SPEED, 0.2D)
+                .add(ForgeMod.SWIM_SPEED.get(), 1.0D)
                 .add(Attributes.FOLLOW_RANGE, 24D);
     }
 

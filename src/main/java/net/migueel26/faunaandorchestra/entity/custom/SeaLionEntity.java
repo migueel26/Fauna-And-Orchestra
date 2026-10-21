@@ -23,6 +23,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.ForgeMod;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
@@ -122,6 +123,7 @@ public class SeaLionEntity extends MusicalEntity {
         return Animal.createLivingAttributes()
                 .add(Attributes.MAX_HEALTH, 15d)
                 .add(Attributes.MOVEMENT_SPEED, 0.2D)
+                .add(ForgeMod.SWIM_SPEED.get(), 1.0D)
                 .add(Attributes.FOLLOW_RANGE, 24D);
     }
 
