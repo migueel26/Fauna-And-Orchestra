@@ -99,16 +99,16 @@ public class PanFluteItem extends Item {
 
             setSound(flute, currentSound);
             level.playSound(player, player.blockPosition(), ModSounds.PAN_FLUTE_CHANGE.get(), SoundSource.PLAYERS, 1.0f, 1.0f);
-            player.getCooldowns().addCooldown(this, POWERLESS_COOLDOWN);
+            player.getCooldowns().addCooldown(ModItems.PAN_FLUTE.get(), POWERLESS_COOLDOWN);
 
             return InteractionResultHolder.consume(flute);
 
-        } else if (powers != null && !powers.isEmpty() || currentSound >= 0) {
+        } else if (powers != null) {
             SoundEvent fluteSound = ModSounds.PAN_FLUTE_USE.get();
 
             // If it doesn't have powers, we just add the default cooldown with default sound
             if (powers.isEmpty()){
-                player.getCooldowns().addCooldown(this, 60);
+                player.getCooldowns().addCooldown(ModItems.PAN_FLUTE.get(), 60);
             } else {
                 fluteSound = getFluteSound(player, powers, currentSound, fluteSound);
 
