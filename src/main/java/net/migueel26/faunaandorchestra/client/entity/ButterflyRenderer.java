@@ -18,7 +18,7 @@ public class ButterflyRenderer extends GeoEntityRenderer<ButterflyEntity> {
     }
     @Override
     public void preRender(PoseStack poseStack, ButterflyEntity animatable, BakedGeoModel model, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        this.shadowRadius = animatable.getDimensions(Pose.STANDING).width * 0.65F;
+        this.shadowRadius = animatable.getDimensions(Pose.STANDING).width * 0.35F;
         super.preRender(poseStack, animatable, model, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
     }
 }
