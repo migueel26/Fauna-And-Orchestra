@@ -1,10 +1,5 @@
 {
-  "type": "forge:add_spawns",
+  "type": "faunaandorchestra:configurable_spawns",
   "biomes": "#faunaandorchestra:spawns_quirky_frog",
-  "spawners": {
-    "type": "faunaandorchestra:quirky_frog",
-    "maxCount": 6,
-    "minCount": 5,
-    "weight": 20
-  }
+  "entity": "faunaandorchestra:quirky_frog"
 }

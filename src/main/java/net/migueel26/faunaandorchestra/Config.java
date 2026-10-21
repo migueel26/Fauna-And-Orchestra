@@ -1,5 +1,11 @@
 package net.migueel26.faunaandorchestra;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.common.ForgeConfigSpec; // <--- Cambio importante
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -20,6 +26,27 @@ public class Config
             .comment("Should the Halloween pumpkins be enabled?")
             .define("halloween_hats", true);
 
+    public record AnimalSpawn(ForgeConfigSpec.IntValue weight, ForgeConfigSpec.IntValue minCount, ForgeConfigSpec.IntValue maxCount) {}
+
+    // Keyed by entity id path (e.g. "lemur")
+    private static final Map<String, AnimalSpawn> ANIMAL_SPAWNS = new LinkedHashMap<>();
+
+    static {
+        BUILDER.comment("Animal spawn settings. Changes require restarting the world/server.",
+                        "Set weight to 0 to stop an animal from spawning naturally.")
+                .push("animal_spawns");
+        defineAnimalSpawn("beaver", 12, 3, 4);
+        defineAnimalSpawn("butterfly", 8, 3, 6);
+        defineAnimalSpawn("emperor_penguin", 8, 2, 3);
+        defineAnimalSpawn("lemur", 8, 3, 4);
+        defineAnimalSpawn("macaw", 15, 4, 6);
+        defineAnimalSpawn("mantis", 14, 2, 4);
+        defineAnimalSpawn("quirky_frog", 20, 5, 6);
+        defineAnimalSpawn("red_panda", 14, 3, 4);
+        defineAnimalSpawn("sea_lion", 8, 3, 4);
+        BUILDER.pop();
+    }
+
     public static final ForgeConfigSpec SPEC = BUILDER.build();
 
     public static boolean anyaSpawn;
@@ -34,5 +61,26 @@ public class Config
             giveBook = GIVE_BOOK.get();
             halloweenPumpkins = HALLOWEEN_PUMPKINS.get();
         }
+    }
+
+    private static void defineAnimalSpawn(String name, int weight, int minCount, int maxCount) {
+        BUILDER.push(name);
+        ForgeConfigSpec.IntValue weightValue = BUILDER
+                .comment("Spawn weight (higher = more common)")
+                .defineInRange("weight", weight, 0, 1000);
+        ForgeConfigSpec.IntValue minValue = BUILDER
+                .comment("Minimum group size")
+                .defineInRange("min_count", minCount, 1, 64);
+        ForgeConfigSpec.IntValue maxValue = BUILDER
+                .comment("Maximum group size")
+                .defineInRange("max_count", maxCount, 1, 64);
+        BUILDER.pop();
+        ANIMAL_SPAWNS.put(name, new AnimalSpawn(weightValue, minValue, maxValue));
+    }
+
+    public static AnimalSpawn getAnimalSpawn(EntityType<?> entityType) {
+        ResourceLocation id = BuiltInRegistries.ENTITY_TYPE.getKey(entityType);
+        if (!id.getNamespace().equals(FaunaAndOrchestra.MOD_ID)) return null;
+        return ANIMAL_SPAWNS.get(id.getPath());
     }
 }

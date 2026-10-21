@@ -1,10 +1,5 @@
 {
-  "type": "forge:add_spawns",
+  "type": "faunaandorchestra:configurable_spawns",
   "biomes": "#faunaandorchestra:spawns_mantis",
-  "spawners": {
-    "type": "faunaandorchestra:mantis",
-    "maxCount": 4,
-    "minCount": 2,
-    "weight": 14
-  }
+  "entity": "faunaandorchestra:mantis"
 }

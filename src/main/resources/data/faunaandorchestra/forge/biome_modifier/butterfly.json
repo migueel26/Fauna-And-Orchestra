@@ -1,10 +1,5 @@
 {
-  "type": "forge:add_spawns",
+  "type": "faunaandorchestra:configurable_spawns",
   "biomes": "#faunaandorchestra:spawns_butterfly",
-  "spawners": {
-    "type": "faunaandorchestra:butterfly",
-    "maxCount": 6,
-    "minCount": 3,
-    "weight": 8
-  }
+  "entity": "faunaandorchestra:butterfly"
 }
