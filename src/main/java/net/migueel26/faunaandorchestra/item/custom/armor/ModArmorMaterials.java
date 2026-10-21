@@ -11,13 +11,14 @@ import net.minecraft.world.item.crafting.Ingredient;
 import java.util.function.Supplier;
 
 public enum ModArmorMaterials implements ArmorMaterial {
-    PENGUIN_FEATHER("penguin_feather", 25, new int[]{1, 2, 3, 1}, 15,
+    PENGUIN_FEATHER("penguin_feather", 25, new int[]{1, 3, 2, 1}, 15,
             SoundEvents.ARMOR_EQUIP_LEATHER, 0.0f, 0.1f, () -> Ingredient.of(ModItems.PENGUIN_FEATHER.get())),
 
-    FLORA_FORTA("flora_forta", 50, new int[]{1, 2, 3, 1}, 15,
+    FLORA_FORTA("flora_forta", 50, new int[]{1, 3, 2, 1}, 15,
             SoundEvents.GRASS_PLACE, 0.0f, 0.1f, () -> Ingredient.of(ModItems.FLORA_FORTA.get()));
 
-    private static final int[] BASE_DURABILITY = {13, 15, 16, 11};
+    // Both arrays are indexed by ArmorItem.Type.ordinal(): HELMET, CHESTPLATE, LEGGINGS, BOOTS
+    private static final int[] BASE_DURABILITY = {11, 16, 15, 13};
 
     private final String name;
     private final int durabilityMultiplier;
