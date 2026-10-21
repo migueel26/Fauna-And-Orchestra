@@ -45,7 +45,7 @@ public class FrogFluteItem extends Item {
         // Call all the frogs nearby
         List<QuirkyFrogEntity> frogs = level.getEntitiesOfClass(QuirkyFrogEntity.class, player.getBoundingBox().inflate(48), frog -> !frog.isTame());
         for (QuirkyFrogEntity frog : frogs) {
-            frog.getNavigation().moveTo(player.getX(), player.getY(), player.getZ(), 4F);
+            frog.getNavigation().moveTo(player.getX(), player.getY(), player.getZ(), 1.0D);
             if (level.isClientSide()) {
                 level.addParticle(ParticleTypes.NOTE, frog.getX(), frog.getY() + 2.5, frog.getZ(), 0F, 0.5F, 0F);
             }
