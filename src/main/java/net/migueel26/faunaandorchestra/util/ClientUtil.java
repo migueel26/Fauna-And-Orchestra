@@ -2,6 +2,7 @@ package net.migueel26.faunaandorchestra.util;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.migueel26.faunaandorchestra.Config;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -35,7 +36,7 @@ public class ClientUtil {
 
     public static VertexConsumer renderSpecialClothesOnHoliday(PoseStack poseStack, LivingEntity entity, GeoBone head, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, int packedLight, int packedOverlay) {
         if (!isReRender && head.getName().equals("head")) {
-            if (isHalloween()) {
+            if (isHalloween() && Config.halloweenPumpkins) {
                 renderPumpkin(head, entity, poseStack, bufferSource, packedLight, packedOverlay);
             }
 
