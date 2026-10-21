@@ -64,7 +64,7 @@ public class LemurEntity extends MusicalEntity {
     }
 
     protected void addOverridenGoals() {
-        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F) {
+        this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 6.0F) {
             @Override
             public boolean canUse() {
                 return super.canUse() && !((MusicalEntity) mob).isPlayingInstrument();
