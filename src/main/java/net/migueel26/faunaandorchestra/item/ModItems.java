@@ -13,12 +13,14 @@ import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.migueel26.faunaandorchestra.util.AdvancementUtil;
 import net.migueel26.faunaandorchestra.util.ModTags;
 import net.migueel26.faunaandorchestra.util.MusicUtil;
+import net.migueel26.faunaandorchestra.util.VesselUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
@@ -380,7 +382,23 @@ public class ModItems {
             });
     // MISC
     public static final RegistryObject<Item> VOICE = ITEMS.register("voice",
-            () -> new Item(new Item.Properties()));
+            () -> new Item(new Item.Properties()) {
+                @Override
+                public Component getName(ItemStack stack) {
+                    String voice = VesselUtil.getVoiceName(stack);
+
+                    if (voice != null) {
+                        EntityType<?> entityType = ForgeRegistries.ENTITY_TYPES.getValue(ResourceLocation.tryParse(voice));
+
+                        if (entityType != null) {
+                            return Component.translatable("item.faunaandorchestra.voice")
+                                    .append(Component.translatable(entityType.getDescriptionId()));
+                        }
+                    }
+
+                    return super.getName(stack);
+                }
+            });
     public static final RegistryObject<Item> SEWING_RECIPE = createRegularDescriptionItem("sewing_recipe", new Item.Properties().rarity(Rarity.UNCOMMON));
     public static final RegistryObject<Item> UNLOCKER = ITEMS.register("unlocker",
             () -> new Item(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)) {

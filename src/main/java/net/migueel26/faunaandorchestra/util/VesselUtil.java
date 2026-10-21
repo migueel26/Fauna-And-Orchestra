@@ -2,7 +2,6 @@ package net.migueel26.faunaandorchestra.util;
 
 import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.item.ModItems;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -85,9 +84,6 @@ public class VesselUtil {
         if (entityId != null) {
             setVoiceName(stack, entityId.toString());
         }
-
-        stack.setHoverName(Component.translatable("item.faunaandorchestra.voice")
-                .append(Component.translatable(entityType.getDescriptionId())));
 
         return stack;
     }
