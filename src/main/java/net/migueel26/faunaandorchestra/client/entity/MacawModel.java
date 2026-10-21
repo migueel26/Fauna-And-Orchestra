@@ -59,11 +59,6 @@ public class MacawModel extends GeoModel<MacawEntity> {
 
         CoreGeoBone double_bass = getAnimationProcessor().getBone("double_bass");
 
-        getAnimationProcessor().getBone("right_monocle").setHidden(macaw.getHat() != ModItems.RIGHT_MONOCLE.get());
-        getAnimationProcessor().getBone("left_monocle").setHidden(macaw.getHat() != ModItems.LEFT_MONOCLE.get());
-        getAnimationProcessor().getBone("rose").setHidden(macaw.getHat() != ModItems.ROSE.get());
-        getAnimationProcessor().getBone("baseball_cap").setHidden(macaw.getHat() != ModItems.BASEBALL_CAP.get());
-
         double_bass.setHidden(!macaw.isHoldingInstrument());
     }
 }

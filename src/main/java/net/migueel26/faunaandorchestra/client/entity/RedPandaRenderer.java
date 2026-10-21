@@ -3,6 +3,8 @@ package net.migueel26.faunaandorchestra.client.entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.migueel26.faunaandorchestra.entity.custom.RedPandaEntity;
+import net.migueel26.faunaandorchestra.item.ModItems;
+import net.migueel26.faunaandorchestra.util.ClientUtil;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -47,6 +49,14 @@ public class RedPandaRenderer extends GeoEntityRenderer<RedPandaEntity> {
                 bone.setScaleZ(1.0F);
             }
         }
+
+        switch (bone.getName()) {
+            case "fake_moustache" -> ClientUtil.setHatHidden(bone, redPanda.getHat(), ModItems.FAKE_MOUSTACHE.get());
+            case "top_hat" -> ClientUtil.setHatHidden(bone, redPanda.getHat(), ModItems.TOP_HAT.get());
+            case "imaginal_disk" -> ClientUtil.setHatHidden(bone, redPanda.getHat(), ModItems.IMAGINAL_DISK.get());
+        }
+
+        buffer = ClientUtil.renderSpecialClothesOnHoliday(poseStack, redPanda, bone, renderType, bufferSource, buffer, isReRender, packedLight, packedOverlay);
 
         super.renderRecursively(poseStack, redPanda, bone, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
     }

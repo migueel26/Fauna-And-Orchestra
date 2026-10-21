@@ -3,6 +3,8 @@ package net.migueel26.faunaandorchestra.client.entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.migueel26.faunaandorchestra.entity.custom.MacawEntity;
+import net.migueel26.faunaandorchestra.item.ModItems;
+import net.migueel26.faunaandorchestra.util.ClientUtil;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -47,6 +49,15 @@ public class MacawRenderer extends GeoEntityRenderer<MacawEntity> {
                 bone.setScaleZ(1.0F);
             }
         }
+
+        switch (bone.getName()) {
+            case "right_monocle" -> ClientUtil.setHatHidden(bone, macaw.getHat(), ModItems.RIGHT_MONOCLE.get());
+            case "left_monocle" -> ClientUtil.setHatHidden(bone, macaw.getHat(), ModItems.LEFT_MONOCLE.get());
+            case "rose" -> ClientUtil.setHatHidden(bone, macaw.getHat(), ModItems.ROSE.get());
+            case "baseball_cap" -> ClientUtil.setHatHidden(bone, macaw.getHat(), ModItems.BASEBALL_CAP.get());
+        }
+
+        buffer = ClientUtil.renderSpecialClothesOnHoliday(poseStack, macaw, bone, renderType, bufferSource, buffer, isReRender, packedLight, packedOverlay);
 
         super.renderRecursively(poseStack, animatable, bone, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
     }

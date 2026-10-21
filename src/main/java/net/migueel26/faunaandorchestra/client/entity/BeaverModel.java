@@ -61,10 +61,6 @@ public class BeaverModel extends GeoModel<BeaverEntity> {
 
         CoreGeoBone saxophone = getAnimationProcessor().getBone("saxophone");
 
-        getAnimationProcessor().getBone("top_hat").setHidden(beaver.getHat() != ModItems.TOP_HAT.get());
-        getAnimationProcessor().getBone("right_monocle").setHidden(beaver.getHat() != ModItems.RIGHT_MONOCLE.get());
-        getAnimationProcessor().getBone("left_monocle").setHidden(beaver.getHat() != ModItems.LEFT_MONOCLE.get());
-
         saxophone.setHidden(!beaver.isHoldingInstrument());
     }
 }

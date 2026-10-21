@@ -4,6 +4,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.migueel26.faunaandorchestra.entity.custom.BeaverEntity;
 import net.migueel26.faunaandorchestra.entity.custom.PenguinEntity;
+import net.migueel26.faunaandorchestra.item.ModItems;
+import net.migueel26.faunaandorchestra.util.ClientUtil;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -42,6 +44,14 @@ public class BeaverRenderer extends GeoEntityRenderer<BeaverEntity> {
                 bone.setScaleZ(1.0F);
             }
         }
+
+        switch (bone.getName()) {
+            case "top_hat" -> ClientUtil.setHatHidden(bone, beaver.getHat(), ModItems.TOP_HAT.get());
+            case "right_monocle" -> ClientUtil.setHatHidden(bone, beaver.getHat(), ModItems.RIGHT_MONOCLE.get());
+            case "left_monocle" -> ClientUtil.setHatHidden(bone, beaver.getHat(), ModItems.LEFT_MONOCLE.get());
+        }
+
+        buffer = ClientUtil.renderSpecialClothesOnHoliday(poseStack, beaver, bone, renderType, bufferSource, buffer, isReRender, packedLight, packedOverlay);
 
         super.renderRecursively(poseStack, animatable, bone, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
     }
