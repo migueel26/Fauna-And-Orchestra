@@ -118,11 +118,31 @@ public class FaunaAndOrchestra {
                 protected Projectile getProjectile(Level level, Position position, ItemStack stack) {
                     return new ThrownBoogieBomb(level, position.x(), position.y(), position.z());
                 }
+
+                @Override
+                protected float getUncertainty() {
+                    return super.getUncertainty() * 0.5F;
+                }
+
+                @Override
+                protected float getPower() {
+                    return super.getPower() * 1.25F;
+                }
             });
             DispenserBlock.registerBehavior(ModItems.DISCORD_BOMB.get(), new AbstractProjectileDispenseBehavior() {
                 @Override
                 protected Projectile getProjectile(Level level, Position position, ItemStack stack) {
                     return new ThrownDiscordBomb(level, position.x(), position.y(), position.z());
+                }
+
+                @Override
+                protected float getUncertainty() {
+                    return super.getUncertainty() * 0.5F;
+                }
+
+                @Override
+                protected float getPower() {
+                    return super.getPower() * 1.25F;
                 }
             });
         });
