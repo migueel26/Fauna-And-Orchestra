@@ -3,7 +3,7 @@
   "ingredients": [
     {
       "ingredient": {
-        "tag": "c:foods/raw_fish"
+        "tag": "forge:raw_fishes"
       }
     },
     {
