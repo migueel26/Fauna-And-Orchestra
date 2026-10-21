@@ -201,7 +201,7 @@ public class QuirkyFrogEntity extends ConductorEntity implements GeoEntity {
             f = 0.2F;
         }
 
-        return f + this.getJumpBoostPower();
+        return f * this.getBlockJumpFactor() + this.getJumpBoostPower();
     }
 
     @Override
