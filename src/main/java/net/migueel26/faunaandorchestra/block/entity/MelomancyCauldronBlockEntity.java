@@ -39,7 +39,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 import javax.annotation.Nullable;
 
 public class MelomancyCauldronBlockEntity extends BlockEntity implements GeoBlockEntity, Clearable {
-    public static final int NUM_SLOTS = 4;
+    public static final int NUM_SLOTS = 6;
     public static final int DEFAULT_COOK_TIME = 1800;
     /// COMPONENTS ---------------
     private final NonNullList<ItemStack> ingredients = NonNullList.withSize(NUM_SLOTS, ItemStack.EMPTY);
