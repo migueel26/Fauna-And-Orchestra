@@ -16,11 +16,15 @@ public class Config
     private static final ForgeConfigSpec.BooleanValue GIVE_BOOK = BUILDER
             .comment("Should the book be dropped at the beginning?")
             .define("give_book", true);
+    private static final ForgeConfigSpec.BooleanValue HALLOWEEN_PUMPKINS = BUILDER
+            .comment("Should the Halloween pumpkins be enabled?")
+            .define("halloween_hats", true);
 
     public static final ForgeConfigSpec SPEC = BUILDER.build();
 
     public static boolean anyaSpawn;
     public static boolean giveBook;
+    public static boolean halloweenPumpkins;
 
     @SubscribeEvent
     static void onLoad(final ModConfigEvent event)
@@ -28,6 +32,7 @@ public class Config
         if (event.getConfig().getSpec() == SPEC) {
             anyaSpawn = ANYA_SPAWN.get();
             giveBook = GIVE_BOOK.get();
+            halloweenPumpkins = HALLOWEEN_PUMPKINS.get();
         }
     }
 }
