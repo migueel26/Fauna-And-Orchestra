@@ -1,10 +1,5 @@
 {
-  "type": "neoforge:add_spawns",
+  "type": "faunaandorchestra:configurable_spawns",
   "biomes": "#faunaandorchestra:spawns_beaver",
-  "spawners": {
-    "type": "faunaandorchestra:beaver",
-    "maxCount": 4,
-    "minCount": 3,
-    "weight": 12
-  }
+  "entity": "faunaandorchestra:beaver"
 }

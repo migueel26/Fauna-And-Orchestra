@@ -31,6 +31,7 @@ import net.migueel26.faunaandorchestra.screen.ModMenuTypes;
 import net.migueel26.faunaandorchestra.screen.custom.*;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.migueel26.faunaandorchestra.util.ModItemProperties;
+import net.migueel26.faunaandorchestra.worldgen.ModBiomeModifiers;
 import net.migueel26.faunaandorchestra.worldgen.structures.ModStructures;
 import net.minecraft.client.particle.SculkChargePopParticle;
 import net.minecraft.client.renderer.entity.EntityRenderers;
@@ -78,6 +79,7 @@ public class FaunaAndOrchestra {
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
 
         ModStructures.register(modEventBus);
+        ModBiomeModifiers.register(modEventBus);
         ModItems.register(modEventBus);
         ModCreativeModeTabs.register(modEventBus);
         ModEntities.register(modEventBus);
