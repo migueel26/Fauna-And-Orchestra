@@ -27,8 +27,10 @@ public record NaturalRecipe(List<SizedIngredient> ingredients, ItemStack output,
             return false;
         }
 
-        List<ItemStack> inputs = new ArrayList<>(input.items());
-        inputs.removeIf(ItemStack::isEmpty);
+        List<ItemStack> inputs = new ArrayList<>();
+        for (ItemStack stack : input.items()) {
+            if (!stack.isEmpty()) inputs.add(stack.copy());
+        }
 
         for (SizedIngredient required : this.ingredients) {
             int amountNeeded = required.amount();
