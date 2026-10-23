@@ -133,15 +133,11 @@ public class JarRackBlockEntity extends BlockEntity {
 
         ItemStack result = recipe.output().copy();
 
-        boolean inserted = false;
-        for (int i = 0; i < jarRack.inventory.getSlots(); i++) {
-            if (jarRack.inventory.insertItem(i, result, false).isEmpty()) {
-                inserted = true;
-                break;
-            }
+        for (int i = 0; i < jarRack.inventory.getSlots() && !result.isEmpty(); i++) {
+            result = jarRack.inventory.insertItem(i, result, false);
         }
 
-        if (!inserted) {
+        if (!result.isEmpty()) {
             Containers.dropItemStack(level, jarRack.worldPosition.getX() + 0.5, jarRack.worldPosition.getY() + 1.0, jarRack.worldPosition.getZ() + 0.5, result);
         }
 

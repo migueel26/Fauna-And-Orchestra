@@ -79,7 +79,7 @@ public class JarRackBlock extends HorizontalDirectionalBlock implements EntityBl
         if (stack.is(ModBlocks.HANGING_JAR.get().asItem()) && !state.getValue(JAR) && level.getBlockEntity(pos) instanceof JarRackBlockEntity blockEntity) {
             if (level.getBlockState(pos.below()).is(ModTags.Blocks.JAR_FUEL) || level.getBlockState(pos.below()).isAir()) {
                 CompoundTag tag = BlockItem.getBlockEntityData(stack);
-                if (tag.contains("Inventory")) {
+                if (tag != null && tag.contains("Inventory")) {
                     // We introduce the items
                     ItemStackHandler inventory = new ItemStackHandler(6);
                     inventory.deserializeNBT(tag.getCompound("Inventory"));
