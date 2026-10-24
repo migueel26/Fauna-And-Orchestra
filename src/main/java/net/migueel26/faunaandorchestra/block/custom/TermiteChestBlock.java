@@ -70,7 +70,10 @@ public class TermiteChestBlock extends HorizontalDirectionalBlock implements Ent
             termite.discard();
         }
 
-        Containers.dropContentsOnDestroy(state, newState, level, pos);
+        // Only drop the contents when the block is really gone, not on any state change
+        if (!newState.is(state.getBlock()) && level.getBlockEntity(pos) instanceof TermiteChestBlockEntity termiteChestBE) {
+            Containers.dropContents(level, pos, termiteChestBE.container);
+        }
 
         super.onRemove(state, level, pos, newState, movedByPiston);
     }
