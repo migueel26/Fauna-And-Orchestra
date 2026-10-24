@@ -1,6 +1,7 @@
 package net.migueel26.faunaandorchestra;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -30,14 +31,16 @@ public class Config
             .comment("Should the Halloween pumpkins be enabled?")
             .define("halloween_hats", true);
 
-    public record AnimalSpawn(ModConfigSpec.IntValue weight, ModConfigSpec.IntValue minCount, ModConfigSpec.IntValue maxCount) {}
+    public record AnimalSpawn(ModConfigSpec.IntValue weight, ModConfigSpec.IntValue minCount, ModConfigSpec.IntValue maxCount,
+                              ModConfigSpec.ConfigValue<List<? extends String>> addBiomes) {}
 
     // Keyed by entity id path (e.g. "lemur")
     private static final Map<String, AnimalSpawn> ANIMAL_SPAWNS = new LinkedHashMap<>();
 
     static {
         BUILDER.comment("Animal spawn settings. Changes require restarting the world/server.",
-                        "Set weight to 0 to stop an animal from spawning naturally.")
+                        "Set weight to 0 to stop an animal from spawning naturally.",
+                        "Use add_biomes to let an animal spawn in extra biomes.")
                 .push("animal_spawns");
         defineAnimalSpawn("beaver", 12, 3, 4);
         defineAnimalSpawn("butterfly", 8, 3, 6);
@@ -74,8 +77,17 @@ public class Config
         ModConfigSpec.IntValue maxValue = BUILDER
                 .comment("Maximum group size")
                 .defineInRange("max_count", maxCount, 1, 64);
+        ModConfigSpec.ConfigValue<List<? extends String>> addBiomesValue = BUILDER
+                .comment("Extra biomes this animal can spawn in, on top of its default ones.",
+                        "Accepts biome ids (\"minecraft:plains\") and biome tags (\"#minecraft:is_forest\").")
+                .defineList("add_biomes", List.of(), () -> "minecraft:plains", Config::isBiomeEntry);
         BUILDER.pop();
-        ANIMAL_SPAWNS.put(name, new AnimalSpawn(weightValue, minValue, maxValue));
+        ANIMAL_SPAWNS.put(name, new AnimalSpawn(weightValue, minValue, maxValue, addBiomesValue));
+    }
+
+    private static boolean isBiomeEntry(Object entry) {
+        if (!(entry instanceof String string) || string.isBlank()) return false;
+        return ResourceLocation.tryParse(string.startsWith("#") ? string.substring(1) : string) != null;
     }
 
     public static AnimalSpawn getAnimalSpawn(EntityType<?> entityType) {
