@@ -31,7 +31,7 @@ public class ClientUtil {
     }
 
     public static void setHatHidden(GeoBone bone, Item wornHat, Item boneHat) {
-        bone.setHidden(wornHat != boneHat || isHalloween());
+        bone.setHidden(wornHat != boneHat || (isHalloween() && Config.halloweenPumpkins));
     }
 
     public static VertexConsumer renderSpecialClothesOnHoliday(PoseStack poseStack, LivingEntity entity, GeoBone head, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, int packedLight, int packedOverlay) {
