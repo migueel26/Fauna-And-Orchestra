@@ -12,7 +12,6 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ExperienceOrb;
-import net.minecraft.world.entity.npc.Npc;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.trading.Merchant;
@@ -23,7 +22,7 @@ import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import software.bernie.geckolib.animatable.GeoEntity;
 
-public abstract class AbstractKoalaMerchant extends AgeableMob implements Npc, Merchant, GeoEntity {
+public abstract class AbstractKoalaMerchant extends AgeableMob implements Merchant, GeoEntity {
     @Nullable
     protected Player tradingPlayer;
     @Nullable

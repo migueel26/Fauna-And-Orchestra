@@ -30,11 +30,8 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.npc.Npc;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -52,7 +49,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
-public class TermiteQueen extends AgeableMob implements TalkableEntity, Npc, GeoEntity {
+public class TermiteQueen extends AgeableMob implements TalkableEntity, GeoEntity {
     private final int SCHEDULED_DEATH = 20;
     private final int MAX_TERMITE_MOUNDS_DESTROYED = 3;
 

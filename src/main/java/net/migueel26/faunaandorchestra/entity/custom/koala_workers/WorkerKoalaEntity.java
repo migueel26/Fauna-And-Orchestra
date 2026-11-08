@@ -2,7 +2,6 @@ package net.migueel26.faunaandorchestra.entity.custom.koala_workers;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
-import net.migueel26.faunaandorchestra.entity.custom.Faust;
 import net.migueel26.faunaandorchestra.entity.custom.TalkableEntity;
 import net.migueel26.faunaandorchestra.entity.goals.RandomWalkToPlayerGoal;
 import net.migueel26.faunaandorchestra.item.ModItems;
@@ -30,7 +29,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.npc.Npc;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -44,7 +42,7 @@ import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class WorkerKoalaEntity extends AgeableMob implements Npc, GeoEntity, TalkableEntity {
+public class WorkerKoalaEntity extends AgeableMob implements GeoEntity, TalkableEntity {
     private static final RawAnimation WALK = RawAnimation.begin().thenPlay("walk");
     private static final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
     public static final int DESPAWN_DELAY = 47999;

@@ -2,9 +2,6 @@ package net.migueel26.faunaandorchestra.entity.custom;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.advancements.ModAdvancements;
-import net.migueel26.faunaandorchestra.block.ModBlocks;
-import net.migueel26.faunaandorchestra.block.custom.TipCaseBlock;
-import net.migueel26.faunaandorchestra.block.entity.TipCaseBlockEntity;
 import net.migueel26.faunaandorchestra.entity.goals.FaustFindOrionGoal;
 import net.migueel26.faunaandorchestra.entity.goals.RingtailsRunAwayGoal;
 import net.migueel26.faunaandorchestra.networking.*;
@@ -23,17 +20,12 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.npc.Npc;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
-import oshi.util.tuples.Pair;
 import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
@@ -43,7 +35,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.*;
 
-public class Faust extends TravellingMusician implements Npc, GeoEntity {
+public class Faust extends TravellingMusician implements GeoEntity {
     private static final RawAnimation PLAYING = RawAnimation.begin().thenPlay("playing");
     private static final RawAnimation WALK = RawAnimation.begin().thenPlay("walk");
     private static final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");

@@ -1,12 +1,9 @@
 package net.migueel26.faunaandorchestra.entity.custom.koala_workers;
 
-import net.migueel26.faunaandorchestra.block.ModBlocks;
 import net.migueel26.faunaandorchestra.entity.ModEntities;
 import net.migueel26.faunaandorchestra.entity.custom.ConductorEntity;
 import net.migueel26.faunaandorchestra.entity.custom.ListeningEntity;
 import net.migueel26.faunaandorchestra.entity.custom.TalkableEntity;
-import net.migueel26.faunaandorchestra.util.BlocksUtil;
-import net.minecraft.BlockUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
@@ -24,13 +21,11 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.npc.Npc;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import oshi.util.tuples.Pair;
@@ -38,7 +33,7 @@ import software.bernie.geckolib.animatable.GeoEntity;
 
 import java.util.Optional;
 
-public abstract class AbstractKoalaWorker extends AgeableMob implements Npc, TalkableEntity, ListeningEntity, GeoEntity {
+public abstract class AbstractKoalaWorker extends AgeableMob implements TalkableEntity, ListeningEntity, GeoEntity {
     // WORKING
     protected static final EntityDataAccessor<Integer> WORK_TIME = SynchedEntityData.defineId(AbstractKoalaWorker.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<BlockPos> WORKING_STATION = SynchedEntityData.defineId(AbstractKoalaWorker.class, EntityDataSerializers.BLOCK_POS);

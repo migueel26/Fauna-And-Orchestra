@@ -2,9 +2,7 @@ package net.migueel26.faunaandorchestra.entity.custom;
 
 import net.migueel26.faunaandorchestra.FaunaAndOrchestra;
 import net.migueel26.faunaandorchestra.item.ModItems;
-import net.migueel26.faunaandorchestra.particles.ModParticleTypes;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
-import net.migueel26.faunaandorchestra.util.ModSavedData;
 import net.migueel26.faunaandorchestra.util.MusicUtil;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -26,7 +24,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.npc.Npc;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.Item;
@@ -35,7 +32,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.common.Tags;
 import org.jetbrains.annotations.Nullable;
 import oshi.util.tuples.Pair;
 import software.bernie.geckolib.animatable.GeoAnimatable;
@@ -45,9 +41,7 @@ import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-import java.util.List;
-
-public class WiseTree extends TamableAnimal implements GeoEntity, TalkableEntity, Npc {
+public class WiseTree extends TamableAnimal implements GeoEntity, TalkableEntity {
     protected int tick = 0;
     // Fruit animation
     protected int fruitTick = -1;

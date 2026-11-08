@@ -12,7 +12,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.npc.Npc;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import software.bernie.geckolib.animatable.GeoAnimatable;
@@ -21,7 +20,7 @@ import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class Denise extends TravellingMusician implements Npc, GeoEntity {
+public class Denise extends TravellingMusician implements GeoEntity {
     // ANIMATION
     private static final RawAnimation PLAYING = RawAnimation.begin().thenPlay("playing");
     private static final RawAnimation WALK = RawAnimation.begin().thenPlay("walk");
