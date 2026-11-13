@@ -55,7 +55,7 @@ public class RedPandaEntity extends MusicalEntity {
     protected static final RawAnimation PLAYING_IMAGINAL_DISK = RawAnimation.begin().thenPlay("playing_imaginal_disk");
     protected static final RawAnimation INSERT_DISK = RawAnimation.begin().thenPlay("insert_disk");
     protected static final RawAnimation EAT = RawAnimation.begin().thenPlay("eat");
-    protected static final RawAnimation IDLE_KEYTAR = RawAnimation.begin().thenPlay("holding_keytar");
+    protected static final RawAnimation IDLE_KEYTAR = RawAnimation.begin().thenPlay("idle_instrument");
     private static final EntityDataAccessor<Boolean> IS_STANDING = SynchedEntityData.defineId(RedPandaEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> IS_EATING = SynchedEntityData.defineId(RedPandaEntity.class, EntityDataSerializers.BOOLEAN);
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);

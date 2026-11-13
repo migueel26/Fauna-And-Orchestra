@@ -32,7 +32,7 @@ public class LemurEntity extends MusicalEntity {
     protected static final RawAnimation WALK = RawAnimation.begin().thenPlay("walk");
     public static final RawAnimation WALK_OBOE = RawAnimation.begin().thenPlay("walk_oboe");
     protected static final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
-    protected static final RawAnimation IDLE_OBOE = RawAnimation.begin().thenPlay("idle_oboe");
+    protected static final RawAnimation IDLE_OBOE = RawAnimation.begin().thenPlay("idle_instrument");
     protected static final RawAnimation PLAYING = RawAnimation.begin().thenPlay("playing");
     private final AnimationController<LemurEntity> lemurController = new AnimationController<>(this, "lemur_controller", 5, this::lemurState);
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);

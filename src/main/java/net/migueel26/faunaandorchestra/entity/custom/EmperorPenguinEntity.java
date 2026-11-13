@@ -68,7 +68,7 @@ public class EmperorPenguinEntity extends MusicalEntity implements NeutralMob {
     protected static final RawAnimation WADDLE_FLUTE = RawAnimation.begin().thenPlay("waddle_flute");
     protected static final RawAnimation WAVE = RawAnimation.begin().thenPlay("wave");
     protected static final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
-    protected static final RawAnimation IDLE_FLUTE = RawAnimation.begin().thenPlay("holding_flute");
+    protected static final RawAnimation IDLE_FLUTE = RawAnimation.begin().thenPlay("idle_instrument");
     protected static final RawAnimation PLAYING = RawAnimation.begin().thenPlay("playing");
     protected static final RawAnimation PLAYING_PHANTOM = RawAnimation.begin().thenPlay("playing_phantom");
     protected static final RawAnimation ATTACK = RawAnimation.begin().thenPlay("attack");

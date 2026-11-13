@@ -64,7 +64,7 @@ public class MacawEntity extends MusicalEntity implements FlyingAnimal {
     protected static final RawAnimation ROTATING = RawAnimation.begin().thenPlay("rotating");
     protected static final RawAnimation FLYING = RawAnimation.begin().thenPlay("flying");
     protected static final RawAnimation PLAYING = RawAnimation.begin().thenPlay("playing");
-    protected static final RawAnimation IDLE_DOUBLE_BASS = RawAnimation.begin().thenPlay("idle_double_bass");
+    protected static final RawAnimation IDLE_DOUBLE_BASS = RawAnimation.begin().thenPlay("idle_instrument");
     protected static final RawAnimation FLYING_DOUBLE_BASS = RawAnimation.begin().thenPlay("flying_double_bass");
     public float flap;
     public float flapSpeed;

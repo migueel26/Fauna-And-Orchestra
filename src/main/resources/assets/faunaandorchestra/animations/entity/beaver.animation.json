@@ -1199,7 +1199,7 @@
 				}
 			}
 		},
-		"holding_sax": {
+		"idle_instrument": {
 			"loop": true,
 			"animation_length": 3,
 			"bones": {

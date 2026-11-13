@@ -179,7 +179,7 @@
 						}
 					},
 					"scale": {
-						"vector": [1.05, 1.05, 1.05]
+						"vectFor": [1.05, 1.05, 1.05]
 					}
 				},
 				"third_tail": {
@@ -791,7 +791,7 @@
 				}
 			}
 		},
-		"idle_oboe": {
+		"idle_instrument": {
 			"loop": true,
 			"animation_length": 3,
 			"bones": {

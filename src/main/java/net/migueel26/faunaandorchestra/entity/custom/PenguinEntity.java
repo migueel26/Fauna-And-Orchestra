@@ -48,7 +48,7 @@ public class PenguinEntity extends MusicalEntity {
     protected static final RawAnimation WADDLE_FLUTE = RawAnimation.begin().thenPlay("waddle_flute");
     protected static final RawAnimation WAVE = RawAnimation.begin().thenPlay("wave");
     protected static final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
-    protected static final RawAnimation IDLE_FLUTE = RawAnimation.begin().thenPlay("holding_flute");
+    protected static final RawAnimation IDLE_FLUTE = RawAnimation.begin().thenPlay("idle_instrument");
     protected static final RawAnimation PLAYING = RawAnimation.begin().thenPlay("playing");
     protected static final RawAnimation PLAYING_PROPELLER_HAT = RawAnimation.begin().thenPlay("playing_propeller_hat");
     protected static final RawAnimation PROPEL = RawAnimation.begin().thenPlay("propel");

@@ -79,7 +79,7 @@ public class MantisEntity extends MusicalEntity implements NeutralMob, VariantEn
     protected static final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
     protected static final RawAnimation ATTACK = RawAnimation.begin().thenPlay("attack");
     protected static final RawAnimation PLAYING = RawAnimation.begin().thenPlay("playing");
-    protected static final RawAnimation IDLE_VIOLIN = RawAnimation.begin().thenPlay("idle_violin");
+    protected static final RawAnimation IDLE_VIOLIN = RawAnimation.begin().thenPlay("idle_instrument");
     protected static final RawAnimation PLAYING_ENLIGHTEN = RawAnimation.begin().thenPlay("playing_enlighten");
     protected static final RawAnimation ENLIGHTEN = RawAnimation.begin().thenPlay("enlighten");
     public static final int MIN_ALTAR_PILLAR = 170;
