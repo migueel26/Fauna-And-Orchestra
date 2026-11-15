@@ -120,6 +120,7 @@ public abstract class ConductorEntity extends TamableAnimal {
     private LazyOptional<IItemHandler> inventoryOptional = LazyOptional.of(() -> this.inventory);
     protected int ticksPlaying = 0;
     protected BlockPos composerGrave = null;
+    protected UUID playerCanonUUID = null; // The PlayerCanonEntity summoned by the Song of Resurrection
 
     public ConductorEntity(EntityType<? extends TamableAnimal> entityType, Level level) {
         super(entityType, level);
@@ -174,6 +175,8 @@ public abstract class ConductorEntity extends TamableAnimal {
             this.inventory.deserializeNBT(compound.getCompound("Inventory"));
             this.entityData.set(COSTUME_ITEM, this.inventory.getStackInSlot(1));
         }
+
+        this.playerCanonUUID = compound.hasUUID("PlayerCanonUUID") ? compound.getUUID("PlayerCanonUUID") : null;
     }
 
     @Override
@@ -186,6 +189,7 @@ public abstract class ConductorEntity extends TamableAnimal {
         compound.putFloat("Volume", currentVolume);
 
         compound.put("Inventory", this.inventory.serializeNBT());
+        if (playerCanonUUID != null) compound.putUUID("PlayerCanonUUID", playerCanonUUID);
     }
 
     @Override
@@ -366,15 +370,21 @@ public abstract class ConductorEntity extends TamableAnimal {
                 }
             }
         } else if (sheetMusic.equals(ModItems.RESURRECTION_SONG.get())) {
-            if (ticksPlaying == 10) {
-                List<PlayerCanonEntity> entities =  level().getEntitiesOfClass(PlayerCanonEntity.class, getBoundingBox().inflate(64),
-                        entity -> entity.getOwnerUUID().equals(this.getOwnerUUID()));
-                if (this.getOwner() instanceof Player player &&
-                       entities.isEmpty()) {
+            if (ticksPlaying == 10 && this.getOwner() instanceof Player player && player.level() == level()) {
+                // Search the whole level for PlayerCanonEntity with the same owner
+                List<? extends PlayerCanonEntity> existing = serverLevel.getEntities(ModEntities.PLAYER_CANON.get(),
+                        entity -> entity.isAlive() && player.getUUID().equals(entity.getOwnerUUID()));
+                if (!existing.isEmpty()) {
+                    // Adopt the one that is already following the player
+                    PlayerCanonEntity playerCanon = existing.get(0);
+                    playerCanon.setConductor(this);
+                    this.playerCanonUUID = playerCanon.getUUID();
+                } else {
                     PlayerCanonEntity playerCanon = new PlayerCanonEntity(ModEntities.PLAYER_CANON.get(), level());
                     playerCanon.setPos(player.position());
                     playerCanon.setConductor(this);
                     playerCanon.setOwnerUUID(player.getUUID());
+                    this.playerCanonUUID = playerCanon.getUUID();
 
                     ModAdvancements.PLAYER_CANON.trigger((ServerPlayer) player);
 
@@ -675,6 +685,10 @@ public abstract class ConductorEntity extends TamableAnimal {
 
     public boolean isMusicianApt(MusicalEntity musician) {
         return MusicUtil.getInstruments(getSheetMusic()).contains(musician.getInstrument().get());
+    }
+
+    public UUID getPlayerCanonUUID() {
+        return playerCanonUUID;
     }
 
     public boolean isHoldingLegendaryBaton() {

@@ -1,5 +1,6 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
+import net.migueel26.faunaandorchestra.item.ModItems;
 import net.migueel26.faunaandorchestra.sound.ModSounds;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.core.particles.ParticleTypes;
@@ -119,7 +120,7 @@ public class PlayerCanonEntity extends AbstractCanonEntity {
 
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
-        compound.putUUID("ConductorUUID", conductorUUID);
+        if (conductorUUID != null) compound.putUUID("ConductorUUID", conductorUUID);
         super.addAdditionalSaveData(compound);
     }
 
@@ -140,20 +141,25 @@ public class PlayerCanonEntity extends AbstractCanonEntity {
         }
 
 
-        if (this.tickCount % 20 == 0) {
-            if (scheduleDeath == -1 && !level().isClientSide() && ((ServerLevel) level()).getEntity(conductorUUID) instanceof ConductorEntity conductor
-                && ((conductor.isAlive() && !conductor.isConducting()) || (conductor.isDeadOrDying()))) {
-                // If the conductor is dying / has stopped conducting
-                this.scheduleDeath = 3;
-                ((ServerLevel) level()).sendParticles(ParticleTypes.CLOUD, position().x, blockPosition().getCenter().y, position().z, 30, 0.1, 0.1, 0.1, 0.2);
+        if (this.tickCount % 20 == 0 && scheduleDeath == -1 && !level().isClientSide()) {
+            boolean shouldDespawn;
+            if (conductorUUID == null) {
+                shouldDespawn = true;
+            } else if (((ServerLevel) level()).getEntity(conductorUUID) instanceof ConductorEntity conductor) {
+                // The conductor is loaded: stay only while it keeps playing the song and this is its canon
+                UUID canonUUID = conductor.getPlayerCanonUUID();
+                shouldDespawn = !conductor.isAlive() || !conductor.isConducting()
+                        || !conductor.isHoldingLegendaryBaton()
+                        || conductor.getSheetMusic() != ModItems.RESURRECTION_SONG.get()
+                        || (canonUUID != null && !canonUUID.equals(this.getUUID()));
+            } else {
+                // The conductor is unloaded: keep following the player, it will be checked once it loads again
+                shouldDespawn = false;
             }
 
-            if (level().isClientSide() && skin == null && getOwnerUUID() != null) {
-                Player player = level().getPlayerByUUID(getOwnerUUID());
-                if (player != null) {
-                    this.setSkin(((AbstractClientPlayer) player).getSkinTextureLocation());
-                    this.setCustomName(player.getDisplayName());
-                }
+            if (shouldDespawn) {
+                this.scheduleDeath = 3;
+                ((ServerLevel) level()).sendParticles(ParticleTypes.CLOUD, position().x, blockPosition().getCenter().y, position().z, 30, 0.1, 0.1, 0.1, 0.2);
             }
         }
 
@@ -187,7 +193,7 @@ public class PlayerCanonEntity extends AbstractCanonEntity {
     }
 
     public void setConductor(ConductorEntity conductor) {
-        this.conductorUUID = conductor.getUUID();
+        this.entityData.set(CONDUCTOR_UUID, Optional.of(conductor.getUUID()));
     }
 
     public UUID getConductorUUID() {
