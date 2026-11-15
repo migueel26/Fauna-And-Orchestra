@@ -31,7 +31,7 @@
       }
     }
   ],
-  "fuel": "#faunaandorchestra:jar_fire_fuel",
+  "fuel": "#faunaandorchestra:jar_water_fuel",
   "result": {
     "item": "faunaandorchestra:floral_fumes",
     "count": 2
