@@ -1,6 +1,7 @@
 package net.migueel26.faunaandorchestra.item.custom;
 
 import net.migueel26.faunaandorchestra.entity.custom.TravellingMusician;
+import net.migueel26.faunaandorchestra.entity.custom.village_trotters.VillageTrotterEntity;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -33,9 +34,14 @@ import java.util.List;
 import java.util.Objects;
 
 public class CustomSpawnEggItem extends Item {
-    List<EntityType<? extends AgeableMob>> musicians;
+    List<EntityPair> musicians;
     @SafeVarargs
     public CustomSpawnEggItem(Item.Properties properties, EntityType<? extends AgeableMob>... musicians) {
+        super(properties);
+        this.musicians = Arrays.stream(musicians).map(musician -> new EntityPair(musician, 1)).toList();
+    }
+
+    public CustomSpawnEggItem(Item.Properties properties, EntityPair... musicians) {
         super(properties);
         this.musicians = Arrays.stream(musicians).toList();
     }
@@ -58,27 +64,37 @@ public class CustomSpawnEggItem extends Item {
                 blockpos1 = blockpos.relative(direction);
             }
 
-            for (EntityType<? extends AgeableMob> entityType : musicians) {
-                Entity entity = entityType.spawn(
-                        (ServerLevel) level,
-                        itemstack,
-                        context.getPlayer(),
-                        blockpos1,
-                        MobSpawnType.SPAWN_EGG,
-                        true,
-                        !Objects.equals(blockpos, blockpos1) && direction == Direction.UP
-                );
-
-                if (entity instanceof TravellingMusician musician) {
-                    musician.setMovable(true);
-                }
-            }
+            spawnMusicians(level, itemstack, context.getPlayer(), blockpos1, true,
+                    !Objects.equals(blockpos, blockpos1) && direction == Direction.UP
+            );
 
             itemstack.shrink(1);
             level.gameEvent(context.getPlayer(), GameEvent.ENTITY_PLACE, blockpos);
         }
 
         return InteractionResult.CONSUME;
+    }
+
+    public void spawnMusicians(Level level, ItemStack itemStack, Player player, BlockPos blockPos, boolean shouldOffsetY, boolean shouldOffsetYMore) {
+        for (EntityPair entityPair : musicians) {
+            for (int i = 0; i < entityPair.count(); i++) {
+                Entity entity = entityPair.entityType().spawn(
+                        (ServerLevel) level,
+                        itemStack,
+                        player,
+                        blockPos,
+                        MobSpawnType.SPAWN_EGG,
+                        shouldOffsetY,
+                        shouldOffsetYMore
+                );
+
+                if (entity instanceof TravellingMusician musician) {
+                    musician.setMovable(true);
+                } else if (entity instanceof VillageTrotterEntity musician) {
+                    musician.setMovable(true);
+                }
+            }
+        }
     }
 
     /**
@@ -97,9 +113,7 @@ public class CustomSpawnEggItem extends Item {
             if (!(level.getBlockState(blockpos).getBlock() instanceof LiquidBlock)) {
                 return InteractionResultHolder.pass(itemstack);
             } else if (level.mayInteract(player, blockpos) && player.mayUseItemAt(blockpos, blockhitresult.getDirection(), itemstack)) {
-                for (EntityType<? extends AgeableMob> entitytype : musicians) {
-                    entitytype.spawn((ServerLevel)level, itemstack, player, blockpos, MobSpawnType.SPAWN_EGG, false, false);
-                }
+                spawnMusicians(level, itemstack, player, blockpos, false, false);
 
                 itemstack.consume(1, player);
                 player.awardStat(Stats.ITEM_USED.get(this));
@@ -117,7 +131,7 @@ public class CustomSpawnEggItem extends Item {
             MutableComponent combinedTooltip = null;
 
             for (int i = 0; i < musicians.size(); i++) {
-                Component entityName = musicians.get(i).getDescription();
+                Component entityName = musicians.get(i).entityType().getDescription();
 
                 if (combinedTooltip == null) {
                     combinedTooltip = entityName.copy();
@@ -133,5 +147,20 @@ public class CustomSpawnEggItem extends Item {
             }
         }
         super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+    }
+
+    public record EntityPair(EntityType<? extends AgeableMob> entityType, int count) {
+        public EntityPair(EntityType<? extends AgeableMob> entityType, int count) {
+            this.entityType = entityType;
+            this.count = count;
+        }
+
+        public static EntityPair of(EntityType<? extends AgeableMob> entityType, int count) {
+            return new EntityPair(entityType, count);
+        }
+
+        public static EntityPair of(EntityType<? extends AgeableMob> entityType) {
+            return new EntityPair(entityType, 1);
+        }
     }
 }

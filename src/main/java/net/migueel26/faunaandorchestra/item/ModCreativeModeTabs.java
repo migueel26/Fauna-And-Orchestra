@@ -56,6 +56,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.SPROUTLING_SPAWN_EGG);
                         output.accept(ModItems.RINGTAILS_SPAWN_EGG);
                         output.accept(ModItems.JAZZY_DAMMYS_SPAWN_EGG);
+                        output.accept(ModItems.VILLAGE_TROTTERS_SPAWN_EGG);
                         output.accept(ModItems.WISE_TREE_SPAWN_EGG);
                         output.accept(ModItems.TERMITE_QUEEN_SPAWN_EGG);
                         output.accept(ModItems.THE_GREAT_COMPOSER_SPAWN_EGG);

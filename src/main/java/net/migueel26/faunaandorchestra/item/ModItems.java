@@ -330,6 +330,10 @@ public class ModItems {
             () -> new CustomSpawnEggItem(new Item.Properties(), ModEntities.FAUST.get(), ModEntities.ORION.get()));
     public static final DeferredItem<Item> JAZZY_DAMMYS_SPAWN_EGG = ITEMS.register("jazzy_dammys_spawn_egg",
             () -> new CustomSpawnEggItem(new Item.Properties(), ModEntities.DENZEL.get(), ModEntities.DENISE.get(), ModEntities.DELROY.get(), ModEntities.DAN_B.get()));
+    public static final DeferredItem<Item> VILLAGE_TROTTERS_SPAWN_EGG = ITEMS.register("village_trotters_spawn_egg",
+            () -> new CustomSpawnEggItem(new Item.Properties(),
+                    CustomSpawnEggItem.EntityPair.of(ModEntities.CORNELIUS.get()),
+                    CustomSpawnEggItem.EntityPair.of(ModEntities.VILLAGE_TROTTER.get(), 4)));
     public static final DeferredItem<Item> THE_GREAT_COMPOSER_SPAWN_EGG = ITEMS.register("the_great_composer_spawn_egg",
             () -> new DeferredSpawnEggItem(ModEntities.THE_GREAT_COMPOSER, 0xe2d7a8, 0x23ab53, new Item.Properties()) {
                 @Override

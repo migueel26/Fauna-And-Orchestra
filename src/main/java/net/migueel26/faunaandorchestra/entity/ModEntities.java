@@ -15,6 +15,8 @@ import net.migueel26.faunaandorchestra.entity.custom.koala_workers.WorkerKoalaEn
 import net.migueel26.faunaandorchestra.entity.custom.misc.FloatingBlossomEntity;
 import net.migueel26.faunaandorchestra.entity.custom.misc.SensorNote;
 import net.migueel26.faunaandorchestra.entity.custom.projectile.*;
+import net.migueel26.faunaandorchestra.entity.custom.village_trotters.VillageTrotterEntity;
+import net.migueel26.faunaandorchestra.entity.custom.village_trotters.Cornelius;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -64,6 +66,10 @@ public class ModEntities {
             () -> EntityType.Builder.of(Denise::new, MobCategory.CREATURE).sized(0.75f, 1f).build("denise"));
     public static final Supplier<EntityType<Denzel>> DENZEL = ENTITY_TYPES.register("denzel",
             () -> EntityType.Builder.of(Denzel::new, MobCategory.CREATURE).sized(0.75f, 1.2f).build("denzel"));
+    public static final Supplier<EntityType<Cornelius>> CORNELIUS = ENTITY_TYPES.register("cornelius",
+            () -> EntityType.Builder.of(Cornelius::new, MobCategory.CREATURE).sized(0.75f, 1.25f).build("cornelius"));
+    public static final Supplier<EntityType<VillageTrotterEntity>> VILLAGE_TROTTER = ENTITY_TYPES.register("village_trotter",
+            () -> EntityType.Builder.of(VillageTrotterEntity::new, MobCategory.CREATURE).sized(1f, 2.25f).build("village_trotter"));
     public static final Supplier<EntityType<TermiteQueen>> TERMITE_QUEEN = ENTITY_TYPES.register("termite_queen",
             () -> EntityType.Builder.of(TermiteQueen::new, MobCategory.CREATURE).sized(0.75f, 0.75f).build("termite_queen"));
     public static final Supplier<EntityType<TermiteBaby>> TERMITE_BABY = ENTITY_TYPES.register("termite_baby",

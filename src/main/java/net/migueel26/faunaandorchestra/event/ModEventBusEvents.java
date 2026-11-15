@@ -15,6 +15,8 @@ import net.migueel26.faunaandorchestra.entity.custom.koala_workers.AbstractKoala
 import net.migueel26.faunaandorchestra.entity.custom.koala_workers.FarmerKoalaEntity;
 import net.migueel26.faunaandorchestra.entity.custom.koala_workers.TailorKoalaEntity;
 import net.migueel26.faunaandorchestra.entity.custom.koala_workers.WorkerKoalaEntity;
+import net.migueel26.faunaandorchestra.entity.custom.village_trotters.Cornelius;
+import net.migueel26.faunaandorchestra.entity.custom.village_trotters.VillageTrotterEntity;
 import net.migueel26.faunaandorchestra.item.ModCreativeModeTabs;
 import net.migueel26.faunaandorchestra.networking.*;
 import net.migueel26.faunaandorchestra.effect.potion.ModPotions;
@@ -67,6 +69,8 @@ public class ModEventBusEvents {
         event.put(ModEntities.DELROY.get(), Delroy.createMusicianAttributes().build());
         event.put(ModEntities.DENISE.get(), Denise.createMusicianAttributes().build());
         event.put(ModEntities.DENZEL.get(), Denzel.createMusicianAttributes().build());
+        event.put(ModEntities.CORNELIUS.get(), Cornelius.createMusicianAttributes().build());
+        event.put(ModEntities.VILLAGE_TROTTER.get(), VillageTrotterEntity.createMusicianAttributes().build());
         event.put(ModEntities.TERMITE_QUEEN.get(), TermiteQueen.createTermiteQueenAttributes().build());
         event.put(ModEntities.TERMITE_BABY.get(), TermiteBaby.createTermiteBabyAttributes().build());
 
