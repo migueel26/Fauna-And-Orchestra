@@ -134,11 +134,9 @@ public class PlayerCanonEntity extends AbstractCanonEntity {
 
     @Override
     public void tick() {
-        if (level().isClientSide() && skin == null) {
-            if (getOwner() != null) {
-                this.setSkin(((AbstractClientPlayer) getOwner()).getSkinTextureLocation());
-                this.setCustomName(getOwner() == null ? getName() : getOwner().getDisplayName());
-            }
+        if (level().isClientSide() && getOwner() instanceof AbstractClientPlayer owner) {
+            this.setSkin(owner.getSkinTextureLocation());
+            if (getCustomName() == null) this.setCustomName(owner.getDisplayName());
         }
 
 

@@ -137,18 +137,14 @@ public class AnyaGhost extends AbstractCanonEntity implements GeoEntity {
             Player player = level().getNearestPlayer(this, 7.0);
             if (player != null) {
                 this.setPlayerUUID(player.getUUID());
-                if (level().isClientSide()) {
-                    this.setSkin(((AbstractClientPlayer) player).getSkinTextureLocation());
-                }
-
             }
         }
 
-        if (level().isClientSide() && skin == null && playerUUID != null) {
-            Player player = level().getPlayerByUUID(playerUUID);
-            if (player != null) {
-                this.setSkin(((AbstractClientPlayer) player).getSkinTextureLocation());
-                this.setCustomName(player.getDisplayName());
+        if (level().isClientSide() && playerUUID != null) {
+            if (level().getPlayerByUUID(playerUUID) instanceof AbstractClientPlayer player) {
+                // setSkin only regenerates the texture if the player's skin changed
+                this.setSkin(player.getSkinTextureLocation());
+                if (getCustomName() == null) this.setCustomName(player.getDisplayName());
             }
         }
 
