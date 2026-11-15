@@ -1,83 +1,93 @@
 package net.migueel26.faunaandorchestra.entity.custom;
 
+import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.platform.NativeImage;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.texture.AbstractTexture;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.client.resources.PlayerSkin;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
-import software.bernie.geckolib.animatable.GeoAnimatable;
+import org.jetbrains.annotations.Nullable;
+import org.lwjgl.opengl.GL11;
 import software.bernie.geckolib.animatable.GeoEntity;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-
 public abstract class AbstractCanonEntity extends TamableAnimal implements GeoEntity {
-    // Client Only
     protected ResourceLocation skin;
     protected AbstractCanonEntity(EntityType<? extends TamableAnimal> entityType, Level level) {
         super(entityType, level);
         this.skin = null;
     }
 
+    // The original (coloured) skin the current grey texture was generated from
+    protected ResourceLocation skinSource;
+
     public void setSkin(PlayerSkin skin) {
-        ResourceLocation convertedSkin = null;
-        if (skin != null) {
-            ResourceManager resourceManager = Minecraft.getInstance().getResourceManager();
-            ResourceLocation baseSkin = skin.texture();
+        if (skin == null) {
+            releaseSkin();
+            return;
+        }
 
-            NativeImage gray = null;
-            BufferedImage master;
+        ResourceLocation baseSkin = skin.texture();
+        // Don't regenerate the texture if the skin hasn't changed
+        if (this.skin != null && baseSkin.equals(skinSource)) return;
 
-            try {
-                if (resourceManager.getResource(baseSkin).isPresent()) {
-                    master = ImageIO.read(resourceManager.getResource(baseSkin).get().open());
-                } else {
-                    master = ImageIO.read(resourceManager.getResource(DefaultPlayerSkin.getDefaultTexture()).get().open());
-                }
+        // Downloaded skins aren't in the ResourceManager, they only exist as GPU textures, so we read the pixels back from the texture itself
+        NativeImage gray = readTexture(baseSkin);
+        if (gray == null) gray = readTexture(DefaultPlayerSkin.getDefaultTexture());
+        if (gray == null) return;
 
-                gray = new NativeImage(master.getWidth(), master.getHeight(), true);
+        for (int y = 0; y < gray.getHeight(); y++) {
+            for (int x = 0; x < gray.getWidth(); x++) {
+                int pixel = gray.getPixelRGBA(x, y);
+                int a = (pixel >>> 24) & 0xFF;
+                if (a == 0) continue;
 
-                int rgb = 0, r = 0, g = 0, b = 0, a = 0;
-                for (int y = 0; y < master.getHeight(); y++) {
-                    for (int x = 0; x < master.getWidth(); x++) {
-                        rgb = (int) (master.getRGB(x, y));
-                        a = ((rgb >> 24) & 0xFF);
-                        r = ((rgb >> 16) & 0xFF);
-                        g = ((rgb >> 8) & 0xFF);
-                        b = (rgb & 0xFF);
+                int c1 = (pixel >> 16) & 0xFF;
+                int c2 = (pixel >> 8) & 0xFF;
+                int c3 = pixel & 0xFF;
+                int avg = (c1 + c2 + c3) / 3;
 
-                        if (a == 0) continue;
-
-                        rgb = (int) ((r + g + b) / 3);
-                        rgb = (255 << 24) | (rgb << 16) | (rgb << 8) | rgb;
-
-                        gray.setPixelRGBA(x, y, rgb);
-                    }
-                }
-
-
-            } catch (IOException ignored) {
-            }
-
-            if (gray != null) {
-                DynamicTexture dynTex = new DynamicTexture(gray);
-
-                convertedSkin = Minecraft.getInstance()
-                        .getTextureManager()
-                        .register("anya_ghost", dynTex);
-
+                gray.setPixelRGBA(x, y, (255 << 24) | (avg << 16) | (avg << 8) | avg);
             }
         }
 
-        this.skin = convertedSkin;
+        releaseSkin();
+        this.skin = Minecraft.getInstance().getTextureManager().register("anya_ghost", new DynamicTexture(gray));
+        this.skinSource = baseSkin;
+    }
+
+    @Nullable
+    private static NativeImage readTexture(ResourceLocation location) {
+        AbstractTexture texture = Minecraft.getInstance().getTextureManager().getTexture(location);
+        if (texture == null || texture.getId() <= 0) return null;
+
+        texture.bind();
+        int width = GlStateManager._getTexLevelParameter(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_WIDTH);
+        int height = GlStateManager._getTexLevelParameter(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_HEIGHT);
+        if (width <= 0 || height <= 0) return null;
+
+        NativeImage image = new NativeImage(width, height, false);
+        image.downloadTexture(0, false);
+        return image;
+    }
+
+    private void releaseSkin() {
+        if (this.skin != null) {
+            Minecraft.getInstance().getTextureManager().release(this.skin);
+        }
+        this.skin = null;
+        this.skinSource = null;
+    }
+
+    @Override
+    public void onClientRemoval() {
+        releaseSkin();
+        super.onClientRemoval();
     }
 
     public ResourceLocation getSkin() {
